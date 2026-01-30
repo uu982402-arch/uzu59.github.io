@@ -3,15 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> 88 </title>
+<title>88 추천 업체</title>
 
 <style>
-/* ✅ 폭 계산 통일 (팝업 쏠림/버튼 잘림 해결 핵심) */
+/* ✅ 폭 계산 통일 (팝업/버튼 쏠림/잘림 방지) */
 *,
 *::before,
-*::after{
-  box-sizing:border-box;
-}
+*::after{ box-sizing:border-box; }
 
 body{
   margin:0;
@@ -21,21 +19,11 @@ body{
 }
 
 /* ===== 상단 헤더 ===== */
-.header{
-  text-align:center;
-  padding:18px 0 10px;
-}
+.header{ text-align:center; padding:18px 0 10px; }
 .header .logo{
-  font-size:36px;
-  font-weight:800;
-  letter-spacing:2px;
-  color:#d4af37;
+  font-size:36px; font-weight:800; letter-spacing:2px; color:#d4af37;
 }
-.header .sub{
-  font-size:12px;
-  color:#888;
-  margin-top:4px;
-}
+.header .sub{ font-size:12px; color:#888; margin-top:4px; }
 
 /* ===== 전체 래퍼 ===== */
 .wrapper{
@@ -54,11 +42,13 @@ body{
   cursor:pointer;
 }
 
-/* ✅ 이미지 영역 (모바일/PC 동일: 전시형, 안 짤림) */
+/* ✅ 이미지 영역 (전시형 + 블러/그라데이션) */
 .img-box{
   position:relative;
   width:100%;
+  /* 모바일에서도 안정적으로 보이게: aspect-ratio + 최소높이 */
   aspect-ratio:16 / 9;
+  min-height:190px;
   background:#000;
   display:flex;
   align-items:center;
@@ -66,34 +56,59 @@ body{
   overflow:hidden;
 }
 
+/* 🔥 이미지 기반 블러 배경 */
+.img-box::before{
+  content:"";
+  position:absolute;
+  inset:-20px;
+  background-image:var(--bg, none);
+  background-size:cover;
+  background-position:center;
+  filter:blur(22px);
+  transform:scale(1.12);
+  opacity:.45;
+}
+
+/* ✨ 고급 그라데이션 오버레이 */
+.img-box::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(80% 80% at 50% 30%, rgba(212,175,55,.18), transparent 55%),
+    linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
+  pointer-events:none;
+}
+
+/* ✅ “모바일에서 짤린 듯” 현상 방지 핵심
+   - width/height 100% 금지
+   - auto + max로만 제어
+*/
 .img-box img{
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain; /* 절대 안 잘림 */
+  position:relative;
+  z-index:1;
+  width:auto !important;
+  height:auto !important;
+  max-width:92%;
+  max-height:88%;
+  object-fit:contain;
   display:block;
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,.55));
+}
+
+/* aspect-ratio 미지원 대비(아주 구형 브라우저) */
+@supports not (aspect-ratio: 16 / 9){
+  .img-box{
+    height:56vw;           /* 16:9 비슷 */
+    max-height:260px;
+  }
 }
 
 /* ===== 카드 내용 ===== */
-.content{
-  padding:16px;
-}
-
-.site{
-  font-size:18px;
-  font-weight:700;
-}
-
-.desc{
-  font-size:14px;
-  color:#bbb;
-  margin-top:6px;
-}
-
-.code{
-  margin-top:10px;
-  color:#d4af37;
-  font-weight:600;
-}
+.content{ padding:16px; }
+.site{ font-size:18px; font-weight:700; }
+.desc{ font-size:14px; color:#bbb; margin-top:6px; }
+.code{ margin-top:10px; color:#d4af37; font-weight:600; }
 
 /* ===== 팝업 공통 ===== */
 .popup{
@@ -104,9 +119,8 @@ body{
   align-items:center;
   justify-content:center;
   z-index:999;
-  padding:16px; /* 작은 화면에서도 중앙 유지 */
+  padding:16px;
 }
-
 .popup-box{
   background:#111;
   border-radius:20px;
@@ -114,13 +128,9 @@ body{
   width:100%;
   max-width:360px;
   text-align:center;
-  margin:0 auto; /* 혹시 모를 쏠림 방지 */
+  margin:0 auto;
 }
-
-.popup-box h2{
-  color:#d4af37;
-  margin:0 0 10px;
-}
+.popup-box h2{ color:#d4af37; margin:0 0 10px; }
 
 .btn{
   display:block;
@@ -131,28 +141,23 @@ body{
   font-weight:600;
   text-decoration:none;
   cursor:pointer;
-  box-sizing:border-box; /* ✅ 버튼 폭 계산 안정화 */
 }
+.copy{ background:#1f1f1f; color:#fff; }
+.go{ background:linear-gradient(135deg,#d4af37,#f5e27a); color:#000; }
 
-.copy{background:#1f1f1f;color:#fff}
-.go{background:linear-gradient(135deg,#d4af37,#f5e27a);color:#000}
-
-.telegram{
-  margin-top:10px;
-}
-.telegram a{
-  color:#1da1f2;
-  font-weight:bold;
-  text-decoration:none;
-}
+.telegram{ margin-top:10px; }
+.telegram a{ color:#1da1f2; font-weight:bold; text-decoration:none; }
 
 /* ===== PC 보정 ===== */
 @media(min-width:768px){
-  .wrapper{
-    max-width:520px;
-  }
+  .wrapper{ max-width:520px; }
   .img-box{
-    padding:14px; /* PC에서 전시 느낌 강화 */
+    min-height:260px;
+    padding:12px; /* 전시 느낌(프레임) */
+  }
+  .img-box img{
+    max-width:94%;
+    max-height:90%;
   }
 }
 </style>
@@ -160,13 +165,12 @@ body{
 
 <body>
 
-<!-- ===== 상단 사이트명 ===== -->
 <div class="header">
   <div class="logo">88</div>
   <div class="sub">추천 · 보증 업체 안내</div>
 </div>
 
-<!-- ===== 첫 접속 팝업 ===== -->
+<!-- 첫 접속 팝업 -->
 <div class="popup" id="intro">
   <div class="popup-box">
     <h2>88 추천 보증 업체</h2>
@@ -176,20 +180,6 @@ body{
       <b>검증된 4곳</b>만 보세요
     </p>
     <div class="btn go" onclick="closeIntro()">확인</div>
-  </div>
-</div>
-
-<!-- ===== 카드 클릭 팝업 ===== -->
-<div class="popup" id="cardPopup">
-  <div class="popup-box">
-    <h2 id="pTitle"></h2>
-    <p>추천코드 : <b id="pCode"></b></p>
-    <div class="btn copy" onclick="copyCode()">추천코드 복사</div>
-    <a class="btn go" id="pLink" target="_blank">사이트 이동</a>
-    <div class="telegram">
-      <a href="https://t.me/UZU59" target="_blank" rel="noopener">텔레그램 문의 @UZU59</a>
-    </div>
-    <div class="btn copy" onclick="closeCard()">닫기</div>
   </div>
 </div>
 
@@ -243,6 +233,14 @@ body{
 </div>
 
 <script>
+/* ✅ 각 카드 이미지로 블러 배경 자동 설정 (HTML 수정 최소화) */
+document.querySelectorAll(".img-box").forEach(box=>{
+  const img = box.querySelector("img");
+  if(img && img.getAttribute("src")){
+    box.style.setProperty("--bg", `url('${img.getAttribute("src")}')`);
+  }
+});
+
 /* 첫 접속 팝업 */
 if(localStorage.getItem("visit")){
   document.getElementById("intro").style.display="none";
