@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>88 추천 업체</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title> 88 </title>
 
 <style>
+/* ✅ 폭 계산 통일 (팝업 쏠림/버튼 잘림 방지) */
 *,
 *::before,
-*::after{ box-sizing:border-box; }
+*::after { box-sizing: border-box; }
 
 body{
   margin:0;
   background:#0b0b0b;
-  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
   color:#fff;
 }
 
-/* ===== 상단 ===== */
+/* ===== 상단 헤더 ===== */
 .header{
   text-align:center;
   padding:18px 0 10px;
@@ -31,23 +32,27 @@ body{
 .header .sub{
   font-size:12px;
   color:#888;
+  margin-top:4px;
 }
 
-/* ===== 카드 래퍼 ===== */
+/* ===== 리스트 래퍼 ===== */
 .wrapper{
-  max-width:520px;
+  max-width:520px;          /* 모바일/태블릿: 1열 */
   margin:0 auto;
-  padding:10px 14px 30px;
+  padding:10px 14px 44px;
 }
 
-/* PC 2열 */
-@media(min-width:900px){
+/* ✅ PC 2열 레이아웃 */
+@media (min-width: 900px){
   .wrapper{
     max-width:1100px;
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap:22px;
+    align-items:start;
   }
+  /* grid에서는 margin-bottom 대신 gap 쓰는 게 깔끔 */
+  .card{ margin-bottom:0; }
 }
 
 /* ===== 카드 ===== */
@@ -60,12 +65,14 @@ body{
   cursor:pointer;
 }
 
+/* ===== 이미지 영역 (전시형 + 고급 배경) ===== */
+/* 모바일에서 16:9가 “항상” 안정적으로 나오게: height를 vw로 강제 */
 .img-box{
   position:relative;
   width:100%;
-  height:56.25vw;
-  max-height:300px;
-  min-height:190px;
+  height:56.25vw;           /* 16:9 = 9/16 = 0.5625 */
+  max-height:300px;         /* 너무 커지지 않게 */
+  min-height:190px;         /* 너무 작아지지 않게 */
   background:#000;
   display:flex;
   align-items:center;
@@ -73,93 +80,93 @@ body{
   overflow:hidden;
 }
 
-@media(min-width:768px){
+/* PC에서는 전시 느낌(프레임) 살짝 */
+@media (min-width: 768px){
   .img-box{
     height:260px;
     padding:12px;
   }
 }
 
+/* 🔥 이미지 기반 블러 배경 */
 .img-box::before{
   content:"";
   position:absolute;
   inset:-20px;
-  background-image:var(--bg);
+  background-image: var(--bg, none);
   background-size:cover;
   background-position:center;
   filter:blur(22px);
+  transform:scale(1.12);
   opacity:.45;
 }
 
+/* ✨ 골드 포인트 그라데이션 */
 .img-box::after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.55));
+  background:
+    radial-gradient(80% 80% at 50% 30%, rgba(212,175,55,.18), transparent 55%),
+    linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
+  pointer-events:none;
 }
 
+/* ✅ 모바일에서도 “전체 이미지가 항상 보이게” 강제 */
 .img-box img{
   position:relative;
   z-index:1;
-  width:100%;
-  height:100%;
-  object-fit:contain;
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important; /* 절대 안 잘림 */
+  display:block;
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,.55));
 }
 
+/* ===== 카드 내용 ===== */
 .content{ padding:16px; }
-.site{ font-size:18px;font-weight:700; }
-.desc{ font-size:14px;color:#bbb;margin-top:6px; }
-.code{ margin-top:10px;color:#d4af37;font-weight:600; }
+.site{ font-size:18px; font-weight:700; }
+.desc{ font-size:14px; color:#bbb; margin-top:6px; }
+.code{ margin-top:10px; color:#d4af37; font-weight:600; }
 
 /* ===== 팝업 ===== */
 .popup{
   position:fixed;
-  inset:0;
+  top:0; right:0; bottom:0; left:0;
   background:rgba(0,0,0,.75);
   display:none;
   align-items:center;
   justify-content:center;
   z-index:999;
+  padding:16px;
 }
-
 .popup-box{
   background:#111;
   border-radius:20px;
   padding:24px;
-  width:90%;
+  width:100%;
   max-width:360px;
   text-align:center;
+  margin:0 auto;
 }
-
-.popup-box h2{ color:#d4af37;margin-bottom:10px; }
+.popup-box h2{ color:#d4af37; margin:0 0 10px; }
 
 .btn{
+  display:block;
   width:100%;
   padding:12px;
   margin-top:10px;
   border-radius:12px;
   font-weight:600;
+  text-decoration:none;
   cursor:pointer;
 }
 
-.copy{ background:#1f1f1f;color:#fff; }
-.go{ background:linear-gradient(135deg,#d4af37,#f5e27a);color:#000; }
+.copy{ background:#1f1f1f; color:#fff; }
+.go{ background:linear-gradient(135deg,#d4af37,#f5e27a); color:#000; }
 
-.telegram a{
-  display:block;
-  margin-top:10px;
-  color:#1da1f2;
-  text-decoration:none;
-  font-weight:bold;
-}
-
-/* ===== 방문자 ===== */
-#visitorBox{
-  text-align:center;
-  color:#aaa;
-  font-size:13px;
-  padding:20px 0 10px;
-}
+.telegram{ margin-top:10px; }
+.telegram a{ color:#1da1f2; font-weight:bold; text-decoration:none; }
 </style>
 </head>
 
@@ -170,148 +177,118 @@ body{
   <div class="sub">추천 · 보증 업체 안내</div>
 </div>
 
-<!-- 첫 방문 팝업 -->
+<!-- 첫 접속 팝업 -->
 <div class="popup" id="intro">
   <div class="popup-box">
     <h2>88 추천 보증 업체</h2>
     <p>
       100만원 · 1000만원 · 1억<br>
-      검증된 업체만 선별했습니다
+      어디가 안전한지 고민된다면<br>
+      <b>검증된 4곳</b>만 보세요
     </p>
     <div class="btn go" onclick="closeIntro()">확인</div>
   </div>
 </div>
 
-<!-- 카드 팝업 -->
+<!-- 카드 클릭 팝업 -->
 <div class="popup" id="cardPopup">
   <div class="popup-box">
     <h2 id="pTitle"></h2>
     <p>추천코드 : <b id="pCode"></b></p>
     <div class="btn copy" onclick="copyCode()">추천코드 복사</div>
-    <a class="btn go" id="pLink" target="_blank">사이트 이동</a>
+    <a class="btn go" id="pLink" target="_blank" rel="noopener">사이트 이동</a>
     <div class="telegram">
-      <a href="https://t.me/UZU59" target="_blank">텔레그램 문의 @UZU59</a>
+      <a href="https://t.me/UZU59" target="_blank" rel="noopener">텔레그램 문의 @UZU59</a>
     </div>
     <div class="btn copy" onclick="closeCard()">닫기</div>
   </div>
 </div>
 
+<!-- ===== 카드 리스트 ===== -->
 <div class="wrapper">
 
-  <!-- 상단 우선 카드 (1~3) -->
-  <div class="card" data-priority="high" onclick="openCard('B WIN','as88','https://bwk999.com')">
-    <div class="img-box"><img src="img/card1_pc.jpg"></div>
+  <div class="card" onclick="openCard(' B WIN  ','as88','https://bwk999.com')">
+    <div class="img-box">
+      <img src="img1.jpg" alt=" B WIN  ">
+    </div>
     <div class="content">
-      <div class="site">B WIN</div>
-      <div class="desc">업계 자본력 · 만족도 1위</div>
+      <div class="site"> B WIN  </div>
+      <div class="desc"> *고액전용* USDT 무기명가입&수수료지원 / 모든게임 입금플러스  </div>
       <div class="code">추천코드 : as88</div>
     </div>
   </div>
 
-  <div class="card" data-priority="high" onclick="openCard('업체명2','as88','#')">
-    <div class="img-box"><img src="img/card2_pc.jpg"></div>
+  <div class="card" onclick="openCard(' CAPS ','RUST','https://caps-22.com')">
+    <div class="img-box">
+      <img src="img2.jpg" alt="CAPS">
+    </div>
     <div class="content">
-      <div class="site">업체명2</div>
-      <div class="desc">안정 운영 · 빠른 정산</div>
-      <div class="code">추천코드 : as88</div>
+      <div class="site"> CAPS </div>
+      <div class="desc"> *고액전용*미겜 첫충: 5%, 페이백 5%, 출석 30만원 </div>
+      <div class="code">추천코드 : RUST</div>
     </div>
   </div>
 
-  <div class="card" data-priority="high" onclick="openCard('업체명3','as88','#')">
-    <div class="img-box"><img src="img/card3_pc.jpg"></div>
+  <div class="card" onclick="openCard(' BETZY ','BANGU','https://b88-et.com/')">
+    <div class="img-box">
+      <img src="img3.jpg" alt=" BETZY ">
+    </div>
     <div class="content">
-      <div class="site">업체명3</div>
-      <div class="desc">VIP 고액 유저 추천</div>
-      <div class="code">추천코드 : as88</div>
+      <div class="site"> BETZY </div>
+      <div class="desc"> *고액전용*스포츠 첫:10% 미겜 첫:5%, 페이백 5%, 출석 30만원 </div>
+      <div class="code">추천코드 : BANGU</div>
     </div>
   </div>
 
-  <!-- 일반 카드 (4~6) -->
-  <div class="card" data-priority="normal" onclick="openCard('업체명4','as88','#')">
-    <div class="img-box"><img src="img/card4_pc.jpg"></div>
+  <div class="card" onclick="openCard(' VEGAS ','6789','https://las403.com/')">
+    <div class="img-box">
+      <img src="img4.jpg" alt=" VEGAS ">
+    </div>
     <div class="content">
-      <div class="site">업체명4</div>
-      <div class="desc">신규 · 복귀 혜택</div>
-      <div class="code">추천코드 : as88</div>
+      <div class="site"> VEGAS </div>
+      <div class="desc"> 스포츠,미겜 입플 3+3, 10+5, 30+10, 50+15 100+30, 30% / 카지노 입플:3+2, 5+3 or 10%</div>
+      <div class="code">추천코드 : 6789</div>
     </div>
   </div>
 
-  <div class="card" data-priority="normal" onclick="openCard('업체명5','as88','#')">
-    <div class="img-box"><img src="img/card5_pc.jpg"></div>
-    <div class="content">
-      <div class="site">업체명5</div>
-      <div class="desc">라이브 특화</div>
-      <div class="code">추천코드 : as88</div>
-    </div>
-  </div>
-
-  <div class="card" data-priority="normal" onclick="openCard('업체명6','as88','#')">
-    <div class="img-box"><img src="img/card6_pc.jpg"></div>
-    <div class="content">
-      <div class="site">업체명6</div>
-      <div class="desc">이벤트 강화</div>
-      <div class="code">추천코드 : as88</div>
-    </div>
-  </div>
-
-</div>
-
-<div id="visitorBox">
-  금일 방문자 수 : <b id="visitorCount">0</b>
 </div>
 
 <script>
-/* 블러 배경 */
-document.querySelectorAll(".img-box").forEach(box=>{
+/* ✅ 각 카드 이미지로 블러 배경 자동 설정 */
+document.querySelectorAll(".img-box").forEach(box => {
   const img = box.querySelector("img");
-  box.style.setProperty("--bg",`url('${img.src}')`);
+  if (img && img.getAttribute("src")) {
+    box.style.setProperty("--bg", `url('${img.getAttribute("src")}')`);
+  }
 });
 
-/* 첫 방문 */
-if(localStorage.getItem("visit")) document.getElementById("intro").style.display="none";
+/* 첫 접속 팝업 */
+if (localStorage.getItem("visit")) {
+  document.getElementById("intro").style.display = "none";
+}
 function closeIntro(){
   localStorage.setItem("visit","1");
-  document.getElementById("intro").style.display="none";
+  document.getElementById("intro").style.display = "none";
 }
 
 /* 카드 팝업 */
-let currentCode="";
-function openCard(t,c,l){
-  currentCode=c;
-  pTitle.innerText=t;
-  pCode.innerText=c;
-  pLink.href=l;
-  cardPopup.style.display="flex";
+let currentCode = "";
+function openCard(title, code, link){
+  currentCode = code;
+  document.getElementById("pTitle").innerText = title;
+  document.getElementById("pCode").innerText = code;
+  document.getElementById("pLink").href = link;
+  document.getElementById("cardPopup").style.display = "flex";
 }
-function closeCard(){ cardPopup.style.display="none"; }
+function closeCard(){
+  document.getElementById("cardPopup").style.display = "none";
+}
 function copyCode(){
   navigator.clipboard.writeText(currentCode);
   alert("추천코드가 복사되었습니다");
 }
-
-/* 방문자 수 */
-(function(){
-  const d=new Date().toISOString().slice(0,10);
-  const k="v_"+d;
-  const ck="c_"+d;
-  let n=Number(localStorage.getItem(k)||0);
-  if(!localStorage.getItem(ck)){
-    n++; localStorage.setItem(k,n); localStorage.setItem(ck,1);
-  }
-  visitorCount.innerText=n;
-})();
-
-/* 카드 랜덤 정렬 */
-(function(){
-  const w=document.querySelector(".wrapper");
-  const cards=[...w.children];
-  const high=cards.filter(c=>c.dataset.priority==="high");
-  const normal=cards.filter(c=>c.dataset.priority!=="high");
-  const shuffle=a=>a.sort(()=>Math.random()-.5);
-  shuffle(high); shuffle(normal);
-  [...high,...normal].forEach(c=>w.appendChild(c));
-})();
 </script>
 
 </body>
 </html>
+
