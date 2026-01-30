@@ -226,7 +226,11 @@ const CARD_DATA = {
   </div>
 </div>
 
-<div id="visitorBox">금일 방문자 수 : <b id="visitorCount">0</b></div>
+<!-- 방문자 표시 -->
+<div id="visitorBox">
+  전체 방문자 수 : <b id="totalCount">0</b><br>
+  금일 방문자 수 : <b id="todayCount">0</b>
+</div>
 
 <script>
 /* 이미지 블러 + 로딩 실패 대응 */
@@ -266,20 +270,22 @@ function openById(el){
 function closeCard(){ cardPopup.style.display="none"; }
 function copyCode(){ if(currentCode) navigator.clipboard.writeText(currentCode); }
 
-/* 방문자 수 */
-(()=>{
-  const today = new Date().toISOString().slice(0,10);
-const NAMESPACE = "88st-cloud";
-const KEY = "visit-" + today;
+/* ===== CountAPI 방문자 ===== */
+const NAMESPACE="88st-cloud";
 
-fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`)
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("visitorCount").innerText = data.value;
-  })
-  .catch(() => {
-    document.getElementById("visitorCount").innerText = "-";
-  });
+// 전체 방문자
+fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/total`)
+  .then(r=>r.json())
+  .then(d=> totalCount.innerText=d.value )
+  .catch(()=> totalCount.innerText="-" );
+
+// 금일 방문자
+const today=new Date().toISOString().slice(0,10);
+fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/visit-${today}`)
+  .then(r=>r.json())
+  .then(d=> todayCount.innerText=d.value )
+  .catch(()=> todayCount.innerText="-" );
+
 
 /* 카드 랜덤 정렬 */
 (()=>{
@@ -295,6 +301,7 @@ fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`)
 
 </body>
 </html>
+
 
 
 
