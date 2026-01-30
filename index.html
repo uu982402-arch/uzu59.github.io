@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>88 커뮤니티</title>
+<title>팔팔커뮤니티 - 88 입니다. </title>
 
 <style>
 *,
@@ -58,7 +58,7 @@ body{
   cursor:pointer;
 }
 
-/* ===== 이미지 영역 (패치 적용) ===== */
+/* ===== 이미지 영역 (안정화) ===== */
 .img-box{
   position:relative;
   width:100%;
@@ -70,8 +70,6 @@ body{
   justify-content:center;
   overflow:hidden;
 }
-
-/* 블러 배경 */
 .img-box::before{
   content:"";
   position:absolute;
@@ -88,7 +86,6 @@ body{
   inset:0;
   background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.55));
 }
-
 .img-box img{
   position:relative;
   z-index:1;
@@ -192,9 +189,14 @@ const CARD_DATA = {
     <p>가입코드 : <b id="pCode"></b></p>
     <p id="pBenefit" style="color:#f5e27a;font-size:14px;"></p>
     <p id="pNotice" style="color:#ff6b6b;font-size:13px;"></p>
+
     <div class="btn copy" onclick="copyCode()">가입코드 복사</div>
-    <a class="btn go" id="pLink" target="_blank">사이트 이동</a>
-    <div class="telegram"><a id="pTelegram" target="_blank">텔레그램 문의</a></div>
+    <a class="btn go" id="pLink" target="_blank" rel="noopener">사이트 이동</a>
+
+    <div class="telegram">
+      <a id="pTelegram" target="_blank" rel="noopener">텔레그램 문의</a>
+    </div>
+
     <div class="btn copy" onclick="closeCard()">닫기</div>
   </div>
 </div>
@@ -233,21 +235,17 @@ const CARD_DATA = {
 </div>
 
 <script>
-/* 이미지 블러 + 로딩 실패 대응 */
+/* 이미지 로딩 실패 대응 */
 document.querySelectorAll(".img-box").forEach(box=>{
-  const img = box.querySelector("img");
+  const img=box.querySelector("img");
   box.style.setProperty("--bg",`url('${img.src}')`);
-  img.onerror = ()=>{
-    img.style.display="none";
-    box.style.aspectRatio="auto";
-    box.style.minHeight="120px";
-  };
+  img.onerror=()=>{ img.style.display="none"; box.style.minHeight="120px"; };
 });
 
-/* 카드 열기 */
+/* 카드 팝업 */
 let currentCode="";
 function openById(el){
-  const d = CARD_DATA[el.dataset.card];
+  const d=CARD_DATA[el.dataset.card];
   if(!d) return;
 
   currentCode=d.code||"";
@@ -286,7 +284,6 @@ fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/visit-${today}`)
   .then(d=> todayCount.innerText=d.value )
   .catch(()=> todayCount.innerText="-" );
 
-
 /* 카드 랜덤 정렬 */
 (()=>{
   const w=document.querySelector(".wrapper");
@@ -301,7 +298,3 @@ fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/visit-${today}`)
 
 </body>
 </html>
-
-
-
-
