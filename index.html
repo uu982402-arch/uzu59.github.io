@@ -268,11 +268,16 @@ function copyCode(){ if(currentCode) navigator.clipboard.writeText(currentCode);
 
 /* 방문자 수 */
 (()=>{
-  const d=new Date().toISOString().slice(0,10);
-  const k="v_"+d, ck="c_"+d;
-  let n=+localStorage.getItem(k)||0;
-  if(!localStorage.getItem(ck)){ n++; localStorage.setItem(k,n); localStorage.setItem(ck,1); }
-  visitorCount.innerText=n;
+  const today = new Date().toISOString().slice(0,10);
+const NAMESPACE = "88st-cloud";
+const KEY = "visit-" + today;
+
+fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`)
+  .then(res => res.json())
+  .then(data => {
+    visitorCount.innerText = data.value;
+  })
+  .catch(()=> visitorCount.innerText = "-");
 })();
 
 /* 카드 랜덤 정렬 */
@@ -289,4 +294,5 @@ function copyCode(){ if(currentCode) navigator.clipboard.writeText(currentCode);
 
 </body>
 </html>
+
 
