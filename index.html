@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>88 보증 업체 목록</title>
+<title>88 추천 업체</title>
 
 <style>
 *,
@@ -101,7 +101,7 @@ body{
 
 .content{ padding:16px; }
 .site{ font-size:18px;font-weight:700; }
-.desc{ font-size:14px;color:#bbb;margin-top:6px; }
+.desc{ font-size:14px;color:#bbb;margin-top:6px;line-height:1.35; }
 .code{ margin-top:10px;color:#d4af37;font-weight:600; }
 
 /* ===== 팝업 ===== */
@@ -122,7 +122,6 @@ body{
   max-width:360px;
   text-align:center;
 }
-
 .popup-box h2{ color:#d4af37;margin-bottom:10px; }
 
 .btn{
@@ -154,23 +153,74 @@ body{
   padding:20px 0 10px;
 }
 </style>
+
+<!-- ===== 카드 데이터 (중요) ===== -->
+<script>
+const CARD_DATA = {
+  card1:{
+    title:"B WIN",
+    code:"AS88",
+    link:"https://bwk999.com",
+    telegram:"UZU59",
+    benefit:"고액전용 USDT 무기명가입 수수료지원 모든게임 입금플러스",
+    notice:"가입코드 미입력 시 혜택 적용 불가"
+  },
+  card2:{
+    title:"CAPS",
+    code:"RUST",
+    link:"https://caps-22.com",
+    telegram:"UZU59",
+    benefit:"고액전용 미겜 첫충 5% 페이백 5% 출석 30만원",
+    notice:"이벤트 조건은 수시 변경될 수 있음"
+  },
+  card3:{
+    title:"BETZY",
+    code:"BANGU",
+    link:"https://b88-et.com",
+    telegram:"UZU59",
+    benefit:"스포츠 첫 10% 미겜 첫 5% 페이백 5%",
+    notice:"첫충 조건 확인 후 이용 권장"
+  },
+  card4:{
+    title:"VEGAS",
+    code:"6789",
+    link:"https://las403.com",
+    telegram:"UZU59",
+    benefit:"스포츠·미겜 입플 최대 30% 카지노 입플",
+    notice:"이벤트 조건 필수 확인"
+  },
+  card5:{
+    title:"LULA BET",
+    code:"ZZ99",
+    link:"https://lula.ws",
+    telegram:"PSC991",
+    benefit:"원화·USDT 무기명가입 페이백 10%",
+    notice:"페이백 조건 확인"
+  },
+  card6:{
+    title:"CHOY BET",
+    code:"TAN",
+    link:"https://cy-40.com",
+    telegram:"DY0302",
+    benefit:"신규 30% 매충 10% 페이백 10%",
+    notice:"단기 이벤트 조기 종료 가능"
+  }
+};
+</script>
 </head>
 
 <body>
 
 <div class="header">
   <div class="logo">88</div>
-  <div class="sub">88 보증 업체 목록 </div>
+  <div class="sub">추천 · 보증 업체 안내</div>
 </div>
 
 <!-- 첫 방문 팝업 -->
 <div class="popup" id="intro">
   <div class="popup-box">
     <h2>88 추천 보증 업체</h2>
-    <p>
-      100만원 · 1000만원 · 1억<br>
-      검증된 업체만 선별했습니다
-    </p>
+    <p>100만원 · 1000만원 · 1억<br>검증된 업체만 선별했습니다</p>
     <div class="btn go" onclick="closeIntro()">확인</div>
   </div>
 </div>
@@ -179,15 +229,15 @@ body{
 <div class="popup" id="cardPopup">
   <div class="popup-box">
     <h2 id="pTitle"></h2>
-    <p>추천코드 : <b id="pCode"></b></p>
+    <p>가입코드 : <b id="pCode"></b></p>
     <p id="pBenefit" style="color:#f5e27a;font-size:14px;"></p>
     <p id="pNotice" style="color:#ff6b6b;font-size:13px;"></p>
 
-    <div class="btn copy" onclick="copyCode()">추천코드 복사</div>
-    <a class="btn go" id="pLink" target="_blank">사이트 이동</a>
+    <div class="btn copy" onclick="copyCode()">가입코드 복사</div>
+    <a class="btn go" id="pLink" target="_blank" rel="noopener">사이트 이동</a>
 
     <div class="telegram">
-      <a id="pTelegram" target="_blank">텔레그램 </a>
+      <a id="pTelegram" target="_blank" rel="noopener">텔레그램 문의</a>
     </div>
 
     <div class="btn copy" onclick="closeCard()">닫기</div>
@@ -195,143 +245,91 @@ body{
 </div>
 
 <div class="wrapper">
-
-  <!-- 카드 1 -->
-  <div class="card" data-priority="high"
-   onclick="openCard('B WIN','AS88','https://bwk999.com','UZU59',
-   '*고액전용* USDT 무기명가입&수수료지원 / 모든게임 입금플러스',
+  <div class="card" data-priority="high" data-card="card1" onclick="openById(this)">
     <div class="img-box"><img src="img/img1.jpg"></div>
-    <div class="content">
-      <div class="site">B WIN</div>
-      <div class="desc">*고액전용* USDT 무기명가입&수수료지원 / 모든게임 입금플러스</div>
-      <div class="code">가입코드 : AS88</div>
-    </div>
+    <div class="content"><div class="site">B WIN</div><div class="desc">고액전용 USDT 무기명가입</div><div class="code">AS88</div></div>
   </div>
-
-  <!-- 카드 2 -->
-  <div class="card" data-priority="high"
-   onclick="openCard('CAPS','RUST','https://caps-22.com','UZU59',
-   '*고액전용*미겜 첫충: 5%, 페이백 5%, 출석 30만원',
+  <div class="card" data-priority="high" data-card="card2" onclick="openById(this)">
     <div class="img-box"><img src="img/img2.jpg"></div>
-    <div class="content">
-      <div class="site">CAPS </div>
-      <div class="desc">*고액전용*미겜 첫충: 5%, 페이백 5%, 출석 30만원</div>
-      <div class="code">가입코드 : RUST</div>
-    </div>
+    <div class="content"><div class="site">CAPS</div><div class="desc">미겜 첫충 / 페이백</div><div class="code">RUST</div></div>
   </div>
-
-  <!-- 카드 3 -->
-  <div class="card" data-priority="high"
-   onclick="openCard('BETZY','BANGU','https://b88-et.com','UZU59',
-   '*고액전용*스포츠 첫:10% 미겜 첫:5%, 페이백 5%, 출석 30만원',
+  <div class="card" data-priority="high" data-card="card3" onclick="openById(this)">
     <div class="img-box"><img src="img/img3.jpg"></div>
-    <div class="content">
-      <div class="site">BETZY</div>
-      <div class="desc">*고액전용*스포츠 첫:10% 미겜 첫:5%, 페이백 5%, 출석 30만원</div>
-      <div class="code">가입코드 : BANGU</div>
-    </div>
+    <div class="content"><div class="site">BETZY</div><div class="desc">스포츠·미겜 고액</div><div class="code">BANGU</div></div>
   </div>
-
-  <!-- 카드 4 -->
-  <div class="card" data-priority="normal"
-   onclick="openCard('VEGAS','6789','https://las403.com','UZU59',
-   '스포츠,미겜 입플 3+3, 10+5, 30+10, 50+15 100+30, 30% / 카지노 입플:3+2, 5+3 or 10%',
+  <div class="card" data-priority="normal" data-card="card4" onclick="openById(this)">
     <div class="img-box"><img src="img/img4.jpg"></div>
-    <div class="content">
-      <div class="site">VEGAS</div>
-      <div class="desc">스포츠,미겜 입플 3+3, 10+5, 30+10, 50+15 100+30, 30% / 카지노 입플:3+2, 5+3 or 10%</div>
-      <div class="code">가입코드 : 6789</div>
-    </div>
+    <div class="content"><div class="site">VEGAS</div><div class="desc">입플 최대 30%</div><div class="code">6789</div></div>
   </div>
-
-  <!-- 카드 5 -->
-  <div class="card" data-priority="normal"
-   onclick="openCard('LULA BET','as88','https://lula.ws','PSC991',
-   '원화 USDT 무기명가입 페이백10%',
+  <div class="card" data-priority="normal" data-card="card5" onclick="openById(this)">
     <div class="img-box"><img src="img/img5.jpg"></div>
-    <div class="content">
-      <div class="site">LULA BET</div>
-      <div class="desc">원화 USDT 무기명가입 페이백10%</div>
-      <div class="code">가입코드 : ZZ99</div>
-    </div>
+    <div class="content"><div class="site">LULA BET</div><div class="desc">무기명가입 페이백</div><div class="code">ZZ99</div></div>
   </div>
-
-  <!-- 카드 6 -->
-  <div class="card" data-priority="normal"
-   onclick="openCard('CHOY BET','TAN','http://cy-40.com','DY0302',
-   '신규 회원 이벤트 다수',
-   '단기 이벤트 조기 종료 가능')">
+  <div class="card" data-priority="normal" data-card="card6" onclick="openById(this)">
     <div class="img-box"><img src="img/img6.jpg"></div>
-    <div class="content">
-      <div class="site">CHOY BET</div>
-      <div class="desc">신규 30% 매충10% 페이백10%</div>
-      <div class="code">가입코드 : TAN</div>
-    </div>
+    <div class="content"><div class="site">CHOY BET</div><div class="desc">신규·매충·페이백</div><div class="code">TAN</div></div>
   </div>
-
 </div>
 
-<div id="visitorBox">
-  금일 방문자 수 : <b id="visitorCount">0</b>
-</div>
+<div id="visitorBox">금일 방문자 수 : <b id="visitorCount">0</b></div>
 
 <script>
 /* 블러 배경 */
-document.querySelectorAll(".img-box").forEach(box=>{
-  const img=box.querySelector("img");
-  box.style.setProperty("--bg",`url('${img.src}')`);
+document.querySelectorAll(".img-box").forEach(b=>{
+  const i=b.querySelector("img");
+  b.style.setProperty("--bg",`url('${i.src}')`);
 });
 
 /* 첫 방문 */
 if(localStorage.getItem("visit")) intro.style.display="none";
-function closeIntro(){
-  localStorage.setItem("visit","1");
-  intro.style.display="none";
-}
+function closeIntro(){ localStorage.setItem("visit","1"); intro.style.display="none"; }
 
-/* 카드 팝업 */
+/* 카드 열기 */
 let currentCode="";
-function openCard(title,code,link,telegramId,benefit,notice){
-  currentCode=code;
-  pTitle.innerText=title;
-  pCode.innerText=code;
-  pBenefit.innerText="혜택 : "+benefit;
-  pNotice.innerText="주의 : "+notice;
-  const tg=telegramId.replace("@","");
+function openById(el){
+  const d=CARD_DATA[el.dataset.card];
+  if(!d) return;
+
+  currentCode=d.code||"";
+  pTitle.innerText=d.title||"";
+  pCode.innerText=d.code||"";
+
+  pBenefit.style.display=d.benefit?"block":"none";
+  pBenefit.innerText=d.benefit?"혜택 : "+d.benefit:"";
+
+  pNotice.style.display=d.notice?"block":"none";
+  pNotice.innerText=d.notice?"주의 : "+d.notice:"";
+
+  const tg=(d.telegram||"UZU59").replace("@","");
   pTelegram.href="https://t.me/"+tg;
   pTelegram.innerText="텔레그램 문의 @"+tg;
-  pLink.href=link;
+
+  pLink.href=d.link||"#";
   cardPopup.style.display="flex";
 }
 function closeCard(){ cardPopup.style.display="none"; }
-function copyCode(){
-  navigator.clipboard.writeText(currentCode);
-  alert("추천코드가 복사되었습니다");
-}
+function copyCode(){ if(currentCode) navigator.clipboard.writeText(currentCode); }
 
-/* 방문자 수 */
-(function(){
+/* 방문자 */
+(()=>{
   const d=new Date().toISOString().slice(0,10);
   const k="v_"+d, ck="c_"+d;
-  let n=Number(localStorage.getItem(k)||0);
-  if(!localStorage.getItem(ck)){
-    n++; localStorage.setItem(k,n); localStorage.setItem(ck,1);
-  }
+  let n=+localStorage.getItem(k)||0;
+  if(!localStorage.getItem(ck)){ n++; localStorage.setItem(k,n); localStorage.setItem(ck,1); }
   visitorCount.innerText=n;
 })();
 
-/* 카드 랜덤 정렬 */
-(function(){
+/* 카드 랜덤 */
+(()=>{
   const w=document.querySelector(".wrapper");
-  const cards=[...w.children];
-  const high=cards.filter(c=>c.dataset.priority==="high");
-  const normal=cards.filter(c=>c.dataset.priority!=="high");
-  const sh=a=>a.sort(()=>Math.random()-.5);
-  sh(high); sh(normal);
-  [...high,...normal].forEach(c=>w.appendChild(c));
+  const c=[...w.children];
+  const h=c.filter(x=>x.dataset.priority==="high");
+  const n=c.filter(x=>x.dataset.priority!=="high");
+  const s=a=>a.sort(()=>Math.random()-.5);
+  s(h); s(n);
+  [...h,...n].forEach(x=>w.appendChild(x));
 })();
 </script>
 
 </body>
 </html>
-
