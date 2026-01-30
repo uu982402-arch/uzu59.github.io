@@ -6,6 +6,13 @@
 <title> 88 </title>
 
 <style>
+/* ✅ 폭 계산 통일 (팝업 쏠림/버튼 잘림 해결 핵심) */
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
   background:#0b0b0b;
@@ -47,7 +54,7 @@ body{
   cursor:pointer;
 }
 
-/* ===== 이미지 영역 (PC/모바일 동일 : 전시형) ===== */
+/* ✅ 이미지 영역 (모바일/PC 동일: 전시형, 안 짤림) */
 .img-box{
   position:relative;
   width:100%;
@@ -63,21 +70,25 @@ body{
   max-width:100%;
   max-height:100%;
   object-fit:contain; /* 절대 안 잘림 */
+  display:block;
 }
 
 /* ===== 카드 내용 ===== */
 .content{
   padding:16px;
 }
+
 .site{
   font-size:18px;
   font-weight:700;
 }
+
 .desc{
   font-size:14px;
   color:#bbb;
   margin-top:6px;
 }
+
 .code{
   margin-top:10px;
   color:#d4af37;
@@ -87,26 +98,28 @@ body{
 /* ===== 팝업 공통 ===== */
 .popup{
   position:fixed;
-  inset:0;
+  top:0; right:0; bottom:0; left:0;
   background:rgba(0,0,0,.75);
   display:none;
   align-items:center;
   justify-content:center;
   z-index:999;
+  padding:16px; /* 작은 화면에서도 중앙 유지 */
 }
 
 .popup-box{
   background:#111;
   border-radius:20px;
   padding:24px;
-  width:90%;
+  width:100%;
   max-width:360px;
   text-align:center;
+  margin:0 auto; /* 혹시 모를 쏠림 방지 */
 }
 
 .popup-box h2{
   color:#d4af37;
-  margin-bottom:10px;
+  margin:0 0 10px;
 }
 
 .btn{
@@ -118,6 +131,7 @@ body{
   font-weight:600;
   text-decoration:none;
   cursor:pointer;
+  box-sizing:border-box; /* ✅ 버튼 폭 계산 안정화 */
 }
 
 .copy{background:#1f1f1f;color:#fff}
@@ -138,7 +152,7 @@ body{
     max-width:520px;
   }
   .img-box{
-    padding:14px; /* 전시 느낌 강화 */
+    padding:14px; /* PC에서 전시 느낌 강화 */
   }
 }
 </style>
@@ -155,7 +169,7 @@ body{
 <!-- ===== 첫 접속 팝업 ===== -->
 <div class="popup" id="intro">
   <div class="popup-box">
-    <h2> 88 </h2>
+    <h2>88 추천 보증 업체</h2>
     <p>
       100만원 · 1000만원 · 1억<br>
       어디가 안전한지 고민된다면<br>
@@ -173,7 +187,7 @@ body{
     <div class="btn copy" onclick="copyCode()">추천코드 복사</div>
     <a class="btn go" id="pLink" target="_blank">사이트 이동</a>
     <div class="telegram">
-      <a href="https://t.me/UZU59">텔레그램 문의 @UZU59</a>
+      <a href="https://t.me/UZU59" target="_blank" rel="noopener">텔레그램 문의 @UZU59</a>
     </div>
     <div class="btn copy" onclick="closeCard()">닫기</div>
   </div>
