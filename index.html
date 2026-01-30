@@ -275,10 +275,11 @@ const KEY = "visit-" + today;
 fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`)
   .then(res => res.json())
   .then(data => {
-    visitorCount.innerText = data.value;
+    document.getElementById("visitorCount").innerText = data.value;
   })
-  .catch(()=> visitorCount.innerText = "-");
-})();
+  .catch(() => {
+    document.getElementById("visitorCount").innerText = "-";
+  });
 
 /* 카드 랜덤 정렬 */
 (()=>{
@@ -294,5 +295,6 @@ fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`)
 
 </body>
 </html>
+
 
 
