@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>88 추천 업체</title>
+<title>88 커뮤니티</title>
 
 <style>
 *,
@@ -58,22 +58,20 @@ body{
   cursor:pointer;
 }
 
+/* ===== 이미지 영역 (패치 적용) ===== */
 .img-box{
   position:relative;
   width:100%;
-  height:56.25vw;
+  aspect-ratio:16 / 9;
   max-height:300px;
-  min-height:190px;
   background:#000;
   display:flex;
   align-items:center;
   justify-content:center;
   overflow:hidden;
 }
-@media(min-width:768px){
-  .img-box{ height:260px; padding:12px; }
-}
 
+/* 블러 배경 */
 .img-box::before{
   content:"";
   position:absolute;
@@ -99,6 +97,7 @@ body{
   object-fit:contain;
 }
 
+/* ===== 카드 내용 ===== */
 .content{ padding:16px; }
 .site{ font-size:18px;font-weight:700; }
 .desc{ font-size:14px;color:#bbb;margin-top:6px;line-height:1.35; }
@@ -154,57 +153,27 @@ body{
 }
 </style>
 
-<!-- ===== 카드 데이터 (중요) ===== -->
+<!-- ===== 카드 데이터 ===== -->
 <script>
 const CARD_DATA = {
-  card1:{
-    title:"B WIN",
-    code:"AS88",
-    link:"https://bwk999.com",
-    telegram:"UZU59",
+  card1:{ title:"B WIN", code:"AS88", link:"https://bwk999.com", telegram:"UZU59",
     benefit:"고액전용 USDT 무기명가입 수수료지원 모든게임 입금플러스",
-    notice:"가입코드 미입력 시 혜택 적용 불가"
-  },
-  card2:{
-    title:"CAPS",
-    code:"RUST",
-    link:"https://caps-22.com",
-    telegram:"UZU59",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card2:{ title:"CAPS", code:"RUST", link:"https://caps-22.com", telegram:"UZU59",
     benefit:"고액전용 미겜 첫충 5% 페이백 5% 출석 30만원",
-    notice:"이벤트 조건은 수시 변경될 수 있음"
-  },
-  card3:{
-    title:"BETZY",
-    code:"BANGU",
-    link:"https://b88-et.com",
-    telegram:"UZU59",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card3:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com", telegram:"UZU59",
     benefit:"스포츠 첫 10% 미겜 첫 5% 페이백 5%",
-    notice:"첫충 조건 확인 후 이용 권장"
-  },
-  card4:{
-    title:"VEGAS",
-    code:"6789",
-    link:"https://las403.com",
-    telegram:"UZU59",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card4:{ title:"VEGAS", code:"6789", link:"https://las403.com", telegram:"UZU59",
     benefit:"스포츠·미겜 입플 최대 30% 카지노 입플",
-    notice:"이벤트 조건 필수 확인"
-  },
-  card5:{
-    title:"LULA BET",
-    code:"ZZ99",
-    link:"https://lula.ws",
-    telegram:"PSC991",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card5:{ title:"LULA BET", code:"ZZ99", link:"https://lula.ws", telegram:"PSC991",
     benefit:"원화·USDT 무기명가입 페이백 10%",
-    notice:"페이백 조건 확인"
-  },
-  card6:{
-    title:"CHOY BET",
-    code:"TAN",
-    link:"https://cy-40.com",
-    telegram:"DY0302",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card6:{ title:"CHOY BET", code:"TAN", link:"https://cy-40.com", telegram:"DY0302",
     benefit:"신규 30% 매충 10% 페이백 10%",
-    notice:"단기 이벤트 조기 종료 가능"
-  }
+    notice:"가입코드 미입력 시 혜택 적용 불가" }
 };
 </script>
 </head>
@@ -213,16 +182,7 @@ const CARD_DATA = {
 
 <div class="header">
   <div class="logo">88</div>
-  <div class="sub">추천 · 보증 업체 안내</div>
-</div>
-
-<!-- 첫 방문 팝업 -->
-<div class="popup" id="intro">
-  <div class="popup-box">
-    <h2>88 추천 보증 업체</h2>
-    <p>100만원 · 1000만원 · 1억<br>검증된 업체만 선별했습니다</p>
-    <div class="btn go" onclick="closeIntro()">확인</div>
-  </div>
+  <div class="sub">88 보증 업체 목록</div>
 </div>
 
 <!-- 카드 팝업 -->
@@ -232,14 +192,9 @@ const CARD_DATA = {
     <p>가입코드 : <b id="pCode"></b></p>
     <p id="pBenefit" style="color:#f5e27a;font-size:14px;"></p>
     <p id="pNotice" style="color:#ff6b6b;font-size:13px;"></p>
-
     <div class="btn copy" onclick="copyCode()">가입코드 복사</div>
-    <a class="btn go" id="pLink" target="_blank" rel="noopener">사이트 이동</a>
-
-    <div class="telegram">
-      <a id="pTelegram" target="_blank" rel="noopener">텔레그램 문의</a>
-    </div>
-
+    <a class="btn go" id="pLink" target="_blank">사이트 이동</a>
+    <div class="telegram"><a id="pTelegram" target="_blank">텔레그램 문의</a></div>
     <div class="btn copy" onclick="closeCard()">닫기</div>
   </div>
 </div>
@@ -274,20 +229,21 @@ const CARD_DATA = {
 <div id="visitorBox">금일 방문자 수 : <b id="visitorCount">0</b></div>
 
 <script>
-/* 블러 배경 */
-document.querySelectorAll(".img-box").forEach(b=>{
-  const i=b.querySelector("img");
-  b.style.setProperty("--bg",`url('${i.src}')`);
+/* 이미지 블러 + 로딩 실패 대응 */
+document.querySelectorAll(".img-box").forEach(box=>{
+  const img = box.querySelector("img");
+  box.style.setProperty("--bg",`url('${img.src}')`);
+  img.onerror = ()=>{
+    img.style.display="none";
+    box.style.aspectRatio="auto";
+    box.style.minHeight="120px";
+  };
 });
-
-/* 첫 방문 */
-if(localStorage.getItem("visit")) intro.style.display="none";
-function closeIntro(){ localStorage.setItem("visit","1"); intro.style.display="none"; }
 
 /* 카드 열기 */
 let currentCode="";
 function openById(el){
-  const d=CARD_DATA[el.dataset.card];
+  const d = CARD_DATA[el.dataset.card];
   if(!d) return;
 
   currentCode=d.code||"";
@@ -310,7 +266,7 @@ function openById(el){
 function closeCard(){ cardPopup.style.display="none"; }
 function copyCode(){ if(currentCode) navigator.clipboard.writeText(currentCode); }
 
-/* 방문자 */
+/* 방문자 수 */
 (()=>{
   const d=new Date().toISOString().slice(0,10);
   const k="v_"+d, ck="c_"+d;
@@ -319,7 +275,7 @@ function copyCode(){ if(currentCode) navigator.clipboard.writeText(currentCode);
   visitorCount.innerText=n;
 })();
 
-/* 카드 랜덤 */
+/* 카드 랜덤 정렬 */
 (()=>{
   const w=document.querySelector(".wrapper");
   const c=[...w.children];
