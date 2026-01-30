@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>88</title>
+<title> 88 </title>
 
 <style>
 body{
@@ -16,16 +16,14 @@ body{
 /* ===== 상단 헤더 ===== */
 .header{
   text-align:center;
-  padding:18px 0 6px;
+  padding:18px 0 10px;
 }
-
 .header .logo{
-  font-size:34px;
+  font-size:36px;
   font-weight:800;
   letter-spacing:2px;
   color:#d4af37;
 }
-
 .header .sub{
   font-size:12px;
   color:#888;
@@ -43,13 +41,13 @@ body{
 .card{
   background:#121212;
   border-radius:22px;
-  margin-bottom:20px;
+  margin-bottom:22px;
   box-shadow:0 10px 30px rgba(0,0,0,.6);
   overflow:hidden;
   cursor:pointer;
 }
 
-/* ===== 이미지 영역 ===== */
+/* ===== 이미지 영역 (PC/모바일 동일 : 전시형) ===== */
 .img-box{
   position:relative;
   width:100%;
@@ -64,32 +62,26 @@ body{
 .img-box img{
   max-width:100%;
   max-height:100%;
-  object-fit:contain;
+  object-fit:contain; /* 절대 안 잘림 */
 }
 
 /* ===== 카드 내용 ===== */
 .content{
   padding:16px;
 }
-
 .site{
   font-size:18px;
   font-weight:700;
-  text-align:center; /* 중앙 정렬 */
 }
-
 .desc{
   font-size:14px;
   color:#bbb;
   margin-top:6px;
-  text-align:center; /* 중앙 정렬 */
 }
-
 .code{
   margin-top:10px;
   color:#d4af37;
   font-weight:600;
-  text-align:center; /* 중앙 정렬 */
 }
 
 /* ===== 팝업 공통 ===== */
@@ -109,32 +101,22 @@ body{
   padding:24px;
   width:90%;
   max-width:360px;
-  text-align:center;          /* 글자 중앙 */
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:12px;
+  text-align:center;
 }
 
 .popup-box h2{
   color:#d4af37;
-  margin-bottom:6px;
-}
-
-.popup-box p{
-  text-align:center;
-  line-height:1.5;
-  word-break:keep-all;
+  margin-bottom:10px;
 }
 
 .btn{
   display:block;
-  width:80%;
+  width:100%;
   padding:12px;
+  margin-top:10px;
   border-radius:12px;
   font-weight:600;
   text-decoration:none;
-  text-align:center;
   cursor:pointer;
 }
 
@@ -143,7 +125,6 @@ body{
 
 .telegram{
   margin-top:10px;
-  text-align:center;
 }
 .telegram a{
   color:#1da1f2;
@@ -153,8 +134,12 @@ body{
 
 /* ===== PC 보정 ===== */
 @media(min-width:768px){
-  .wrapper{max-width:520px;}
-  .img-box{padding:14px;}
+  .wrapper{
+    max-width:520px;
+  }
+  .img-box{
+    padding:14px; /* 전시 느낌 강화 */
+  }
 }
 </style>
 </head>
@@ -164,17 +149,17 @@ body{
 <!-- ===== 상단 사이트명 ===== -->
 <div class="header">
   <div class="logo">88</div>
-  <div class="sub">VIP 고액전용 놀이터 안내</div>
+  <div class="sub">추천 · 보증 업체 안내</div>
 </div>
 
 <!-- ===== 첫 접속 팝업 ===== -->
 <div class="popup" id="intro">
   <div class="popup-box">
-    <h2>88</h2>
+    <h2> 88 </h2>
     <p>
-      100만원 · 1000만원 · 1억  
-      <br>어디가 안전한지 고민된다면  
-      <br><b>검증된 4곳</b>만 보세요
+      100만원 · 1000만원 · 1억<br>
+      어디가 안전한지 고민된다면<br>
+      <b>검증된 4곳</b>만 보세요
     </p>
     <div class="btn go" onclick="closeIntro()">확인</div>
   </div>
@@ -197,46 +182,46 @@ body{
 <!-- ===== 카드 리스트 ===== -->
 <div class="wrapper">
 
-  <div class="card" onclick="openCard('B WIN','as88','https://bwk999.com')">
+  <div class="card" onclick="openCard(' B WIN  ','as88','https://bwk999.com')">
     <div class="img-box">
-      <img src="img1.jpg" alt="B WIN">
+      <img src="img1.jpg" alt=" B WIN  ">
     </div>
     <div class="content">
-      <div class="site">B WIN</div>
-      <div class="desc">*고액전용* USDT 무기명가입&수수료지원 / 모든게임 입금플러스</div>
+      <div class="site"> B WIN  </div>
+      <div class="desc"> *고액전용* USDT 무기명가입&수수료지원 / 모든게임 입금플러스  </div>
       <div class="code">추천코드 : as88</div>
     </div>
   </div>
 
-  <div class="card" onclick="openCard('CAPS','RUST','https://caps-22.com')">
+  <div class="card" onclick="openCard(' CAPS ','RUST','https://caps-22.com')">
     <div class="img-box">
       <img src="img2.jpg" alt="CAPS">
     </div>
     <div class="content">
-      <div class="site">CAPS</div>
-      <div class="desc">*고액전용*미겜 첫충: 5%, 페이백 5%, 출석 30만원</div>
+      <div class="site"> CAPS </div>
+      <div class="desc"> *고액전용*미겜 첫충: 5%, 페이백 5%, 출석 30만원 </div>
       <div class="code">추천코드 : RUST</div>
     </div>
   </div>
 
-  <div class="card" onclick="openCard('BETZY','BANGU','https://b88-et.com/')">
+  <div class="card" onclick="openCard(' BETZY ','BANGU','https://b88-et.com/')">
     <div class="img-box">
-      <img src="img3.jpg" alt="BETZY">
+      <img src="img3.jpg" alt=" BETZY ">
     </div>
     <div class="content">
-      <div class="site">BETZY</div>
-      <div class="desc">*고액전용*스포츠 첫:10% 미겜 첫:5%, 페이백 5%, 출석 30만원</div>
+      <div class="site"> BETZY </div>
+      <div class="desc"> *고액전용*스포츠 첫:10% 미겜 첫:5%, 페이백 5%, 출석 30만원 </div>
       <div class="code">추천코드 : BANGU</div>
     </div>
   </div>
 
-  <div class="card" onclick="openCard('VEGAS','6789','https://las403.com/')">
+  <div class="card" onclick="openCard(' VEGAS ','6789','https://las403.com/')">
     <div class="img-box">
-      <img src="img4.jpg" alt="VEGAS">
+      <img src="img4.jpg" alt=" VEGAS ">
     </div>
     <div class="content">
-      <div class="site">VEGAS</div>
-      <div class="desc">스포츠,미겜 입플 3+3, 10+5, 30+10, 50+15 100+30, 30% / 카지노 입플:3+2, 5+3 or 10%</div>
+      <div class="site"> VEGAS </div>
+      <div class="desc"> 스포츠,미겜 입플 3+3, 10+5, 30+10, 50+15 100+30, 30% / 카지노 입플:3+2, 5+3 or 10%</div>
       <div class="code">추천코드 : 6789</div>
     </div>
   </div>
@@ -244,6 +229,7 @@ body{
 </div>
 
 <script>
+/* 첫 접속 팝업 */
 if(localStorage.getItem("visit")){
   document.getElementById("intro").style.display="none";
 }
@@ -252,6 +238,7 @@ function closeIntro(){
   document.getElementById("intro").style.display="none";
 }
 
+/* 카드 팝업 */
 let currentCode="";
 function openCard(title,code,link){
   currentCode=code;
