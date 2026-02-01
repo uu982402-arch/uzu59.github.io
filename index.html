@@ -62,10 +62,6 @@ body{
   color:#000;
   text-decoration:none;
 }
-.notice-bar .dot{
-  opacity:.8;
-  margin:0 6px;
-}
 
 /* ===== 로딩 화면 ===== */
 #loader{
@@ -275,17 +271,6 @@ select.insight-select{
   background:linear-gradient(135deg,#1da1f2,#78d6ff);
 }
 
-/* ✅ 섹션 내 입력 공통 (마진 계산기용) */
-.section input{
-  padding:12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.35);
-  color:#fff;
-  font-weight:800;
-  outline:none;
-}
-
 /* ===== 보증업체 안내 UI ===== */
 .vendor-header{
   text-align:center;
@@ -419,10 +404,7 @@ select.insight-select{
 }
 
 /* ===== 업데이트 로그 ===== */
-.log{
-  display:grid;
-  gap:8px;
-}
+.log{ display:grid; gap:8px; }
 .log-item{
   border:1px solid rgba(255,255,255,.08);
   background:rgba(0,0,0,.28);
@@ -478,7 +460,7 @@ select.insight-select{
 </style>
 
 <script>
-/* ===== 카드 데이터 ===== */
+/* ===== 카드 데이터 (✅ card7, card8 광고모집 추가) ===== */
 const CARD_DATA = {
   card1:{ title:"B WIN", code:"AS88", link:"https://bwk999.com", telegram:"UZU59",
     benefit:"고액전용 USDT 무기명가입 수수료지원 / 모든게임 입금플러스",
@@ -497,7 +479,16 @@ const CARD_DATA = {
     notice:"가입코드 미입력 시 혜택 적용 불가" },
   card6:{ title:"CHOY BET", code:"TAN", link:"https://cy-40.com", telegram:"DY0302",
     benefit:"신규 30% / 매충 10% / 페이백 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" }
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+
+  /* ✅ 광고 모집 카드 */
+  card7:{ title:"광고/제휴 모집", code:"", link:"", telegram:"UZU59",
+    benefit:"88 커뮤니티에 광고/제휴를 원하시면 문의 주세요.",
+    notice:"광고 문의는 텔레그램 @UZU59 로만 진행합니다." },
+
+  card8:{ title:"광고 자리 오픈", code:"", link:"", telegram:"UZU59",
+    benefit:"배너/카드 광고 자리 오픈 · 합리적 조건",
+    notice:"사칭 주의: 공식 관리자 @UZU59 단 하나" }
 };
 
 /* ===== 인사이트 (종목별) ===== */
@@ -587,6 +578,13 @@ const INSIGHTS_BY_SPORT = {
 
 <div class="section-wrap">
 
+  <!-- ✅✅ 분석기 버튼/섹션을 상단으로 이동 완료 -->
+  <div class="section">
+    <div class="title"><span class="badge">FREE</span>스포츠 배당 분석기</div>
+    <div class="text">배당 흐름을 간단히 확인할 수 있는 분석기입니다.</div>
+    <a class="analyze-btn" href="analysis.html">분석기 이동</a>
+  </div>
+
   <!-- 오늘의 인사이트 -->
   <div class="section">
     <div class="title"><span class="badge">TODAY</span>오늘의 인사이트</div>
@@ -609,41 +607,9 @@ const INSIGHTS_BY_SPORT = {
     </div>
   </div>
 
-  <!-- ✅ 배팅 체크리스트 (랜덤 3줄) -->
-  <div class="section">
-    <div class="title"><span class="badge">CHECK</span>배팅 전 체크리스트</div>
-    <div class="text" id="checklistText"></div>
-    <button class="insight-btn" type="button" onclick="refreshChecklist()" style="margin-top:10px;">
-      체크리스트 새로고침
-    </button>
-    <div class="text" style="margin-top:8px;color:#9a9a9a;font-size:12px;">
-      ※ 과몰입 방지/리스크 관리용 안내입니다.
-    </div>
-  </div>
-
-  <!-- ✅ 배당 마진 계산기 (초간단) -->
-  <div class="section">
-    <div class="title"><span class="badge">TOOL</span>배당 마진 계산기 (초간단)</div>
-    <div class="text" style="margin-bottom:10px;">
-      1X2(승/무/패) 배당 3개 입력 → 북메이커 마진(수수료)을 계산합니다.
-    </div>
-
-    <div style="display:grid; gap:10px;">
-      <input id="oddsA" inputmode="decimal" placeholder="승 배당 (예: 1.85)">
-      <input id="oddsB" inputmode="decimal" placeholder="무 배당 (예: 3.40)">
-      <input id="oddsC" inputmode="decimal" placeholder="패 배당 (예: 4.20)">
-
-      <button class="insight-btn" type="button" onclick="calcMargin()">마진 계산</button>
-
-      <div class="text" id="marginResult" style="font-weight:900;color:#f5e27a;"></div>
-      <div class="text" id="marginHint" style="color:#bdbdbd;font-size:12px;"></div>
-    </div>
-  </div>
-
   <!-- 추천 기준 -->
   <div class="section">
     <div class="title"><span class="badge">88</span>추천 기준</div>
-
     <div class="text">
       88은 단순히 링크를 모아두는 추천 페이지가 아닙니다.<br>
       사용자 의견과 운영 이력을 바탕으로,
@@ -667,7 +633,7 @@ const INSIGHTS_BY_SPORT = {
     </p>
   </div>
 
-  <!-- ✅ 분석기 사용법 3줄 -->
+  <!-- 분석기 사용법 3줄 -->
   <div class="section">
     <div class="title"><span class="badge">GUIDE</span>분석기 사용법 (초간단)</div>
     <div class="text">
@@ -716,13 +682,6 @@ const INSIGHTS_BY_SPORT = {
     </details>
   </div>
 
-  <!-- 분석기 -->
-  <div class="section">
-    <div class="title"><span class="badge">FREE</span>스포츠 배당 분석기</div>
-    <div class="text">배당 흐름을 간단히 확인할 수 있는 분석기입니다.</div>
-    <a class="analyze-btn" href="analysis.html">분석기 이동</a>
-  </div>
-
 </div>
 
 <!-- 인증업체 목록 안내 -->
@@ -731,61 +690,49 @@ const INSIGHTS_BY_SPORT = {
   <p>검증된 메이저 사이트만 선별 안내합니다</p>
 </div>
 
-<!-- 카드 그리드 -->
+<!-- 카드 그리드 (✅ 8개) -->
 <div class="vendor-grid" id="vendorGrid">
 
   <div class="card" data-priority="high" data-card="card1" onclick="openById(this)">
     <div class="img-box"><img src="img/img1.jpg" alt="B WIN"></div>
-    <div class="content">
-      <div class="site">B WIN</div>
-      <div class="desc"></div>
-      <div class="code">88 인증 놀이터</div>
-    </div>
+    <div class="content"><div class="site">B WIN</div><div class="desc"></div><div class="code">88 인증 놀이터</div></div>
   </div>
 
   <div class="card" data-priority="high" data-card="card2" onclick="openById(this)">
     <div class="img-box"><img src="img/img2.jpg" alt="CAPS"></div>
-    <div class="content">
-      <div class="site">CAPS</div>
-      <div class="desc"></div>
-      <div class="code">88 인증 놀이터</div>
-    </div>
+    <div class="content"><div class="site">CAPS</div><div class="desc"></div><div class="code">88 인증 놀이터</div></div>
   </div>
 
   <div class="card" data-priority="high" data-card="card3" onclick="openById(this)">
     <div class="img-box"><img src="img/img3.jpg" alt="BETZY"></div>
-    <div class="content">
-      <div class="site">BETZY</div>
-      <div class="desc"></div>
-      <div class="code">88 인증 놀이터</div>
-    </div>
+    <div class="content"><div class="site">BETZY</div><div class="desc"></div><div class="code">88 인증 놀이터</div></div>
   </div>
 
   <div class="card" data-priority="normal" data-card="card4" onclick="openById(this)">
     <div class="img-box"><img src="img/img4.jpg" alt="VEGAS"></div>
-    <div class="content">
-      <div class="site">VEGAS</div>
-      <div class="desc"></div>
-      <div class="code">88 인증 놀이터</div>
-    </div>
+    <div class="content"><div class="site">VEGAS</div><div class="desc"></div><div class="code">88 인증 놀이터</div></div>
   </div>
 
   <div class="card" data-priority="normal" data-card="card5" onclick="openById(this)">
     <div class="img-box"><img src="img/img5.jpg" alt="LULA BET"></div>
-    <div class="content">
-      <div class="site">LULA BET</div>
-      <div class="desc"></div>
-      <div class="code">88 인증 놀이터</div>
-    </div>
+    <div class="content"><div class="site">LULA BET</div><div class="desc"></div><div class="code">88 인증 놀이터</div></div>
   </div>
 
   <div class="card" data-priority="normal" data-card="card6" onclick="openById(this)">
     <div class="img-box"><img src="img/img6.jpg" alt="CHOY BET"></div>
-    <div class="content">
-      <div class="site">CHOY BET</div>
-      <div class="desc"></div>
-      <div class="code">88 인증 놀이터</div>
-    </div>
+    <div class="content"><div class="site">CHOY BET</div><div class="desc"></div><div class="code">88 인증 놀이터</div></div>
+  </div>
+
+  <!-- ✅ 광고 모집 카드 7 -->
+  <div class="card" data-priority="normal" data-card="card7" onclick="openById(this)">
+    <div class="img-box"><img src="img/ad1.jpg" alt="광고 모집"></div>
+    <div class="content"><div class="site">광고/제휴 모집</div><div class="desc">88 커뮤니티 광고 자리 오픈</div><div class="code">문의: @UZU59</div></div>
+  </div>
+
+  <!-- ✅ 광고 모집 카드 8 -->
+  <div class="card" data-priority="normal" data-card="card8" onclick="openById(this)">
+    <div class="img-box"><img src="img/ad2.jpg" alt="광고 자리"></div>
+    <div class="content"><div class="site">광고 자리 오픈</div><div class="desc">배너/카드 광고 가능</div><div class="code">문의: @UZU59</div></div>
   </div>
 
 </div>
@@ -800,11 +747,12 @@ const INSIGHTS_BY_SPORT = {
 <div class="popup" id="cardPopup">
   <div class="popup-box">
     <h2 id="pTitle"></h2>
-    <p>가입코드 : <b id="pCode"></b></p>
+
+    <p id="codeRow">가입코드 : <b id="pCode"></b></p>
     <p id="pBenefit" style="color:#f5e27a;font-size:13px;margin:10px 0 0;"></p>
     <p id="pNotice" style="color:#ff6b6b;font-size:12px;margin:8px 0 0;"></p>
 
-    <div class="btn copy" onclick="copyCode()">가입코드 복사</div>
+    <div class="btn copy" id="copyBtn" onclick="copyCode()">가입코드 복사</div>
     <a class="btn go" id="pLink" target="_blank" rel="noopener">사이트 이동</a>
 
     <div class="telegram">
@@ -844,8 +792,8 @@ function closeScam(){
 const NOTICE_LIST = [
   "🔔 88 커뮤니티 공식 안내 · 관리자 사칭 주의 (@UZU59)",
   "📊 88 스포츠 배당 분석기 무료 제공 중",
-  "📊 88 스포츠 마진 계산기 무료 제공 중",
   "⭐ 검증된 88 인증 놀이터만 안내합니다",
+  "📣 광고/제휴 문의는 @UZU59 로만 진행합니다",
   "⚠️ 가입코드 미입력 시 혜택 적용 불가"
 ];
 let noticeIndex = 0;
@@ -876,64 +824,11 @@ function refreshInsight(){
   refreshInsight();
 })();
 
-/* ✅ 배팅 체크리스트 (랜덤 3줄) */
-const CHECKLIST_POOL = [
-  "라인 급변 경기(갑자기 내려간 배당)는 이유부터 확인하기",
-  "마진(수수료) 높은 경기면 한 단계 보수적으로 접근하기",
-  "1회 배팅금은 자본의 1~3% 범위로 제한하기",
-  "선발/결장/로테 뉴스 체크 후 배당 변동 재확인하기",
-  "연패/연승 팀은 '시장 과열' 구간인지 먼저 보기",
-  "변동성 큰 리그는 단폴/소액으로 테스트하기"
-];
-function refreshChecklist(){
-  const pool = [...CHECKLIST_POOL].sort(()=>Math.random()-0.5);
-  const pick = pool.slice(0,3);
-  document.getElementById("checklistText").innerHTML = "• " + pick.join("<br>• ");
-}
-refreshChecklist();
-
-/* ✅ 배당 마진 계산기 (초간단 1X2) */
-function toNum(v){
-  const n = Number(String(v).replace(/,/g,"").trim());
-  return Number.isFinite(n) ? n : NaN;
-}
-function calcMargin(){
-  const a = toNum(document.getElementById("oddsA").value);
-  const b = toNum(document.getElementById("oddsB").value);
-  const c = toNum(document.getElementById("oddsC").value);
-
-  const out = document.getElementById("marginResult");
-  const hint = document.getElementById("marginHint");
-
-  if([a,b,c].some(x=>!Number.isFinite(x) || x<=1)){
-    out.innerText = "배당 3개를 정확히 입력해 주세요. (1.01 이상)";
-    hint.innerText = "";
-    return;
-  }
-
-  const imp = (1/a) + (1/b) + (1/c);
-  const margin = (imp - 1) * 100;
-
-  const fairFactor = 1 / imp;
-  const pA = (1/a) * fairFactor * 100;
-  const pB = (1/b) * fairFactor * 100;
-  const pC = (1/c) * fairFactor * 100;
-
-  let tag = "양호";
-  if(margin >= 7) tag = "주의";
-  if(margin >= 10) tag = "고마진(비추천)";
-
-  out.innerText = `마진(수수료) : ${margin.toFixed(2)}%`;
-  hint.innerHTML =
-    `정규화 확률(참고): 승 ${pA.toFixed(1)}% / 무 ${pB.toFixed(1)}% / 패 ${pC.toFixed(1)}%<br>` +
-    `판정: <b>${tag}</b> (마진이 낮을수록 유리)`;
-}
-
 /* ✅ 최근 업데이트 로그 */
 const UPDATE_LOG = [
   { date:"02/01", text:"메인 화면 UI 개선 및 카드 정리" },
-  { date:"02/01", text:"스포츠 배당 분석기 버튼 추가" },
-  { date:"02/01", text:"FAQ/사칭주의/공지 배너 기능 강화" }
+  { date:"02/01", text:"스포츠 배당 분석기 버튼 상단 배치" },
+  { date:"02/01", text:"광고/제휴 모집 카드(7/8) 추가" }
 ];
 (function renderLog(){
   const box = document.getElementById("updateLog");
@@ -994,13 +889,26 @@ function openById(el){
 
   currentCode = d.code || "";
   document.getElementById("pTitle").innerText = d.title || "";
-  document.getElementById("pCode").innerText  = d.code  || "";
+
+  const codeRow = document.getElementById("codeRow");
+  const copyBtn = document.getElementById("copyBtn");
+  const pCode = document.getElementById("pCode");
+
+  if(currentCode){
+    codeRow.style.display = "block";
+    copyBtn.style.display = "block";
+    pCode.innerText = currentCode;
+  }else{
+    codeRow.style.display = "none";
+    copyBtn.style.display = "none";
+    pCode.innerText = "";
+  }
 
   const pBenefit = document.getElementById("pBenefit");
   const pNotice  = document.getElementById("pNotice");
 
   pBenefit.style.display = d.benefit ? "block" : "none";
-  pBenefit.innerText = d.benefit ? ("혜택 : " + d.benefit) : "";
+  pBenefit.innerText = d.benefit ? ("안내 : " + d.benefit) : "";
 
   pNotice.style.display = d.notice ? "block" : "none";
   pNotice.innerText = d.notice ? ("주의 : " + d.notice) : "";
@@ -1010,7 +918,15 @@ function openById(el){
   pTelegram.href = "https://t.me/" + tg;
   pTelegram.innerText = "텔레그램 문의 @" + tg;
 
-  document.getElementById("pLink").href = d.link || "#";
+  const pLink = document.getElementById("pLink");
+  if(d.link){
+    pLink.style.display = "block";
+    pLink.href = d.link;
+    pLink.innerText = "사이트 이동";
+  }else{
+    pLink.style.display = "none";
+  }
+
   document.getElementById("cardPopup").style.display = "flex";
 }
 function closeCard(){
@@ -1022,7 +938,7 @@ function copyCode(){
   alert("가입코드가 복사되었습니다");
 }
 
-/* 카드 랜덤 정렬: high(1~3) 우선 상단 */
+/* 카드 랜덤 정렬: high 우선 상단 */
 (()=>{
   const grid = document.getElementById("vendorGrid");
   const cards = [...grid.children];
