@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>스포츠 배당 분석기 | 88 커뮤니티</title>
+<meta name="description" content="종목(축구/농구/야구/배구/e스포츠/하키)별 배당 입력으로 마진 제거 확률, 오버라운드, 밸류(EV), 권장 비중(보수적 Kelly)까지 계산하는 분석기입니다. (판단 보조용)" />
+<link rel="canonical" href="https://88st.cloud/analysis.html" />
+<meta name="robots" content="index,follow" />
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto;
+  background:#0b0b0b;
+  color:#fff;
+}
+
+/* 상단 */
+.header{ text-align:center; padding:14px 0 10px; }
+.logo-link{display:inline-block;text-decoration:none}
+.logo-img{
+  display:block; margin:0 auto 6px;
+  width:180px; max-width:72%; height:auto;
+  filter:drop-shadow(0 0 10px rgba(212,175,55,.25));
+}
+@media(max-width:480px){ .logo-img{width:140px;max-width:82%} }
+.sub{ font-size:12px; color:#9a9a9a; }
+
+/* 레이아웃 */
+.wrap{ max-width:900px; margin:0 auto; padding:10px 14px 28px; }
+.card{
+  background:#121212; border-radius:18px; padding:14px;
+  box-shadow:0 10px 26px rgba(0,0,0,.45);
+  margin-bottom:14px;
+}
+.title{ font-weight:900; color:#f5e27a; margin-bottom:10px; font-size:14px; }
+.note{ color:#bdbdbd; font-size:12px; line-height:1.5; margin-top:8px; }
+.small-hint{ font-size:11px; color:#8f8f8f; margin-top:6px; line-height:1.4; }
+
+/* 컨트롤 */
+.controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+@media(max-width:560px){ .controls{ grid-template-columns:1fr; } }
+.select, .textinput{
+  width:100%;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  background:#0f0f0f;
+  color:#fff;
+  outline:none;
+  font-weight:800;
+}
+.textinput{ font-weight:700; }
+.row2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+@media(max-width:560px){ .row2{ grid-template-columns:1fr; } }
+
+/* 입력 */
+.grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+@media(max-width:560px){ .grid{grid-template-columns:1fr} }
+.field label{ display:block; font-size:12px; color:#bbb; margin:2px 0 6px; }
+.field input{
+  width:100%; padding:12px; border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  background:#0f0f0f; color:#fff; outline:none;
+}
+.field input::placeholder{color:#555}
+
+/* 섹션 박스 */
+.box{
+  margin-top:12px;
+  padding:12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+}
+.box-title{
+  font-weight:900;
+  margin:0 0 8px;
+  color:#f5e27a;
+  font-size:13px;
+}
+.box-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.toggle{
+  cursor:pointer;
+  font-size:12px;
+  color:#cfcfcf;
+  user-select:none;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.25);
+}
+
+/* 액션 */
+.actions{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+.btn{
+  flex:1; min-width:160px;
+  border:none; border-radius:14px; padding:12px;
+  font-weight:900; cursor:pointer;
+}
+.primary{ background:linear-gradient(135deg,#1da1f2,#78d6ff); color:#00121a; }
+.secondary{ background:#1f1f1f; color:#fff; border:1px solid rgba(255,255,255,.06); }
+.gold{ background:linear-gradient(135deg,#d4af37,#f5e27a); color:#111; }
+
+/* 결과 */
+.result{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:16px;
+  padding:12px;
+  margin-top:12px;
+}
+.kv{
+  display:flex; justify-content:space-between; gap:10px;
+  padding:8px 0; border-bottom:1px solid rgba(255,255,255,.06);
+  font-size:13px;
+}
+.kv:last-child{border-bottom:none}
+.k{color:#cfcfcf}
+.v{font-weight:900}
+.warn{color:#ffb3b3}
+.good{color:#b7ffcf}
+
+hr.sep{
+  border:none; height:1px; background:rgba(255,255,255,.06);
+  margin:12px 0;
+}
+
+.footer-links{ display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+.linkbtn{
+  flex:1; min-width:160px;
+  display:block; text-align:center; padding:12px;
+  border-radius:14px; text-decoration:none; font-weight:900;
+  background:#1f1f1f; color:#fff;
+  border:1px solid rgba(255,255,255,.06);
+}
+
+/* ✅ 추가 UI: 체크리스트/마진계산기/히스토리 */
+.pill{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:900;
+  background:rgba(212,175,55,.14);
+  border:1px solid rgba(212,175,55,.22);
+  color:#f5e27a;
+  margin-right:6px;
+}
+.mini-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+.mini-actions .btn{ min-width:140px; flex:1; }
+.muted{ color:#bdbdbd; }
+
+.hist{
+  display:grid; gap:8px;
+}
+.hist-item{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.28);
+  border-radius:14px;
+  padding:10px 12px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+.hist-left{ flex:1; }
+.hist-top{
+  font-weight:900;
+  color:#f5e27a;
+  font-size:12px;
+  margin-bottom:4px;
+}
+.hist-mid{ font-size:12px; color:#cfcfcf; line-height:1.45; }
+.hist-right{
+  font-weight:900;
+  font-size:12px;
+  white-space:nowrap;
+}
+</style>
+</head>
+
+<body>
+<div class="header">
+  <a class="logo-link" href="./" aria-label="홈으로 이동">
+    <img src="img/logo-88-community.png" alt="88 커뮤니티" class="logo-img">
+  </a>
+  <div class="sub">스포츠 배당 분석기 (템플릿 · 선택입력 · 판단 보조용)</div>
+</div>
+
+<div class="wrap">
+
+  <!-- ✅ 1) 배팅 체크리스트 (랜덤 3줄) -->
+  <div class="card">
+    <div class="title"><span class="pill">CHECK</span>배팅 전 체크리스트</div>
+    <div class="result" id="checklistBox" style="display:block;">
+      <div class="kv"><div class="k">오늘의 체크 1</div><div class="v" id="cl1">-</div></div>
+      <div class="kv"><div class="k">오늘의 체크 2</div><div class="v" id="cl2">-</div></div>
+      <div class="kv"><div class="k">오늘의 체크 3</div><div class="v" id="cl3">-</div></div>
+    </div>
+    <div class="mini-actions">
+      <button class="btn gold" type="button" onclick="refreshChecklist()">체크리스트 새로고침</button>
+      <button class="btn secondary" type="button" onclick="pinChecklist()">오늘 체크 고정</button>
+    </div>
+    <div class="note">※ 과몰입 방지/리스크 관리용 안내입니다. (결과 보장 없음)</div>
+  </div>
+
+  <!-- ✅ 2) 초고급 마진 계산기 (1X2/핸디 2-way/오버언더 2-way) + 3) 최근 계산 히스토리 -->
+  <div class="card">
+    <div class="title"><span class="pill">MARGIN</span>초고급 마진 계산기 + 최근 히스토리</div>
+
+    <!-- 모드 선택 -->
+    <div class="controls">
+      <select id="mType" class="select" onchange="onMarginTypeChange()">
+        <option value="1x2">1X2 (승/무/패)</option>
+        <option value="handicap">핸디캡 (2-way)</option>
+        <option value="ou">오버/언더 (2-way)</option>
+      </select>
+
+      <input id="mLabel" class="textinput" placeholder="메모(선택) 예: EPL 맨시티 vs 리버풀">
+    </div>
+
+    <!-- 1X2 -->
+    <div class="box" id="m1x2Box">
+      <div class="box-title">1X2 배당 입력</div>
+      <div class="grid">
+        <div class="field">
+          <label>승 배당</label>
+          <input id="m1_oddsW" inputmode="decimal" placeholder="예: 1.85">
+        </div>
+        <div class="field">
+          <label>무 배당</label>
+          <input id="m1_oddsD" inputmode="decimal" placeholder="예: 3.40">
+        </div>
+        <div class="field">
+          <label>패 배당</label>
+          <input id="m1_oddsL" inputmode="decimal" placeholder="예: 4.20">
+        </div>
+        <div class="field">
+          <label> </label>
+          <input disabled value="※ 3개 배당을 모두 입력하세요">
+        </div>
+      </div>
+    </div>
+
+    <!-- Handicap -->
+    <div class="box" id="mHandiBox" style="display:none;">
+      <div class="box-title">핸디캡 입력 (2-way)</div>
+      <div class="grid">
+        <div class="field">
+          <label>핸디 라인 (예: -1.5, +3.5)</label>
+          <input id="mh_line" inputmode="decimal" placeholder="예: -1.5">
+        </div>
+        <div class="field">
+          <label>핸디 A 배당 (예: 홈 -1.5)</label>
+          <input id="mh_oddsA" inputmode="decimal" placeholder="예: 1.90">
+        </div>
+        <div class="field">
+          <label>핸디 B 배당 (예: 원정 +1.5)</label>
+          <input id="mh_oddsB" inputmode="decimal" placeholder="예: 1.90">
+        </div>
+        <div class="field">
+          <label> </label>
+          <input disabled value="※ 양쪽 배당이 있어야 마진이 정확합니다">
+        </div>
+      </div>
+    </div>
+
+    <!-- Over/Under -->
+    <div class="box" id="mOuBox" style="display:none;">
+      <div class="box-title">오버/언더 입력 (2-way)</div>
+      <div class="grid">
+        <div class="field">
+          <label>기준점 (예: 2.5, 7.5)</label>
+          <input id="mo_line" inputmode="decimal" placeholder="예: 2.5">
+        </div>
+        <div class="field">
+          <label>오버 배당</label>
+          <input id="mo_over" inputmode="decimal" placeholder="예: 1.95">
+        </div>
+        <div class="field">
+          <label>언더 배당</label>
+          <input id="mo_under" inputmode="decimal" placeholder="예: 1.85">
+        </div>
+        <div class="field">
+          <label> </label>
+          <input disabled value="※ 오버/언더 두 배당 입력">
+        </div>
+      </div>
+    </div>
+
+    <div class="mini-actions">
+      <button class="btn primary" type="button" onclick="calcAdvancedMargin()">마진 계산</button>
+      <button class="btn secondary" type="button" onclick="resetAdvancedMargin()">마진 입력 초기화</button>
+    </div>
+
+    <!-- 결과 -->
+    <div class="result" id="mResult" style="display:none;"></div>
+
+    <hr class="sep">
+
+    <!-- 히스토리 -->
+    <div class="box">
+      <div class="box-head">
+        <div class="box-title" style="margin:0;">최근 계산 히스토리</div>
+        <div class="toggle" onclick="clearMarginHistory()">히스토리 삭제</div>
+      </div>
+      <div class="small-hint" style="margin-top:8px;">※ 이 기록은 브라우저(로컬) 저장입니다. 최대 10개까지 보관됩니다.</div>
+      <div class="hist" id="mHistory" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <!-- ✅ 4) 마진 낮은 경기 예시/설명 카드 -->
+  <div class="card">
+    <div class="title"><span class="pill">GUIDE</span>마진 낮은 경기 예시 · 해석 가이드</div>
+
+    <div class="box">
+      <div class="box-title">마진(수수료) 해석 기준(추천)</div>
+      <div class="note" style="margin-top:0;">
+        - <b class="good">~3%대</b> : 낮은 편(유리)<br>
+        - <b class="good">3~6%</b> : 일반(무난)<br>
+        - <b class="warn">6~10%</b> : 높은 편(주의)<br>
+        - <b class="warn">10%+</b> : 고마진(비추천)
+      </div>
+      <div class="small-hint">
+        ※ 마진은 “(각 배당의 역수 합 - 1) × 100”으로 계산됩니다. (오버라운드 기반)
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">마진 낮은 경기 예시(감각 잡기)</div>
+      <div class="note" style="margin-top:0;">
+        • <b>핸디 2-way 예시</b>: 1.95 / 1.95 → 마진 약 <b class="good">2.56%</b><br>
+        • <b>오버/언더 예시</b>: 1.90 / 1.90 → 마진 약 <b class="good">5.26%</b><br>
+        • <b>1X2 예시</b>: 2.10 / 3.40 / 3.60 → 마진 약 <b class="good">4.81%</b>
+      </div>
+      <div class="small-hint">
+        팁) 같은 경기라도 “시장/업체/시간”에 따라 마진이 달라져요. 라인 변동 전에 여러 곳 비교하면 체감이 확 옵니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================
+       기존 “분석기” 카드 (그대로 유지)
+  ======================= -->
+  <div class="card">
+    <div class="title">설정</div>
+
+    <div class="controls">
+      <select id="sport" class="select" onchange="onSportChange()">
+        <option value="soccer">축구</option>
+        <option value="basketball">농구</option>
+        <option value="baseball">야구</option>
+        <option value="volleyball">배구</option>
+        <option value="esports">e스포츠</option>
+        <option value="hockey">하키</option>
+      </select>
+
+      <select id="level" class="select" onchange="onLevelChange()">
+        <option value="simple">간단</option>
+        <option value="mid">중급</option>
+        <option value="adv">고급</option>
+      </select>
+    </div>
+
+    <!-- ✅ 팀/리그 입력(선택) -->
+    <div class="row2">
+      <div>
+        <input id="league" class="textinput" placeholder="리그/대회명 (선택)">
+        <div class="small-hint">※ 입력하지 않아도 분석 가능 / 공유 시 입력한 내용만 포함됩니다.</div>
+      </div>
+      <div>
+        <input id="teams" class="textinput" placeholder="팀명 (선택) 예: 맨시티 vs 리버풀">
+        <div class="small-hint">※ 팀/리그는 선택사항입니다.</div>
+      </div>
+    </div>
+
+    <div class="small-hint" id="sportHint" style="margin-top:10px;"></div>
+
+    <!-- ===== 메인 시장 ===== -->
+    <div class="box">
+      <div class="box-title" id="mainMarketTitle">메인 배당</div>
+
+      <!-- 2-way -->
+      <div id="main2" style="display:none;">
+        <div class="grid">
+          <div class="field">
+            <label id="main2LabelA">선택 A 배당</label>
+            <input id="main2OddsA" inputmode="decimal" placeholder="예: 1.85">
+          </div>
+          <div class="field">
+            <label id="main2LabelB">선택 B 배당</label>
+            <input id="main2OddsB" inputmode="decimal" placeholder="예: 2.05">
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-way -->
+      <div id="main3" style="display:none;">
+        <div class="grid">
+          <div class="field">
+            <label id="main3LabelH">홈 배당</label>
+            <input id="main3OddsH" inputmode="decimal" placeholder="예: 2.10">
+          </div>
+          <div class="field">
+            <label id="main3LabelD">무 배당</label>
+            <input id="main3OddsD" inputmode="decimal" placeholder="예: 3.20">
+          </div>
+          <div class="field">
+            <label id="main3LabelA">원정 배당</label>
+            <input id="main3OddsA" inputmode="decimal" placeholder="예: 3.40">
+          </div>
+          <div class="field">
+            <label> </label>
+            <input disabled value="※ 축구는 3배당이 기본입니다">
+          </div>
+        </div>
+      </div>
+
+      <!-- 중급/고급: 내 확률/베팅금 -->
+      <div id="valueInputs" style="display:none;">
+        <div class="grid">
+          <div class="field">
+            <label id="myProbLabel">내 예상 확률(선택) %</label>
+            <input id="myProb" inputmode="decimal" placeholder="예: 55  또는  45,28,27">
+            <div class="small-hint" id="myProbHint"></div>
+          </div>
+          <div class="field">
+            <label>베팅금(선택)</label>
+            <input id="stake" inputmode="numeric" placeholder="예: 100000">
+            <div class="small-hint">※ 입력 시 기대값(EV)을 원 단위로도 표시합니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 핸디캡 ===== -->
+    <div class="box" id="handicapBox" style="display:none;">
+      <div class="box-head">
+        <div class="box-title" style="margin:0;">핸디캡 (선택)</div>
+        <div class="toggle" onclick="toggleBox('handicapBody')">접기/펼치기</div>
+      </div>
+      <div id="handicapBody">
+        <div class="grid">
+          <div class="field">
+            <label>핸디 라인 (예: -1.5, +3.5)</label>
+            <input id="handicapLine" inputmode="decimal" placeholder="예: -1.5">
+          </div>
+          <div class="field">
+            <label>핸디 배당</label>
+            <input id="handicapOdds" inputmode="decimal" placeholder="예: 1.90">
+          </div>
+        </div>
+        <div class="small-hint">※ 고급 정확도를 원하면 “양쪽 배당(핸디 승/패)”이 있어야 더 정밀합니다.</div>
+      </div>
+    </div>
+
+    <!-- ===== 오버언더 ===== -->
+    <div class="box" id="totalBox" style="display:none;">
+      <div class="box-head">
+        <div class="box-title" style="margin:0;">오버/언더 (선택)</div>
+        <div class="toggle" onclick="toggleBox('totalBody')">접기/펼치기</div>
+      </div>
+      <div id="totalBody">
+        <div class="grid">
+          <div class="field">
+            <label>기준점 (예: 2.5, 7.5)</label>
+            <input id="totalLine" inputmode="decimal" placeholder="예: 2.5">
+          </div>
+          <div class="field">
+            <label>오버 배당</label>
+            <input id="overOdds" inputmode="decimal" placeholder="예: 1.95">
+          </div>
+          <div class="field">
+            <label>언더 배당</label>
+            <input id="underOdds" inputmode="decimal" placeholder="예: 1.85">
+          </div>
+          <div class="field">
+            <label>내 예상 확률(오버) % (고급)</label>
+            <input id="myOverProb" inputmode="decimal" placeholder="예: 52">
+          </div>
+        </div>
+        <div class="small-hint">※ 고급에서 내 예상 확률(오버)을 넣으면 오버 EV/비중 계산이 가능합니다.</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn primary" onclick="calc()">계산하기</button>
+      <button class="btn secondary" onclick="resetAll()">초기화</button>
+      <button class="btn gold" onclick="copyResult()">결과 복사</button>
+      <button class="btn secondary" onclick="shareResult()">공유</button>
+    </div>
+
+    <div class="note">
+      ※ 본 도구는 “판단 보조용”입니다. 승률을 보장하지 않으며, 손실을 감당 가능한 범위 내에서 이용하세요.
+    </div>
+
+    <div class="result" id="result" style="display:none;"></div>
+
+    <div class="footer-links">
+      <a class="linkbtn" href="./">홈으로</a>
+      <a class="linkbtn" href="https://t.me/UZU59" target="_blank" rel="noopener">문의 (텔레그램)</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================
+   ✅ 추가(상단) 기능들
+========================= */
+
+/* 1) 체크리스트 */
+const LS_CHECK_PIN = "88_checklist_pin_v1";
+const CHECKLIST_POOL = [
+  "라인 급변 경기(갑자기 내려간 배당)는 이유부터 확인하기",
+  "마진(수수료) 높은 경기면 한 단계 보수적으로 접근하기",
+  "1회 배팅금은 자본의 1~3% 범위로 제한하기",
+  "선발/결장/로테 뉴스 체크 후 배당 변동 재확인하기",
+  "연패/연승 팀은 '시장 과열' 구간인지 먼저 보기",
+  "변동성 큰 리그는 단폴/소액으로 테스트하기",
+  "연속 베팅(추격배팅) 금지: 손실 복구는 '속도'가 아니라 '규칙'으로",
+  "배당이 좋아 보여도, 내 기준 확률(근거) 없으면 패스하기"
+];
+function pick3Checklist(){
+  const pool = [...CHECKLIST_POOL].sort(()=>Math.random()-0.5);
+  return pool.slice(0,3);
+}
+function refreshChecklist(){
+  const pinned = localStorage.getItem(LS_CHECK_PIN);
+  if(pinned){
+    try{
+      const arr = JSON.parse(pinned);
+      if(Array.isArray(arr) && arr.length===3){
+        setChecklist(arr);
+        toast("고정된 체크리스트가 표시 중입니다.");
+        return;
+      }
+    }catch(e){}
+  }
+  setChecklist(pick3Checklist());
+}
+function setChecklist(arr){
+  document.getElementById("cl1").textContent = arr[0] || "-";
+  document.getElementById("cl2").textContent = arr[1] || "-";
+  document.getElementById("cl3").textContent = arr[2] || "-";
+}
+function pinChecklist(){
+  const arr = [
+    document.getElementById("cl1").textContent,
+    document.getElementById("cl2").textContent,
+    document.getElementById("cl3").textContent
+  ];
+  localStorage.setItem(LS_CHECK_PIN, JSON.stringify(arr));
+  toast("오늘 체크리스트를 고정했습니다.");
+}
+
+/* 2) 초고급 마진 계산기 + 3) 히스토리 */
+const LS_MARGIN_HIST = "88_margin_history_v1";
+
+function toNumOdds(v){
+  const x = Number(String(v).replace(/,/g,".").trim());
+  if(!isFinite(x) || x<=1) return null;
+  return x;
+}
+function calcOverround(oddsArr){
+  const invSum = oddsArr.reduce((s,o)=> s + (1/o), 0);
+  const marginPct = (invSum - 1) * 100;
+  const normProbs = oddsArr.map(o => (1/o) / invSum * 100);
+  return { invSum, marginPct, normProbs };
+}
+function marginTag(invSum){
+  if(invSum > 1.10) return {t:"고마진(비추천)", cls:"warn"};
+  if(invSum > 1.06) return {t:"주의", cls:"warn"};
+  if(invSum > 1.03) return {t:"일반", cls:""};
+  return {t:"낮은 편(유리)", cls:"good"};
+}
+
+function onMarginTypeChange(){
+  const t = document.getElementById("mType").value;
+  document.getElementById("m1x2Box").style.display = (t==="1x2") ? "block" : "none";
+  document.getElementById("mHandiBox").style.display = (t==="handicap") ? "block" : "none";
+  document.getElementById("mOuBox").style.display = (t==="ou") ? "block" : "none";
+  document.getElementById("mResult").style.display = "none";
+  document.getElementById("mResult").innerHTML = "";
+}
+
+function pushHistory(item){
+  let arr = [];
+  try{
+    arr = JSON.parse(localStorage.getItem(LS_MARGIN_HIST) || "[]");
+    if(!Array.isArray(arr)) arr = [];
+  }catch(e){ arr = []; }
+
+  arr.unshift(item);
+  arr = arr.slice(0,10);
+  localStorage.setItem(LS_MARGIN_HIST, JSON.stringify(arr));
+  renderMarginHistory();
+}
+
+function renderMarginHistory(){
+  const box = document.getElementById("mHistory");
+  if(!box) return;
+
+  let arr = [];
+  try{
+    arr = JSON.parse(localStorage.getItem(LS_MARGIN_HIST) || "[]");
+    if(!Array.isArray(arr)) arr = [];
+  }catch(e){ arr = []; }
+
+  if(arr.length === 0){
+    box.innerHTML = `<div class="small-hint">아직 저장된 기록이 없습니다. 위에서 마진 계산을 해보세요.</div>`;
+    return;
+  }
+
+  box.innerHTML = arr.map(x=>{
+    const dt = new Date(x.ts);
+    const when = isFinite(dt.getTime())
+      ? dt.toLocaleString("ko-KR", {month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"})
+      : "-";
+
+    const cls = x.tagCls || "";
+    return `
+      <div class="hist-item">
+        <div class="hist-left">
+          <div class="hist-top">${when} · ${x.typeLabel}${x.line ? ` (라인 ${x.line})` : ""}</div>
+          <div class="hist-mid">
+            ${x.memo ? `<span class="muted">${escapeHtml(x.memo)}</span><br>` : ""}
+            배당: ${escapeHtml(x.oddsText)}
+          </div>
+        </div>
+        <div class="hist-right ${cls}">
+          ${x.marginPct.toFixed(2)}%
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function clearMarginHistory(){
+  localStorage.removeItem(LS_MARGIN_HIST);
+  renderMarginHistory();
+  toast("히스토리를 삭제했습니다.");
+}
+
+function calcAdvancedMargin(){
+  const t = document.getElementById("mType").value;
+  const memo = (document.getElementById("mLabel").value || "").trim();
+  const out = document.getElementById("mResult");
+
+  try{
+    if(t === "1x2"){
+      const w = toNumOdds(document.getElementById("m1_oddsW").value);
+      const d = toNumOdds(document.getElementById("m1_oddsD").value);
+      const l = toNumOdds(document.getElementById("m1_oddsL").value);
+      if(w==null || d==null || l==null) return showMarginError("1X2 배당 3개를 모두 1.01 이상 숫자로 입력해 주세요.");
+
+      const r = calcOverround([w,d,l]);
+      const tag = marginTag(r.invSum);
+
+      out.innerHTML = `
+        <div style="font-weight:900;margin-bottom:6px;">1X2 마진 결과</div>
+        <div class="kv"><div class="k">오버라운드(역수합)</div><div class="v">${r.invSum.toFixed(4)}</div></div>
+        <div class="kv"><div class="k">마진(수수료)</div><div class="v ${tag.cls}">${r.marginPct.toFixed(2)}% · ${tag.t}</div></div>
+        <div class="kv"><div class="k">정규화 확률(참고)</div><div class="v">승 ${r.normProbs[0].toFixed(1)}% / 무 ${r.normProbs[1].toFixed(1)}% / 패 ${r.normProbs[2].toFixed(1)}%</div></div>
+        <div class="small-hint">※ 정규화 확률은 배당 역수를 100%로 맞춘 값입니다.</div>
+      `;
+      out.style.display = "block";
+
+      pushHistory({
+        ts: Date.now(),
+        type: "1x2",
+        typeLabel: "1X2",
+        line: "",
+        oddsText: `${w} / ${d} / ${l}`,
+        marginPct: r.marginPct,
+        tagCls: tag.cls,
+        memo
+      });
+      toast("마진 계산 결과를 저장했습니다.");
+      return;
+    }
+
+    if(t === "handicap"){
+      const line = String(document.getElementById("mh_line").value || "").trim();
+      const a = toNumOdds(document.getElementById("mh_oddsA").value);
+      const b = toNumOdds(document.getElementById("mh_oddsB").value);
+      if(a==null || b==null) return showMarginError("핸디 양쪽 배당 2개를 1.01 이상 숫자로 입력해 주세요.");
+
+      const r = calcOverround([a,b]);
+      const tag = marginTag(r.invSum);
+
+      out.innerHTML = `
+        <div style="font-weight:900;margin-bottom:6px;">핸디캡(2-way) 마진 결과</div>
+        <div class="kv"><div class="k">라인</div><div class="v">${escapeHtml(line || "-")}</div></div>
+        <div class="kv"><div class="k">오버라운드(역수합)</div><div class="v">${r.invSum.toFixed(4)}</div></div>
+        <div class="kv"><div class="k">마진(수수료)</div><div class="v ${tag.cls}">${r.marginPct.toFixed(2)}% · ${tag.t}</div></div>
+        <div class="kv"><div class="k">정규화 확률(참고)</div><div class="v">A ${r.normProbs[0].toFixed(1)}% / B ${r.normProbs[1].toFixed(1)}%</div></div>
+      `;
+      out.style.display = "block";
+
+      pushHistory({
+        ts: Date.now(),
+        type: "handicap",
+        typeLabel: "핸디(2-way)",
+        line,
+        oddsText: `${a} / ${b}`,
+        marginPct: r.marginPct,
+        tagCls: tag.cls,
+        memo
+      });
+      toast("마진 계산 결과를 저장했습니다.");
+      return;
+    }
+
+    if(t === "ou"){
+      const line = String(document.getElementById("mo_line").value || "").trim();
+      const o = toNumOdds(document.getElementById("mo_over").value);
+      const u = toNumOdds(document.getElementById("mo_under").value);
+      if(o==null || u==null) return showMarginError("오버/언더 배당 2개를 1.01 이상 숫자로 입력해 주세요.");
+
+      const r = calcOverround([o,u]);
+      const tag = marginTag(r.invSum);
+
+      out.innerHTML = `
+        <div style="font-weight:900;margin-bottom:6px;">오버/언더(2-way) 마진 결과</div>
+        <div class="kv"><div class="k">기준점</div><div class="v">${escapeHtml(line || "-")}</div></div>
+        <div class="kv"><div class="k">오버라운드(역수합)</div><div class="v">${r.invSum.toFixed(4)}</div></div>
+        <div class="kv"><div class="k">마진(수수료)</div><div class="v ${tag.cls}">${r.marginPct.toFixed(2)}% · ${tag.t}</div></div>
+        <div class="kv"><div class="k">정규화 확률(참고)</div><div class="v">오버 ${r.normProbs[0].toFixed(1)}% / 언더 ${r.normProbs[1].toFixed(1)}%</div></div>
+      `;
+      out.style.display = "block";
+
+      pushHistory({
+        ts: Date.now(),
+        type: "ou",
+        typeLabel: "오버/언더(2-way)",
+        line,
+        oddsText: `오버 ${o} / 언더 ${u}`,
+        marginPct: r.marginPct,
+        tagCls: tag.cls,
+        memo
+      });
+      toast("마진 계산 결과를 저장했습니다.");
+      return;
+    }
+  }catch(e){
+    showMarginError("오류가 발생했습니다. 입력값을 다시 확인해 주세요.");
+  }
+}
+
+function showMarginError(msg){
+  const out = document.getElementById("mResult");
+  out.innerHTML = `<div class="kv"><div class="k">안내</div><div class="v warn">${escapeHtml(msg)}</div></div>`;
+  out.style.display = "block";
+}
+function resetAdvancedMargin(){
+  [
+    "mLabel",
+    "m1_oddsW","m1_oddsD","m1_oddsL",
+    "mh_line","mh_oddsA","mh_oddsB",
+    "mo_line","mo_over","mo_under"
+  ].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.value = "";
+  });
+  const out = document.getElementById("mResult");
+  out.style.display = "none";
+  out.innerHTML = "";
+  toast("마진 입력을 초기화했습니다.");
+}
+
+/* 간단 HTML escape */
+function escapeHtml(s){
+  return String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+/* =========================
+   기존 분석기 로직(유지)
+========================= */
+const LS_KEY = "88_analysis_multi_v2";
+let LAST_TEXT = "";
+
+const SPORT_CFG = {
+  soccer: {
+    name: "축구",
+    main: "3way",
+    labels: {H:"홈", D:"무", A:"원정"},
+    hint: "축구는 기본 3배당(홈/무/원정). 중급/고급에서 오버언더를 같이 보는 걸 추천합니다.",
+    template: { openHandicap:false, openTotal:true }
+  },
+  basketball: {
+    name:"농구",
+    main:"2way",
+    labels:{A:"승", B:"패"},
+    hint:"농구는 2배당(승/패) 중심. 중급/고급에서는 핸디+오버언더를 함께 추천.",
+    template: { openHandicap:true, openTotal:true }
+  },
+  baseball: {
+    name:"야구",
+    main:"2way",
+    labels:{A:"승", B:"패"},
+    hint:"야구는 승/패(2배당) + 오버언더/핸디(런라인)를 함께 보는 경우가 많습니다.",
+    template: { openHandicap:true, openTotal:true }
+  },
+  volleyball: {
+    name:"배구",
+    main:"2way",
+    labels:{A:"승", B:"패"},
+    hint:"배구는 2배당(승/패) 중심. 중급/고급에서 핸디/OU를 함께 확인하세요.",
+    template: { openHandicap:true, openTotal:true }
+  },
+  esports: {
+    name:"e스포츠",
+    main:"2way",
+    labels:{A:"승", B:"패"},
+    hint:"e스포츠는 매치 승/패(2배당) 중심. 고급에서 EV/비중 계산이 가능합니다.",
+    template: { openHandicap:false, openTotal:false }
+  },
+  hockey: {
+    name:"하키",
+    main:"2way",
+    labels:{A:"승", B:"패"},
+    hint:"하키는 2배당(승/패) 기본. 중급/고급에서 오버언더가 도움이 됩니다.",
+    template: { openHandicap:false, openTotal:true }
+  }
+};
+
+function $(id){ return document.getElementById(id); }
+function val(id){ const el=$(id); return el?el.value:""; }
+function setVal(id,v){ const el=$(id); if(el && v!=null) el.value=v; }
+
+function saveState(){
+  const state = {
+    sport: val("sport"),
+    level: val("level"),
+    league: val("league"),
+    teams: val("teams"),
+    main2OddsA: val("main2OddsA"),
+    main2OddsB: val("main2OddsB"),
+    main3OddsH: val("main3OddsH"),
+    main3OddsD: val("main3OddsD"),
+    main3OddsA: val("main3OddsA"),
+    myProb: val("myProb"),
+    stake: val("stake"),
+    handicapLine: val("handicapLine"),
+    handicapOdds: val("handicapOdds"),
+    totalLine: val("totalLine"),
+    overOdds: val("overOdds"),
+    underOdds: val("underOdds"),
+    myOverProb: val("myOverProb"),
+    handicapCollapsed: isCollapsed("handicapBody"),
+    totalCollapsed: isCollapsed("totalBody")
+  };
+  localStorage.setItem(LS_KEY, JSON.stringify(state));
+}
+function loadState(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return;
+    const s = JSON.parse(raw);
+
+    if(s.sport) setVal("sport", s.sport);
+    if(s.level) setVal("level", s.level);
+
+    onSportChange(true);
+    onLevelChange(true);
+
+    setVal("league", s.league);
+    setVal("teams", s.teams);
+    setVal("main2OddsA", s.main2OddsA);
+    setVal("main2OddsB", s.main2OddsB);
+    setVal("main3OddsH", s.main3OddsH);
+    setVal("main3OddsD", s.main3OddsD);
+    setVal("main3OddsA", s.main3OddsA);
+    setVal("myProb", s.myProb);
+    setVal("stake", s.stake);
+    setVal("handicapLine", s.handicapLine);
+    setVal("handicapOdds", s.handicapOdds);
+    setVal("totalLine", s.totalLine);
+    setVal("overOdds", s.overOdds);
+    setVal("underOdds", s.underOdds);
+    setVal("myOverProb", s.myOverProb);
+
+    if(typeof s.handicapCollapsed === "boolean") setCollapsed("handicapBody", s.handicapCollapsed);
+    if(typeof s.totalCollapsed === "boolean") setCollapsed("totalBody", s.totalCollapsed);
+  }catch(e){}
+}
+
+/* 입력 이벤트 자동 저장 */
+[
+  "sport","level","league","teams",
+  "main2OddsA","main2OddsB","main3OddsH","main3OddsD","main3OddsA",
+  "myProb","stake",
+  "handicapLine","handicapOdds",
+  "totalLine","overOdds","underOdds","myOverProb"
+].forEach(id=>{
+  const el=$(id);
+  if(el) el.addEventListener("input", saveState);
+});
+
+/* UI: 템플릿 + 난이도 */
+function onSportChange(silent){
+  const sport = val("sport");
+  const cfg = SPORT_CFG[sport] || SPORT_CFG.soccer;
+
+  $("sportHint").innerText = `선택 종목: ${cfg.name} · ${cfg.hint}`;
+
+  const is3 = cfg.main === "3way";
+  $("main2").style.display = is3 ? "none" : "block";
+  $("main3").style.display = is3 ? "block" : "none";
+  $("mainMarketTitle").innerText = is3 ? "메인 배당 (홈/무/원정)" : "메인 배당 (승/패)";
+
+  if(!is3){
+    $("main2LabelA").innerText = `${cfg.labels.A} 배당`;
+    $("main2LabelB").innerText = `${cfg.labels.B} 배당`;
+  }else{
+    $("main3LabelH").innerText = `${cfg.labels.H} 배당`;
+    $("main3LabelD").innerText = `${cfg.labels.D} 배당`;
+    $("main3LabelA").innerText = `${cfg.labels.A} 배당`;
+  }
+
+  applyTemplate();
+  updateMyProbHints(cfg, val("level"));
+
+  if(!silent) hideResult();
+  saveState();
+}
+
+function onLevelChange(silent){
+  const level = val("level");
+  $("valueInputs").style.display = (level === "simple") ? "none" : "block";
+  $("handicapBox").style.display = (level === "simple") ? "none" : "block";
+  $("totalBox").style.display = (level === "simple") ? "none" : "block";
+
+  const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
+  updateMyProbHints(cfg, level);
+
+  applyTemplate();
+
+  if(!silent) hideResult();
+  saveState();
+}
+
+function updateMyProbHints(cfg, level){
+  const is3 = cfg.main === "3way";
+  if(level === "simple"){
+    $("myProbLabel").innerText = "내 예상 확률(선택) %";
+    $("myProbHint").innerText = "";
+    return;
+  }
+  if(is3){
+    $("myProbLabel").innerText = `내 예상 확률(${cfg.labels.H}/${cfg.labels.D}/${cfg.labels.A}) % (선택)`;
+    $("myProbHint").innerText = `쉼표로 3개 입력 (예: 45,28,27) · 합 100 권장`;
+  }else{
+    $("myProbLabel").innerText = `내 예상 확률(${cfg.labels.A}) % (선택)`;
+    $("myProbHint").innerText = `예: 55 (단일 값) · EV/권장비중 계산용`;
+  }
+}
+
+function applyTemplate(){
+  const level = val("level");
+  const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
+  if(level === "simple") return;
+  setCollapsed("handicapBody", !cfg.template.openHandicap);
+  setCollapsed("totalBody", !cfg.template.openTotal);
+}
+
+function toggleBox(id){
+  const now = isCollapsed(id);
+  setCollapsed(id, !now);
+  saveState();
+}
+function isCollapsed(id){
+  const el = $(id);
+  return el ? el.style.display === "none" : false;
+}
+function setCollapsed(id, collapsed){
+  const el = $(id);
+  if(!el) return;
+  el.style.display = collapsed ? "none" : "block";
+}
+
+/* 계산 로직 */
+function parseOdds(v){
+  if(!v) return null;
+  const x = Number(String(v).replace(/,/g,".").trim());
+  if(!isFinite(x) || x<=1) return null;
+  return x;
+}
+function parsePct(v){
+  if(v==null || v==="") return null;
+  const x = Number(String(v).replace(/,/g,".").trim());
+  if(!isFinite(x) || x<0 || x>100) return null;
+  return x/100;
+}
+function parsePctList(str){
+  if(!str) return null;
+  const parts = str.split(",").map(s=>s.trim()).filter(Boolean);
+  if(parts.length !== 3) return null;
+  const p1=parsePct(parts[0]), p2=parsePct(parts[1]), p3=parsePct(parts[2]);
+  if(p1==null || p2==null || p3==null) return null;
+  return [p1,p2,p3];
+}
+function parseMoney(v){
+  if(!v) return null;
+  const x = Number(String(v).replace(/[^\d]/g,""));
+  if(!isFinite(x) || x<=0) return null;
+  return x;
+}
+function pct(x){ return (x*100).toFixed(1) + "%"; }
+function money(x){
+  const n = Math.round(x);
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+}
+function expectedValue(stake, p, odds){
+  return stake * (p*(odds-1) - (1-p));
+}
+function quarterKelly(p, odds){
+  const b = odds - 1;
+  const f = (p*odds - 1) / b;
+  const q = f/4;
+  return Math.max(0, Math.min(0.25, q));
+}
+function marginText(over){
+  if(over>1.10) return "마진이 큰 편";
+  if(over>1.06) return "일반 수준(상단)";
+  if(over>1.03) return "일반 수준";
+  return "마진이 낮은 편";
+}
+function levelLabel(level){
+  return level==="simple" ? "간단" : (level==="mid" ? "중급" : "고급");
+}
+
+function calc(){
+  const sport = val("sport");
+  const level = val("level");
+  const cfg = SPORT_CFG[sport] || SPORT_CFG.soccer;
+  const is3 = cfg.main === "3way";
+
+  const rows = [];
+  const copyLines = [];
+  copyLines.push(`[88 커뮤니티] ${cfg.name} 분석 (${levelLabel(level)})`);
+
+  const league = val("league").trim();
+  const teams  = val("teams").trim();
+  if(league) copyLines.push(`리그: ${league}`);
+  if(teams)  copyLines.push(`경기: ${teams}`);
+
+  if(!is3){
+    const a = parseOdds(val("main2OddsA"));
+    const b = parseOdds(val("main2OddsB"));
+    if(a==null || b==null) return showError("메인 배당을 1.01 이상 숫자로 입력해줘.");
+
+    const ia=1/a, ib=1/b;
+    const over = ia+ib;
+    const pa=ia/over, pb=ib/over;
+
+    rows.push([`마진 제거 확률(${cfg.labels.A})`, pct(pa)]);
+    rows.push([`마진 제거 확률(${cfg.labels.B})`, pct(pb)]);
+    rows.push(["오버라운드(마진 추정)", over.toFixed(4)]);
+    rows.push(["해석", marginText(over)]);
+
+    copyLines.push(`메인 배당(${cfg.labels.A}/${cfg.labels.B}): ${a} / ${b}`);
+
+    if(level !== "simple"){
+      const myP = parsePct(val("myProb"));
+      const stake = parseMoney(val("stake"));
+
+      if(myP!=null){
+        const evPer1 = (myP*(a-1) - (1-myP));
+        rows.push([`내 예상 확률(${cfg.labels.A})`, pct(myP)]);
+        rows.push(["EV(1원당)", (evPer1*100).toFixed(2) + "%"]);
+        copyLines.push(`내 예상 확률(${cfg.labels.A}): ${(myP*100).toFixed(1)}%`);
+        if(stake!=null){
+          rows.push(["기대값(EV)", money(expectedValue(stake, myP, a))]);
+          copyLines.push(`베팅금: ${money(stake)}`);
+        }
+        if(level === "adv"){
+          const k = quarterKelly(myP, a);
+          rows.push(["권장 비중(보수적 1/4 Kelly)", (k*100).toFixed(1) + "%"]);
+          rows.push(["판단", evPer1>0 ? "밸류(+EV) 가능성" : "밸류(-EV) 가능성"]);
+        }else{
+          rows.push(["판단", evPer1>0 ? "밸류(+EV) 가능성" : "밸류(-EV) 가능성"]);
+        }
+      }else{
+        rows.push(["Tip", "중급/고급에서는 '내 예상 확률'을 입력하면 EV가 계산됩니다. (선택사항)"]);
+      }
+    }
+  }else{
+    const h = parseOdds(val("main3OddsH"));
+    const d = parseOdds(val("main3OddsD"));
+    const a = parseOdds(val("main3OddsA"));
+    if(h==null || d==null || a==null) return showError("메인 배당(홈/무/원정)을 1.01 이상 숫자로 입력해줘.");
+
+    const ih=1/h, id=1/d, ia=1/a;
+    const over = ih+id+ia;
+    const ph=ih/over, pd=id/over, pa=ia/over;
+
+    rows.push([`마진 제거 확률(${cfg.labels.H})`, pct(ph)]);
+    rows.push([`마진 제거 확률(${cfg.labels.D})`, pct(pd)]);
+    rows.push([`마진 제거 확률(${cfg.labels.A})`, pct(pa)]);
+    rows.push(["오버라운드(마진 추정)", over.toFixed(4)]);
+    rows.push(["해석", marginText(over)]);
+
+    copyLines.push(`메인 배당(${cfg.labels.H}/${cfg.labels.D}/${cfg.labels.A}): ${h} / ${d} / ${a}`);
+
+    if(level !== "simple"){
+      const my = parsePctList(val("myProb"));
+      const stake = parseMoney(val("stake"));
+
+      if(my){
+        const evH = (my[0]*(h-1) - (1-my[0]));
+        const evD = (my[1]*(d-1) - (1-my[1]));
+        const evA = (my[2]*(a-1) - (1-my[2]));
+
+        rows.push([`내 예상 확률(${cfg.labels.H}/${cfg.labels.D}/${cfg.labels.A})`,
+          `${pct(my[0])} / ${pct(my[1])} / ${pct(my[2])}`]);
+
+        rows.push(["EV(홈/무/원정, 1원당)", `${(evH*100).toFixed(2)}% / ${(evD*100).toFixed(2)}% / ${(evA*100).toFixed(2)}%`]);
+
+        const best = [
+          {k:cfg.labels.H, ev:evH, odds:h, p:my[0]},
+          {k:cfg.labels.D, ev:evD, odds:d, p:my[1]},
+          {k:cfg.labels.A, ev:evA, odds:a, p:my[2]}
+        ].sort((x,y)=>y.ev-x.ev)[0];
+
+        rows.push(["가장 높은 EV", `${best.k} (${(best.ev*100).toFixed(2)}%)`]);
+        if(stake!=null) rows.push(["기대값(EV, 최고 EV 기준)", money(expectedValue(stake, best.p, best.odds))]);
+
+        if(level === "adv"){
+          rows.push(["권장 비중(보수적 1/4 Kelly, 최고 EV 기준)", (quarterKelly(best.p, best.odds)*100).toFixed(1) + "%"]);
+          rows.push(["판단", best.ev>0 ? "밸류(+EV) 가능성" : "밸류(-EV) 가능성"]);
+        }else{
+          rows.push(["판단", best.ev>0 ? "밸류(+EV) 가능성" : "밸류(-EV) 가능성"]);
+        }
+
+        copyLines.push(`내 예상 확률: ${(my[0]*100).toFixed(1)}% / ${(my[1]*100).toFixed(1)}% / ${(my[2]*100).toFixed(1)}%`);
+        if(stake!=null) copyLines.push(`베팅금: ${money(stake)}`);
+      }else{
+        rows.push(["Tip", "중급/고급에서는 내 예상 확률(예: 45,28,27)을 입력하면 EV가 계산됩니다. (선택사항)"]);
+      }
+    }
+  }
+
+  if(level !== "simple"){
+    const tLine = val("totalLine").trim();
+    const oOdds = parseOdds(val("overOdds"));
+    const uOdds = parseOdds(val("underOdds"));
+    const myOver = parsePct(val("myOverProb"));
+
+    if(tLine && oOdds!=null && uOdds!=null){
+      const io=1/oOdds, iu=1/uOdds;
+      const over = io+iu;
+      const pOver = io/over, pUnder = iu/over;
+
+      rows.push([`오버/언더(기준 ${tLine}) 마진 제거 확률`, `오버 ${pct(pOver)} / 언더 ${pct(pUnder)}`]);
+      rows.push([`오버/언더 오버라운드`, over.toFixed(4)]);
+      copyLines.push(`오버언더 ${tLine}: 오버 ${oOdds} / 언더 ${uOdds}`);
+
+      if(level === "adv" && myOver!=null){
+        const stake = parseMoney(val("stake")) || null;
+        const evPer1 = (myOver*(oOdds-1) - (1-myOver));
+        rows.push([`내 예상 확률(오버)`, pct(myOver)]);
+        rows.push([`오버 EV(1원당)`, (evPer1*100).toFixed(2) + "%"]);
+        if(stake!=null) rows.push([`오버 기대값(EV)`, money(expectedValue(stake, myOver, oOdds))]);
+        rows.push([`오버 권장 비중(1/4 Kelly)`, (quarterKelly(myOver, oOdds)*100).toFixed(1) + "%"]);
+        rows.push([`오버 판단`, evPer1>0 ? "밸류(+EV) 가능성" : "밸류(-EV) 가능성"]);
+      }
+    }
+  }
+
+  renderResult(cfg.name, level, rows, copyLines);
+  saveState();
+}
+
+function renderResult(sportName, level, rows, copyLines){
+  const box = $("result");
+  const html = rows.map(([k,v])=>{
+    const cls = (k.includes("판단")) ? (String(v).includes("-EV") ? "warn":"good") : "";
+    return `<div class="kv"><div class="k">${k}</div><div class="v ${cls}">${v}</div></div>`;
+  }).join("");
+
+  box.innerHTML = `
+    <div style="font-weight:900;margin-bottom:6px;">${sportName} · ${levelLabel(level)} 결과</div>
+    ${html}
+    <hr class="sep">
+    <div style="font-size:12px;color:#9a9a9a;line-height:1.5;">
+      ※ 마진 제거 확률은 배당의 역수를 정규화해 합이 100%가 되도록 만든 값입니다.<br>
+      ※ EV/비중은 사용자가 입력한 “내 예상 확률” 기반의 참고 지표이며 승률을 보장하지 않습니다.
+    </div>
+  `;
+  box.style.display = "block";
+
+  copyLines.push(`주소: https://88st.cloud/analysis.html`);
+  LAST_TEXT = copyLines.join("\n") + "\n\n" + rows.map(r=>`${r[0]}: ${r[1]}`).join("\n");
+}
+
+function showError(msg){
+  const box = $("result");
+  box.innerHTML = `<div class="kv"><div class="k">안내</div><div class="v warn">${msg}</div></div>`;
+  box.style.display = "block";
+  LAST_TEXT = `[88 커뮤니티] 안내\n${msg}\n주소: https://88st.cloud/analysis.html`;
+}
+function hideResult(){
+  const box = $("result");
+  box.style.display = "none";
+  box.innerHTML = "";
+  LAST_TEXT = "";
+}
+function resetAll(){
+  [
+    "league","teams",
+    "main2OddsA","main2OddsB","main3OddsH","main3OddsD","main3OddsA",
+    "myProb","stake",
+    "handicapLine","handicapOdds",
+    "totalLine","overOdds","underOdds","myOverProb"
+  ].forEach(id=>{ const el=$(id); if(el) el.value=""; });
+
+  hideResult();
+  localStorage.removeItem(LS_KEY);
+}
+
+async function copyResult(){
+  if(!LAST_TEXT) return showError("먼저 '계산하기'를 눌러 결과를 만든 뒤 복사할 수 있어요.");
+  try{
+    await navigator.clipboard.writeText(LAST_TEXT);
+    toast("결과가 복사되었습니다.");
+  }catch(e){
+    prompt("아래 내용을 복사하세요:", LAST_TEXT);
+  }
+}
+async function shareResult(){
+  if(!LAST_TEXT) return showError("먼저 '계산하기'를 눌러 결과를 만든 뒤 공유할 수 있어요.");
+  try{
+    if(navigator.share){
+      await navigator.share({ title:"88 커뮤니티 분석 결과", text: LAST_TEXT });
+    }else{
+      await copyResult();
+    }
+  }catch(e){}
+}
+
+/* 토스트 */
+let toastTimer=null;
+function toast(msg){
+  let el=document.getElementById("toast88");
+  if(!el){
+    el=document.createElement("div");
+    el.id="toast88";
+    el.style.cssText="position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:10px 12px;border-radius:12px;font-size:12px;z-index:3000;border:1px solid rgba(255,255,255,.08)";
+    document.body.appendChild(el);
+  }
+  el.textContent=msg;
+  el.style.opacity="1";
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>{ el.style.opacity="0"; }, 1400);
+}
+
+/* 초기 구동 */
+function boot(){
+  // 상단 기능 초기화
+  refreshChecklist();
+  renderMarginHistory();
+  onMarginTypeChange();
+
+  loadState();
+  if(!localStorage.getItem(LS_KEY)){
+    setVal("sport","soccer");
+    setVal("level","simple");
+  }
+  onSportChange(true);
+  onLevelChange(true);
+}
+boot();
+</script>
+</body>
+</html>
