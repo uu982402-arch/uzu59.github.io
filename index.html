@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -486,7 +486,15 @@ const CARD_DATA = {
     notice:"가입코드 미입력 시 혜택 적용 불가" },
   card6:{ title:"CHOY BET", code:"TAN", link:"https://cy-40.com", telegram:"DY0302",
     benefit:"신규 30% / 매충 10% / 페이백 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" }
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+
+  /* ✅ 추가 광고 카드 2개 (card7, card8) */
+  card7:{ title:"AD SITE 7", code:"", link:"https://example7.com", telegram:"UZU59",
+    benefit:"광고/제휴 안내 문구를 여기에 작성",
+    notice:"이 카드는 광고/제휴용입니다. 이용 전 조건을 확인하세요." },
+  card8:{ title:"AD SITE 8", code:"", link:"https://example8.com", telegram:"UZU59",
+    benefit:"광고/제휴 안내 문구를 여기에 작성",
+    notice:"이 카드는 광고/제휴용입니다. 이용 전 조건을 확인하세요." }
 };
 
 /* ===== 인사이트 (종목별) ===== */
@@ -575,8 +583,6 @@ const INSIGHTS_BY_SPORT = {
 </div>
 
 <div class="section-wrap">
-
-  <!-- ✅ 공지/이벤트 (선택) : 배너가 있으니 섹션은 굳이 안 넣어도 됨 -->
 
   <!-- 오늘의 인사이트 -->
   <div class="section">
@@ -745,6 +751,26 @@ const INSIGHTS_BY_SPORT = {
       <div class="site">CHOY BET</div>
       <div class="desc"></div>
       <div class="code">88 인증 놀이터</div>
+    </div>
+  </div>
+
+  <!-- ✅ 추가 카드 7 -->
+  <div class="card" data-priority="normal" data-card="card8" onclick="openById(this)">
+    <div class="img-box"><img src="img/img8.jpg" alt="AD SITE 8"></div>
+    <div class="content">
+      <div class="site">광고/제휴</div>
+      <div class="desc"></div>
+      <div class="code">광고/제휴</div>
+    </div>
+  </div>
+
+  <!-- ✅ 추가 카드 8 -->
+  <div class="card" data-priority="normal" data-card="card8" onclick="openById(this)">
+    <div class="img-box"><img src="img/img8.jpg" alt="AD SITE 8"></div>
+    <div class="content">
+      <div class="site">광고/제휴</div>
+      <div class="desc"></div>
+      <div class="code">광고/제휴</div>
     </div>
   </div>
 
@@ -923,7 +949,10 @@ function closeCard(){
   document.getElementById("cardPopup").style.display = "none";
 }
 function copyCode(){
-  if(!currentCode) return;
+  if(!currentCode){
+    alert("복사할 가입코드가 없습니다.");
+    return;
+  }
   navigator.clipboard.writeText(currentCode);
   alert("가입코드가 복사되었습니다");
 }
@@ -942,5 +971,3 @@ function copyCode(){
 
 </body>
 </html>
-
-
