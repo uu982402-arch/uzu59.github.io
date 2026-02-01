@@ -45,24 +45,83 @@ body{
   color:#fff;
 }
 
+/* ===== 로딩 화면 ===== */
+#loader{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  background:
+    radial-gradient(900px 500px at 50% 30%, rgba(212,175,55,.18), transparent 55%),
+    linear-gradient(180deg,#07070a,#0b0b0b);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:14px;
+}
+#loader .logoWrap{
+  width:min(220px, 60vw);
+  aspect-ratio:1/1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  filter: drop-shadow(0 0 24px rgba(212,175,55,.22));
+}
+#loader img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+#loader .text{
+  font-weight:900;
+  letter-spacing:.6px;
+  color:#e9e9e9;
+  opacity:.85;
+  font-size:13px;
+}
+@keyframes pulse{
+  0%{ transform:scale(1); opacity:.85; }
+  50%{ transform:scale(1.03); opacity:1; }
+  100%{ transform:scale(1); opacity:.85; }
+}
+#loader.hide{
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .35s ease;
+}
+
 /* ===== 상단 ===== */
 .header{
   text-align:center;
   padding:18px 0 8px;
 }
-.header .logo{
-  font-size:38px;
-  font-weight:900;
-  letter-spacing:2px;
-  background:linear-gradient(135deg,var(--gold),var(--gold2),var(--gold));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  text-shadow:0 0 18px rgba(212,175,55,.25);
+
+/* ✅ 로고 이미지를 클릭하면 홈 이동 */
+.header .logoLink{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
 }
+
+/* 상단 로고 이미지(반응형) */
+.header .logoImg{
+  width:min(260px, 70vw);
+  height:auto;
+  display:block;
+  filter: drop-shadow(0 0 18px rgba(212,175,55,.20));
+  animation: logoFloat 3.2s ease-in-out infinite;
+}
+@keyframes logoFloat{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-2px); }
+}
+
 .header .sub{
   font-size:12px;
   color:#9a9a9a;
+  margin-top:6px;
 }
 
 /* ===== 콘텐츠 섹션 ===== */
@@ -123,7 +182,7 @@ body{
   background:linear-gradient(135deg,#1da1f2,#78d6ff);
 }
 
-/* ===== (빨간영역) 보증업체 안내 UI ===== */
+/* ===== 보증업체 안내 UI ===== */
 .vendor-header{
   text-align:center;
   margin:12px 0 10px;
@@ -169,12 +228,10 @@ body{
   cursor:pointer;
   backdrop-filter: blur(10px);
 }
-
-/* 이미지 전시 느낌 + 안 짤리게(contain) */
 .img-box{
   position:relative;
   width:100%;
-  aspect-ratio: 4 / 5; /* 세로 광고 이미지에 보기 좋게 */
+  aspect-ratio: 4 / 5;
   background:#000;
   overflow:hidden;
   display:flex;
@@ -202,7 +259,7 @@ body{
   z-index:1;
   width:100%;
   height:100%;
-  object-fit:contain; /* 핵심: 모바일에서도 안 짤림 */
+  object-fit:contain;
 }
 
 .content{ padding:10px 10px 12px; }
@@ -273,23 +330,18 @@ const CARD_DATA = {
   card1:{ title:"B WIN", code:"AS88", link:"https://bwk999.com", telegram:"UZU59",
     benefit:"고액전용 USDT 무기명가입 수수료지원 / 모든게임 입금플러스",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-
   card2:{ title:"CAPS", code:"RUST", link:"https://caps-22.com", telegram:"UZU59",
     benefit:"고액전용 미겜 첫충 5% / 페이백 5% / 출석 30만원",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-
   card3:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com", telegram:"UZU59",
     benefit:"스포츠 첫 10% / 미겜 첫 5% / 페이백 5%",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-
   card4:{ title:"VEGAS", code:"6789", link:"https://las403.com", telegram:"UZU59",
     benefit:"스포츠·미겜 입플 최대 30% / 카지노 입플",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-
   card5:{ title:"LULA BET", code:"ZZ99", link:"https://lula.ws", telegram:"PSC991",
     benefit:"원화·USDT 무기명가입 / 페이백 10%",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-
   card6:{ title:"CHOY BET", code:"TAN", link:"https://cy-40.com", telegram:"DY0302",
     benefit:"신규 30% / 매충 10% / 페이백 10%",
     notice:"가입코드 미입력 시 혜택 적용 불가" }
@@ -299,14 +351,26 @@ const CARD_DATA = {
 
 <body>
 
+<!-- ✅ 로딩 화면 -->
+<div id="loader">
+  <div class="logoWrap">
+    <!-- 로딩용 로고도 같은 이미지 사용 -->
+    <img src="img/logo.png" alt="88 로고 로딩">
+  </div>
+  <div class="text">Loading...</div>
+</div>
+
 <!-- SEO용 숨김 H1 -->
 <h1 style="position:absolute;left:-9999px;">
 스포츠 배당 분석기와 보증 업체 검증 추천 | 88 팔팔커뮤니티
 </h1>
 
 <div class="header">
-  <div class="logo">88</div>
-  <div class="sub">스포츠 88 분석, 보증 놀이터 목록 </div>
+  <!-- ✅ 로고 클릭 시 홈 이동 -->
+  <a class="logoLink" href="/" aria-label="홈으로 이동">
+    <img class="logoImg" src="img/logo.png" alt="88 커뮤니티 로고">
+  </a>
+  <div class="sub">커뮤니티형 보증 업체 안내</div>
 </div>
 
 <div class="section-wrap">
@@ -354,21 +418,21 @@ const CARD_DATA = {
 
 </div>
 
-<!-- ✅ (빨간영역) 88 보증업체 목록 안내 UI -->
+<!-- 인증업체 목록 안내 -->
 <div class="vendor-header">
-  <h2>88 보증업체 목록</h2>
+  <h2>88 인증 놀이터 목록</h2>
   <p>검증된 메이저 사이트만 선별 안내합니다</p>
 </div>
 
-<!-- ✅ 카드 그리드 -->
+<!-- 카드 그리드 -->
 <div class="vendor-grid" id="vendorGrid">
 
   <div class="card" data-priority="high" data-card="card1" onclick="openById(this)">
     <div class="img-box"><img src="img/img1.jpg" alt="B WIN"></div>
     <div class="content">
       <div class="site">B WIN</div>
-      <div class="desc">*고액전용* USDT 무기명가입 수수료지원 / 모든게임 입금플러스</div>
-      <div class="code">가입코드 : AS88</div>
+      <div class="desc"> </div>
+      <div class="code">88 인증 놀이터 </div>
     </div>
   </div>
 
@@ -376,8 +440,8 @@ const CARD_DATA = {
     <div class="img-box"><img src="img/img2.jpg" alt="CAPS"></div>
     <div class="content">
       <div class="site">CAPS</div>
-      <div class="desc">미겜 첫충 5% · 페이백 5% · 출석 30만원</div>
-      <div class="code">가입코드 : RUST</div>
+      <div class="desc"> </div>
+      <div class="code">88 인증 놀이터</div>
     </div>
   </div>
 
@@ -385,8 +449,8 @@ const CARD_DATA = {
     <div class="img-box"><img src="img/img3.jpg" alt="BETZY"></div>
     <div class="content">
       <div class="site">BETZY</div>
-      <div class="desc">스포츠 첫 10% · 미겜 첫 5% · 페이백 5%</div>
-      <div class="code">가입코드 : BANGU</div>
+      <div class="desc"> </div>
+      <div class="code">88 인증 놀이터</div>
     </div>
   </div>
 
@@ -394,8 +458,8 @@ const CARD_DATA = {
     <div class="img-box"><img src="img/img4.jpg" alt="VEGAS"></div>
     <div class="content">
       <div class="site">VEGAS</div>
-      <div class="desc">스포츠/미겜/카지노 입금플러스</div>
-      <div class="code">가입코드 : 6789</div>
+      <div class="desc"> </div>
+      <div class="code">88 인증 놀이터</div>
     </div>
   </div>
 
@@ -403,8 +467,8 @@ const CARD_DATA = {
     <div class="img-box"><img src="img/img5.jpg" alt="LULA BET"></div>
     <div class="content">
       <div class="site">LULA BET</div>
-      <div class="desc">원화·USDT 무기명가입 · 페이백 10%</div>
-      <div class="code">가입코드 : ZZ99</div>
+      <div class="desc"> </div>
+      <div class="code">88 인증 놀이터</div>
     </div>
   </div>
 
@@ -412,8 +476,8 @@ const CARD_DATA = {
     <div class="img-box"><img src="img/img6.jpg" alt="CHOY BET"></div>
     <div class="content">
       <div class="site">CHOY BET</div>
-      <div class="desc">신규 30% · 매충 10% · 페이백 10%</div>
-      <div class="code">가입코드 : TAN</div>
+      <div class="desc"> </div>
+      <div class="code">88 인증 놀이터</div>
     </div>
   </div>
 
@@ -421,8 +485,8 @@ const CARD_DATA = {
 
 <!-- 방문자 -->
 <div id="visitorBox">
-  전체 방문자 : <b id="total">-</b> /
-  금일 방문자 : <b id="today">-</b>
+  전체 방문자 : <b id="total">집계중…</b> /
+  금일 방문자 : <b id="today">집계중…</b>
 </div>
 
 <!-- 카드 팝업 -->
@@ -445,6 +509,16 @@ const CARD_DATA = {
 </div>
 
 <script>
+/* ✅ 로딩 화면 닫기(최대 2.5초 안전장치 포함) */
+function hideLoader(){
+  const l = document.getElementById("loader");
+  if(!l) return;
+  l.classList.add("hide");
+  setTimeout(()=> l.remove(), 450);
+}
+window.addEventListener("load", hideLoader);
+setTimeout(hideLoader, 2500);
+
 /* 오늘의 인사이트 */
 const INS=[
   "배당이 급변하면 정보 반영 구간일 수 있습니다.",
@@ -499,17 +573,36 @@ function copyCode(){
   alert("가입코드가 복사되었습니다");
 }
 
-/* 방문자 CountAPI (전체/금일) */
-fetch("https://api.countapi.xyz/hit/88st-cloud/total")
-  .then(r=>r.json())
-  .then(d=> document.getElementById("total").innerText = d.value )
-  .catch(()=> document.getElementById("total").innerText = "-" );
+/* 방문자 CountAPI (전체/금일) - ✅ 안 뜨는 문제 대비 강화 */
+const NS = "88st-cloud";
 
-const t = new Date().toISOString().slice(0,10);
-fetch("https://api.countapi.xyz/hit/88st-cloud/visit-"+t)
-  .then(r=>r.json())
-  .then(d=> document.getElementById("today").innerText = d.value )
-  .catch(()=> document.getElementById("today").innerText = "-" );
+async function hitCount(key){
+  const url = `https://api.countapi.xyz/hit/${encodeURIComponent(NS)}/${encodeURIComponent(key)}`;
+  const res = await fetch(url, { cache: "no-store" });
+  if(!res.ok) throw new Error("CountAPI HTTP " + res.status);
+  const data = await res.json();
+  if(typeof data.value !== "number") throw new Error("CountAPI invalid response");
+  return data.value;
+}
+
+(async ()=>{
+  try{
+    const total = await hitCount("total");
+    document.getElementById("total").innerText = total;
+  }catch(e){
+    console.log("CountAPI total error:", e);
+    document.getElementById("total").innerText = "-";
+  }
+
+  try{
+    const todayKey = "visit-" + new Date().toISOString().slice(0,10);
+    const today = await hitCount(todayKey);
+    document.getElementById("today").innerText = today;
+  }catch(e){
+    console.log("CountAPI today error:", e);
+    document.getElementById("today").innerText = "-";
+  }
+})();
 
 /* 카드 랜덤 정렬: high(1~3) 우선 상단 */
 (()=>{
