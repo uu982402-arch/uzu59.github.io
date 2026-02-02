@@ -481,15 +481,13 @@ const CARD_DATA = {
     benefit:"신규 30% / 매충 10% / 페이백 10%",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
 
-  /* ✅ 광고 모집 카드 */
-  card7:{ title:"광고/제휴 모집", code:"", link:"", telegram:"UZU59",
-    benefit:"88 커뮤니티에 광고/제휴를 원하시면 문의 주세요.",
-    notice:"광고 문의는 텔레그램 @UZU59 로만 진행합니다." },
+    card7:{ title:"제휴/광고 모집", code:"문의", link:"https://t.me/UZU59", telegram:"UZU59",
+    benefit:"분석기 사용자 대상 · 실사용 검증 가능한 업체만 제한 모집",
+    notice:"문의 전 '업체명/운영기간/정산방식/혜택조건'을 함께 보내주세요" },
+  card8:{ title:"제휴/광고 모집", code:"문의", link:"https://t.me/UZU59", telegram:"UZU59",
+    benefit:"단기 이벤트가 아닌 출금 안정성/운영 이력 중심으로 검토",
+    notice:"검증 통과 업체만 '88 인증 놀이터'에 등록됩니다" }
 
-  card8:{ title:"광고 자리 오픈", code:"", link:"", telegram:"UZU59",
-    benefit:"배너/카드 광고 자리 오픈 · 합리적 조건",
-    notice:"사칭 주의: 공식 관리자 @UZU59 단 하나" }
-};
 
 /* ===== 인사이트 (종목별) ===== */
 const INSIGHTS_BY_SPORT = {
@@ -684,11 +682,18 @@ const INSIGHTS_BY_SPORT = {
 
 </div>
 
-<!-- 인증업체 목록 안내 -->
-<div class="vendor-header">
+<!-- ✅ 인증업체 목록 안내 -->
+<div class="vendor-header" id="vendors">
   <h2>88 인증 놀이터</h2>
   <p>검증된 메이저 사이트만 선별 안내합니다</p>
+
+  <div style="margin-top:10px; font-size:13px; color:#cfcfcf; line-height:1.55;">
+    🧠 <b style="color:#f5e27a;">분석은 도구, 결과는 환경에서 갈립니다.</b><br>
+    지연 없는 배당 반영 · 출금 이슈 없는 곳 · 고액 유저 기준 검증<br>
+    👉 <b>아래 “88 인증 놀이터”에서 이용하세요.</b>
+  </div>
 </div>
+
 
 <!-- 카드 그리드 (✅ 8개) -->
 <div class="vendor-grid" id="vendorGrid">
@@ -723,17 +728,30 @@ const INSIGHTS_BY_SPORT = {
     <div class="content"><div class="site">CHOY BET</div><div class="desc"></div><div class="code">88 인증 놀이터</div></div>
   </div>
 
-  <!-- ✅ 광고 모집 카드 7 -->
+    <!-- ✅ 광고/제휴 모집 카드 7 -->
   <div class="card" data-priority="normal" data-card="card7" onclick="openById(this)">
-    <div class="img-box"><img src="img/ad1.jpg" alt="광고 모집"></div>
-    <div class="content"><div class="site">광고/제휴 모집</div><div class="desc">88 커뮤니티 광고 자리 오픈</div><div class="code">문의: @UZU59</div></div>
+    <div class="img-box">
+      <img src="img/ad.jpg" alt="제휴/광고 모집" onerror="this.style.display='none'">
+    </div>
+    <div class="content">
+      <div class="site">📢 제휴/광고 모집</div>
+      <div class="desc">분석기 사용자 대상 · 검증 가능한 업체만 제한 모집</div>
+      <div class="code">문의 : @UZU59</div>
+    </div>
   </div>
 
-  <!-- ✅ 광고 모집 카드 8 -->
+  <!-- ✅ 광고/제휴 모집 카드 8 -->
   <div class="card" data-priority="normal" data-card="card8" onclick="openById(this)">
-    <div class="img-box"><img src="img/ad2.jpg" alt="광고 자리"></div>
-    <div class="content"><div class="site">광고 자리 오픈</div><div class="desc">배너/카드 광고 가능</div><div class="code">문의: @UZU59</div></div>
+    <div class="img-box">
+      <img src="img/ad.jpg" alt="제휴/광고 모집" onerror="this.style.display='none'">
+    </div>
+    <div class="content">
+      <div class="site">📢 제휴/광고 모집</div>
+      <div class="desc">출금 안정성/운영 이력 중심으로 검토</div>
+      <div class="code">문의 : @UZU59</div>
+    </div>
   </div>
+
 
 </div>
 
@@ -952,5 +970,6 @@ function copyCode(){
 
 </body>
 </html>
+
 
 
