@@ -1368,7 +1368,27 @@ function renderPopularAndRecent(){
     popWrap.style.display="none";
   }
 
-  
+  // 최근 본
+  const recent = getRecent().filter(id=>CARD_DATA[id]);
+  if(recent.length){
+    recWrap.style.display="block";
+    recRow.innerHTML = recent.slice(0,6).map(id=>{
+      const d=CARD_DATA[id];
+      const img=cardImgById(id);
+      return `
+        <div class="mini-card" onclick="openCard('${id}')">
+          <div class="mini-thumb">${badgeHTML(d)}<img src="${img}" alt="${d.title||""}"></div>
+          <div class="mini-body">
+            <div class="mini-name">${d.title||""}</div>
+            <div class="mini-sub">${d.tag==="ad" ? "광고/제휴" : (d.benefit||"")}</div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }else{
+    recWrap.style.display="none";
+  }
+}
 
 /* ✅ +EV → 추천 필터 자동 ON (오늘 날짜만) */
 function maybeAutoRecFilter(){
