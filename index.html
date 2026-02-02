@@ -1343,9 +1343,9 @@ function renderPopularAndRecent(){
     .sort((a,b)=>b.c-a.c)
     .slice(0,3);
 
-  // 클릭 데이터가 아직 없으면 기본 추천(high) 2개를 노출
+  // 클릭 데이터가 아직 없으면 기본 추천(high) 3개를 노출
   if(!ranked.length){
-    const fallback = ids.filter(id=>CARD_DATA[id].priority==="high").slice(0,2);
+    const fallback = ids.filter(id=>CARD_DATA[id].priority==="high").slice(0,3);
     fallback.forEach(id=> ranked.push({id, c:0}));
   }
 
