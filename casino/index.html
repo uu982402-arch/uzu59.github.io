@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>온라인 카지노 입플·페이백·보너스 안내 | 88 커뮤니티</title>
+<meta name="description" content="온라인 카지노 유저를 위한 입플/페이백/보너스 조건, 롤링·제한·유의사항과 검증 포인트를 안내합니다. 고액 유저 기준 체크리스트 제공." />
+<link rel="canonical" href="https://88st.cloud/casino/" />
+<meta name="robots" content="index,follow" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="88 커뮤니티" />
+<meta property="og:title" content="온라인 카지노 입플·페이백·보너스 | 88 커뮤니티" />
+<meta property="og:description" content="조건/주의사항/검증 포인트를 한 번에 정리했습니다." />
+<meta property="og:url" content="https://88st.cloud/casino/" />
+
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+<style>
+*{box-sizing:border-box}
+:root{
+  --bg:#0b0b0b; --panel:rgba(18,18,18,.88); --bd:rgba(255,255,255,.08);
+  --gold:#d4af37; --gold2:#f5e27a; --muted:#cfcfcf; --ok:#b7ffcf; --bad:#ffb3b3;
+}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;color:#fff;
+  background:
+    radial-gradient(1200px 500px at 50% -10%, rgba(212,175,55,.14), transparent 55%),
+    radial-gradient(900px 500px at 10% 20%, rgba(90,160,255,.08), transparent 60%),
+    linear-gradient(180deg, #07070a, var(--bg));}
+.notice-bar{position:sticky;top:0;z-index:1600;background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#000;font-weight:900;font-size:13px;padding:10px 12px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.35);}
+.notice-bar a{color:#000;text-decoration:none}
+#loader{position:fixed;inset:0;z-index:2000;background:
+  radial-gradient(900px 500px at 50% 30%, rgba(212,175,55,.18), transparent 55%),
+  linear-gradient(180deg,#07070a,#0b0b0b);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
+#loader .logoWrap{width:min(220px,60vw);aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+  filter: drop-shadow(0 0 24px rgba(212,175,55,.22));}
+#loader img{width:100%;height:100%;object-fit:contain;animation:pulse 1.4s ease-in-out infinite;}
+#loader .text{font-weight:900;letter-spacing:.6px;color:#e9e9e9;opacity:.85;font-size:13px;}
+@keyframes pulse{0%{transform:scale(1);opacity:.85}50%{transform:scale(1.03);opacity:1}100%{transform:scale(1);opacity:.85}}
+#loader.hide{opacity:0;pointer-events:none;transition:opacity .35s ease;}
+.scam-popup{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:3000;padding:18px;}
+.scam-box{background:rgba(17,17,17,.95);border:1px solid var(--bd);border-radius:18px;padding:22px;width:100%;max-width:380px;text-align:center;
+  box-shadow:0 18px 60px rgba(0,0,0,.75);backdrop-filter: blur(10px);}
+.scam-box h3{color:#ff6b6b;margin:0 0 10px;font-weight:900}
+.scam-box p{font-size:13px;color:#ddd;line-height:1.55;margin:0}
+.scam-box .btn{margin-top:12px;padding:12px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;font-weight:900;cursor:pointer;user-select:none;}
+.header{text-align:center;padding:18px 0 10px;}
+.nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:0 14px 12px;}
+.nav a{color:#ddd;text-decoration:none;font-weight:900;font-size:12px;border:1px solid var(--bd);background:rgba(0,0,0,.25);padding:8px 10px;border-radius:999px;}
+.nav a.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;border-color:transparent;}
+.logoLink{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;}
+.logoImg{width:min(220px,62vw);height:auto;display:block;padding:10px;border-radius:18px;background:radial-gradient(120px 60px at 50% 40%, rgba(212,175,55,.15), transparent 70%);
+  filter: drop-shadow(0 0 10px rgba(212,175,55,.25)) drop-shadow(0 0 24px rgba(212,175,55,.12));}
+.sub{font-size:12px;color:#9a9a9a;margin-top:6px;padding:0 14px;line-height:1.5;}
+.wrap{max-width:1100px;margin:0 auto;padding:10px 14px 28px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--bd);border-radius:18px;padding:14px;box-shadow:0 10px 26px rgba(0,0,0,.45);backdrop-filter: blur(10px);}
+.title{font-weight:900;font-size:14px;color:var(--gold2);margin-bottom:8px}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:900;color:#000;background:linear-gradient(135deg,var(--gold),var(--gold2));margin-right:6px;}
+.text{color:var(--muted);font-size:13px;line-height:1.55}
+.list{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.6}
+.callout{border:1px solid var(--bd);background:rgba(0,0,0,.28);border-radius:16px;padding:12px;margin-top:10px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
+.kv:last-child{border-bottom:none}
+.k{color:#cfcfcf}
+.v{font-weight:900}
+.ok{color:var(--ok)}
+.bad{color:var(--bad)}
+.btnRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.btn{flex:1;min-width:160px;padding:12px;border-radius:14px;border:none;font-weight:900;cursor:pointer;text-decoration:none;text-align:center}
+.btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111}
+.btn.blue{background:linear-gradient(135deg,#1da1f2,#78d6ff);color:#00121a}
+.btn.dark{background:#1f1f1f;color:#fff;border:1px solid rgba(255,255,255,.08)}
+.faq details{border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.28);border-radius:14px;padding:10px 12px}
+.faq details + details{margin-top:10px}
+.faq summary{cursor:pointer;font-weight:900;color:#fff;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq .a{margin-top:8px;color:#cfcfcf;font-size:13px;line-height:1.55}
+.footer{text-align:center;color:#9a9a9a;font-size:12px;padding:18px 14px 26px}
+small.muted{color:#9a9a9a}
+</style>
+</head>
+
+<body>
+<div class="notice-bar">
+  <a href="https://t.me/UZU59" target="_blank" rel="noopener"><span id="noticeText"></span></a>
+</div>
+
+<div id="loader">
+  <div class="logoWrap"><img src="../img/logo.png" alt="88 로고 로딩"></div>
+  <div class="text">Loading...</div>
+</div>
+
+<div class="scam-popup" id="scamPopup">
+  <div class="scam-box">
+    <h3>⚠️ 사칭 주의 안내</h3>
+    <p>
+      88 커뮤니티 공식 관리자 텔레그램은<br>
+      <b>@UZU59</b> 단 하나입니다.<br><br>
+      그 외 계정은 사칭일 수 있으니<br>
+      반드시 주의해 주세요.
+    </p>
+    <div class="btn" onclick="closeScam()">확인</div>
+  </div>
+</div>
+
+<div class="header">
+  <div class="nav">
+    <a href="../">메인</a>
+    <a href="../analysis.html">분석기</a>
+    <a href="../ipl/">입플/보너스</a>
+    <a href="../minigame/">동행 미니게임</a>
+    <a class="active" href="./">카지노</a>
+    <a href="../slot/">슬롯</a>
+  </div>
+
+  <a class="logoLink" href="../" aria-label="홈으로 이동">
+    <img class="logoImg" src="../img/logo.png" alt="88 커뮤니티 로고">
+  </a>
+  <div class="sub">
+    <b>온라인 카지노</b> 입플/페이백/보너스 조건과 주의사항을 정리했습니다.<br>
+    <small class="muted">※ “이벤트 크기”보다 “정산/규정 투명성”이 장기 만족을 결정합니다.</small>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="grid2">
+    <div class="card">
+      <div class="title"><span class="badge">CHECK</span>카지노 보너스 체크리스트 (핵심 6)</div>
+      <ul class="list">
+        <li>라이브/슬롯 <b>게임별 롤링</b> 차이</li>
+        <li>보너스 <b>최대 상한</b> 및 고액 제한</li>
+        <li>환전 최소/최대/횟수 제한</li>
+        <li>특정 제공사/테이블 <b>제한</b> 여부</li>
+        <li>규정 위반 시 보너스 회수 조건</li>
+        <li>문의/처리 기록(대응 속도)</li>
+      </ul>
+      <div class="callout text">
+        <b>팁:</b> “페이백 %”보다 <b>정산 속도/제한 투명성</b>이 더 중요할 때가 많습니다.
+      </div>
+      <div class="btnRow">
+        <a class="btn blue" href="../analysis.html">분석기(마진/EV)</a>
+        <a class="btn gold" href="https://t.me/UZU59" target="_blank" rel="noopener">문의(텔레그램)</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="title"><span class="badge">PRO</span>고액 유저 기준 “검증 포인트”</div>
+      <div class="callout">
+        <div class="kv"><div class="k">정산 안정성</div><div class="v ok">최우선</div></div>
+        <div class="kv"><div class="k">규정 투명(제한/상한/롤링)</div><div class="v ok">필수</div></div>
+        <div class="kv"><div class="k">문의 대응(근거 제시 가능)</div><div class="v ok">필수</div></div>
+        <div class="kv"><div class="k">과도한 제한/불명확 규정</div><div class="v bad">주의</div></div>
+      </div>
+      <div class="title" style="margin-top:12px;"><span class="badge">SAFE</span>주의 신호</div>
+      <ul class="list">
+        <li>문의처가 여러 개로 분산되어 있음</li>
+        <li>규정을 “말로만” 안내하고 근거가 없음</li>
+        <li>이벤트만 강조하고 제한은 숨김</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card faq" style="margin-top:14px;">
+    <div class="title"><span class="badge">FAQ</span>자주 묻는 질문 (카지노)</div>
+
+    <details open>
+      <summary>카지노 보너스는 무조건 받는 게 이득인가요?</summary>
+      <div class="a">아니요. <b>롤링/제한/환전조건</b>에 따라 체감 효율이 크게 달라집니다.</div>
+    </details>
+
+    <details>
+      <summary>고액 유저는 무엇을 먼저 확인하나요?</summary>
+      <div class="a"><b>정산 안정성</b>, 규정 투명성, 대응 속도를 우선 확인합니다.</div>
+    </details>
+
+    <details>
+      <summary>공식 문의처는 어디인가요?</summary>
+      <div class="a">공식 텔레그램은 <b>@UZU59</b> 단 하나입니다. 사칭 계정 주의하세요.</div>
+    </details>
+
+    <details>
+      <summary>스포츠 분석기가 카지노에도 도움이 되나요?</summary>
+      <div class="a">분석기는 배당/마진/EV에 최적화되어 있어 스포츠에 가장 유용합니다. 다만 “불리한 구조(수수료/마진)”를 이해하는 데는 도움 됩니다.</div>
+    </details>
+  </div>
+
+  <div class="footer">© 88 Community · 안내/검증 정보는 운영 상황에 따라 변경될 수 있습니다.</div>
+</div>
+
+<script>
+function hideLoader(){
+  const l=document.getElementById("loader");
+  if(!l) return;
+  l.classList.add("hide");
+  setTimeout(()=>l.remove(),450);
+}
+window.addEventListener("load", hideLoader);
+setTimeout(hideLoader,2500);
+
+(function(){
+  const key="scam_popup_date";
+  const today=new Date().toISOString().slice(0,10);
+  if(localStorage.getItem(key)!==today){
+    const el=document.getElementById("scamPopup");
+    if(el) el.style.display="flex";
+  }
+})();
+function closeScam(){
+  const today=new Date().toISOString().slice(0,10);
+  localStorage.setItem("scam_popup_date",today);
+  const el=document.getElementById("scamPopup");
+  if(el) el.style.display="none";
+}
+
+const NOTICE_LIST=[
+  "🔔 공식 문의는 @UZU59 단일 운영 (사칭 주의)",
+  "⭐ 카지노 보너스는 '롤링/제한/상한'부터 확인하세요",
+  "📊 마진/EV는 분석기에서 빠르게 확인",
+  "⚠️ 가입코드 미입력 시 혜택 적용이 불가할 수 있습니다"
+];
+let noticeIndex=0;
+const noticeTextEl=document.getElementById("noticeText");
+function rotateNotice(){
+  if(!noticeTextEl) return;
+  noticeTextEl.innerText=NOTICE_LIST[noticeIndex];
+  noticeIndex=(noticeIndex+1)%NOTICE_LIST.length;
+}
+rotateNotice();
+setInterval(rotateNotice,4200);
+</script>
+</body>
+</html>
