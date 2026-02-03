@@ -1363,9 +1363,9 @@ function renderPopularAndRecent(){
   }
 
   // 최근 본
- 
+  const recent = getRecent().filter(id=>CARD_DATA[id]);
   if(recent.length){
-    
+    recWrap.style.display="block";
     recRow.innerHTML = recent.slice(0,6).map(id=>{
       const d=CARD_DATA[id];
       const img=cardImgById(id);
