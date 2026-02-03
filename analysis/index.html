@@ -797,7 +797,7 @@ hr.sep{
     <div class="result" id="result" style="display:none;"></div>
 
     <div class="footer-links">
-      <a class="linkbtn" href="./">홈으로</a>
+      <a class="linkbtn" href="/">홈으로</a>
       <a class="linkbtn" href="https://t.me/UZU59" target="_blank" rel="noopener">문의 (텔레그램)</a>
     </div>
   </div>
@@ -1854,7 +1854,7 @@ function renderResult(sportName, level, rows, copyLines){
   `;
   box.style.display = "block";
 
-  copyLines.push(`주소: https://88st.cloud/analysis.html`);
+  copyLines.push(`주소: https://88st.cloud/analysis`);
   LAST_TEXT = copyLines.join("\n") + "\n\n" + rows.map(r=>`${r[0]}: ${r[1]}`).join("\n");
 }
 
@@ -1862,7 +1862,7 @@ function showError(msg){
   const box = $("result");
   box.innerHTML = `<div class="kv"><div class="k">안내</div><div class="v warn">${msg}</div></div>`;
   box.style.display = "block";
-  LAST_TEXT = `[88 커뮤니티] 안내\n${msg}\n주소: https://88st.cloud/analysis.html`;
+  LAST_TEXT = `[88 커뮤니티] 안내\n${msg}\n주소: https://88st.cloud/analysis`;
 }
 function hideResult(){
   const box = $("result");
