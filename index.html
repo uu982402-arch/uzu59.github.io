@@ -632,6 +632,48 @@ select.insight-select{
 
 /* ✅ 부드러운 스크롤 */
 html{ scroll-behavior:smooth; }
+
+/* ===== mini badges (요약 TOP3/최근 본) ===== */
+.mini-badge{
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:900;
+  line-height:1;
+  border:1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.92);
+  white-space:nowrap;
+}
+.mini-badge.rec{ background: rgba(255,198,61,.18); border-color: rgba(255,198,61,.30); color: #ffd873; }
+.mini-badge.new{ background: rgba(0,209,255,.12); border-color: rgba(0,209,255,.25); color: #8eeaff; }
+.mini-badge.ad{ background: rgba(122,69,255,.18); border-color: rgba(122,69,255,.30); color: #d7c9ff; }
+
+/* ===== SEO landing links (하단) ===== */
+.landing-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+.landing-item{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 10px;
+  border-radius:14px;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  color:#fff;
+  font-weight:800;
+  text-decoration:none;
+}
+.landing-item:hover{ background: rgba(255,255,255,.10); }
+@media (max-width: 520px){
+  .landing-grid{ grid-template-columns:1fr; }
+}
+
 </style>
 
 <script>
@@ -1099,6 +1141,24 @@ const INSIGHTS_BY_SPORT = {
   </div>
 </div>
 
+
+  <!-- ===== SEO 목적 랜딩(4개) : 하단 배치 ===== -->
+  <section class="card" style="margin-top:14px;">
+    <div class="c-hd">
+      <div class="tag">SEO</div>
+      <div class="c-title">키워드 랜딩 바로가기 (4)</div>
+    </div>
+    <div class="landing-grid">
+      <a class="landing-item" href="/landing-a/">입플/보너스/페이백</a>
+      <a class="landing-item" href="/landing-b/">동행 미니게임 (파워볼·키노)</a>
+      <a class="landing-item" href="/landing-c/">카지노/슬롯 키워드</a>
+      <a class="landing-item" href="/landing-d/">스포츠토토·배당 분석</a>
+    </div>
+    <div class="muted small" style="margin-top:10px;">
+      ※ 랜딩 4개는 “검색 유입(키워드)” 목적입니다. 메인 기능(업체 카드/분석기)은 위 섹션에서 이용하세요.
+    </div>
+  </section>
+
 <script>
 /* ✅ 로딩 화면 닫기(최대 2.5초 안전장치 포함) */
 function hideLoader(){
@@ -1462,6 +1522,19 @@ function setFilter(key){
 }
 
 /* 인기 TOP3 / 최근 본 */
+
+/* ✅ 배지 텍스트 헬퍼(요약 TOP3/최근 본 미니카드용) */
+function badgeText(d, id){
+  // 카드 7/8은 "광고 문의" 전용 처리
+  if(id === "card7" || id === "card8"){
+    return { text: "광고", cls: "ad" };
+  }
+  const cls = (d && d.badgeCls) ? d.badgeCls : ((d && d.tag) ? d.tag : "rec");
+  let text = (d && d.badgeText) ? d.badgeText : (cls === "ad" ? "광고" : (cls === "new" ? "신규" : "추천"));
+  if(!text) text = "추천";
+  return { text, cls };
+}
+
 function renderPopularAndRecent(){
   // ✅ 추천 카드 요약 TOP3 (추천 태그 기준)
   const sumWrap = document.getElementById("recSummaryWrap");
