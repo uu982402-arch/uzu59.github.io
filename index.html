@@ -348,6 +348,7 @@ select.insight-select{
 }
 .img-box{
   position:relative;
+  --bgimg: linear-gradient(135deg, rgba(212,175,55,.14), rgba(90,160,255,.10));
   width:100%;
   aspect-ratio: 4 / 5;
   background:#000;
@@ -1308,7 +1309,7 @@ const UPDATE_LOG = [
 })();
 
 /* 카드 팝업 */
-let currentCode="";
+let currentCode="", currentCardId="";
 function openById(el){
   const id = el && el.dataset ? el.dataset.card : null;
   if(!id) return;
@@ -1336,6 +1337,7 @@ function openCard(id){
   const isRecruit = !!d.recruit;
 
   currentCode = (isRecruit ? "" : (d.code || ""));
+  currentCardId = id;
   document.getElementById("pTitle").innerText = d.title || "";
   document.getElementById("pCode").innerText  = (d.code || "");
 
@@ -1409,6 +1411,7 @@ function copyCode(){
   if(!currentCode) return;
   navigator.clipboard.writeText(currentCode);
   alert("가입코드가 복사되었습니다");
+  gaEvent("copy_code",{card_id: currentCardId || "", code: currentCode || ""});
 }
 
 /* ✅ 카드 시스템: 검색/필터/인기TOP3/최근본/배지/+EV 자동 추천필터 */
@@ -1487,45 +1490,86 @@ function supportsWebp(){
 }
 const CAN_WEBP = supportsWebp();
 
+// ✅ 초경량 placeholder (실제 이미지는 뷰포트 근처에서 로드)
+const IMG_PLACEHOLDER = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+
+
 function smartSetImg(img, webp, jpg, box){
-  // sources 우선순위: webp(지원+존재) -> jpg
-  const sources = [];
-  if(CAN_WEBP && webp) sources.push(webp);
-  if(jpg) sources.push(jpg);
-  // CAN_WEBP 판정이 보수적일 때 대비(옵션)
-  if(!CAN_WEBP && webp) sources.push(webp);
+  if(!img || img.dataset.loaded === "1") return;
 
-  let idx = 0;
+  const sources = (CAN_WEBP ? [webp, jpg] : [jpg, webp]).filter(Boolean);
+  if(!sources.length) return;
 
-  const apply = (src)=>{
-    img.src = src;
-    if(box) setBg(box, src);
-  };
+  let i = 0;
 
-  img.onload = ()=>{
-    if(box) setBg(box, img.currentSrc || img.src);
-  };
-
-  img.onerror = ()=>{
-    idx += 1;
-    if(idx < sources.length){
-      apply(sources[idx]);
-      return;
-    }
+  const failAll = ()=>{
+    img.dataset.loading = "";
+    img.dataset.loaded = "1";
     img.style.display = "none";
     if(box){
+      box.style.setProperty("--bgimg","linear-gradient(135deg, rgba(212,175,55,.14), rgba(90,160,255,.10))");
       box.style.minHeight = "130px";
-      box.classList.add("img-missing");
     }
   };
 
-  if(sources.length){
-    apply(sources[0]);
-  }else{
-    img.style.display = "none";
-  }
+  const tryLoad = ()=>{
+    const src = sources[i];
+    if(!src) return failAll();
+
+    img.onerror = ()=>{
+      i += 1;
+      if(i < sources.length) tryLoad();
+      else failAll();
+    };
+    img.onload = ()=>{
+      img.dataset.loaded = "1";
+      img.dataset.loading = "";
+      if(box){
+        box.style.setProperty("--bgimg", `url('${img.currentSrc || img.src}')`);
+      }
+    };
+    img.src = src;
+  };
+
+  img.dataset.loading = "1";
+  tryLoad();
 }
 
+function initLazyImages(root){
+  if(!root) return;
+  const imgs = Array.from(root.querySelectorAll("img[data-jpg], img[data-webp]"));
+  if(!imgs.length) return;
+
+  const eagerCount = 6; // 상단(보이는 영역) 빠르게 로드
+  const run = (img)=>{
+    if(!img || img.dataset.loaded === "1" || img.dataset.loading === "1") return;
+    const box = img.closest(".img-box");
+    smartSetImg(img, img.getAttribute("data-webp"), img.getAttribute("data-jpg"), box);
+  };
+
+  // eager 먼저
+  imgs.slice(0, eagerCount).forEach(run);
+
+  // 나머지는 뷰포트 근처에서만 로드
+  const rest = imgs.slice(eagerCount);
+  if(!rest.length) return;
+
+  if(!("IntersectionObserver" in window)){
+    rest.forEach(run);
+    return;
+  }
+
+  const io = new IntersectionObserver((entries, obs)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting || e.intersectionRatio > 0){
+        run(e.target);
+        obs.unobserve(e.target);
+      }
+    });
+  }, {root:null, rootMargin:"700px 0px", threshold:0.01});
+
+  rest.forEach(img=> io.observe(img));
+}
 
 function renderGrid(){
   const grid = document.getElementById("vendorGrid");
@@ -1570,7 +1614,7 @@ function renderGrid(){
       <div class="card" data-card="${id}" onclick="openById(this)">
         <div class="img-box">
           ${badgeHTML(d)}
-          <img data-webp="${img.webp}" data-jpg="${img.jpg}" src="${img.jpg}" loading="lazy" decoding="async" alt="${(d.title||"").replace(/"/g,'&quot;')}">
+          <img data-webp="${img.webp}" data-jpg="${img.jpg}" src="${IMG_PLACEHOLDER}" loading="lazy" decoding="async" alt="${(d.title||"").replace(/"/g,'&quot;')}">
         </div>
         <div class="content">
           <div class="site">${d.title || ""}</div>
