@@ -2,11 +2,24 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+  <!-- ✅ Google Analytics 4 (GA4) - 88st.cloud -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // 기본 페이지뷰
+  gtag('config', 'G-KWT87FBY6S', {
+    anonymize_ip: true
+  });
+</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ===== SEO 기본 세팅 (균형형 C) ===== -->
 <title>스포츠 배당 분석기 · 보증 업체 검증 추천 | 88(팔팔커뮤니티)</title>
-<meta name="description" content="88(팔팔커뮤니티) — 스포츠 배당 분석기와 고액 유저 기준 보증 업체 검증 추천을 제공합니다. 입금플러스(입플) 혜택, 가입코드 안내 및 텔레그램 문의 지원.">
+<meta name="description" content="88(팔팔커뮤니티) — 스포츠 배당 분석기·마진 계산기와 고액 유저 기준 보증 업체 검증 추천. 입금플러스(입플)·보너스·페이백, 카지노/슬롯/미니게임(동행 파워볼·키노사다리·동키노) 혜택/가입코드 안내 및 텔레그램 문의.">
 <link rel="canonical" href="https://88st.cloud/">
 <meta name="robots" content="index,follow">
 
@@ -14,7 +27,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="88 (팔팔커뮤니티)">
 <meta property="og:title" content="스포츠 분석기 · 88 인증 놀이터 검증 추천 | 88">
-<meta property="og:description" content="고액 유저 기준 검증 업체 + 스포츠 배당 분석기 제공">
+<meta property="og:description" content="배당 분석기·마진 계산기 + 입플/보너스/페이백 검증 추천">
 <meta property="og:url" content="https://88st.cloud/">
 
 <!-- 파비콘(루트에 favicon.ico 업로드 시) -->
@@ -78,7 +91,7 @@ body{
   gap:14px;
 }
 #loader .logoWrap{
-  width:min(220px, 60vw);
+  width:min(180px, 52vw);
   aspect-ratio:1/1;
   display:flex;
   align-items:center;
@@ -165,7 +178,7 @@ body{
   text-decoration:none;
 }
 .header .logoImg{
-  width:min(220px, 62vw);
+  width:min(170px, 48vw);
   height:auto;
   display:block;
   padding:10px;
@@ -619,6 +632,42 @@ select.insight-select{
 
 /* ✅ 부드러운 스크롤 */
 html{ scroll-behavior:smooth; }
+
+/* ✅ 랜딩 바로가기 버튼 (입플/카지노/슬롯/미니게임) */
+.landing-nav{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:10px;
+}
+@media(min-width:520px){
+  .landing-nav{ grid-template-columns:repeat(4, 1fr); }
+}
+.navbtn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px 10px;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:900;
+  background:rgba(0,0,0,.28);
+  border:1px solid rgba(255,255,255,.10);
+  color:#fff;
+  cursor:pointer;
+  user-select:none;
+}
+.navbtn:hover{ border-color: rgba(245,226,122,.45); }
+.navbtn .tag{
+  font-size:11px;
+  font-weight:900;
+  padding:4px 8px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#111;
+}
+
 </style>
 
 <script>
@@ -745,6 +794,17 @@ const INSIGHTS_BY_SPORT = {
     <div class="title"><span class="badge">FREE</span>스포츠 배당 분석기</div>
     <div class="text">배당 흐름·마진·EV를 간단히 확인할 수 있는 분석기입니다.</div>
     <a class="analyze-btn" href="/analysis/">분석기 이동</a>
+
+    <div class="landing-nav" aria-label="카테고리 랜딩 바로가기">
+      <a class="navbtn" href="/landing-a/"><span class="tag">A</span>입플/보너스</a>
+      <a class="navbtn" href="/landing-c/"><span class="tag">C</span>카지노</a>
+      <a class="navbtn" href="/landing-b/"><span class="tag">B</span>미니게임</a>
+      <a class="navbtn" href="/landing-d/"><span class="tag">D</span>슬롯</a>
+    </div>
+    <div class="text" style="margin-top:8px;color:#9a9a9a;font-size:12px;">
+      ※ 각 버튼은 해당 카테고리 랜딩으로 이동합니다.
+    </div>
+
   </div>
 
   <!-- ✅ 상단 2단 레이아웃 (좌: 도구/콘텐츠 · 우: 안내/공지) -->
@@ -918,6 +978,13 @@ const INSIGHTS_BY_SPORT = {
   </div>
   <div class="v-small" id="evAutoHint" style="display:none;"></div>
 </div>
+
+
+  <!-- ✅ 추천 카드 요약 TOP3 -->
+  <div class="mini-wrap" id="recSummaryWrap">
+    <div class="mini-title">추천 카드 요약 TOP3</div>
+    <div class="mini-row" id="recSummaryRow"></div>
+  </div>
 
 <!-- ✅ 인기 TOP3 -->
 <div class="mini-wrap" id="popularWrap" style="display:none;">
@@ -1330,6 +1397,37 @@ function setFilter(key){
 
 /* 인기 TOP3 / 최근 본 */
 function renderPopularAndRecent(){
+  // ✅ 추천 카드 요약 TOP3 (추천 태그 기준)
+  const sumWrap = document.getElementById("recSummaryWrap");
+  const sumRow  = document.getElementById("recSummaryRow");
+  if(sumWrap && sumRow){
+    const recIds = Object.keys(CARD_DATA).filter(id=>{
+      const d = CARD_DATA[id];
+      return d && d.tag === "rec" && !d.recruit;
+    });
+    if(recIds.length){
+      const sorted = recIds.slice().sort((a,b)=> getClick(b) - getClick(a));
+      const top = sorted.slice(0,3);
+      sumRow.innerHTML = top.map(id=>{
+        const d = CARD_DATA[id];
+        const badge = badgeText(d, id);
+        return `
+          <div class="mini-card" data-open="${id}">
+            <div class="mini-badge ${badge.cls}">${badge.text}</div>
+            <div class="mini-name">${escapeHtml(d.title||id)}</div>
+            <div class="mini-sub">${escapeHtml((d.benefit||"").slice(0,46))}${(d.benefit && d.benefit.length>46)?"…":""}</div>
+          </div>
+        `;
+      }).join("");
+      sumRow.querySelectorAll(".mini-card").forEach(el=>{
+        el.addEventListener("click", ()=> openCard(el.dataset.open));
+      });
+      sumWrap.style.display = "block";
+    }else{
+      sumWrap.style.display = "none";
+    }
+  }
+
   const popWrap = document.getElementById("popularWrap");
   const recWrap = document.getElementById("recentWrap");
   const popRow = document.getElementById("popularRow");
@@ -1508,6 +1606,14 @@ function calcSimpleMargin(){
   maybeAutoRecFilter();
   renderPopularAndRecent();
   renderGrid();
+  // ✅ 딥링크: /?open=card3  → 카드 팝업 자동 오픈
+  try{
+    const p = new URLSearchParams(location.search);
+    const openId = p.get("open");
+    if(openId && CARD_DATA[openId]){
+      openCard(openId);
+    }
+  }catch(e){}
 })();
 </script>
 
