@@ -1061,19 +1061,6 @@ const INSIGHTS_BY_SPORT = {
   <div class="v-small" id="evAutoHint" style="display:none;"></div>
 </div>
 
-
-  <!-- ✅ 추천 카드 요약 TOP3 -->
-<div class="mini-row" id="recSummaryRow"></div>
-  </div>
-
-<!-- ✅ 인기 TOP3 -->
-<div class="mini-row" id="popularRow"></div>
-</div>
-
-<!-- ✅ 최근 본 카드 -->
-<div class="mini-row" id="recentRow"></div>
-</div>
-
 <!-- 카드 그리드 (JS 렌더) -->
 <div class="vendor-grid" id="vendorGrid"></div>
 <!-- 방문자 -->
@@ -1406,29 +1393,44 @@ function supportsWebp(){
 const CAN_WEBP = supportsWebp();
 
 function smartSetImg(img, webp, jpg, box){
-  const primary = (CAN_WEBP && webp) ? webp : (jpg || webp);
-  const fallback = jpg || webp;
+  // sources 우선순위: webp(지원+존재) -> jpg
+  const sources = [];
+  if(CAN_WEBP && webp) sources.push(webp);
+  if(jpg) sources.push(jpg);
+  // CAN_WEBP 판정이 보수적일 때 대비(옵션)
+  if(!CAN_WEBP && webp) sources.push(webp);
+
+  let idx = 0;
+
+  const apply = (src)=>{
+    img.src = src;
+    if(box) setBg(box, src);
+  };
 
   img.onload = ()=>{
-    if(box && img.src) box.style.setProperty("--bgimg", `url('${img.src}')`);
+    if(box) setBg(box, img.currentSrc || img.src);
   };
 
   img.onerror = ()=>{
-    // webp → jpg 폴백
-    if(img.src === primary && fallback && img.src !== fallback){
-      img.onerror = ()=>{
-        img.style.display="none";
-        if(box) box.style.minHeight="130px";
-      };
-      img.src = fallback;
+    idx += 1;
+    if(idx < sources.length){
+      apply(sources[idx]);
       return;
     }
-    img.style.display="none";
-    if(box) box.style.minHeight="130px";
+    img.style.display = "none";
+    if(box){
+      box.style.minHeight = "130px";
+      box.classList.add("img-missing");
+    }
   };
 
-  img.src = primary;
+  if(sources.length){
+    apply(sources[0]);
+  }else{
+    img.style.display = "none";
+  }
 }
+
 
 function renderGrid(){
   const grid = document.getElementById("vendorGrid");
@@ -1473,7 +1475,7 @@ function renderGrid(){
       <div class="card" data-card="${id}" onclick="openById(this)">
         <div class="img-box">
           ${badgeHTML(d)}
-          <img data-webp="${img.webp}" data-jpg="${img.jpg}" src="${img.webp}" loading="lazy" decoding="async" alt="${(d.title||"").replace(/"/g,'&quot;')}">
+          <img data-webp="${img.webp}" data-jpg="${img.jpg}" src="${img.jpg}" loading="lazy" decoding="async" alt="${(d.title||"").replace(/"/g,'&quot;')}">
         </div>
         <div class="content">
           <div class="site">${d.title || ""}</div>
@@ -1673,6 +1675,54 @@ function calcSimpleMargin(){
   });
 })();
 </script>
+
+
+<!-- 🔍 SEO 랜딩 페이지 링크 (최하단 / 초소형) -->
+<style>
+  .landing-seo{
+    max-width:1100px;
+    margin:22px auto 26px;
+    padding:0 14px;
+    opacity:.85;
+  }
+  .landing-seo h3{
+    font-size:10px;
+    color:#6f6f6f;
+    margin:0 0 6px;
+    font-weight:800;
+    letter-spacing:.2px;
+  }
+  .landing-seo .links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .landing-seo a{
+    display:inline-block;
+    font-size:10px;
+    color:#9a9a9a;
+    text-decoration:none;
+    padding:3px 6px;
+    border-radius:6px;
+    border:1px solid rgba(255,255,255,.06);
+    background:transparent;
+  }
+  .landing-seo a:hover{
+    color:#f5e27a;
+    border-color:#f5e27a;
+  }
+</style>
+
+<div class="landing-seo" aria-label="관련 정보 링크">
+  <h3>관련 정보</h3>
+  <div class="links">
+    <a href="/landing-a/">입플·보너스 분석기</a>
+    <a href="/landing-b/">고액 유저 보증업체</a>
+    <a href="/landing-c/">배당 마진·EV 계산</a>
+    <a href="/landing-d/">스포츠 배당 흐름 분석</a>
+  </div>
+</div>
+
 
 </body>
 </html>
