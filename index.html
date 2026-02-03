@@ -925,12 +925,6 @@ const INSIGHTS_BY_SPORT = {
   <div class="mini-row" id="popularRow"></div>
 </div>
 
-<!-- ✅ 최근 본 카드 -->
-<div class="mini-wrap" id="recentWrap" style="display:none;">
-  <div class="mini-title">🕒 최근 본 카드</div>
-  <div class="mini-row" id="recentRow"></div>
-</div>
-
 <!-- 카드 그리드 (JS 렌더) -->
 <div class="vendor-grid" id="vendorGrid"></div>
 <!-- 방문자 -->
@@ -1368,27 +1362,7 @@ function renderPopularAndRecent(){
     popWrap.style.display="none";
   }
 
-  // 최근 본
-  const recent = getRecent().filter(id=>CARD_DATA[id]);
-  if(recent.length){
-    recWrap.style.display="block";
-    recRow.innerHTML = recent.slice(0,6).map(id=>{
-      const d=CARD_DATA[id];
-      const img=cardImgById(id);
-      return `
-        <div class="mini-card" onclick="openCard('${id}')">
-          <div class="mini-thumb">${badgeHTML(d)}<img src="${img}" alt="${d.title||""}"></div>
-          <div class="mini-body">
-            <div class="mini-name">${d.title||""}</div>
-            <div class="mini-sub">${d.tag==="ad" ? "광고/제휴" : (d.benefit||"")}</div>
-          </div>
-        </div>
-      `;
-    }).join("");
-  }else{
-    recWrap.style.display="none";
-  }
-}
+ 
 
 /* ✅ +EV → 추천 필터 자동 ON (오늘 날짜만) */
 function maybeAutoRecFilter(){
@@ -1510,6 +1484,48 @@ function calcSimpleMargin(){
   renderGrid();
 })();
 </script>
+<!-- 🔍 SEO 랜딩 페이지 링크 (최하단 / 소형) -->
+<style>
+.landing-seo {
+  max-width:1100px;
+  margin:40px auto 20px;
+  padding:0 14px;
+}
+.landing-seo h3{
+  font-size:12px;
+  color:#777;
+  margin:0 0 6px;
+  font-weight:700;
+}
+.landing-seo .links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.landing-seo a{
+  font-size:11px;
+  color:#9a9a9a;
+  text-decoration:none;
+  padding:6px 8px;
+  border-radius:8px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+}
+.landing-seo a:hover{
+  color:#f5e27a;
+  border-color:#f5e27a;
+}
+</style>
+
+<div class="landing-seo">
+  <h3>관련 정보</h3>
+  <div class="links">
+    <a href="/landing-a/">입플·보너스 분석기</a>
+    <a href="/landing-b/">고액 유저 보증업체</a>
+    <a href="/landing-c/">배당 마진·EV 계산</a>
+    <a href="/landing-d/">스포츠 배당 흐름 분석</a>
+  </div>
+</div>
 
 </body>
 </html>
