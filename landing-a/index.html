@@ -1,122 +1,91 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>입플·보너스·페이백 분석기 | 88 커뮤니티</title>
-<meta name="description" content="입플/보너스/페이백 혜택 + 배당 마진·EV 분석기로 빠르게 비교하세요.">
-<link rel="canonical" href="https://88st.cloud/landing-a/">
-<meta name="robots" content="index,follow">
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;background:#0b0b0b;color:#fff}
-.wrap{max-width:980px;margin:0 auto;padding:18px 14px 28px}
-.hero{background:rgba(18,18,18,.9);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:16px;box-shadow:0 10px 26px rgba(0,0,0,.45)}
-.h-title{font-weight:900;color:#f5e27a;font-size:18px;line-height:1.25;margin:0}
-.h-sub{margin:10px 0 0;color:#cfcfcf;font-size:13px;line-height:1.6}
-.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.btn{flex:1;min-width:190px;border:none;border-radius:14px;padding:12px;font-weight:900;cursor:pointer;text-decoration:none;display:block;text-align:center}
-.primary{background:linear-gradient(135deg,#1da1f2,#78d6ff);color:#00121a}
-.secondary{background:#1f1f1f;color:#fff;border:1px solid rgba(255,255,255,.08)}
-.section{margin-top:14px;background:rgba(18,18,18,.85);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:14px;box-shadow:0 10px 26px rgba(0,0,0,.45)}
-.s-title{font-weight:900;color:#f5e27a;font-size:14px;margin:0 0 10px}
-.mini-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-@media(max-width:760px){.mini-row{grid-template-columns:1fr}}
-.mini-card{position:relative;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;cursor:pointer;overflow:hidden}
-.mini-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:900;font-size:11px;margin-bottom:8px;color:#111;background:linear-gradient(135deg,#d4af37,#f5e27a)}
-.mini-badge.ad{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.14)}
-.mini-name{font-weight:900}
-.mini-sub{margin-top:6px;font-size:12px;color:#cfcfcf;line-height:1.4}
-.footer{margin-top:14px;color:#9a9a9a;font-size:12px;line-height:1.55;text-align:center}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>입플·보너스 분석기 안내 | 88(팔팔커뮤니티)</title>
+  <meta name="description" content="입플(입금플러스)·첫충·페이백 등 보너스 조건을 비교할 때 체크할 핵심 포인트와 88 분석기 활용 팁을 정리했습니다.">
+  <meta name="keywords" content="입플,첫충,매충,페이백,보너스,롤링">
+  <link rel="canonical" href="https://88st.cloud/landing-a/">
+  <meta name="robots" content="index,follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="88 (팔팔커뮤니티)">
+  <meta property="og:title" content="입플·보너스 분석기 안내 | 88(팔팔커뮤니티)">
+  <meta property="og:description" content="입플(입금플러스)·첫충·페이백 등 보너스 조건을 비교할 때 체크할 핵심 포인트와 88 분석기 활용 팁을 정리했습니다.">
+  <meta property="og:url" content="https://88st.cloud/landing-a/">
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+  <style>
+    *{box-sizing:border-box}
+    :root{--bg:#0b0b0b;--panel:#121212;--gold:#d4af37;--gold2:#f5e27a;--muted:#cfcfcf}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 500px at 50% -10%, rgba(212,175,55,.14), transparent 55%),
+        radial-gradient(900px 500px at 10% 20%, rgba(90,160,255,.08), transparent 60%),
+        linear-gradient(180deg, #07070a, var(--bg));
+      font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
+      color:#fff;
+    }
+    .wrap{max-width:920px;margin:0 auto;padding:18px 14px 28px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+    .brand img{width:42px;height:42px;object-fit:contain;filter: drop-shadow(0 0 12px rgba(212,175,55,.22));}
+    .brand strong{font-weight:900}
+    .nav{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:10px 12px;border-radius:12px;font-weight:900;text-decoration:none}
+    .btn.primary{background:linear-gradient(135deg,#1da1f2,#78d6ff);color:#00121a}
+    .btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0b0b0b}
+    .panel{margin-top:14px;background:rgba(18,18,18,.85);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:16px;box-shadow:0 10px 26px rgba(0,0,0,.45);backdrop-filter: blur(10px);}
+    h1{margin:0 0 10px;font-size:20px;font-weight:900;color:var(--gold2);}
+    p{margin:10px 0;color:var(--muted);line-height:1.65;font-size:14px}
+    ul{margin:10px 0 0;padding-left:18px;color:var(--muted);line-height:1.65}
+    .faq{margin-top:14px}
+    .faq h2{margin:0 0 10px;font-size:14px;font-weight:900;color:var(--gold2)}
+    details{border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.28);border-radius:14px;padding:10px 12px}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;font-weight:900;list-style:none}
+    summary::-webkit-details-marker{display:none}
+    .a{margin-top:8px;color:#cfcfcf;font-size:13px;line-height:1.55}
+    .foot{margin-top:18px;color:#9a9a9a;font-size:12px;line-height:1.55}
+  </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="hero">
-    <h1 class="h-title">입플·보너스 중심 유저를 위한 랜딩</h1>
-    <div class="h-sub">입플(입금플러스)·보너스·페이백 정보를 찾는 분들을 위해, 배당 마진/EV 체크 도구와 함께 검증 카드 TOP3를 바로 보여드립니다.</div>
-    <div class="cta">
-      <a class="btn primary" href="/">마진·EV 분석기 사용</a>
-      <a class="btn secondary" href="/?open=card1">추천 카드 바로 보기</a>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="/" aria-label="88 메인으로 이동">
+        <img src="/img/logo.png" alt="88 로고" loading="lazy" decoding="async">
+        <strong>88 (팔팔커뮤니티)</strong>
+      </a>
+      <div class="nav">
+        <a class="btn primary" href="/analysis/">분석기 바로가기</a>
+        <a class="btn gold" href="/#vendorTop">인증놀이터 보기</a>
+        <a class="btn" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.10)" href="/">메인으로</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h1>입플·보너스 조건을 ‘손해 없이’ 확인하는 방법</h1>
+      <p>입플(입금플러스)·첫충·페이백은 혜택처럼 보이지만, 실제로는 '조건'을 같이 봐야 체감 수익이 납니다. 예를 들어 롤링(요구 베팅), 적용 게임(스포츠/미겜/카지노), 최대 한도, 제한 시간, 출금 제한 같은 항목이 다르면 결과가 크게 달라집니다.</p>
+<p>88에서는 업체별 혜택 문구를 한눈에 보기 쉽도록 정리하고, 배당 마진/EV 확인 도구(분석기)로 ‘지금 라인이 유리한지’까지 같이 점검하도록 구성했습니다. 혜택은 ‘조건이 명확한지’가 가장 중요합니다.</p>
+<p>팁: 가입 전에는 안내 문구를 캡처/저장하고, 가입코드(추천코드)를 최초 1회 정확히 입력하세요. (미입력 시 혜택이 빠지는 경우가 많습니다.)</p>
+
+      <div class="faq">
+        <h2>FAQ</h2>
+        <details><summary>입플이 높으면 무조건 좋은 건가요?</summary><div class="a">아니요. 롤링/시간 제한/적용 게임 범위/최대 한도를 함께 봐야 합니다. 숫자가 높아도 조건이 빡세면 체감 혜택이 낮을 수 있습니다.</div></details>
+<details><summary>첫충/매충/페이백 중 뭐가 유리한가요?</summary><div class="a">이용 패턴에 따라 달라집니다. 단기 이벤트보다 ‘지속형(페이백/출석)’이 안정적일 때가 많고, 조건이 단순할수록 관리가 쉽습니다.</div></details>
+<details><summary>혜택 문구가 자주 바뀌면 어떻게 하나요?</summary><div class="a">메인 페이지의 공지와 팝업 안내(주의 문구)를 기준으로 확인하고, 문의 채널(텔레그램)에서 최종 확인 후 진행하세요.</div></details>
+      </div>
+
+      <div class="foot">
+        ※ 본 페이지의 안내/도구 결과는 참고용이며, 최종 판단과 책임은 이용자에게 있습니다.<br>
+        빠른 이동: <a href="/analysis/" style="color:#78d6ff;text-decoration:none;font-weight:900;">분석기</a> ·
+        <a href="/#vendorTop" style="color:#f5e27a;text-decoration:none;font-weight:900;">88 인증 놀이터</a>
+      </div>
     </div>
   </div>
-
-  <div class="section">
-    <div class="s-title">추천 카드 요약 TOP3</div>
-    <div class="mini-row" id="recRow"></div>
-  </div>
-
-  <div class="footer">
-    ※ 본 페이지는 참고용 안내입니다. 손실을 감당 가능한 범위 내에서 이용하세요.<br>
-    문의: <a href="https://t.me/UZU59" target="_blank" rel="noopener" style="color:#45b3ff;text-decoration:none;font-weight:900">@UZU59</a>
-  </div>
-</div>
-
-<script>
-const CARD_DATA = {
-  card1:{ title:"B WIN", code:"AS88", link:"https://bwk999.com", telegram:"UZU59",
-    benefit:"고액전용 USDT 무기명가입 수수료지원 / 모든게임 입금플러스",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card2:{ title:"CAPS", code:"RUST", link:"https://caps-22.com", telegram:"UZU59",
-    benefit:"고액전용 미겜 첫충 5% / 페이백 5% / 출석 30만원",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card3:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com", telegram:"UZU59",
-    benefit:"스포츠 첫 10% / 미겜 첫 5% / 페이백 5%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card4:{ title:"VEGAS", code:"6789", link:"https://las403.com", telegram:"UZU59",
-    benefit:"스포츠·미겜 입플 최대 30% / 카지노 입플",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card5:{ title:"LULA BET", code:"ZZ99", link:"https://lula.ws", telegram:"PSC991",
-    benefit:"원화·USDT 무기명가입 / 페이백 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card6:{ title:"CHOY BET", code:"TAN", link:"https://cy-40.com", telegram:"DY0302",
-    benefit:"신규 30% / 매충 10% / 페이백 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-
-  /* ✅ 광고 모집 카드 */
-  card7:{ title:"광고/제휴 모집", code:"", link:"", telegram:"UZU59",
-    benefit:"88 커뮤니티에 광고/제휴를 원하시면 문의 주세요.",
-    notice:"광고 문의는 텔레그램 @UZU59 로만 진행합니다." },
-
-  card8:{ title:"광고 자리 오픈", code:"", link:"", telegram:"UZU59",
-    benefit:"배너/카드 광고 자리 오픈 · 합리적 조건",
-    notice:"사칭 주의: 공식 관리자 @UZU59 단 하나" }
-};
-
-function escapeHtml(s){
-  return String(s||"").replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
-}
-function getClick(id){
-  return Number(localStorage.getItem("88_click_"+id) || 0);
-}
-function badgeText(d, id){
-  if(d.recruit) return { text:"광고모집", cls:"ad" };
-  if(d.tag==="rec") return { text:"추천", cls:"" };
-  if(d.tag==="new") return { text:"신규", cls:"" };
-  if(d.tag==="ad") return { text:"광고", cls:"ad" };
-  return { text:"일반", cls:"ad" };
-}
-(function renderRecTop3(){
-  const row = document.getElementById("recRow");
-  const recIds = Object.keys(CARD_DATA).filter(id=> CARD_DATA[id] && CARD_DATA[id].tag==="rec" && !CARD_DATA[id].recruit);
-  const sorted = recIds.slice().sort((a,b)=> getClick(b)-getClick(a));
-  const top = (sorted.length?sorted:recIds).slice(0,3);
-  row.innerHTML = top.map(id=>{
-    const d=CARD_DATA[id];
-    const b=badgeText(d,id);
-    const href="/?open="+encodeURIComponent(id);
-    return `
-      <div class="mini-card" data-href="${href}">
-        <div class="mini-badge ${b.cls}">${escapeHtml(b.text)}</div>
-        <div class="mini-name">${escapeHtml(d.title)}</div>
-        <div class="mini-sub">${escapeHtml((d.benefit||"").slice(0,64))}${(d.benefit && d.benefit.length>64)?"…":""}</div>
-      </div>
-    `;
-  }).join("");
-  row.querySelectorAll(".mini-card").forEach(el=>{
-    el.addEventListener("click", ()=> location.href = el.dataset.href);
-  });
-})();
-</script>
 </body>
 </html>

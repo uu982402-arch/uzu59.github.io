@@ -2,11 +2,24 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+  <!-- ✅ Google Analytics 4 (GA4) - 88st.cloud -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // 기본 페이지뷰
+  gtag('config', 'G-KWT87FBY6S', {
+    anonymize_ip: true
+  });
+</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ===== SEO 기본 세팅 (균형형 C) ===== -->
 <title>스포츠 배당 분석기 · 보증 업체 검증 추천 | 88(팔팔커뮤니티)</title>
-<meta name="description" content="88(팔팔커뮤니티) — 스포츠 배당 분석기와 고액 유저 기준 보증 업체 검증 추천을 제공합니다. 입금플러스(입플) 혜택, 가입코드 안내 및 텔레그램 문의 지원.">
+<meta name="description" content="88(팔팔커뮤니티) — 스포츠 배당 분석기·마진 계산기와 고액 유저 기준 보증 업체 검증 추천. 입금플러스(입플)·보너스·페이백, 카지노/슬롯/미니게임(동행 파워볼·키노사다리·동키노) 혜택/가입코드 안내 및 텔레그램 문의.">
 <link rel="canonical" href="https://88st.cloud/">
 <meta name="robots" content="index,follow">
 
@@ -14,7 +27,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="88 (팔팔커뮤니티)">
 <meta property="og:title" content="스포츠 분석기 · 88 인증 놀이터 검증 추천 | 88">
-<meta property="og:description" content="고액 유저 기준 검증 업체 + 스포츠 배당 분석기 제공">
+<meta property="og:description" content="배당 분석기·마진 계산기 + 입플/보너스/페이백 검증 추천">
 <meta property="og:url" content="https://88st.cloud/">
 
 <!-- 파비콘(루트에 favicon.ico 업로드 시) -->
@@ -260,7 +273,7 @@ select.insight-select{
 /* 분석기 버튼 */
 .analyze-btn{
   display:block;
-  margin-top:12px;
+  margin-top:0;
   width:100%;
   padding:14px;
   border-radius:16px;
@@ -269,6 +282,31 @@ select.insight-select{
   text-align:center;
   color:#00121a;
   background:linear-gradient(135deg,#1da1f2,#78d6ff);
+}
+
+/* ✅ 상단 CTA 보조/앵커 버튼 */
+.cta-mini{
+  display:block;
+  margin-top:6px;
+  color:#b8e9ff;
+  font-size:12px;
+  font-weight:900;
+}
+.cta-row{
+  display:grid;
+  gap:10px;
+  margin-top:12px;
+}
+.anchor-btn{
+  display:block;
+  width:100%;
+  padding:14px;
+  border-radius:16px;
+  font-weight:900;
+  text-decoration:none;
+  text-align:center;
+  color:#0b0b0b;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
 }
 
 /* ===== 보증업체 안내 UI ===== */
@@ -395,6 +433,9 @@ select.insight-select{
 }
 .go{ background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#0b0b0b; }
 .copy{ background:#1f1f1f; color:#fff; border:1px solid rgba(255,255,255,.06); }
+.ghost{ background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.10); }
+.ghost:hover{ border-color:rgba(245,226,122,.7); }
+
 .telegram a{
   display:block;
   margin-top:10px;
@@ -743,8 +784,14 @@ const INSIGHTS_BY_SPORT = {
   <!-- ✅✅ 분석기 버튼/섹션(상단) -->
   <div class="section" id="analyzerSection">
     <div class="title"><span class="badge">FREE</span>스포츠 배당 분석기</div>
-    <div class="text">배당 흐름·마진·EV를 간단히 확인할 수 있는 분석기입니다.</div>
-    <a class="analyze-btn" href="/analysis/">분석기 이동</a>
+    <div class="text">
+      배당 흐름·마진·EV를 간단히 확인할 수 있는 분석기입니다.
+      <span class="cta-mini">무료·초간단 · +EV 확인</span>
+    </div>
+    <div class="cta-row">
+      <a class="analyze-btn" href="/analysis/">분석기 이동</a>
+      <a class="anchor-btn" href="#vendorTop">인증놀이터 보기</a>
+    </div>
   </div>
 
   <!-- ✅ 상단 2단 레이아웃 (좌: 도구/콘텐츠 · 우: 안내/공지) -->
@@ -919,18 +966,18 @@ const INSIGHTS_BY_SPORT = {
   <div class="v-small" id="evAutoHint" style="display:none;"></div>
 </div>
 
+
+  <!-- ✅ 추천 카드 요약 TOP3 -->
+  <div class="mini-wrap" id="recSummaryWrap">
+    <div class="mini-title">추천 카드 요약 TOP3</div>
+    <div class="mini-row" id="recSummaryRow"></div>
+  </div>
+
 <!-- ✅ 인기 TOP3 -->
 <div class="mini-wrap" id="popularWrap" style="display:none;">
   <div class="mini-title">🔥 인기 TOP3</div>
   <div class="mini-row" id="popularRow"></div>
 </div>
-  
-<!-- ✅ 최근 본 카드 -->
-<div class="mini-wrap" id="recentWrap" style="display:none;">
-  <div class="mini-title">🕒 최근 본 카드</div>
-  <div class="mini-row" id="recentRow"></div>
-</div>
-
 <!-- 카드 그리드 (JS 렌더) -->
 <div class="vendor-grid" id="vendorGrid"></div>
 <!-- 방문자 -->
@@ -948,12 +995,14 @@ const INSIGHTS_BY_SPORT = {
     <p id="pBenefit" style="color:#f5e27a;font-size:13px;margin:10px 0 0;"></p>
     <p id="pNotice" style="color:#ff6b6b;font-size:12px;margin:8px 0 0;"></p>
 
-    <div class="btn copy" id="copyBtn" onclick="copyCode()">가입코드 복사</div>
+    <button type="button" class="btn copy" id="copyBtn" onclick="copyCode()">가입코드 복사</button>
     <a class="btn go" id="pLink" target="_blank" rel="noopener">사이트 이동</a>
 
     <div class="telegram">
       <a id="pTelegram" target="_blank" rel="noopener">텔레그램 문의</a>
     </div>
+
+    <button type="button" class="btn ghost" id="moreRecBtn" onclick="showMoreRec()">다른 추천도 보기 (추천만)</button>
 
     <div class="reason-box" id="reasonBox" style="display:none;">
       <div class="reason-title" id="reasonTitle">추천 이유</div>
@@ -962,7 +1011,7 @@ const INSIGHTS_BY_SPORT = {
       <div class="reason-line" id="reason3"></div>
     </div>
 
-    <div class="btn copy" onclick="closeCard()">닫기</div>
+    <button type="button" class="btn copy" id="closePopupBtn" onclick="closeCard()">닫기</button>
   </div>
 </div>
 
@@ -1076,6 +1125,7 @@ const UPDATE_LOG = [
 
 /* 카드 팝업 */
 let currentCode="";
+let __popupLastFocus = null;
 function openById(el){
   const id = el && el.dataset ? el.dataset.card : null;
   if(!id) return;
@@ -1086,12 +1136,10 @@ function openCard(id){
   const d = CARD_DATA[id];
   if(!d) return;
 
-  // 클릭 카운트 + 최근 본
+  // 클릭 카운트 (인기 TOP3)
   incCardClick(id);
-  pushRecent(id);
   renderPopularAndRecent();
-
-  // 광고 모집 카드 분기
+// 광고 모집 카드 분기
   const isRecruit = !!d.recruit;
 
   currentCode = (isRecruit ? "" : (d.code || ""));
@@ -1112,7 +1160,7 @@ function openCard(id){
   pNotice.innerText = d.notice ? ("주의 : " + d.notice) : "";
 
   // 버튼 표시 제어
-  const btnCopy = document.querySelector("#cardPopup .btn.copy");
+  const btnCopy = document.getElementById("copyBtn");
   const btnGo = document.getElementById("pLink");
   if(btnCopy) btnCopy.style.display = isRecruit ? "none" : "block";
   if(btnGo){
@@ -1148,17 +1196,74 @@ function openCard(id){
     r3.innerText = "• " + (reasons[2] || "");
   }
 
-  document.getElementById("cardPopup").style.display = "flex";
+  __popupLastFocus = document.activeElement;
+  const __p = document.getElementById("cardPopup");
+  if(__p){ __p.style.display = "flex"; }
+  document.body.style.overflow = "hidden";
+  setTimeout(()=>{ const b=document.getElementById("closePopupBtn"); if(b) b.focus(); }, 0);
 }
 
 function closeCard(){
-  document.getElementById("cardPopup").style.display = "none";
+  const p = document.getElementById("cardPopup");
+  if(p) p.style.display = "none";
+  document.body.style.overflow = "";
+  if(__popupLastFocus && typeof __popupLastFocus.focus === "function"){
+    try{ __popupLastFocus.focus(); }catch(e){}
+  }
 }
 function copyCode(){
   if(!currentCode) return;
   navigator.clipboard.writeText(currentCode);
   alert("가입코드가 복사되었습니다");
 }
+
+function showMoreRec(){
+  closeCard();
+  setFilter("rec");
+  toast("✅ 추천 카드만 보기");
+}
+
+(function bindPopupUX(){
+  const popup = document.getElementById("cardPopup");
+  if(!popup) return;
+
+  // 바깥 클릭으로 닫기
+  popup.addEventListener("mousedown", (e)=>{
+    if(e.target === popup) closeCard();
+  });
+
+  // ESC 닫기 + 간단 포커스 트랩
+  document.addEventListener("keydown", (e)=>{
+    const isOpen = popup.style.display === "flex";
+    if(!isOpen) return;
+
+    if(e.key === "Escape"){
+      e.preventDefault();
+      closeCard();
+      return;
+    }
+
+    if(e.key === "Tab"){
+      const box = popup.querySelector(".popup-box");
+      if(!box) return;
+
+      const focusables = box.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+      if(!focusables.length) return;
+
+      const first = focusables[0];
+      const last  = focusables[focusables.length - 1];
+
+      if(e.shiftKey && document.activeElement === first){
+        e.preventDefault();
+        last.focus();
+      }else if(!e.shiftKey && document.activeElement === last){
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+})();
+
 
 /* ✅ 카드 시스템: 검색/필터/인기TOP3/최근본/배지/+EV 자동 추천필터 */
 const CLICK_KEY_PREFIX = "88_card_click_";
@@ -1239,6 +1344,24 @@ function badgeHTML(d){
   return `<div class="badge-tag ${cls}">${text}</div>`;
 }
 
+function escapeHtml(s){
+  return String(s||"").replace(/[&<>"']/g, (m)=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+  }[m]));
+}
+
+// ✅ 호환용 래퍼(기존 코드에서 호출)
+function getClick(id){ return getClickCount(id); }
+
+// ✅ 미니 배지 텍스트/클래스
+function badgeText(d){
+  if(!d) return {text:"", cls:"rec"};
+  if(d.tag==="ad")  return {text:"광고", cls:"ad"};
+  if(d.tag==="new") return {text:"신규", cls:"new"};
+  return {text:"추천", cls:"rec"};
+}
+
+
 function cardImgById(id){
   const n = String(id).replace("card","");
   return `img/img${n}.jpg`;
@@ -1287,7 +1410,7 @@ function renderGrid(){
       <div class="card" data-card="${id}" onclick="openById(this)">
         <div class="img-box">
           ${badgeHTML(d)}
-          <img src="${img}" alt="${(d.title||"").replace(/"/g,'&quot;')}">
+          <img loading="lazy" decoding="async" src="${img}" alt="${(d.title||"").replace(/"/g,'&quot;')}">
         </div>
         <div class="content">
           <div class="site">${d.title || ""}</div>
@@ -1330,6 +1453,37 @@ function setFilter(key){
 
 /* 인기 TOP3 / 최근 본 */
 function renderPopularAndRecent(){
+  // ✅ 추천 카드 요약 TOP3 (추천 태그 기준)
+  const sumWrap = document.getElementById("recSummaryWrap");
+  const sumRow  = document.getElementById("recSummaryRow");
+  if(sumWrap && sumRow){
+    const recIds = Object.keys(CARD_DATA).filter(id=>{
+      const d = CARD_DATA[id];
+      return d && d.tag === "rec" && !d.recruit;
+    });
+    if(recIds.length){
+      const sorted = recIds.slice().sort((a,b)=> getClick(b) - getClick(a));
+      const top = sorted.slice(0,3);
+      sumRow.innerHTML = top.map(id=>{
+        const d = CARD_DATA[id];
+        const badge = badgeText(d, id);
+        return `
+          <div class="mini-card" data-open="${id}">
+            <div class="mini-badge ${badge.cls}">${badge.text}</div>
+            <div class="mini-name">${escapeHtml(d.title||id)}</div>
+            <div class="mini-sub">${escapeHtml((d.benefit||"").slice(0,46))}${(d.benefit && d.benefit.length>46)?"…":""}</div>
+          </div>
+        `;
+      }).join("");
+      sumRow.querySelectorAll(".mini-card").forEach(el=>{
+        el.addEventListener("click", ()=> openCard(el.dataset.open));
+      });
+      sumWrap.style.display = "block";
+    }else{
+      sumWrap.style.display = "none";
+    }
+  }
+
   const popWrap = document.getElementById("popularWrap");
   const recWrap = document.getElementById("recentWrap");
   const popRow = document.getElementById("popularRow");
@@ -1356,7 +1510,7 @@ function renderPopularAndRecent(){
       const img=cardImgById(x.id);
       return `
         <div class="mini-card" onclick="openCard('${x.id}')">
-          <div class="mini-thumb">${badgeHTML(d)}<img src="${img}" alt="${d.title||""}"></div>
+          <div class="mini-thumb">${badgeHTML(d)}<img loading="lazy" decoding="async" src="${img}" alt="${d.title||""}"></div>
           <div class="mini-body">
             <div class="mini-name">${d.title||""}</div>
             <div class="mini-sub">클릭 ${x.c}회 · ${d.tag==="new"?"신규":"추천"}</div>
@@ -1367,26 +1521,27 @@ function renderPopularAndRecent(){
   }else{
     popWrap.style.display="none";
   }
-
-  // 최근 본
-  const recent = getRecent().filter(id=>CARD_DATA[id]);
-  if(recent.length){
-    recWrap.style.display="block";
-    recRow.innerHTML = recent.slice(0,6).map(id=>{
-      const d=CARD_DATA[id];
-      const img=cardImgById(id);
-      return `
-        <div class="mini-card" onclick="openCard('${id}')">
-          <div class="mini-thumb">${badgeHTML(d)}<img src="${img}" alt="${d.title||""}"></div>
-          <div class="mini-body">
-            <div class="mini-name">${d.title||""}</div>
-            <div class="mini-sub">${d.tag==="ad" ? "광고/제휴" : (d.benefit||"")}</div>
-          </div>
-        </div>
-      `;
-    }).join("");
-  }else{
-    recWrap.style.display="none";
+  // 최근 본 (UI 제거됨: 요소가 있을 때만 처리)
+  if(recWrap && recRow){
+      const recent = getRecent().filter(id=>CARD_DATA[id]);
+      if(recent.length){
+        recWrap.style.display="block";
+        recRow.innerHTML = recent.slice(0,6).map(id=>{
+          const d=CARD_DATA[id];
+          const img=cardImgById(id);
+          return `
+            <div class="mini-card" onclick="openCard('${id}')">
+              <div class="mini-thumb">${badgeHTML(d)}<img loading="lazy" decoding="async" src="${img}" alt="${d.title||""}"></div>
+              <div class="mini-body">
+                <div class="mini-name">${d.title||""}</div>
+                <div class="mini-sub">${d.tag==="ad" ? "광고/제휴" : (d.benefit||"")}</div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }else{
+        recWrap.style.display="none";
+      }
   }
 }
 
@@ -1508,8 +1663,18 @@ function calcSimpleMargin(){
   maybeAutoRecFilter();
   renderPopularAndRecent();
   renderGrid();
+  // ✅ 딥링크: /?open=card3  → 카드 팝업 자동 오픈
+  try{
+    const p = new URLSearchParams(location.search);
+    const openId = p.get("open");
+    if(openId && CARD_DATA[openId]){
+      openCard(openId);
+    }
+  }catch(e){}
 })();
 </script>
+
+
 <!-- 🔍 SEO 랜딩 페이지 링크 (최하단 / 소형) -->
 <style>
 .landing-seo {
@@ -1555,3 +1720,5 @@ function calcSimpleMargin(){
 
 </body>
 </html>
+
+
