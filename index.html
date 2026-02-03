@@ -623,30 +623,6 @@ html{ scroll-behavior:smooth; }
 .mini-badge.new{ background: rgba(0,209,255,.12); border-color: rgba(0,209,255,.25); color: #8eeaff; }
 .mini-badge.ad{ background: rgba(122,69,255,.18); border-color: rgba(122,69,255,.30); color: #d7c9ff; }
 
-/* ===== SEO landing links (하단) ===== */
-.landing-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-top:12px;
-}
-.landing-item{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:12px 10px;
-  border-radius:14px;
-  background: rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.12);
-  color:#fff;
-  font-weight:800;
-  text-decoration:none;
-}
-.landing-item:hover{ background: rgba(255,255,255,.10); }
-@media (max-width: 520px){
-  .landing-grid{ grid-template-columns:1fr; }
-}
-
 </style>
 
 <script>
@@ -1100,21 +1076,7 @@ const INSIGHTS_BY_SPORT = {
 
 
   <!-- ===== SEO 목적 랜딩(4개) : 하단 배치 ===== -->
-  <section class="card" style="margin-top:14px;">
-    <div class="c-hd">
-      <div class="tag">SEO</div>
-      <div class="c-title">키워드 랜딩 바로가기 (4)</div>
-    </div>
-    <div class="landing-grid">
-      <a class="landing-item" href="/landing-a/">입플/보너스/페이백</a>
-      <a class="landing-item" href="/landing-b/">동행 미니게임 (파워볼·키노)</a>
-      <a class="landing-item" href="/landing-c/">카지노/슬롯 키워드</a>
-      <a class="landing-item" href="/landing-d/">스포츠토토·배당 분석</a>
-    </div>
-    <div class="muted small" style="margin-top:10px;">
-      ※ 랜딩 4개는 “검색 유입(키워드)” 목적입니다. 메인 기능(업체 카드/분석기)은 위 섹션에서 이용하세요.
-    </div>
-  </section>
+  
 
 <script>
 /* ✅ 로딩 화면 닫기(최대 2.5초 안전장치 포함) */
@@ -1468,7 +1430,7 @@ function renderGrid(){
   }
 
   // 렌더
-  grid.innerHTML = filtered.map(id=>{
+  grid.innerHTML = filtered.map((id, idx)=>{
     const d = CARD_DATA[id];
     const img = cardImgById(id);
     return `
@@ -1681,12 +1643,12 @@ function calcSimpleMargin(){
 <style>
   .landing-seo{
     max-width:1100px;
-    margin:22px auto 26px;
+    margin:10px auto 12px;
     padding:0 14px;
     opacity:.85;
   }
   .landing-seo h3{
-    font-size:10px;
+    font-size:8px;
     color:#6f6f6f;
     margin:0 0 6px;
     font-weight:800;
@@ -1699,10 +1661,10 @@ function calcSimpleMargin(){
   }
   .landing-seo a{
     display:inline-block;
-    font-size:10px;
+    font-size:8px;
     color:#9a9a9a;
     text-decoration:none;
-    padding:3px 6px;
+    padding:2px 5px;
     border-radius:6px;
     border:1px solid rgba(255,255,255,.06);
     background:transparent;
