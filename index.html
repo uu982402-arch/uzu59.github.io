@@ -1079,6 +1079,127 @@ const INSIGHTS_BY_SPORT = {
   
 
 <script>
+/* =========================================================
+   GA4 이벤트(6개) + UTM 세션 저장 + 아웃바운드 UTM 규칙
+   Events:
+   1) view_home
+   2) click_analyzer
+   3) scroll_vendor
+   4) open_card
+   5) click_outbound
+   6) click_telegram
+========================================================= */
+
+/* 안전한 GA 이벤트 래퍼 */
+function gaEvent(name, params){
+  try{
+    if(typeof gtag === "function"){
+      gtag("event", name, params || {});
+    }
+  }catch(e){}
+}
+
+/* UTM을 세션에 저장(캠페인 유입 분석용) */
+const UTM_SESSION_KEY = "88_utm_session";
+function readUtmFromUrl(){
+  const sp = new URLSearchParams(location.search);
+  const keys = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"];
+  const out = {};
+  keys.forEach(k=>{
+    const v = sp.get(k);
+    if(v) out[k] = v;
+  });
+  return out;
+}
+function getSessionUtm(){
+  try{
+    return JSON.parse(sessionStorage.getItem(UTM_SESSION_KEY) || "{}") || {};
+  }catch(e){ return {}; }
+}
+function setSessionUtm(obj){
+  try{ sessionStorage.setItem(UTM_SESSION_KEY, JSON.stringify(obj || {})); }catch(e){}
+}
+(function initUtmSession(){
+  const u = readUtmFromUrl();
+  if(Object.keys(u).length){
+    setSessionUtm(Object.assign(getSessionUtm(), u));
+  }
+})();
+
+/* 카드 외부링크(업체 사이트) 기본 UTM 부여 (업체 전달용/분석용) */
+function vendorOutboundUrl(baseUrl, cardId){
+  const raw = String(baseUrl || "").trim();
+  if(!raw) return "#";
+  try{
+    const u = new URL(raw);
+    if(!u.searchParams.get("utm_source"))   u.searchParams.set("utm_source","88st");
+    if(!u.searchParams.get("utm_medium"))   u.searchParams.set("utm_medium","referral");
+    if(!u.searchParams.get("utm_campaign")) u.searchParams.set("utm_campaign","vendor_card");
+    if(!u.searchParams.get("utm_content"))  u.searchParams.set("utm_content", String(cardId||""));
+    return u.toString();
+  }catch(e){
+    // URL() 파싱 실패 시(상대경로 등)는 원본 유지
+    return raw;
+  }
+}
+
+/* GA4 이벤트 초기화(뷰/스크롤/클릭) */
+(function initAnalytics(){
+  // 1) 홈 뷰 (page_view는 자동이지만, 퍼널용 커스텀 이벤트로 추가)
+  gaEvent("view_home", { page_location: location.href });
+
+  // 2) 분석기 버튼 클릭
+  const analyzerBtn = document.querySelector(".analyze-btn");
+  if(analyzerBtn){
+    analyzerBtn.addEventListener("click", ()=>{
+      gaEvent("click_analyzer", { page_location: location.href });
+    });
+  }
+
+  // 3) 인증놀이터 섹션 스크롤 진입
+  const vendorTop = document.getElementById("vendorTop");
+  if(vendorTop && ("IntersectionObserver" in window)){
+    const doneKey = "88_scroll_vendor_done";
+    if(!sessionStorage.getItem(doneKey)){
+      const io = new IntersectionObserver((entries)=>{
+        if(entries.some(e=>e.isIntersecting)){
+          sessionStorage.setItem(doneKey,"1");
+          gaEvent("scroll_vendor", { page_location: location.href });
+          io.disconnect();
+        }
+      }, { threshold: 0.25 });
+      io.observe(vendorTop);
+    }
+  }
+
+  // 5) 아웃바운드 클릭(사이트 이동)
+  const pLink = document.getElementById("pLink");
+  if(pLink){
+    pLink.addEventListener("click", ()=>{
+      const cid = pLink.dataset.cardId || "";
+      gaEvent("click_outbound", {
+        card_id: cid,
+        link_url: pLink.href,
+        transport_type: "beacon"
+      });
+    });
+  }
+
+  // 6) 텔레그램 클릭
+  const pTelegram = document.getElementById("pTelegram");
+  if(pTelegram){
+    pTelegram.addEventListener("click", ()=>{
+      const cid = pTelegram.dataset.cardId || "";
+      const tg  = pTelegram.dataset.tg || "";
+      gaEvent("click_telegram", {
+        card_id: cid,
+        telegram: tg,
+        transport_type: "beacon"
+      });
+    });
+  }
+})();
+
 /* ✅ 로딩 화면 닫기(최대 2.5초 안전장치 포함) */
 function hideLoader(){
   const l = document.getElementById("loader");
@@ -1198,6 +1319,15 @@ function openCard(id){
   const d = CARD_DATA[id];
   if(!d) return;
 
+  // 4) 카드 팝업 오픈
+  gaEvent("open_card", {
+    card_id: String(id||""),
+    card_title: String(d.title||""),
+    tag: String(d.tag||""),
+    is_recruit: d.recruit ? 1 : 0,
+    page_location: location.href
+  });
+
   // 클릭 카운트 + 최근 본
   incCardClick(id);
   
@@ -1228,7 +1358,8 @@ function openCard(id){
   if(btnCopy) btnCopy.style.display = isRecruit ? "none" : "block";
   if(btnGo){
     btnGo.style.display = isRecruit ? "none" : "block";
-    btnGo.href = d.link || "#";
+    btnGo.href = isRecruit ? "#" : vendorOutboundUrl(d.link || "", id);
+    btnGo.dataset.cardId = id;
   }
 
   // 텔레그램
@@ -1236,6 +1367,8 @@ function openCard(id){
   const pTelegram = document.getElementById("pTelegram");
   pTelegram.href = "https://t.me/" + tg;
   pTelegram.innerText = isRecruit ? ("광고 문의 @" + tg) : ("텔레그램 문의 @" + tg);
+  pTelegram.dataset.cardId = id;
+  pTelegram.dataset.tg = tg;
 
   // 추천 이유 3줄
   const rBox = document.getElementById("reasonBox");

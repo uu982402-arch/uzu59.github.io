@@ -1,0 +1,30 @@
+# 88st UTM 규칙 & 텔레그램 캠페인 템플릿 (복사해서 사용)
+
+## 1) UTM 기본 규칙(권장)
+- utm_source  : 유입 채널 (telegram / kakao / naver / youtube / direct 등)
+- utm_medium  : 포맷 (post / bio / story / banner / cpc 등)
+- utm_campaign: 캠페인명 (YYYYMM_주제 형태 추천)
+- utm_content : 게시물/소재 구분 (post01, post02… / bannerA…)
+- utm_term    : 선택(키워드) (예: toto, casino, slot)
+
+예) utm_source=telegram&utm_medium=post&utm_campaign=202602_toto&utm_content=post01&utm_term=odds
+
+## 2) 텔레그램용 “바로 복사” 링크 템플릿
+(메인)
+https://88st.cloud/?utm_source=telegram&utm_medium=post&utm_campaign=202602_main&utm_content=post01
+
+(분석기 바로가기)
+https://88st.cloud/analysis/?utm_source=telegram&utm_medium=post&utm_campaign=202602_analyzer&utm_content=post01
+
+(랜딩 A)
+https://88st.cloud/landing-a/?utm_source=telegram&utm_medium=post&utm_campaign=202602_landingA&utm_content=post01
+
+(랜딩 B)
+https://88st.cloud/landing-b/?utm_source=telegram&utm_medium=post&utm_campaign=202602_landingB&utm_content=post01
+
+## 3) 추천 운영 방식(짧게)
+- 같은 날 같은 채널에서 2개 이상 올리면 utm_content만 바꿔서 비교
+- 캠페인은 “월+주제”로 고정: 202602_toto / 202602_casino / 202602_slot …
+- 성과 지표:
+  - view_home → scroll_vendor → open_card → click_outbound / click_telegram
+  - GA4에서 click_outbound, click_telegram을 ‘전환’으로 체크 추천
