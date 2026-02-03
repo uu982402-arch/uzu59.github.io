@@ -967,7 +967,18 @@ const INSIGHTS_BY_SPORT = {
 </div>
 
 
-  <!-- 카드 그리드 (JS 렌더) -->
+  <!-- ✅ 추천 카드 요약 TOP3 -->
+  <div class="mini-wrap" id="recSummaryWrap">
+    <div class="mini-title">추천 카드 요약 TOP3</div>
+    <div class="mini-row" id="recSummaryRow"></div>
+  </div>
+
+<!-- ✅ 인기 TOP3 -->
+<div class="mini-wrap" id="popularWrap" style="display:none;">
+  <div class="mini-title">🔥 인기 TOP3</div>
+  <div class="mini-row" id="popularRow"></div>
+</div>
+<!-- 카드 그리드 (JS 렌더) -->
 <div class="vendor-grid" id="vendorGrid"></div>
 <!-- 방문자 -->
 <div id="visitorBox">
@@ -1127,7 +1138,7 @@ function openCard(id){
 
   // 클릭 카운트 (인기 TOP3)
   incCardClick(id);
-
+  renderPopularAndRecent();
 // 광고 모집 카드 분기
   const isRecruit = !!d.recruit;
 
@@ -1327,8 +1338,10 @@ function pushRecent(id){
   localStorage.setItem(RECENT_KEY, JSON.stringify(trimmed));
 }
 
-function badgeHTML(){ return ""; }
-">${text}</div>`;
+function badgeHTML(d){
+  const cls = d.badgeCls || "rec";
+  const text = d.badgeText || "추천";
+  return `<div class="badge-tag ${cls}">${text}</div>`;
 }
 
 function escapeHtml(s){
@@ -1350,10 +1363,8 @@ function badgeText(d){
 
 
 function cardImgById(id){
-  const n = String(id).replace("card", "");
-  return { webp: `img/img${n}.webp`, jpg: `img/img${n}.jpg` };
-}
-.jpg`;
+  const n = String(id).replace("card","");
+  return `img/img${n}.jpg`;
 }
 
 function renderGrid(){
@@ -1398,8 +1409,8 @@ function renderGrid(){
     return `
       <div class="card" data-card="${id}" onclick="openById(this)">
         <div class="img-box">
-          
-          <img src="${img.webp}" data-fallback="${img.jpg}" loading="lazy" decoding="async" alt="${(d.title||"").replace(/"/g,'&quot;')}">
+          ${badgeHTML(d)}
+          <img loading="lazy" decoding="async" src="${img}" alt="${(d.title||"").replace(/"/g,'&quot;')}">
         </div>
         <div class="content">
           <div class="site">${d.title || ""}</div>
@@ -1410,30 +1421,12 @@ function renderGrid(){
     `;
   }).join("");
 
-  // 이미지 블러 배경 세팅 + WEBP→JPG fallback + 로딩 실패 대응
+  // 이미지 블러 배경 세팅 + 로딩 실패 대응
   document.querySelectorAll(".img-box").forEach(box=>{
     const img = box.querySelector("img");
     if(!img) return;
-
-    const setBg = ()=> {
-      const src = img.currentSrc || img.src || "";
-      if(src) box.style.setProperty("--bgimg", `url('${src}')`);
-    };
-
-    // 초기 배경
-    setBg();
-
-    // 로드 완료 시 배경 갱신(실제 로드된 소스)
-    img.addEventListener("load", setBg);
-
-    // WEBP 파일이 없거나(404) 미지원이면 JPG로 폴백
+    box.style.setProperty("--bgimg", `url('${img.src}')`);
     img.onerror = ()=>{
-      const fb = img.dataset.fallback;
-      if(fb && img.src !== fb){
-        img.src = fb;
-        img.dataset.fallback = "";
-        return;
-      }
       img.style.display="none";
       box.style.minHeight="130px";
     };
@@ -1460,9 +1453,6 @@ function setFilter(key){
 
 /* 인기 TOP3 / 최근 본 */
 function renderPopularAndRecent(){
-  // (제거됨) 인기/추천/최근 섹션은 더 이상 사용하지 않습니다.
-  return;
-
   // ✅ 추천 카드 요약 TOP3 (추천 태그 기준)
   const sumWrap = document.getElementById("recSummaryWrap");
   const sumRow  = document.getElementById("recSummaryRow");
@@ -1520,7 +1510,7 @@ function renderPopularAndRecent(){
       const img=cardImgById(x.id);
       return `
         <div class="mini-card" onclick="openCard('${x.id}')">
-          <div class="mini-thumb"><img src="${img.webp}" data-fallback="${img.jpg}" loading="lazy" decoding="async" alt="${d.title||""}"></div>
+          <div class="mini-thumb">${badgeHTML(d)}<img loading="lazy" decoding="async" src="${img}" alt="${d.title||""}"></div>
           <div class="mini-body">
             <div class="mini-name">${d.title||""}</div>
             <div class="mini-sub">클릭 ${x.c}회 · ${d.tag==="new"?"신규":"추천"}</div>
@@ -1541,7 +1531,7 @@ function renderPopularAndRecent(){
           const img=cardImgById(id);
           return `
             <div class="mini-card" onclick="openCard('${id}')">
-              <div class="mini-thumb"><img src="${img.webp}" data-fallback="${img.jpg}" loading="lazy" decoding="async" alt="${d.title||""}"></div>
+              <div class="mini-thumb">${badgeHTML(d)}<img loading="lazy" decoding="async" src="${img}" alt="${d.title||""}"></div>
               <div class="mini-body">
                 <div class="mini-name">${d.title||""}</div>
                 <div class="mini-sub">${d.tag==="ad" ? "광고/제휴" : (d.benefit||"")}</div>
@@ -1671,7 +1661,7 @@ function calcSimpleMargin(){
   refreshChecklist();
   setMarginMode("2");
   maybeAutoRecFilter();
-
+  renderPopularAndRecent();
   renderGrid();
   // ✅ 딥링크: /?open=card3  → 카드 팝업 자동 오픈
   try{
