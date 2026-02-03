@@ -2,24 +2,11 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-  <!-- ✅ Google Analytics 4 (GA4) - 88st.cloud -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  // 기본 페이지뷰
-  gtag('config', 'G-KWT87FBY6S', {
-    anonymize_ip: true
-  });
-</script>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ===== SEO 기본 세팅 (균형형 C) ===== -->
 <title>스포츠 배당 분석기 · 보증 업체 검증 추천 | 88(팔팔커뮤니티)</title>
-<meta name="description" content="88(팔팔커뮤니티) — 스포츠 배당 분석기·마진 계산기와 고액 유저 기준 보증 업체 검증 추천. 입금플러스(입플)·보너스·페이백, 카지노/슬롯/미니게임(동행 파워볼·키노사다리·동키노) 혜택/가입코드 안내 및 텔레그램 문의.">
+<meta name="description" content="88(팔팔커뮤니티) — 스포츠 배당 분석기와 고액 유저 기준 보증 업체 검증 추천을 제공합니다. 입금플러스(입플) 혜택, 가입코드 안내 및 텔레그램 문의 지원.">
 <link rel="canonical" href="https://88st.cloud/">
 <meta name="robots" content="index,follow">
 
@@ -27,7 +14,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="88 (팔팔커뮤니티)">
 <meta property="og:title" content="스포츠 분석기 · 88 인증 놀이터 검증 추천 | 88">
-<meta property="og:description" content="배당 분석기·마진 계산기 + 입플/보너스/페이백 검증 추천">
+<meta property="og:description" content="고액 유저 기준 검증 업체 + 스포츠 배당 분석기 제공">
 <meta property="og:url" content="https://88st.cloud/">
 
 <!-- 파비콘(루트에 favicon.ico 업로드 시) -->
@@ -632,193 +619,38 @@ select.insight-select{
 
 /* ✅ 부드러운 스크롤 */
 html{ scroll-behavior:smooth; }
-
-/* ===== mini badges (요약 TOP3/최근 본) ===== */
-.mini-badge{
-  display:inline-block;
-  padding:3px 8px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:900;
-  line-height:1;
-  border:1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.08);
-  color: rgba(255,255,255,.92);
-  white-space:nowrap;
-}
-.mini-badge.rec{ background: rgba(255,198,61,.18); border-color: rgba(255,198,61,.30); color: #ffd873; }
-.mini-badge.new{ background: rgba(0,209,255,.12); border-color: rgba(0,209,255,.25); color: #8eeaff; }
-.mini-badge.ad{ background: rgba(122,69,255,.18); border-color: rgba(122,69,255,.30); color: #d7c9ff; }
-
-/* ===== SEO landing links (하단) ===== */
-.landing-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-top:12px;
-}
-.landing-item{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:12px 10px;
-  border-radius:14px;
-  background: rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.12);
-  color:#fff;
-  font-weight:800;
-  text-decoration:none;
-}
-.landing-item:hover{ background: rgba(255,255,255,.10); }
-@media (max-width: 520px){
-  .landing-grid{ grid-template-columns:1fr; }
-}
-
 </style>
 
 <script>
 /* ===== 카드 데이터 (✅ card7, card8 광고모집 추가) ===== */
 const CARD_DATA = {
-  card1:{
-    title:"B WIN",
-    code:"AS88",
-    link:"https://bwk999.com",
-    telegram:"UZU59",
+  card1:{ title:"B WIN", code:"AS88", link:"https://bwk999.com", telegram:"UZU59",
     benefit:"고액전용 USDT 무기명가입 수수료지원 / 모든게임 입금플러스",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"추천",
-    badgeText:"추천",
-    badgeCls:"rec",
-    priority:"high",
-    reasons:[
-      "고액 유저 기준 검증 + 운영 안정성 우선",
-      "입금플러스/수수료 지원 등 혜택 조건 명확",
-      "문의/대응 라인 확실(텔레그램 연결)"
-    ]
-  },
-  card2:{
-    title:"CAPS",
-    code:"RUST",
-    link:"https://caps-22.com",
-    telegram:"UZU59",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card2:{ title:"CAPS", code:"RUST", link:"https://caps-22.com", telegram:"UZU59",
     benefit:"고액전용 미겜 첫충 5% / 페이백 5% / 출석 30만원",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"추천",
-    badgeText:"추천",
-    badgeCls:"rec",
-    priority:"high",
-    reasons:[
-      "미니게임/스포츠 동시 이용 유저 비중 높음",
-      "첫충/페이백 등 보너스 구조가 깔끔",
-      "고객 응대 및 정산 안정성 후기 반영"
-    ]
-  },
-  card3:{
-    title:"BETZY",
-    code:"BANGU",
-    link:"https://b88-et.com",
-    telegram:"UZU59",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card3:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com", telegram:"UZU59",
     benefit:"스포츠 첫 10% / 미겜 첫 5% / 페이백 5%",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"신규",
-    badgeText:"신규",
-    badgeCls:"new",
-    priority:"high",
-    reasons:[
-      "스포츠/미니게임 밸런스형 혜택 구성",
-      "가입코드 기준 혜택 적용 정책 명확",
-      "커뮤니티 제보 기반으로 지속 모니터링"
-    ]
-  },
-  card4:{
-    title:"VEGAS",
-    code:"6789",
-    link:"https://las403.com",
-    telegram:"UZU59",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card4:{ title:"VEGAS", code:"6789", link:"https://las403.com", telegram:"UZU59",
     benefit:"스포츠·미겜 입플 최대 30% / 카지노 입플",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"검증",
-    badgeText:"검증",
-    badgeCls:"verified",
-    priority:"normal",
-    reasons:[
-      "카지노/슬롯 이용 유저 전환이 높음",
-      "입플/보너스 조건 공지 및 적용 라인 명확",
-      "장기 운영 이력 기반으로 선별"
-    ]
-  },
-  card5:{
-    title:"LULA BET",
-    code:"ZZ99",
-    link:"https://lula.ws",
-    telegram:"PSC991",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card5:{ title:"LULA BET", code:"ZZ99", link:"https://lula.ws", telegram:"PSC991",
     benefit:"원화·USDT 무기명가입 / 페이백 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"고액",
-    badgeText:"고액",
-    badgeCls:"gold",
-    priority:"normal",
-    reasons:[
-      "무기명/USDT 등 고액 동선에 강점",
-      "페이백 등 리베이트 성격 혜택 제공",
-      "고액 유저 기준 응대/정산 체크"
-    ]
-  },
-  card6:{
-    title:"CHOY BET",
-    code:"TAN",
-    link:"https://cy-40.com",
-    telegram:"DY0302",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card6:{ title:"CHOY BET", code:"TAN", link:"https://cy-40.com", telegram:"DY0302",
     benefit:"신규 30% / 매충 10% / 페이백 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"추천",
-    badgeText:"추천",
-    badgeCls:"rec",
-    priority:"normal",
-    reasons:[
-      "신규/매충/페이백 등 보너스 구성이 강함",
-      "미니게임/카지노 유저 전환이 빠름",
-      "문의 라인 분리 운영으로 대응 속도 확보"
-    ]
-  },
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
 
-  /* ✅ 광고 모집(자리) — 카드7/8 */
-  card7:{
-    title:"광고 모집 (자리 1)",
-    code:"-",
-    link:"#",
-    telegram:"UZU59",
-    benefit:"메인 카드 광고 제휴를 원하시면 문의 주세요.",
-    notice:"광고/제휴 문의 전용 카드입니다.",
-    tag:"광고",
-    badgeText:"광고",
-    badgeCls:"ad",
-    priority:"ad",
-    recruit:true,
-    reasons:[
-      "메인 상단 노출(클릭/전환 강화)",
-      "텔레그램 유입 동선 포함",
-      "고정 배너/카드 문구 커스텀 가능"
-    ]
-  },
-  card8:{
-    title:"광고 모집 (자리 2)",
-    code:"-",
-    link:"#",
-    telegram:"UZU59",
-    benefit:"입플/보너스/페이백 강점 업체 우선 모집",
-    notice:"광고/제휴 문의 전용 카드입니다.",
-    tag:"광고",
-    badgeText:"광고",
-    badgeCls:"ad",
-    priority:"ad",
-    recruit:true,
-    reasons:[
-      "메인/랜딩/딥링크 동시 지원",
-      "주간 리포트(클릭/유입) 제공 가능",
-      "업체별 추천 문구 3줄 자동 표시"
-    ]
-  }
+  /* ✅ 광고 모집 카드 */
+  card7:{ title:"광고/제휴 모집", code:"", link:"", telegram:"UZU59",
+    benefit:"88 커뮤니티에 광고/제휴를 원하시면 문의 주세요.",
+    notice:"광고 문의는 텔레그램 @UZU59 로만 진행합니다." },
+
+  card8:{ title:"광고 자리 오픈", code:"", link:"", telegram:"UZU59",
+    benefit:"배너/카드 광고 자리 오픈 · 합리적 조건",
+    notice:"사칭 주의: 공식 관리자 @UZU59 단 하나" }
 };
 
 /* ===== 인사이트 (종목별) ===== */
@@ -1087,13 +919,6 @@ const INSIGHTS_BY_SPORT = {
   <div class="v-small" id="evAutoHint" style="display:none;"></div>
 </div>
 
-
-  <!-- ✅ 추천 카드 요약 TOP3 -->
-  <div class="mini-wrap" id="recSummaryWrap">
-    <div class="mini-title">추천 카드 요약 TOP3</div>
-    <div class="mini-row" id="recSummaryRow"></div>
-  </div>
-
 <!-- ✅ 인기 TOP3 -->
 <div class="mini-wrap" id="popularWrap" style="display:none;">
   <div class="mini-title">🔥 인기 TOP3</div>
@@ -1140,24 +965,6 @@ const INSIGHTS_BY_SPORT = {
     <div class="btn copy" onclick="closeCard()">닫기</div>
   </div>
 </div>
-
-
-  <!-- ===== SEO 목적 랜딩(4개) : 하단 배치 ===== -->
-  <section class="card" style="margin-top:14px;">
-    <div class="c-hd">
-      <div class="tag">SEO</div>
-      <div class="c-title">키워드 랜딩 바로가기 (4)</div>
-    </div>
-    <div class="landing-grid">
-      <a class="landing-item" href="/landing-a/">입플/보너스/페이백</a>
-      <a class="landing-item" href="/landing-b/">동행 미니게임 (파워볼·키노)</a>
-      <a class="landing-item" href="/landing-c/">카지노/슬롯 키워드</a>
-      <a class="landing-item" href="/landing-d/">스포츠토토·배당 분석</a>
-    </div>
-    <div class="muted small" style="margin-top:10px;">
-      ※ 랜딩 4개는 “검색 유입(키워드)” 목적입니다. 메인 기능(업체 카드/분석기)은 위 섹션에서 이용하세요.
-    </div>
-  </section>
 
 <script>
 /* ✅ 로딩 화면 닫기(최대 2.5초 안전장치 포함) */
@@ -1522,51 +1329,7 @@ function setFilter(key){
 }
 
 /* 인기 TOP3 / 최근 본 */
-
-/* ✅ 배지 텍스트 헬퍼(요약 TOP3/최근 본 미니카드용) */
-function badgeText(d, id){
-  // 카드 7/8은 "광고 문의" 전용 처리
-  if(id === "card7" || id === "card8"){
-    return { text: "광고", cls: "ad" };
-  }
-  const cls = (d && d.badgeCls) ? d.badgeCls : ((d && d.tag) ? d.tag : "rec");
-  let text = (d && d.badgeText) ? d.badgeText : (cls === "ad" ? "광고" : (cls === "new" ? "신규" : "추천"));
-  if(!text) text = "추천";
-  return { text, cls };
-}
-
 function renderPopularAndRecent(){
-  // ✅ 추천 카드 요약 TOP3 (추천 태그 기준)
-  const sumWrap = document.getElementById("recSummaryWrap");
-  const sumRow  = document.getElementById("recSummaryRow");
-  if(sumWrap && sumRow){
-    const recIds = Object.keys(CARD_DATA).filter(id=>{
-      const d = CARD_DATA[id];
-      return d && d.tag === "rec" && !d.recruit;
-    });
-    if(recIds.length){
-      const sorted = recIds.slice().sort((a,b)=> getClickCount(b) - getClickCount(a));
-      const top = sorted.slice(0,3);
-      sumRow.innerHTML = top.map(id=>{
-        const d = CARD_DATA[id];
-        const badge = badgeText(d, id);
-        return `
-          <div class="mini-card" data-open="${id}">
-            <div class="mini-badge ${badge.cls}">${badge.text}</div>
-            <div class="mini-name">${escapeHtml(d.title||id)}</div>
-            <div class="mini-sub">${escapeHtml((d.benefit||"").slice(0,46))}${(d.benefit && d.benefit.length>46)?"…":""}</div>
-          </div>
-        `;
-      }).join("");
-      sumRow.querySelectorAll(".mini-card").forEach(el=>{
-        el.addEventListener("click", ()=> openCard(el.dataset.open));
-      });
-      sumWrap.style.display = "block";
-    }else{
-      sumWrap.style.display = "none";
-    }
-  }
-
   const popWrap = document.getElementById("popularWrap");
   const recWrap = document.getElementById("recentWrap");
   const popRow = document.getElementById("popularRow");
@@ -1745,18 +1508,8 @@ function calcSimpleMargin(){
   maybeAutoRecFilter();
   renderPopularAndRecent();
   renderGrid();
-  // ✅ 딥링크: /?open=card3  → 카드 팝업 자동 오픈
-  try{
-    const p = new URLSearchParams(location.search);
-    const openId = p.get("open");
-    if(openId && CARD_DATA[openId]){
-      openCard(openId);
-    }
-  }catch(e){}
 })();
 </script>
 
 </body>
 </html>
-
-
