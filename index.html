@@ -2,37 +2,32 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-  <!-- ✅ Google Analytics 4 (GA4) - 88st.cloud -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  // 기본 페이지뷰
-  gtag('config', 'G-KWT87FBY6S', {
-    anonymize_ip: true
-  });
-</script>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ===== SEO 기본 세팅 (균형형 C) ===== -->
-<title>스포츠 배당 분석기 · 보증 업체 검증 추천 | 88(팔팔커뮤니티)</title>
-<meta name="description" content="88(팔팔커뮤니티) — 스포츠 배당 분석기·마진 계산기와 고액 유저 기준 보증 업체 검증 추천. 입금플러스(입플)·보너스·페이백, 카지노/슬롯/미니게임(동행 파워볼·키노사다리·동키노) 혜택/가입코드 안내 및 텔레그램 문의.">
+<!-- ===== SEO 기본 세팅 ===== -->
+<title>88 | 스포츠 배당 분석기 · 배당 마진 계산기 · 인증 놀이터 안내</title>
+<meta name="description" content="88 — 스포츠 배당 분석기와 배당 마진(오버라운드) 계산기를 무료로 제공합니다. 분석기 사용 안내와 인증 놀이터 정보를 한 곳에서 확인하세요.">
 <link rel="canonical" href="https://88st.cloud/">
 <meta name="robots" content="index,follow">
 
 <!-- SNS 공유 -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="88 (팔팔커뮤니티)">
-<meta property="og:title" content="스포츠 분석기 · 88 인증 놀이터 검증 추천 | 88">
-<meta property="og:description" content="배당 분석기·마진 계산기 + 입플/보너스/페이백 검증 추천">
+<meta property="og:title" content="88 | 스포츠 배당 분석기 · 배당 마진 계산기 · 인증 놀이터">
+<meta property="og:description" content="무료 분석기(마진/EV/확률) + 인증 놀이터 안내">
 <meta property="og:url" content="https://88st.cloud/">
 
-<!-- 파비콘(루트에 favicon.ico 업로드 시) -->
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+<!-- ===== GA4 (원하면 ID만 교체) ===== -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-KWT87FBY6S', { anonymize_ip: true });
+</script>
 
 <style>
 *,
@@ -42,12 +37,12 @@
 :root{
   --bg:#0b0b0b;
   --panel:#121212;
-  --panel2:#111;
   --gold:#d4af37;
   --gold2:#f5e27a;
   --muted:#cfcfcf;
 }
 
+html{ scroll-behavior:smooth; }
 body{
   margin:0;
   background:
@@ -58,7 +53,6 @@ body{
   color:#fff;
 }
 
-/* ===== 상단 공지/이벤트 배너 (자동 순환) ===== */
 .notice-bar{
   position:sticky;
   top:0;
@@ -71,12 +65,8 @@ body{
   text-align:center;
   box-shadow:0 10px 30px rgba(0,0,0,.35);
 }
-.notice-bar a{
-  color:#000;
-  text-decoration:none;
-}
+.notice-bar a{ color:#000; text-decoration:none; }
 
-/* ===== 로딩 화면 ===== */
 #loader{
   position:fixed;
   inset:0;
@@ -104,34 +94,14 @@ body{
   object-fit:contain;
   animation: pulse 1.4s ease-in-out infinite;
 }
-#loader .text{
-  font-weight:900;
-  letter-spacing:.6px;
-  color:#e9e9e9;
-  opacity:.85;
-  font-size:13px;
-}
-@keyframes pulse{
-  0%{ transform:scale(1); opacity:.85; }
-  50%{ transform:scale(1.03); opacity:1; }
-  100%{ transform:scale(1); opacity:.85; }
-}
-#loader.hide{
-  opacity:0;
-  pointer-events:none;
-  transition: opacity .35s ease;
-}
+#loader .text{ font-weight:900; letter-spacing:.6px; color:#e9e9e9; opacity:.85; font-size:13px; }
+@keyframes pulse{ 0%{ transform:scale(1); opacity:.85; } 50%{ transform:scale(1.03); opacity:1; } 100%{ transform:scale(1); opacity:.85; } }
+#loader.hide{ opacity:0; pointer-events:none; transition: opacity .35s ease; }
 
-/* ===== 사칭주의 팝업 (1일 1회) ===== */
 .scam-popup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:3000;
-  padding:18px;
+  position:fixed; inset:0; background:rgba(0,0,0,.75);
+  display:none; align-items:center; justify-content:center;
+  z-index:3000; padding:18px;
 }
 .scam-box{
   background:rgba(17,17,17,.95);
@@ -144,39 +114,12 @@ body{
   box-shadow:0 18px 60px rgba(0,0,0,.75);
   backdrop-filter: blur(10px);
 }
-.scam-box h3{
-  color:#ff6b6b;
-  margin:0 0 10px;
-  font-weight:900;
-}
-.scam-box p{
-  font-size:13px;
-  color:#ddd;
-  line-height:1.55;
-  margin:0;
-}
-.scam-box .btn{
-  margin-top:12px;
-  padding:12px;
-  border-radius:12px;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#000;
-  font-weight:900;
-  cursor:pointer;
-  user-select:none;
-}
+.scam-box h3{ color:#ff6b6b; margin:0 0 10px; font-weight:900; }
+.scam-box p{ font-size:13px; color:#ddd; line-height:1.55; margin:0; }
+.scam-box .btn{ margin-top:12px; padding:12px; border-radius:12px; background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#000; font-weight:900; cursor:pointer; user-select:none; }
 
-/* ===== 상단 ===== */
-.header{
-  text-align:center;
-  padding:18px 0 8px;
-}
-.header .logoLink{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-}
+.header{ text-align:center; padding:18px 0 8px; }
+.header .logoLink{ display:inline-flex; align-items:center; justify-content:center; text-decoration:none; }
 .header .logoImg{
   width:min(220px, 62vw);
   height:auto;
@@ -184,27 +127,13 @@ body{
   padding:10px;
   border-radius:18px;
   background:radial-gradient(120px 60px at 50% 40%, rgba(212,175,55,.15), transparent 70%);
-  filter:
-    drop-shadow(0 0 10px rgba(212,175,55,.25))
-    drop-shadow(0 0 24px rgba(212,175,55,.12));
+  filter: drop-shadow(0 0 10px rgba(212,175,55,.25)) drop-shadow(0 0 24px rgba(212,175,55,.12));
   animation: logoFloat 3.2s ease-in-out infinite;
 }
-@keyframes logoFloat{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-2px); }
-}
-.header .sub{
-  font-size:12px;
-  color:#9a9a9a;
-  margin-top:6px;
-}
+@keyframes logoFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-2px); } }
+.header .sub{ font-size:12px; color:#9a9a9a; margin-top:6px; }
 
-/* ===== 콘텐츠 섹션 ===== */
-.section-wrap{
-  max-width:1100px;
-  margin:0 auto;
-  padding:10px 14px 4px;
-}
+.section-wrap{ max-width:1100px; margin:0 auto; padding:10px 14px 4px; }
 .section{
   background:rgba(18,18,18,.85);
   border:1px solid rgba(255,255,255,.06);
@@ -214,43 +143,15 @@ body{
   box-shadow:0 10px 26px rgba(0,0,0,.45);
   backdrop-filter: blur(10px);
 }
-.section .title{
-  font-weight:900;
-  font-size:14px;
-  color:var(--gold2);
-  margin-bottom:8px;
-}
-.badge{
-  display:inline-block;
-  padding:4px 8px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:900;
-  color:#000;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  margin-right:6px;
-}
-.section .text{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.55;
-}
-.list{
-  margin:10px 0 0;
-  padding-left:18px;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.55;
-}
+.section .title{ font-weight:900; font-size:14px; color:var(--gold2); margin-bottom:8px; }
+.badge{ display:inline-block; padding:4px 8px; border-radius:999px; font-size:11px; font-weight:900; color:#000; background:linear-gradient(135deg,var(--gold),var(--gold2)); margin-right:6px; }
+.section .text{ color:var(--muted); font-size:13px; line-height:1.55; }
 
-/* 인사이트: 종목 선택 UI */
-.insight-row{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  margin-top:10px;
-  flex-wrap:wrap;
-}
+.two-col{ display:grid; gap:14px; align-items:start; }
+@media(min-width:980px){ .two-col{ grid-template-columns: 1.25fr .75fr; } }
+.col{ min-width:0; }
+
+.insight-row{ display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
 select.insight-select{
   background:rgba(0,0,0,.35);
   color:#fff;
@@ -260,83 +161,147 @@ select.insight-select{
   font-weight:800;
   outline:none;
 }
-.insight-btn{
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  border:none;
-  color:#111;
-  padding:10px 12px;
-  border-radius:12px;
-  font-weight:900;
-  cursor:pointer;
+.insight-btn{ background:linear-gradient(135deg,var(--gold),var(--gold2)); border:none; color:#111; padding:10px 12px; border-radius:12px; font-weight:900; cursor:pointer; }
+
+.section input{
+  padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.35); color:#fff; font-weight:800; outline:none;
 }
 
-/* 분석기 버튼 */
+.seg-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+.seg{ flex:1; min-width:140px; padding:10px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.25); color:#fff; font-weight:900; cursor:pointer; }
+.seg.active{ background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#111; border-color:transparent; }
+
+.cta-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+.cta-row a{ flex:1; min-width:160px; }
 .analyze-btn{
-  display:block;
-  margin-top:12px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
   width:100%;
-  padding:14px;
-  border-radius:16px;
+  padding:15px 16px;
+  border-radius:18px;
   font-weight:900;
   text-decoration:none;
-  text-align:center;
-  color:#00121a;
-  background:linear-gradient(135deg,#1da1f2,#78d6ff);
+  text-align:left;
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+  overflow:hidden;
+  user-select:none;
 }
+.analyze-btn .label{ display:block; line-height:1.05; }
+.analyze-btn .sub{ display:block; margin-top:6px; font-size:11px; font-weight:900; opacity:.9; }
+.analyze-btn .icon{ display:inline-flex; align-items:center; justify-content:center; }
+.analyze-btn::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(120deg, rgba(255,255,255,.18), transparent 35%, rgba(255,255,255,.10));
+  transform: translateX(-40%) skewX(-12deg);
+  opacity:.65;
+  transition: transform .55s ease;
+}
+.analyze-btn:hover{ transform: translateY(-2px); box-shadow:0 18px 44px rgba(0,0,0,.45); }
+.analyze-btn:hover::before{ transform: translateX(40%) skewX(-12deg); }
 
-
-
-/* ✅ 인증놀이터 바로가기 버튼 */
-.jump-btn{
-  display:block;
-  margin-top:10px;
-  width:100%;
-  padding:12px;
-  border-radius:16px;
-  font-weight:900;
-  text-decoration:none;
-  text-align:center;
+.analyze-btn.primary{
   color:#0b0b0b;
   background:linear-gradient(135deg,var(--gold),var(--gold2));
+  box-shadow:0 16px 40px rgba(212,175,55,.18);
 }
+.analyze-btn.primary:hover{ filter:brightness(1.03); }
 
-/* ===== 보증업체 안내 UI ===== */
+.analyze-btn.secondary{
+  color:#fff;
+  background:linear-gradient(135deg,#2d7dff,#6bdcff);
+  box-shadow:0 16px 40px rgba(80,160,255,.16);
+}
+.analyze-btn.secondary:hover{ filter:brightness(1.03); }
+.analyze-btn .sub{ display:block; margin-top:4px; font-size:11px; font-weight:900; opacity:.9; }
+
+.log{ display:grid; gap:8px; }
+.log-item{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.28);
+  border-radius:14px;
+  padding:10px 12px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+.log-date{ font-weight:900; color:#f5e27a; font-size:12px; white-space:nowrap; }
+.log-text{ color:#cfcfcf; font-size:13px; line-height:1.45; flex:1; }
+
+.faq details{ border:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.28); border-radius:14px; padding:10px 12px; }
+.faq details + details{ margin-top:10px; }
+.faq summary{ cursor:pointer; font-weight:900; color:#fff; list-style:none; }
+.faq summary::-webkit-details-marker{ display:none; }
+.faq .a{ margin-top:8px; color:#cfcfcf; font-size:13px; line-height:1.55; }
+
 .vendor-header{
-  text-align:center;
-  margin:12px 0 10px;
-}
-.vendor-header h2{
-  margin:0;
-  font-size:18px;
-  font-weight:900;
-  color:var(--gold2);
-  letter-spacing:.2px;
-}
-.vendor-header p{
-  margin:6px 0 0;
-  font-size:13px;
-  color:#a7a7a7;
-}
-
-/* ===== 카드 그리드 (모바일 2열 / 태블릿 3열 / PC 4열) ===== */
-.vendor-grid{
-  display:grid;
-  gap:14px;
-  padding:0 14px 10px;
   max-width:1100px;
-  margin:0 auto;
+  margin:14px auto 10px;
+  padding:16px 14px;
+  text-align:center;
+  border-radius:18px;
+  background:rgba(18,18,18,.85);
+  border:1px solid rgba(255,255,255,.06);
+  box-shadow:0 10px 26px rgba(0,0,0,.45);
+  backdrop-filter: blur(10px);
+  position:relative;
+  overflow:hidden;
 }
-@media(max-width:767px){
-  .vendor-grid{ grid-template-columns:repeat(2, 1fr); }
+.vendor-header::before{
+  content:"";
+  position:absolute;
+  inset:-40px;
+  background:radial-gradient(700px 240px at 50% 0%, rgba(212,175,55,.20), transparent 60%);
+  pointer-events:none;
 }
-@media(min-width:768px) and (max-width:1023px){
-  .vendor-grid{ grid-template-columns:repeat(3, 1fr); }
+.vendor-header h2{ position:relative; margin:0; font-size:18px; font-weight:900; color:var(--gold2); letter-spacing:.2px; }
+.vendor-header p{ position:relative; margin:6px 0 0; font-size:13px; color:#a7a7a7; }
+.pill-row{ position:relative; display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+.pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:9px 12px;
+  border-radius:999px;
+  font-weight:900;
+  text-decoration:none;
+  color:#0b0b0b;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  border:1px solid rgba(255,255,255,.12);
 }
-@media(min-width:1024px){
-  .vendor-grid{ grid-template-columns:repeat(4, 1fr); }
-}
+.pill:hover{ filter:brightness(1.03); }
 
-/* ===== 카드 ===== */
+.vendor-tools{ max-width:1100px; margin:0 auto 8px; padding:0 14px 10px; }
+.v-input{ width:100%; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.28); color:#fff; outline:none; font-weight:800; }
+.v-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.v-chip{ padding:9px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.25); color:#fff; font-weight:900; cursor:pointer; transition: transform .14s ease, filter .14s ease, border-color .14s ease; }
+.v-chip:hover{ transform: translateY(-1px); filter:brightness(1.03); border-color: rgba(255,255,255,.16); }
+.v-chip.active{ background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#111; border-color:transparent; }
+.v-small{ margin-top:8px; font-size:12px; color:#a7a7a7; }
+#evAutoHint{ display:none; }
+
+.vendor-grid{ position:relative; display:grid; gap:14px; padding:0 14px 10px; max-width:1100px; margin:0 auto; }
+.vendor-grid::before{
+  content:"";
+  position:absolute;
+  inset:-18px;
+  background:
+    radial-gradient(900px 320px at 50% 0%, rgba(212,175,55,.12), transparent 60%),
+    radial-gradient(700px 320px at 10% 20%, rgba(90,160,255,.10), transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+.vendor-grid > .card{ position:relative; z-index:1; }
+@media(max-width:767px){ .vendor-grid{ grid-template-columns:repeat(2, 1fr); } }
+@media(min-width:768px) and (max-width:1023px){ .vendor-grid{ grid-template-columns:repeat(3, 1fr); } }
+@media(min-width:1024px){ .vendor-grid{ grid-template-columns:repeat(4, 1fr); } }
+
 .card{
   background:rgba(18,18,18,.85);
   border:1px solid rgba(255,255,255,.06);
@@ -345,10 +310,40 @@ select.insight-select{
   overflow:hidden;
   cursor:pointer;
   backdrop-filter: blur(10px);
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, filter .16s ease;
+}
+.card:hover{
+  transform: translateY(-4px);
+  border-color: rgba(245,226,122,.22);
+  box-shadow:0 16px 46px rgba(0,0,0,.62);
+  filter:brightness(1.02);
+}
+.tag-badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  z-index:2;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:900;
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter: blur(10px);
+}
+.tag-badge.rec{
+  color:#0b0b0b;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+}
+.tag-badge.new{
+  color:#00121a;
+  background:linear-gradient(135deg,#2d7dff,#6bdcff);
+}
+.tag-badge.ad{
+  color:#fff;
+  background:rgba(255,255,255,.10);
 }
 .img-box{
   position:relative;
-  --bgimg: linear-gradient(135deg, rgba(212,175,55,.14), rgba(90,160,255,.10));
   width:100%;
   aspect-ratio: 4 / 5;
   background:#000;
@@ -373,19 +368,21 @@ select.insight-select{
   inset:0;
   background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.62));
 }
-.img-box img{
+.img-box picture, .img-box img{
   position:relative;
   z-index:1;
   width:100%;
   height:100%;
-  object-fit:contain;
 }
+.img-box img{ object-fit:contain; }
+
 .content{ padding:10px 10px 12px; }
 .site{ font-size:15px; font-weight:900; }
 .desc{ margin-top:6px; font-size:12px; color:#bdbdbd; line-height:1.35; min-height:32px; }
 .code{ margin-top:8px; font-size:12px; color:var(--gold2); font-weight:900; }
 
-/* ===== 팝업 ===== */
+#visitorBox{ text-align:center; color:#aaa; font-size:13px; padding:16px 0 22px; }
+
 .popup{
   position:fixed;
   inset:0;
@@ -407,11 +404,7 @@ select.insight-select{
   box-shadow:0 18px 60px rgba(0,0,0,.75);
   backdrop-filter: blur(10px);
 }
-.popup-box h2{
-  color:var(--gold2);
-  margin:0 0 10px;
-  font-weight:900;
-}
+.popup-box h2{ color:var(--gold2); margin:0 0 10px; font-weight:900; }
 .btn{
   width:100%;
   padding:12px;
@@ -425,164 +418,9 @@ select.insight-select{
 }
 .go{ background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#0b0b0b; }
 .copy{ background:#1f1f1f; color:#fff; border:1px solid rgba(255,255,255,.06); }
-.telegram a{
-  display:block;
-  margin-top:10px;
-  color:#45b3ff;
-  text-decoration:none;
-  font-weight:900;
-}
+.more{ background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.12); }
+.telegram a{ display:block; margin-top:10px; color:#45b3ff; text-decoration:none; font-weight:900; }
 
-/* ===== 업데이트 로그 ===== */
-.log{ display:grid; gap:8px; }
-.log-item{
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(0,0,0,.28);
-  border-radius:14px;
-  padding:10px 12px;
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-.log-date{
-  font-weight:900;
-  color:#f5e27a;
-  font-size:12px;
-  white-space:nowrap;
-}
-.log-text{
-  color:#cfcfcf;
-  font-size:13px;
-  line-height:1.45;
-  flex:1;
-}
-
-/* ===== FAQ ===== */
-.faq details{
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(0,0,0,.28);
-  border-radius:14px;
-  padding:10px 12px;
-}
-.faq details + details{ margin-top:10px; }
-.faq summary{
-  cursor:pointer;
-  font-weight:900;
-  color:#fff;
-  list-style:none;
-}
-.faq summary::-webkit-details-marker{ display:none; }
-.faq .a{
-  margin-top:8px;
-  color:#cfcfcf;
-  font-size:13px;
-  line-height:1.55;
-}
-
-/* 방문자 */
-#visitorBox{
-  text-align:center;
-  color:#aaa;
-  font-size:13px;
-  padding:16px 0 22px;
-}
-
-
-
-/* ✅ 섹션 내 입력 공통 */
-.section input{
-  padding:12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.35);
-  color:#fff;
-  font-weight:800;
-  outline:none;
-}
-
-/* ✅ 상단 2단 레이아웃 */
-.two-col{ display:grid; gap:14px; align-items:start; }
-@media(min-width:980px){
-  .two-col{ grid-template-columns: 1.25fr .75fr; }
-}
-.col{ min-width:0; }
-
-/* ✅ 마진 계산기 탭 */
-.seg-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
-.seg{
-  flex:1; min-width:140px;
-  padding:10px 12px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.25);
-  color:#fff;
-  font-weight:900;
-  cursor:pointer;
-}
-.seg.active{
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#111;
-  border-color:transparent;
-}
-
-/* ✅ 검색/필터 UI */
-.vendor-tools{
-  max-width:1100px;
-  margin:0 auto 8px;
-  padding:0 14px 10px;
-}
-.v-input{
-  width:100%;
-  padding:12px 12px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(0,0,0,.28);
-  color:#fff;
-  outline:none;
-  font-weight:800;
-}
-.v-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-.v-chip{
-  padding:9px 12px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(0,0,0,.25);
-  color:#fff;
-  font-weight:900;
-  cursor:pointer;
-}
-.v-chip.active{
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#111;
-  border-color:transparent;
-}
-.v-small{
-  margin-top:8px;
-  font-size:12px;
-  color:#a7a7a7;
-}
-
-/* (mini cards removed) */
-
-
-.badge-tag{
-  position:absolute;
-  top:10px;
-  left:10px;
-  z-index:3;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:900;
-  color:#111;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-}
-.badge-tag.ad{ background:linear-gradient(135deg,#7c3aed,#a78bfa); color:#fff; }
-.badge-tag.new{ background:linear-gradient(135deg,#10b981,#6ee7b7); color:#062; }
-.badge-tag.rec{ background:linear-gradient(135deg,#f59e0b,#fde68a); color:#111; }
-
-/* ✅ 팝업 추천 이유 */
 .reason-box{
   margin-top:12px;
   padding:10px 12px;
@@ -591,201 +429,99 @@ select.insight-select{
   border:1px solid rgba(255,255,255,.08);
   text-align:left;
 }
-.reason-title{
-  font-weight:900;
-  color:#f5e27a;
-  font-size:12px;
-  margin:0 0 8px;
-}
-.reason-line{
-  font-size:12px;
-  color:#ddd;
-  line-height:1.5;
-}
+.reason-title{ font-weight:900; color:#f5e27a; font-size:12px; margin:0 0 8px; }
+.reason-line{ font-size:12px; color:#ddd; line-height:1.5; }
 .reason-line + .reason-line{ margin-top:4px; }
 
-/* ✅ 부드러운 스크롤 */
-html{ scroll-behavior:smooth; }
-
-/* ===== mini badges (요약 TOP3/최근 본) ===== */
-.mini-badge{
-  display:inline-block;
-  padding:3px 8px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:900;
-  line-height:1;
-  border:1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.08);
-  color: rgba(255,255,255,.92);
-  white-space:nowrap;
+/* 하단 랜딩 링크 아주 작게 */
+.landing-seo {
+  max-width:1100px;
+  margin:36px auto 20px;
+  padding:0 14px;
 }
-.mini-badge.rec{ background: rgba(255,198,61,.18); border-color: rgba(255,198,61,.30); color: #ffd873; }
-.mini-badge.new{ background: rgba(0,209,255,.12); border-color: rgba(0,209,255,.25); color: #8eeaff; }
-.mini-badge.ad{ background: rgba(122,69,255,.18); border-color: rgba(122,69,255,.30); color: #d7c9ff; }
+.landing-seo h3{ font-size:10px; color:#777; margin:0 0 6px; font-weight:700; }
+.landing-seo .links{ display:flex; flex-wrap:wrap; gap:6px; }
+.landing-seo a{
+  font-size:10px;
+  color:#9a9a9a;
+  text-decoration:none;
+  padding:5px 7px;
+  border-radius:8px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+}
+.landing-seo a:hover{ color:#f5e27a; border-color:#f5e27a; }
+
+/* 플로팅 CTA */
+.fab{
+  position:fixed;
+  right:14px;
+  bottom:14px;
+  z-index:1700;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.fab a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 12px;
+  border-radius:999px;
+  font-weight:900;
+  text-decoration:none;
+  background:linear-gradient(135deg,#1da1f2,#78d6ff);
+  color:#00121a;
+  box-shadow:0 12px 30px rgba(0,0,0,.45);
+}
+.fab a.secondary{
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.12);
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ scroll-behavior:auto !important; }
+  .header .logoImg, #loader img{ animation:none !important; }
+  .analyze-btn::before{ display:none !important; }
+  .card, .analyze-btn, .v-chip{ transition:none !important; }
+}
 
 </style>
 
 <script>
-/* ===== 카드 데이터 (✅ card7, card8 광고모집 추가) ===== */
+/* ===== 카드 데이터 (card9 추가) ===== */
 const CARD_DATA = {
-  card1:{
-    title:"B WIN",
-    code:"AS88",
-    link:"https://bwk999.com",
-    telegram:"UZU59",
+  card1:{ title:"B WIN", code:"AS88", link:"https://bwk999.com", telegram:"UZU59",
     benefit:"고액전용 USDT 무기명가입 수수료지원 / 모든게임 입금플러스",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"추천",
-    badgeText:"추천",
-    badgeCls:"rec",
-    priority:"high",
-    reasons:[
-      "고액 유저 기준 검증 + 운영 안정성 우선",
-      "입금플러스/수수료 지원 등 혜택 조건 명확",
-      "문의/대응 라인 확실(텔레그램 연결)"
-    ]
-  },
-  card2:{
-    title:"CAPS",
-    code:"RUST",
-    link:"https://caps-22.com",
-    telegram:"UZU59",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card2:{ title:"CAPS", code:"RUST", link:"https://caps-22.com", telegram:"UZU59",
     benefit:"고액전용 미겜 첫충 5% / 페이백 5% / 출석 30만원",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"추천",
-    badgeText:"추천",
-    badgeCls:"rec",
-    priority:"high",
-    reasons:[
-      "미니게임/스포츠 동시 이용 유저 비중 높음",
-      "첫충/페이백 등 보너스 구조가 깔끔",
-      "고객 응대 및 정산 안정성 후기 반영"
-    ]
-  },
-  card3:{
-    title:"BETZY",
-    code:"BANGU",
-    link:"https://b88-et.com",
-    telegram:"UZU59",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card3:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com", telegram:"UZU59",
     benefit:"스포츠 첫 10% / 미겜 첫 5% / 페이백 5%",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"신규",
-    badgeText:"신규",
-    badgeCls:"new",
-    priority:"high",
-    reasons:[
-      "스포츠/미니게임 밸런스형 혜택 구성",
-      "가입코드 기준 혜택 적용 정책 명확",
-      "커뮤니티 제보 기반으로 지속 모니터링"
-    ]
-  },
-  card4:{
-    title:"VEGAS",
-    code:"6789",
-    link:"https://las403.com",
-    telegram:"UZU59",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card4:{ title:"VEGAS", code:"6789", link:"https://las403.com", telegram:"UZU59",
     benefit:"스포츠·미겜 입플 최대 30% / 카지노 입플",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"검증",
-    badgeText:"검증",
-    badgeCls:"verified",
-    priority:"normal",
-    reasons:[
-      "카지노/슬롯 이용 유저 전환이 높음",
-      "입플/보너스 조건 공지 및 적용 라인 명확",
-      "장기 운영 이력 기반으로 선별"
-    ]
-  },
-  card5:{
-    title:"LULA BET",
-    code:"ZZ99",
-    link:"https://lula.ws",
-    telegram:"PSC991",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card5:{ title:"LULA BET", code:"ZZ99", link:"https://lula.ws", telegram:"PSC991",
     benefit:"원화·USDT 무기명가입 / 페이백 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"고액",
-    badgeText:"고액",
-    badgeCls:"gold",
-    priority:"normal",
-    reasons:[
-      "무기명/USDT 등 고액 동선에 강점",
-      "페이백 등 리베이트 성격 혜택 제공",
-      "고액 유저 기준 응대/정산 체크"
-    ]
-  },
-  card6:{
-    title:"CHOY BET",
-    code:"TAN",
-    link:"https://cy-40.com",
-    telegram:"DY0302",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card6:{ title:"CHOY BET", code:"TAN", link:"https://cy-40.com", telegram:"DY0302",
     benefit:"신규 30% / 매충 10% / 페이백 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"추천",
-    badgeText:"추천",
-    badgeCls:"rec",
-    priority:"normal",
-    reasons:[
-      "신규/매충/페이백 등 보너스 구성이 강함",
-      "미니게임/카지노 유저 전환이 빠름",
-      "문의 라인 분리 운영으로 대응 속도 확보"
-    ]
-  },
-  card9:{
-    title:"RIO",
-    code:"OPOP",
-    link:"https://rio2.casino/?b=OPOP",
-    telegram:"Aven47",
-    benefit:"카지노 입플,USDT무기명,고액전용",
-    notice:"가입코드 미입력 시 혜택 적용 불가",
-    tag:"추천",
-    badgeText:"추천",
-    badgeCls:"rec",
-    priority:"normal",
-    reasons:[
-      "신규/매충/페이백 등 보너스 구성이 강함",
-      "스포츠/미니게임/카지노 유저 전환이 빠름",
-      "문의 라인 분리 운영으로 대응 속도 확보"
-    ]
-  },
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
 
-  /* ✅ 광고 모집(자리) — 카드7/8 */
-  card7:{
-    title:"광고 모집 (자리 1)",
-    code:"-",
-    link:"#",
-    telegram:"UZU59",
-    benefit:"메인 카드 광고 제휴를 원하시면 문의 주세요.",
-    notice:"광고/제휴 문의 전용 카드입니다.",
-    tag:"광고",
-    badgeText:"광고",
-    badgeCls:"ad",
-    priority:"ad",
-    recruit:true,
-    reasons:[
-      "메인 상단 노출(클릭/전환 강화)",
-      "텔레그램 유입 동선 포함",
-      "고정 배너/카드 문구 커스텀 가능"
-    ]
-  },
-  card8:{
-    title:"광고 모집 (자리 2)",
-    code:"-",
-    link:"#",
-    telegram:"UZU59",
-    benefit:"입플/보너스/페이백 강점 업체 우선 모집",
-    notice:"광고/제휴 문의 전용 카드입니다.",
-    tag:"광고",
-    badgeText:"광고",
-    badgeCls:"ad",
-    priority:"ad",
-    recruit:true,
-    reasons:[
-      "메인/랜딩/딥링크 동시 지원",
-      "주간 리포트(클릭/유입) 제공 가능",
-      "업체별 추천 문구 3줄 자동 표시"
-    ]
-  }
+  card7:{ title:"광고/제휴 모집", code:"", link:"", telegram:"UZU59",
+    benefit:"88 커뮤니티에 광고/제휴를 원하시면 문의 주세요.",
+    notice:"광고 문의는 텔레그램 @UZU59 로만 진행합니다." },
+
+  card8:{ title:"광고 자리 오픈", code:"", link:"", telegram:"UZU59",
+    benefit:"배너/카드 광고 자리 오픈 · 합리적 조건",
+    notice:"사칭 주의: 공식 관리자 @UZU59 단 하나" },
+
+  card9:{ title:"RIO", code:"opop", link:"https://rio2.casino/?b=OPOP", telegram:"Aven47",
+    benefit:"카지노 입플/페이백 중심 · 고액 유저 기준 혜택 안내",
+    notice:"가입코드 미입력 시 혜택 적용이 어려울 수 있습니다." }
 };
 
 /* ===== 인사이트 (종목별) ===== */
@@ -827,28 +563,77 @@ const INSIGHTS_BY_SPORT = {
     "초반 10분 라인이 흔들리면 경기 템포 이슈 가능성이 큽니다."
   ]
 };
+
+/* ===== 유틸: GA 이벤트/UTM 저장/UTM 붙이기 ===== */
+const UTM_KEYS = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content"];
+function track(evt, params) {
+  try {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", evt, params || {});
+    }
+  } catch(e) {}
+}
+function saveUtmFromUrl() {
+  const sp = new URLSearchParams(location.search);
+  let has=false;
+  const obj={};
+  UTM_KEYS.forEach(k=>{
+    const v = sp.get(k);
+    if(v){ obj[k]=v; has=true; }
+  });
+  if(has){
+    obj.__ts = Date.now();
+    localStorage.setItem("88_utm", JSON.stringify(obj));
+  }
+}
+function getUtmQuery() {
+  try {
+    const raw = localStorage.getItem("88_utm");
+    if(!raw) return "";
+    const obj = JSON.parse(raw);
+    if(!obj || !obj.__ts) return "";
+    // 14일 유지
+    const TTL = 14*24*60*60*1000;
+    if(Date.now() - obj.__ts > TTL) return "";
+    const sp = new URLSearchParams();
+    UTM_KEYS.forEach(k=>{ if(obj[k]) sp.set(k, obj[k]); });
+    const qs = sp.toString();
+    return qs ? ("?"+qs) : "";
+  } catch(e) { return ""; }
+}
+function appendUtm(urlStr) {
+  try {
+    const u = new URL(urlStr, location.href);
+    const existing = new URLSearchParams(u.search);
+    const stored = new URLSearchParams(getUtmQuery().replace(/^\?/,""));
+    UTM_KEYS.forEach(k=>{
+      if(!existing.get(k) && stored.get(k)) existing.set(k, stored.get(k));
+    });
+    u.search = existing.toString();
+    return u.toString();
+  } catch(e) {
+    return urlStr;
+  }
+}
 </script>
 </head>
 
 <body>
 
-<!-- ✅ 상단 공지/이벤트 배너(자동 순환) -->
 <div class="notice-bar">
   <a id="noticeLink" href="https://t.me/UZU59" target="_blank" rel="noopener">
     <span id="noticeText"></span>
   </a>
 </div>
 
-<!-- ✅ 로딩 화면 -->
-<div id="loader">
+<div id="loader" aria-hidden="true">
   <div class="logoWrap">
     <img src="img/logo.png" alt="88 로고 로딩">
   </div>
   <div class="text">Loading...</div>
 </div>
 
-<!-- ✅ 사칭주의 팝업 (1일 1회) -->
-<div class="scam-popup" id="scamPopup">
+<div class="scam-popup" id="scamPopup" role="dialog" aria-modal="true" aria-label="사칭 주의 안내">
   <div class="scam-box">
     <h3>⚠️ 사칭 주의 안내</h3>
     <p>
@@ -861,33 +646,48 @@ const INSIGHTS_BY_SPORT = {
   </div>
 </div>
 
-<!-- SEO용 숨김 H1 -->
-<h1 style="position:absolute;left:-9999px;">
-스포츠 배당 분석기와 보증 업체 검증 추천 | 88 팔팔커뮤니티
-</h1>
+<h1 style="position:absolute;left:-9999px;">스포츠 배당 분석기와 배당 마진 계산기 | 88</h1>
 
 <div class="header">
   <a class="logoLink" href="/" aria-label="홈으로 이동">
     <img class="logoImg" src="img/logo.png" alt="88 커뮤니티 로고">
   </a>
-  <div class="sub">88 커뮤니티를 찾아주셔서 감사합니다.</div>
+  <div class="sub">배당 마진·EV·확률을 10초 만에 — 분석부터 선택까지 한 번에.</div>
 </div>
 
 <div class="section-wrap">
 
-  <!-- ✅✅ 분석기 버튼/섹션(상단) -->
+  <!-- 메인 루트: 분석기 사용 -->
   <div class="section" id="analyzerSection">
-    <div class="title"><span class="badge">FREE</span>스포츠 배당 분석기</div>
-    <div class="text">무료·초간단 — 배당 흐름/마진/EV를 바로 확인하세요.</div>
-    <a class="analyze-btn" href="/analysis/">분석기 이동</a>
-    <a class="jump-btn" href="#vendorTop">인증놀이터 보기</a>
+    <div class="title"><span class="badge">MAIN</span>스포츠 배당 분석기</div>
+    <div class="text">
+      배당 흐름·마진(오버라운드)·EV를 <b>초간단</b>으로 확인하는 도구입니다.
+      <span style="display:block;color:#9a9a9a;font-size:12px;margin-top:6px;">※ 도구는 참고용이며 결과를 보장하지 않습니다.</span>
+    </div>
+    <div class="cta-row">
+      <a class="analyze-btn primary" href="/analysis/" data-cta="analysis">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"></path>
+            <path d="M7 14l3-3 3 2 5-6"></path>
+          </svg>
+        </span>
+        <span class="label">분석기 사용<span class="sub">무료 · 초간단 · EV 확인</span></span>
+      </a>
+      <a class="analyze-btn secondary" href="#vendorTop" data-cta="vendors">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"></path>
+          </svg>
+        </span>
+        <span class="label">인증놀이터 보기<span class="sub">카드 · 검색 · 인기순</span></span>
+      </a>
+    </div>
   </div>
 
-  <!-- ✅ 상단 2단 레이아웃 (좌: 도구/콘텐츠 · 우: 안내/공지) -->
   <div class="two-col">
     <div class="col">
 
-      <!-- 오늘의 인사이트 -->
       <div class="section">
         <div class="title"><span class="badge">TODAY</span>오늘의 인사이트</div>
         <div class="text" id="insight"></div>
@@ -909,19 +709,15 @@ const INSIGHTS_BY_SPORT = {
         </div>
       </div>
 
-      <!-- ✅ 배팅 체크리스트 (랜덤 3줄) -->
       <div class="section">
         <div class="title"><span class="badge">CHECK</span>배팅 전 체크리스트</div>
         <div class="text" id="checklistText"></div>
-        <button class="insight-btn" type="button" onclick="refreshChecklist()" style="margin-top:10px;">
-          체크리스트 새로고침
-        </button>
+        <button class="insight-btn" type="button" onclick="refreshChecklist()" style="margin-top:10px;">체크리스트 새로고침</button>
         <div class="text" style="margin-top:8px;color:#9a9a9a;font-size:12px;">
           ※ 과몰입 방지/리스크 관리용 안내입니다.
         </div>
       </div>
 
-      <!-- ✅ 배당 마진 계산기 (2-way/3-way) -->
       <div class="section">
         <div class="title"><span class="badge">TOOL</span>배당 마진 계산기 (초간단)</div>
         <div class="text" style="margin-bottom:10px;">
@@ -957,7 +753,6 @@ const INSIGHTS_BY_SPORT = {
 
     <div class="col">
 
-      <!-- ✅ 분석기 사용법 3줄 -->
       <div class="section">
         <div class="title"><span class="badge">GUIDE</span>분석기 사용법 (초간단)</div>
         <div class="text">
@@ -967,7 +762,6 @@ const INSIGHTS_BY_SPORT = {
         </div>
       </div>
 
-      <!-- 최근 업데이트 로그 -->
       <div class="section">
         <div class="title"><span class="badge">LOG</span>최근 업데이트</div>
         <div class="log" id="updateLog"></div>
@@ -976,315 +770,210 @@ const INSIGHTS_BY_SPORT = {
         </div>
       </div>
 
-        <!-- FAQ (우측 배치: 4개 유지 추천) -->
-        <div class="section faq">
-          <div class="title"><span class="badge">FAQ</span>자주 묻는 질문</div>
+      <div class="section faq">
+        <div class="title"><span class="badge">FAQ</span>자주 묻는 질문</div>
 
-          <details>
-            <summary>가입코드(추천코드)를 꼭 입력해야 하나요?</summary>
-            <div class="a">네. 대부분 업체는 <b>가입 시 최초 1회</b>만 입력 가능하며, 미입력/삭제 시 혜택 적용이 어려울 수 있습니다.</div>
-          </details>
+        <details>
+          <summary>분석기/마진 계산기 결과가 무조건 맞나요?</summary>
+          <div class="a">아니요. 본 도구는 배당/마진을 정리하는 <b>참고 도구</b>입니다. 적중을 보장하지 않으며 최종 판단은 본인 책임입니다.</div>
+        </details>
 
-          <details>
-            <summary>분석기/마진 계산기 결과가 무조건 맞나요?</summary>
-            <div class="a">아니요. 본 도구는 배당/마진을 정리하는 <b>참고 도구</b>입니다. 적중을 보장하지 않으며 최종 판단은 본인 책임입니다.</div>
-          </details>
+        <details>
+          <summary>공식 관리자(문의) 텔레그램은 어디인가요?</summary>
+          <div class="a">공식 관리자 텔레그램은 <b>@UZU59</b> 단 하나입니다. 유사 계정은 사칭일 수 있으니 주의하세요.</div>
+        </details>
 
-          <details>
-            <summary>공식 관리자(문의) 텔레그램은 어디인가요?</summary>
-            <div class="a">공식 관리자 텔레그램은 <b>@UZU59</b> 단 하나입니다. 유사 계정은 사칭일 수 있으니 주의하세요.</div>
-          </details>
+        <details>
+          <summary>광고/제휴 문의는 어떻게 하나요?</summary>
+          <div class="a">아래 업체 카드 중 <b>광고/제휴</b> 카드를 클릭하면 문의용 텔레그램으로 연결됩니다.</div>
+        </details>
 
-          <details>
-            <summary>광고/제휴 문의는 어떻게 하나요?</summary>
-            <div class="a">메인 페이지의 <b>광고 모집 카드(7/8)</b>를 클릭하면 안내 팝업에서 문의용 텔레그램으로 연결됩니다.</div>
-          </details>
-        </div>
-
+        <details>
+          <summary>가입코드(추천코드)를 꼭 입력해야 하나요?</summary>
+          <div class="a">대부분 업체는 <b>가입 시 최초 1회</b>만 입력 가능하며, 미입력/삭제 시 혜택 적용이 어려울 수 있습니다.</div>
+        </details>
+      </div>
 
     </div>
   </div>
 
-  <!-- 추천 기준 -->
   <div class="section">
     <div class="title"><span class="badge">88</span>추천 기준</div>
 
     <div class="text">
       88은 단순히 링크를 모아두는 추천 페이지가 아닙니다.<br>
-      사용자 의견과 운영 이력을 바탕으로,
-      장기적으로 문제 없이 이용 가능한 곳만 공유합니다.
+      사용자 의견과 운영 이력을 바탕으로, 장기적으로 문제 없이 이용 가능한 정보만 정리합니다.
     </div>
 
-    <ul class="list">
+    <ul class="text" style="margin:10px 0 0; padding-left:18px;">
       <li>운영 안정성 및 장기 운영 이력</li>
-      <li>고액 유저 실사용 기준 검증</li>
-      <li>혜택 조건 및 가입코드 명확성</li>
+      <li>조건/안내(혜택·코드) 명확성</li>
       <li>문의 및 대응 가능 여부</li>
+      <li>이슈 발생 시 해결 가능성(커뮤니티 피드백)</li>
     </ul>
 
     <p class="text" style="margin-top:10px;">
-      단기 이벤트 위주의 운영이 잦은 곳은 제외하며<br>
-      출금 안정성, 대응 속도, 이용 편의성을 기준으로
-      인증 성격의 업체만 정리합니다.<br><br>
-      이 공간은 특정 업체를 강요하지 않고,
-      각자의 기준에 맞는 선택을 돕기 위한
-      커뮤니티형 안내를 목표로 합니다.
+      이 공간은 특정 업체를 강요하지 않고, 각자의 기준에 맞는 선택을 돕기 위한 안내를 목표로 합니다.
     </p>
   </div>
 
-  
-
-
 </div>
-<!-- 인증업체 목록 안내 -->
+
 <div class="vendor-header" id="vendorTop">
   <h2>88 인증 놀이터</h2>
-  <p>검증된 메이저 사이트만 선별 안내합니다</p>
+  <p>필요한 정보만 빠르게 확인할 수 있도록 정리했습니다</p>
+  <div class="pill-row" aria-label="빠른 이동">
+    <a class="pill" href="/analysis/" data-cta="vendor_to_analysis">분석기 바로가기</a>
+    <a class="pill" href="#vendorGrid" data-cta="vendor_to_grid">카드 바로보기</a>
+  </div>
 </div>
 
-<!-- ✅ 검색/필터 -->
 <div class="vendor-tools" aria-label="카드 검색 및 필터">
   <input id="searchInput" class="v-input" placeholder="업체 검색 (예: CAPS, VEGAS, 페이백, USDT)" autocomplete="off">
   <div class="v-row">
-    <button class="v-chip active" id="chipAll" type="button" onclick="setFilter('all')">전체</button>
-    <button class="v-chip" id="chipRec" type="button" onclick="setFilter('rec')">추천</button>
-    <button class="v-chip" id="chipNew" type="button" onclick="setFilter('new')">신규</button>
-    <button class="v-chip" id="chipAd" type="button" onclick="setFilter('ad')">광고</button>
-    <button class="v-chip" id="chipPop" type="button" onclick="setFilter('pop')">인기순</button>
+    <button class="v-chip active" id="chipAll" type="button" data-filter="all">전체</button>
+    <button class="v-chip" id="chipRec" type="button" data-filter="rec">추천</button>
+    <button class="v-chip" id="chipNew" type="button" data-filter="new">신규</button>
+    <button class="v-chip" id="chipAd" type="button" data-filter="ad">광고/제휴</button>
+    <button class="v-chip" id="chipPop" type="button" data-filter="pop">인기순</button>
+    <button class="v-chip" id="chipClean" type="button" data-action="clean">정제된 문구</button>
   </div>
-  <div class="v-small" id="evAutoHint" style="display:none;"></div>
+  <div class="v-small" id="evAutoHint"></div>
+  <div class="v-small" id="cleanHint">정제된 문구: 카드 혜택 문구를 짧고 깔끔하게 보여줍니다.</div>
 </div>
 
-<!-- 카드 그리드 (JS 렌더) -->
 <div class="vendor-grid" id="vendorGrid"></div>
-<!-- 방문자 -->
+
 <div id="visitorBox">
   전체 방문자 : <b id="total">0</b> /
   금일 방문자 : <b id="today">0</b>
 </div>
 
-<!-- 카드 팝업 -->
-<div class="popup" id="cardPopup">
-  <div class="popup-box">
+<div class="popup" id="cardPopup" role="dialog" aria-modal="true" aria-label="업체 상세">
+  <div class="popup-box" role="document">
     <h2 id="pTitle"></h2>
 
     <p id="codeRow">가입코드 : <b id="pCode"></b></p>
     <p id="pBenefit" style="color:#f5e27a;font-size:13px;margin:10px 0 0;"></p>
     <p id="pNotice" style="color:#ff6b6b;font-size:12px;margin:8px 0 0;"></p>
 
-    <div class="btn copy" id="copyBtn" onclick="copyCode()">가입코드 복사</div>
+    <div class="btn copy" id="copyBtn">가입코드 복사</div>
     <a class="btn go" id="pLink" target="_blank" rel="noopener">사이트 이동</a>
-
-    <div class="btn copy" id="moreRecBtn" onclick="jumpToRec()">다른 추천도 보기</div>
 
     <div class="telegram">
       <a id="pTelegram" target="_blank" rel="noopener">텔레그램 문의</a>
     </div>
 
+    <div class="btn more" id="moreRecBtn">다른 추천도 보기</div>
+
     <div class="reason-box" id="reasonBox" style="display:none;">
-      <div class="reason-title" id="reasonTitle">추천 이유</div>
+      <div class="reason-title" id="reasonTitle">안내</div>
       <div class="reason-line" id="reason1"></div>
       <div class="reason-line" id="reason2"></div>
       <div class="reason-line" id="reason3"></div>
     </div>
 
-    <div class="btn copy" onclick="closeCard()">닫기</div>
+    <div class="btn copy" id="closeBtn">닫기</div>
   </div>
 </div>
 
+<div class="landing-seo">
+  <h3>관련 정보</h3>
+  <div class="links">
+    <a href="/landing-a/">입플·보너스 분석기</a>
+    <a href="/landing-b/">고액 유저 안내</a>
+    <a href="/landing-c/">배당 마진·EV 계산</a>
+    <a href="/landing-d/">배당 흐름 분석</a>
+  </div>
+</div>
 
-  <!-- ===== SEO 목적 랜딩(4개) : 하단 배치 ===== -->
-  
+<div class="fab" aria-label="빠른 이동">
+  <a href="/analysis/" data-cta="fab_analysis">분석기</a>
+  <a class="secondary" href="#vendorTop" data-cta="fab_vendors">놀이터</a>
+</div>
 
 <script>
-/* =========================================================
-   GA4 이벤트(6개) + UTM 세션 저장 + 아웃바운드 UTM 규칙
-   Events:
-   1) view_home
-   2) click_analyzer
-   3) scroll_vendor
-   4) open_card
-   5) click_outbound
-   6) click_telegram
-========================================================= */
-
-/* 안전한 GA 이벤트 래퍼 */
-function gaEvent(name, params){
-  try{
-    if(typeof gtag === "function"){
-      gtag("event", name, params || {});
-    }
-  }catch(e){}
-}
-
-/* UTM을 세션에 저장(캠페인 유입 분석용) */
-const UTM_SESSION_KEY = "88_utm_session";
-function readUtmFromUrl(){
-  const sp = new URLSearchParams(location.search);
-  const keys = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"];
-  const out = {};
-  keys.forEach(k=>{
-    const v = sp.get(k);
-    if(v) out[k] = v;
-  });
-  return out;
-}
-function getSessionUtm(){
-  try{
-    return JSON.parse(sessionStorage.getItem(UTM_SESSION_KEY) || "{}") || {};
-  }catch(e){ return {}; }
-}
-function setSessionUtm(obj){
-  try{ sessionStorage.setItem(UTM_SESSION_KEY, JSON.stringify(obj || {})); }catch(e){}
-}
-(function initUtmSession(){
-  const u = readUtmFromUrl();
-  if(Object.keys(u).length){
-    setSessionUtm(Object.assign(getSessionUtm(), u));
-  }
-})();
-
-/* 카드 외부링크(업체 사이트) 기본 UTM 부여 (업체 전달용/분석용) */
-function vendorOutboundUrl(baseUrl, cardId){
-  const raw = String(baseUrl || "").trim();
-  if(!raw) return "#";
-  try{
-    const u = new URL(raw);
-    if(!u.searchParams.get("utm_source"))   u.searchParams.set("utm_source","88st");
-    if(!u.searchParams.get("utm_medium"))   u.searchParams.set("utm_medium","referral");
-    if(!u.searchParams.get("utm_campaign")) u.searchParams.set("utm_campaign","vendor_card");
-    if(!u.searchParams.get("utm_content"))  u.searchParams.set("utm_content", String(cardId||""));
-    return u.toString();
-  }catch(e){
-    // URL() 파싱 실패 시(상대경로 등)는 원본 유지
-    return raw;
-  }
-}
-
-/* GA4 이벤트 초기화(뷰/스크롤/클릭) */
-(function initAnalytics(){
-  // 1) 홈 뷰 (page_view는 자동이지만, 퍼널용 커스텀 이벤트로 추가)
-  gaEvent("view_home", { page_location: location.href });
-
-  // 2) 분석기 버튼 클릭
-  const analyzerBtn = document.querySelector(".analyze-btn");
-  if(analyzerBtn){
-    analyzerBtn.addEventListener("click", ()=>{
-      gaEvent("click_analyzer", { page_location: location.href });
-    });
-  }
-
-  // 3) 인증놀이터 섹션 스크롤 진입
-  const vendorTop = document.getElementById("vendorTop");
-  if(vendorTop && ("IntersectionObserver" in window)){
-    const doneKey = "88_scroll_vendor_done";
-    if(!sessionStorage.getItem(doneKey)){
-      const io = new IntersectionObserver((entries)=>{
-        if(entries.some(e=>e.isIntersecting)){
-          sessionStorage.setItem(doneKey,"1");
-          gaEvent("scroll_vendor", { page_location: location.href });
-          io.disconnect();
-        }
-      }, { threshold: 0.25 });
-      io.observe(vendorTop);
-    }
-  }
-
-  // 5) 아웃바운드 클릭(사이트 이동)
-  const pLink = document.getElementById("pLink");
-  if(pLink){
-    pLink.addEventListener("click", ()=>{
-      const cid = pLink.dataset.cardId || "";
-      gaEvent("click_outbound", {
-        card_id: cid,
-        link_url: pLink.href,
-        transport_type: "beacon"
-      });
-    });
-  }
-
-  // 6) 텔레그램 클릭
-  const pTelegram = document.getElementById("pTelegram");
-  if(pTelegram){
-    pTelegram.addEventListener("click", ()=>{
-      const cid = pTelegram.dataset.cardId || "";
-      const tg  = pTelegram.dataset.tg || "";
-      gaEvent("click_telegram", {
-        card_id: cid,
-        telegram: tg,
-        transport_type: "beacon"
-      });
-    });
-  }
-})();
-
-/* ✅ 로딩 화면 닫기(최대 2.5초 안전장치 포함) */
-function hideLoader(){
+/* ===== 로딩 화면 닫기(안전장치 포함) ===== */
+function hideLoader() {
   const l = document.getElementById("loader");
   if(!l) return;
   l.classList.add("hide");
-  setTimeout(()=> l.remove(), 450);
+  setTimeout(()=>{ if(l && l.remove) l.remove(); }, 450);
 }
 window.addEventListener("load", hideLoader);
 setTimeout(hideLoader, 2500);
 
-/* ✅ 사칭주의 팝업 (1일 1회) */
-(function(){
-  const key="scam_popup_date";
-  const today=new Date().toISOString().slice(0,10);
-  if(localStorage.getItem(key)!==today){
-    document.getElementById("scamPopup").style.display="flex";
-  }
-})();
-function closeScam(){
-  const today=new Date().toISOString().slice(0,10);
-  localStorage.setItem("scam_popup_date",today);
-  document.getElementById("scamPopup").style.display="none";
+/* ===== 날짜 키(로컬) ===== */
+function dateKeyLocal() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  const day = String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${day}`;
 }
 
-/* ✅ 상단 공지 배너 자동 순환 */
+/* ===== 사칭주의 팝업 (1일 1회) ===== */
+(function() {
+  const key="scam_popup_date";
+  const today=dateKeyLocal();
+  const el = document.getElementById("scamPopup");
+  if(!el) return;
+  if(localStorage.getItem(key)!==today) {
+    el.style.display="flex";
+  }
+})();
+function closeScam() {
+  const today=dateKeyLocal();
+  localStorage.setItem("scam_popup_date", today);
+  const el = document.getElementById("scamPopup");
+  if(el) el.style.display="none";
+  track("scam_popup_close", {"page":"index"});
+}
+
+/* ===== 상단 공지 배너 자동 순환 ===== */
 const NOTICE_LIST = [
-  "🔔 88 커뮤니티 공식 안내 · 관리자 사칭 주의 (@UZU59)",
-  "📊 88 스포츠 배당 분석기 무료 제공 중",
-  "⭐ 검증된 88 인증 놀이터만 안내합니다",
-  "📣 광고/제휴 문의는 @UZU59 로만 진행합니다",
+  "🔔 88 공식 안내 · 관리자 사칭 주의 (@UZU59)",
+  "📊 스포츠 배당 분석기 무료 제공 중",
+  "🧮 배당 마진 계산기로 수수료 체크",
+  "⭐ 인증 정보는 아래 카드에서 확인",
   "⚠️ 가입코드 미입력 시 혜택 적용 불가"
 ];
 let noticeIndex = 0;
 const noticeTextEl = document.getElementById("noticeText");
-function rotateNotice(){
-  noticeTextEl.innerText = NOTICE_LIST[noticeIndex];
+function rotateNotice() {
+  if(noticeTextEl) noticeTextEl.innerText = NOTICE_LIST[noticeIndex];
   noticeIndex = (noticeIndex + 1) % NOTICE_LIST.length;
 }
 rotateNotice();
 setInterval(rotateNotice, 4000);
 
-/* ✅ 인사이트: 종목별 랜덤 */
-function pickInsight(sport){
+/* ===== 인사이트 ===== */
+function pickInsight(sport) {
   const arr = INSIGHTS_BY_SPORT[sport] || [];
   if(!arr.length) return "배당 흐름을 체크하고 라인 변화를 확인하세요.";
   return arr[Math.floor(Math.random()*arr.length)];
 }
-function refreshInsight(){
-  const sport = document.getElementById("insightSport").value;
-  document.getElementById("insight").innerText = pickInsight(sport);
+function refreshInsight() {
+  const sEl = document.getElementById("insightSport");
+  const sport = sEl ? sEl.value : "축구";
+  const out = document.getElementById("insight");
+  if(out) out.innerText = pickInsight(sport);
   localStorage.setItem("insightSport", sport);
 }
-(function initInsight(){
+(function initInsight() {
   const saved = localStorage.getItem("insightSport");
-  if(saved && document.getElementById("insightSport")){
-    document.getElementById("insightSport").value = saved;
-  }
+  const sel = document.getElementById("insightSport");
+  if(saved && sel) sel.value = saved;
   refreshInsight();
 })();
 
-/* ✅ 최근 업데이트 로그 */
+/* ===== 업데이트 로그 ===== */
 const UPDATE_LOG = [
-  { date:"02/01", text:"메인 화면 UI 개선 및 카드 정리" },
-  { date:"02/01", text:"스포츠 배당 분석기 버튼 상단 배치" },
-  { date:"02/01", text:"광고/제휴 모집 카드(7/8) 추가" }
+  { date:"02/01", text:"메인 CTA(분석기/놀이터) 정리" },
+  { date:"02/01", text:"이미지 webp + lazy 로딩 지원" },
+  { date:"02/01", text:"팝업 2차 CTA 추가(다른 추천도 보기)" }
 ];
-(function renderLog(){
+(function renderLog() {
   const box = document.getElementById("updateLog");
   if(!box) return;
   box.innerHTML = UPDATE_LOG.map(x=>`
@@ -1295,13 +984,13 @@ const UPDATE_LOG = [
   `).join("");
 })();
 
-/* ✅ 방문자(로컬) - 무조건 표시 + 새로고침 중복 방지(10분) */
-(function(){
+/* ===== 방문자(로컬) ===== */
+(function() {
   const totalEl = document.getElementById("total");
   const todayEl = document.getElementById("today");
   if(!totalEl || !todayEl) return;
 
-  const today = new Date().toISOString().slice(0,10);
+  const today = dateKeyLocal();
   const totalKey = "v_total";
   const todayKey = "v_today_" + today;
 
@@ -1313,421 +1002,18 @@ const UPDATE_LOG = [
   let total = Number(localStorage.getItem(totalKey) || 0);
   let todayCount = Number(localStorage.getItem(todayKey) || 0);
 
-  if(now - last > TEN_MIN){
+  if(now - last > TEN_MIN) {
     total += 1;
     todayCount += 1;
     localStorage.setItem(totalKey, String(total));
     localStorage.setItem(todayKey, String(todayCount));
     localStorage.setItem(guardKey, String(now));
   }
-
   totalEl.innerText = total;
   todayEl.innerText = todayCount;
 })();
 
-/* 카드 팝업 */
-let currentCode="", currentCardId="";
-function openById(el){
-  const id = el && el.dataset ? el.dataset.card : null;
-  if(!id) return;
-  openCard(id);
-}
-
-function openCard(id){
-  const d = CARD_DATA[id];
-  if(!d) return;
-
-  // 4) 카드 팝업 오픈
-  gaEvent("open_card", {
-    card_id: String(id||""),
-    card_title: String(d.title||""),
-    tag: String(d.tag||""),
-    is_recruit: d.recruit ? 1 : 0,
-    page_location: location.href
-  });
-
-  // 클릭 카운트 + 최근 본
-  incCardClick(id);
-  
-
-  // 광고 모집 카드 분기
-  const isRecruit = !!d.recruit;
-
-  currentCode = (isRecruit ? "" : (d.code || ""));
-  currentCardId = id;
-  document.getElementById("pTitle").innerText = d.title || "";
-  document.getElementById("pCode").innerText  = (d.code || "");
-
-  const codeLine = document.getElementById("pCode").parentElement; // <p>가입코드...
-  codeLine.style.display = isRecruit ? "none" : "block";
-
-  // 혜택/주의
-  const pBenefit = document.getElementById("pBenefit");
-  const pNotice  = document.getElementById("pNotice");
-
-  pBenefit.style.display = d.benefit && !isRecruit ? "block" : "none";
-  pBenefit.innerText = (d.benefit && !isRecruit) ? ("혜택 : " + d.benefit) : "";
-
-  pNotice.style.display = d.notice ? "block" : "none";
-  pNotice.innerText = d.notice ? ("주의 : " + d.notice) : "";
-
-  // 버튼 표시 제어
-  const btnCopy = document.querySelector("#cardPopup .btn.copy");
-  const btnGo = document.getElementById("pLink");
-  if(btnCopy) btnCopy.style.display = isRecruit ? "none" : "block";
-  if(btnGo){
-    btnGo.style.display = isRecruit ? "none" : "block";
-    btnGo.href = isRecruit ? "#" : vendorOutboundUrl(d.link || "", id);
-    btnGo.dataset.cardId = id;
-  }
-
-  // 텔레그램
-  const tg = (d.telegram || "UZU59").replace("@","");
-  const pTelegram = document.getElementById("pTelegram");
-  pTelegram.href = "https://t.me/" + tg;
-  pTelegram.innerText = isRecruit ? ("광고 문의 @" + tg) : ("텔레그램 문의 @" + tg);
-  pTelegram.dataset.cardId = id;
-  pTelegram.dataset.tg = tg;
-
-  // 추천 이유 3줄
-  const rBox = document.getElementById("reasonBox");
-  const rTitle = document.getElementById("reasonTitle");
-  const r1 = document.getElementById("reason1");
-  const r2 = document.getElementById("reason2");
-  const r3 = document.getElementById("reason3");
-
-  if(isRecruit){
-    rBox.style.display = "block";
-    rTitle.innerText = "광고 문의 안내";
-    r1.innerText = "• 메인 페이지 광고 카드(7/8) 자리는 현재 모집 중입니다.";
-    r2.innerText = "• 배너/카드/문구 구성은 협의 후 반영합니다.";
-    r3.innerText = "• 문의: 텔레그램 @" + tg;
-  }else{
-    const reasons = (d.reasons && d.reasons.length) ? d.reasons : defaultReasons(d);
-    rBox.style.display = "block";
-    rTitle.innerText = "추천 이유 (자동)";
-    r1.innerText = "• " + (reasons[0] || "");
-    r2.innerText = "• " + (reasons[1] || "");
-    r3.innerText = "• " + (reasons[2] || "");
-  }
-
-  document.getElementById("cardPopup").style.display = "flex";
-}
-
-function closeCard(){
-  document.getElementById("cardPopup").style.display = "none";
-}
-
-function jumpToRec(){
-  closeCard();
-  setFilter("rec");
-  const top = document.getElementById("vendorTop");
-  if(top) top.scrollIntoView({behavior:"smooth", block:"start"});
-}
-function copyCode(){
-  if(!currentCode) return;
-  navigator.clipboard.writeText(currentCode);
-  alert("가입코드가 복사되었습니다");
-  gaEvent("copy_code",{card_id: currentCardId || "", code: currentCode || ""});
-}
-
-/* ✅ 카드 시스템: 검색/필터/인기TOP3/최근본/배지/+EV 자동 추천필터 */
-const CLICK_KEY_PREFIX = "88_card_click_";
-let currentFilter = "all";
-let marginMode = "2";
-
-/* 카드 메타(배지/태그/추천이유) 기본 세팅 */
-(function enrichCards(){
-  const set = (id, patch)=>{ CARD_DATA[id] = Object.assign({tag:"rec", badgeText:"추천", badgeCls:"rec"}, CARD_DATA[id], patch); };
-
-  set("card1", {tag:"rec", badgeText:"추천", badgeCls:"rec", priority:"high",
-    reasons:["고액 유저 기준으로 선별된 운영 이력", "입플/수수료 지원 등 조건이 명확", "문의/대응 채널이 고정(텔레그램)"]});
-  set("card2", {tag:"rec", badgeText:"추천", badgeCls:"rec", priority:"high",
-    reasons:["고액전용 혜택(첫충/페이백) 구성", "출석/리워드 등 유지형 혜택", "이용 문의 대응 라인이 명확"]});
-  set("card3", {tag:"rec", badgeText:"추천", badgeCls:"rec", priority:"high",
-    reasons:["스포츠/미겜 첫충 + 페이백 구조", "조건/가입코드 안내가 명확", "커뮤니티 피드백 반영 운영"]});
-  set("card4", {tag:"rec", badgeText:"추천", badgeCls:"rec", priority:"normal",
-    reasons:["입플 폭이 넓어 선택지가 많음", "스포츠·미겜·카지노 혜택 분리", "문의/이슈 처리 채널 고정"]});
-  set("card5", {tag:"new", badgeText:"신규", badgeCls:"new", priority:"normal",
-    reasons:["원화/USDT 선택 가능 (무기명)", "페이백 비중이 높은 편", "고액 유저 기준 검증 진행"]});
-  set("card6", {tag:"new", badgeText:"신규", badgeCls:"new", priority:"normal",
-    reasons:["신규/매충/페이백 조합", "단기 이벤트보다 유지형 구성", "문의 라인이 명확"]});
-  set("card9", {tag:"new", badgeText:"신규", badgeCls:"new", priority:"normal",
-    reasons:["고액전용 혜택", "단기 이벤트보다 유지형 구성", "문의 라인이 명확"]});
-  
-  set("card7", {tag:"ad", badgeText:"광고", badgeCls:"ad", priority:"ad", recruit:true,
-    reasons:["광고 문의 전용", "배너/카드/문구 협의 가능", "텔레그램 @UZU59 로만 진행"]});
-  set("card8", {tag:"ad", badgeText:"광고", badgeCls:"ad", priority:"ad", recruit:true,
-    reasons:["광고 문의 전용", "고정 노출/추가 노출 옵션", "텔레그램 @UZU59 로만 진행"]});
-})();
-
-function defaultReasons(d){
-  return [
-    "운영 안정성/이력 중심으로 선별",
-    "혜택 조건(입플·페이백)이 비교적 명확",
-    "문의/대응 채널이 고정되어 확인이 빠름"
-  ];
-}
-
-function toast(msg){
-  let el=document.getElementById("toast88");
-  if(!el){
-    el=document.createElement("div");
-    el.id="toast88";
-    el.style.cssText="position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:10px 12px;border-radius:12px;font-size:12px;z-index:4000;border:1px solid rgba(255,255,255,.08)";
-    document.body.appendChild(el);
-  }
-  el.textContent=msg;
-  el.style.opacity="1";
-  clearTimeout(window.__toastTimer88);
-  window.__toastTimer88=setTimeout(()=>{ el.style.opacity="0"; }, 1400);
-}
-
-function norm(s){ return String(s||"").toLowerCase().replace(/\s+/g,""); }
-
-function getClickCount(id){
-  return Number(localStorage.getItem(CLICK_KEY_PREFIX + id) || 0);
-}
-function incCardClick(id){
-  localStorage.setItem(CLICK_KEY_PREFIX + id, String(getClickCount(id) + 1));
-}
-
-function badgeHTML(){ return ""; }
-
-function cardImgById(id){
-  const n = String(id).replace("card","");
-  return { webp:`img/img${n}.webp`, jpg:`img/img${n}.jpg` };
-}
-
-/* ✅ WebP 우선 로드 + 실패 시 JPG로 자동 폴백 */
-function supportsWebp(){
-  try{
-    const c = document.createElement("canvas");
-    return !!(c.getContext && c.getContext("2d")) &&
-      c.toDataURL("image/webp").indexOf("data:image/webp") === 0;
-  }catch(e){ return false; }
-}
-const CAN_WEBP = supportsWebp();
-
-// ✅ 초경량 placeholder (실제 이미지는 뷰포트 근처에서 로드)
-const IMG_PLACEHOLDER = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-
-
-function smartSetImg(img, webp, jpg, box){
-  if(!img || img.dataset.loaded === "1") return;
-
-  const sources = (CAN_WEBP ? [webp, jpg] : [jpg, webp]).filter(Boolean);
-  if(!sources.length) return;
-
-  let i = 0;
-
-  const failAll = ()=>{
-    img.dataset.loading = "";
-    img.dataset.loaded = "1";
-    img.style.display = "none";
-    if(box){
-      box.style.setProperty("--bgimg","linear-gradient(135deg, rgba(212,175,55,.14), rgba(90,160,255,.10))");
-      box.style.minHeight = "130px";
-    }
-  };
-
-  const tryLoad = ()=>{
-    const src = sources[i];
-    if(!src) return failAll();
-
-    img.onerror = ()=>{
-      i += 1;
-      if(i < sources.length) tryLoad();
-      else failAll();
-    };
-    img.onload = ()=>{
-      img.dataset.loaded = "1";
-      img.dataset.loading = "";
-      if(box){
-        box.style.setProperty("--bgimg", `url('${img.currentSrc || img.src}')`);
-      }
-    };
-    img.src = src;
-  };
-
-  img.dataset.loading = "1";
-  tryLoad();
-}
-
-function initLazyImages(root){
-  if(!root) return;
-  const imgs = Array.from(root.querySelectorAll("img[data-jpg], img[data-webp]"));
-  if(!imgs.length) return;
-
-  const eagerCount = 6; // 상단(보이는 영역) 빠르게 로드
-  const run = (img)=>{
-    if(!img || img.dataset.loaded === "1" || img.dataset.loading === "1") return;
-    const box = img.closest(".img-box");
-    smartSetImg(img, img.getAttribute("data-webp"), img.getAttribute("data-jpg"), box);
-  };
-
-  // eager 먼저
-  imgs.slice(0, eagerCount).forEach(run);
-
-  // 나머지는 뷰포트 근처에서만 로드
-  const rest = imgs.slice(eagerCount);
-  if(!rest.length) return;
-
-  if(!("IntersectionObserver" in window)){
-    rest.forEach(run);
-    return;
-  }
-
-  const io = new IntersectionObserver((entries, obs)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting || e.intersectionRatio > 0){
-        run(e.target);
-        obs.unobserve(e.target);
-      }
-    });
-  }, {root:null, rootMargin:"700px 0px", threshold:0.01});
-
-  rest.forEach(img=> io.observe(img));
-}
-
-function renderGrid(){
-  const grid = document.getElementById("vendorGrid");
-  if(!grid) return;
-
-  const q = norm(document.getElementById("searchInput")?.value || "");
-  const today = new Date().toISOString().slice(0,10);
-
-  // 기본 정렬: high 먼저(랜덤), normal 랜덤, 광고 마지막
-  const ids = Object.keys(CARD_DATA);
-  const high = ids.filter(id=>CARD_DATA[id].priority==="high");
-  const normal = ids.filter(id=>CARD_DATA[id].priority==="normal");
-  const ad = ids.filter(id=>CARD_DATA[id].priority==="ad");
-
-  const shuffle = (arr)=> arr.slice().sort(()=>Math.random()-0.5);
-  let base = [...shuffle(high), ...shuffle(normal), ...ad];
-
-  // 필터 적용
-  let filtered = base.filter(id=>{
-    const d = CARD_DATA[id];
-    if(currentFilter==="rec" && d.tag!=="rec") return false;
-    if(currentFilter==="new" && d.tag!=="new") return false;
-    if(currentFilter==="ad"  && d.tag!=="ad") return false;
-
-    if(q){
-      const hay = norm(`${d.title} ${d.code||""} ${d.benefit||""} ${d.notice||""}`);
-      if(!hay.includes(q)) return false;
-    }
-    return true;
-  });
-
-  // 인기순
-  if(currentFilter==="pop"){
-    filtered.sort((a,b)=> getClickCount(b)-getClickCount(a));
-  }
-
-  // 렌더
-  grid.innerHTML = filtered.map((id, idx)=>{
-    const d = CARD_DATA[id];
-    const img = cardImgById(id);
-    return `
-      <div class="card" data-card="${id}" onclick="openById(this)">
-        <div class="img-box">
-          ${badgeHTML(d)}
-          <img data-webp="${img.webp}" data-jpg="${img.jpg}" src="${IMG_PLACEHOLDER}" loading="lazy" decoding="async" alt="${(d.title||"").replace(/"/g,'&quot;')}">
-        </div>
-        <div class="content">
-          <div class="site">${d.title || ""}</div>
-          <div class="desc">${d.benefit ? d.benefit : ""}</div>
-          <div class="code">${d.tag==="ad" ? "광고/제휴" : "88 인증 놀이터"}</div>
-        </div>
-      </div>
-    `;
-  }).join("");
-
-  // 이미지: WebP 우선 로드 + 폴백 + 블러 배경
-  document.querySelectorAll(".img-box").forEach(box=>{
-    const img = box.querySelector("img");
-    if(!img) return;
-    const webp = img.dataset.webp;
-    const jpg = img.dataset.jpg;
-
-    // 블러 배경은 우선 jpg로 세팅(안전)
-    if(jpg) box.style.setProperty("--bgimg", `url('${jpg}')`);
-
-    smartSetImg(img, webp, jpg, box);
-  });
-
-// 칩 active
-  ["chipAll","chipRec","chipNew","chipAd","chipPop"].forEach(id=>{
-    const el = document.getElementById(id);
-    if(!el) return;
-    el.classList.remove("active");
-  });
-  const map = {all:"chipAll", rec:"chipRec", new:"chipNew", ad:"chipAd", pop:"chipPop"};
-  const on = document.getElementById(map[currentFilter] || "chipAll");
-  if(on) on.classList.add("active");
-}
-
-function setFilter(key){
-  currentFilter = key;
-  renderGrid();
-  // 필터 바뀌면 상단으로 살짝 유도
-  const top = document.getElementById("vendorTop");
-  if(top && key!=="all") top.scrollIntoView({behavior:"smooth", block:"start"});
-}
-
-/* 인기 TOP3 / 최근 본 */
-
-/* ✅ 배지 텍스트 헬퍼(요약 TOP3/최근 본 미니카드용) */
-function badgeText(d, id){
-  // 카드 7/8은 "광고 문의" 전용 처리
-  if(id === "card7" || id === "card8"){
-    return { text: "광고", cls: "ad" };
-  }
-  const cls = (d && d.badgeCls) ? d.badgeCls : ((d && d.tag) ? d.tag : "rec");
-  let text = (d && d.badgeText) ? d.badgeText : (cls === "ad" ? "광고" : (cls === "new" ? "신규" : "추천"));
-  if(!text) text = "추천";
-  return { text, cls };
-}
-
-
-/* ✅ +EV → 추천 필터 자동 ON (오늘 날짜만) */
-function maybeAutoRecFilter(){
-  const ev = localStorage.getItem("88_ev_positive");
-  const evDate = localStorage.getItem("88_ev_date");
-  const today = new Date().toISOString().slice(0,10);
-  const hint = document.getElementById("evAutoHint");
-
-  if(ev==="1" && evDate===today){
-    // 자동 ON은 한번만(과도한 강제 방지)
-    if(!sessionStorage.getItem("88_ev_autoon_done")){
-      sessionStorage.setItem("88_ev_autoon_done","1");
-      currentFilter = "rec";
-      if(hint){
-        hint.style.display="block";
-        hint.innerText = "✅ 분석기에서 +EV가 감지되어 ‘추천’ 필터가 자동 활성화되었습니다. (오늘만)";
-      }
-      toast("✅ +EV 감지 → 추천 필터 자동 ON");
-    }else{
-      if(hint){
-        hint.style.display="block";
-        hint.innerText = "✅ 오늘 +EV 기록이 있어 ‘추천’ 필터를 빠르게 확인할 수 있습니다.";
-      }
-    }
-  }else{
-    if(hint) hint.style.display="none";
-  }
-}
-
-/* 검색 입력 */
-(function(){
-  const input = document.getElementById("searchInput");
-  if(input){
-    input.addEventListener("input", ()=>{ renderGrid(); });
-  }
-})();
-
-/* ✅ 체크리스트 */
+/* ===== 체크리스트 ===== */
 const CHECKLIST_POOL = [
   "라인 급변 경기(갑자기 내려간 배당)는 이유부터 확인하기",
   "마진(수수료) 높은 경기면 한 단계 보수적으로 접근하기",
@@ -1737,43 +1023,43 @@ const CHECKLIST_POOL = [
   "변동성 큰 리그는 단폴/소액으로 테스트하기",
   "무리한 마틴/추격 배팅은 금지(손실 제한선 미리 설정)"
 ];
-function refreshChecklist(){
+function refreshChecklist() {
   const pool = [...CHECKLIST_POOL].sort(()=>Math.random()-0.5);
   const pick = pool.slice(0,3);
   const el = document.getElementById("checklistText");
   if(el) el.innerHTML = "• " + pick.join("<br>• ");
 }
 
-/* ✅ 초간단 마진 계산기(2-way/3-way) */
-function setMarginMode(mode){
+/* ===== 마진 계산기 ===== */
+let marginMode = "2";
+function setMarginMode(mode) {
   marginMode = mode;
   const b2=document.getElementById("mMode2");
   const b3=document.getElementById("mMode3");
   const w2=document.getElementById("margin2");
   const w3=document.getElementById("margin3");
   if(!b2||!b3||!w2||!w3) return;
-
-  if(mode==="2"){
+  if(mode==="2") {
     b2.classList.add("active"); b3.classList.remove("active");
     w2.style.display="block"; w3.style.display="none";
-  }else{
+  } else {
     b3.classList.add("active"); b2.classList.remove("active");
     w3.style.display="block"; w2.style.display="none";
   }
 }
-function toNum(v){
+function toNum(v) {
   const n = Number(String(v).replace(/,/g,"").trim());
   return Number.isFinite(n) ? n : NaN;
 }
-function calcSimpleMargin(){
+function calcSimpleMargin() {
   const out = document.getElementById("simpleMarginResult");
   const hint = document.getElementById("simpleMarginHint");
   if(!out||!hint) return;
 
-  if(marginMode==="2"){
+  if(marginMode==="2") {
     const a=toNum(document.getElementById("m2A").value);
     const b=toNum(document.getElementById("m2B").value);
-    if([a,b].some(x=>!Number.isFinite(x)||x<=1)){
+    if([a,b].some(x=>!Number.isFinite(x)||x<=1)) {
       out.innerText="배당 2개를 정확히 입력해 주세요. (1.01 이상)";
       hint.innerText="";
       return;
@@ -1784,11 +1070,11 @@ function calcSimpleMargin(){
     const pA=(1/a)*fair*100, pB=(1/b)*fair*100;
     out.innerText=`마진(수수료) : ${margin.toFixed(2)}%`;
     hint.innerHTML=`정규화 확률(참고): 승 ${pA.toFixed(1)}% / 패 ${pB.toFixed(1)}%<br>마진이 낮을수록 유리`;
-  }else{
+  } else {
     const h=toNum(document.getElementById("m3H").value);
     const d=toNum(document.getElementById("m3D").value);
     const a=toNum(document.getElementById("m3A").value);
-    if([h,d,a].some(x=>!Number.isFinite(x)||x<=1)){
+    if([h,d,a].some(x=>!Number.isFinite(x)||x<=1)) {
       out.innerText="배당 3개를 정확히 입력해 주세요. (1.01 이상)";
       hint.innerText="";
       return;
@@ -1802,87 +1088,369 @@ function calcSimpleMargin(){
   }
 }
 
-/* 초기 렌더 */
-(function initVendorUX(){
+/* ===== 카드 메타(필터/정렬용) ===== */
+(function enrichCards() {
+  const set = (id, patch)=>{ CARD_DATA[id] = Object.assign({tag:"rec", priority:"normal", recruit:false, reasons:[]}, CARD_DATA[id], patch); };
+
+  set("card1", {tag:"rec", priority:"high", reasons:["운영 이력 중심 선별", "조건(입플/수수료) 안내가 명확", "문의 채널이 고정"]});
+  set("card2", {tag:"rec", priority:"high", reasons:["혜택 구성(첫충/페이백) 확인 용이", "리워드형 혜택 포함", "문의 라인이 명확"]});
+  set("card3", {tag:"rec", priority:"high", reasons:["스포츠/미겜 첫충 + 페이백", "조건/코드 안내가 명확", "커뮤니티 피드백 반영"]});
+  set("card4", {tag:"rec", priority:"normal", reasons:["입플 폭이 넓어 선택지 다양", "혜택 분리 안내", "문의 채널 고정"]});
+  set("card5", {tag:"new", priority:"normal", reasons:["원화/USDT 선택 가능", "페이백 비중 높은 편", "고액 유저 기준 확인"]});
+  set("card6", {tag:"new", priority:"normal", reasons:["신규/매충/페이백 조합", "유지형 구성", "문의 라인이 명확"]});
+  set("card7", {tag:"ad", priority:"ad", recruit:true, reasons:["광고 문의 전용", "배너/카드/문구 협의 가능", "텔레그램으로만 진행"]});
+  set("card8", {tag:"ad", priority:"ad", recruit:true, reasons:["광고 문의 전용", "고정 노출/추가 옵션", "사칭 주의"]});
+  set("card9", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택", "문의 채널 고정"]});
+})();
+
+/* ===== 카드 렌더/필터/인기순 ===== */
+const CLICK_KEY_PREFIX = "88_card_click_";
+let currentFilter = "all";
+let isCleanText = false;
+
+function cleanBenefit(s) {
+  const t = String(s||"")
+    .replace(/[•]/g,"·")
+    .replace(/\s*\/\s*/g," / ")
+    .replace(/\s+/g," ")
+    .trim();
+
+  const max = 56;
+  return t.length > max ? (t.slice(0, max-1) + "…") : t;
+}
+
+
+function norm(s){ return String(s||"").toLowerCase().replace(/\s+/g,""); }
+function getClickCount(id){ return Number(localStorage.getItem(CLICK_KEY_PREFIX + id) || 0); }
+function incCardClick(id){ localStorage.setItem(CLICK_KEY_PREFIX + id, String(getClickCount(id) + 1)); }
+
+function cardSourcesById(id) {
+  const n = String(id).replace("card","");
+  return {
+    jpg: `img/img${n}.jpg`,
+    webp: `img/img${n}.webp`
+  };
+}
+
+function renderGrid() {
+  const grid = document.getElementById("vendorGrid");
+  if(!grid) return;
+
+  const q = norm(document.getElementById("searchInput")?.value || "");
+
+  const ids = Object.keys(CARD_DATA);
+
+  // 정렬: high 랜덤 -> normal 랜덤 -> 광고 마지막 (인기순은 별도)
+  const high = ids.filter(id=>CARD_DATA[id].priority==="high");
+  const normal = ids.filter(id=>CARD_DATA[id].priority==="normal");
+  const ad = ids.filter(id=>CARD_DATA[id].priority==="ad");
+  const shuffle = (arr)=> arr.slice().sort(()=>Math.random()-0.5);
+  let base = [...shuffle(high), ...shuffle(normal), ...ad];
+
+  let filtered = base.filter(id=>{
+    const d = CARD_DATA[id];
+    if(currentFilter==="rec" && d.tag!=="rec") return false;
+    if(currentFilter==="new" && d.tag!=="new") return false;
+    if(currentFilter==="ad"  && d.tag!=="ad") return false;
+
+    if(q) {
+      const hay = norm(`${d.title} ${d.code||""} ${d.benefit||""} ${d.notice||""}`);
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if(currentFilter==="pop") {
+    filtered.sort((a,b)=> getClickCount(b)-getClickCount(a));
+  }
+
+  grid.innerHTML = filtered.map(id=>{
+    const d = CARD_DATA[id];
+    const src = cardSourcesById(id);
+
+    const tagLabel = (d.tag==="rec") ? "추천" : (d.tag==="new") ? "신규" : "광고/제휴";
+    const rawDesc = d.benefit ? d.benefit : "";
+    const desc = isCleanText ? cleanBenefit(rawDesc) : rawDesc;
+
+    return `
+      <div class="card" data-card="${id}">
+        <div class="img-box">
+          <div class="tag-badge ${d.tag}">${tagLabel}</div>
+          <picture>
+            <source type="image/webp" srcset="${src.webp}">
+            <img src="${src.jpg}" loading="lazy" decoding="async" alt="${(d.title||"").replace(/"/g,'&quot;')}">
+          </picture>
+        </div>
+        <div class="content">
+          <div class="site">${d.title || ""}</div>
+          <div class="desc">${desc}</div>
+          <div class="code">${tagLabel}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  // blur bg 세팅 + 이미지 에러 대응
+  document.querySelectorAll(".img-box").forEach(box=>{
+    const img = box.querySelector("img");
+    if(!img) return;
+    const applyBg = ()=>{ box.style.setProperty("--bgimg", `url('${img.currentSrc || img.src}')`); };
+    img.addEventListener("load", applyBg, { once:true });
+    applyBg();
+    img.onerror = ()=>{
+      img.style.display="none";
+      box.style.minHeight="130px";
+    };
+  });
+
+  setChipActive();
+  bindCardClicks();
+}
+
+function setChipActive() {
+  ["chipAll","chipRec","chipNew","chipAd","chipPop"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.classList.remove("active");
+  });
+  const map = {all:"chipAll", rec:"chipRec", new:"chipNew", ad:"chipAd", pop:"chipPop"};
+  const on = document.getElementById(map[currentFilter] || "chipAll");
+  if(on) on.classList.add("active");
+}
+
+function setFilter(key) {
+  currentFilter = key;
+  renderGrid();
+  if(key!=="all") {
+    const top = document.getElementById("vendorTop");
+    if(top) top.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+  track("filter_change", {"filter": key});
+}
+
+function bindCardClicks() {
+  document.querySelectorAll(".card[data-card]").forEach(el=>{
+    el.onclick = ()=> openCard(el.dataset.card);
+  });
+}
+
+(function bindChipsAndSearch() {
+  document.querySelectorAll("[data-filter]").forEach(btn=>{
+    btn.addEventListener("click", ()=> setFilter(btn.getAttribute("data-filter")));
+  });
+
+  // 정제된 문구(요약) 토글
+  const cleanBtn = document.getElementById("chipClean");
+  const cleanHint = document.getElementById("cleanHint");
+  const savedClean = sessionStorage.getItem("88_clean_text");
+  if(savedClean === "1") {
+    isCleanText = true;
+    if(cleanBtn) cleanBtn.classList.add("active");
+  }
+  if(cleanHint) cleanHint.style.display = "block";
+
+  if(cleanBtn) {
+    cleanBtn.addEventListener("click", ()=>{
+      isCleanText = !isCleanText;
+      sessionStorage.setItem("88_clean_text", isCleanText ? "1" : "0");
+      cleanBtn.classList.toggle("active", isCleanText);
+      renderGrid();
+      track("clean_text_toggle", {"state": isCleanText ? "on" : "off"});
+    });
+  }
+const input = document.getElementById("searchInput");
+  if(input) input.addEventListener("input", ()=> renderGrid());
+})();
+
+/* ===== 팝업 + 접근성 ===== */
+let currentCode="";
+let lastFocusEl=null;
+
+function openCard(id) {
+  const d = CARD_DATA[id];
+  if(!d) return;
+
+  incCardClick(id);
+  track("card_open", {"card_id": id, "title": d.title || "", "tag": d.tag || ""});
+
+  const isRecruit = !!d.recruit;
+
+  currentCode = (isRecruit ? "" : (d.code || ""));
+  document.getElementById("pTitle").innerText = d.title || "";
+  document.getElementById("pCode").innerText  = (d.code || "");
+
+  document.getElementById("codeRow").style.display = isRecruit ? "none" : "block";
+  document.getElementById("copyBtn").style.display = isRecruit ? "none" : "block";
+  document.getElementById("pLink").style.display = isRecruit ? "none" : "block";
+
+  // 혜택/주의
+  const pBenefit = document.getElementById("pBenefit");
+  const pNotice  = document.getElementById("pNotice");
+  pBenefit.style.display = (d.benefit && !isRecruit) ? "block" : "none";
+  pBenefit.innerText = (d.benefit && !isRecruit) ? ("혜택 : " + d.benefit) : "";
+  pNotice.style.display = d.notice ? "block" : "none";
+  pNotice.innerText = d.notice ? ("주의 : " + d.notice) : "";
+
+  // 링크/텔레그램 (+UTM)
+  const btnGo = document.getElementById("pLink");
+  if(btnGo) {
+    btnGo.href = d.link ? appendUtm(d.link) : "#";
+  }
+
+  const tg = (d.telegram || "UZU59").replace("@","");
+  const pTelegram = document.getElementById("pTelegram");
+  pTelegram.href = appendUtm("https://t.me/" + tg);
+  pTelegram.innerText = isRecruit ? ("광고 문의 @" + tg) : ("텔레그램 문의 @" + tg);
+
+  // 안내 3줄
+  const rBox = document.getElementById("reasonBox");
+  const rTitle = document.getElementById("reasonTitle");
+  const r1 = document.getElementById("reason1");
+  const r2 = document.getElementById("reason2");
+  const r3 = document.getElementById("reason3");
+
+  rBox.style.display = "block";
+  if(isRecruit) {
+    rTitle.innerText = "광고 문의 안내";
+    r1.innerText = "• 광고/제휴 문의는 텔레그램으로만 진행합니다.";
+    r2.innerText = "• 배너/카드/문구 구성은 협의 후 반영합니다.";
+    r3.innerText = "• 문의: @" + tg;
+  } else {
+    const reasons = (d.reasons && d.reasons.length) ? d.reasons : ["안정성/이력 중심", "조건/안내가 비교적 명확", "문의 채널 고정"];
+    rTitle.innerText = "안내";
+    r1.innerText = "• " + (reasons[0] || "");
+    r2.innerText = "• " + (reasons[1] || "");
+    r3.innerText = "• " + (reasons[2] || "");
+  }
+
+  lastFocusEl = document.activeElement;
+  const popup = document.getElementById("cardPopup");
+  popup.style.display="flex";
+
+  // 포커스 이동
+  const focusTarget = document.getElementById("closeBtn");
+  if(focusTarget) focusTarget.focus();
+}
+
+function closeCard() {
+  const popup = document.getElementById("cardPopup");
+  popup.style.display="none";
+  if(lastFocusEl && lastFocusEl.focus) lastFocusEl.focus();
+}
+
+function copyCode() {
+  if(!currentCode) return;
+  navigator.clipboard.writeText(currentCode).then(()=>{
+    alert("가입코드가 복사되었습니다");
+    track("copy_code", {"code": currentCode});
+  }).catch(()=>{
+    // fallback
+    try {
+      const t=document.createElement("textarea");
+      t.value=currentCode;
+      document.body.appendChild(t);
+      t.select();
+      document.execCommand("copy");
+      t.remove();
+      alert("가입코드가 복사되었습니다");
+      track("copy_code", {"code": currentCode});
+    } catch(e) {}
+  });
+}
+
+function jumpToRec() {
+  closeCard();
+  setFilter("rec");
+  const top = document.getElementById("vendorTop");
+  if(top) top.scrollIntoView({behavior:"smooth", block:"start"});
+  track("popup_secondary_cta", {"action":"jump_to_rec"});
+}
+
+(function bindPopupControls() {
+  const popup = document.getElementById("cardPopup");
+  const box = popup?.querySelector(".popup-box");
+  const closeBtn = document.getElementById("closeBtn");
+  const copyBtn = document.getElementById("copyBtn");
+  const moreBtn = document.getElementById("moreRecBtn");
+  const goBtn = document.getElementById("pLink");
+  const tgBtn = document.getElementById("pTelegram");
+
+  if(closeBtn) closeBtn.addEventListener("click", closeCard);
+  if(copyBtn) copyBtn.addEventListener("click", copyCode);
+  if(moreBtn) moreBtn.addEventListener("click", jumpToRec);
+
+  if(goBtn) goBtn.addEventListener("click", ()=> track("outbound_click", {"type":"site"}));
+  if(tgBtn) tgBtn.addEventListener("click", ()=> track("outbound_click", {"type":"telegram"}));
+
+  // 바깥 클릭 닫기
+  if(popup) popup.addEventListener("click", (e)=>{
+    if(e.target === popup) closeCard();
+  });
+
+  // ESC 닫기 + 포커스 트랩(최소)
+  document.addEventListener("keydown", (e)=>{
+    if(popup && popup.style.display==="flex") {
+      if(e.key==="Escape") closeCard();
+      if(e.key==="Tab") {
+        const focusables = popup.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])');
+        const list = Array.from(focusables).filter(el=>!el.hasAttribute("disabled") && el.offsetParent !== null);
+        if(!list.length) return;
+        const first = list[0];
+        const last = list[list.length-1];
+        if(e.shiftKey && document.activeElement===first) { e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement===last) { e.preventDefault(); first.focus(); }
+      }
+    }
+  });
+})();
+
+/* ===== +EV 감지 시 추천 필터 자동 ON (오늘만) ===== */
+function maybeAutoRecFilter() {
+  const ev = localStorage.getItem("88_ev_positive");
+  const evDate = localStorage.getItem("88_ev_date");
+  const today = dateKeyLocal();
+  const hint = document.getElementById("evAutoHint");
+
+  if(ev==="1" && evDate===today) {
+    if(!sessionStorage.getItem("88_ev_autoon_done")) {
+      sessionStorage.setItem("88_ev_autoon_done","1");
+      currentFilter = "rec";
+      if(hint) {
+        hint.style.display="block";
+        hint.innerText = "✅ 분석기에서 +EV가 감지되어 ‘추천’ 필터가 자동 활성화되었습니다. (오늘만)";
+      }
+      track("ev_autofilter", {"state":"on"});
+    } else {
+      if(hint) {
+        hint.style.display="block";
+        hint.innerText = "✅ 오늘 +EV 기록이 있어 ‘추천’ 필터를 빠르게 확인할 수 있습니다.";
+      }
+    }
+  } else {
+    if(hint) {
+      hint.style.display="none";
+      hint.innerText = "";
+    }
+  }
+}
+
+/* ===== CTA 트래킹 ===== */
+(function bindCtas() {
+  document.querySelectorAll("[data-cta]").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      track("cta_click", {"cta": el.getAttribute("data-cta") || ""});
+    });
+  });
+})();
+
+/* ===== 초기화 ===== */
+(function init() {
+  saveUtmFromUrl();
   refreshChecklist();
   setMarginMode("2");
   maybeAutoRecFilter();
-  
   renderGrid();
-  // ✅ 딥링크: /?open=card3  → 카드 팝업 자동 오픈
-  try{
-    const p = new URLSearchParams(location.search);
-    const openId = p.get("open");
-    if(openId && CARD_DATA[openId]){
-      openCard(openId);
-    }
-  }catch(e){}
-})();
-
-
-/* ✅ 팝업 UX: ESC / 바깥 클릭으로 닫기 */
-(function bindPopupUX(){
-  const overlay = document.getElementById("cardPopup");
-  if(overlay){
-    overlay.addEventListener("click", (e)=>{
-      if(e.target === overlay) closeCard();
-    });
-  }
-  document.addEventListener("keydown", (e)=>{
-    if(e.key === "Escape") closeCard();
-  });
 })();
 </script>
 
-
-<!-- 🔍 SEO 랜딩 페이지 링크 (최하단 / 초소형) -->
-<style>
-  .landing-seo{
-    max-width:1100px;
-    margin:10px auto 12px;
-    padding:0 14px;
-    opacity:.85;
-  }
-  .landing-seo h3{
-    font-size:8px;
-    color:#6f6f6f;
-    margin:0 0 6px;
-    font-weight:800;
-    letter-spacing:.2px;
-  }
-  .landing-seo .links{
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px;
-  }
-  .landing-seo a{
-    display:inline-block;
-    font-size:8px;
-    color:#9a9a9a;
-    text-decoration:none;
-    padding:2px 5px;
-    border-radius:6px;
-    border:1px solid rgba(255,255,255,.06);
-    background:transparent;
-  }
-  .landing-seo a:hover{
-    color:#f5e27a;
-    border-color:#f5e27a;
-  }
-</style>
-
-<div class="landing-seo" aria-label="관련 정보 링크">
-  <h3>관련 정보</h3>
-  <div class="links">
-    <a href="/landing-a/">입플·보너스 분석기</a>
-    <a href="/landing-b/">고액 유저 보증업체</a>
-    <a href="/landing-c/">배당 마진·EV 계산</a>
-    <a href="/landing-d/">스포츠 배당 흐름 분석</a>
-  </div>
-</div>
-
-
 </body>
 </html>
-
-
