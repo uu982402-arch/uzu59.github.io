@@ -187,6 +187,84 @@ body{
   padding:12px;
   margin-top:12px;
 }
+
+/* 결과 요약 카드(첫 화면 강조) */
+.resultHero{
+  border:1px solid rgba(255,255,255,.10);
+  background:
+    radial-gradient(600px 200px at 0% 0%, rgba(90,160,255,.10), transparent 55%),
+    radial-gradient(600px 200px at 100% 0%, rgba(212,175,55,.10), transparent 55%),
+    rgba(255,255,255,.03);
+  border-radius:18px;
+  padding:14px;
+  box-shadow: 0 14px 34px rgba(0,0,0,.35);
+  margin-bottom:10px;
+  animation:popIn .22s ease-out;
+}
+@keyframes popIn{ from{ transform:translateY(6px); opacity:0;} to{transform:none; opacity:1;} }
+.heroTop{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.heroText{ min-width:240px; }
+.heroTitle{ font-weight:1000; font-size:15px; color:#fff; letter-spacing:-.2px; }
+.heroSub{ margin-top:3px; font-size:12px; color:#bdbdbd; line-height:1.35; }
+.heroBadges{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+
+.heroRight{ display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+.heroConclusion{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.25);
+  max-width:340px;
+}
+.heroConclusion .cIcon{ font-size:16px; line-height:1; }
+.heroConclusion .cText{ font-size:13px; font-weight:900; letter-spacing:-.2px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.heroConclusion.good{ border-color: rgba(48,209,88,.35); background: rgba(48,209,88,.12); }
+.heroConclusion.warn{ border-color: rgba(255,193,7,.35); background: rgba(255,193,7,.12); }
+.heroConclusion.bad{ border-color: rgba(255,59,48,.35); background: rgba(255,59,48,.12); }
+@media (max-width:520px){
+  .heroRight{ width:100%; align-items:flex-start; }
+  .heroBadges{ justify-content:flex-start; }
+  .heroConclusion{ max-width:100%; width:100%; }
+  .heroConclusion .cText{ white-space:normal; }
+}
+.chip.big{ padding:8px 12px; font-size:13px; }
+.heroStats{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:10px;
+}
+.statCard{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.22);
+  border-radius:14px;
+  padding:10px 10px;
+}
+.statK{ font-size:11px; color:#bdbdbd; }
+.statV{ margin-top:4px; font-size:16px; font-weight:1000; color:#fff; letter-spacing:-.2px; }
+.statS{ margin-top:2px; font-size:11px; color:#9a9a9a; }
+.detailHead{
+  margin:10px 0 4px;
+  font-weight:900;
+  font-size:13px;
+  color:#fff;
+  display:flex; align-items:center; gap:8px;
+}
+.detailHead:before{
+  content:"";
+  width:8px; height:8px; border-radius:99px;
+  background:rgba(212,175,55,.9);
+  box-shadow:0 0 0 4px rgba(212,175,55,.12);
+}
+@media (max-width:520px){
+  .heroStats{ grid-template-columns: 1fr; }
+  .heroText{ min-width: 0; }
+  .heroBadges{ justify-content:flex-start; }
+}
+
 .kv{
   display:flex; justify-content:space-between; gap:10px;
   padding:8px 0; border-bottom:1px solid rgba(255,255,255,.06);
@@ -1678,6 +1756,120 @@ function calc(){
 ========================= */
 function renderResult(sportName, level, rows, copyLines){
   const box = $("result");
+
+  // ---- 요약 카드(상단) 데이터 추출 ----
+  const clean = (x)=>String(x ?? "").replace(/<[^>]*>/g,"").trim();
+  const num = (x)=>{
+    const t = clean(x).replace(/,/g,"").replace("%","");
+    const n = parseFloat(t);
+    return Number.isFinite(n) ? n : null;
+  };
+
+  const overRow = rows.find(([k])=>k==="오버라운드(마진 추정)");
+  const over = overRow ? num(overRow[1]) : null;
+  const marginPct = (over!=null) ? (over - 1) * 100 : null;
+
+  // 메인 마진 판정(라벨/색상) 추출
+  let marginLabel = null;
+  let marginChip = "mid";
+  const mRow = rows.find(([k])=>k==="메인 마진 판정");
+  if(mRow){
+    const raw = String(mRow[1] ?? "");
+    marginLabel = clean(raw);
+    const clsMatch = raw.match(/class="([^"]+)"/);
+    const tcls = clsMatch ? clsMatch[1] : "";
+    if(tcls.includes("good")) marginChip = "ok";
+    else if(tcls.includes("warn")) marginChip = "bad";
+    else marginChip = "mid";
+  }
+
+  // 시장 최고 확률(메인) 추출
+  const probRows = rows.filter(([k])=>String(k).includes("승리 확률(배당 기반·추정"));
+  let topProb = null;
+  probRows.forEach(([k,v])=>{
+    const p = num(v);
+    if(p==null) return;
+    const m = String(k).match(/,\s*([^)]+)\)/);
+    const label = m ? m[1] : String(k);
+    if(!topProb || p > topProb.p) topProb = { label, p };
+  });
+
+  // EV 추출(고급모드에서만 존재할 수 있음)
+  const evRow = rows.find(([k])=>k==="EV(1원당)");
+  const evPct = evRow ? num(evRow[1]) : null;
+
+  // 배지(요약)
+  let primary = { cls: marginChip, text: marginLabel ? `메인 마진: ${marginLabel}` : "결과 요약" };
+  let secondary = null;
+
+  if(evPct!=null){
+    primary = { cls: (evPct>=0 ? "ok" : "bad"), text: `밸류(${evPct>=0?"+":"-"}EV) ${Math.abs(evPct).toFixed(2)}%` };
+    if(marginLabel){
+      secondary = { cls: marginChip, text: `메인 마진: ${marginLabel}${marginPct!=null ? ` (${marginPct.toFixed(1)}%)` : ""}` };
+    }
+  }
+
+
+  // 한줄 결론(표현용: 로직은 변경하지 않고, 계산된 값으로만 안내)
+  let conclusion = { cls:"warn", icon:"⚠️", text:"주의 · 입력값/근거를 확인하세요" };
+  if(evPct!=null){
+    if(evPct >= 2){
+      conclusion = { cls:"good", icon:"✅", text:`추천 · +EV ${evPct.toFixed(2)}%` };
+    }else if(evPct >= 0){
+      conclusion = { cls:"warn", icon:"⚠️", text:`주의 · 소폭 +EV ${evPct.toFixed(2)}%` };
+    }else{
+      conclusion = { cls:"bad", icon:"⛔", text:`PASS · -EV ${Math.abs(evPct).toFixed(2)}%` };
+    }
+  }else if(marginPct!=null){
+    if(marginPct <= 3){
+      conclusion = { cls:"good", icon:"✅", text:`추천 · 마진 낮음 ${marginPct.toFixed(1)}%` };
+    }else if(marginPct <= 6){
+      conclusion = { cls:"warn", icon:"⚠️", text:`주의 · 마진 보통 ${marginPct.toFixed(1)}%` };
+    }else{
+      conclusion = { cls:"bad", icon:"⛔", text:`PASS · 마진 높음 ${marginPct.toFixed(1)}%` };
+    }
+  }
+  const hero = `
+    <div class="resultHero">
+      <div class="heroTop">
+        <div class="heroText">
+          <div class="heroTitle">${sportName} · ${levelLabel(level)} 결과</div>
+          <div class="heroSub">입력값 기반 요약 · 아래 상세표로 근거를 확인하세요</div>
+        </div>
+        <div class="heroRight">
+          <div class="heroBadges">
+            <span class="chip big ${primary.cls}">${primary.text}</span>
+            ${secondary ? `<span class="chip ${secondary.cls}">${secondary.text}</span>` : ``}
+          </div>
+          <div class="heroConclusion ${conclusion.cls}">
+            <span class="cIcon">${conclusion.icon}</span>
+            <span class="cText">${conclusion.text}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="heroStats">
+        <div class="statCard">
+          <div class="statK">메인 마진</div>
+          <div class="statV">${marginPct!=null ? marginPct.toFixed(1)+"%" : "—"}</div>
+          <div class="statS">${over!=null ? "오버라운드 "+over.toFixed(4) : "오버라운드 —"}</div>
+        </div>
+
+        <div class="statCard">
+          <div class="statK">시장 최고확률</div>
+          <div class="statV">${topProb ? `${topProb.label} ${topProb.p.toFixed(1)}%` : "—"}</div>
+          <div class="statS">배당 역수 정규화</div>
+        </div>
+
+        <div class="statCard">
+          <div class="statK">EV</div>
+          <div class="statV">${evPct!=null ? ((evPct>=0?"+":"")+evPct.toFixed(2)+"%") : "미입력"}</div>
+          <div class="statS">${evPct!=null ? "내 예상 확률 기준" : "고급모드에서 입력"}</div>
+        </div>
+      </div>
+    </div>
+  `;
+
   const html = rows.map(([k,v])=>{
     // v가 HTML 포함할 수 있으니 그대로
     let cls = "";
@@ -1688,7 +1880,8 @@ function renderResult(sportName, level, rows, copyLines){
   }).join("");
 
   box.innerHTML = `
-    <div style="font-weight:900;margin-bottom:6px;">${sportName} · ${levelLabel(level)} 결과</div>
+    ${hero}
+    <div class="detailHead">상세 지표</div>
     ${html}
     <hr class="sep">
     <div style="font-size:12px;color:#9a9a9a;line-height:1.5;">
