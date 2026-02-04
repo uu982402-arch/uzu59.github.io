@@ -672,6 +672,45 @@ select.insight-select{
 }
 .faq-box details:first-child{ border-top:none; }
 
+
+/* ===== 로컬 인사이트(가짜 방문자 대신) ===== */
+.insights-wrap{ max-width:1100px; margin:18px auto 36px; padding:0 14px; }
+.insights-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin:12px 0 10px; }
+.insights-head .h{ font-size:16px; font-weight:900; letter-spacing:-.2px; }
+.insights-head .sub{ color:var(--muted); font-size:12px; line-height:1.4; }
+.insights-grid{ display:grid; gap:14px; }
+@media(max-width:767px){ .insights-grid{ grid-template-columns:1fr; } }
+@media(min-width:768px) and (max-width:1023px){ .insights-grid{ grid-template-columns:1fr 1fr; } }
+@media(min-width:1024px){ .insights-grid{ grid-template-columns:1.1fr .9fr .9fr; } }
+
+.stat-card{ cursor:default; }
+.stat-card:hover{ transform:none; border-color:rgba(255,255,255,.06); box-shadow:0 10px 30px rgba(0,0,0,.55); filter:none; }
+.stat-top{ padding:14px 14px 8px; }
+.stat-title{ font-weight:900; font-size:14px; display:flex; align-items:center; gap:8px; }
+.stat-meta{ color:var(--muted); font-size:12px; margin-top:4px; line-height:1.35; }
+.stat-list{ padding:8px 14px 14px; display:grid; gap:10px; }
+.stat-item{ display:flex; justify-content:space-between; gap:10px; align-items:center; }
+.stat-left{ display:flex; align-items:center; gap:10px; min-width:0; }
+.stat-rank{ width:18px; text-align:center; color:#f5e27a; font-weight:900; font-size:12px; flex:0 0 auto; }
+.stat-link{ background:transparent; border:0; padding:0; color:#fff; font-size:13px; font-weight:800; cursor:pointer; text-align:left; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.stat-link:hover{ text-decoration:underline; }
+.stat-count{ color:var(--muted); font-size:12px; font-weight:800; flex:0 0 auto; }
+.stat-actions{ padding:0 14px 14px; display:flex; gap:10px; flex-wrap:wrap; }
+.small-btn{
+  padding:8px 10px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+  user-select:none;
+}
+.small-btn:hover{ filter:brightness(1.08); border-color:rgba(255,255,255,.16); }
+.small-btn:active{ transform: translateY(1px); }
+.note-mini{ color:var(--muted); font-size:12px; padding:0 14px 14px; line-height:1.35; }
+
 </style>
 
 <script>
@@ -1047,6 +1086,53 @@ function appendUtm(urlStr) {
 <div class="vendor-grid" id="vendorGrid"></div>
 
 
+<div class="insights-wrap" id="insights">
+  <div class="insights-head">
+    <div>
+      <div class="h">오늘의 인기</div>
+      <div class="sub">방문자 수 대신, <b>이 사이트에서 실제로 많이 본/많이 검색한 항목</b>을 보여줍니다. (로컬 집계)</div>
+    </div>
+  </div>
+
+  <div class="insights-grid">
+    <div class="card stat-card" aria-label="오늘 많이 본 키워드">
+      <div class="stat-top">
+        <div class="stat-title">오늘 많이 본 키워드</div>
+        <div class="stat-meta">검색창에 입력한 키워드 기준으로 집계됩니다. (데이터가 쌓이면 자동 갱신)</div>
+      </div>
+      <div class="stat-list" id="insightKeywords"></div>
+      <div class="stat-actions">
+        <button class="small-btn" type="button" id="insightResetBtn">로컬 기록 초기화</button>
+      </div>
+    </div>
+
+    <div class="card stat-card" aria-label="오늘 많이 본 카드">
+      <div class="stat-top">
+        <div class="stat-title">오늘 많이 본 카드 TOP 5</div>
+        <div class="stat-meta">카드 상세를 열어본 횟수 기준입니다. (로컬 집계)</div>
+      </div>
+      <div class="stat-list" id="insightCards"></div>
+      <div class="note-mini">※ “인기순” 정렬은 카드 클릭 누적 기반, 이 영역은 “오늘 열람” 기반입니다.</div>
+    </div>
+
+    <div class="card stat-card" aria-label="빠른 도구">
+      <div class="stat-top">
+        <div class="stat-title">빠른 도구</div>
+        <div class="stat-meta">자주 쓰는 계산기를 바로 실행하세요.</div>
+      </div>
+      <div class="stat-actions">
+        <a class="small-btn" href="/analysis/" data-cta="quick_analysis">분석기</a>
+        <a class="small-btn" href="/tool-margin/" data-cta="quick_margin">마진</a>
+        <a class="small-btn" href="/tool-ev/" data-cta="quick_ev">EV</a>
+        <a class="small-btn" href="/tool-odds/" data-cta="quick_odds">확률</a>
+      </div>
+      <div class="note-mini">팁: 라인/배당 흐름은 “기록(로그)”이 쌓여야 의미가 커집니다. 다음 업데이트에서 베팅 로그/대시보드를 붙이면 재방문이 확 올라갑니다.</div>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="popup" id="cardPopup" role="dialog" aria-modal="true" aria-label="업체 상세">
   <div class="popup-box" role="document">
     <h2 id="pTitle"></h2>
@@ -1340,6 +1426,170 @@ function calcSimpleMargin() {
 })();
 
 /* ===== 카드 렌더/필터/인기순 ===== */
+
+/* ===== 로컬 인사이트(가짜 방문자 대신) ===== */
+const STATS_KEY = "88_local_stats_v1";
+function dayKeyLocal(){
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  const dd = String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${dd}`;
+}
+function loadStats(){
+  try{
+    const raw = localStorage.getItem(STATS_KEY);
+    const s = raw ? JSON.parse(raw) : {};
+    return ensureToday(s);
+  }catch(e){
+    return ensureToday({});
+  }
+}
+function saveStats(s){
+  try{ localStorage.setItem(STATS_KEY, JSON.stringify(s)); }catch(e){}
+}
+function ensureToday(s){
+  const today = dayKeyLocal();
+  if(!s || typeof s !== "object") s = {};
+  if(s.day !== today){
+    s.day = today;
+    s.today = { views:{}, searches:{} };
+  }
+  if(!s.today) s.today = { views:{}, searches:{} };
+  if(!s.today.views) s.today.views = {};
+  if(!s.today.searches) s.today.searches = {};
+  if(!s.total) s.total = { views:{}, searches:{} };
+  if(!s.total.views) s.total.views = {};
+  if(!s.total.searches) s.total.searches = {};
+  return s;
+}
+function bumpObjCount(obj, key, inc=1){
+  if(!key) return;
+  obj[key] = (obj[key]||0) + inc;
+}
+function normKw(s){
+  return String(s||"")
+    .replace(/[\u0000-\u001f]/g," ")
+    .trim();
+}
+function tokenize(q){
+  const t = normKw(q);
+  if(!t) return [];
+  // 공백/쉼표/슬래시 기준, 짧은 토큰 제거
+  return t.split(/[\s,\/|]+/g)
+    .map(x=>x.trim())
+    .filter(x=>x.length>=2)
+    .slice(0, 12);
+}
+function bumpView(cardId){
+  const s = loadStats();
+  bumpObjCount(s.today.views, cardId, 1);
+  bumpObjCount(s.total.views, cardId, 1);
+  saveStats(s);
+  renderInsights();
+}
+function bumpSearch(rawQuery){
+  const s = loadStats();
+  const tokens = tokenize(rawQuery);
+  if(!tokens.length) return;
+  tokens.forEach(tok=>{
+    // 영문/숫자는 대문자 정규화
+    const key = tok.replace(/[a-z0-9]/gi, (c)=> c.toUpperCase());
+    bumpObjCount(s.today.searches, key, 1);
+    bumpObjCount(s.total.searches, key, 1);
+  });
+  saveStats(s);
+  renderInsights();
+}
+function topN(obj, n=5){
+  return Object.entries(obj||{})
+    .sort((a,b)=> (b[1]-a[1]) || a[0].localeCompare(b[0]))
+    .slice(0,n);
+}
+function renderInsights(){
+  const kwBox = document.getElementById("insightKeywords");
+  const cardBox = document.getElementById("insightCards");
+  const resetBtn = document.getElementById("insightResetBtn");
+  if(!kwBox && !cardBox) return;
+
+  const s = loadStats();
+
+  // Keywords
+  if(kwBox){
+    const list = topN(s.today.searches, 10);
+    if(list.length){
+      kwBox.innerHTML = list.map(([kw,c],i)=>`
+        <div class="stat-item">
+          <div class="stat-left">
+            <div class="stat-rank">${i+1}</div>
+            <button class="stat-link" type="button" data-kw="${kw.replace(/"/g,'&quot;')}">${kw}</button>
+          </div>
+          <div class="stat-count">${c}</div>
+        </div>
+      `).join("");
+    } else {
+      // fallback: 추천 키워드(가짜 인기 아님)
+      const fallback = ["CAPS","VEGAS","페이백","USDT","파워볼","키노","슬롯","미니게임"];
+      kwBox.innerHTML = fallback.map((kw,i)=>`
+        <div class="stat-item">
+          <div class="stat-left">
+            <div class="stat-rank">${i+1}</div>
+            <button class="stat-link" type="button" data-kw="${kw}">${kw}</button>
+          </div>
+          <div class="stat-count">추천</div>
+        </div>
+      `).join("");
+    }
+  }
+
+  // Cards
+  if(cardBox){
+    const list = topN(s.today.views, 5);
+    if(list.length){
+      cardBox.innerHTML = list.map(([id,c],i)=>{
+        const title = (CARD_DATA[id]?.title)||id;
+        return `
+          <div class="stat-item">
+            <div class="stat-left">
+              <div class="stat-rank">${i+1}</div>
+              <button class="stat-link" type="button" data-card="${id}">${title}</button>
+            </div>
+            <div class="stat-count">${c}</div>
+          </div>
+        `;
+      }).join("");
+    } else {
+      cardBox.innerHTML = `<div class="note-mini" style="padding:12px 14px 14px;">아직 오늘 열어본 카드가 없습니다. 카드 상세를 열면 TOP 리스트가 자동으로 채워집니다.</div>`;
+    }
+  }
+
+  // bindings
+  document.querySelectorAll("[data-kw]").forEach(btn=>{
+    btn.onclick = ()=>{
+      const kw = btn.getAttribute("data-kw") || "";
+      const input = document.getElementById("searchInput");
+      if(input){ input.value = kw; renderGrid(); input.focus(); }
+      track("insight_kw_click", {"kw": kw});
+    };
+  });
+  document.querySelectorAll("[data-card]").forEach(btn=>{
+    btn.onclick = ()=>{
+      const id = btn.getAttribute("data-card");
+      if(id) openCard(id);
+      track("insight_card_click", {"card_id": id});
+    };
+  });
+
+  if(resetBtn){
+    resetBtn.onclick = ()=>{
+      try{ localStorage.removeItem(STATS_KEY); }catch(e){}
+      renderInsights();
+      track("insight_reset", {});
+    };
+  }
+}
+
+
 const CLICK_KEY_PREFIX = "88_card_click_";
 let currentFilter = "all";
 let currentSort = "default";
@@ -1539,7 +1789,18 @@ function bindCardClicks() {
   }
 
   const input = document.getElementById("searchInput");
-  if(input) input.addEventListener("input", ()=> renderGrid());
+  if(input) {
+    let kwTimer = null;
+    input.addEventListener("input", ()=> {
+      renderGrid();
+      clearTimeout(kwTimer);
+      const v = input.value;
+      kwTimer = setTimeout(()=> bumpSearch(v), 900);
+    });
+    input.addEventListener("keydown", (e)=>{
+      if(e.key === "Enter"){ bumpSearch(input.value); }
+    });
+  }
 })();/* ===== 팝업 + 접근성 ===== */
 let currentCode="";
 let currentCardId="";
@@ -1550,6 +1811,7 @@ function openCard(id) {
   if(!d) return;
 
   currentCardId = id;
+  bumpView(id);
   incCardClick(id);
   track("card_open", {"card_id": id, "title": d.title || "", "tag": d.tag || ""});
 
@@ -1953,6 +2215,7 @@ function openFromUrl() {
   setMarginMode("2");
   maybeAutoRecFilter();
   renderGrid();
+  renderInsights();
   openFromUrl();
 })();
 </script>
