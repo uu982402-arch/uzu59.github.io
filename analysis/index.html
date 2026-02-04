@@ -722,6 +722,162 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   border:1px solid rgba(255,255,255,.16);
   color:#cfcfcf;
 }
+
+
+/* ===== 입력 검증 ===== */
+.invalid{
+  border-color: rgba(255,90,90,.95) !important;
+  box-shadow: 0 0 0 3px rgba(255,90,90,.18) !important;
+}
+.input-warn{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  background:rgba(255,90,90,.10);
+  border:1px solid rgba(255,90,90,.25);
+  color:#ffd1d1;
+  font-size:12px;
+  line-height:1.45;
+  display:none;
+}
+.input-warn b{ color:#fff; }
+
+/* ===== 최근 입력 스냅샷 ===== */
+.snap-wrap{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(0,0,0,.22);
+}
+.snap-head{
+  font-size:12px;
+  color:#cfcfcf;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.snap-list{
+  margin-top:8px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.snap-chip{
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:12px;
+  font-weight:800;
+}
+.snap-chip:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,.28);
+}
+.snap-meta{ color:#cfcfcf; font-weight:700; margin-left:6px; font-size:11px; }
+
+/* ===== 내 통계(성과) ===== */
+.perf-box{
+  margin-top:12px;
+  border-radius:16px;
+  padding:12px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(0,0,0,.22);
+}
+.perf-title{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  font-weight:900; font-size:13px;
+}
+.perf-sub{
+  margin-top:6px;
+  font-size:12px; color:#cfcfcf; line-height:1.45;
+}
+.perf-grid{
+  margin-top:10px;
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:10px;
+}
+.perf-tile{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.05);
+  border-radius:14px;
+  padding:10px;
+}
+.perf-k{ font-size:12px; color:#cfcfcf; font-weight:800; }
+.perf-v{ margin-top:4px; font-size:16px; font-weight:900; }
+.perf-n{ margin-top:4px; font-size:11px; color:#bfbfbf; font-weight:700; }
+
+.outTag{
+  display:inline-flex; align-items:center; gap:6px;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:11px;
+  font-weight:900;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  color:#fff;
+}
+.outTag.win{ border-color: rgba(67,226,164,.40); background: rgba(67,226,164,.12); }
+.outTag.lose{ border-color: rgba(255,90,90,.40); background: rgba(255,90,90,.12); }
+.outTag.void{ border-color: rgba(255,208,72,.40); background: rgba(255,208,72,.10); }
+.outTag.none{ border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.06); color:#cfcfcf; }
+
+.outBtns{
+  margin-top:8px;
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.oBtn{
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  border-radius:12px;
+  padding:6px 10px;
+  font-size:12px;
+  font-weight:900;
+}
+.oBtn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.24); }
+.oBtn.on{ border-color: rgba(255,255,255,.40); background:rgba(255,255,255,.12); }
+
+.h-outcome{
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px dashed rgba(255,255,255,.12);
+}
+.h-outcome .row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.h-outcome .row .label{ font-size:12px; color:#cfcfcf; font-weight:800; }
+
+/* ===== 결과 상단 기록/신뢰 ===== */
+.trustLine{
+  margin-top:10px;
+  font-size:12px;
+  color:#cfcfcf;
+  line-height:1.45;
+}
+.trustLine b{ color:#fff; }
+.outcomeBar{
+  margin-top:8px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.outcomeBar .oBtn{ border-radius:999px; padding:8px 12px; }
+
+
 </style>
 </head>
 
@@ -792,7 +948,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   <!-- ✅ 오늘 마진 낮은 TOP3 (자동) -->
   <div class="card">
     <div class="title"><span class="badge">TOP3</span>오늘 마진 낮은 계산 TOP3</div>
-    <div class="small-hint">※ 오늘(로컬 기준) 저장된 히스토리에서 “마진%”가 가장 낮은 순으로 자동 정렬됩니다.</div>
+    <div class="small-hint">※ 오늘 저장된 히스토리에서 “마진%”가 가장 낮은 순으로 자동 정렬됩니다.</div>
     <div class="box" style="margin-top:10px;">
       <div class="box-title">메인 마진 TOP3</div>
       <div id="topMain" class="small-hint"></div>
@@ -877,6 +1033,17 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
         • 히스토리 항목 클릭하면 <b>입력 자동 복원 + 재계산</b>됩니다.
       </div>
     </div>
+
+    <!-- ✅ 최근 입력 스냅샷(최근 5개) -->
+    <div class="snap-wrap" id="snapWrap" style="display:none;">
+      <div class="snap-head">
+        <div>🕘 최근 입력</div>
+        <div class="snap-meta" id="snapMeta"></div>
+      </div>
+      <div class="snap-list" id="snapList"></div>
+    </div>
+
+
 
 
     <!-- ===== 메인 시장 ===== -->
@@ -1004,6 +1171,9 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
       </div>
     </div>
 
+
+    <div class="input-warn" id="inputWarn" aria-live="polite"></div>
+
     <div class="actions">
       <button class="btn primary" id="btnCalc" onclick="calc()">계산하기</button>
       <button class="btn secondary" onclick="resetAll()">초기화</button>
@@ -1037,7 +1207,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 
   <!-- ✅ 최근 계산 히스토리 -->
   <div class="card" id="historyCard">
-    <div class="title"><span class="badge">HISTORY</span>최근 계산 히스토리 (로컬 저장)</div>
+    <div class="title"><span class="badge">HISTORY</span>최근 계산 히스토리</div>
     <div class="small-hint">
       • 히스토리 항목 클릭 → <b>입력 자동 복원 + 즉시 재계산</b><br>
       • 체크 2개 선택 → <b>비교(2개 나란히)</b> 가능
@@ -1046,6 +1216,16 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
       <button class="btn secondary" type="button" onclick="clearHistory()">히스토리 전체 삭제</button>
       <button class="btn secondary" type="button" onclick="openCompare()">비교 열기</button>
       <button class="btn secondary" type="button" onclick="renderTop3()">TOP3 새로고침</button>
+
+    <div class="perf-box" id="perfBox" style="display:none;">
+      <div class="perf-title">
+        <div>📊 내 성과</div>
+        <div class="snap-meta" id="perfMeta"></div>
+      </div>
+      <div class="perf-sub" id="perfSub"></div>
+      <div class="perf-grid" id="perfGrid"></div>
+    </div>
+
     </div>
     <div class="h-list" id="historyList"></div>
   </div>
@@ -1163,7 +1343,10 @@ refreshChecklist();
 ========================= */
 const LS_KEY = "88_analysis_multi_v3";            // 입력 상태
 const HIST_KEY = "88_analysis_history_v1";        // 히스토리
+const SNAP_KEY = "88_analysis_snaps_v1";          // 최근 입력 스냅샷
+const SNAP_META_KEY = "88_analysis_snaps_meta_v1";
 let LAST_TEXT = "";
+let LAST_RECORD = null;
 
 const SPORT_CFG = {
   soccer: {
@@ -1265,6 +1448,8 @@ function saveState(){
   state.__savedAt = Date.now();
   localStorage.setItem(LS_KEY, JSON.stringify(state));
   updateSaveBadge(state.__savedAt);
+  maybePushSnapshot(state, false);
+  return state;
 }
 function loadState(){
   try{
@@ -1739,6 +1924,10 @@ function calc(){
   }
 
   // ---- 대시보드/히스토리 반영 ----
+  // (표현/통계용) 현재 기록의 분류 메타 — 계산 로직에는 영향 없음
+  record.advice = adviceKeyFromMetrics(record.bestEVPct, record.markets?.main?.marginPct);
+  LAST_RECORD = record;
+
   renderResult(cfg.name, level, rows, copyLines);
   renderMarginDash({sport, main:mainMargin, ou:ouMargin, hc:hcMargin});
 
@@ -1748,7 +1937,9 @@ function calc(){
   // TOP3 갱신
   renderTop3();
 
-  saveState();
+  const st = saveState();
+  maybePushSnapshot(st, true);
+  renderSnaps();
 }
 
 /* =========================
@@ -1829,6 +2020,10 @@ function renderResult(sportName, level, rows, copyLines){
       conclusion = { cls:"bad", icon:"⛔", text:`PASS · 마진 높음 ${marginPct.toFixed(1)}%` };
     }
   }
+  const adviceKey = (conclusion.cls==="good") ? "rec" : (conclusion.cls==="bad" ? "pass" : "caution");
+  const trustHtml = buildTrustLineHtml(adviceKey);
+  const canMark = !!(LAST_RECORD && LAST_RECORD.id);
+
   const hero = `
     <div class="resultHero">
       <div class="heroTop">
@@ -1844,6 +2039,13 @@ function renderResult(sportName, level, rows, copyLines){
           <div class="heroConclusion ${conclusion.cls}">
             <span class="cIcon">${conclusion.icon}</span>
             <span class="cText">${conclusion.text}</span>
+          </div>
+          <div class="trustLine">${trustHtml}</div>
+          <div class="outcomeBar" ${canMark ? "" : "style=\"display:none;\""}>
+            <button class="oBtn" type="button" onclick="markOutcome('W')">✅ 적중</button>
+            <button class="oBtn" type="button" onclick="markOutcome('L')">❌ 미적중</button>
+            <button class="oBtn" type="button" onclick="markOutcome('V')">⚪ 취소</button>
+            <button class="oBtn" type="button" onclick="markOutcome('')">↩︎ 미기록</button>
           </div>
         </div>
       </div>
@@ -2317,11 +2519,424 @@ function addHistory(rec){
   renderHistory();
 }
 function clearHistory(){
-  if(!confirm("히스토리를 모두 삭제할까요? (브라우저 로컬 저장)")) return;
+  if(!confirm("히스토리를 모두 삭제할까요?")) return;
   localStorage.removeItem(HIST_KEY);
   renderHistory();
   renderTop3();
   toast("히스토리 삭제 완료");
+}
+
+
+/* =========================
+   정착/정확도 체감용 UX 레이어
+   - 계산 로직 변경 없음
+   - 입력 검증/스냅샷/내 성과(승패 기록)만 추가
+========================= */
+
+// 판단(추천/주의/PASS) 키
+function adviceKeyFromMetrics(bestEVPct, mainMarginPct){
+  const ev = (typeof bestEVPct==="number") ? bestEVPct : null; // %
+  const m = (typeof mainMarginPct==="number") ? mainMarginPct : null; // %
+  if(ev!=null){
+    if(ev >= 2) return "rec";
+    if(ev >= 0) return "caution";
+    return "pass";
+  }
+  if(m!=null){
+    if(m <= 3) return "rec";
+    if(m <= 6) return "caution";
+    return "pass";
+  }
+  return "caution";
+}
+function adviceKeyForRecord(h){
+  return adviceKeyFromMetrics(h?.bestEVPct, h?.markets?.main?.marginPct);
+}
+function adviceInfoForKey(key){
+  if(key==="rec") return { text:"추천", cls:"good" };
+  if(key==="pass") return { text:"PASS", cls:"bad" };
+  return { text:"주의", cls:"warn" };
+}
+
+// 승/패/취소 라벨
+function outcomeInfo(v){
+  if(v==="W") return { text:"✅ 적중", cls:"win" };
+  if(v==="L") return { text:"❌ 미적중", cls:"lose" };
+  if(v==="V") return { text:"⚪ 취소", cls:"void" };
+  return { text:"미기록", cls:"none" };
+}
+
+// 히스토리 결과 기록(승/패/취소)
+function setOutcome(id, v){
+  const arr = readHistory();
+  const idx = arr.findIndex(x=>x.id===id);
+  if(idx<0){
+    toast("히스토리에서 항목을 찾지 못했어요.");
+    return;
+  }
+  const next = (v==="W"||v==="L"||v==="V") ? v : "";
+  arr[idx].outcome = next || null;
+  arr[idx].outcomeAt = next ? Date.now() : null;
+
+  // advice 메타가 없던 예전 항목도 보정
+  if(!arr[idx].advice){
+    arr[idx].advice = adviceKeyForRecord(arr[idx]);
+  }
+  writeHistory(arr);
+  renderHistory();         // 내부에서 renderPerfBox도 호출됨
+  refreshTrustLine();
+  toast(next ? "결과 기록 완료" : "기록 해제 완료");
+}
+function markOutcome(v){
+  if(!LAST_RECORD || !LAST_RECORD.id){
+    toast("먼저 계산 결과를 만든 뒤 기록할 수 있어요.");
+    return;
+  }
+  setOutcome(LAST_RECORD.id, v);
+}
+
+// 내 성과 집계
+function computePerfStats(){
+  const arr = readHistory();
+  const init = ()=>({ w:0, l:0, v:0, n:0, rate:null });
+  const out = { total:init(), by:{ rec:init(), caution:init(), pass:init() } };
+
+  arr.forEach(h=>{
+    const key = (h.advice || adviceKeyForRecord(h));
+    const bucket = out.by[key] || out.by.caution;
+    const tgtAll = out.total;
+
+    const o = h.outcome;
+    if(o==="W"){ bucket.w++; tgtAll.w++; }
+    else if(o==="L"){ bucket.l++; tgtAll.l++; }
+    else if(o==="V"){ bucket.v++; tgtAll.v++; }
+  });
+
+  const finalize = (b)=>{
+    b.n = b.w + b.l;
+    b.rate = (b.n>0) ? (b.w / b.n) : null;
+    return b;
+  };
+  finalize(out.total);
+  Object.keys(out.by).forEach(k=>finalize(out.by[k]));
+  return out;
+}
+function pct(x){
+  if(x==null) return "—";
+  return Math.round(x*100) + "%";
+}
+
+// 내 성과 박스 렌더
+function renderPerfBox(){
+  const box = document.getElementById("perfBox");
+  const grid = document.getElementById("perfGrid");
+  const sub = document.getElementById("perfSub");
+  const meta = document.getElementById("perfMeta");
+  if(!box || !grid || !sub || !meta) return;
+
+  const s = computePerfStats();
+  const totalN = s.total.n;
+  if(totalN<=0 && (s.total.v<=0)){
+    box.style.display = "none";
+    return;
+  }
+  box.style.display = "block";
+
+  meta.textContent = `표본 ${totalN} · 취소 ${s.total.v}`;
+  sub.innerHTML = `내가 <b>결과(적중/미적중)</b>를 체크한 항목만 집계됩니다. 표본이 적으면 수치는 참고용입니다.`;
+
+  const makeTile = (label, key)=>{
+    const b = s.by[key];
+    const info = adviceInfoForKey(key);
+    return `
+      <div class="perf-tile">
+        <div class="perf-k">${label} <span class="${info.cls}"><b>${info.text}</b></span></div>
+        <div class="perf-v">${pct(b.rate)}</div>
+        <div class="perf-n">n=${b.n} (적중 ${b.w} / 미적중 ${b.l})</div>
+      </div>
+    `;
+  };
+
+  grid.innerHTML = `
+    ${makeTile("추천일 때", "rec")}
+    ${makeTile("주의일 때", "caution")}
+    ${makeTile("PASS일 때", "pass")}
+  `;
+}
+
+// 결과 상단에 “내 기록 기준” 신뢰 라인
+function buildTrustLineHtml(adviceKey){
+  const s = computePerfStats();
+  const b = s.by[adviceKey] || s.by.caution;
+  const info = adviceInfoForKey(adviceKey);
+
+  if(b.n < 10){
+    return `내 기록 기준: <b>표본 부족</b> (현재 n=${b.n}). 아래 <b>상세 지표</b>까지 확인하세요.`;
+  }
+  return `내 기록 기준: <span class="${info.cls}"><b>${info.text}</b></span> 구간 적중률 <b>${pct(b.rate)}</b> (n=${b.n}).`;
+}
+function refreshTrustLine(){
+  const tl = document.querySelector(".trustLine");
+  const hc = document.querySelector(".heroConclusion");
+  if(!tl || !hc) return;
+  let key = "caution";
+  if(hc.classList.contains("good")) key = "rec";
+  else if(hc.classList.contains("bad")) key = "pass";
+  tl.innerHTML = buildTrustLineHtml(key);
+}
+
+// ===== 최근 입력 스냅샷(최근 5개) =====
+function readSnaps(){
+  try{
+    const raw = localStorage.getItem(SNAP_KEY);
+    if(!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  }catch(e){ return []; }
+}
+function writeSnaps(arr){
+  localStorage.setItem(SNAP_KEY, JSON.stringify(arr.slice(0,5)));
+}
+function stateSig(state){
+  // 너무 잦은 스냅샷을 막기 위한 간단 시그니처
+  const keys = ["sport","level","league","teams","main2OddsA","main2OddsB","main3OddsH","main3OddsD","main3OddsA","totalLine","overOdds","underOdds","handicapLine","handicapOddsA","handicapOddsB","myProb","myOverProb"];
+  const o = {};
+  keys.forEach(k=>o[k]=state?.[k] ?? "");
+  return JSON.stringify(o);
+}
+function maybePushSnapshot(state, force){
+  if(!state) return;
+  try{
+    const now = Date.now();
+    const sig = stateSig(state);
+    const metaRaw = localStorage.getItem(SNAP_META_KEY);
+    const meta = metaRaw ? JSON.parse(metaRaw) : {};
+    const lastAt = meta?.lastAt || 0;
+    const lastSig = meta?.lastSig || "";
+
+    if(!force){
+      if(now - lastAt < 20000) return;  // 20초 쿨다운
+      if(sig === lastSig) return;
+    }
+
+    const arr = readSnaps();
+    const id = now.toString(36) + Math.random().toString(36).slice(2,6);
+    arr.unshift({
+      id,
+      at: now,
+      sport: state.sport,
+      level: state.level,
+      league: state.league,
+      teams: state.teams,
+      state
+    });
+    writeSnaps(arr);
+
+    localStorage.setItem(SNAP_META_KEY, JSON.stringify({ lastAt: now, lastSig: sig }));
+  }catch(e){}
+}
+function renderSnaps(){
+  const wrap = document.getElementById("snapWrap");
+  const list = document.getElementById("snapList");
+  const meta = document.getElementById("snapMeta");
+  if(!wrap || !list || !meta) return;
+
+  const arr = readSnaps();
+  if(!arr.length){
+    wrap.style.display = "none";
+    return;
+  }
+  wrap.style.display = "block";
+  meta.textContent = `총 ${arr.length}개`;
+
+  list.innerHTML = arr.map(s=>{
+    const d = new Date(s.at);
+    const hh = String(d.getHours()).padStart(2,"0");
+    const mm = String(d.getMinutes()).padStart(2,"0");
+    const cfg = SPORT_CFG[s.sport] || {name:s.sport||"-"};
+    const lev = levelLabel(s.level);
+    const label = `${hh}:${mm} · ${cfg.name} · ${lev}`;
+    const extra = (s.teams || s.league) ? escapeHtml(s.teams || s.league) : "";
+    return `<button class="snap-chip" type="button" onclick="restoreSnapshot('${s.id}')">${label}${extra?` <span class="snap-meta">· ${extra}</span>`:""}</button>`;
+  }).join("");
+}
+function restoreSnapshot(id){
+  const arr = readSnaps();
+  const s = arr.find(x=>x.id===id);
+  if(!s || !s.state){
+    toast("스냅샷을 찾지 못했어요.");
+    return;
+  }
+  const st = s.state;
+
+  setVal("sport", st.sport || "soccer");
+  setVal("level", st.level || "simple");
+  setVal("league", st.league || "");
+  setVal("teams", st.teams || "");
+
+  setVal("main2OddsA", st.main2OddsA || "");
+  setVal("main2OddsB", st.main2OddsB || "");
+  setVal("main3OddsH", st.main3OddsH || "");
+  setVal("main3OddsD", st.main3OddsD || "");
+  setVal("main3OddsA", st.main3OddsA || "");
+
+  setVal("totalLine", st.totalLine || "");
+  setVal("overOdds", st.overOdds || "");
+  setVal("underOdds", st.underOdds || "");
+  setVal("ouPush", st.ouPush || "");
+
+  setVal("handicapLine", st.handicapLine || "");
+  setVal("handicapOddsA", st.handicapOddsA || "");
+  setVal("handicapOddsB", st.handicapOddsB || "");
+  setVal("handicapPush", st.handicapPush || "");
+
+  setVal("myProb", st.myProb || "");
+  setVal("myOverProb", st.myOverProb || "");
+  setVal("stake", st.stake || "");
+
+  // 펼침 상태 복원
+  if(typeof st.handicapCollapsed==="boolean"){
+    setCollapsed("handicapBody", !!st.handicapCollapsed);
+  }
+  if(typeof st.totalCollapsed==="boolean"){
+    setCollapsed("totalBody", !!st.totalCollapsed);
+  }
+
+  onSportChange(true);
+  onLevelChange(true);
+  hideResult();
+  renderMarginDash();
+  saveState();
+  toast("최근 입력을 복원했어요.");
+  try{ quickJump("main"); }catch(e){}
+}
+
+// ===== 입력 검증/가이드(실수 감소) =====
+let _vTimer = null;
+function setupValidation(){
+  const oddsIds = ["main2OddsA","main2OddsB","main3OddsH","main3OddsD","main3OddsA","overOdds","underOdds","handicapOddsA","handicapOddsB"];
+  const probIds = ["myProb","myOverProb"];
+  const allIds = oddsIds.concat(probIds).concat(["totalLine","handicapLine","ouPush","handicapPush","stake"]);
+
+  const onAnyInput = ()=>{
+    if(_vTimer) clearTimeout(_vTimer);
+    _vTimer = setTimeout(()=>{ validateInputs(); }, 80);
+  };
+
+  allIds.forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener("input", (e)=>{
+      const t = String(e.target.value || "");
+      // 숫자 입력 정리: 쉼표 -> 점, 허용문자만
+      let s = t.replace(/,/g,".").replace(/[^\d.]/g,"");
+      // 점 2개 이상 방지
+      const parts = s.split(".");
+      if(parts.length>2){
+        s = parts[0] + "." + parts.slice(1).join("");
+      }
+      e.target.value = s;
+      onAnyInput();
+    });
+    el.addEventListener("blur", ()=>{ onAnyInput(); });
+  });
+
+  // 초기 검증
+  validateInputs();
+}
+function setInvalid(id, on){
+  const el = document.getElementById(id);
+  if(!el) return;
+  if(on) el.classList.add("invalid");
+  else el.classList.remove("invalid");
+}
+function showInputWarn(msg){
+  const box = document.getElementById("inputWarn");
+  if(!box) return;
+  if(!msg){
+    box.style.display="none";
+    box.innerHTML="";
+    return;
+  }
+  box.style.display="block";
+  box.innerHTML = msg;
+}
+function validateInputs(){
+  // 기본: 모든 invalid 제거
+  ["main2OddsA","main2OddsB","main3OddsH","main3OddsD","main3OddsA","overOdds","underOdds","handicapOddsA","handicapOddsB","totalLine","handicapLine","myProb","myOverProb"].forEach(id=>setInvalid(id,false));
+
+  const sport = val("sport");
+  const cfg = SPORT_CFG[sport] || SPORT_CFG.soccer;
+  const mainType = cfg.main;
+
+  // 메인 필수 검증
+  let mainOk = true;
+  let mainMsg = "";
+
+  const oddsOk = (id)=>{
+    const x = parseOdds(val(id));
+    return (x!=null && x>=1.01 && x<=200);
+  };
+
+  if(mainType==="2way"){
+    const aOk = oddsOk("main2OddsA");
+    const bOk = oddsOk("main2OddsB");
+    if(!aOk){ setInvalid("main2OddsA", true); mainOk=false; }
+    if(!bOk){ setInvalid("main2OddsB", true); mainOk=false; }
+    if(!mainOk) mainMsg = "메인 배당(2개)을 먼저 입력하세요. 예: <b>1.85</b> / <b>2.05</b>";
+  }else{
+    const hOk = oddsOk("main3OddsH");
+    const dOk = oddsOk("main3OddsD");
+    const aOk = oddsOk("main3OddsA");
+    if(!hOk){ setInvalid("main3OddsH", true); mainOk=false; }
+    if(!dOk){ setInvalid("main3OddsD", true); mainOk=false; }
+    if(!aOk){ setInvalid("main3OddsA", true); mainOk=false; }
+    if(!mainOk) mainMsg = "메인 배당(3개)을 먼저 입력하세요. 예: <b>2.10</b> / <b>3.20</b> / <b>3.40</b>";
+  }
+
+  // 옵션 입력(부분 입력 시 경고)
+  const totalAny = !!(val("totalLine") || val("overOdds") || val("underOdds"));
+  const totalOk = !totalAny || (!!val("totalLine") && oddsOk("overOdds") && oddsOk("underOdds"));
+  if(totalAny && !totalOk){
+    if(!val("totalLine")) setInvalid("totalLine", true);
+    if(!oddsOk("overOdds")) setInvalid("overOdds", true);
+    if(!oddsOk("underOdds")) setInvalid("underOdds", true);
+  }
+
+  const hcAny = !!(val("handicapLine") || val("handicapOddsA") || val("handicapOddsB"));
+  const hcOk = !hcAny || (!!val("handicapLine") && oddsOk("handicapOddsA") && oddsOk("handicapOddsB"));
+  if(hcAny && !hcOk){
+    if(!val("handicapLine")) setInvalid("handicapLine", true);
+    if(!oddsOk("handicapOddsA")) setInvalid("handicapOddsA", true);
+    if(!oddsOk("handicapOddsB")) setInvalid("handicapOddsB", true);
+  }
+
+  // 확률 입력(중급/고급에서만 의미)
+  const level = val("level");
+  const probOk = (id)=>{
+    const t = String(val(id) || "").trim();
+    if(!t) return true;
+    const n = Number(t);
+    return isFinite(n) && n>=0 && n<=100;
+  };
+  let probWarn = "";
+  if(level!=="simple"){
+    if(!probOk("myProb")){ setInvalid("myProb", true); probWarn = "내 예상 확률은 <b>0~100</b> 사이 숫자로 입력하세요."; }
+    if(!probOk("myOverProb")){ setInvalid("myOverProb", true); probWarn = "오버 예상 확률은 <b>0~100</b> 사이 숫자로 입력하세요."; }
+  }
+
+  // 버튼 활성화/안내
+  const btn = document.getElementById("btnCalc");
+  if(btn) btn.disabled = !mainOk;
+
+  const warnMsgs = [];
+  if(!mainOk) warnMsgs.push(mainMsg);
+  if(totalAny && !totalOk) warnMsgs.push("오버·언더는 <b>기준점 + 오버/언더 배당</b>을 모두 채우면 분석됩니다.");
+  if(hcAny && !hcOk) warnMsgs.push("핸디캡은 <b>라인 + 양쪽 배당</b>을 모두 채우면 분석됩니다.");
+  if(probWarn) warnMsgs.push(probWarn);
+
+  showInputWarn(warnMsgs.length ? ("⚠️ 입력 확인<br>" + warnMsgs.map(s=>"• "+s).join("<br>")) : "");
+  return mainOk;
 }
 
 /* 히스토리 UI */
@@ -2343,12 +2958,12 @@ function renderHistory(){
         </div>
         <div class="demo-note">※ 예시는 샘플 데이터이며, 실제 결과/승률을 보장하지 않습니다.</div>
       </div>`;
+    renderPerfBox();
     return;
   }
 
-  list.innerHTML = arr.map((h, idx)=>{
-    const cfg = SPORT_CFG[h.sport] || SPORT_CFG.soccer;
-
+  list.innerHTML = arr.map(h=>{
+    const cfg = SPORT_CFG[h.sport] || {name:h.sport||"-"};
     const mMain = h.markets?.main?.marginPct;
     const mOU = h.markets?.ou?.marginPct;
     const mHC = h.markets?.hc?.marginPct;
@@ -2362,6 +2977,11 @@ function renderHistory(){
 
     const checked = comparePick.has(h.id) ? "checked" : "";
 
+    const adviceKey = (h.advice || adviceKeyForRecord(h));
+    const adviceInfo = adviceInfoForKey(adviceKey);
+
+    const out = outcomeInfo(h.outcome);
+
     return `
       <div class="h-item" onclick="onHistoryClick(event,'${h.id}')">
         <div class="h-top">
@@ -2372,9 +2992,25 @@ function renderHistory(){
               OU: ${ouTag?`<span class="${clsToTextColor(ouTag.cls)}">${ouTag.label}</span>`:"-"} /
               핸디: ${hcTag?`<span class="${clsToTextColor(hcTag.cls)}">${hcTag.label}</span>`:"-"}
               <br>
-              최고 EV: <span class="${evCls}"><b>${evTxt}</b></span>
+              최고 EV: <span class="${evCls}"><b>${evTxt}</b></span> ·
+              판단: <span class="${adviceInfo.cls}"><b>${adviceInfo.text}</b></span>
             </div>
+
+            <div class="h-outcome" onclick="event.stopPropagation()">
+              <div class="row">
+                <div class="label">결과 기록</div>
+                <span class="outTag ${out.cls}">${out.text}</span>
+              </div>
+              <div class="outBtns">
+                <button class="oBtn ${h.outcome==='W'?'on':''}" type="button" onclick="setOutcome('${h.id}','W')">✅ 적중</button>
+                <button class="oBtn ${h.outcome==='L'?'on':''}" type="button" onclick="setOutcome('${h.id}','L')">❌ 미적중</button>
+                <button class="oBtn ${h.outcome==='V'?'on':''}" type="button" onclick="setOutcome('${h.id}','V')">⚪ 취소</button>
+                <button class="oBtn ${(!h.outcome)?'on':''}" type="button" onclick="setOutcome('${h.id}','')">↩︎ 미기록</button>
+              </div>
+            </div>
+
           </div>
+
           <div class="h-actions" onclick="event.stopPropagation()">
             <button class="primary2" type="button" onclick="restoreFromHistory('${h.id}', true)">복원+재계산</button>
             <button type="button" onclick="restoreFromHistory('${h.id}', false)">복원만</button>
@@ -2387,6 +3023,8 @@ function renderHistory(){
       </div>
     `;
   }).join("");
+
+  renderPerfBox();
 }
 
 /* 히스토리 클릭(아이템 영역) -> 즉시 복원+재계산 */
@@ -2868,6 +3506,9 @@ function boot(){
   // 첫 방문자 1회 온보딩(3스텝)
   setTimeout(()=>{ try{ onbStart(); }catch(e){} }, 450);
   setupShareCardBackdropClose();
+  setupValidation();
+  renderSnaps();
+  renderPerfBox();
   // 입력 중 빨간 하이라이트 자동 해제
   document.querySelectorAll("input,select").forEach(el=>{
     el.addEventListener("input", ()=>el.classList.remove("is-invalid"));
