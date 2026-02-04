@@ -1,89 +1,280 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>입플·보너스 분석기 안내 | 88(팔팔커뮤니티)</title>
-  <meta name="description" content="입플(입금플러스)·첫충·페이백 등 보너스 조건을 비교할 때 체크할 핵심 포인트와 88 분석기 활용 팁을 정리했습니다.">
-  <meta name="keywords" content="입플,첫충,매충,페이백,보너스,롤링">
-  <link rel="canonical" href="https://88st.cloud/landing-a/">
-  <meta name="robots" content="index,follow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>카지노·슬롯 입플/보너스·페이백 가이드 + 무료 EV 분석기 | 88</title>
+<meta name="description" content="카지노·슬롯·미니게임 유저를 위한 입금플러스(입플)·보너스·페이백 체크 포인트와, 배당/마진/EV를 확인하는 무료 분석기를 제공합니다. 88 인증놀이터도 함께 확인하세요.">
+<link rel="canonical" href="https://88st.cloud/landing-a/">
+<meta name="robots" content="index,follow">
 
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="88 (팔팔커뮤니티)">
-  <meta property="og:title" content="입플·보너스 분석기 안내 | 88(팔팔커뮤니티)">
-  <meta property="og:description" content="입플(입금플러스)·첫충·페이백 등 보너스 조건을 비교할 때 체크할 핵심 포인트와 88 분석기 활용 팁을 정리했습니다.">
-  <meta property="og:url" content="https://88st.cloud/landing-a/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="88 (팔팔커뮤니티)">
+<meta property="og:title" content="카지노·슬롯 입플/보너스·페이백 가이드 + 무료 EV 분석기 | 88">
+<meta property="og:description" content="카지노·슬롯·미니게임 유저를 위한 입금플러스(입플)·보너스·페이백 체크 포인트와, 배당/마진/EV를 확인하는 무료 분석기를 제공합니다. 88 인증놀이터도 함께 확인하세요.">
+<meta property="og:url" content="https://88st.cloud/landing-a/">
 
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-  <style>
-    *{box-sizing:border-box}
-    :root{--bg:#0b0b0b;--panel:#121212;--gold:#d4af37;--gold2:#f5e27a;--muted:#cfcfcf}
-    body{
-      margin:0;
-      background:
-        radial-gradient(1200px 500px at 50% -10%, rgba(212,175,55,.14), transparent 55%),
-        radial-gradient(900px 500px at 10% 20%, rgba(90,160,255,.08), transparent 60%),
-        linear-gradient(180deg, #07070a, var(--bg));
-      font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
-      color:#fff;
-    }
-    .wrap{max-width:920px;margin:0 auto;padding:18px 14px 28px}
-    .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
-    .brand img{width:42px;height:42px;object-fit:contain;filter: drop-shadow(0 0 12px rgba(212,175,55,.22));}
-    .brand strong{font-weight:900}
-    .nav{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{display:inline-block;padding:10px 12px;border-radius:12px;font-weight:900;text-decoration:none}
-    .btn.primary{background:linear-gradient(135deg,#1da1f2,#78d6ff);color:#00121a}
-    .btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0b0b0b}
-    .panel{margin-top:14px;background:rgba(18,18,18,.85);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:16px;box-shadow:0 10px 26px rgba(0,0,0,.45);backdrop-filter: blur(10px);}
-    h1{margin:0 0 10px;font-size:20px;font-weight:900;color:var(--gold2);}
-    p{margin:10px 0;color:var(--muted);line-height:1.65;font-size:14px}
-    ul{margin:10px 0 0;padding-left:18px;color:var(--muted);line-height:1.65}
-    .faq{margin-top:14px}
-    .faq h2{margin:0 0 10px;font-size:14px;font-weight:900;color:var(--gold2)}
-    details{border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.28);border-radius:14px;padding:10px 12px}
-    details+details{margin-top:10px}
-    summary{cursor:pointer;font-weight:900;list-style:none}
-    summary::-webkit-details-marker{display:none}
-    .a{margin-top:8px;color:#cfcfcf;font-size:13px;line-height:1.55}
-    .foot{margin-top:18px;color:#9a9a9a;font-size:12px;line-height:1.55}
-  </style>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
+<script>
+
+// ===== GA4 =====
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+// ===== UTM 저장/전파 =====
+function getUrlParams(){
+  const p = new URLSearchParams(location.search);
+  const obj = {};
+  ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(k=>{
+    const v = p.get(k);
+    if(v) obj[k]=v;
+  });
+  return obj;
+}
+function saveUtmFromUrl(){
+  const utm = getUrlParams();
+  const keys = Object.keys(utm);
+  if(!keys.length) return;
+  try{
+    localStorage.setItem("88_utm_last", JSON.stringify({...utm, ts: Date.now()}));
+  }catch(e){}
+}
+function getUtmQuery(){
+  try{
+    const raw = localStorage.getItem("88_utm_last");
+    if(!raw) return "";
+    const d = JSON.parse(raw);
+    const parts = [];
+    ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(k=>{
+      if(d && d[k]) parts.push(`${k}=${encodeURIComponent(d[k])}`);
+    });
+    return parts.length ? ("?" + parts.join("&")) : "";
+  }catch(e){ return ""; }
+}
+function appendUtm(href){
+  if(!href) return href;
+  // 외부링크 제외
+  if(/^https?:\/\//i.test(href)) return href;
+  // 앵커만 있는 경우
+  if(href.startsWith("#")) return href;
+  const q = getUtmQuery();
+  if(!q) return href;
+  // 이미 쿼리가 있으면 유지
+  if(href.includes("?")) return href;
+  // hash가 있으면 앞에 붙이기
+  const [path, hash] = href.split("#");
+  return path + q + (hash ? ("#" + hash) : "");
+}
+function bindUtmToLinks(){
+  document.querySelectorAll("a[data-utm='1']").forEach(a=>{
+    a.setAttribute("href", appendUtm(a.getAttribute("href")));
+  });
+}
+
+// ===== 이벤트 트래킹 =====
+function track(eventName, params){
+  try{
+    if(typeof gtag === "function") gtag("event", eventName, params || {});
+  }catch(e){}
+}
+
+saveUtmFromUrl();
+document.addEventListener("DOMContentLoaded", ()=>{
+  bindUtmToLinks();
+});
+
+gtag('js', new Date());
+gtag('config', 'G-KWT87FBY6S', { 'send_page_view': true });
+</script>
+
+<style>
+
+*{box-sizing:border-box;}
+:root{
+  --bg:#0b0b0b;
+  --panel:rgba(18,18,18,.88);
+  --gold:#d4af37;
+  --gold2:#f5e27a;
+  --muted:#cfcfcf;
+  --line:rgba(255,255,255,.08);
+}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 500px at 50% -10%, rgba(212,175,55,.14), transparent 55%),
+    radial-gradient(900px 500px at 10% 20%, rgba(90,160,255,.08), transparent 60%),
+    linear-gradient(180deg, #07070a, var(--bg));
+  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
+  color:#fff;
+}
+a{color:inherit;text-decoration:none;}
+.notice{
+  position:sticky; top:0; z-index:1000;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#000; font-weight:900; font-size:13px;
+  padding:10px 12px; text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+.wrap{max-width:980px;margin:0 auto;padding:16px 14px 36px;}
+.top{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:10px 0 14px;
+}
+.brand{display:flex; align-items:center; gap:10px;}
+.brand img{width:46px;height:46px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(212,175,55,.22));}
+.brand .t{font-weight:900; letter-spacing:.2px;}
+.nav{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;}
+.nav a{
+  font-size:12px; font-weight:900;
+  padding:8px 10px; border-radius:999px;
+  border:1px solid var(--line); background:rgba(0,0,0,.22);
+}
+.hero{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px 16px;
+  box-shadow:0 10px 26px rgba(0,0,0,.45);
+  backdrop-filter: blur(10px);
+}
+.h1{margin:0; font-size:20px; font-weight:1000; line-height:1.25;}
+.sub{margin-top:8px; color:var(--muted); font-size:13px; line-height:1.6;}
+.pills{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+.pill{
+  font-size:12px; font-weight:900;
+  padding:6px 10px; border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.22);
+  color:#f0f0f0;
+}
+.ctaRow{display:grid; gap:10px; margin-top:14px;}
+@media(min-width:720px){ .ctaRow{grid-template-columns:1fr 1fr;} }
+.btn{
+  display:block; text-align:center;
+  padding:14px 14px; border-radius:16px;
+  font-weight:1000; letter-spacing:.2px;
+  border:1px solid transparent;
+}
+.btn.primary{background:linear-gradient(135deg,#1da1f2,#78d6ff); color:#00121a;}
+.btn.secondary{background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#0b0b0b;}
+.note{margin-top:8px; font-size:12px; color:#a7a7a7; line-height:1.55;}
+.section{
+  margin-top:14px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px;
+  box-shadow:0 10px 26px rgba(0,0,0,.45);
+  backdrop-filter: blur(10px);
+}
+.title{
+  font-weight:1000;
+  font-size:14px;
+  color:var(--gold2);
+  margin:0 0 8px;
+}
+.content{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.65;
+}
+.ul{margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:13px; line-height:1.65;}
+.faq details{
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.22);
+  border-radius:14px;
+  padding:10px 12px;
+}
+.faq details + details{margin-top:10px;}
+.faq summary{
+  cursor:pointer; font-weight:1000; color:#fff; list-style:none;
+}
+.faq summary::-webkit-details-marker{display:none;}
+.faq .a{margin-top:8px; color:#cfcfcf; font-size:13px; line-height:1.6;}
+.footer{
+  margin-top:16px;
+  color:#9a9a9a;
+  font-size:12px;
+  text-align:center;
+}
+.smallLinks{
+  margin-top:10px;
+  display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+}
+.smallLinks a{
+  font-size:11px; color:#9a9a9a;
+  padding:6px 8px; border-radius:10px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+}
+.smallLinks a:hover{color:var(--gold2); border-color:var(--gold2);}
+
+</style>
 </head>
 <body>
+  <div class="notice">
+    <a href="/?from=landing-a" data-utm="1" onclick="track('landing_notice_click',{landing:'a'})">🎁 입플/보너스·페이백 체크 → 메인에서 인증놀이터/분석기 한 번에 보기</a>
+  </div>
+
   <div class="wrap">
     <div class="top">
-      <a class="brand" href="/" aria-label="88 메인으로 이동">
+      <div class="brand">
         <img src="/img/logo.png" alt="88 로고" loading="lazy" decoding="async">
-        <strong>88 (팔팔커뮤니티)</strong>
-      </a>
+        <div class="t">88st.cloud</div>
+      </div>
       <div class="nav">
-        <a class="btn primary" href="/analysis/">분석기 바로가기</a>
-        <a class="btn gold" href="/#vendorTop">인증놀이터 보기</a>
-        <a class="btn" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.10)" href="/">메인으로</a>
+        <a href="/" data-utm="1" onclick="track('landing_nav_home',{landing:'a'})">메인</a>
+        <a href="/analysis/" data-utm="1" onclick="track('landing_nav_analyzer',{landing:'a'})">분석기</a>
+        <a href="/#vendorTop" data-utm="1" onclick="track('landing_nav_vendor',{landing:'a'})">인증놀이터</a>
       </div>
     </div>
 
-    <div class="panel">
-      <h1>입플·보너스 조건을 ‘손해 없이’ 확인하는 방법</h1>
-      <p>입플(입금플러스)·첫충·페이백은 혜택처럼 보이지만, 실제로는 '조건'을 같이 봐야 체감 수익이 납니다. 예를 들어 롤링(요구 베팅), 적용 게임(스포츠/미겜/카지노), 최대 한도, 제한 시간, 출금 제한 같은 항목이 다르면 결과가 크게 달라집니다.</p>
-<p>88에서는 업체별 혜택 문구를 한눈에 보기 쉽도록 정리하고, 배당 마진/EV 확인 도구(분석기)로 ‘지금 라인이 유리한지’까지 같이 점검하도록 구성했습니다. 혜택은 ‘조건이 명확한지’가 가장 중요합니다.</p>
-<p>팁: 가입 전에는 안내 문구를 캡처/저장하고, 가입코드(추천코드)를 최초 1회 정확히 입력하세요. (미입력 시 혜택이 빠지는 경우가 많습니다.)</p>
+    <div class="hero">
+      <h1 class="h1">카지노·슬롯 입플/보너스·페이백 체크 가이드</h1>
+      <div class="sub">입플·페이백은 ‘조건’이 전부입니다. 혜택 구조를 빠르게 정리하고, 필요하면 분석기에서 마진/EV까지 같이 확인하세요.</div>
 
-      <div class="faq">
-        <h2>FAQ</h2>
-        <details><summary>입플이 높으면 무조건 좋은 건가요?</summary><div class="a">아니요. 롤링/시간 제한/적용 게임 범위/최대 한도를 함께 봐야 합니다. 숫자가 높아도 조건이 빡세면 체감 혜택이 낮을 수 있습니다.</div></details>
-<details><summary>첫충/매충/페이백 중 뭐가 유리한가요?</summary><div class="a">이용 패턴에 따라 달라집니다. 단기 이벤트보다 ‘지속형(페이백/출석)’이 안정적일 때가 많고, 조건이 단순할수록 관리가 쉽습니다.</div></details>
-<details><summary>혜택 문구가 자주 바뀌면 어떻게 하나요?</summary><div class="a">메인 페이지의 공지와 팝업 안내(주의 문구)를 기준으로 확인하고, 문의 채널(텔레그램)에서 최종 확인 후 진행하세요.</div></details>
+      <div class="pills">
+        <div class="pill">입플/보너스</div><div class="pill">페이백</div><div class="pill">고액 유저 기준</div><div class="pill">무료/초간단</div><div class="pill">조건 확인</div>
       </div>
 
-      <div class="foot">
-        ※ 본 페이지의 안내/도구 결과는 참고용이며, 최종 판단과 책임은 이용자에게 있습니다.<br>
-        빠른 이동: <a href="/analysis/" style="color:#78d6ff;text-decoration:none;font-weight:900;">분석기</a> ·
-        <a href="/#vendorTop" style="color:#f5e27a;text-decoration:none;font-weight:900;">88 인증 놀이터</a>
+      <div class="ctaRow">
+        <a class="btn primary" href="/analysis/" data-utm="1"
+           onclick="track('landing_cta_click',{landing:'a',cta:'analyzer'})">
+           무료 분석기 사용하기
+        </a>
+        <a class="btn secondary" href="/#vendorTop" data-utm="1"
+           onclick="track('landing_cta_click',{landing:'a',cta:'vendor'})">
+           88 인증놀이터 바로보기
+        </a>
+      </div>
+      <div class="note">※ 본 페이지는 참고용 안내이며, 결과/수익을 보장하지 않습니다. 과도한 이용은 지양하세요.</div>
+    </div>
+
+    <div class="section">
+      <div class="title">핵심 요약</div>
+      <div class="content">입금플러스(입플)·보너스·페이백은 숫자만 보고 선택하면 손해가 나기 쉬운 영역입니다. 핵심은 ‘지급 조건’이에요: 롤링(베팅량) 기준, 적용 게임(카지노/슬롯/미니게임) 제한, 최대 지급·상한, 그리고 페이백 산정 방식(손익 기준인지, 실베팅 기준인지)까지 한 번에 확인해야 합니다. 88은 혜택 문구를 최대한 명확히 정리하고, 필요할 때는 무료 분석기에서 마진/확률/EV를 같이 확인해 ‘보기 좋은 문구’가 아니라 ‘실제 체감’ 기준으로 비교할 수 있게 구성했습니다. 아래 체크리스트대로 확인하면 불필요한 리스크를 줄이고, 본인 스타일(고액/소액·단기/장기)에 맞는 구조를 더 빠르게 고를 수 있습니다.</div>
+      <ul class="ul">
+        <li>입플/보너스: 적용 게임·최대 지급·롤링/조건을 먼저 확인</li><li>페이백: 기준(스포츠/카지노/미니게임)·정산 주기·상한 확인</li><li>고액 유저라면: 환전/출금 동선과 문의 응대 채널 고정 여부 확인</li><li>마진/EV: 같은 배당이라도 마진이 높으면 체감 손해가 커질 수 있음</li><li>검증/추천: 운영 이력·조건 명확성·문의 가능 여부 기준으로 정리</li>
+      </ul>
+    </div>
+
+    <div class="section faq">
+      <div class="title">FAQ</div>
+      <details><summary>입플/페이백은 무조건 많이 주는 곳이 좋은가요?</summary><div class='a'>아니요. 지급률보다 <b>조건(롤링/상한/게임 제한/출금 조건)</b>이 더 중요합니다. 조건이 불리하면 체감 혜택이 작아집니다.</div></details><details><summary>고액 유저가 특히 체크해야 할 포인트는?</summary><div class='a'><b>출금 안정성</b>, <b>환전 속도</b>, <b>문의 채널 고정</b>을 우선 보세요. 조건이 애매하면 리스크가 커집니다.</div></details><details><summary>분석기는 카지노/슬롯에도 도움이 되나요?</summary><div class='a'>분석기는 주로 <b>배당/마진/EV</b> 확인용입니다. 스포츠/미니게임 배당을 다룰 때 특히 유용합니다.</div></details><details><summary>혜택이 바뀌면 어떻게 확인하나요?</summary><div class='a'>메인 ‘88 인증놀이터’에서 최신 안내를 확인하고, 팝업 내 공지/문의 채널로 재확인하세요.</div></details>
+    </div>
+
+    <div class="footer">
+      <div>© 88 (팔팔커뮤니티) · 88st.cloud</div>
+      <div class="smallLinks">
+        <a href="/landing-a/" data-utm="1" onclick="track('landing_cross',{from:'a',to:'a'})">입플·보너스</a>
+        <a href="/landing-b/" data-utm="1" onclick="track('landing_cross',{from:'a',to:'b'})">고액/보증업체</a>
+        <a href="/landing-c/" data-utm="1" onclick="track('landing_cross',{from:'a',to:'c'})">마진·EV</a>
+        <a href="/landing-d/" data-utm="1" onclick="track('landing_cross',{from:'a',to:'d'})">배당 흐름</a>
       </div>
     </div>
   </div>
