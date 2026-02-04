@@ -878,6 +878,104 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 .outcomeBar .oBtn{ border-radius:999px; padding:8px 12px; }
 
 
+
+/* ===== Settings spotlight (calcCard) ===== */
+#calcCard{
+  border:1px solid rgba(212,175,55,.24) !important;
+  background:
+    radial-gradient(110% 160% at 12% 0%, rgba(212,175,55,.16), rgba(0,0,0,0) 55%),
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
+  box-shadow: 0 18px 45px rgba(0,0,0,.62), 0 0 0 1px rgba(212,175,55,.08) inset;
+  position:relative;
+  overflow:hidden;
+}
+#calcCard:before{
+  content:"";
+  position:absolute; inset:-2px;
+  background:linear-gradient(90deg, rgba(212,175,55,.30), rgba(255,255,255,0), rgba(212,175,55,.12));
+  opacity:.25;
+  pointer-events:none;
+  transform:skewX(-14deg) translateX(-40%);
+  filter:blur(0px);
+}
+#calcCard .title{
+  font-size:18px !important;
+  letter-spacing:.2px;
+}
+#calcCard .pill-need{
+  font-size:11px;
+  font-weight:950;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(212,175,55,.30);
+  color:rgba(255,255,255,.92);
+  background:rgba(212,175,55,.10);
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  white-space:nowrap;
+  margin-left:6px;
+}
+#calcCard .controls-settings{
+  margin-top:12px;
+}
+#calcCard .selectWrap{
+  position:relative;
+}
+#calcCard .fieldLabel{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:0 0 6px 6px;
+  font-size:12px;
+  font-weight:900;
+  color:rgba(255,255,255,.82);
+}
+#calcCard .stepBubble{
+  width:18px; height:18px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:950;
+  color:#111;
+  background:linear-gradient(135deg, var(--gold), var(--gold2));
+  box-shadow:0 8px 18px rgba(212,175,55,.18);
+}
+#calcCard .select{
+  border:1px solid rgba(212,175,55,.30) !important;
+  background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02)) !important;
+  padding:14px 12px !important;
+  font-weight:900 !important;
+}
+#calcCard .select:focus{
+  box-shadow:0 0 0 3px rgba(212,175,55,.18);
+}
+#calcCard .settingsHint{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px dashed rgba(255,255,255,.12);
+  background:rgba(255,255,255,.03);
+  font-size:12px;
+  color:rgba(255,255,255,.78);
+}
+#calcCard .row2{
+  margin-top:12px !important;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+@keyframes calcGlow{
+  0%,100%{ box-shadow: 0 18px 45px rgba(0,0,0,.62), 0 0 0 1px rgba(212,175,55,.08) inset; }
+  50%{ box-shadow: 0 22px 55px rgba(0,0,0,.68), 0 0 0 1px rgba(212,175,55,.14) inset, 0 0 26px rgba(212,175,55,.08); }
+}
+#calcCard{ animation:calcGlow 4.2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce){
+  #calcCard{ animation:none; }
+  #calcCard:before{ display:none; }
+}
+
 </style>
 </head>
 
@@ -982,10 +1080,12 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 
   <!-- ✅ 계산/분석기 카드 -->
   <div class="card" id="calcCard">
-    <div class="title"><span class="badge">CALC</span>분석기 설정 <span id="saveBadge" class="save-badge" aria-live="polite"></span></div>
+    <div class="title"><span class="badge">CALC</span>분석기 설정 <span class="pill-need">✨ 먼저 설정</span> <span id="saveBadge" class="save-badge" aria-live="polite"></span></div>
 
-    <div class="controls">
-      <select id="sport" class="select" onchange="onSportChange()">
+    <div class="controls controls-settings">
+      <div class="selectWrap">
+        <div class="fieldLabel"><span class="stepBubble">1</span> 종목</div>
+        <select id="sport" class="select" onchange="onSportChange()">
         <option value="soccer">축구</option>
         <option value="basketball">농구</option>
         <option value="baseball">야구</option>
@@ -993,13 +1093,18 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
         <option value="esports">e스포츠</option>
         <option value="hockey">하키</option>
       </select>
-
-      <select id="level" class="select" onchange="onLevelChange()">
+      </div>
+      <div class="selectWrap">
+        <div class="fieldLabel"><span class="stepBubble">2</span> 분석 레벨</div>
+        <select id="level" class="select" onchange="onLevelChange()">
         <option value="simple">간단</option>
         <option value="mid">중급</option>
         <option value="adv">고급</option>
       </select>
+      </div>
     </div>
+    <div class="settingsHint">👇 먼저 <b>종목</b>과 <b>레벨</b>을 선택하면, 아래 입력 폼(메인/오버·언더/핸디)이 자동으로 최적화됩니다.</div>
+
 
     <!-- ✅ 팀/리그 입력(선택) -->
     <div class="row2">
