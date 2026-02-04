@@ -47,8 +47,80 @@ body{
   padding:10px 12px;
   text-align:center;
   box-shadow:0 10px 30px rgba(0,0,0,.35);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid rgba(0,0,0,.14);
+  transition:padding .18s ease, font-size .18s ease, box-shadow .18s ease;
 }
-.notice-bar a{ color:#000; text-decoration:none; }
+.notice-bar a{
+  color:#000;
+  text-decoration:none;
+  flex:1;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.notice-toggle{
+  flex:0 0 auto;
+  width:34px;
+  height:28px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.18);
+  background:rgba(255,255,255,.35);
+  color:#000;
+  font-weight:1000;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+  transition:transform .18s ease, background .18s ease;
+}
+.notice-toggle:active{ transform:scale(.98); }
+.notice-icon{
+  flex:0 0 auto;
+  width:28px;
+  height:28px;
+  border-radius:999px;
+  background:rgba(255,255,255,.35);
+  border:1px solid rgba(0,0,0,.16);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+  box-shadow:0 6px 16px rgba(0,0,0,.18);
+}
+.notice-mini-text{
+  display:none;
+  font-weight:950;
+  letter-spacing:-.2px;
+}
+.notice-bar.is-mini{
+  padding:6px 10px;
+  font-size:12px;
+  box-shadow:0 6px 16px rgba(0,0,0,.22);
+}
+.notice-bar.is-mini a{
+  text-align:left;
+  display:flex;
+  align-items:center;
+}
+.notice-bar.is-mini #noticeText{ display:none; }
+.notice-bar.is-mini .notice-mini-text{
+  display:block;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.notice-bar.is-mini .notice-toggle{ display:none; }
+
+.notice-bar.is-collapsed{
+  padding:6px 10px;
+  font-size:12px;
+  box-shadow:0 6px 16px rgba(0,0,0,.25);
+}
+
 
 /* ===== 사칭주의 팝업 (1일 1회) ===== */
 .scam-popup{
@@ -333,6 +405,51 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   margin-top:8px;
 }
 .history-toolbar .btn{ min-width:0; flex:1; }
+
+.history-toolbar .btn.danger{
+  border-color:rgba(255,80,80,.35);
+  color:#ffd1d1;
+}
+.history-toolbar .btn.danger:hover{
+  border-color:rgba(255,80,80,.55);
+  background:rgba(255,80,80,.08);
+}
+.history-filters{
+  margin-top:10px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.history-filters .seg{
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.03);
+  color:#ddd;
+  font-weight:900;
+  cursor:pointer;
+}
+.history-filters .seg.on{
+  background:linear-gradient(135deg, rgba(255,203,66,.22), rgba(255,176,60,.12));
+  border-color:rgba(255,203,66,.35);
+  color:#fff;
+}
+.pick-ind{
+  margin-left:auto;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.03);
+  color:#cfcfcf;
+  font-size:12px;
+  font-weight:800;
+}
+.pick-ind b{ color:#fff; }
+@media (max-width:420px){
+  .pick-ind{ margin-left:0; }
+}
+
 .h-list{ margin-top:10px; display:grid; gap:10px; }
 .h-item{
   border:1px solid rgba(255,255,255,.08);
@@ -869,6 +986,18 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   line-height:1.45;
 }
 .trustLine b{ color:#fff; }
+
+.heroReason{
+  margin-top:8px;
+  font-size:12px;
+  color:#d9d9d9;
+  line-height:1.45;
+  padding:8px 10px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);
+}
+
 .outcomeBar{
   margin-top:8px;
   display:flex;
@@ -982,10 +1111,13 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 <body>
 
 <!-- ✅ 상단 공지/이벤트 배너(자동 순환) -->
-<div class="notice-bar">
-  <a href="https://t.me/UZU59" target="_blank" rel="noopener">
+<div class="notice-bar" id="noticeBar" role="region" aria-label="상단 공지">
+  <span class="notice-icon" aria-hidden="true">🔔</span>
+  <a href="https://t.me/UZU59" target="_blank" rel="noopener" aria-label="공지 열기 (텔레그램)">
     <span id="noticeText"></span>
+    <span class="notice-mini-text" id="noticeMiniText">사칭 주의 · @UZU59</span>
   </a>
+  <button class="notice-toggle" id="noticeToggle" type="button" aria-label="공지 접기/펼치기" title="공지 접기/펼치기">▾</button>
 </div>
 
 <!-- ✅ 사칭주의 팝업 (1일 1회) -->
@@ -1317,12 +1449,22 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
       • 히스토리 항목 클릭 → <b>입력 자동 복원 + 즉시 재계산</b><br>
       • 체크 2개 선택 → <b>비교(2개 나란히)</b> 가능
     </div>
-    <div class="history-toolbar">
-      <button class="btn secondary" type="button" onclick="clearHistory()">히스토리 전체 삭제</button>
-      <button class="btn secondary" type="button" onclick="openCompare()">비교 열기</button>
-      <button class="btn secondary" type="button" onclick="renderTop3()">TOP3 새로고침</button>
+    <div class="history-actions">
+      <div class="history-toolbar">
+        <button class="btn secondary danger" type="button" id="btnDeleteSelected" onclick="deleteSelected()" disabled>선택 삭제</button>
+        <button class="btn secondary" type="button" onclick="clearHistory()">전체 삭제</button>
+        <button class="btn secondary" type="button" id="btnCompare" onclick="openCompare()" disabled>비교</button>
+        <button class="btn secondary" type="button" onclick="renderTop3()">TOP3</button>
+      </div>
 
-    <div class="perf-box" id="perfBox" style="display:none;">
+      <div class="history-filters" aria-label="히스토리 필터">
+        <button class="seg on" type="button" data-filter="all" onclick="setHistoryFilter('all', this)">전체</button>
+        <button class="seg" type="button" data-filter="rec" onclick="setHistoryFilter('rec', this)">추천</button>
+        <button class="seg" type="button" data-filter="untracked" onclick="setHistoryFilter('untracked', this)">미기록</button>
+        <div class="pick-ind">선택 <b id="pickCount">0</b></div>
+      </div>
+    </div>
+<div class="perf-box" id="perfBox" style="display:none;">
       <div class="perf-title">
         <div>📊 내 성과</div>
         <div class="snap-meta" id="perfMeta"></div>
@@ -1331,7 +1473,6 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
       <div class="perf-grid" id="perfGrid"></div>
     </div>
 
-    </div>
     <div class="h-list" id="historyList"></div>
   </div>
 </div>
@@ -1397,10 +1538,45 @@ function rotateNotice(){
   const el = document.getElementById("noticeText");
   if(!el) return;
   el.innerText = NOTICE_LIST[noticeIndex];
+  const mini = document.getElementById("noticeMiniText");
+  if(mini) mini.innerText = "사칭 주의 · @UZU59";
   noticeIndex = (noticeIndex + 1) % NOTICE_LIST.length;
 }
 rotateNotice();
 setInterval(rotateNotice, 4000);
+
+/* 공지 배너: 스크롤 시 자동으로 슬림하게(가시성 + 첫 화면 확보) */
+(function initNoticeBar(){
+  const bar = document.getElementById("noticeBar");
+  const tgl = document.getElementById("noticeToggle");
+  if(!bar || !tgl) return;
+
+  let manual = null; // null=자동, true=접힘, false=펼침
+
+  const apply = (collapsed)=>{
+    bar.classList.toggle("is-collapsed", collapsed);
+    tgl.innerText = collapsed ? "▾" : "▴";
+    tgl.setAttribute("aria-label", collapsed ? "공지 펼치기" : "공지 접기");
+  };
+
+  const onScroll = ()=>{
+    if(manual !== null) return;
+    const y = window.scrollY || document.documentElement.scrollTop || 0;
+    apply(y > 18);
+  };
+
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+
+  tgl.addEventListener("click", (e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    const now = bar.classList.contains("is-collapsed");
+    manual = !now; // 사용자가 선택한 상태로 고정
+    apply(!now);
+  });
+})();
+
 
 /* 사칭주의 (1일 1회) */
 (function(){
@@ -2128,6 +2304,27 @@ function renderResult(sportName, level, rows, copyLines){
   const adviceKey = (conclusion.cls==="good") ? "rec" : (conclusion.cls==="bad" ? "pass" : "caution");
   const trustHtml = buildTrustLineHtml(adviceKey);
   const canMark = !!(LAST_RECORD && LAST_RECORD.id);
+  const reason = (()=>{
+    const parts = [];
+    if(evPct != null) parts.push(`EV ${(evPct>=0?"+":"")+evPct.toFixed(2)}%`);
+    if(marginPct != null) parts.push(`마진 ${marginPct.toFixed(1)}%`);
+    if(topProb) parts.push(`시장 ${topProb.label} ${topProb.p.toFixed(1)}%`);
+
+    if(!parts.length) return "";
+
+    let tail = "";
+    if(evPct != null){
+      if(evPct >= 2) tail = " · 밸류 구간";
+      else if(evPct >= 0) tail = " · 소폭 밸류";
+      else tail = " · -EV";
+    }else if(marginPct != null){
+      if(marginPct <= 3) tail = " · 마진 낮음";
+      else if(marginPct <= 6) tail = " · 마진 보통";
+      else tail = " · 마진 높음";
+    }
+    return "근거: " + parts.join(" · ") + tail;
+  })();
+
 
   const hero = `
     <div class="resultHero">
@@ -2146,6 +2343,7 @@ function renderResult(sportName, level, rows, copyLines){
             <span class="cText">${conclusion.text}</span>
           </div>
           <div class="trustLine">${trustHtml}</div>
+          ${reason ? `<div class="heroReason">${reason}</div>` : ``}
           <div class="outcomeBar" ${canMark ? "" : "style=\"display:none;\""}>
             <button class="oBtn" type="button" onclick="markOutcome('W')">✅ 적중</button>
             <button class="oBtn" type="button" onclick="markOutcome('L')">❌ 미적중</button>
@@ -2847,7 +3045,7 @@ function renderSnaps(){
   if(!wrap || !list || !meta) return;
 
   const arr = readSnaps();
-  if(!arr.length){
+  if(!view.length){
     wrap.style.display = "none";
     return;
   }
@@ -3045,18 +3243,71 @@ function validateInputs(){
 }
 
 /* 히스토리 UI */
-let comparePick = new Set();
+let pickSet = new Set();
+let historyFilter = "all";
+
+function setHistoryFilter(f, btn){
+  historyFilter = f;
+  // 필터 바꾸면 선택은 초기화(혼동 방지)
+  pickSet.clear();
+  const wrap = document.querySelector(".history-filters");
+  if(wrap){
+    wrap.querySelectorAll(".seg").forEach(x=>x.classList.remove("on"));
+  }
+  if(btn) btn.classList.add("on");
+  renderHistory();
+}
+function updatePickUI(){
+  const n = pickSet.size;
+  const c = document.getElementById("pickCount");
+  if(c) c.textContent = String(n);
+  const del = document.getElementById("btnDeleteSelected");
+  if(del) del.disabled = (n===0);
+  const cmp = document.getElementById("btnCompare");
+  if(cmp) cmp.disabled = (n!==2);
+}
+function deleteSelected(){
+  const ids = Array.from(pickSet);
+  if(ids.length===0){
+    toast("삭제할 항목을 선택하세요");
+    return;
+  }
+  if(!confirm(`선택한 ${ids.length}개 항목을 삭제할까요?`)) return;
+
+  let arr = readHistory();
+  arr = arr.filter(x=>!pickSet.has(x.id));
+  writeHistory(arr);
+  pickSet.clear();
+
+  renderHistory();
+  renderTop3();
+  toast("선택 삭제 완료");
+}
+
+
 
 function renderHistory(){
   const list = document.getElementById("historyList");
   if(!list) return;
 
   const arr = readHistory();
+
+  // 선택 정리(삭제/필터 등으로 사라진 항목 제거)
+  const idset = new Set(arr.map(x=>x.id));
+  pickSet = new Set(Array.from(pickSet).filter(id=>idset.has(id)));
+
+  // 필터 적용
+  let view = arr;
+  if(historyFilter === "rec"){
+    view = arr.filter(h => (h.advice || adviceKeyForRecord(h)) === "rec");
+  }else if(historyFilter === "untracked"){
+    view = arr.filter(h => !h.outcome);
+  }
   if(!arr.length){
     list.innerHTML = `
       <div class="demo-empty">
-        <div class="demo-title">히스토리가 비어있어요.</div>
-        <div class="demo-desc">아래 <b>예시 버튼</b>을 눌러 입력을 자동 채우고, 바로 계산까지 실행해볼 수 있어요.</div>
+        <div class="demo-title">${(arr.length && historyFilter!=="all") ? "조건에 맞는 기록이 없어요." : "히스토리가 비어있어요."}</div>
+        <div class="demo-desc">${(arr.length && historyFilter!=="all") ? "필터 조건에 맞는 기록이 없습니다. <b>전체</b>로 바꾸거나 새로 계산해보세요." : "아래 <b>예시 버튼</b>을 눌러 입력을 자동 채우고, 바로 계산까지 실행해볼 수 있어요."}</div>
         <div class="demo-btns">
           <button class="btn primary2" type="button" onclick="loadDemo('soccer')">⚽ 축구 예시로 계산</button>
           <button class="btn primary2" type="button" onclick="loadDemo('basketball')">🏀 농구 예시로 계산</button>
@@ -3064,10 +3315,11 @@ function renderHistory(){
         <div class="demo-note">※ 예시는 샘플 데이터이며, 실제 결과/승률을 보장하지 않습니다.</div>
       </div>`;
     renderPerfBox();
+    updatePickUI();
     return;
   }
 
-  list.innerHTML = arr.map(h=>{
+  list.innerHTML = view.map(h=>{
     const cfg = SPORT_CFG[h.sport] || {name:h.sport||"-"};
     const mMain = h.markets?.main?.marginPct;
     const mOU = h.markets?.ou?.marginPct;
@@ -3080,7 +3332,7 @@ function renderHistory(){
     const evTxt = (typeof h.bestEVPct==="number") ? `${h.bestEVPct.toFixed(2)}%` : "-";
     const evCls = (h.evPositive) ? "good" : "warn";
 
-    const checked = comparePick.has(h.id) ? "checked" : "";
+    const checked = pickSet.has(h.id) ? "checked" : "";
 
     const adviceKey = (h.advice || adviceKeyForRecord(h));
     const adviceInfo = adviceInfoForKey(adviceKey);
@@ -3130,6 +3382,7 @@ function renderHistory(){
   }).join("");
 
   renderPerfBox();
+  updatePickUI();
 }
 
 /* 히스토리 클릭(아이템 영역) -> 즉시 복원+재계산 */
@@ -3139,17 +3392,9 @@ function onHistoryClick(evt, id){
 }
 
 function togglePick(id, on){
-  if(on){
-    if(comparePick.size>=2){
-      toast("비교는 2개만 선택 가능");
-      // 체크 되돌리기
-      renderHistory();
-      return;
-    }
-    comparePick.add(id);
-  }else{
-    comparePick.delete(id);
-  }
+  if(on) pickSet.add(id);
+  else pickSet.delete(id);
+  updatePickUI();
 }
 
 function restoreFromHistory(id, doCalc){
@@ -3207,7 +3452,7 @@ function restoreFromHistory(id, doCalc){
 
 /* 비교 모달 */
 function openCompare(){
-  const ids = Array.from(comparePick);
+  const ids = Array.from(pickSet);
   if(ids.length !== 2){
     toast("비교할 항목 2개를 체크해 주세요");
     return;
