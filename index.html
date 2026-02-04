@@ -470,88 +470,7 @@ select.insight-select{
 
 .content{ padding:10px 10px 12px; }
 .site{ font-size:15px; font-weight:900; }
-.desc{
-  margin-top:6px;
-  font-size:12px;
-  color:#bdbdbd;
-  line-height:1.35;
-  min-height:32px;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-}
-
-.perk{
-  margin-top:8px;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:6px 10px;
-  border-radius:999px;
-  background:rgba(212,175,55,.12);
-  border:1px solid rgba(212,175,55,.20);
-  color:#f2d56b;
-  font-size:11px;
-  font-weight:900;
-  max-width:100%;
-}
-.perk-text{
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:100%;
-}
-
-.quick-cta{
-  position:absolute;
-  left:10px;
-  right:10px;
-  bottom:10px;
-  z-index:2;
-  display:flex;
-  gap:8px;
-  opacity:0;
-  transform: translateY(8px);
-  transition: opacity .16s ease, transform .16s ease;
-}
-.card:hover .quick-cta,
-.card:focus-within .quick-cta{
-  opacity:1;
-  transform: translateY(0);
-}
-.qbtn{
-  flex:1;
-  border-radius:999px;
-  padding:10px 10px;
-  font-weight:900;
-  font-size:12px;
-  background:rgba(0,0,0,.55);
-  border:1px solid rgba(255,255,255,.14);
-  color:#fff;
-  backdrop-filter: blur(8px);
-  cursor:pointer;
-  transition: filter .14s ease, transform .14s ease, border-color .14s ease;
-}
-.qbtn:hover{ filter:brightness(1.06); border-color:rgba(255,255,255,.22); }
-.qbtn:active{ transform: translateY(1px); }
-.qbtn.primary{
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  border-color:rgba(0,0,0,.18);
-  color:#111;
-}
-@media (hover:none){
-  .quick-cta{ opacity:1; transform:none; }
-  .qbtn{ padding:9px 10px; font-size:11px; }
-}
-
-.img-box img{
-  transition: transform .18s ease;
-}
-.card:hover .img-box img{
-  transform: scale(1.04);
-}
-
+.desc{ margin-top:6px; font-size:12px; color:#bdbdbd; line-height:1.35; min-height:32px; }
 .code{ margin-top:8px; font-size:12px; color:var(--gold2); font-weight:900; }
 
 
@@ -796,6 +715,123 @@ select.insight-select{
 .small-btn:hover{ filter:brightness(1.08); border-color:rgba(255,255,255,.16); }
 .small-btn:active{ transform: translateY(1px); }
 .note-mini{ color:var(--muted); font-size:12px; padding:0 14px 14px; line-height:1.35; }
+
+
+/* ==== UI patch v3 (2026-02-05): glass notice bar, benefit chips, mobile compact controls ==== */
+
+/* glass notice bar (less distracting) */
+.notice-bar{
+  position:sticky;
+  top:10px;
+  z-index:1600;
+  width:min(980px, calc(100% - 18px));
+  margin:10px auto 0;
+  padding:9px 12px;
+  border-radius:999px;
+  background:rgba(18,18,22,.55);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color:rgba(255,255,255,.92);
+  font-weight:900;
+  font-size:13px;
+  text-align:center;
+  box-shadow: 0 12px 30px rgba(0,0,0,.28);
+  transition: opacity .2s ease, background .2s ease, border-color .2s ease, padding .2s ease, transform .2s ease;
+}
+.notice-bar a{
+  color:inherit;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  text-decoration:none;
+}
+.notice-bar::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(255,255,255,.07), rgba(255,255,255,0));
+  pointer-events:none;
+  opacity:.55;
+}
+.notice-bar.is-scrolled{
+  opacity:.62;
+  background:rgba(18,18,22,.36);
+  border-color:rgba(255,255,255,.10);
+  padding:7px 12px;
+  transform: translateY(-1px);
+}
+@media (max-width:560px){
+  .notice-bar{ top:8px; margin:8px auto 0; font-size:12px; }
+  .notice-bar.is-scrolled{ padding:6px 10px; }
+}
+
+/* benefit keyword chips */
+.chip-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:8px 0 6px;
+}
+.chip-row:empty{ display:none; }
+.kchip{
+  font-size:11px;
+  font-weight:900;
+  padding:4px 8px;
+  border-radius:999px;
+  background: rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.14);
+  color:rgba(255,255,255,0.92);
+  letter-spacing:.15px;
+}
+
+/* mobile compact filter/sort: one-line summary + dropdown */
+@media (max-width:560px){
+  .v-compact{ display:block; margin-top:10px; }
+  .v-compact summary{
+    list-style:none;
+    cursor:pointer;
+    user-select:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:14px;
+    background: rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .v-compact summary::-webkit-details-marker{ display:none; }
+  .v-compact .sum{
+    font-weight:900;
+    font-size:12px;
+    color: rgba(255,255,255,0.88);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .v-compact .caret{
+    opacity:.8;
+    font-size:14px;
+    transition: transform .18s ease;
+  }
+  .v-compact[open] summary{
+    border-color: rgba(212,175,55,0.22);
+    background: rgba(255,255,255,0.08);
+  }
+  .v-compact[open] .caret{ transform: rotate(180deg); }
+  .v-compact .v-controls{
+    margin-top:10px;
+    padding:10px 8px 0;
+  }
+}
+@media (min-width:561px){
+  .v-compact{ display:none !important; }
+}
 
 </style>
 
@@ -1451,6 +1487,22 @@ function rotateNotice() {
 rotateNotice();
 setInterval(rotateNotice, 4000);
 
+/* (UI) 스크롤 시 공지 배너를 더 투명/슬림하게 */
+(function noticeFadeOnScroll(){
+  const bar = document.querySelector(".notice-bar");
+  if(!bar) return;
+  let last = null;
+  const onScroll = ()=>{
+    const sc = window.scrollY > 60;
+    if(sc === last) return;
+    bar.classList.toggle("is-scrolled", sc);
+    last = sc;
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, {passive:true});
+})();
+
+
 /* ===== 인사이트 ===== */
 function pickInsight(sport) {
   const arr = INSIGHTS_BY_SPORT[sport] || [];
@@ -1941,18 +1993,41 @@ function renderGrid() {
     filtered.sort((a,b)=> getClickCount(b)-getClickCount(a));
   }
 
+
+  // (UI) 카드 혜택에서 2~3개 키워드 칩 자동 추출
+  const CHIP_RULES = [
+    [/페이백/i, "페이백"],
+    [/(입플|입금플러스)/i, "입플"],
+    [/(첫충|첫매충|첫충전|첫매)/i, "첫충"],
+    [/매충/i, "매충"],
+    [/돌발/i, "돌발"],
+    [/출석/i, "출석"],
+    [/USDT/i, "USDT"],
+    [/무기명/i, "무기명"],
+    [/(미겜|미니게임)/i, "미겜"],
+    [/카지노/i, "카지노"],
+    [/스포츠/i, "스포츠"],
+    [/슬롯/i, "슬롯"],
+  ];
+  function benefitChipsHTML(raw){
+    const t = String(raw||"");
+    const out = [];
+    for(const [re,label] of CHIP_RULES){
+      if(re.test(t) && !out.includes(label)) out.push(label);
+      if(out.length>=3) break;
+    }
+    if(out.length < 2){
+      if(/%|만원|만\s*원/.test(t)) out.push("이벤트");
+    }
+    return out.slice(0,3).map(l=>`<span class="kchip">${l}</span>`).join("");
+  }
+
   grid.innerHTML = filtered.map(id=>{
     const d = CARD_DATA[id];
     const src = cardSourcesById(id);
 const rawDesc = d.benefit ? d.benefit : "";
-    // 혜택 문구에서 "첫 문장/첫 혜택"을 뽑아 하이라이트(검색/정렬 로직에는 영향 없음)
-    const perk0 = (rawDesc || "").split("/")[0].split("·")[0].split("|")[0].trim();
-    const perk = perk0 ? (isCleanText ? cleanBenefit(perk0) : perk0) : "";
-    let restRaw = rawDesc;
-    if(perk0) restRaw = rawDesc.replace(perk0, "");
-    restRaw = (restRaw || "").replace(/^[\s\/·\-\|]+/, "").trim();
-    const desc = restRaw ? (isCleanText ? cleanBenefit(restRaw) : restRaw)
-                         : (isCleanText ? cleanBenefit(rawDesc) : rawDesc);
+    const desc = isCleanText ? cleanBenefit(rawDesc) : rawDesc;
+    const chipsHtml = benefitChipsHTML(rawDesc);
 
     return `
       <div class="card" data-card="${id}">
@@ -1961,17 +2036,16 @@ const rawDesc = d.benefit ? d.benefit : "";
             <source type="image/webp" srcset="${src.webp}">
             <img src="${src.jpg}" loading="lazy" decoding="async" alt="${(d.title||"").replace(/"/g,'&quot;')}">
           </picture>
-
-          <div class="quick-cta" aria-label="빠른 동작">
-            <button class="qbtn primary" type="button" data-open="${id}" aria-label="${(d.title||"").replace(/"/g,'&quot;')} 자세히 보기">자세히</button>
-            <button class="qbtn" type="button" data-share="${id}" aria-label="${(d.title||"").replace(/"/g,'&quot;')} 공유하기">공유</button>
-          </div>
         </div>
-
         <div class="content">
           <div class="site">${d.title || ""}</div>
-          ${perk ? ('<div class="perk"><span aria-hidden="true">🎁</span><span class="perk-text">' + perk + '</span></div>') : ''}
+          <div class="chip-row">${chipsHtml}</div>
           <div class="desc">${desc}</div>
+          <div class="card-actions">
+            <div class="mini-share" role="button" tabindex="0" data-share="${id}" aria-label="공유하기">
+              <span aria-hidden="true">↗</span><span>공유</span>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -2026,20 +2100,6 @@ function setSort(key) {
 function bindCardClicks() {
   document.querySelectorAll(".card[data-card]").forEach(el=>{
     el.onclick = ()=> openCard(el.dataset.card);
-  });
-
-  // '자세히' 버튼은 카드 전체 클릭과 동일 동작을 명확히 보여줍니다.
-  document.querySelectorAll("[data-open]").forEach(btn=>{
-    const open = (e)=>{
-      e.preventDefault();
-      e.stopPropagation();
-      const id = btn.getAttribute("data-open");
-      if(id) openCard(id);
-    };
-    btn.addEventListener("click", open);
-    btn.addEventListener("keydown", (e)=>{
-      if(e.key==="Enter" || e.key===" "){ open(e); }
-    });
   });
 
   // 공유 버튼(카드 내부) 클릭은 팝업 오픈 대신 공유 팝업을 엽니다.
@@ -2114,6 +2174,70 @@ function bindCardClicks() {
       if(e.key === "Enter"){ bumpSearch(input.value); }
     });
   }
+
+  // (UI) 모바일: 필터/정렬을 "한 줄 요약 + 드롭다운"으로 compact 처리
+  (function setupCompactControls(){
+    const tools = document.querySelector(".vendor-tools");
+    const controls = tools ? tools.querySelector(".v-controls") : null;
+    if(!tools || !controls) return;
+    const mql = window.matchMedia("(max-width:560px)");
+    let details = null;
+    let summaryEl = null;
+
+    function makeSummary(){
+      const f = filterSel ? (filterSel.options[filterSel.selectedIndex]?.text || "") : "";
+      const s = sortSel ? (sortSel.options[sortSel.selectedIndex]?.text || "") : "";
+      const c = (cleanTgl && cleanTgl.checked) ? "정제 ON" : "정제 OFF";
+      const q = (input && input.value) ? input.value.trim() : "";
+      const qShort = q ? (q.length > 10 ? (q.slice(0,10) + "…") : q) : "";
+      const qPart = qShort ? ` · "${qShort}"` : "";
+      return `${f} · ${s} · ${c}${qPart}`;
+    }
+
+    function update(){
+      if(summaryEl) summaryEl.textContent = makeSummary();
+    }
+
+    function apply(on){
+      if(on){
+        if(details) { update(); return; }
+        details = document.createElement("details");
+        details.className = "v-compact";
+        const summary = document.createElement("summary");
+        summary.innerHTML = `<span class="sum"></span><span class="caret" aria-hidden="true">▾</span>`;
+        summaryEl = summary.querySelector(".sum");
+        details.appendChild(summary);
+
+        // searchInput 바로 아래에 삽입
+        const search = tools.querySelector("#searchInput");
+        if(search) search.insertAdjacentElement("afterend", details);
+        else tools.insertBefore(details, tools.firstChild);
+
+        // 기존 컨트롤 DOM 이동(아이디/이벤트 그대로 유지)
+        details.appendChild(controls);
+        update();
+      } else {
+        if(!details) return;
+        const search = tools.querySelector("#searchInput");
+        if(search) search.insertAdjacentElement("afterend", controls);
+        else tools.insertBefore(controls, tools.firstChild);
+        details.remove();
+        details = null;
+        summaryEl = null;
+      }
+    }
+
+    if(filterSel) filterSel.addEventListener("change", update);
+    if(sortSel) sortSel.addEventListener("change", update);
+    if(cleanTgl) cleanTgl.addEventListener("change", update);
+    if(input) input.addEventListener("input", update);
+
+    if(mql.addEventListener) mql.addEventListener("change", (e)=> apply(e.matches));
+    else mql.addListener((e)=> apply(e.matches));
+
+    apply(mql.matches);
+  })();
+
 })();/* ===== 팝업 + 접근성 ===== */
 let currentCode="";
 let currentCardId="";
