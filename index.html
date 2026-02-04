@@ -81,7 +81,7 @@ body{
   gap:14px;
 }
 #loader .logoWrap{
-  width:min(220px, 60vw);
+  width:min(170px, 52vw);
   aspect-ratio:1/1;
   display:flex;
   align-items:center;
@@ -121,7 +121,7 @@ body{
 .header{ text-align:center; padding:18px 0 8px; }
 .header .logoLink{ display:inline-flex; align-items:center; justify-content:center; text-decoration:none; }
 .header .logoImg{
-  width:min(220px, 62vw);
+  width:min(160px, 44vw);
   height:auto;
   display:block;
   padding:10px;
@@ -468,7 +468,6 @@ select.insight-select{
 .desc{ margin-top:6px; font-size:12px; color:#bdbdbd; line-height:1.35; min-height:32px; }
 .code{ margin-top:8px; font-size:12px; color:var(--gold2); font-weight:900; }
 
-#visitorBox{ text-align:center; color:#aaa; font-size:13px; padding:16px 0 22px; }
 
 .popup{
   position:fixed;
@@ -956,7 +955,7 @@ function appendUtm(urlStr) {
         </div>
       </div>
 
-      <div class="section faq">
+      <div class="section faq" id="faq">
         <div class="title"><span class="badge">FAQ</span>자주 묻는 질문</div>
 
         <details>
@@ -1047,10 +1046,6 @@ function appendUtm(urlStr) {
 
 <div class="vendor-grid" id="vendorGrid"></div>
 
-<div id="visitorBox">
-  전체 방문자 : <b id="total">0</b> /
-  금일 방문자 : <b id="today">0</b>
-</div>
 
 <div class="popup" id="cardPopup" role="dialog" aria-modal="true" aria-label="업체 상세">
   <div class="popup-box" role="document">
@@ -1120,35 +1115,7 @@ function appendUtm(urlStr) {
 </div>
 
 
-<div class="faq-wrap" id="faq">
-  <div class="section" style="padding:0; border:none; background:transparent;">
-    <div class="title"><span class="badge">FAQ</span>자주 묻는 질문</div>
-    <div class="text">도구 사용 중 자주 나오는 질문을 정리했습니다. (참고용)</div>
-  </div>
 
-  <div class="faq-box" role="region" aria-label="FAQ">
-    <details>
-      <summary>배당 마진(오버라운드)이 높으면 왜 불리한가요? <span>+</span></summary>
-      <div class="a">각 결과의 암시 확률 합이 100%를 넘는 만큼(=오버라운드), 장기 기대값이 낮아집니다. 같은 추정 실력이라도 마진이 낮은 시장이 더 유리합니다.</div>
-    </details>
-    <details>
-      <summary>EV(기대값) 계산은 어떻게 해석하나요? <span>+</span></summary>
-      <div class="a">추정 승률이 손익분기점(1/배당)보다 높으면 +EV, 낮으면 -EV입니다. 단기 결과와 별개로 장기 평균 관점의 지표입니다.</div>
-    </details>
-    <details>
-      <summary>정제된 문구는 무엇이 달라지나요? <span>+</span></summary>
-      <div class="a">카드 혜택 문구를 요약/정리해 과도한 문장·중복 표현을 줄입니다. 가독성을 높이기 위한 표시 방식입니다.</div>
-    </details>
-    <details>
-      <summary>결과를 공유하면 링크를 받은 사람도 같은 화면을 보나요? <span>+</span></summary>
-      <div class="a">공유 링크에는 해당 카드 ID가 포함되어, 접속 시 같은 업체 상세 팝업이 자동으로 열리도록 설계했습니다.</div>
-    </details>
-    <details>
-      <summary>이 도구의 결과가 정답인가요? <span>+</span></summary>
-      <div class="a">아닙니다. 본 페이지는 정보 제공 및 리스크 관리 참고용입니다. 실제 결과를 보장하지 않으며, 과몰입을 피하고 책임감 있게 이용해 주세요.</div>
-    </details>
-  </div>
-</div>
 
 <script type="application/ld+json" id="faqJsonLd">
 {
@@ -1281,34 +1248,6 @@ const UPDATE_LOG = [
   `).join("");
 })();
 
-/* ===== 방문자(로컬) ===== */
-(function() {
-  const totalEl = document.getElementById("total");
-  const todayEl = document.getElementById("today");
-  if(!totalEl || !todayEl) return;
-
-  const today = dateKeyLocal();
-  const totalKey = "v_total";
-  const todayKey = "v_today_" + today;
-
-  const now = Date.now();
-  const guardKey = "v_guard";
-  const last = Number(localStorage.getItem(guardKey) || 0);
-  const TEN_MIN = 10 * 60 * 1000;
-
-  let total = Number(localStorage.getItem(totalKey) || 0);
-  let todayCount = Number(localStorage.getItem(todayKey) || 0);
-
-  if(now - last > TEN_MIN) {
-    total += 1;
-    todayCount += 1;
-    localStorage.setItem(totalKey, String(total));
-    localStorage.setItem(todayKey, String(todayCount));
-    localStorage.setItem(guardKey, String(now));
-  }
-  totalEl.innerText = total;
-  todayEl.innerText = todayCount;
-})();
 
 /* ===== 체크리스트 ===== */
 const CHECKLIST_POOL = [
