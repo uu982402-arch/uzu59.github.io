@@ -283,6 +283,64 @@ select.insight-select{
 .v-chip{ padding:9px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.25); color:#fff; font-weight:900; cursor:pointer; transition: transform .14s ease, filter .14s ease, border-color .14s ease; }
 .v-chip:hover{ transform: translateY(-1px); filter:brightness(1.03); border-color: rgba(255,255,255,.16); }
 .v-chip.active{ background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#111; border-color:transparent; }
+
+/* ===== 새 컨트롤(배찌 제거 버전) ===== */
+.v-controls{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; align-items:flex-end; }
+.v-control{ display:flex; flex-direction:column; gap:6px; min-width:120px; }
+.v-control label{ font-size:12px; color:rgba(255,255,255,.68); font-weight:800; letter-spacing:-.2px; }
+.v-select{
+  width:100%;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.28);
+  color:#fff;
+  outline:none;
+  font-weight:900;
+}
+.v-select:focus{
+  border-color:rgba(255,215,112,.55);
+  box-shadow:0 0 0 3px rgba(255,215,112,.12);
+}
+.v-toggle{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.22);
+  cursor:pointer;
+  user-select:none;
+}
+.v-toggle input{ display:none; }
+.v-switch{
+  width:46px;
+  height:26px;
+  border-radius:999px;
+  background:rgba(255,255,255,.14);
+  position:relative;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+  transition: background .15s ease;
+}
+.v-switch::after{
+  content:"";
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:rgba(255,255,255,.86);
+  position:absolute;
+  top:2px;
+  left:2px;
+  transition: transform .15s ease;
+}
+.v-toggle input:checked + .v-switch{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+}
+.v-toggle input:checked + .v-switch::after{
+  transform: translateX(20px);
+}
+.v-toggle-text{ font-weight:900; font-size:12px; color:#fff; }
 .v-small{ margin-top:8px; font-size:12px; color:#a7a7a7; }
 #evAutoHint{ display:none; }
 
@@ -830,13 +888,30 @@ function appendUtm(urlStr) {
 
 <div class="vendor-tools" aria-label="카드 검색 및 필터">
   <input id="searchInput" class="v-input" placeholder="업체 검색 (예: CAPS, VEGAS, 페이백, USDT)" autocomplete="off">
-  <div class="v-row">
-    <button class="v-chip active" id="chipAll" type="button" data-filter="all">전체</button>
-    <button class="v-chip" id="chipRec" type="button" data-filter="rec">추천</button>
-    <button class="v-chip" id="chipNew" type="button" data-filter="new">신규</button>
-    <button class="v-chip" id="chipAd" type="button" data-filter="ad">광고/제휴</button>
-    <button class="v-chip" id="chipPop" type="button" data-filter="pop">인기순</button>
-    <button class="v-chip" id="chipClean" type="button" data-action="clean">정제된 문구</button>
+  <div class="v-controls" aria-label="필터 및 정렬">
+    <div class="v-control">
+      <label for="filterSelect">카테고리</label>
+      <select id="filterSelect" class="v-select">
+        <option value="all">전체</option>
+        <option value="rec">추천</option>
+        <option value="new">신규</option>
+        <option value="ad">광고/제휴</option>
+      </select>
+    </div>
+
+    <div class="v-control">
+      <label for="sortSelect">정렬</label>
+      <select id="sortSelect" class="v-select">
+        <option value="default">기본</option>
+        <option value="pop">인기순</option>
+      </select>
+    </div>
+
+    <label class="v-toggle" for="cleanToggle" aria-label="정제된 문구 토글">
+      <input type="checkbox" id="cleanToggle">
+      <span class="v-switch" aria-hidden="true"></span>
+      <span class="v-toggle-text">정제된 문구</span>
+    </label>
   </div>
   <div class="v-small" id="evAutoHint"></div>
   <div class="v-small" id="cleanHint">정제된 문구: 카드 혜택 문구를 짧고 깔끔하게 보여줍니다.</div>
@@ -1106,6 +1181,7 @@ function calcSimpleMargin() {
 /* ===== 카드 렌더/필터/인기순 ===== */
 const CLICK_KEY_PREFIX = "88_card_click_";
 let currentFilter = "all";
+let currentSort = "default";
 let isCleanText = false;
 
 function cleanBenefit(s) {
@@ -1160,22 +1236,19 @@ function renderGrid() {
     return true;
   });
 
-  if(currentFilter==="pop") {
+  if(currentSort==="pop") {
     filtered.sort((a,b)=> getClickCount(b)-getClickCount(a));
   }
 
   grid.innerHTML = filtered.map(id=>{
     const d = CARD_DATA[id];
     const src = cardSourcesById(id);
-
-    const tagLabel = (d.tag==="rec") ? "추천" : (d.tag==="new") ? "신규" : "광고/제휴";
-    const rawDesc = d.benefit ? d.benefit : "";
+const rawDesc = d.benefit ? d.benefit : "";
     const desc = isCleanText ? cleanBenefit(rawDesc) : rawDesc;
 
     return `
       <div class="card" data-card="${id}">
         <div class="img-box">
-          <div class="tag-badge ${d.tag}">${tagLabel}</div>
           <picture>
             <source type="image/webp" srcset="${src.webp}">
             <img src="${src.jpg}" loading="lazy" decoding="async" alt="${(d.title||"").replace(/"/g,'&quot;')}">
@@ -1184,7 +1257,6 @@ function renderGrid() {
         <div class="content">
           <div class="site">${d.title || ""}</div>
           <div class="desc">${desc}</div>
-          <div class="code">${tagLabel}</div>
         </div>
       </div>
     `;
@@ -1208,24 +1280,33 @@ function renderGrid() {
 }
 
 function setChipActive() {
-  ["chipAll","chipRec","chipNew","chipAd","chipPop"].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el) el.classList.remove("active");
-  });
-  const map = {all:"chipAll", rec:"chipRec", new:"chipNew", ad:"chipAd", pop:"chipPop"};
-  const on = document.getElementById(map[currentFilter] || "chipAll");
-  if(on) on.classList.add("active");
+  // 기존 v-chip(배찌) UI 제거 → select / toggle 상태만 동기화
+  const filterSel = document.getElementById("filterSelect");
+  const sortSel   = document.getElementById("sortSelect");
+  const cleanTgl  = document.getElementById("cleanToggle");
+  if(filterSel) filterSel.value = currentFilter;
+  if(sortSel)   sortSel.value   = currentSort;
+  if(cleanTgl)  cleanTgl.checked = !!isCleanText;
 }
 
 function setFilter(key) {
-  currentFilter = key;
+  currentFilter = key || "all";
+  setChipActive();
   renderGrid();
-  if(key!=="all") {
+  if(currentFilter!=="all") {
     const top = document.getElementById("vendorTop");
     if(top) top.scrollIntoView({behavior:"smooth", block:"start"});
   }
-  track("filter_change", {"filter": key});
+  track("filter_change", {"filter": currentFilter});
 }
+
+function setSort(key) {
+  currentSort = key || "default";
+  setChipActive();
+  renderGrid();
+  track("sort_change", {"sort": currentSort});
+}
+
 
 function bindCardClicks() {
   document.querySelectorAll(".card[data-card]").forEach(el=>{
@@ -1233,35 +1314,52 @@ function bindCardClicks() {
   });
 }
 
-(function bindChipsAndSearch() {
-  document.querySelectorAll("[data-filter]").forEach(btn=>{
-    btn.addEventListener("click", ()=> setFilter(btn.getAttribute("data-filter")));
-  });
-
-  // 정제된 문구(요약) 토글
-  const cleanBtn = document.getElementById("chipClean");
+(function bindControlsAndSearch() {
+  const filterSel = document.getElementById("filterSelect");
+  const sortSel   = document.getElementById("sortSelect");
+  const cleanTgl  = document.getElementById("cleanToggle");
   const cleanHint = document.getElementById("cleanHint");
-  const savedClean = sessionStorage.getItem("88_clean_text");
-  if(savedClean === "1") {
-    isCleanText = true;
-    if(cleanBtn) cleanBtn.classList.add("active");
-  }
+
+  // 상태 복원
+  const savedFilter = sessionStorage.getItem("88_filter");
+  const savedSort   = sessionStorage.getItem("88_sort");
+  const savedClean  = sessionStorage.getItem("88_clean_text");
+
+  if(savedFilter) currentFilter = savedFilter;
+  if(savedFilter === "pop") { currentFilter = "all"; currentSort = "pop"; }
+  if(savedSort)   currentSort   = savedSort;
+  if(savedClean === "1") isCleanText = true;
+
+  setChipActive();
   if(cleanHint) cleanHint.style.display = "block";
 
-  if(cleanBtn) {
-    cleanBtn.addEventListener("click", ()=>{
-      isCleanText = !isCleanText;
+  if(filterSel) {
+    filterSel.addEventListener("change", ()=>{
+      sessionStorage.setItem("88_filter", filterSel.value);
+      setFilter(filterSel.value);
+    });
+  }
+
+  if(sortSel) {
+    sortSel.addEventListener("change", ()=>{
+      sessionStorage.setItem("88_sort", sortSel.value);
+      setSort(sortSel.value);
+    });
+  }
+
+  if(cleanTgl) {
+    cleanTgl.addEventListener("change", ()=>{
+      isCleanText = !!cleanTgl.checked;
       sessionStorage.setItem("88_clean_text", isCleanText ? "1" : "0");
-      cleanBtn.classList.toggle("active", isCleanText);
+      setChipActive();
       renderGrid();
       track("clean_text_toggle", {"state": isCleanText ? "on" : "off"});
     });
   }
-const input = document.getElementById("searchInput");
-  if(input) input.addEventListener("input", ()=> renderGrid());
-})();
 
-/* ===== 팝업 + 접근성 ===== */
+  const input = document.getElementById("searchInput");
+  if(input) input.addEventListener("input", ()=> renderGrid());
+})();/* ===== 팝업 + 접근성 ===== */
 let currentCode="";
 let lastFocusEl=null;
 
