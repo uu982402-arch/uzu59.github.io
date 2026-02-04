@@ -460,6 +460,132 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   color:#9a9a9a;
   line-height:1.4;
 }
+
+/* ===== UX Add-ons (non-breaking) ===== */
+.save-badge{
+  margin-left:auto;
+  font-size:11px;
+  font-weight:900;
+  color:rgba(255,255,255,.86);
+  letter-spacing:.2px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.save-badge .dot{
+  width:8px; height:8px; border-radius:999px;
+  background:rgba(255,255,255,.55);
+  box-shadow:0 0 0 3px rgba(255,255,255,.08);
+}
+.quick-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+}
+.quick-nav .chip{
+  border:1px solid rgba(212,175,55,.28);
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  padding:8px 10px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:12px;
+  cursor:pointer;
+  transition:transform .12s ease, background .12s ease;
+}
+.quick-nav .chip:hover{ transform:translateY(-1px); background:rgba(255,255,255,.09); }
+.mini-guide{
+  margin-top:10px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  overflow:hidden;
+}
+.mini-guide .head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 12px;
+  cursor:pointer;
+  user-select:none;
+  font-weight:900;
+}
+.mini-guide .head .pill{
+  font-size:11px;
+  font-weight:900;
+  background:rgba(212,175,55,.18);
+  border:1px solid rgba(212,175,55,.28);
+  padding:6px 10px;
+  border-radius:999px;
+}
+.mini-guide .body{
+  display:none;
+  padding:10px 12px 12px;
+  color:#d7d7d7;
+  font-size:12px;
+  line-height:1.5;
+}
+.mini-guide .body b{ color:#fff; }
+.is-invalid{
+  outline:2px solid rgba(255,90,90,.75) !important;
+  box-shadow:0 0 0 6px rgba(255,90,90,.12) !important;
+  border-color:rgba(255,90,90,.6) !important;
+}
+.modal-box.share{
+  max-width:560px;
+}
+.share-canvas-wrap{
+  margin-top:12px;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:14px;
+  padding:10px;
+}
+.share-canvas{
+  width:100%;
+  height:auto;
+  border-radius:12px;
+  display:block;
+}
+@media (max-width:560px){
+  body{ padding-bottom: calc(env(safe-area-inset-bottom) + 72px); }
+  .mobile-dock{
+    position:fixed;
+    left:0; right:0; bottom:0;
+    z-index:1700;
+    display:flex;
+    gap:10px;
+    padding:10px 12px calc(env(safe-area-inset-bottom) + 12px);
+    background:linear-gradient(180deg, rgba(10,10,12,0), rgba(10,10,12,.72) 30%, rgba(10,10,12,.94));
+    backdrop-filter: blur(10px);
+  }
+  .mobile-dock .dock-btn{
+    flex:1;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    border-radius:14px;
+    padding:12px 10px;
+    font-weight:1000;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-height:44px;
+  }
+  .mobile-dock .dock-btn.primary{
+    background:linear-gradient(135deg, var(--gold), var(--gold2));
+    color:#000;
+    border-color:rgba(0,0,0,.08);
+  }
+}
+@media (min-width:561px){
+  .mobile-dock{ display:none; }
+}
+
 </style>
 </head>
 
@@ -564,7 +690,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 
   <!-- ✅ 계산/분석기 카드 -->
   <div class="card" id="calcCard">
-    <div class="title"><span class="badge">CALC</span>분석기 설정</div>
+    <div class="title"><span class="badge">CALC</span>분석기 설정 <span id="saveBadge" class="save-badge" aria-live="polite"></span></div>
 
     <div class="controls">
       <select id="sport" class="select" onchange="onSportChange()">
@@ -596,9 +722,29 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
     </div>
 
     <div class="small-hint" id="sportHint" style="margin-top:10px;"></div>
+    <div class="quick-nav" id="quickNav">
+      <button class="chip" type="button" onclick="quickJump('main')">메인</button>
+      <button class="chip" type="button" onclick="quickJump('total')">오버·언더</button>
+      <button class="chip" type="button" onclick="quickJump('handicap')">핸디캡</button>
+      <button class="chip" type="button" onclick="quickJump('result')">결과</button>
+      <button class="chip" type="button" onclick="quickJump('history')">히스토리</button>
+    </div>
+
+    <div class="mini-guide" id="miniGuide">
+      <div class="head" onclick="toggleMiniGuide()">
+        <div>💡 처음이면 <b>10초 가이드</b></div>
+        <div class="pill" id="miniGuidePill">열기</div>
+      </div>
+      <div class="body" id="miniGuideBody">
+        1) <b>종목/모드</b> 선택 → 2) <b>메인 배당</b> 입력(필수) → 3) 오버·언더/핸디(선택) → 4) <b>중급/고급</b>이면 <b>내 예상 확률</b> 입력 시 EV/켈리까지 계산됩니다.<br>
+        • 결과는 <b>판단 보조용</b>이며, 마진이 높을수록 장기 기대값이 불리해질 수 있어요.<br>
+        • 히스토리 항목 클릭하면 <b>입력 자동 복원 + 재계산</b>됩니다.
+      </div>
+    </div>
+
 
     <!-- ===== 메인 시장 ===== -->
-    <div class="box">
+    <div class="box" id="mainBox">
       <div class="box-title" id="mainMarketTitle">메인 배당</div>
 
       <!-- 2-way -->
@@ -727,6 +873,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
       <button class="btn secondary" onclick="resetAll()">초기화</button>
       <button class="btn gold" onclick="copyResult()">결과 복사</button>
       <button class="btn secondary" onclick="shareResult()">공유</button>
+      <button class="btn secondary" onclick="openShareCard()">공유 카드</button>
     </div>
 
     <div class="note">
@@ -780,6 +927,36 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
     </div>
     <div class="compare-grid" id="compareGrid"></div>
   </div>
+</div>
+
+
+<!-- 공유 카드 모달 (이미지 저장) -->
+<div class="modal" id="shareCardModal" style="display:none;">
+  <div class="modal-box share">
+    <div class="modal-head">
+      <div class="t">공유 카드 (이미지 저장)</div>
+      <div class="modal-close" onclick="closeShareCard()">닫기</div>
+    </div>
+    <div class="small-hint" style="margin-bottom:10px;">
+      결과가 생성된 상태에서만 카드가 만들어집니다. (텍스트/링크도 함께 복사 가능)
+    </div>
+    <div class="share-canvas-wrap">
+      <canvas id="shareCardCanvas" class="share-canvas" width="1080" height="1080" aria-label="공유 카드 캔버스"></canvas>
+    </div>
+    <div class="history-toolbar" style="margin-top:12px;">
+      <button class="btn secondary" type="button" onclick="copyShareLink()">링크 복사</button>
+      <button class="btn gold" type="button" onclick="downloadShareCard()">이미지 저장</button>
+      <button class="btn secondary" type="button" onclick="copyShareText()">문구 복사</button>
+    </div>
+  </div>
+</div>
+
+<!-- 모바일 하단 도크 -->
+<div class="mobile-dock" id="mobileDock" aria-label="빠른 동작">
+  <button class="dock-btn primary" type="button" onclick="calc()">계산</button>
+  <button class="dock-btn" type="button" onclick="copyResult()">복사</button>
+  <button class="dock-btn" type="button" onclick="openShareCard()">카드</button>
+  <button class="dock-btn" type="button" onclick="quickJump('top')">위로</button>
 </div>
 
 <div id="toast88"></div>
@@ -949,7 +1126,9 @@ function saveState(){
     handicapCollapsed: isCollapsed("handicapBody"),
     totalCollapsed: isCollapsed("totalBody")
   };
+  state.__savedAt = Date.now();
   localStorage.setItem(LS_KEY, JSON.stringify(state));
+  updateSaveBadge(state.__savedAt);
 }
 function loadState(){
   try{
@@ -1225,7 +1404,7 @@ function calc(){
   if(!is3){
     const a = parseOdds(val("main2OddsA"));
     const b = parseOdds(val("main2OddsB"));
-    if(a==null || b==null) return showError("메인 배당을 1.01 이상 숫자로 입력해줘.");
+    if(a==null || b==null){ clearInvalid(); markInvalid(["main2OddsA","main2OddsB"]); return showError("메인 배당을 1.01 이상 숫자로 입력해줘."); }
 
     const out = compute2Way(a,b,0);
     mainOver = out.over;
@@ -1278,7 +1457,7 @@ function calc(){
     const h = parseOdds(val("main3OddsH"));
     const d = parseOdds(val("main3OddsD"));
     const a = parseOdds(val("main3OddsA"));
-    if(h==null || d==null || a==null) return showError("메인 배당(홈/무/원정)을 1.01 이상 숫자로 입력해줘.");
+    if(h==null || d==null || a==null){ clearInvalid(); markInvalid(["main3OddsH","main3OddsD","main3OddsA"]); return showError("메인 배당(홈/무/원정)을 1.01 이상 숫자로 입력해줘."); }
 
     const out = compute3Way(h,d,a);
     mainOver = out.over;
@@ -1514,6 +1693,258 @@ async function shareResult(){
       await copyResult();
     }
   }catch(e){}
+}
+
+/* =========================
+   UX Add-ons (non-breaking)
+========================= */
+function updateSaveBadge(ts){
+  const el = document.getElementById("saveBadge");
+  if(!el) return;
+  if(!ts){
+    el.innerHTML = `<span class="dot"></span>자동 저장`;
+    return;
+  }
+  const d = new Date(ts);
+  const hh = String(d.getHours()).padStart(2,"0");
+  const mm = String(d.getMinutes()).padStart(2,"0");
+  el.innerHTML = `<span class="dot"></span>자동 저장 · ${hh}:${mm}`;
+}
+
+function toggleMiniGuide(){
+  const body = document.getElementById("miniGuideBody");
+  const pill = document.getElementById("miniGuidePill");
+  if(!body || !pill) return;
+  const isOpen = body.style.display === "block";
+  const next = !isOpen;
+  body.style.display = next ? "block" : "none";
+  pill.textContent = next ? "닫기" : "열기";
+  try{ localStorage.setItem("88_mini_guide_open", next ? "1":"0"); }catch(e){}
+}
+
+function restoreMiniGuide(){
+  try{
+    const v = localStorage.getItem("88_mini_guide_open");
+    const body = document.getElementById("miniGuideBody");
+    const pill = document.getElementById("miniGuidePill");
+    if(!body || !pill) return;
+    const open = v === "1";
+    body.style.display = open ? "block" : "none";
+    pill.textContent = open ? "닫기" : "열기";
+  }catch(e){}
+}
+
+function clearInvalid(){
+  document.querySelectorAll(".is-invalid").forEach(el=>el.classList.remove("is-invalid"));
+}
+function markInvalid(ids){
+  ids.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.classList.add("is-invalid");
+  });
+  const first = document.querySelector(".is-invalid");
+  if(first){
+    try{ first.scrollIntoView({behavior:"smooth", block:"center"}); }catch(e){}
+  }
+}
+
+function quickJump(which){
+  if(which==="top"){
+    try{ window.scrollTo({top:0, behavior:"smooth"}); }catch(e){ window.scrollTo(0,0); }
+    return;
+  }
+  const map = {
+    main: "mainBox",
+    total: "totalBox",
+    handicap: "handicapBox",
+    result: "result",
+    history: "historyList"
+  };
+  const id = map[which];
+  const el = document.getElementById(id);
+  if(!el) return;
+  if(which==="total"){ setCollapsed("totalBody", false); }
+  if(which==="handicap"){ setCollapsed("handicapBody", false); }
+  try{ el.scrollIntoView({behavior:"smooth", block:"start"}); }catch(e){}
+}
+
+function openShareCard(){
+  const modal = document.getElementById("shareCardModal");
+  const resultBox = document.getElementById("result");
+  if(!modal) return;
+  if(!resultBox || resultBox.style.display==="none" || !resultBox.innerText.trim()){
+    return showError("먼저 '계산하기'로 결과를 만든 뒤 공유 카드를 생성할 수 있어요.");
+  }
+  modal.style.display = "flex";
+  drawShareCard();
+  try{ track("share_card_open", { page_path: location.pathname }); }catch(e){}
+}
+function closeShareCard(){
+  const modal = document.getElementById("shareCardModal");
+  if(modal) modal.style.display = "none";
+}
+
+function getShareLink(){
+  const base = location.origin + location.pathname;
+  let qs = "";
+  try{ if(typeof getUtmQuery === "function") qs = getUtmQuery(); }catch(e){}
+  return base + (qs || "");
+}
+
+function extractResultLines(){
+  const box = document.getElementById("result");
+  if(!box) return [];
+  const kvs = box.querySelectorAll(".kv");
+  const lines = [];
+  kvs.forEach(kv=>{
+    const k = kv.querySelector(".k")?.innerText?.trim();
+    const v = kv.querySelector(".v")?.innerText?.trim();
+    if(k && v) lines.push(`${k}: ${v}`);
+  });
+  return lines;
+}
+
+function roundRect(ctx, x, y, w, h, r, fill, stroke){
+  const rr = Math.min(r, w/2, h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+rr, y);
+  ctx.arcTo(x+w, y, x+w, y+h, rr);
+  ctx.arcTo(x+w, y+h, x, y+h, rr);
+  ctx.arcTo(x, y+h, x, y, rr);
+  ctx.arcTo(x, y, x+w, y, rr);
+  ctx.closePath();
+  if(fill) ctx.fill();
+  if(stroke) ctx.stroke();
+}
+
+function drawShareCard(){
+  const canvas = document.getElementById("shareCardCanvas");
+  if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+
+  // bg
+  const g = ctx.createLinearGradient(0,0,W,H);
+  g.addColorStop(0, "#0b0b0b");
+  g.addColorStop(0.55, "#121212");
+  g.addColorStop(1, "#07070a");
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+  // glow
+  ctx.fillStyle = "rgba(212,175,55,0.12)";
+  ctx.beginPath(); ctx.arc(W*0.60, H*0.15, 330, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = "rgba(90,160,255,0.08)";
+  ctx.beginPath(); ctx.arc(W*0.18, H*0.25, 260, 0, Math.PI*2); ctx.fill();
+
+  // card
+  const pad = 70;
+  const r = 34;
+  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  roundRect(ctx, pad, pad, W-pad*2, H-pad*2, r, true, false);
+  ctx.strokeStyle = "rgba(255,255,255,0.10)";
+  ctx.lineWidth = 2;
+  roundRect(ctx, pad, pad, W-pad*2, H-pad*2, r, false, true);
+
+  // header
+  ctx.fillStyle = "#f5e27a";
+  ctx.font = "900 54px system-ui, -apple-system, Segoe UI, Roboto";
+  ctx.fillText("88 분석 결과", pad+40, pad+95);
+
+  ctx.fillStyle = "rgba(255,255,255,0.80)";
+  ctx.font = "700 28px system-ui, -apple-system, Segoe UI, Roboto";
+  const ts = new Date();
+  ctx.fillText(ts.toLocaleString("ko-KR"), pad+40, pad+145);
+
+  // badge (EV flag)
+  let badgeText = "";
+  try{
+    const evEl = document.getElementById("evFlag");
+    if(evEl && evEl.innerText) badgeText = evEl.innerText.trim();
+  }catch(e){}
+  if(badgeText){
+    const bx = pad+40, by = pad+170, bw = 340, bh = 54;
+    ctx.fillStyle = "rgba(212,175,55,0.18)";
+    roundRect(ctx, bx, by, bw, bh, 999, true, false);
+    ctx.strokeStyle = "rgba(212,175,55,0.35)";
+    ctx.lineWidth = 2;
+    roundRect(ctx, bx, by, bw, bh, 999, false, true);
+    ctx.fillStyle = "#fff";
+    ctx.font = "900 26px system-ui, -apple-system, Segoe UI, Roboto";
+    ctx.fillText(badgeText, bx+18, by+36);
+  }
+
+  // lines
+  const lines = extractResultLines().slice(0, 12);
+  let y = pad + 270;
+  ctx.fillStyle = "rgba(255,255,255,0.92)";
+  ctx.font = "800 30px system-ui, -apple-system, Segoe UI, Roboto";
+  lines.forEach((line)=>{
+    const txt = line.length > 46 ? (line.slice(0,46) + "…") : line;
+    ctx.fillText("• " + txt, pad+40, y);
+    y += 48;
+  });
+
+  // footer
+  ctx.fillStyle = "rgba(255,255,255,0.75)";
+  ctx.font = "800 26px system-ui, -apple-system, Segoe UI, Roboto";
+  ctx.fillText("링크: " + getShareLink(), pad+40, H - pad - 70);
+
+  ctx.fillStyle = "rgba(255,255,255,0.55)";
+  ctx.font = "700 22px system-ui, -apple-system, Segoe UI, Roboto";
+  ctx.fillText("※ 판단 보조용 / 결과를 보장하지 않습니다.", pad+40, H - pad - 30);
+}
+
+async function copyShareLink(){
+  const link = getShareLink();
+  try{
+    await navigator.clipboard.writeText(link);
+    toast("링크를 복사했습니다");
+    try{ track("share_link_copy", { page_path: location.pathname }); }catch(e){}
+  }catch(e){
+    toast("복사 실패");
+  }
+}
+
+async function copyShareText(){
+  if(!LAST_TEXT) return showError("먼저 '계산하기'로 결과를 만든 뒤 복사할 수 있어요.");
+  try{
+    await navigator.clipboard.writeText(LAST_TEXT + "\n" + getShareLink());
+    toast("문구를 복사했습니다");
+    try{ track("share_text_copy", { page_path: location.pathname }); }catch(e){}
+  }catch(e){
+    toast("복사 실패");
+  }
+}
+
+function downloadShareCard(){
+  const canvas = document.getElementById("shareCardCanvas");
+  if(!canvas) return;
+  try{
+    canvas.toBlob((blob)=>{
+      if(!blob) return;
+      const a = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      a.href = url;
+      a.download = "88-analysis-card.png";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 800);
+      toast("이미지를 저장했습니다");
+      try{ track("share_card_download", { page_path: location.pathname }); }catch(e){}
+    }, "image/png", 1.0);
+  }catch(e){
+    toast("저장 실패");
+  }
+}
+
+function setupShareCardBackdropClose(){
+  const modal = document.getElementById("shareCardModal");
+  if(modal){
+    modal.addEventListener("click", (e)=>{
+      if(e.target === modal) closeShareCard();
+    });
+  }
 }
 
 /* =========================
@@ -1956,6 +2387,26 @@ function boot(){
   renderHistory();
   renderTop3();
   renderMarginDash();
+  restoreMiniGuide();
+  setupShareCardBackdropClose();
+  // 입력 중 빨간 하이라이트 자동 해제
+  document.querySelectorAll("input,select").forEach(el=>{
+    el.addEventListener("input", ()=>el.classList.remove("is-invalid"));
+    el.addEventListener("change", ()=>el.classList.remove("is-invalid"));
+  });
+  // 저장 배지 초기화
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(raw){
+      const st = JSON.parse(raw);
+      updateSaveBadge(st && st.__savedAt);
+    }else{
+      updateSaveBadge(null);
+    }
+  }catch(e){
+    updateSaveBadge(null);
+  }
+
 }
 boot();
 </script>
