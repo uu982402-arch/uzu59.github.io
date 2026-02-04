@@ -276,6 +276,11 @@ select.insight-select{
   border:1px solid rgba(255,255,255,.12);
 }
 .pill:hover{ filter:brightness(1.03); }
+.pill.ghost{
+  background:rgba(255,255,255,.08);
+  color:#e8e8e8;
+  border:1px solid rgba(255,255,255,.14);
+}
 
 .vendor-tools{
   position:sticky;
@@ -840,6 +845,37 @@ function appendUtm(urlStr) {
   }
 }
 </script>
+
+<script>
+  // ===== Site Config (EDIT THESE) =====
+  // GA4_ID: GA4 Measurement ID (예: G-XXXXXXXXXX)
+  // POPULAR_API: 전체 사용자 인기 데이터를 반환하는 API 엔드포인트(예: /api/popular)
+  //   - 연동 전에는 비워두면(또는 "disabled") 로컬 집계(내 브라우저 기준)로만 표시됩니다.
+  window.SITE_CONFIG = window.SITE_CONFIG || {
+    GA4_ID: "G-XXXXXXXXXX",
+    POPULAR_API: "disabled"
+  };
+
+  // ===== GA4 bootstrap (dynamic inject) =====
+  (function initGA4(){
+    try{
+      const id = (window.SITE_CONFIG && window.SITE_CONFIG.GA4_ID) || "";
+      if(!id || id === "disabled" || /^G-XXXX/i.test(id) || id === "G-XXXXXXXXXX") return;
+
+      const s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);
+      document.head.appendChild(s);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = window.gtag || gtag;
+      gtag("js", new Date());
+      gtag("config", id, { send_page_view: true });
+    }catch(e){}
+  })();
+</script>
+
 </head>
 
 <body>
@@ -1089,8 +1125,8 @@ function appendUtm(urlStr) {
 <div class="insights-wrap" id="insights">
   <div class="insights-head">
     <div>
-      <div class="h">오늘의 인기</div>
-      <div class="sub">방문자 수 대신, <b>이 사이트에서 실제로 많이 본/많이 검색한 항목</b>을 보여줍니다. (로컬 집계)</div>
+      <div class="h" id="insightHeadline">오늘의 인기</div>
+      <div class="sub">방문자 수 대신, <b>이 사이트에서 실제로 많이 본/많이 검색한 항목</b>을 보여줍니다. (GA4 연동 시 전체 집계 / 미연동 시 로컬 집계)</div>
     </div>
   </div>
 
@@ -1098,7 +1134,7 @@ function appendUtm(urlStr) {
     <div class="card stat-card" aria-label="오늘 많이 본 키워드">
       <div class="stat-top">
         <div class="stat-title">오늘 많이 본 키워드</div>
-        <div class="stat-meta">검색창에 입력한 키워드 기준으로 집계됩니다. (데이터가 쌓이면 자동 갱신)</div>
+        <div class="stat-meta" id="insightKwMeta">검색창에 입력한 키워드 기준으로 집계됩니다. (데이터가 쌓이면 자동 갱신)</div>
       </div>
       <div class="stat-list" id="insightKeywords"></div>
       <div class="stat-actions">
@@ -1109,7 +1145,7 @@ function appendUtm(urlStr) {
     <div class="card stat-card" aria-label="오늘 많이 본 카드">
       <div class="stat-top">
         <div class="stat-title">오늘 많이 본 카드 TOP 5</div>
-        <div class="stat-meta">카드 상세를 열어본 횟수 기준입니다. (로컬 집계)</div>
+        <div class="stat-meta" id="insightCardMeta">카드 상세를 열어본 횟수 기준입니다. (로컬 집계)</div>
       </div>
       <div class="stat-list" id="insightCards"></div>
       <div class="note-mini">※ “인기순” 정렬은 카드 클릭 누적 기반, 이 영역은 “오늘 열람” 기반입니다.</div>
@@ -1490,6 +1526,8 @@ function bumpView(cardId){
 }
 function bumpSearch(rawQuery){
   const s = loadStats();
+  // GA4: recommended event name "search" with parameter "search_term"
+  track("search", {"search_term": String(rawQuery||"").trim().slice(0,80)});
   const tokens = tokenize(rawQuery);
   if(!tokens.length) return;
   tokens.forEach(tok=>{
@@ -1506,7 +1544,7 @@ function topN(obj, n=5){
     .sort((a,b)=> (b[1]-a[1]) || a[0].localeCompare(b[0]))
     .slice(0,n);
 }
-function renderInsights(){
+function renderLocalInsights(){
   const kwBox = document.getElementById("insightKeywords");
   const cardBox = document.getElementById("insightCards");
   const resetBtn = document.getElementById("insightResetBtn");
@@ -1588,6 +1626,138 @@ function renderInsights(){
     };
   }
 }
+
+
+// ===== Global Insights (전체 사용자 인기: GA4 Data API 등) =====
+let __INSIGHTS_MODE = "auto"; // "auto" | "global" | "local"
+let __GLOBAL_INSIGHTS_CACHE = null;
+let __GLOBAL_INSIGHTS_AT = 0;
+
+function hasGlobalInsights() {
+  const api = (window.SITE_CONFIG && window.SITE_CONFIG.POPULAR_API) || "";
+  return api && api !== "disabled" && !/^\s*$/.test(api);
+}
+
+function bindInsightButtons() {
+  document.querySelectorAll("[data-kw]").forEach(btn=>{
+    btn.onclick = ()=>{
+      const kw = btn.getAttribute("data-kw") || "";
+      const input = document.getElementById("searchInput");
+      if(input){ input.value = kw; renderGrid(); input.focus(); }
+      track("insight_kw_click", {"kw": kw});
+    };
+  });
+  document.querySelectorAll("[data-card]").forEach(btn=>{
+    btn.onclick = ()=>{
+      const id = btn.getAttribute("data-card");
+      if(id) openCard(id);
+      track("insight_card_click", {"card_id": id});
+    };
+  });
+}
+
+function renderGlobalInsights(data) {
+  const kwBox = document.getElementById("insightKeywords");
+  const cardBox = document.getElementById("insightCards");
+  const resetBtn = document.getElementById("insightResetBtn");
+  const kwMeta = document.getElementById("insightKwMeta");
+  const cardMeta = document.getElementById("insightCardMeta");
+  const headline = document.getElementById("insightHeadline");
+
+  if(headline){
+    const date = data && data.date ? String(data.date) : "";
+    headline.innerHTML = `오늘의 인기 <span class="pill">전체 사용자 기준</span>` + (date ? `<span class="pill ghost">${date}</span>` : "");
+  }
+  if(resetBtn) resetBtn.style.display = "none";
+  if(kwMeta) kwMeta.textContent = "GA4 이벤트(검색) 기준으로 집계됩니다.";
+  if(cardMeta) cardMeta.textContent = "GA4 이벤트(카드 열람) 기준으로 집계됩니다.";
+
+  if(kwBox){
+    const list = (data && Array.isArray(data.keywords)) ? data.keywords : [];
+    if(list.length){
+      kwBox.innerHTML = list.slice(0,10).map((it,i)=>{
+        const kw = (it.term || it.keyword || "").toString();
+        const c = (it.count ?? it.value ?? "").toString();
+        return `
+          <div class="stat-item">
+            <div class="stat-left">
+              <div class="stat-rank">${i+1}</div>
+              <button class="stat-link" type="button" data-kw="${kw.replace(/"/g,'&quot;')}">${kw}</button>
+            </div>
+            <div class="stat-count">${c}</div>
+          </div>
+        `;
+      }).join("");
+    } else {
+      kwBox.innerHTML = `<div class="stat-empty">아직 데이터가 충분히 쌓이지 않았어요.</div>`;
+    }
+  }
+
+  if(cardBox){
+    const list = (data && Array.isArray(data.cards)) ? data.cards : [];
+    if(list.length){
+      cardBox.innerHTML = list.slice(0,5).map((it,i)=>{
+        const id = (it.id || it.card_id || "").toString();
+        const c = (it.count ?? it.value ?? "").toString();
+        const title = (CARD_DATA[id]?.title) || id;
+        return `
+          <div class="stat-item">
+            <div class="stat-left">
+              <div class="stat-rank">${i+1}</div>
+              <button class="stat-link" type="button" data-card="${id}">${title}</button>
+            </div>
+            <div class="stat-count">${c}</div>
+          </div>
+        `;
+      }).join("");
+    } else {
+      cardBox.innerHTML = `<div class="stat-empty">아직 데이터가 충분히 쌓이지 않았어요.</div>`;
+    }
+  }
+
+  bindInsightButtons();
+}
+
+async function tryLoadGlobalInsights(force=false) {
+  if(!hasGlobalInsights()) return false;
+  if(!force && __GLOBAL_INSIGHTS_CACHE && (Date.now()-__GLOBAL_INSIGHTS_AT) < 60_000) return true;
+
+  const api = window.SITE_CONFIG.POPULAR_API;
+  try{
+    const url = api.includes("?") ? (api + "&range=today") : (api + "?range=today");
+    const res = await fetch(url, { cache: "no-store" });
+    if(!res.ok) throw new Error("bad status");
+    const data = await res.json();
+    __GLOBAL_INSIGHTS_CACHE = data;
+    __GLOBAL_INSIGHTS_AT = Date.now();
+    __INSIGHTS_MODE = "global";
+    renderGlobalInsights(data);
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+
+function renderInsights() {
+  if(__INSIGHTS_MODE === "global") {
+    if(__GLOBAL_INSIGHTS_CACHE) renderGlobalInsights(__GLOBAL_INSIGHTS_CACHE);
+    return;
+  }
+  renderLocalInsights();
+}
+
+async function initInsights() {
+  // url param: ?insights=local 로 강제
+  try{
+    const u = new URL(location.href);
+    const force = (u.searchParams.get("insights")||"").toLowerCase();
+    if(force === "local"){ __INSIGHTS_MODE = "local"; renderLocalInsights(); return; }
+  }catch(e){}
+  const ok = await tryLoadGlobalInsights(true);
+  if(!ok){ __INSIGHTS_MODE = "local"; renderLocalInsights(); }
+}
+
+
 
 
 const CLICK_KEY_PREFIX = "88_card_click_";
@@ -2215,7 +2385,7 @@ function openFromUrl() {
   setMarginMode("2");
   maybeAutoRecFilter();
   renderGrid();
-  renderInsights();
+  initInsights();
   openFromUrl();
 })();
 </script>

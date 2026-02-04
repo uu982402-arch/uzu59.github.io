@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://88st.cloud/</loc></url>
-  <url><loc>https://88st.cloud/analysis.html</loc></url>
+  <!-- TODO: 아래 loc 도메인을 실제 도메인으로 변경하세요. -->
+  <url><loc>https://88st.cloud//</loc></url>
+  <url><loc>https://88st.cloud//tool-margin/</loc></url>
+  <url><loc>https://88st.cloud//tool-ev/</loc></url>
+  <url><loc>https://88st.cloud//tool-odds/</loc></url>
 </urlset>
