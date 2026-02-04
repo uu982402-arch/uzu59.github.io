@@ -20,13 +20,38 @@
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-<!-- ===== GA4 (원하면 ID만 교체) ===== -->
+<!-- ===== GA4 (완성형: ID만 교체) ===== -->
+<script>
+  // DebugView 전송 토글:
+  //  - ?debug=1  → 켜기(브라우저 저장)
+  //  - ?debug=0  → 끄기(브라우저 저장 해제)
+  (function(){
+    try{
+      const sp = new URLSearchParams(location.search);
+      if (sp.get("debug") === "1") localStorage.setItem("ga_debug", "1");
+      if (sp.get("debug") === "0") localStorage.removeItem("ga_debug");
+    } catch(e) {}
+  })();
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){ dataLayer.push(arguments); }
+  window.gtag = window.gtag || gtag;
+
+  window.__ga_debug = (function(){
+    try {
+      const sp = new URLSearchParams(location.search);
+      return sp.get("debug") === "1" || localStorage.getItem("ga_debug") === "1";
+    } catch(e) { return false; }
+  })();
+
   gtag('js', new Date());
-  gtag('config', 'G-KWT87FBY6S', { anonymize_ip: true });
+  gtag('config', 'G-KWT87FBY6S', {
+    anonymize_ip: true,
+    send_page_view: true,
+    debug_mode: window.__ga_debug
+  });
 </script>
 
 <style>
@@ -81,7 +106,7 @@ body{
   gap:14px;
 }
 #loader .logoWrap{
-  width:min(170px, 52vw);
+  width:min(220px, 60vw);
   aspect-ratio:1/1;
   display:flex;
   align-items:center;
@@ -121,7 +146,7 @@ body{
 .header{ text-align:center; padding:18px 0 8px; }
 .header .logoLink{ display:inline-flex; align-items:center; justify-content:center; text-decoration:none; }
 .header .logoImg{
-  width:min(160px, 44vw);
+  width:min(220px, 62vw);
   height:auto;
   display:block;
   padding:10px;
@@ -175,49 +200,21 @@ select.insight-select{
 .cta-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
 .cta-row a{ flex:1; min-width:160px; }
 .analyze-btn{
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
+  display:block;
   width:100%;
-  padding:15px 16px;
-  border-radius:18px;
+  padding:14px;
+  border-radius:16px;
   font-weight:900;
   text-decoration:none;
-  text-align:left;
-  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
-  overflow:hidden;
-  user-select:none;
+  text-align:center;
+  color:#00121a;
+  background:linear-gradient(135deg,#1da1f2,#78d6ff);
 }
-.analyze-btn .label{ display:block; line-height:1.05; }
-.analyze-btn .sub{ display:block; margin-top:6px; font-size:11px; font-weight:900; opacity:.9; }
-.analyze-btn .icon{ display:inline-flex; align-items:center; justify-content:center; }
-.analyze-btn::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  background:linear-gradient(120deg, rgba(255,255,255,.18), transparent 35%, rgba(255,255,255,.10));
-  transform: translateX(-40%) skewX(-12deg);
-  opacity:.65;
-  transition: transform .55s ease;
-}
-.analyze-btn:hover{ transform: translateY(-2px); box-shadow:0 18px 44px rgba(0,0,0,.45); }
-.analyze-btn:hover::before{ transform: translateX(40%) skewX(-12deg); }
-
-.analyze-btn.primary{
-  color:#0b0b0b;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  box-shadow:0 16px 40px rgba(212,175,55,.18);
-}
-.analyze-btn.primary:hover{ filter:brightness(1.03); }
-
 .analyze-btn.secondary{
+  background:rgba(255,255,255,.08);
   color:#fff;
-  background:linear-gradient(135deg,#2d7dff,#6bdcff);
-  box-shadow:0 16px 40px rgba(80,160,255,.16);
+  border:1px solid rgba(255,255,255,.12);
 }
-.analyze-btn.secondary:hover{ filter:brightness(1.03); }
 .analyze-btn .sub{ display:block; margin-top:4px; font-size:11px; font-weight:900; opacity:.9; }
 
 .log{ display:grid; gap:8px; }
@@ -240,156 +237,19 @@ select.insight-select{
 .faq summary::-webkit-details-marker{ display:none; }
 .faq .a{ margin-top:8px; color:#cfcfcf; font-size:13px; line-height:1.55; }
 
-.vendor-header{
-  max-width:1100px;
-  margin:14px auto 10px;
-  padding:16px 14px;
-  text-align:center;
-  border-radius:18px;
-  background:rgba(18,18,18,.85);
-  border:1px solid rgba(255,255,255,.06);
-  box-shadow:0 10px 26px rgba(0,0,0,.45);
-  backdrop-filter: blur(10px);
-  position:relative;
-  overflow:hidden;
-}
-.vendor-header::before{
-  content:"";
-  position:absolute;
-  inset:-40px;
-  background:radial-gradient(700px 240px at 50% 0%, rgba(212,175,55,.20), transparent 60%);
-  pointer-events:none;
-}
-.vendor-header h2{ position:relative; margin:0; font-size:18px; font-weight:900; color:var(--gold2); letter-spacing:.2px; }
-.vendor-header p{ position:relative; margin:6px 0 0; font-size:13px; color:#a7a7a7; }
-.pill-row{ position:relative; display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
-.pill{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:9px 12px;
-  border-radius:999px;
-  font-weight:900;
-  text-decoration:none;
-  color:#0b0b0b;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  border:1px solid rgba(255,255,255,.12);
-}
-.pill:hover{ filter:brightness(1.03); }
-.pill.ghost{
-  background:rgba(255,255,255,.08);
-  color:#e8e8e8;
-  border:1px solid rgba(255,255,255,.14);
-}
+.vendor-header{ text-align:center; margin:12px 0 10px; }
+.vendor-header h2{ margin:0; font-size:18px; font-weight:900; color:var(--gold2); letter-spacing:.2px; }
+.vendor-header p{ margin:6px 0 0; font-size:13px; color:#a7a7a7; }
 
-.vendor-tools{
-  position:sticky;
-  top:10px;
-  z-index:80;
-  max-width:1100px;
-  margin:0 auto 10px;
-  padding:10px 14px 12px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(12,12,14,.72);
-  backdrop-filter: blur(14px);
-  box-shadow:0 18px 50px rgba(0,0,0,.45);
-}
-.vendor-tools::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  pointer-events:none;
-  background: radial-gradient(600px 140px at 40% 0%, rgba(212,175,55,.10), transparent 60%);
-  opacity:.9;
-}
-.vendor-tools > *{ position:relative; }
-@media (max-width:640px){
-  .vendor-tools{ top:0; margin:0 auto 8px; border-radius:0; border-left:none; border-right:none; }
-  .v-controls{ gap:8px; align-items:stretch; }
-  .v-control{ min-width: calc(50% - 4px); flex:1; }
-  .v-input{ padding:12px 12px; font-size:14px; }
-  .v-toggle{ width:100%; justify-content:space-between; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
-}
+.vendor-tools{ max-width:1100px; margin:0 auto 8px; padding:0 14px 10px; }
 .v-input{ width:100%; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.28); color:#fff; outline:none; font-weight:800; }
 .v-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-.v-chip{ padding:9px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.25); color:#fff; font-weight:900; cursor:pointer; transition: transform .14s ease, filter .14s ease, border-color .14s ease; }
-.v-chip:hover{ transform: translateY(-1px); filter:brightness(1.03); border-color: rgba(255,255,255,.16); }
+.v-chip{ padding:9px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.25); color:#fff; font-weight:900; cursor:pointer; }
 .v-chip.active{ background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#111; border-color:transparent; }
-
-/* ===== 새 컨트롤(배찌 제거 버전) ===== */
-.v-controls{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; align-items:flex-end; }
-.v-control{ display:flex; flex-direction:column; gap:6px; min-width:120px; }
-.v-control label{ font-size:12px; color:rgba(255,255,255,.68); font-weight:800; letter-spacing:-.2px; }
-.v-select{
-  width:100%;
-  padding:10px 12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.28);
-  color:#fff;
-  outline:none;
-  font-weight:900;
-}
-.v-select:focus{
-  border-color:rgba(255,215,112,.55);
-  box-shadow:0 0 0 3px rgba(255,215,112,.12);
-}
-.v-toggle{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  padding:10px 12px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.22);
-  cursor:pointer;
-  user-select:none;
-}
-.v-toggle input{ display:none; }
-.v-switch{
-  width:46px;
-  height:26px;
-  border-radius:999px;
-  background:rgba(255,255,255,.14);
-  position:relative;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
-  transition: background .15s ease;
-}
-.v-switch::after{
-  content:"";
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  background:rgba(255,255,255,.86);
-  position:absolute;
-  top:2px;
-  left:2px;
-  transition: transform .15s ease;
-}
-.v-toggle input:checked + .v-switch{
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-}
-.v-toggle input:checked + .v-switch::after{
-  transform: translateX(20px);
-}
-.v-toggle-text{ font-weight:900; font-size:12px; color:#fff; }
 .v-small{ margin-top:8px; font-size:12px; color:#a7a7a7; }
 #evAutoHint{ display:none; }
 
-.vendor-grid{ position:relative; display:grid; gap:14px; padding:0 14px 10px; max-width:1100px; margin:0 auto; }
-.vendor-grid::before{
-  content:"";
-  position:absolute;
-  inset:-18px;
-  background:
-    radial-gradient(900px 320px at 50% 0%, rgba(212,175,55,.12), transparent 60%),
-    radial-gradient(700px 320px at 10% 20%, rgba(90,160,255,.10), transparent 60%);
-  pointer-events:none;
-  z-index:0;
-}
-.vendor-grid > .card{ position:relative; z-index:1; }
+.vendor-grid{ display:grid; gap:14px; padding:0 14px 10px; max-width:1100px; margin:0 auto; }
 @media(max-width:767px){ .vendor-grid{ grid-template-columns:repeat(2, 1fr); } }
 @media(min-width:768px) and (max-width:1023px){ .vendor-grid{ grid-template-columns:repeat(3, 1fr); } }
 @media(min-width:1024px){ .vendor-grid{ grid-template-columns:repeat(4, 1fr); } }
@@ -402,37 +262,6 @@ select.insight-select{
   overflow:hidden;
   cursor:pointer;
   backdrop-filter: blur(10px);
-  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, filter .16s ease;
-}
-.card:hover{
-  transform: translateY(-4px);
-  border-color: rgba(245,226,122,.22);
-  box-shadow:0 16px 46px rgba(0,0,0,.62);
-  filter:brightness(1.02);
-}
-.tag-badge{
-  position:absolute;
-  top:10px;
-  left:10px;
-  z-index:2;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:900;
-  border:1px solid rgba(255,255,255,.16);
-  backdrop-filter: blur(10px);
-}
-.tag-badge.rec{
-  color:#0b0b0b;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-}
-.tag-badge.new{
-  color:#00121a;
-  background:linear-gradient(135deg,#2d7dff,#6bdcff);
-}
-.tag-badge.ad{
-  color:#fff;
-  background:rgba(255,255,255,.10);
 }
 .img-box{
   position:relative;
@@ -473,6 +302,7 @@ select.insight-select{
 .desc{ margin-top:6px; font-size:12px; color:#bdbdbd; line-height:1.35; min-height:32px; }
 .code{ margin-top:8px; font-size:12px; color:var(--gold2); font-weight:900; }
 
+#visitorBox{ text-align:center; color:#aaa; font-size:13px; padding:16px 0 22px; }
 
 .popup{
   position:fixed;
@@ -570,152 +400,6 @@ select.insight-select{
   color:#fff;
   border:1px solid rgba(255,255,255,.12);
 }
-
-@media (prefers-reduced-motion: reduce){
-  *{ scroll-behavior:auto !important; }
-  .header .logoImg, #loader img{ animation:none !important; }
-  .analyze-btn::before{ display:none !important; }
-  .card, .analyze-btn, .v-chip{ transition:none !important; }
-}
-
-
-/* ===== 카드 액션(공유) ===== */
-.card-actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:8px;
-  margin-top:10px;
-}
-.mini-share{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:8px 10px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.06);
-  color:#fff;
-  font-size:12px;
-  font-weight:900;
-  cursor:pointer;
-  user-select:none;
-  transition:transform .14s ease, filter .14s ease, border-color .14s ease;
-}
-.mini-share:hover{
-  transform: translateY(-1px);
-  filter: brightness(1.05);
-  border-color: rgba(255,255,255,.18);
-}
-
-/* ===== 공유 팝업 ===== */
-.share-sub{ margin:6px 0 12px; color:#a7a7a7; font-size:12px; }
-.share-preview{
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.28);
-  padding:12px;
-}
-#shareCanvas{
-  width:100%;
-  height:auto;
-  display:block;
-  border-radius:14px;
-}
-.share-row{
-  display:flex;
-  gap:10px;
-  margin-top:12px;
-  align-items:center;
-}
-.share-row input{
-  flex:1;
-}
-.share-actions{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
-  flex-wrap:wrap;
-}
-.btn.share{
-  background:linear-gradient(135deg, rgba(212,175,55,.95), rgba(255,204,82,.95));
-  color:#111;
-  border:1px solid rgba(0,0,0,.1);
-}
-
-/* ===== FAQ ===== */
-.faq-wrap{
-  max-width:1100px;
-  margin:20px auto 26px;
-  padding:0 14px;
-}
-.faq-box{
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  border-radius:18px;
-  overflow:hidden;
-}
-.faq-box summary{
-  cursor:pointer;
-  list-style:none;
-  padding:14px 14px;
-  font-weight:900;
-  color:#fff;
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-.faq-box summary::-webkit-details-marker{ display:none; }
-.faq-box summary span{ color:#bdbdbd; font-weight:900; }
-.faq-box .a{
-  padding:0 14px 14px;
-  color:#cfcfcf;
-  font-size:13px;
-  line-height:1.55;
-}
-.faq-box details{
-  border-top:1px solid rgba(255,255,255,.08);
-}
-.faq-box details:first-child{ border-top:none; }
-
-
-/* ===== 로컬 인사이트(가짜 방문자 대신) ===== */
-.insights-wrap{ max-width:1100px; margin:18px auto 36px; padding:0 14px; }
-.insights-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin:12px 0 10px; }
-.insights-head .h{ font-size:16px; font-weight:900; letter-spacing:-.2px; }
-.insights-head .sub{ color:var(--muted); font-size:12px; line-height:1.4; }
-.insights-grid{ display:grid; gap:14px; }
-@media(max-width:767px){ .insights-grid{ grid-template-columns:1fr; } }
-@media(min-width:768px) and (max-width:1023px){ .insights-grid{ grid-template-columns:1fr 1fr; } }
-@media(min-width:1024px){ .insights-grid{ grid-template-columns:1.1fr .9fr .9fr; } }
-
-.stat-card{ cursor:default; }
-.stat-card:hover{ transform:none; border-color:rgba(255,255,255,.06); box-shadow:0 10px 30px rgba(0,0,0,.55); filter:none; }
-.stat-top{ padding:14px 14px 8px; }
-.stat-title{ font-weight:900; font-size:14px; display:flex; align-items:center; gap:8px; }
-.stat-meta{ color:var(--muted); font-size:12px; margin-top:4px; line-height:1.35; }
-.stat-list{ padding:8px 14px 14px; display:grid; gap:10px; }
-.stat-item{ display:flex; justify-content:space-between; gap:10px; align-items:center; }
-.stat-left{ display:flex; align-items:center; gap:10px; min-width:0; }
-.stat-rank{ width:18px; text-align:center; color:#f5e27a; font-weight:900; font-size:12px; flex:0 0 auto; }
-.stat-link{ background:transparent; border:0; padding:0; color:#fff; font-size:13px; font-weight:800; cursor:pointer; text-align:left; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.stat-link:hover{ text-decoration:underline; }
-.stat-count{ color:var(--muted); font-size:12px; font-weight:800; flex:0 0 auto; }
-.stat-actions{ padding:0 14px 14px; display:flex; gap:10px; flex-wrap:wrap; }
-.small-btn{
-  padding:8px 10px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.06);
-  color:#fff;
-  font-size:12px;
-  font-weight:900;
-  cursor:pointer;
-  user-select:none;
-}
-.small-btn:hover{ filter:brightness(1.08); border-color:rgba(255,255,255,.16); }
-.small-btn:active{ transform: translateY(1px); }
-.note-mini{ color:var(--muted); font-size:12px; padding:0 14px 14px; line-height:1.35; }
-
 </style>
 
 <script>
@@ -750,13 +434,7 @@ const CARD_DATA = {
 
   card9:{ title:"RIO", code:"opop", link:"https://rio2.casino/?b=OPOP", telegram:"Aven47",
     benefit:"카지노 입플/페이백 중심 · 고액 유저 기준 혜택 안내",
-    notice:"가입코드 미입력 시 혜택 적용이 어려울 수 있습니다." },
-  card10:{ title:"RED HULK", code:"HERO", link:"https://rhk-777.com", telegram:"SDTR8",
-    benefit:"신규 30% / 매충 10% / 페이백5% 콤프(1%/3%)%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-   card11:{ title:"TOP GUN", code:"GAS7", link:"https://topgun-88.com", telegram:"SDTR8",
-    benefit:"신규 30% / 매충 10% / 페이백5% 콤프(1%/3%)%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
+    notice:"가입코드 미입력 시 혜택 적용이 어려울 수 있습니다." }
 };
 
 /* ===== 인사이트 (종목별) ===== */
@@ -803,9 +481,30 @@ const INSIGHTS_BY_SPORT = {
 const UTM_KEYS = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content"];
 function track(evt, params) {
   try {
+    const p = Object.assign({
+      page_type: "index",
+      ui_version: "ga4_complete_v1"
+    }, (params || {}));
+
+    // 상태 스냅샷(있을 때만)
+    if (typeof currentFilter !== "undefined" && p.filter === undefined) p.filter = currentFilter;
+    if (typeof marginMode !== "undefined" && p.margin_mode === undefined) p.margin_mode = marginMode;
+
+    // 문자열 길이 제한 + 빈값 제거
+    Object.keys(p).forEach(k=>{
+      const v = p[k];
+      if (v === undefined || v === null || v === "") { delete p[k]; return; }
+      if (typeof v === "string") p[k] = v.slice(0, 120);
+    });
+
+    // DebugView
+    if (window.__ga_debug) p.debug_mode = true;
+
     if (typeof window.gtag === "function") {
-      window.gtag("event", evt, params || {});
+      window.gtag("event", evt, p);
     }
+  } catch(e) {}
+}
   } catch(e) {}
 }
 function saveUtmFromUrl() {
@@ -851,37 +550,6 @@ function appendUtm(urlStr) {
   }
 }
 </script>
-
-<script>
-  // ===== Site Config (EDIT THESE) =====
-  // GA4_ID: GA4 Measurement ID (예: G-XXXXXXXXXX)
-  // POPULAR_API: 전체 사용자 인기 데이터를 반환하는 API 엔드포인트(예: /api/popular)
-  //   - 연동 전에는 비워두면(또는 "disabled") 로컬 집계(내 브라우저 기준)로만 표시됩니다.
-  window.SITE_CONFIG = window.SITE_CONFIG || {
-    GA4_ID: "G-XXXXXXXXXX",
-    POPULAR_API: "disabled"
-  };
-
-  // ===== GA4 bootstrap (dynamic inject) =====
-  (function initGA4(){
-    try{
-      const id = (window.SITE_CONFIG && window.SITE_CONFIG.GA4_ID) || "";
-      if(!id || id === "disabled" || /^G-XXXX/i.test(id) || id === "G-XXXXXXXXXX") return;
-
-      const s = document.createElement("script");
-      s.async = true;
-      s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);
-      document.head.appendChild(s);
-
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
-      window.gtag = window.gtag || gtag;
-      gtag("js", new Date());
-      gtag("config", id, { send_page_view: true });
-    }catch(e){}
-  })();
-</script>
-
 </head>
 
 <body>
@@ -918,7 +586,7 @@ function appendUtm(urlStr) {
   <a class="logoLink" href="/" aria-label="홈으로 이동">
     <img class="logoImg" src="img/logo.png" alt="88 커뮤니티 로고">
   </a>
-  <div class="sub">배당 마진·EV·확률을 10초 만에 — 분석부터 선택까지 한 번에.</div>
+  <div class="sub">분석기 → 결과 확인 → 필요한 행동까지, 한 번에.</div>
 </div>
 
 <div class="section-wrap">
@@ -931,23 +599,25 @@ function appendUtm(urlStr) {
       <span style="display:block;color:#9a9a9a;font-size:12px;margin-top:6px;">※ 도구는 참고용이며 결과를 보장하지 않습니다.</span>
     </div>
     <div class="cta-row">
-      <a class="analyze-btn primary" href="/analysis/" data-cta="analysis">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 3v18h18"></path>
-            <path d="M7 14l3-3 3 2 5-6"></path>
-          </svg>
-        </span>
-        <span class="label">분석기 사용<span class="sub">무료 · 초간단 · EV 확인</span></span>
-      </a>
-      <a class="analyze-btn secondary" href="#vendorTop" data-cta="vendors">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"></path>
-          </svg>
-        </span>
-        <span class="label">인증놀이터 보기<span class="sub">카드 · 검색 · 인기순</span></span>
-      </a>
+      <a class="analyze-btn" href="/analysis/" data-cta="analysis">분석기 사용<span class="sub">무료 · 초간단 · EV 확인</span></a>
+      <a class="analyze-btn secondary" href="#vendorTop" data-cta="vendors">인증놀이터 보기<span class="sub">아래 섹션으로 이동</span></a>
+    </div>
+  </div>
+
+  <!-- 유입/전환 로드맵 (방문자용 + 운영자용) -->
+  <div class="section" id="growthPlan">
+    <div class="title"><span class="badge">PLAN</span>유입 → 분석기 → 전환 흐름</div>
+    <div class="text">
+      방문자가 <b>1~2번 클릭</b>만으로 분석기를 쓰고, 필요한 행동(문의/이동)까지 가도록 설계했습니다.
+    </div>
+    <ul class="text" style="margin:10px 0 0; padding-left:18px;">
+      <li>랜딩(키워드) 페이지 → 메인으로 유입</li>
+      <li>메인 상단 CTA로 분석기 즉시 사용</li>
+      <li>분석 결과(+EV 등)에서 추천/안내로 자연스러운 이동</li>
+      <li>카드 팝업에서 “복사 → 이동/문의” + 2차 CTA로 이탈 감소</li>
+    </ul>
+    <div class="text" style="margin-top:10px;color:#9a9a9a;font-size:12px;">
+      운영 팁: 랜딩에는 300~800자 설명 + FAQ 3~5개 + “분석기 사용” CTA를 넣고, 문구/메타는 랜딩마다 다르게 운영하세요.
     </div>
   </div>
 
@@ -1036,7 +706,7 @@ function appendUtm(urlStr) {
         </div>
       </div>
 
-      <div class="section faq" id="faq">
+      <div class="section faq">
         <div class="title"><span class="badge">FAQ</span>자주 묻는 질문</div>
 
         <details>
@@ -1088,92 +758,26 @@ function appendUtm(urlStr) {
 <div class="vendor-header" id="vendorTop">
   <h2>88 인증 놀이터</h2>
   <p>필요한 정보만 빠르게 확인할 수 있도록 정리했습니다</p>
-  <div class="pill-row" aria-label="빠른 이동">
-    <a class="pill" href="/analysis/" data-cta="vendor_to_analysis">분석기 바로가기</a>
-    <a class="pill" href="#vendorGrid" data-cta="vendor_to_grid">카드 바로보기</a>
-  </div>
 </div>
 
 <div class="vendor-tools" aria-label="카드 검색 및 필터">
   <input id="searchInput" class="v-input" placeholder="업체 검색 (예: CAPS, VEGAS, 페이백, USDT)" autocomplete="off">
-  <div class="v-controls" aria-label="필터 및 정렬">
-    <div class="v-control">
-      <label for="filterSelect">카테고리</label>
-      <select id="filterSelect" class="v-select">
-        <option value="all">전체</option>
-        <option value="rec">추천</option>
-        <option value="new">신규</option>
-        <option value="ad">광고/제휴</option>
-      </select>
-    </div>
-
-    <div class="v-control">
-      <label for="sortSelect">정렬</label>
-      <select id="sortSelect" class="v-select">
-        <option value="default">기본</option>
-        <option value="pop">인기순</option>
-      </select>
-    </div>
-
-    <label class="v-toggle" for="cleanToggle" aria-label="정제된 문구 토글">
-      <input type="checkbox" id="cleanToggle">
-      <span class="v-switch" aria-hidden="true"></span>
-      <span class="v-toggle-text">정제된 문구</span>
-    </label>
+  <div class="v-row">
+    <button class="v-chip active" id="chipAll" type="button" data-filter="all">전체</button>
+    <button class="v-chip" id="chipRec" type="button" data-filter="rec">추천</button>
+    <button class="v-chip" id="chipNew" type="button" data-filter="new">신규</button>
+    <button class="v-chip" id="chipAd" type="button" data-filter="ad">광고/제휴</button>
+    <button class="v-chip" id="chipPop" type="button" data-filter="pop">인기순</button>
   </div>
   <div class="v-small" id="evAutoHint"></div>
-  <div class="v-small" id="cleanHint">정제된 문구: 카드 혜택 문구를 짧고 깔끔하게 보여줍니다.</div>
 </div>
 
 <div class="vendor-grid" id="vendorGrid"></div>
 
-
-<div class="insights-wrap" id="insights">
-  <div class="insights-head">
-    <div>
-      <div class="h" id="insightHeadline">오늘의 인기</div>
-      <div class="sub">방문자 수 대신, <b>이 사이트에서 실제로 많이 본/많이 검색한 항목</b>을 보여줍니다. </div>
-    </div>
-  </div>
-
-  <div class="insights-grid">
-    <div class="card stat-card" aria-label="오늘 많이 본 키워드">
-      <div class="stat-top">
-        <div class="stat-title">오늘 많이 본 키워드</div>
-        <div class="stat-meta" id="insightKwMeta">검색창에 입력한 키워드 기준으로 집계됩니다. (데이터가 쌓이면 자동 갱신)</div>
-      </div>
-      <div class="stat-list" id="insightKeywords"></div>
-      <div class="stat-actions">
-        <button class="small-btn" type="button" id="insightResetBtn">로컬 기록 초기화</button>
-      </div>
-    </div>
-
-    <div class="card stat-card" aria-label="오늘 많이 본 카드">
-      <div class="stat-top">
-        <div class="stat-title">오늘 많이 본 카드 TOP 5</div>
-        <div class="stat-meta" id="insightCardMeta">카드 상세를 열어본 횟수 기준입니다. (로컬 집계)</div>
-      </div>
-      <div class="stat-list" id="insightCards"></div>
-      <div class="note-mini">※ “인기순” 정렬은 카드 클릭 누적 기반, 이 영역은 “오늘 열람” 기반입니다.</div>
-    </div>
-
-    <div class="card stat-card" aria-label="빠른 도구">
-      <div class="stat-top">
-        <div class="stat-title">빠른 도구</div>
-        <div class="stat-meta">자주 쓰는 계산기를 바로 실행하세요.</div>
-      </div>
-      <div class="stat-actions">
-        <a class="small-btn" href="/analysis/" data-cta="quick_analysis">분석기</a>
-        <a class="small-btn" href="/tool-margin/" data-cta="quick_margin">마진</a>
-        <a class="small-btn" href="/tool-ev/" data-cta="quick_ev">EV</a>
-        <a class="small-btn" href="/tool-odds/" data-cta="quick_odds">확률</a>
-      </div>
-      <div class="note-mini">팁: 라인/배당 흐름은 “기록(로그)”이 쌓여야 의미가 커집니다. 다음 업데이트에서 베팅 로그/대시보드를 붙이면 재방문이 확 올라갑니다.</div>
-    </div>
-  </div>
+<div id="visitorBox">
+  전체 방문자 : <b id="total">0</b> /
+  금일 방문자 : <b id="today">0</b>
 </div>
-
-
 
 <div class="popup" id="cardPopup" role="dialog" aria-modal="true" aria-label="업체 상세">
   <div class="popup-box" role="document">
@@ -1184,7 +788,6 @@ function appendUtm(urlStr) {
     <p id="pNotice" style="color:#ff6b6b;font-size:12px;margin:8px 0 0;"></p>
 
     <div class="btn copy" id="copyBtn">가입코드 복사</div>
-    <div class="btn share" id="shareBtn">공유하기</div>
     <a class="btn go" id="pLink" target="_blank" rel="noopener">사이트 이동</a>
 
     <div class="telegram">
@@ -1201,83 +804,18 @@ function appendUtm(urlStr) {
     </div>
 
     <div class="btn copy" id="closeBtn">닫기</div>
-  
-</div>
-</div>
-
-<div class="popup" id="sharePopup" role="dialog" aria-modal="true" aria-label="공유 카드" style="display:none;">
-  <div class="popup-box" role="document">
-    <h2>공유하기</h2>
-    <p class="share-sub">링크를 복사하거나, 이미지로 저장해서 공유할 수 있습니다.</p>
-
-    <div class="share-preview">
-      <canvas id="shareCanvas" width="1080" height="1080" aria-label="공유 이미지 미리보기"></canvas>
-    </div>
-
-    <div class="share-row">
-      <input id="shareLink" class="v-input" readonly aria-label="공유 링크">
-      <div class="btn copy" id="copyShareLinkBtn" style="min-width:120px;">링크 복사</div>
-    </div>
-
-    <div class="share-actions">
-      <div class="btn go" id="downloadShareImgBtn">이미지 저장</div>
-      <div class="btn copy" id="copyShareTextBtn">문구 복사</div>
-    </div>
-
-    <div class="btn copy" id="closeShareBtn">닫기</div>
   </div>
 </div>
 
 <div class="landing-seo">
   <h3>관련 정보</h3>
   <div class="links">
-    <a href="/tool-margin/" data-cta="seo_margin">배당 마진 계산기</a>
-    <a href="/tool-ev/" data-cta="seo_ev">EV 계산기</a>
-    <a href="/tool-odds/" data-cta="seo_odds">배당↔확률 변환</a>
-    
     <a href="/landing-a/">입플·보너스 분석기</a>
     <a href="/landing-b/">고액 유저 안내</a>
     <a href="/landing-c/">배당 마진·EV 계산</a>
     <a href="/landing-d/">배당 흐름 분석</a>
   </div>
 </div>
-
-
-
-
-<script type="application/ld+json" id="faqJsonLd">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "배당 마진(오버라운드)이 높으면 왜 불리한가요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "각 결과의 암시 확률 합이 100%를 넘는 만큼(오버라운드), 장기 기대값이 낮아집니다. 같은 추정 실력이라도 마진이 낮은 시장이 더 유리합니다." }
-    },
-    {
-      "@type": "Question",
-      "name": "EV(기대값) 계산은 어떻게 해석하나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "추정 승률이 손익분기점(1/배당)보다 높으면 +EV, 낮으면 -EV입니다. 단기 결과와 별개로 장기 평균 관점의 지표입니다." }
-    },
-    {
-      "@type": "Question",
-      "name": "정제된 문구는 무엇이 달라지나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "카드 혜택 문구를 요약/정리해 과도한 문장·중복 표현을 줄입니다. 가독성을 높이기 위한 표시 방식입니다." }
-    },
-    {
-      "@type": "Question",
-      "name": "결과를 공유하면 링크를 받은 사람도 같은 화면을 보나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "공유 링크에는 해당 카드 ID가 포함되어, 접속 시 같은 업체 상세 팝업이 자동으로 열리도록 설계했습니다." }
-    },
-    {
-      "@type": "Question",
-      "name": "이 도구의 결과가 정답인가요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "아닙니다. 본 페이지는 정보 제공 및 리스크 관리 참고용입니다. 실제 결과를 보장하지 않으며, 과몰입을 피하고 책임감 있게 이용해 주세요." }
-    }
-  ]
-}
-</script>
 
 <div class="fab" aria-label="빠른 이동">
   <a href="/analysis/" data-cta="fab_analysis">분석기</a>
@@ -1295,27 +833,19 @@ function hideLoader() {
 window.addEventListener("load", hideLoader);
 setTimeout(hideLoader, 2500);
 
-/* ===== 날짜 키(로컬) ===== */
-function dateKeyLocal() {
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,"0");
-  const day = String(d.getDate()).padStart(2,"0");
-  return `${y}-${m}-${day}`;
-}
-
 /* ===== 사칭주의 팝업 (1일 1회) ===== */
 (function() {
   const key="scam_popup_date";
-  const today=dateKeyLocal();
+  const today=new Date().toISOString().slice(0,10);
   const el = document.getElementById("scamPopup");
   if(!el) return;
   if(localStorage.getItem(key)!==today) {
     el.style.display="flex";
   }
+    track("scam_popup_open", {page:"index"});
 })();
 function closeScam() {
-  const today=dateKeyLocal();
+  const today=new Date().toISOString().slice(0,10);
   localStorage.setItem("scam_popup_date", today);
   const el = document.getElementById("scamPopup");
   if(el) el.style.display="none";
@@ -1345,18 +875,19 @@ function pickInsight(sport) {
   if(!arr.length) return "배당 흐름을 체크하고 라인 변화를 확인하세요.";
   return arr[Math.floor(Math.random()*arr.length)];
 }
-function refreshInsight() {
+function refreshInsight(isInit) {
   const sEl = document.getElementById("insightSport");
   const sport = sEl ? sEl.value : "축구";
   const out = document.getElementById("insight");
   if(out) out.innerText = pickInsight(sport);
   localStorage.setItem("insightSport", sport);
-}
+
+  if(!isInit) track("insight_refresh", {sport: sport});}
 (function initInsight() {
   const saved = localStorage.getItem("insightSport");
   const sel = document.getElementById("insightSport");
   if(saved && sel) sel.value = saved;
-  refreshInsight();
+  refreshInsight(true);
 })();
 
 /* ===== 업데이트 로그 ===== */
@@ -1376,6 +907,34 @@ const UPDATE_LOG = [
   `).join("");
 })();
 
+/* ===== 방문자(로컬) ===== */
+(function() {
+  const totalEl = document.getElementById("total");
+  const todayEl = document.getElementById("today");
+  if(!totalEl || !todayEl) return;
+
+  const today = new Date().toISOString().slice(0,10);
+  const totalKey = "v_total";
+  const todayKey = "v_today_" + today;
+
+  const now = Date.now();
+  const guardKey = "v_guard";
+  const last = Number(localStorage.getItem(guardKey) || 0);
+  const TEN_MIN = 10 * 60 * 1000;
+
+  let total = Number(localStorage.getItem(totalKey) || 0);
+  let todayCount = Number(localStorage.getItem(todayKey) || 0);
+
+  if(now - last > TEN_MIN) {
+    total += 1;
+    todayCount += 1;
+    localStorage.setItem(totalKey, String(total));
+    localStorage.setItem(todayKey, String(todayCount));
+    localStorage.setItem(guardKey, String(now));
+  }
+  totalEl.innerText = total;
+  todayEl.innerText = todayCount;
+})();
 
 /* ===== 체크리스트 ===== */
 const CHECKLIST_POOL = [
@@ -1387,16 +946,17 @@ const CHECKLIST_POOL = [
   "변동성 큰 리그는 단폴/소액으로 테스트하기",
   "무리한 마틴/추격 배팅은 금지(손실 제한선 미리 설정)"
 ];
-function refreshChecklist() {
+function refreshChecklist(isInit) {
   const pool = [...CHECKLIST_POOL].sort(()=>Math.random()-0.5);
   const pick = pool.slice(0,3);
   const el = document.getElementById("checklistText");
   if(el) el.innerHTML = "• " + pick.join("<br>• ");
-}
+
+  if(!isInit) track("checklist_refresh", {pick_count: 3});}
 
 /* ===== 마진 계산기 ===== */
 let marginMode = "2";
-function setMarginMode(mode) {
+function setMarginMode(mode, isInit) {
   marginMode = mode;
   const b2=document.getElementById("mMode2");
   const b3=document.getElementById("mMode3");
@@ -1410,6 +970,7 @@ function setMarginMode(mode) {
     b3.classList.add("active"); b2.classList.remove("active");
     w3.style.display="block"; w2.style.display="none";
   }
+  if(!isInit) track("margin_mode_change", {margin_mode: mode});
 }
 function toNum(v) {
   const n = Number(String(v).replace(/,/g,"").trim());
@@ -1430,6 +991,7 @@ function calcSimpleMargin() {
     }
     const imp = (1/a)+(1/b);
     const margin = (imp-1)*100;
+    track("margin_calculate", {margin_mode:"2", odds_count:2, margin_pct: Number(margin.toFixed(2))});
     const fair = 1/imp;
     const pA=(1/a)*fair*100, pB=(1/b)*fair*100;
     out.innerText=`마진(수수료) : ${margin.toFixed(2)}%`;
@@ -1445,6 +1007,7 @@ function calcSimpleMargin() {
     }
     const imp=(1/h)+(1/d)+(1/a);
     const margin=(imp-1)*100;
+    track("margin_calculate", {margin_mode:"3", odds_count:3, margin_pct: Number(margin.toFixed(2))});
     const fair=1/imp;
     const pH=(1/h)*fair*100, pD=(1/d)*fair*100, pA=(1/a)*fair*100;
     out.innerText=`마진(수수료) : ${margin.toFixed(2)}%`;
@@ -1465,325 +1028,11 @@ function calcSimpleMargin() {
   set("card7", {tag:"ad", priority:"ad", recruit:true, reasons:["광고 문의 전용", "배너/카드/문구 협의 가능", "텔레그램으로만 진행"]});
   set("card8", {tag:"ad", priority:"ad", recruit:true, reasons:["광고 문의 전용", "고정 노출/추가 옵션", "사칭 주의"]});
   set("card9", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택", "문의 채널 고정"]});
-  set("card10", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택", "문의 채널 고정"]});
-  set("card11", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택", "문의 채널 고정"]});
 })();
 
 /* ===== 카드 렌더/필터/인기순 ===== */
-
-/* ===== 로컬 인사이트(가짜 방문자 대신) ===== */
-const STATS_KEY = "88_local_stats_v1";
-function dayKeyLocal(){
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,"0");
-  const dd = String(d.getDate()).padStart(2,"0");
-  return `${y}-${m}-${dd}`;
-}
-function loadStats(){
-  try{
-    const raw = localStorage.getItem(STATS_KEY);
-    const s = raw ? JSON.parse(raw) : {};
-    return ensureToday(s);
-  }catch(e){
-    return ensureToday({});
-  }
-}
-function saveStats(s){
-  try{ localStorage.setItem(STATS_KEY, JSON.stringify(s)); }catch(e){}
-}
-function ensureToday(s){
-  const today = dayKeyLocal();
-  if(!s || typeof s !== "object") s = {};
-  if(s.day !== today){
-    s.day = today;
-    s.today = { views:{}, searches:{} };
-  }
-  if(!s.today) s.today = { views:{}, searches:{} };
-  if(!s.today.views) s.today.views = {};
-  if(!s.today.searches) s.today.searches = {};
-  if(!s.total) s.total = { views:{}, searches:{} };
-  if(!s.total.views) s.total.views = {};
-  if(!s.total.searches) s.total.searches = {};
-  return s;
-}
-function bumpObjCount(obj, key, inc=1){
-  if(!key) return;
-  obj[key] = (obj[key]||0) + inc;
-}
-function normKw(s){
-  return String(s||"")
-    .replace(/[\u0000-\u001f]/g," ")
-    .trim();
-}
-function tokenize(q){
-  const t = normKw(q);
-  if(!t) return [];
-  // 공백/쉼표/슬래시 기준, 짧은 토큰 제거
-  return t.split(/[\s,\/|]+/g)
-    .map(x=>x.trim())
-    .filter(x=>x.length>=2)
-    .slice(0, 12);
-}
-function bumpView(cardId){
-  const s = loadStats();
-  bumpObjCount(s.today.views, cardId, 1);
-  bumpObjCount(s.total.views, cardId, 1);
-  saveStats(s);
-  renderInsights();
-}
-function bumpSearch(rawQuery){
-  const s = loadStats();
-  // GA4: recommended event name "search" with parameter "search_term"
-  track("search", {"search_term": String(rawQuery||"").trim().slice(0,80)});
-  const tokens = tokenize(rawQuery);
-  if(!tokens.length) return;
-  tokens.forEach(tok=>{
-    // 영문/숫자는 대문자 정규화
-    const key = tok.replace(/[a-z0-9]/gi, (c)=> c.toUpperCase());
-    bumpObjCount(s.today.searches, key, 1);
-    bumpObjCount(s.total.searches, key, 1);
-  });
-  saveStats(s);
-  renderInsights();
-}
-function topN(obj, n=5){
-  return Object.entries(obj||{})
-    .sort((a,b)=> (b[1]-a[1]) || a[0].localeCompare(b[0]))
-    .slice(0,n);
-}
-function renderLocalInsights(){
-  const kwBox = document.getElementById("insightKeywords");
-  const cardBox = document.getElementById("insightCards");
-  const resetBtn = document.getElementById("insightResetBtn");
-  if(!kwBox && !cardBox) return;
-
-  const s = loadStats();
-
-  // Keywords
-  if(kwBox){
-    const list = topN(s.today.searches, 10);
-    if(list.length){
-      kwBox.innerHTML = list.map(([kw,c],i)=>`
-        <div class="stat-item">
-          <div class="stat-left">
-            <div class="stat-rank">${i+1}</div>
-            <button class="stat-link" type="button" data-kw="${kw.replace(/"/g,'&quot;')}">${kw}</button>
-          </div>
-          <div class="stat-count">${c}</div>
-        </div>
-      `).join("");
-    } else {
-      // fallback: 추천 키워드(가짜 인기 아님)
-      const fallback = ["CAPS","VEGAS","페이백","USDT","파워볼","키노","슬롯","미니게임"];
-      kwBox.innerHTML = fallback.map((kw,i)=>`
-        <div class="stat-item">
-          <div class="stat-left">
-            <div class="stat-rank">${i+1}</div>
-            <button class="stat-link" type="button" data-kw="${kw}">${kw}</button>
-          </div>
-          <div class="stat-count">추천</div>
-        </div>
-      `).join("");
-    }
-  }
-
-  // Cards
-  if(cardBox){
-    const list = topN(s.today.views, 5);
-    if(list.length){
-      cardBox.innerHTML = list.map(([id,c],i)=>{
-        const title = (CARD_DATA[id]?.title)||id;
-        return `
-          <div class="stat-item">
-            <div class="stat-left">
-              <div class="stat-rank">${i+1}</div>
-              <button class="stat-link" type="button" data-card="${id}">${title}</button>
-            </div>
-            <div class="stat-count">${c}</div>
-          </div>
-        `;
-      }).join("");
-    } else {
-      cardBox.innerHTML = `<div class="note-mini" style="padding:12px 14px 14px;">아직 오늘 열어본 카드가 없습니다. 카드 상세를 열면 TOP 리스트가 자동으로 채워집니다.</div>`;
-    }
-  }
-
-  // bindings
-  document.querySelectorAll("[data-kw]").forEach(btn=>{
-    btn.onclick = ()=>{
-      const kw = btn.getAttribute("data-kw") || "";
-      const input = document.getElementById("searchInput");
-      if(input){ input.value = kw; renderGrid(); input.focus(); }
-      track("insight_kw_click", {"kw": kw});
-    };
-  });
-  document.querySelectorAll("[data-card]").forEach(btn=>{
-    btn.onclick = ()=>{
-      const id = btn.getAttribute("data-card");
-      if(id) openCard(id);
-      track("insight_card_click", {"card_id": id});
-    };
-  });
-
-  if(resetBtn){
-    resetBtn.onclick = ()=>{
-      try{ localStorage.removeItem(STATS_KEY); }catch(e){}
-      renderInsights();
-      track("insight_reset", {});
-    };
-  }
-}
-
-
-// ===== Global Insights (전체 사용자 인기: GA4 Data API 등) =====
-let __INSIGHTS_MODE = "auto"; // "auto" | "global" | "local"
-let __GLOBAL_INSIGHTS_CACHE = null;
-let __GLOBAL_INSIGHTS_AT = 0;
-
-function hasGlobalInsights() {
-  const api = (window.SITE_CONFIG && window.SITE_CONFIG.POPULAR_API) || "";
-  return api && api !== "disabled" && !/^\s*$/.test(api);
-}
-
-function bindInsightButtons() {
-  document.querySelectorAll("[data-kw]").forEach(btn=>{
-    btn.onclick = ()=>{
-      const kw = btn.getAttribute("data-kw") || "";
-      const input = document.getElementById("searchInput");
-      if(input){ input.value = kw; renderGrid(); input.focus(); }
-      track("insight_kw_click", {"kw": kw});
-    };
-  });
-  document.querySelectorAll("[data-card]").forEach(btn=>{
-    btn.onclick = ()=>{
-      const id = btn.getAttribute("data-card");
-      if(id) openCard(id);
-      track("insight_card_click", {"card_id": id});
-    };
-  });
-}
-
-function renderGlobalInsights(data) {
-  const kwBox = document.getElementById("insightKeywords");
-  const cardBox = document.getElementById("insightCards");
-  const resetBtn = document.getElementById("insightResetBtn");
-  const kwMeta = document.getElementById("insightKwMeta");
-  const cardMeta = document.getElementById("insightCardMeta");
-  const headline = document.getElementById("insightHeadline");
-
-  if(headline){
-    const date = data && data.date ? String(data.date) : "";
-    headline.innerHTML = `오늘의 인기 <span class="pill">전체 사용자 기준</span>` + (date ? `<span class="pill ghost">${date}</span>` : "");
-  }
-  if(resetBtn) resetBtn.style.display = "none";
-  if(kwMeta) kwMeta.textContent = "GA4 이벤트(검색) 기준으로 집계됩니다.";
-  if(cardMeta) cardMeta.textContent = "GA4 이벤트(카드 열람) 기준으로 집계됩니다.";
-
-  if(kwBox){
-    const list = (data && Array.isArray(data.keywords)) ? data.keywords : [];
-    if(list.length){
-      kwBox.innerHTML = list.slice(0,10).map((it,i)=>{
-        const kw = (it.term || it.keyword || "").toString();
-        const c = (it.count ?? it.value ?? "").toString();
-        return `
-          <div class="stat-item">
-            <div class="stat-left">
-              <div class="stat-rank">${i+1}</div>
-              <button class="stat-link" type="button" data-kw="${kw.replace(/"/g,'&quot;')}">${kw}</button>
-            </div>
-            <div class="stat-count">${c}</div>
-          </div>
-        `;
-      }).join("");
-    } else {
-      kwBox.innerHTML = `<div class="stat-empty">아직 데이터가 충분히 쌓이지 않았어요.</div>`;
-    }
-  }
-
-  if(cardBox){
-    const list = (data && Array.isArray(data.cards)) ? data.cards : [];
-    if(list.length){
-      cardBox.innerHTML = list.slice(0,5).map((it,i)=>{
-        const id = (it.id || it.card_id || "").toString();
-        const c = (it.count ?? it.value ?? "").toString();
-        const title = (CARD_DATA[id]?.title) || id;
-        return `
-          <div class="stat-item">
-            <div class="stat-left">
-              <div class="stat-rank">${i+1}</div>
-              <button class="stat-link" type="button" data-card="${id}">${title}</button>
-            </div>
-            <div class="stat-count">${c}</div>
-          </div>
-        `;
-      }).join("");
-    } else {
-      cardBox.innerHTML = `<div class="stat-empty">아직 데이터가 충분히 쌓이지 않았어요.</div>`;
-    }
-  }
-
-  bindInsightButtons();
-}
-
-async function tryLoadGlobalInsights(force=false) {
-  if(!hasGlobalInsights()) return false;
-  if(!force && __GLOBAL_INSIGHTS_CACHE && (Date.now()-__GLOBAL_INSIGHTS_AT) < 60_000) return true;
-
-  const api = window.SITE_CONFIG.POPULAR_API;
-  try{
-    const url = api.includes("?") ? (api + "&range=today") : (api + "?range=today");
-    const res = await fetch(url, { cache: "no-store" });
-    if(!res.ok) throw new Error("bad status");
-    const data = await res.json();
-    __GLOBAL_INSIGHTS_CACHE = data;
-    __GLOBAL_INSIGHTS_AT = Date.now();
-    __INSIGHTS_MODE = "global";
-    renderGlobalInsights(data);
-    return true;
-  }catch(e){
-    return false;
-  }
-}
-
-function renderInsights() {
-  if(__INSIGHTS_MODE === "global") {
-    if(__GLOBAL_INSIGHTS_CACHE) renderGlobalInsights(__GLOBAL_INSIGHTS_CACHE);
-    return;
-  }
-  renderLocalInsights();
-}
-
-async function initInsights() {
-  // url param: ?insights=local 로 강제
-  try{
-    const u = new URL(location.href);
-    const force = (u.searchParams.get("insights")||"").toLowerCase();
-    if(force === "local"){ __INSIGHTS_MODE = "local"; renderLocalInsights(); return; }
-  }catch(e){}
-  const ok = await tryLoadGlobalInsights(true);
-  if(!ok){ __INSIGHTS_MODE = "local"; renderLocalInsights(); }
-}
-
-
-
-
 const CLICK_KEY_PREFIX = "88_card_click_";
 let currentFilter = "all";
-let currentSort = "default";
-let isCleanText = false;
-
-function cleanBenefit(s) {
-  const t = String(s||"")
-    .replace(/[•]/g,"·")
-    .replace(/\s*\/\s*/g," / ")
-    .replace(/\s+/g," ")
-    .trim();
-
-  const max = 56;
-  return t.length > max ? (t.slice(0, max-1) + "…") : t;
-}
-
 
 function norm(s){ return String(s||"").toLowerCase().replace(/\s+/g,""); }
 function getClickCount(id){ return Number(localStorage.getItem(CLICK_KEY_PREFIX + id) || 0); }
@@ -1801,7 +1050,9 @@ function renderGrid() {
   const grid = document.getElementById("vendorGrid");
   if(!grid) return;
 
-  const q = norm(document.getElementById("searchInput")?.value || "");
+  const rawQuery = (document.getElementById("searchInput")?.value || "").trim();
+
+  const q = norm(rawQuery);
 
   const ids = Object.keys(CARD_DATA);
 
@@ -1825,16 +1076,13 @@ function renderGrid() {
     return true;
   });
 
-  if(currentSort==="pop") {
+  if(currentFilter==="pop") {
     filtered.sort((a,b)=> getClickCount(b)-getClickCount(a));
   }
 
   grid.innerHTML = filtered.map(id=>{
     const d = CARD_DATA[id];
     const src = cardSourcesById(id);
-const rawDesc = d.benefit ? d.benefit : "";
-    const desc = isCleanText ? cleanBenefit(rawDesc) : rawDesc;
-
     return `
       <div class="card" data-card="${id}">
         <div class="img-box">
@@ -1845,12 +1093,8 @@ const rawDesc = d.benefit ? d.benefit : "";
         </div>
         <div class="content">
           <div class="site">${d.title || ""}</div>
-          <div class="desc">${desc}</div>
-          <div class="card-actions">
-            <div class="mini-share" role="button" tabindex="0" data-share="${id}" aria-label="공유하기">
-              <span aria-hidden="true">↗</span><span>공유</span>
-            </div>
-          </div>
+          <div class="desc">${d.benefit ? d.benefit : ""}</div>
+          <div class="code">${d.tag==="ad" ? "광고/제휴" : "88 인증 놀이터"}</div>
         </div>
       </div>
     `;
@@ -1869,129 +1113,90 @@ const rawDesc = d.benefit ? d.benefit : "";
     };
   });
 
+  window.__grid_state = { filter: currentFilter, query: rawQuery, count: filtered.length };
   setChipActive();
   bindCardClicks();
+  return filtered.length;
 }
 
 function setChipActive() {
-  // 기존 v-chip(배찌) UI 제거 → select / toggle 상태만 동기화
-  const filterSel = document.getElementById("filterSelect");
-  const sortSel   = document.getElementById("sortSelect");
-  const cleanTgl  = document.getElementById("cleanToggle");
-  if(filterSel) filterSel.value = currentFilter;
-  if(sortSel)   sortSel.value   = currentSort;
-  if(cleanTgl)  cleanTgl.checked = !!isCleanText;
+  ["chipAll","chipRec","chipNew","chipAd","chipPop"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.classList.remove("active");
+  });
+  const map = {all:"chipAll", rec:"chipRec", new:"chipNew", ad:"chipAd", pop:"chipPop"};
+  const on = document.getElementById(map[currentFilter] || "chipAll");
+  if(on) on.classList.add("active");
 }
 
 function setFilter(key) {
-  currentFilter = key || "all";
-  setChipActive();
-  renderGrid();
-  if(currentFilter!=="all") {
+  currentFilter = key;
+  const resultsCount = renderGrid();
+  if(key!=="all") {
     const top = document.getElementById("vendorTop");
     if(top) top.scrollIntoView({behavior:"smooth", block:"start"});
   }
-  track("filter_change", {"filter": currentFilter});
+  track("filter_change", {filter: key, results_count: resultsCount});
 }
-
-function setSort(key) {
-  currentSort = key || "default";
-  setChipActive();
-  renderGrid();
-  track("sort_change", {"sort": currentSort});
-}
-
 
 function bindCardClicks() {
   document.querySelectorAll(".card[data-card]").forEach(el=>{
     el.onclick = ()=> openCard(el.dataset.card);
   });
-
-  // 공유 버튼(카드 내부) 클릭은 팝업 오픈 대신 공유 팝업을 엽니다.
-  document.querySelectorAll("[data-share]").forEach(btn=>{
-    const open = (e)=>{
-      e.preventDefault();
-      e.stopPropagation();
-      const id = btn.getAttribute("data-share");
-      openShare(id);
-    };
-    btn.addEventListener("click", open);
-    btn.addEventListener("keydown", (e)=>{
-      if(e.key==="Enter" || e.key===" "){ open(e); }
-    });
-  });
-
 }
 
-(function bindControlsAndSearch() {
-  const filterSel = document.getElementById("filterSelect");
-  const sortSel   = document.getElementById("sortSelect");
-  const cleanTgl  = document.getElementById("cleanToggle");
-  const cleanHint = document.getElementById("cleanHint");
-
-  // 상태 복원
-  const savedFilter = sessionStorage.getItem("88_filter");
-  const savedSort   = sessionStorage.getItem("88_sort");
-  const savedClean  = sessionStorage.getItem("88_clean_text");
-
-  if(savedFilter) currentFilter = savedFilter;
-  if(savedFilter === "pop") { currentFilter = "all"; currentSort = "pop"; }
-  if(savedSort)   currentSort   = savedSort;
-  if(savedClean === "1") isCleanText = true;
-
-  setChipActive();
-  if(cleanHint) cleanHint.style.display = "block";
-
-  if(filterSel) {
-    filterSel.addEventListener("change", ()=>{
-      sessionStorage.setItem("88_filter", filterSel.value);
-      setFilter(filterSel.value);
-    });
-  }
-
-  if(sortSel) {
-    sortSel.addEventListener("change", ()=>{
-      sessionStorage.setItem("88_sort", sortSel.value);
-      setSort(sortSel.value);
-    });
-  }
-
-  if(cleanTgl) {
-    cleanTgl.addEventListener("change", ()=>{
-      isCleanText = !!cleanTgl.checked;
-      sessionStorage.setItem("88_clean_text", isCleanText ? "1" : "0");
-      setChipActive();
-      renderGrid();
-      track("clean_text_toggle", {"state": isCleanText ? "on" : "off"});
-    });
-  }
-
+(function bindChipsAndSearch() {
+  document.querySelectorAll("[data-filter]").forEach(btn=>{
+    btn.addEventListener("click", ()=> setFilter(btn.getAttribute("data-filter")));
+  });
   const input = document.getElementById("searchInput");
   if(input) {
-    let kwTimer = null;
-    input.addEventListener("input", ()=> {
-      renderGrid();
-      clearTimeout(kwTimer);
-      const v = input.value;
-      kwTimer = setTimeout(()=> bumpSearch(v), 900);
+    let t=null;
+    let lastSent="";
+    input.addEventListener("input", ()=>{
+      const count = renderGrid();
+      const raw = (input.value || "").trim();
+      clearTimeout(t);
+      t = setTimeout(()=>{
+        const c = (window.__grid_state && typeof window.__grid_state.count === "number") ? window.__grid_state.count : (count || 0);
+        if(!raw) {
+          if(lastSent) track("search_clear", {});
+          lastSent="";
+          return;
+        }
+        if(raw.length < 2) return;
+        if(raw === lastSent) return;
+        track("search_vendor", {search_term: raw, results_count: c});
+        lastSent = raw;
+      }, 600);
     });
     input.addEventListener("keydown", (e)=>{
-      if(e.key === "Enter"){ bumpSearch(input.value); }
+      if(e.key === "Enter") {
+        const raw = (input.value || "").trim();
+        const c = (window.__grid_state && typeof window.__grid_state.count === "number") ? window.__grid_state.count : 0;
+        if(raw) track("search_submit", {search_term: raw, results_count: c});
+      }
     });
   }
-})();/* ===== 팝업 + 접근성 ===== */
+})();
+
+/* ===== 팝업 + 접근성 ===== */
 let currentCode="";
 let currentCardId="";
+let currentCardTag="";
+let currentCardTitle="";
 let lastFocusEl=null;
 
 function openCard(id) {
   const d = CARD_DATA[id];
   if(!d) return;
 
-  currentCardId = id;
-  bumpView(id);
   incCardClick(id);
-  track("card_open", {"card_id": id, "title": d.title || "", "tag": d.tag || ""});
+  currentCardId = id;
+  currentCardTag = d.tag || "";
+  currentCardTitle = d.title || "";
+  const clickCount = getClickCount(id);
+  track("card_open", {card_id: id, card_tag: currentCardTag, card_title: currentCardTitle, click_count: clickCount});
 
   const isRecruit = !!d.recruit;
 
@@ -2055,6 +1260,7 @@ function openCard(id) {
 function closeCard() {
   const popup = document.getElementById("cardPopup");
   popup.style.display="none";
+  track("card_close", {card_id: currentCardId});
   if(lastFocusEl && lastFocusEl.focus) lastFocusEl.focus();
 }
 
@@ -2062,7 +1268,7 @@ function copyCode() {
   if(!currentCode) return;
   navigator.clipboard.writeText(currentCode).then(()=>{
     alert("가입코드가 복사되었습니다");
-    track("copy_code", {"code": currentCode});
+    track("copy_code", {card_id: currentCardId, card_tag: currentCardTag, copy_method: "execCommand"});
   }).catch(()=>{
     // fallback
     try {
@@ -2073,213 +1279,17 @@ function copyCode() {
       document.execCommand("copy");
       t.remove();
       alert("가입코드가 복사되었습니다");
-      track("copy_code", {"code": currentCode});
+      track("copy_code", {card_id: currentCardId, card_tag: currentCardTag, copy_method: "clipboard_api"});
     } catch(e) {}
   });
 }
-
-function copyToClipboard(text, okMsg) {
-  if(!text) return;
-  navigator.clipboard.writeText(text).then(()=>{
-    if(okMsg) alert(okMsg);
-  }).catch(()=>{
-    // fallback
-    try {
-      const t=document.createElement("textarea");
-      t.value=text;
-      document.body.appendChild(t);
-      t.select();
-      document.execCommand("copy");
-      t.remove();
-      if(okMsg) alert(okMsg);
-    } catch(e) {}
-  });
-}
-
-function buildDeepLink(id) {
-  try {
-    const u = new URL(window.location.href);
-    u.searchParams.set("v", id);
-    return u.toString();
-  } catch(e) {
-    return window.location.href;
-  }
-}
-
-function shareTextFor(id) {
-  const d = CARD_DATA[id];
-  if(!d) return "";
-  const title = d.title || "";
-  const benefit = cleanBenefit(d.benefit || "").replace(/\s+/g," ").trim();
-  const code = d.code ? `가입코드: ${d.code}` : "";
-  const link = buildDeepLink(id);
-  return [`88 인증 놀이터 - ${title}`, benefit, code, link].filter(Boolean).join("\n");
-}
-
-function openShare(id) {
-  const d = CARD_DATA[id];
-  if(!d) return;
-
-  currentCardId = id;
-
-  const popup = document.getElementById("sharePopup");
-  const link = buildDeepLink(id);
-  const linkInput = document.getElementById("shareLink");
-  if(linkInput) linkInput.value = link;
-
-  drawShareCard(d, link);
-
-  lastFocusEl = document.activeElement;
-  if(popup) popup.style.display="flex";
-  const focusTarget = document.getElementById("closeShareBtn");
-  if(focusTarget) focusTarget.focus();
-
-  track("share_open", {"card_id": id, "title": d.title || ""});
-}
-
-function closeShare() {
-  const popup = document.getElementById("sharePopup");
-  if(popup) popup.style.display="none";
-  try { if(lastFocusEl) lastFocusEl.focus(); } catch(e) {}
-}
-
-function copyShareLink() {
-  const link = document.getElementById("shareLink")?.value || "";
-  copyToClipboard(link, "공유 링크가 복사되었습니다");
-  track("share_copy_link", {"card_id": currentCardId});
-}
-
-function copyShareText() {
-  const txt = shareTextFor(currentCardId);
-  copyToClipboard(txt, "공유 문구가 복사되었습니다");
-  track("share_copy_text", {"card_id": currentCardId});
-}
-
-function downloadShareImage() {
-  const c = document.getElementById("shareCanvas");
-  if(!c) return;
-  const a = document.createElement("a");
-  const safe = (CARD_DATA[currentCardId]?.title || "share").replace(/[^a-z0-9가-힣_-]+/gi, "_");
-  a.download = `88_${safe}.png`;
-  a.href = c.toDataURL("image/png");
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  track("share_download_image", {"card_id": currentCardId});
-}
-
-function roundRect(ctx, x, y, w, h, r){
-  const rr = Math.min(r, w/2, h/2);
-  ctx.beginPath();
-  ctx.moveTo(x+rr, y);
-  ctx.arcTo(x+w, y, x+w, y+h, rr);
-  ctx.arcTo(x+w, y+h, x, y+h, rr);
-  ctx.arcTo(x, y+h, x, y, rr);
-  ctx.arcTo(x, y, x+w, y, rr);
-  ctx.closePath();
-}
-
-function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines){
-  const words = (text||"").split(" ");
-  let line = "";
-  let lineCount = 0;
-  for(let n=0; n<words.length; n++){
-    const testLine = line + (line ? " " : "") + words[n];
-    const metrics = ctx.measureText(testLine);
-    if(metrics.width > maxWidth && line){
-      ctx.fillText(line, x, y + lineCount*lineHeight);
-      line = words[n];
-      lineCount++;
-      if(maxLines && lineCount >= maxLines) return;
-    } else {
-      line = testLine;
-    }
-  }
-  if(line && (!maxLines || lineCount < maxLines)){
-    ctx.fillText(line, x, y + lineCount*lineHeight);
-  }
-}
-
-function drawShareCard(d, link) {
-  const c = document.getElementById("shareCanvas");
-  if(!c) return;
-  const ctx = c.getContext("2d");
-  const W = c.width, H = c.height;
-
-  ctx.clearRect(0,0,W,H);
-
-  // 배경
-  const g = ctx.createLinearGradient(0,0,W,H);
-  g.addColorStop(0,"#0b0b0f");
-  g.addColorStop(1,"#12121a");
-  ctx.fillStyle = g;
-  ctx.fillRect(0,0,W,H);
-
-  // 글로우
-  ctx.fillStyle = "rgba(212,175,55,0.12)";
-  ctx.beginPath();
-  ctx.ellipse(W*0.58, H*0.14, W*0.55, H*0.22, 0, 0, Math.PI*2);
-  ctx.fill();
-
-  ctx.fillStyle = "rgba(90,160,255,0.10)";
-  ctx.beginPath();
-  ctx.ellipse(W*0.32, H*0.22, W*0.46, H*0.18, 0, 0, Math.PI*2);
-  ctx.fill();
-
-  // 패널
-  const pad = 72;
-  const cardX = pad, cardY = pad, cardW = W - pad*2, cardH = H - pad*2;
-  roundRect(ctx, cardX, cardY, cardW, cardH, 42);
-  ctx.fillStyle = "rgba(255,255,255,0.06)";
-  ctx.fill();
-  ctx.strokeStyle = "rgba(255,255,255,0.10)";
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  // 헤더 pill
-  const pillH = 64, pillW = 260;
-  roundRect(ctx, cardX+44, cardY+44, pillW, pillH, 999);
-  ctx.fillStyle = "rgba(212,175,55,0.95)";
-  ctx.fill();
-
-  ctx.fillStyle = "#111";
-  ctx.font = "900 34px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  ctx.fillText("88 인증 놀이터", cardX+44+26, cardY+44+44);
-
-  // 제목
-  ctx.fillStyle = "#fff";
-  ctx.font = "900 78px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  wrapText(ctx, (d.title||""), cardX+44, cardY+160, cardW-88, 88, 2);
-
-  // 혜택
-  const benefit = cleanBenefit(d.benefit||"").replace(/\s+/g," ").trim();
-  ctx.fillStyle = "rgba(255,255,255,0.86)";
-  ctx.font = "700 40px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  wrapText(ctx, benefit || "혜택 안내", cardX+44, cardY+360, cardW-88, 58, 3);
-
-  // 코드/링크
-  ctx.fillStyle = "rgba(255,255,255,0.75)";
-  ctx.font = "800 36px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  const code = d.code ? `가입코드: ${d.code}` : "가입코드: (없음)";
-  ctx.fillText(code, cardX+44, cardY+600);
-
-  ctx.font = "700 28px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  const linkShort = (link||"").replace(/^https?:\/\//,'');
-  wrapText(ctx, linkShort, cardX+44, cardY+655, cardW-88, 42, 2);
-
-  // 안내
-  ctx.fillStyle = "rgba(255,255,255,0.55)";
-  ctx.font = "700 24px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  wrapText(ctx, "※ 정보 제공/참고용 · 과몰입 주의", cardX+44, cardY+cardH-88, cardW-88, 34, 2);
-}
-
 
 function jumpToRec() {
   closeCard();
   setFilter("rec");
   const top = document.getElementById("vendorTop");
   if(top) top.scrollIntoView({behavior:"smooth", block:"start"});
-  track("popup_secondary_cta", {"action":"jump_to_rec"});
+  track("popup_secondary_cta", {action:"jump_to_rec", card_id: currentCardId});
 }
 
 (function bindPopupControls() {
@@ -2287,36 +1297,28 @@ function jumpToRec() {
   const box = popup?.querySelector(".popup-box");
   const closeBtn = document.getElementById("closeBtn");
   const copyBtn = document.getElementById("copyBtn");
-  const shareBtn = document.getElementById("shareBtn");
   const moreBtn = document.getElementById("moreRecBtn");
   const goBtn = document.getElementById("pLink");
   const tgBtn = document.getElementById("pTelegram");
 
-  const sharePopup = document.getElementById("sharePopup");
-  const closeShareBtn = document.getElementById("closeShareBtn");
-  const copyShareLinkBtn = document.getElementById("copyShareLinkBtn");
-  const downloadShareImgBtn = document.getElementById("downloadShareImgBtn");
-  const copyShareTextBtn = document.getElementById("copyShareTextBtn");
-
   if(closeBtn) closeBtn.addEventListener("click", closeCard);
   if(copyBtn) copyBtn.addEventListener("click", copyCode);
-  if(shareBtn) shareBtn.addEventListener("click", ()=> openShare(currentCardId));
   if(moreBtn) moreBtn.addEventListener("click", jumpToRec);
 
-  if(goBtn) goBtn.addEventListener("click", ()=> track("outbound_click", {"type":"site"}));
-  if(tgBtn) tgBtn.addEventListener("click", ()=> track("outbound_click", {"type":"telegram"}));
-
-  if(closeShareBtn) closeShareBtn.addEventListener("click", closeShare);
-  if(copyShareLinkBtn) copyShareLinkBtn.addEventListener("click", copyShareLink);
-  if(downloadShareImgBtn) downloadShareImgBtn.addEventListener("click", downloadShareImage);
-  if(copyShareTextBtn) copyShareTextBtn.addEventListener("click", copyShareText);
+  if(goBtn) goBtn.addEventListener("click", ()=> {
+    let domain="";
+    try { domain = new URL(goBtn.href).hostname; } catch(e) {}
+    track("outbound_click", {outbound_type:"site", card_id: currentCardId, card_tag: currentCardTag, destination_domain: domain});
+  });
+  if(tgBtn) tgBtn.addEventListener("click", ()=> {
+    let domain="";
+    try { domain = new URL(tgBtn.href).hostname; } catch(e) {}
+    track("outbound_click", {outbound_type:"telegram", card_id: currentCardId, card_tag: currentCardTag, destination_domain: domain});
+  });
 
   // 바깥 클릭 닫기
   if(popup) popup.addEventListener("click", (e)=>{
     if(e.target === popup) closeCard();
-  });
-  if(sharePopup) sharePopup.addEventListener("click", (e)=>{
-    if(e.target === sharePopup) closeShare();
   });
 
   // ESC 닫기 + 포커스 트랩(최소)
@@ -2340,7 +1342,7 @@ function jumpToRec() {
 function maybeAutoRecFilter() {
   const ev = localStorage.getItem("88_ev_positive");
   const evDate = localStorage.getItem("88_ev_date");
-  const today = dateKeyLocal();
+  const today = new Date().toISOString().slice(0,10);
   const hint = document.getElementById("evAutoHint");
 
   if(ev==="1" && evDate===today) {
@@ -2370,31 +1372,68 @@ function maybeAutoRecFilter() {
 (function bindCtas() {
   document.querySelectorAll("[data-cta]").forEach(el=>{
     el.addEventListener("click", ()=>{
-      track("cta_click", {"cta": el.getAttribute("data-cta") || ""});
+      const ctaId = el.getAttribute("data-cta") || "";
+      const ctaText = (el.innerText || "").trim().replace(/\s+/g, " ").slice(0, 60);
+      let loc = "unknown";
+      try {
+        if(el.closest && el.closest("#analyzerSection")) loc = "hero";
+        else if(el.closest && el.closest(".fab")) loc = "fab";
+        else if(el.closest && el.closest("#cardPopup")) loc = "popup";
+        else if(el.closest && el.closest(".landing-seo")) loc = "seo";
+      } catch(e) {}
+      track("cta_click", {cta_id: ctaId, cta_text: ctaText, cta_location: loc});
     });
   });
 })();
 
-
-function openFromUrl() {
-  try {
-    const u = new URL(window.location.href);
-    const v = u.searchParams.get("v");
-    if(v && CARD_DATA[v]) {
-      openCard(v);
-    }
-  } catch(e) {}
-}
-
 /* ===== 초기화 ===== */
 (function init() {
   saveUtmFromUrl();
-  refreshChecklist();
-  setMarginMode("2");
+
+  // 상단 공지(텔레그램) 클릭 트래킹
+  try {
+    const notice = document.getElementById("noticeLink");
+    if(notice) notice.addEventListener("click", ()=>{
+      let domain="";
+      try { domain = new URL(notice.href).hostname; } catch(e) {}
+      track("outbound_click", {outbound_type:"notice_telegram", destination_domain: domain});
+    });
+  } catch(e) {}
+
+  // 하단 SEO 랜딩 링크 클릭 트래킹
+  try {
+    document.querySelectorAll(".landing-seo .links a").forEach((a, i)=>{
+      a.addEventListener("click", ()=>{
+        const href = a.getAttribute("href") || "";
+        track("seo_landing_click", {landing_href: href, landing_index: i+1});
+      });
+    });
+  } catch(e) {}
+
+  // 섹션 뷰(첫 1회) 트래킹
+  try {
+    const seen = new Set();
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting) {
+          const id = en.target.id || "";
+          if(id && !seen.has(id)) {
+            seen.add(id);
+            track("section_view", {section_id: id});
+          }
+        }
+      });
+    }, {threshold: 0.45});
+    ["analyzerSection","growthPlan","vendorTop"].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) obs.observe(el);
+    });
+  } catch(e) {}
+
+  refreshChecklist(true);
+  setMarginMode("2", true);
   maybeAutoRecFilter();
   renderGrid();
-  initInsights();
-  openFromUrl();
 })();
 </script>
 
