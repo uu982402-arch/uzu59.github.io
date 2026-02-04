@@ -277,7 +277,36 @@ select.insight-select{
 }
 .pill:hover{ filter:brightness(1.03); }
 
-.vendor-tools{ max-width:1100px; margin:0 auto 8px; padding:0 14px 10px; }
+.vendor-tools{
+  position:sticky;
+  top:10px;
+  z-index:80;
+  max-width:1100px;
+  margin:0 auto 10px;
+  padding:10px 14px 12px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(12,12,14,.72);
+  backdrop-filter: blur(14px);
+  box-shadow:0 18px 50px rgba(0,0,0,.45);
+}
+.vendor-tools::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background: radial-gradient(600px 140px at 40% 0%, rgba(212,175,55,.10), transparent 60%);
+  opacity:.9;
+}
+.vendor-tools > *{ position:relative; }
+@media (max-width:640px){
+  .vendor-tools{ top:0; margin:0 auto 8px; border-radius:0; border-left:none; border-right:none; }
+  .v-controls{ gap:8px; align-items:stretch; }
+  .v-control{ min-width: calc(50% - 4px); flex:1; }
+  .v-input{ padding:12px 12px; font-size:14px; }
+  .v-toggle{ width:100%; justify-content:space-between; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
+}
 .v-input{ width:100%; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.28); color:#fff; outline:none; font-weight:800; }
 .v-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
 .v-chip{ padding:9px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.25); color:#fff; font-weight:900; cursor:pointer; transition: transform .14s ease, filter .14s ease, border-color .14s ease; }
@@ -544,6 +573,105 @@ select.insight-select{
   .analyze-btn::before{ display:none !important; }
   .card, .analyze-btn, .v-chip{ transition:none !important; }
 }
+
+
+/* ===== 카드 액션(공유) ===== */
+.card-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:10px;
+}
+.mini-share{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 10px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+  user-select:none;
+  transition:transform .14s ease, filter .14s ease, border-color .14s ease;
+}
+.mini-share:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  border-color: rgba(255,255,255,.18);
+}
+
+/* ===== 공유 팝업 ===== */
+.share-sub{ margin:6px 0 12px; color:#a7a7a7; font-size:12px; }
+.share-preview{
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.28);
+  padding:12px;
+}
+#shareCanvas{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:14px;
+}
+.share-row{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+  align-items:center;
+}
+.share-row input{
+  flex:1;
+}
+.share-actions{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+.btn.share{
+  background:linear-gradient(135deg, rgba(212,175,55,.95), rgba(255,204,82,.95));
+  color:#111;
+  border:1px solid rgba(0,0,0,.1);
+}
+
+/* ===== FAQ ===== */
+.faq-wrap{
+  max-width:1100px;
+  margin:20px auto 26px;
+  padding:0 14px;
+}
+.faq-box{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:18px;
+  overflow:hidden;
+}
+.faq-box summary{
+  cursor:pointer;
+  list-style:none;
+  padding:14px 14px;
+  font-weight:900;
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+.faq-box summary::-webkit-details-marker{ display:none; }
+.faq-box summary span{ color:#bdbdbd; font-weight:900; }
+.faq-box .a{
+  padding:0 14px 14px;
+  color:#cfcfcf;
+  font-size:13px;
+  line-height:1.55;
+}
+.faq-box details{
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.faq-box details:first-child{ border-top:none; }
 
 </style>
 
@@ -933,6 +1061,7 @@ function appendUtm(urlStr) {
     <p id="pNotice" style="color:#ff6b6b;font-size:12px;margin:8px 0 0;"></p>
 
     <div class="btn copy" id="copyBtn">가입코드 복사</div>
+    <div class="btn share" id="shareBtn">공유하기</div>
     <a class="btn go" id="pLink" target="_blank" rel="noopener">사이트 이동</a>
 
     <div class="telegram">
@@ -949,18 +1078,111 @@ function appendUtm(urlStr) {
     </div>
 
     <div class="btn copy" id="closeBtn">닫기</div>
+  
+</div>
+</div>
+
+<div class="popup" id="sharePopup" role="dialog" aria-modal="true" aria-label="공유 카드" style="display:none;">
+  <div class="popup-box" role="document">
+    <h2>공유하기</h2>
+    <p class="share-sub">링크를 복사하거나, 이미지로 저장해서 공유할 수 있습니다.</p>
+
+    <div class="share-preview">
+      <canvas id="shareCanvas" width="1080" height="1080" aria-label="공유 이미지 미리보기"></canvas>
+    </div>
+
+    <div class="share-row">
+      <input id="shareLink" class="v-input" readonly aria-label="공유 링크">
+      <div class="btn copy" id="copyShareLinkBtn" style="min-width:120px;">링크 복사</div>
+    </div>
+
+    <div class="share-actions">
+      <div class="btn go" id="downloadShareImgBtn">이미지 저장</div>
+      <div class="btn copy" id="copyShareTextBtn">문구 복사</div>
+    </div>
+
+    <div class="btn copy" id="closeShareBtn">닫기</div>
   </div>
 </div>
 
 <div class="landing-seo">
   <h3>관련 정보</h3>
   <div class="links">
+    <a href="/tool-margin/" data-cta="seo_margin">배당 마진 계산기</a>
+    <a href="/tool-ev/" data-cta="seo_ev">EV 계산기</a>
+    <a href="/tool-odds/" data-cta="seo_odds">배당↔확률 변환</a>
+    
     <a href="/landing-a/">입플·보너스 분석기</a>
     <a href="/landing-b/">고액 유저 안내</a>
     <a href="/landing-c/">배당 마진·EV 계산</a>
     <a href="/landing-d/">배당 흐름 분석</a>
   </div>
 </div>
+
+
+<div class="faq-wrap" id="faq">
+  <div class="section" style="padding:0; border:none; background:transparent;">
+    <div class="title"><span class="badge">FAQ</span>자주 묻는 질문</div>
+    <div class="text">도구 사용 중 자주 나오는 질문을 정리했습니다. (참고용)</div>
+  </div>
+
+  <div class="faq-box" role="region" aria-label="FAQ">
+    <details>
+      <summary>배당 마진(오버라운드)이 높으면 왜 불리한가요? <span>+</span></summary>
+      <div class="a">각 결과의 암시 확률 합이 100%를 넘는 만큼(=오버라운드), 장기 기대값이 낮아집니다. 같은 추정 실력이라도 마진이 낮은 시장이 더 유리합니다.</div>
+    </details>
+    <details>
+      <summary>EV(기대값) 계산은 어떻게 해석하나요? <span>+</span></summary>
+      <div class="a">추정 승률이 손익분기점(1/배당)보다 높으면 +EV, 낮으면 -EV입니다. 단기 결과와 별개로 장기 평균 관점의 지표입니다.</div>
+    </details>
+    <details>
+      <summary>정제된 문구는 무엇이 달라지나요? <span>+</span></summary>
+      <div class="a">카드 혜택 문구를 요약/정리해 과도한 문장·중복 표현을 줄입니다. 가독성을 높이기 위한 표시 방식입니다.</div>
+    </details>
+    <details>
+      <summary>결과를 공유하면 링크를 받은 사람도 같은 화면을 보나요? <span>+</span></summary>
+      <div class="a">공유 링크에는 해당 카드 ID가 포함되어, 접속 시 같은 업체 상세 팝업이 자동으로 열리도록 설계했습니다.</div>
+    </details>
+    <details>
+      <summary>이 도구의 결과가 정답인가요? <span>+</span></summary>
+      <div class="a">아닙니다. 본 페이지는 정보 제공 및 리스크 관리 참고용입니다. 실제 결과를 보장하지 않으며, 과몰입을 피하고 책임감 있게 이용해 주세요.</div>
+    </details>
+  </div>
+</div>
+
+<script type="application/ld+json" id="faqJsonLd">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "배당 마진(오버라운드)이 높으면 왜 불리한가요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "각 결과의 암시 확률 합이 100%를 넘는 만큼(오버라운드), 장기 기대값이 낮아집니다. 같은 추정 실력이라도 마진이 낮은 시장이 더 유리합니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "EV(기대값) 계산은 어떻게 해석하나요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "추정 승률이 손익분기점(1/배당)보다 높으면 +EV, 낮으면 -EV입니다. 단기 결과와 별개로 장기 평균 관점의 지표입니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "정제된 문구는 무엇이 달라지나요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "카드 혜택 문구를 요약/정리해 과도한 문장·중복 표현을 줄입니다. 가독성을 높이기 위한 표시 방식입니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "결과를 공유하면 링크를 받은 사람도 같은 화면을 보나요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "공유 링크에는 해당 카드 ID가 포함되어, 접속 시 같은 업체 상세 팝업이 자동으로 열리도록 설계했습니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "이 도구의 결과가 정답인가요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "아닙니다. 본 페이지는 정보 제공 및 리스크 관리 참고용입니다. 실제 결과를 보장하지 않으며, 과몰입을 피하고 책임감 있게 이용해 주세요." }
+    }
+  ]
+}
+</script>
 
 <div class="fab" aria-label="빠른 이동">
   <a href="/analysis/" data-cta="fab_analysis">분석기</a>
@@ -1257,6 +1479,11 @@ const rawDesc = d.benefit ? d.benefit : "";
         <div class="content">
           <div class="site">${d.title || ""}</div>
           <div class="desc">${desc}</div>
+          <div class="card-actions">
+            <div class="mini-share" role="button" tabindex="0" data-share="${id}" aria-label="공유하기">
+              <span aria-hidden="true">↗</span><span>공유</span>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -1312,6 +1539,21 @@ function bindCardClicks() {
   document.querySelectorAll(".card[data-card]").forEach(el=>{
     el.onclick = ()=> openCard(el.dataset.card);
   });
+
+  // 공유 버튼(카드 내부) 클릭은 팝업 오픈 대신 공유 팝업을 엽니다.
+  document.querySelectorAll("[data-share]").forEach(btn=>{
+    const open = (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      const id = btn.getAttribute("data-share");
+      openShare(id);
+    };
+    btn.addEventListener("click", open);
+    btn.addEventListener("keydown", (e)=>{
+      if(e.key==="Enter" || e.key===" "){ open(e); }
+    });
+  });
+
 }
 
 (function bindControlsAndSearch() {
@@ -1361,12 +1603,14 @@ function bindCardClicks() {
   if(input) input.addEventListener("input", ()=> renderGrid());
 })();/* ===== 팝업 + 접근성 ===== */
 let currentCode="";
+let currentCardId="";
 let lastFocusEl=null;
 
 function openCard(id) {
   const d = CARD_DATA[id];
   if(!d) return;
 
+  currentCardId = id;
   incCardClick(id);
   track("card_open", {"card_id": id, "title": d.title || "", "tag": d.tag || ""});
 
@@ -1455,6 +1699,202 @@ function copyCode() {
   });
 }
 
+function copyToClipboard(text, okMsg) {
+  if(!text) return;
+  navigator.clipboard.writeText(text).then(()=>{
+    if(okMsg) alert(okMsg);
+  }).catch(()=>{
+    // fallback
+    try {
+      const t=document.createElement("textarea");
+      t.value=text;
+      document.body.appendChild(t);
+      t.select();
+      document.execCommand("copy");
+      t.remove();
+      if(okMsg) alert(okMsg);
+    } catch(e) {}
+  });
+}
+
+function buildDeepLink(id) {
+  try {
+    const u = new URL(window.location.href);
+    u.searchParams.set("v", id);
+    return u.toString();
+  } catch(e) {
+    return window.location.href;
+  }
+}
+
+function shareTextFor(id) {
+  const d = CARD_DATA[id];
+  if(!d) return "";
+  const title = d.title || "";
+  const benefit = cleanBenefit(d.benefit || "").replace(/\s+/g," ").trim();
+  const code = d.code ? `가입코드: ${d.code}` : "";
+  const link = buildDeepLink(id);
+  return [`88 인증 놀이터 - ${title}`, benefit, code, link].filter(Boolean).join("\n");
+}
+
+function openShare(id) {
+  const d = CARD_DATA[id];
+  if(!d) return;
+
+  currentCardId = id;
+
+  const popup = document.getElementById("sharePopup");
+  const link = buildDeepLink(id);
+  const linkInput = document.getElementById("shareLink");
+  if(linkInput) linkInput.value = link;
+
+  drawShareCard(d, link);
+
+  lastFocusEl = document.activeElement;
+  if(popup) popup.style.display="flex";
+  const focusTarget = document.getElementById("closeShareBtn");
+  if(focusTarget) focusTarget.focus();
+
+  track("share_open", {"card_id": id, "title": d.title || ""});
+}
+
+function closeShare() {
+  const popup = document.getElementById("sharePopup");
+  if(popup) popup.style.display="none";
+  try { if(lastFocusEl) lastFocusEl.focus(); } catch(e) {}
+}
+
+function copyShareLink() {
+  const link = document.getElementById("shareLink")?.value || "";
+  copyToClipboard(link, "공유 링크가 복사되었습니다");
+  track("share_copy_link", {"card_id": currentCardId});
+}
+
+function copyShareText() {
+  const txt = shareTextFor(currentCardId);
+  copyToClipboard(txt, "공유 문구가 복사되었습니다");
+  track("share_copy_text", {"card_id": currentCardId});
+}
+
+function downloadShareImage() {
+  const c = document.getElementById("shareCanvas");
+  if(!c) return;
+  const a = document.createElement("a");
+  const safe = (CARD_DATA[currentCardId]?.title || "share").replace(/[^a-z0-9가-힣_-]+/gi, "_");
+  a.download = `88_${safe}.png`;
+  a.href = c.toDataURL("image/png");
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  track("share_download_image", {"card_id": currentCardId});
+}
+
+function roundRect(ctx, x, y, w, h, r){
+  const rr = Math.min(r, w/2, h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+rr, y);
+  ctx.arcTo(x+w, y, x+w, y+h, rr);
+  ctx.arcTo(x+w, y+h, x, y+h, rr);
+  ctx.arcTo(x, y+h, x, y, rr);
+  ctx.arcTo(x, y, x+w, y, rr);
+  ctx.closePath();
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines){
+  const words = (text||"").split(" ");
+  let line = "";
+  let lineCount = 0;
+  for(let n=0; n<words.length; n++){
+    const testLine = line + (line ? " " : "") + words[n];
+    const metrics = ctx.measureText(testLine);
+    if(metrics.width > maxWidth && line){
+      ctx.fillText(line, x, y + lineCount*lineHeight);
+      line = words[n];
+      lineCount++;
+      if(maxLines && lineCount >= maxLines) return;
+    } else {
+      line = testLine;
+    }
+  }
+  if(line && (!maxLines || lineCount < maxLines)){
+    ctx.fillText(line, x, y + lineCount*lineHeight);
+  }
+}
+
+function drawShareCard(d, link) {
+  const c = document.getElementById("shareCanvas");
+  if(!c) return;
+  const ctx = c.getContext("2d");
+  const W = c.width, H = c.height;
+
+  ctx.clearRect(0,0,W,H);
+
+  // 배경
+  const g = ctx.createLinearGradient(0,0,W,H);
+  g.addColorStop(0,"#0b0b0f");
+  g.addColorStop(1,"#12121a");
+  ctx.fillStyle = g;
+  ctx.fillRect(0,0,W,H);
+
+  // 글로우
+  ctx.fillStyle = "rgba(212,175,55,0.12)";
+  ctx.beginPath();
+  ctx.ellipse(W*0.58, H*0.14, W*0.55, H*0.22, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle = "rgba(90,160,255,0.10)";
+  ctx.beginPath();
+  ctx.ellipse(W*0.32, H*0.22, W*0.46, H*0.18, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // 패널
+  const pad = 72;
+  const cardX = pad, cardY = pad, cardW = W - pad*2, cardH = H - pad*2;
+  roundRect(ctx, cardX, cardY, cardW, cardH, 42);
+  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.fill();
+  ctx.strokeStyle = "rgba(255,255,255,0.10)";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // 헤더 pill
+  const pillH = 64, pillW = 260;
+  roundRect(ctx, cardX+44, cardY+44, pillW, pillH, 999);
+  ctx.fillStyle = "rgba(212,175,55,0.95)";
+  ctx.fill();
+
+  ctx.fillStyle = "#111";
+  ctx.font = "900 34px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
+  ctx.fillText("88 인증 놀이터", cardX+44+26, cardY+44+44);
+
+  // 제목
+  ctx.fillStyle = "#fff";
+  ctx.font = "900 78px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
+  wrapText(ctx, (d.title||""), cardX+44, cardY+160, cardW-88, 88, 2);
+
+  // 혜택
+  const benefit = cleanBenefit(d.benefit||"").replace(/\s+/g," ").trim();
+  ctx.fillStyle = "rgba(255,255,255,0.86)";
+  ctx.font = "700 40px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
+  wrapText(ctx, benefit || "혜택 안내", cardX+44, cardY+360, cardW-88, 58, 3);
+
+  // 코드/링크
+  ctx.fillStyle = "rgba(255,255,255,0.75)";
+  ctx.font = "800 36px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
+  const code = d.code ? `가입코드: ${d.code}` : "가입코드: (없음)";
+  ctx.fillText(code, cardX+44, cardY+600);
+
+  ctx.font = "700 28px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
+  const linkShort = (link||"").replace(/^https?:\/\//,'');
+  wrapText(ctx, linkShort, cardX+44, cardY+655, cardW-88, 42, 2);
+
+  // 안내
+  ctx.fillStyle = "rgba(255,255,255,0.55)";
+  ctx.font = "700 24px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
+  wrapText(ctx, "※ 정보 제공/참고용 · 과몰입 주의", cardX+44, cardY+cardH-88, cardW-88, 34, 2);
+}
+
+
 function jumpToRec() {
   closeCard();
   setFilter("rec");
@@ -1468,20 +1908,36 @@ function jumpToRec() {
   const box = popup?.querySelector(".popup-box");
   const closeBtn = document.getElementById("closeBtn");
   const copyBtn = document.getElementById("copyBtn");
+  const shareBtn = document.getElementById("shareBtn");
   const moreBtn = document.getElementById("moreRecBtn");
   const goBtn = document.getElementById("pLink");
   const tgBtn = document.getElementById("pTelegram");
 
+  const sharePopup = document.getElementById("sharePopup");
+  const closeShareBtn = document.getElementById("closeShareBtn");
+  const copyShareLinkBtn = document.getElementById("copyShareLinkBtn");
+  const downloadShareImgBtn = document.getElementById("downloadShareImgBtn");
+  const copyShareTextBtn = document.getElementById("copyShareTextBtn");
+
   if(closeBtn) closeBtn.addEventListener("click", closeCard);
   if(copyBtn) copyBtn.addEventListener("click", copyCode);
+  if(shareBtn) shareBtn.addEventListener("click", ()=> openShare(currentCardId));
   if(moreBtn) moreBtn.addEventListener("click", jumpToRec);
 
   if(goBtn) goBtn.addEventListener("click", ()=> track("outbound_click", {"type":"site"}));
   if(tgBtn) tgBtn.addEventListener("click", ()=> track("outbound_click", {"type":"telegram"}));
 
+  if(closeShareBtn) closeShareBtn.addEventListener("click", closeShare);
+  if(copyShareLinkBtn) copyShareLinkBtn.addEventListener("click", copyShareLink);
+  if(downloadShareImgBtn) downloadShareImgBtn.addEventListener("click", downloadShareImage);
+  if(copyShareTextBtn) copyShareTextBtn.addEventListener("click", copyShareText);
+
   // 바깥 클릭 닫기
   if(popup) popup.addEventListener("click", (e)=>{
     if(e.target === popup) closeCard();
+  });
+  if(sharePopup) sharePopup.addEventListener("click", (e)=>{
+    if(e.target === sharePopup) closeShare();
   });
 
   // ESC 닫기 + 포커스 트랩(최소)
@@ -1540,6 +1996,17 @@ function maybeAutoRecFilter() {
   });
 })();
 
+
+function openFromUrl() {
+  try {
+    const u = new URL(window.location.href);
+    const v = u.searchParams.get("v");
+    if(v && CARD_DATA[v]) {
+      openCard(v);
+    }
+  } catch(e) {}
+}
+
 /* ===== 초기화 ===== */
 (function init() {
   saveUtmFromUrl();
@@ -1547,6 +2014,7 @@ function maybeAutoRecFilter() {
   setMarginMode("2");
   maybeAutoRecFilter();
   renderGrid();
+  openFromUrl();
 })();
 </script>
 

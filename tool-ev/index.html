@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EV(기대값) 계산기</title>
+<meta name="description" content="배당과 내 추정 승률을 넣으면 손익분기점 대비 +EV / -EV 여부와 기대수익을 계산합니다.">
+<link rel="canonical" href="https://88st.cloud/tool-ev/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="88 (팔팔커뮤니티)">
+<meta property="og:title" content="EV(기대값) 계산기">
+<meta property="og:description" content="배당과 내 추정 승률을 넣으면 손익분기점 대비 +EV / -EV 여부와 기대수익을 계산합니다.">
+<meta property="og:url" content="https://88st.cloud/tool-ev/">
+<style>
+:root{
+  --bg:#0b0b0f;
+  --panel:rgba(255,255,255,.05);
+  --border:rgba(255,255,255,.10);
+  --text:rgba(255,255,255,.90);
+  --muted:rgba(255,255,255,.62);
+  --gold:#d4af37;
+  --gold2:#ffcc52;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; background: radial-gradient(900px 420px at 50% 0%, rgba(212,175,55,.12), transparent 60%), var(--bg); color:var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif; }
+a{ color:inherit; text-decoration:none; }
+.wrap{ max-width:980px; margin:0 auto; padding:18px 14px 42px; }
+.topbar{ display:flex; gap:10px; align-items:center; justify-content:space-between; padding:10px 0 6px; }
+.brand{ display:flex; gap:10px; align-items:center; font-weight:1000; letter-spacing:-.3px; }
+.badge{ display:inline-flex; align-items:center; justify-content:center; padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px; background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#111; }
+.navlinks{ display:flex; gap:10px; flex-wrap:wrap; }
+.navlinks a{ padding:9px 12px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.04); font-weight:900; font-size:12px; }
+.hero{ margin-top:10px; border:1px solid var(--border); background:rgba(255,255,255,.03); border-radius:22px; padding:16px 14px; box-shadow:0 18px 60px rgba(0,0,0,.55); }
+.hero h1{ margin:0; font-size:22px; letter-spacing:-.4px; }
+.hero p{ margin:8px 0 0; color:var(--muted); font-size:13px; line-height:1.55; }
+.grid{ margin-top:12px; display:grid; gap:12px; grid-template-columns: 1fr 1fr; }
+@media(max-width:720px){ .grid{ grid-template-columns:1fr; } }
+.card{ border:1px solid var(--border); background:var(--panel); border-radius:22px; padding:14px; }
+.card h2{ margin:0 0 10px; font-size:16px; letter-spacing:-.2px; }
+.row{ display:flex; gap:10px; flex-wrap:wrap; }
+.field{ flex:1; min-width:160px; display:flex; flex-direction:column; gap:6px; }
+label{ font-size:12px; color:var(--muted); font-weight:900; }
+input, select{
+  width:100%;
+  padding:11px 12px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.25);
+  color:var(--text);
+  outline:none;
+  font-weight:900;
+}
+.btnrow{ margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; }
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 14px;
+  border-radius:16px;
+  border:1px solid rgba(0,0,0,.12);
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#111;
+  font-weight:1000;
+  cursor:pointer;
+  user-select:none;
+}
+.btn.secondary{ background:rgba(255,255,255,.05); border:1px solid var(--border); color:var(--text); }
+.out{ margin-top:10px; color:rgba(255,255,255,.86); font-size:13px; line-height:1.6; }
+.kv{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px; }
+@media(max-width:720px){ .kv{ grid-template-columns:1fr; } }
+.kv .item{ border:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.18); border-radius:18px; padding:12px; }
+.kv .k{ color:var(--muted); font-weight:900; font-size:12px; }
+.kv .v{ margin-top:6px; font-weight:1000; font-size:16px; }
+.sep{ height:1px; background:rgba(255,255,255,.10); margin:14px 0; }
+.faq details{ border-top:1px solid rgba(255,255,255,.08); padding:10px 0; }
+.faq details:first-child{ border-top:none; }
+.faq summary{ cursor:pointer; list-style:none; font-weight:1000; }
+.faq summary::-webkit-details-marker{ display:none; }
+footer{ margin-top:16px; color:rgba(255,255,255,.50); font-size:12px; line-height:1.6; }
+.small{ font-size:12px; color:rgba(255,255,255,.55); }
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "손익분기점 승률은 왜 1/배당인가요?", "acceptedAnswer": {"@type": "Answer", "text": "배당이 o일 때, 기대수익이 0이 되는 확률이 1/o 입니다(수수료·마진 단순화 가정)."}}, {"@type": "Question", "name": "+EV이면 무조건 이기나요?", "acceptedAnswer": {"@type": "Answer", "text": "아닙니다. +EV는 장기 평균 관점에서 유리할 ‘가능성’을 뜻합니다. 단기 변동성은 매우 큽니다."}}, {"@type": "Question", "name": "추정 승률은 어떻게 잡나요?", "acceptedAnswer": {"@type": "Answer", "text": "최근 폼, 라인업, 일정, 상대 전적, 시장 변동 등 여러 요소를 참고해 ‘내 기준’으로 추정합니다."}}, {"@type": "Question", "name": "마진(오버라운드)을 제거한 EV도 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "가능합니다. 마진 계산기로 공정확률을 만든 뒤, 그 기준으로 승률/배당을 비교하면 더 보수적인 평가가 됩니다."}}, {"@type": "Question", "name": "추천 배팅 금액도 계산되나요?", "acceptedAnswer": {"@type": "Answer", "text": "현재 페이지는 EV만 계산합니다. 향후 켈리/유닛 사이징 도구로 확장할 수 있습니다."}}]}</script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand"><span class="badge">88</span> EV 계산기</div>
+      <div class="navlinks" aria-label="바로가기">
+        <a href="/" rel="home">홈</a>
+        <a href="/analysis/">분석기</a>
+        <a href="/tool-margin/">마진</a>
+        <a href="/tool-ev/">EV</a>
+        <a href="/tool-odds/">배당↔확률</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <h1>EV(기대값) 계산기</h1>
+      <p>배당과 내 추정 승률을 넣으면 손익분기점 대비 +EV / -EV 여부와 기대수익을 계산합니다.<br><span class="small">※ 정보 제공/참고용 · 결과를 보장하지 않습니다.</span></p>
+    </div>
+
+    
+<div class="grid">
+  <div class="card">
+    <h2>입력</h2>
+    <div class="row">
+      <div class="field">
+        <label for="odds">배당</label>
+        <input id="odds" inputmode="decimal" placeholder="예: 1.90" value="1.90">
+      </div>
+      <div class="field">
+        <label for="p">내 추정 승률(%)</label>
+        <input id="p" inputmode="decimal" placeholder="예: 55" value="55">
+      </div>
+      <div class="field">
+        <label for="stake">베팅 금액</label>
+        <input id="stake" inputmode="decimal" placeholder="예: 10000" value="10000">
+      </div>
+    </div>
+    <div class="btnrow">
+      <div class="btn" id="calcBtn">계산하기</div>
+      <div class="btn secondary" id="resetBtn">초기화</div>
+    </div>
+    <div class="out small">손익분기점(1/배당)과 비교해 +EV / -EV 여부를 확인합니다.</div>
+  </div>
+
+  <div class="card">
+    <h2>결과</h2>
+    <div class="kv">
+      <div class="item"><div class="k">손익분기점 승률</div><div class="v" id="be">-</div></div>
+      <div class="item"><div class="k">EV (금액)</div><div class="v" id="evAmt">-</div></div>
+      <div class="item"><div class="k">EV (수익률)</div><div class="v" id="evPct">-</div></div>
+      <div class="item"><div class="k">판정</div><div class="v" id="judge">-</div></div>
+    </div>
+    <div class="sep"></div>
+    <div class="small" id="explain"></div>
+  </div>
+</div>
+
+<script>
+function num(v){ const x=parseFloat(v); return (isFinite(x)) ? x : NaN; }
+function pct(x){ return (x*100).toFixed(2) + "%"; }
+function won(x){ 
+  if(!isFinite(x)) return "-";
+  const s = (x>=0? "" : "-");
+  const n = Math.abs(x);
+  return s + Math.round(n).toLocaleString() + "원";
+}
+function calc(){
+  const odds=num(document.getElementById("odds").value);
+  const p=num(document.getElementById("p").value)/100;
+  const stake=num(document.getElementById("stake").value);
+  if(!isFinite(odds) || odds<=1){ alert("배당을 올바르게 입력해 주세요 (1.01 이상)."); return; }
+  if(!isFinite(p) || p<=0 || p>=1){ alert("승률(%)을 1~99 사이로 입력해 주세요."); return; }
+  if(!isFinite(stake) || stake<=0){ alert("베팅 금액을 입력해 주세요."); return; }
+
+  const be = 1/odds;
+  const winProfit = (odds-1)*stake;
+  const ev = p*winProfit - (1-p)*stake;
+  const evRate = ev / stake;
+
+  document.getElementById("be").textContent = pct(be);
+  document.getElementById("evAmt").textContent = won(ev);
+  document.getElementById("evPct").textContent = pct(evRate);
+  document.getElementById("judge").textContent = (ev>0? "+EV" : (ev<0? "-EV" : "0"));
+
+  document.getElementById("explain").textContent =
+    `손익분기점은 ${pct(be)} 입니다. 내 추정 승률이 이보다 높으면 +EV 가능성이 있습니다(장기 평균 관점).`;
+}
+document.getElementById("calcBtn").addEventListener("click", calc);
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  document.getElementById("odds").value="1.90";
+  document.getElementById("p").value="55";
+  document.getElementById("stake").value="10000";
+  calc();
+});
+["odds","p","stake"].forEach(id=> document.getElementById(id).addEventListener("input", ()=> calc()));
+calc();
+</script>
+
+
+    <div class="card" style="margin-top:12px;">
+      <h2>자주 묻는 질문(FAQ)</h2>
+      <div class="faq">
+      <details>
+        <summary>손익분기점 승률은 왜 1/배당인가요?</summary>
+        <div class="small" style="margin-top:8px; line-height:1.6;">배당이 o일 때, 기대수익이 0이 되는 확률이 1/o 입니다(수수료·마진 단순화 가정).</div>
+      </details>
+
+      <details>
+        <summary>+EV이면 무조건 이기나요?</summary>
+        <div class="small" style="margin-top:8px; line-height:1.6;">아닙니다. +EV는 장기 평균 관점에서 유리할 ‘가능성’을 뜻합니다. 단기 변동성은 매우 큽니다.</div>
+      </details>
+
+      <details>
+        <summary>추정 승률은 어떻게 잡나요?</summary>
+        <div class="small" style="margin-top:8px; line-height:1.6;">최근 폼, 라인업, 일정, 상대 전적, 시장 변동 등 여러 요소를 참고해 ‘내 기준’으로 추정합니다.</div>
+      </details>
+
+      <details>
+        <summary>마진(오버라운드)을 제거한 EV도 있나요?</summary>
+        <div class="small" style="margin-top:8px; line-height:1.6;">가능합니다. 마진 계산기로 공정확률을 만든 뒤, 그 기준으로 승률/배당을 비교하면 더 보수적인 평가가 됩니다.</div>
+      </details>
+
+      <details>
+        <summary>추천 배팅 금액도 계산되나요?</summary>
+        <div class="small" style="margin-top:8px; line-height:1.6;">현재 페이지는 EV만 계산합니다. 향후 켈리/유닛 사이징 도구로 확장할 수 있습니다.</div>
+      </details></div>
+    </div>
+
+    <footer>
+      <div>© 88 — Tools</div>
+      <div class="small">책임감 있게 이용해 주세요. 과몰입 방지/리스크 관리가 우선입니다.</div>
+    </footer>
+  </div>
+</body>
+</html>
