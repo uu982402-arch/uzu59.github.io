@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>입플사이트 체크리스트 | 카지노입플·슬롯입플 조건 확인 가이드 88</title>
+  <meta name="description" content="입플사이트(입금플러스) 이용 전 카지노입플·슬롯입플 조건을 10초 체크리스트로 점검하세요. 롤링/제외게임/최대지급/기간/출금 규정까지 한눈에 정리. 배당 마진·EV·확률 계산기와 함께 제공합니다." />
+  <meta property="og:title" content="입플사이트 체크리스트 | 카지노입플·슬롯입플 조건 10초 점검 (88)" />
+  <meta property="og:description" content="입플/첫충/페이백 조건을 빠르게 정리하고, 롤링·제외게임·최대지급·기간·출금 규정을 체크하세요." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="robots" content="index,follow" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
+  <script>
+
+
+// ===== GA4 =====
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+// ===== UTM 저장/전파 =====
+function getUrlParams(){
+  const p = new URLSearchParams(location.search);
+  const obj = {};
+  ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(k=>{
+    const v = p.get(k);
+    if(v) obj[k]=v;
+  });
+  return obj;
+}
+function saveUtmFromUrl(){
+  const utm = getUrlParams();
+  const keys = Object.keys(utm);
+  if(!keys.length) return;
+  try{
+    localStorage.setItem("88_utm_last", JSON.stringify({...utm, ts: Date.now()}));
+  }catch(e){}
+}
+function getUtmQuery(){
+  try{
+    const raw = localStorage.getItem("88_utm_last");
+    if(!raw) return "";
+    const d = JSON.parse(raw);
+    const parts = [];
+    ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(k=>{
+      if(d && d[k]) parts.push(`${k}=${encodeURIComponent(d[k])}`);
+    });
+    return parts.length ? ("?" + parts.join("&")) : "";
+  }catch(e){ return ""; }
+}
+function appendUtm(href){
+  if(!href) return href;
+  // 외부링크 제외
+  if(/^https?:\/\//i.test(href)) return href;
+  // 앵커만 있는 경우
+  if(href.startsWith("#")) return href;
+  const q = getUtmQuery();
+  if(!q) return href;
+  // 이미 쿼리가 있으면 유지
+  if(href.includes("?")) return href;
+  // hash가 있으면 앞에 붙이기
+  const [path, hash] = href.split("#");
+  return path + q + (hash ? ("#" + hash) : "");
+}
+function bindUtmToLinks(){
+  document.querySelectorAll("a[data-utm='1']").forEach(a=>{
+    a.setAttribute("href", appendUtm(a.getAttribute("href")));
+  });
+}
+
+// ===== 이벤트 트래킹 =====
+function track(eventName, params){
+  try{
+    if(typeof gtag === "function") gtag("event", eventName, params || {});
+  }catch(e){}
+}
+
+saveUtmFromUrl();
+document.addEventListener("DOMContentLoaded", ()=>{
+  bindUtmToLinks();
+});
+
+gtag('js', new Date());
+gtag('config', 'G-KWT87FBY6S', { 'send_page_view': true });
+
+</script>
+
+<style>
+    :root{
+      --bg:#07070a;
+      --card:#0c0c12;
+      --text:#e8e8ee;
+      --muted:rgba(232,232,238,.72);
+      --line:rgba(255,255,255,.10);
+      --line2:rgba(255,255,255,.14);
+      --glass:rgba(20,20,24,.28);
+      --glass2:rgba(20,20,24,.18);
+      --accent:#d6b46b;
+      --accent2:#f0d59a;
+      --shadow:0 12px 34px rgba(0,0,0,.34);
+      --radius:18px;
+      --radius2:26px;
+      --max:1040px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0; background: radial-gradient(1200px 600px at 20% -10%, rgba(214,180,107,.12), transparent 55%),
+                         radial-gradient(1000px 600px at 110% 10%, rgba(240,213,154,.10), transparent 55%),
+                         var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Apple SD Gothic Neo, "Malgun Gothic", Arial, sans-serif;
+      line-height:1.45;
+    }
+    a{ color:inherit; }
+    .notice{
+      position: sticky;
+      top: 10px;
+      z-index: 999;
+      display:flex;
+      justify-content:center;
+      padding: 0 12px;
+      pointer-events:none;
+    }
+    .notice a{
+      pointer-events:auto;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      width:min(var(--max), 100%);
+      padding:10px 14px;
+      border-radius:999px;
+      background: var(--glass);
+      border:1px solid var(--line2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-decoration:none;
+      box-shadow: 0 10px 26px rgba(0,0,0,.22);
+      transition: background .25s ease, border-color .25s ease, transform .25s ease, opacity .25s ease;
+    }
+    .notice .pill{
+      font-size:12px;
+      padding:4px 10px;
+      border-radius:999px;
+      background: rgba(214,180,107,.16);
+      border:1px solid rgba(214,180,107,.28);
+      color: rgba(240,213,154,.92);
+      flex: 0 0 auto;
+    }
+    .notice .txt{
+      font-size:13px;
+      color: rgba(232,232,238,.90);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      flex: 1 1 auto;
+    }
+    .notice .chev{ opacity:.75; }
+    .notice.is-scrolled a{
+      padding:7px 12px;
+      background: var(--glass2);
+      border-color: var(--line);
+      opacity: .86;
+    }
+
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 10px 16px 60px; }
+    .top{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding: 12px 6px 6px; }
+    .brand{
+      display:flex; align-items:center; gap:10px; text-decoration:none;
+    }
+    .brand img{ width:34px; height:34px; border-radius:10px; }
+    .brand .name{ font-weight: 800; letter-spacing:.2px; }
+    .top .links{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .linkbtn{
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: rgba(232,232,238,.88);
+      font-size: 13px;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+      white-space:nowrap;
+    }
+    .linkbtn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+
+    .hero{
+      margin-top: 8px;
+      border-radius: var(--radius2);
+      padding: 22px 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-80px -120px auto auto;
+      width: 260px; height:260px;
+      background: radial-gradient(circle at 30% 30%, rgba(214,180,107,.34), transparent 60%);
+      transform: rotate(12deg);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .hero h1{ margin: 0 0 8px; font-size: 26px; letter-spacing:-.4px; }
+    .hero p{ margin: 0 0 14px; color: var(--muted); }
+    .badges{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 14px; }
+    .badge{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: rgba(232,232,238,.86);
+    }
+    .badge strong{ color: rgba(240,213,154,.95); font-weight: 800; }
+    .cta-row{ display:flex; gap:10px; flex-wrap:wrap; }
+    .cta{
+      text-decoration:none;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 800;
+      letter-spacing: -.2px;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .cta:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.18); }
+    .cta.primary{
+      border-color: rgba(214,180,107,.42);
+      background: rgba(214,180,107,.12);
+    }
+    .cta small{ font-weight: 600; color: rgba(232,232,238,.78); }
+
+    .section{
+      margin-top: 18px;
+      border-radius: var(--radius);
+      padding: 18px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+    }
+    .section h2{ margin: 0 0 10px; font-size: 18px; letter-spacing:-.2px; }
+    .grid2{ display:grid; gap: 12px; grid-template-columns: 1.1fr .9fr; }
+    .card{
+      border-radius: 16px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid var(--line);
+      padding: 14px;
+    }
+    .card h3{ margin:0 0 8px; font-size: 15px; }
+    .card p, .card li{ color: rgba(232,232,238,.82); }
+    .card p{ margin:0; }
+    ul.clean{ margin:10px 0 0; padding-left: 18px; }
+    ul.clean li{ margin: 6px 0; }
+
+    .checklist{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .check{
+      display:flex;
+      gap:10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      align-items:flex-start;
+    }
+    .check .dot{
+      width: 26px; height:26px;
+      border-radius: 10px;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(214,180,107,.14);
+      border: 1px solid rgba(214,180,107,.28);
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+    .check b{ display:block; margin-bottom: 2px; }
+    .check span{ display:block; color: rgba(232,232,238,.78); font-size: 13px; }
+
+    .tools{
+      display:grid; gap:10px;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      margin-top: 10px;
+    }
+    .tool{
+      text-decoration:none;
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+      min-height: 88px;
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .tool:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+    .tool .t{ font-weight: 900; }
+    .tool .d{ font-size: 13px; color: rgba(232,232,238,.74); }
+
+    .copybar{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-top: 12px;
+    }
+    .copybtn{
+      cursor:pointer;
+      border: 1px solid rgba(214,180,107,.42);
+      background: rgba(214,180,107,.12);
+      color: rgba(240,213,154,.96);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 900;
+      letter-spacing:-.2px;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .copybtn:hover{ transform: translateY(-1px); background: rgba(214,180,107,.16); }
+    .copynote{ font-size: 13px; color: rgba(232,232,238,.72); }
+
+    .faq{
+      margin-top: 18px;
+    }
+    details{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+      padding: 12px 12px;
+      margin: 10px 0;
+    }
+    summary{
+      cursor:pointer;
+      font-weight: 900;
+      outline:none;
+      color: rgba(232,232,238,.92);
+    }
+    details p{ margin: 8px 0 0; color: rgba(232,232,238,.78); }
+
+    .disclaimer-box{
+      margin: 14px auto 0;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: rgba(255,255,255,0.86);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .disclaimer-box strong{ color: rgba(255,255,255,0.95); }
+    .disclaimer-box p{ margin: 6px 0 0; }
+
+    .footer{
+      margin-top: 18px;
+      color: rgba(232,232,238,.60);
+      font-size: 12px;
+      text-align:center;
+      padding: 16px 0 0;
+    }
+
+    @media (max-width: 860px){
+      .grid2{ grid-template-columns: 1fr; }
+      .tools{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .hero h1{ font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="notice" id="noticeBar">
+    <a href="/?from=bonus" data-utm="1">
+      <span class="pill">안내</span>
+      <span class="txt">공식 문의/공지 채널은 한 곳만 운영합니다 · 사칭 주의</span>
+      <span class="chev">↗</span>
+    </a>
+  </div>
+
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="/?from=bonus_top">
+        <img src="/img/logo.png" alt="88" />
+        <div class="name">88</div>
+      </a>
+      <div class="links">
+        <a class="linkbtn" href="/tool-margin/?from=bonus_nav">마진 계산기</a>
+        <a class="linkbtn" href="/tool-ev/?from=bonus_nav">EV 계산기</a>
+        <a class="linkbtn" href="/analysis/?from=bonus_nav">분석기</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <h1>입플사이트 체크리스트: 카지노입플·슬롯입플 조건 10초 점검</h1>
+      <p>보너스는 “있어 보이는 문구”보다 <b>조건</b>이 전부입니다. 롤링/제외게임/최대지급/기간/출금 규정을 한 번에 체크하고, 불필요한 실수를 줄이세요.</p>
+      <div class="badges">
+        <span class="badge"><strong>핵심</strong> 롤링·제외게임</span>
+        <span class="badge"><strong>주의</strong> 최대지급·환수</span>
+        <span class="badge"><strong>추천</strong> 체크리스트 복사</span>
+      </div>
+      <div class="cta-row">
+        <a class="cta primary" href="/analysis/?from=bonus_hero">🧩 분석기 열기 <small>저장/공유 포함</small></a>
+        <a class="cta" href="/tool-ev/?from=bonus_hero">📈 EV 계산기 <small>기대값 확인</small></a>
+        <a class="cta" href="/tool-margin/?from=bonus_hero">🧮 마진 계산기 <small>불리함 점검</small></a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>왜 이 체크리스트가 필요한가요?</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>입플/첫충/페이백 문구는 비슷하지만, 조건은 전부 다릅니다</h3>
+          <p>특히 <b>카지노입플</b>과 <b>슬롯입플</b>은 적용 게임/롤링/최대지급/출금 제한에서 차이가 큽니다. “좋아 보이는 혜택”을 바로 따라가기 전에, 아래 항목만 먼저 확인하세요.</p>
+          <ul class="clean">
+            <li><b>롤링</b>: 몇 배를 채워야 출금 가능한지</li>
+            <li><b>제외 게임</b>: 적용 제외되는 슬롯/게임이 있는지</li>
+            <li><b>최대 지급</b>: 보너스 상한 및 환수 규정</li>
+            <li><b>기간</b>: 유효기간/소멸/일일 제한</li>
+            <li><b>출금 조건</b>: 추가 서류/검수/지연 조건</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>한 번에 복사해서 쓰는 “10초 점검 템플릿”</h3>
+          <p>아래 템플릿을 그대로 복사해서, 문의/확인할 때 체크박스로 쓰면 실수가 확 줄어듭니다.</p>
+          <div class="copybar">
+            <button class="copybtn" id="copyChecklist">체크리스트 복사</button>
+            <div class="copynote" id="copyNote">클릭하면 텍스트가 복사됩니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist" id="checklist">
+        <div class="check"><div class="dot">1</div><div><b>롤링(요구 배팅)</b><span>몇 배? 적용 게임? 롤링 산정 방식(스포츠/카지노/슬롯) 확인</span></div></div>
+        <div class="check"><div class="dot">2</div><div><b>제외/제한 게임</b><span>특정 슬롯, 미니게임, 특정 배당/특정 리그 제외 여부</span></div></div>
+        <div class="check"><div class="dot">3</div><div><b>최대 지급/상한</b><span>보너스 최대지급, 최대환수, 최대출금, 배당/배팅 한도 제한</span></div></div>
+        <div class="check"><div class="dot">4</div><div><b>유효기간/소멸</b><span>지급 후 몇 시간/몇 일 내 사용? 미사용 시 소멸? 일일 횟수 제한?</span></div></div>
+        <div class="check"><div class="dot">5</div><div><b>출금/검수 조건</b><span>출금 지연 기준, 추가 서류/인증 요구, 규정 위반 시 환수 조건</span></div></div>
+      </div>
+
+      <div class="disclaimer-box" role="note" aria-label="안내">
+        <strong>안내</strong>
+        <p>본 페이지는 특정 서비스/브랜드의 공식 페이지가 아니며, 보너스 조건을 이해하고 점검하는 데 도움을 주는 가이드 페이지입니다.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>함께 쓰면 좋은 도구</h2>
+      <p style="margin:0;color:rgba(232,232,238,.72);">입플 조건은 “문구”보다 실제 체감이 중요합니다. 배당/확률/기대값을 숫자로 확인해보세요.</p>
+      <div class="tools">
+        <a class="tool" href="/tool-odds/?from=bonus_tools">
+          <div class="t">확률↔배당 변환기</div>
+          <div class="d">확률 감각을 숫자로</div>
+        </a>
+        <a class="tool" href="/tool-margin/?from=bonus_tools">
+          <div class="t">배당 마진 계산기</div>
+          <div class="d">오버라운드로 불리함 점검</div>
+        </a>
+        <a class="tool" href="/tool-ev/?from=bonus_tools">
+          <div class="t">EV 계산기</div>
+          <div class="d">내 확률로 기대값 확인</div>
+        </a>
+        <a class="tool" href="/analysis/?from=bonus_tools">
+          <div class="t">분석기</div>
+          <div class="d">결과 저장/공유</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="section faq" id="faq">
+      <h2>자주 묻는 질문(FAQ)</h2>
+
+      <details>
+        <summary>입플사이트(입금플러스)에서 꼭 먼저 확인해야 할 조건은?</summary>
+        <p>롤링(요구 배팅)·제외게임·최대지급·유효기간·출금/검수 조건 5가지만 먼저 확인해도 대부분의 실수를 줄일 수 있습니다.</p>
+      </details>
+
+      <details>
+        <summary>카지노입플과 슬롯입플은 뭐가 다른가요?</summary>
+        <p>적용 게임 범위와 롤링 산정, 제외 게임, 최대 지급 조건이 다를 수 있습니다. 같은 “입플”이라도 슬롯/테이블/라이브 여부에 따라 제한이 붙는 경우가 많습니다.</p>
+      </details>
+
+      <details>
+        <summary>“최대 지급/환수”는 왜 중요하죠?</summary>
+        <p>상한이 낮거나 환수 조건이 까다로우면, 보너스가 있어도 체감 이득이 거의 없을 수 있습니다. 특히 규정 위반 시 환수 기준을 미리 확인하는 게 중요합니다.</p>
+      </details>
+
+      <details>
+        <summary>조건이 길면 어떻게 문의/확인해야 하나요?</summary>
+        <p>이 페이지의 템플릿을 복사해 체크박스로 문의하면 빠르고 정확합니다. “롤링/제외/상한/기간/출금” 5개 항목을 기준으로 답을 받으세요.</p>
+      </details>
+
+      <details>
+        <summary>배당/확률/EV 계산기는 여기랑 무슨 관계가 있나요?</summary>
+        <p>보너스 조건을 확인해도, 실제 의사결정은 숫자(확률/기대값/마진)로 검증하는 게 가장 안정적입니다. 도구를 함께 쓰면 과신을 줄이고 판단이 빨라집니다.</p>
+      </details>
+    </div>
+
+    <div class="footer">
+      © 88 · 가이드/도구 제공 페이지
+    </div>
+  </div>
+
+  <script>
+// ===== Page-specific UI + events =====
+(function(){
+  const bar = document.getElementById('noticeBar');
+  const onScroll = () => { if(bar) bar.classList.toggle('is-scrolled', window.scrollY > 60); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // copy checklist template
+  const btn = document.getElementById('copyChecklist');
+  const note = document.getElementById('copyNote');
+
+  const template = [
+    "[입플 10초 점검]",
+    "1) 롤링(요구 배팅): ____배 / 적용 게임: ____",
+    "2) 제외/제한 게임: ____",
+    "3) 최대 지급/상한: ____ / 환수 조건: ____",
+    "4) 유효기간/소멸: ____",
+    "5) 출금/검수 조건: ____"
+  ].join("\n");
+
+  const toast = (msg) => {
+    if(!note) return;
+    note.textContent = msg;
+    clearTimeout(toast._t);
+    toast._t = setTimeout(()=>{ note.textContent = "클릭하면 텍스트가 복사됩니다."; }, 2200);
+  };
+
+  async function doCopy(){
+    try{
+      await navigator.clipboard.writeText(template);
+      toast("복사 완료! 원하는 곳에 붙여넣기 하세요.");
+      try{ track("copy_checklist", {page_group:"bonus_checklist"}); }catch(e){}
+    }catch(e){
+      const ta = document.createElement('textarea');
+      ta.value = template;
+      ta.setAttribute('readonly','');
+      ta.style.position='fixed';
+      ta.style.left='-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try{
+        document.execCommand('copy');
+        toast("복사 완료! 원하는 곳에 붙여넣기 하세요.");
+        try{ track("copy_checklist", {page_group:"bonus_checklist"}); }catch(e){}
+      }catch(err){
+        toast("복사 실패: 브라우저 권한을 확인하세요.");
+      }
+      document.body.removeChild(ta);
+    }
+  }
+
+  if(btn) btn.addEventListener('click', doCopy);
+
+  // CTA click tracking (UI-only, no behavior changes)
+  document.querySelectorAll('a.cta, a.tool, a.linkbtn').forEach(a=>{
+    a.addEventListener('click', ()=>{
+      try{
+        track("cta_click", {
+          page_group: "bonus_checklist",
+          cta_text: (a.textContent || "").trim().slice(0,40),
+          dest: a.getAttribute("href") || ""
+        });
+      }catch(e){}
+    }, {passive:true});
+  });
+})();
+</script>
+
+
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"입플사이트(입금플러스)에서 꼭 먼저 확인해야 할 조건은?","acceptedAnswer":{"@type":"Answer","text":"롤링(요구 배팅)·제외게임·최대지급·유효기간·출금/검수 조건 5가지만 먼저 확인해도 대부분의 실수를 줄일 수 있습니다."}},
+      {"@type":"Question","name":"카지노입플과 슬롯입플은 뭐가 다른가요?","acceptedAnswer":{"@type":"Answer","text":"적용 게임 범위와 롤링 산정, 제외 게임, 최대 지급 조건이 다를 수 있습니다. 같은 입플이라도 슬롯/테이블/라이브 여부에 따라 제한이 붙는 경우가 많습니다."}},
+      {"@type":"Question","name":"“최대 지급/환수”는 왜 중요하죠?","acceptedAnswer":{"@type":"Answer","text":"상한이 낮거나 환수 조건이 까다로우면 보너스가 있어도 체감 이득이 거의 없을 수 있습니다. 규정 위반 시 환수 기준을 미리 확인하는 게 중요합니다."}},
+      {"@type":"Question","name":"조건이 길면 어떻게 문의/확인해야 하나요?","acceptedAnswer":{"@type":"Answer","text":"템플릿을 복사해 체크박스로 문의하면 빠르고 정확합니다. 롤링/제외/상한/기간/출금 5개 항목을 기준으로 답을 받으세요."}},
+      {"@type":"Question","name":"배당/확률/EV 계산기는 여기랑 무슨 관계가 있나요?","acceptedAnswer":{"@type":"Answer","text":"보너스 조건을 확인해도 실제 의사결정은 숫자(확률/기대값/마진)로 검증하는 게 안정적입니다. 도구를 함께 쓰면 판단이 빨라집니다."}}
+    ]
+  }
+  </script>
+</body>
+</html>
