@@ -787,6 +787,87 @@ select.insight-select{
   letter-spacing:.15px;
 }
 
+/* ===== tool card (bonus-checklist) ===== */
+.tool-card-grid{
+  margin-top:12px;
+}
+.tool-card-link{
+  position:relative;
+  display:block;
+  text-decoration:none;
+  color:#fff;
+  padding:14px 14px 12px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.22);
+  box-shadow: 0 12px 34px rgba(0,0,0,.48);
+  overflow:hidden;
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease, border-color .16s ease;
+}
+.tool-card-link::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: radial-gradient(520px 180px at 35% 0%, rgba(212,175,55,.18), transparent 60%),
+              radial-gradient(520px 220px at 85% 10%, rgba(90,160,255,.14), transparent 62%);
+  pointer-events:none;
+  opacity:.9;
+}
+.tool-card-link:hover{
+  transform: translateY(-3px);
+  border-color: rgba(245,226,122,.20);
+  box-shadow: 0 18px 52px rgba(0,0,0,.62);
+  filter: brightness(1.02);
+}
+.tool-card-head{
+  position:relative;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.tool-card-icon{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.92);
+  flex:0 0 auto;
+}
+.tool-card-title{
+  font-weight:900;
+  font-size:15px;
+  letter-spacing:-.2px;
+}
+.tool-card-desc{
+  margin-top:3px;
+  font-size:12px;
+  color: rgba(255,255,255,0.70);
+  font-weight:800;
+  line-height:1.35;
+}
+.tool-card-foot{
+  position:relative;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-end;
+  margin-top:8px;
+}
+.tool-card-cta{
+  font-weight:900;
+  color: rgba(245,226,122,.98);
+  font-size:12px;
+}
+.tool-card-note{
+  font-size:11px;
+  color: rgba(255,255,255,0.62);
+  font-weight:800;
+}
+
 /* mobile compact filter/sort: one-line summary + dropdown */
 @media (max-width:560px){
   .v-compact{ display:block; margin-top:10px; }
@@ -1234,11 +1315,89 @@ function appendUtm(urlStr) {
     </p>
   </div>
 
+
+  <div class="section" id="bonusChecklistSection">
+    <div class="title"><span class="badge">NEW</span>입플 체크리스트</div>
+    <div class="text">
+      입플사이트 혜택을 보기 전에, <b>카지노 입플·슬롯 입플 조건</b>(롤링/제외게임/최대지급)을 빠르게 점검하세요.
+      애매한 조건은 “문의 템플릿 복사”로 한 번에 정리할 수 있습니다.
+    </div>
+
+    <div class="tool-card-grid" aria-label="입플 체크리스트 바로가기">
+      <a class="tool-card-link" href="/bonus-checklist/" data-cta="home_bonus_card" aria-label="입플 체크리스트 열기">
+        <div class="tool-card-head">
+          <div class="tool-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path>
+              <rect x="9" y="3" width="6" height="4" rx="1"></rect>
+              <path d="M9 12h6"></path>
+              <path d="M9 16h6"></path>
+            </svg>
+          </div>
+          <div class="tool-card-text">
+            <div class="tool-card-title">입플 체크리스트</div>
+            <div class="tool-card-desc">카지노 입플·슬롯 입플 조건을 한 번에 확인</div>
+          </div>
+        </div>
+
+        <div class="chip-row" aria-hidden="true">
+          <span class="kchip">입플</span>
+          <span class="kchip">카지노</span>
+          <span class="kchip">슬롯</span>
+        </div>
+
+        <div class="tool-card-foot">
+          <span class="tool-card-cta">체크리스트 열기 →</span>
+          <span class="tool-card-note">조건 정리·문의 템플릿 포함</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+
+  <div class="section" id="bonusChecklistSection">
+    <div class="title"><span class="badge">NEW</span>입플 체크리스트</div>
+    <div class="text">
+      입플사이트 혜택을 보기 전에, <b>카지노 입플·슬롯 입플 조건</b>(롤링/제외게임/최대지급)을 빠르게 점검하세요.
+      애매한 조건은 “문의 템플릿 복사”로 한 번에 정리할 수 있습니다.
+    </div>
+
+    <div class="tool-card-grid" aria-label="입플 체크리스트 바로가기">
+      <a class="tool-card-link" href="/bonus-checklist/" data-cta="home_bonus_card" aria-label="입플 체크리스트 열기">
+        <div class="tool-card-head">
+          <div class="tool-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path>
+              <rect x="9" y="3" width="6" height="4" rx="1"></rect>
+              <path d="M9 12h6"></path>
+              <path d="M9 16h6"></path>
+            </svg>
+          </div>
+          <div class="tool-card-text">
+            <div class="tool-card-title">입플 체크리스트</div>
+            <div class="tool-card-desc">카지노 입플·슬롯 입플 조건을 한 번에 확인</div>
+          </div>
+        </div>
+
+        <div class="chip-row" aria-hidden="true">
+          <span class="kchip">입플</span>
+          <span class="kchip">카지노</span>
+          <span class="kchip">슬롯</span>
+        </div>
+
+        <div class="tool-card-foot">
+          <span class="tool-card-cta">체크리스트 열기 →</span>
+          <span class="tool-card-note">조건 정리·문의 템플릿 포함</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
 </div>
 
 
 
-<div class="vendor-tools" aria-label="카드 검색 및 필터">
+<div class="vendor-tools"<div class="vendor-tools" aria-label="카드 검색 및 필터">
   <input id="searchInput" class="v-input" placeholder="업체 검색 (예: CAPS, VEGAS, 페이백, USDT)" autocomplete="off">
   <div class="v-controls" aria-label="필터 및 정렬">
     <div class="v-control">
@@ -1308,10 +1467,7 @@ function appendUtm(urlStr) {
         <a class="small-btn" href="/tool-margin/" data-cta="quick_margin">마진</a>
         <a class="small-btn" href="/tool-ev/" data-cta="quick_ev">EV</a>
         <a class="small-btn" href="/tool-odds/" data-cta="quick_odds">배당 확률</a>
-        <a class="tool-card" href="/bonus-checklist/" data-cta="card_bonus">
-  <div class="tool-title">입플 체크리스트</div>
-  <div class="tool-desc">카지노 입플·슬롯 입플 조건을 빠르게 확인하는 체크리스트</div>
-</a>
+        <a class="small-btn" href="/bonus-checklist/" data-cta="quick_bonus">입플 체크</a>
       </div>
       <div class="note-mini">팁: 라인/배당 흐름은 “기록(로그)”이 쌓여야 의미가 커집니다. 다음 업데이트에서 베팅 로그/대시보드를 붙이면 재방문이 확 올라갑니다.</div>
     </div>
@@ -1378,6 +1534,7 @@ function appendUtm(urlStr) {
     <a href="/tool-margin/" data-cta="seo_margin">배당 마진 계산기</a>
     <a href="/tool-ev/" data-cta="seo_ev">EV 계산기</a>
     <a href="/tool-odds/" data-cta="seo_odds">배당↔확률 변환</a>
+    <a href="/bonus-checklist/" data-cta="seo_bonus">입플 체크리스트</a>
     
     <a href="/landing-a/">입플·보너스 분석기</a>
     <a href="/landing-b/">고액 유저 안내</a>
