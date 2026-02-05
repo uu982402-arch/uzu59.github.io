@@ -1,0 +1,82 @@
+/* ===== Glass Notice Banner (shared) ===== */
+.notice-bar, .notice, .glass-notice{
+  position: sticky !important;
+  top: 10px;
+  z-index: 1800;
+  padding: 0 12px;
+  background: transparent !important;
+  display: flex;
+  justify-content: center;
+}
+
+/* Make the clickable pill */
+.notice-bar > a,
+.notice > a,
+.glass-notice__inner{
+  width: min(980px, 100%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  background: rgba(20, 20, 24, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  color: rgba(255,255,255,0.92) !important;
+  text-decoration: none !important;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+  transition: background .25s ease, border-color .25s ease,
+              transform .25s ease, box-shadow .25s ease, opacity .25s ease,
+              padding .25s ease;
+}
+
+/* For pages where <a> includes only a span, keep it centered but readable */
+.notice-bar > a, .notice > a{
+  justify-content: center;
+  text-align: center;
+  font-weight: 900;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Optional icon support when using .glass-notice markup */
+.glass-notice__icon{ font-size: 16px; opacity: .9; }
+.glass-notice__text{ flex: 1; font-size: 13px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.glass-notice__chev{ opacity: .7; }
+
+.notice-bar > a:hover,
+.notice > a:hover,
+.glass-notice__inner:hover{
+  transform: translateY(-1px);
+  background: rgba(20, 20, 24, 0.45);
+  border-color: rgba(255,255,255,0.22);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.28);
+}
+
+/* Scroll-down mini state */
+.notice-bar.is-scrolled > a,
+.notice.is-scrolled > a,
+.glass-notice.is-scrolled .glass-notice__inner{
+  padding: 7px 12px;
+  background: rgba(20, 20, 24, 0.18);
+  border-color: rgba(255, 255, 255, 0.10);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.16);
+  opacity: 0.86;
+}
+
+/* Mobile tweaks */
+@media (max-width: 520px){
+  .notice-bar, .notice, .glass-notice{ top: 8px; }
+  .notice-bar > a, .notice > a, .glass-notice__inner{ padding: 9px 12px; }
+  .notice-bar.is-scrolled > a, .notice.is-scrolled > a, .glass-notice.is-scrolled .glass-notice__inner{ padding: 7px 10px; }
+  .notice-bar > a, .notice > a{ font-size: 12px; }
+  .glass-notice__text{ font-size: 12px; }
+  .glass-notice__chev{ display:none; }
+}
