@@ -38,23 +38,35 @@ body{
 /* ===== 상단 공지/이벤트 배너 (자동 순환) ===== */
 .notice-bar{
   position:sticky;
-  top:0;
+  top:10px;
   z-index:1600;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#000;
+
+  /* glass + rounded */
+  width:min(980px, calc(100% - 24px));
+  margin:10px auto 0;
+  border-radius:999px;
+
+  background:rgba(20,20,24,.38);
+  border:1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  color:rgba(255,255,255,.92);
   font-weight:900;
   font-size:13px;
   padding:10px 12px;
   text-align:center;
+
   box-shadow:0 10px 30px rgba(0,0,0,.35);
   display:flex;
   align-items:center;
   gap:10px;
-  border-bottom:1px solid rgba(0,0,0,.14);
-  transition:padding .18s ease, font-size .18s ease, box-shadow .18s ease;
+
+  transition:padding .18s ease, font-size .18s ease, box-shadow .18s ease,
+             background .18s ease, border-color .18s ease, opacity .18s ease;
 }
 .notice-bar a{
-  color:#000;
+  color:rgba(255,255,255,.92);
   text-decoration:none;
   flex:1;
   white-space:nowrap;
@@ -66,40 +78,47 @@ body{
   width:34px;
   height:28px;
   border-radius:999px;
-  border:1px solid rgba(0,0,0,.18);
-  background:rgba(255,255,255,.35);
-  color:#000;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.08);
+  color:#fff;
   font-weight:1000;
   cursor:pointer;
   display:flex;
   align-items:center;
   justify-content:center;
   line-height:1;
-  transition:transform .18s ease, background .18s ease;
+  transition:transform .18s ease, background .18s ease, border-color .18s ease;
 }
+.notice-toggle:hover{ background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.26); }
 .notice-toggle:active{ transform:scale(.98); }
+
 .notice-icon{
   flex:0 0 auto;
   width:28px;
   height:28px;
   border-radius:999px;
-  background:rgba(255,255,255,.35);
-  border:1px solid rgba(0,0,0,.16);
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
   display:flex;
   align-items:center;
   justify-content:center;
   line-height:1;
-  box-shadow:0 6px 16px rgba(0,0,0,.18);
+  box-shadow:0 6px 16px rgba(0,0,0,.22);
 }
 .notice-mini-text{
   display:none;
   font-weight:950;
   letter-spacing:-.2px;
 }
+
+/* (옵션) 초슬림/미니 형태 - 기존 클래스 유지 */
 .notice-bar.is-mini{
-  padding:6px 10px;
+  padding:7px 10px;
   font-size:12px;
-  box-shadow:0 6px 16px rgba(0,0,0,.22);
+  background:rgba(20,20,24,.22);
+  border-color:rgba(255,255,255,.10);
+  opacity:.88;
+  box-shadow:0 8px 22px rgba(0,0,0,.25);
 }
 .notice-bar.is-mini a{
   text-align:left;
@@ -115,12 +134,20 @@ body{
 }
 .notice-bar.is-mini .notice-toggle{ display:none; }
 
+/* 스크롤/접힘 상태: 더 투명 + 더 컴팩트 */
 .notice-bar.is-collapsed{
-  padding:6px 10px;
+  padding:7px 10px;
   font-size:12px;
-  box-shadow:0 6px 16px rgba(0,0,0,.25);
+  background:rgba(20,20,24,.20);
+  border-color:rgba(255,255,255,.10);
+  opacity:.88;
+  box-shadow:0 8px 22px rgba(0,0,0,.25);
 }
 
+@media (max-width:520px){
+  .notice-bar{ top:8px; width:calc(100% - 20px); margin:8px auto 0; }
+  .notice-toggle{ width:32px; height:26px; }
+}
 
 /* ===== 사칭주의 팝업 (1일 1회) ===== */
 .scam-popup{
