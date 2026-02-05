@@ -838,8 +838,8 @@ select.insight-select{
 <script>
 /* ===== 카드 데이터 (card9 추가) ===== */
 const CARD_DATA = {
-  card1:{ title:"B WIN", code:"AS88", link:"https://bwk999.com", telegram:"UZU59",
-    benefit:"고액전용 USDT 무기명가입 수수료지원 / 모든게임 입금플러스",
+  card1:{ title:"어느날", code:"ST95", link:"http://oday-147.com", telegram:"UZU59",
+    benefit:"고액전용 전용 무제제 삼치기OK / 입금플러스5+2 10+3 20+4 외 첫충 10%",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
   card2:{ title:"CAPS", code:"RUST", link:"https://caps-22.com", telegram:"UZU59",
     benefit:"고액전용 미겜 첫충 5% / 페이백 5% / 출석 30만원",
@@ -1097,7 +1097,7 @@ function appendUtm(urlStr) {
             <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"></path>
           </svg>
         </span>
-        <span class="label">인증놀이터 보기<span class="sub">카드 · 검색 · 인기순</span></span>
+        <span class="label">인증 놀이터 <span class="sub">클릭시 이동</span></span>
       </a>
     </div>
   </div>
@@ -1238,7 +1238,7 @@ function appendUtm(urlStr) {
 
 <div class="vendor-header" id="vendorTop">
   <h2>88 인증 놀이터</h2>
-  <p>필요한 정보만 빠르게 확인할 수 있도록 정리했습니다</p>
+  <p>  실제로 검증 된 놀이터 추천 드립니다.</p>
   <div class="pill-row" aria-label="빠른 이동">
     <a class="pill" href="/analysis/" data-cta="vendor_to_analysis">분석기 바로가기</a>
     <a class="pill" href="#vendorGrid" data-cta="vendor_to_grid">카드 바로보기</a>
@@ -1339,7 +1339,6 @@ function appendUtm(urlStr) {
       <a id="pTelegram" target="_blank" rel="noopener">텔레그램 문의</a>
     </div>
 
-    <div class="btn more" id="moreRecBtn">다른 추천도 보기</div>
 
     <div class="reason-box" id="reasonBox" style="display:none;">
       <div class="reason-title" id="reasonTitle">안내</div>
@@ -1620,9 +1619,9 @@ function calcSimpleMargin() {
 (function enrichCards() {
   const set = (id, patch)=>{ CARD_DATA[id] = Object.assign({tag:"rec", priority:"normal", recruit:false, reasons:[]}, CARD_DATA[id], patch); };
 
-  set("card1", {tag:"rec", priority:"high", reasons:["운영 이력 중심 선별", "조건(입플/수수료) 안내가 명확", "문의 채널이 고정"]});
+  set("card1", {tag:"rec", priority:"high", reasons:["고액전용 전용 무제제 삼치기OK", "입금플러스 5+2 10+3 20+4", " 승인 관련 문의 필수!!"]});
   set("card2", {tag:"rec", priority:"high", reasons:["혜택 구성(첫충/페이백) 확인 용이", "리워드형 혜택 포함", "문의 라인이 명확"]});
-  set("card3", {tag:"rec", priority:"high", reasons:["스포츠/미겜 첫충 + 페이백", "조건/코드 안내가 명확", "커뮤니티 피드백 반영"]});
+  set("card3", {tag:"rec", priority:"high", reasons:["스포츠/ 첫충 + 페이백", "조건/코드 안내가 명확", "커뮤니티 피드백 반영"]});
   set("card4", {tag:"rec", priority:"normal", reasons:["입플 폭이 넓어 선택지 다양", "혜택 분리 안내", "문의 채널 고정"]});
   set("card5", {tag:"new", priority:"normal", reasons:["원화/USDT 선택 가능", "페이백 비중 높은 편", "고액 유저 기준 확인"]});
   set("card6", {tag:"new", priority:"normal", reasons:["신규/매충/페이백 조합", "유지형 구성", "문의 라인이 명확"]});
@@ -2004,7 +2003,8 @@ function renderGrid() {
     [/출석/i, "출석"],
     [/USDT/i, "USDT"],
     [/무기명/i, "무기명"],
-    [/(미겜|미니게임)/i, "미겜"],
+    [/고액전용/i, "고액전용"],
+    [/|미니게임/i, ""],
     [/카지노/i, "카지노"],
     [/스포츠/i, "스포츠"],
     [/슬롯/i, "슬롯"],
