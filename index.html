@@ -37,8 +37,16 @@
 :root{
   --bg:#0b0b0b;
   --panel:#121212;
-  --gold:#d4af37;
-  --gold2:#f5e27a;
+
+  /* (THEME) 로고 색상에 맞춰 자동으로 바뀌는 포인트 컬러 */
+  --accent:#5fb2ff;
+  --accent2:#a8dcff;
+  --accentRGB: 95 178 255;
+
+  /* 기존 변수명 호환(기능 유지) */
+  --gold: var(--accent);
+  --gold2: var(--accent2);
+
   --muted:#cfcfcf;
 }
 
@@ -46,7 +54,7 @@ html{ scroll-behavior:smooth; }
 body{
   margin:0;
   background:
-    radial-gradient(1200px 500px at 50% -10%, rgba(212,175,55,.14), transparent 55%),
+    radial-gradient(1200px 500px at 50% -10%, rgb(var(--accentRGB) / .14), transparent 55%),
     radial-gradient(900px 500px at 10% 20%, rgba(90,160,255,.08), transparent 60%),
     linear-gradient(180deg, #07070a, var(--bg));
   font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
@@ -72,7 +80,7 @@ body{
   inset:0;
   z-index:2000;
   background:
-    radial-gradient(900px 500px at 50% 30%, rgba(212,175,55,.18), transparent 55%),
+    radial-gradient(900px 500px at 50% 30%, rgb(var(--accentRGB) / .18), transparent 55%),
     linear-gradient(180deg,#07070a,#0b0b0b);
   display:flex;
   align-items:center;
@@ -86,7 +94,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  filter: drop-shadow(0 0 24px rgba(212,175,55,.22));
+  filter: drop-shadow(0 0 24px rgb(var(--accentRGB) / .22));
 }
 #loader img{
   width:100%;
@@ -121,13 +129,13 @@ body{
 .header{ text-align:center; padding:18px 0 8px; }
 .header .logoLink{ display:inline-flex; align-items:center; justify-content:center; text-decoration:none; }
 .header .logoImg{
-  width:min(160px, 44vw);
+  width:min(132px, 38vw);
   height:auto;
   display:block;
   padding:10px;
   border-radius:18px;
-  background:radial-gradient(120px 60px at 50% 40%, rgba(212,175,55,.15), transparent 70%);
-  filter: drop-shadow(0 0 10px rgba(212,175,55,.25)) drop-shadow(0 0 24px rgba(212,175,55,.12));
+  background:radial-gradient(120px 60px at 50% 40%, rgb(var(--accentRGB) / .16), transparent 70%);
+  filter: drop-shadow(0 0 10px rgb(var(--accentRGB) / .25)) drop-shadow(0 0 24px rgb(var(--accentRGB) / .12));
   animation: logoFloat 3.2s ease-in-out infinite;
 }
 @keyframes logoFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-2px); } }
@@ -208,7 +216,7 @@ select.insight-select{
 .analyze-btn.primary{
   color:#0b0b0b;
   background:linear-gradient(135deg,var(--gold),var(--gold2));
-  box-shadow:0 16px 40px rgba(212,175,55,.18);
+  box-shadow:0 16px 40px rgb(var(--accentRGB) / .18);
 }
 .analyze-btn.primary:hover{ filter:brightness(1.03); }
 
@@ -257,7 +265,7 @@ select.insight-select{
   content:"";
   position:absolute;
   inset:-40px;
-  background:radial-gradient(700px 240px at 50% 0%, rgba(212,175,55,.20), transparent 60%);
+  background:radial-gradient(700px 240px at 50% 0%, rgb(var(--accentRGB) / .20), transparent 60%);
   pointer-events:none;
 }
 .vendor-header h2{ position:relative; margin:0; font-size:18px; font-weight:900; color:var(--gold2); letter-spacing:.2px; }
@@ -301,7 +309,7 @@ select.insight-select{
   inset:0;
   border-radius:inherit;
   pointer-events:none;
-  background: radial-gradient(600px 140px at 40% 0%, rgba(212,175,55,.10), transparent 60%);
+  background: radial-gradient(600px 140px at 40% 0%, rgb(var(--accentRGB) / .10), transparent 60%);
   opacity:.9;
 }
 .vendor-tools > *{ position:relative; }
@@ -379,12 +387,66 @@ select.insight-select{
 #evAutoHint{ display:none; }
 
 .vendor-grid{ position:relative; display:grid; gap:14px; padding:0 14px 10px; max-width:1100px; margin:0 auto; }
+
+/* ===== 섹션(보증/인증) ===== */
+.vendor-sections{ display:flex; flex-direction:column; gap:18px; }
+.vendor-section{ position:relative; }
+.vendor-section-head{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 6px 8px;
+}
+.vsh-left{ display:flex; align-items:baseline; gap:10px; }
+.vsh-title{
+  font-size:16px; font-weight:1000; letter-spacing:-.2px;
+}
+.vsh-meta{ font-size:12px; color:rgba(255,255,255,.6); font-weight:700; }
+.vsh-chip{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:1000;
+  color:#0b0b0b;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  box-shadow:0 10px 24px rgba(0,0,0,.35);
+}
+.vendor-section[data-section="verified"] .vsh-chip{
+  color:#00121a;
+  background:linear-gradient(135deg,#2d7dff,#6bdcff);
+}
+
+/* (UI) 카드: 메인 화면에서는 이미지 전용 */
+.card.card--imageOnly{ padding:0; }
+.card.card--imageOnly .img-box{ border-radius:18px; }
+.card.card--imageOnly .img-title{
+  position:absolute;
+  left:10px; right:10px; bottom:10px;
+  padding:8px 10px;
+  border-radius:14px;
+  font-size:12px;
+  font-weight:900;
+  color:#fff;
+  background:rgba(0,0,0,.38);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(10px);
+  opacity:0;
+  transform: translateY(6px);
+  transition: opacity .16s ease, transform .16s ease;
+}
+.card.card--imageOnly:hover .img-title,
+.card.card--imageOnly:focus-within .img-title{
+  opacity:1;
+  transform: translateY(0);
+}
+@media (hover:none){
+  .card.card--imageOnly .img-title{ display:none; }
+}
 .vendor-grid::before{
   content:"";
   position:absolute;
   inset:-18px;
   background:
-    radial-gradient(900px 320px at 50% 0%, rgba(212,175,55,.12), transparent 60%),
+    radial-gradient(900px 320px at 50% 0%, rgb(var(--accentRGB) / .12), transparent 60%),
     radial-gradient(700px 320px at 10% 20%, rgba(90,160,255,.10), transparent 60%);
   pointer-events:none;
   z-index:0;
@@ -637,7 +699,7 @@ select.insight-select{
   flex-wrap:wrap;
 }
 .btn.share{
-  background:linear-gradient(135deg, rgba(212,175,55,.95), rgba(255,204,82,.95));
+  background:linear-gradient(135deg, rgb(var(--accentRGB) / .95), rgba(255,204,82,.95));
   color:#111;
   border:1px solid rgba(0,0,0,.1);
 }
@@ -808,7 +870,7 @@ select.insight-select{
   content:"";
   position:absolute;
   inset:-2px;
-  background: radial-gradient(520px 180px at 35% 0%, rgba(212,175,55,.18), transparent 60%),
+  background: radial-gradient(520px 180px at 35% 0%, rgb(var(--accentRGB) / .18), transparent 60%),
               radial-gradient(520px 220px at 85% 10%, rgba(90,160,255,.14), transparent 62%);
   pointer-events:none;
   opacity:.9;
@@ -901,7 +963,7 @@ select.insight-select{
     transition: transform .18s ease;
   }
   .v-compact[open] summary{
-    border-color: rgba(212,175,55,0.22);
+    border-color: rgb(var(--accentRGB) / 0.22);
     background: rgba(255,255,255,0.08);
   }
   .v-compact[open] .caret{ transform: rotate(180deg); }
@@ -922,11 +984,11 @@ const CARD_DATA = {
   card1:{ title:"어느날", code:"ST95", link:"http://oday-147.com", telegram:"UZU59",
     benefit:"고액전용 전용 무제제 삼치기OK / 입금플러스5+2 10+3 20+4 외 첫충 10%",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card2:{ title:"CAPS", code:"RUST", link:"https://caps-22.com", telegram:"UZU59",
-    benefit:"고액전용 미겜 첫충 5% / 페이백 5% / 출석 30만원",
+  card2:{ title:"OK Bet", code:"88ST", link:"http://ok-8888.com/?code=88ST", telegram:"UZU59",
+    benefit:"신규가입 77만원 쿠폰지급, 코인 입/출금 가능, 롤 세트별 베팅, 벤픽 후 마감, BJ, 스타리그 업데이트",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card3:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com", telegram:"UZU59",
-    benefit:"고액전용 스포츠 첫 10% 미겜 첫 5% 페이백 5% USDT무기명가입 %",
+  card3:{ title:"SPEED Bet", code:"88ST", link:"http://spd-7575.com/?code=88ST", telegram:"UZU59",
+    benefit:"신규가입 77만원 쿠폰지급, 코인 입/출금 가능, 롤 세트별 베팅, 벤픽 후 마감, BJ, 스타리그 업데이트",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
   card4:{ title:"VEGAS", code:"6789", link:"https://las403.com", telegram:"UZU59",
     benefit:"스포츠·고액전용 입플 최대 30% 페이백 / 카지노 입플",
@@ -938,13 +1000,13 @@ const CARD_DATA = {
     benefit:"신규 30% / 매충 10% / 페이백 10 / 입플 %",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
 
-  card7:{ title:"광고/제휴 모집", code:"", link:"", telegram:"UZU59",
-    benefit:"88 커뮤니티에 광고/제휴를 원하시면 문의 주세요.",
-    notice:"광고 문의는 텔레그램 @UZU59 로만 진행합니다." },
+  card7:{ title:"CAPS", code:"RUST", link:"https://caps-22.com/", telegram:"UZU59",
+    benefit:"미겜 첫충 5% / 페이백 5% / 출석 30만원",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
 
-  card8:{ title:"광고 자리 오픈", code:"", link:"", telegram:"UZU59",
-    benefit:"배너/카드 광고 자리 오픈 · 합리적 조건",
-    notice:"사칭 주의: 공식 관리자 @UZU59 단 하나" },
+  card8:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com", telegram:"UZU59",
+    benefit:"스포츠 첫충 10% / 미겜 첫충 5% / 페이백 5% / 출석 30만원",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
 
   card9:{ title:"RIO", code:"opop", link:"https://rio2.casino/?b=OPOP", telegram:"Aven47",
     benefit:"고액전용 카지노 입플/페이백 중심 · 고액 유저 기준 혜택 안내",
@@ -1342,6 +1404,8 @@ function appendUtm(urlStr) {
       <label for="filterSelect">카테고리</label>
       <select id="filterSelect" class="v-select">
         <option value="all">전체</option>
+        <option value="guarantee">보증</option>
+        <option value="verified">인증</option>
         <option value="rec">추천</option>
         <option value="new">신규</option>
         <option value="ad">광고/제휴</option>
@@ -1366,7 +1430,33 @@ function appendUtm(urlStr) {
   <div class="v-small" id="cleanHint">정제된 문구: 카드 혜택 문구를 짧고 깔끔하게 보여줍니다.</div>
 </div>
 
-<div class="vendor-grid" id="vendorGrid"></div>
+<div id="vendorTop" class="vendor-sections">
+  <section class="vendor-section" data-section="guarantee">
+    <div class="vendor-section-head">
+      <div class="vsh-left">
+        <span class="vsh-title">보증 놀이터</span>
+        <span class="vsh-meta">CARD 1~3</span>
+      </div>
+      <div class="vsh-right">
+        <span class="vsh-chip">보증</span>
+      </div>
+    </div>
+    <div class="vendor-grid" id="vendorGridGuarantee"></div>
+  </section>
+
+  <section class="vendor-section" data-section="verified">
+    <div class="vendor-section-head">
+      <div class="vsh-left">
+        <span class="vsh-title">인증 놀이터</span>
+        <span class="vsh-meta">그 외 전체</span>
+      </div>
+      <div class="vsh-right">
+        <span class="vsh-chip">인증</span>
+      </div>
+    </div>
+    <div class="vendor-grid" id="vendorGridVerified"></div>
+  </section>
+</div>
 
 
 <div class="insights-wrap" id="insights">
@@ -1616,6 +1706,84 @@ function refreshInsight() {
   refreshInsight();
 })();
 
+
+/* ===== (THEME) 로고 기반 자동 포인트 컬러 =====
+   - img/logo.png 를 샘플링해 accent를 자동 세팅합니다.
+   - 로고만 바꿔도 버튼/배지/그림자 색이 자연스럽게 따라갑니다.
+*/
+(function autoThemeFromLogo(){
+  const img = document.querySelector(".logoImg");
+  if(!img) return;
+
+  const clamp = (v,min,max)=> Math.max(min, Math.min(max, v));
+  const lighten = (v, ratio)=> Math.round(v + (255 - v) * ratio);
+
+  const apply = ()=>{
+    try{
+      const w = 64, h = 64;
+      const c = document.createElement("canvas");
+      c.width = w; c.height = h;
+      const ctx = c.getContext("2d", { willReadFrequently:true });
+      if(!ctx) return;
+
+      ctx.clearRect(0,0,w,h);
+      // cover 느낌으로 꽉 채움
+      const iw = img.naturalWidth || w;
+      const ih = img.naturalHeight || h;
+      const scale = Math.max(w/iw, h/ih);
+      const dw = iw*scale, dh = ih*scale;
+      const dx = (w - dw)/2, dy = (h - dh)/2;
+      ctx.drawImage(img, dx, dy, dw, dh);
+
+      const data = ctx.getImageData(0,0,w,h).data;
+      let r=0,g=0,b=0,n=0;
+
+      for(let i=0;i<data.length;i+=4){
+        const a = data[i+3];
+        if(a < 40) continue;
+        const rr = data[i], gg = data[i+1], bb = data[i+2];
+
+        // (노이즈 제거) 거의 흰색/검정색은 제외(텍스트/배경 영향 축소)
+        const maxv = Math.max(rr,gg,bb);
+        const minv = Math.min(rr,gg,bb);
+        if(maxv < 15) continue;
+        if(minv > 245) continue;
+
+        const wgt = a/255;
+        r += rr * wgt;
+        g += gg * wgt;
+        b += bb * wgt;
+        n += wgt;
+      }
+      if(n < 5) return;
+
+      r = Math.round(r/n);
+      g = Math.round(g/n);
+      b = Math.round(b/n);
+
+      // 너무 탁하면 살짝 보정
+      r = clamp(r, 40, 230);
+      g = clamp(g, 40, 230);
+      b = clamp(b, 60, 245);
+
+      const r2 = lighten(r, 0.35);
+      const g2 = lighten(g, 0.35);
+      const b2 = lighten(b, 0.35);
+
+      const root = document.documentElement.style;
+      root.setProperty("--accentRGB", `${r} ${g} ${b}`);
+      root.setProperty("--accent", `rgb(${r} ${g} ${b})`);
+      root.setProperty("--accent2", `rgb(${r2} ${g2} ${b2})`);
+
+      // 기존 컬러 변수도 함께 갱신(기능 유지)
+      root.setProperty("--gold", `rgb(${r} ${g} ${b})`);
+      root.setProperty("--gold2", `rgb(${r2} ${g2} ${b2})`);
+    }catch(e){}
+  };
+
+  if(img.complete && img.naturalWidth) apply();
+  else img.addEventListener("load", apply, { once:true });
+})();
 /* ===== 업데이트 로그 ===== */
 const UPDATE_LOG = [
   { date:"02/01", text:"메인 CTA(분석기/놀이터) 정리" },
@@ -2064,77 +2232,87 @@ function cardSourcesById(id) {
 }
 
 function renderGrid() {
-  const grid = document.getElementById("vendorGrid");
-  if(!grid) return;
+  const gridG = document.getElementById("vendorGridGuarantee");
+  const gridV = document.getElementById("vendorGridVerified");
+
+  // (호환) 과거 버전에서 vendorGrid만 있던 경우도 안전 처리
+  const legacy = document.getElementById("vendorGrid");
+  if(!gridG && !gridV && !legacy) return;
 
   const q = norm(document.getElementById("searchInput")?.value || "");
 
+  // (보증 놀이터) 이 배열에 카드 ID를 추가하면 보증 섹션으로 자동 분류됩니다.
+  // 예) ["card1","card2","card3","card12"...]
+  const GUARANTEE_ORDER = ["card1","card2","card3"];
+  const GUARANTEE_SET = new Set(GUARANTEE_ORDER);
+
   const ids = Object.keys(CARD_DATA);
 
-  // 정렬: high 랜덤 -> normal 랜덤 -> 광고 마지막 (인기순은 별도)
-  const high = ids.filter(id=>CARD_DATA[id].priority==="high");
-  const normal = ids.filter(id=>CARD_DATA[id].priority==="normal");
-  const ad = ids.filter(id=>CARD_DATA[id].priority==="ad");
-  const shuffle = (arr)=> arr.slice().sort(()=>Math.random()-0.5);
-  let base = [...shuffle(high), ...shuffle(normal), ...ad];
+  // 기본값 보정(로딩/표시 오류 방지): priority 없으면 normal로 간주
+  ids.forEach(id=>{
+    const d = CARD_DATA[id] || {};
+    if(!d.priority) d.priority = "normal";
+    if(!d.tag) d.tag = "";
+  });
 
-  let filtered = base.filter(id=>{
+  const isGuarantee = (id)=> GUARANTEE_SET.has(id);
+
+  // 정렬: high 랜덤 -> normal 랜덤 -> 광고 마지막 (인기순은 별도)
+  const shuffle = (arr)=> arr.slice().sort(()=>Math.random()-0.5);
+  const orderByPriority = (arr)=>{
+    const high = arr.filter(id=>CARD_DATA[id].priority==="high");
+    const normal = arr.filter(id=>CARD_DATA[id].priority==="normal");
+    const ad = arr.filter(id=>CARD_DATA[id].priority==="ad");
+    return [...shuffle(high), ...shuffle(normal), ...ad];
+  };
+
+  // (보증) 지정 순서 유지 + 추가로 지정된 보증 카드가 있으면 뒤에 붙임
+  const guaranteeAll = [
+    ...GUARANTEE_ORDER.filter(id=>ids.includes(id)),
+    ...ids.filter(id=>isGuarantee(id) && !GUARANTEE_ORDER.includes(id))
+  ];
+
+  const verifiedAll = ids.filter(id=>!isGuarantee(id));
+
+  // 기본 순서(기본 정렬)
+  let baseG = guaranteeAll;
+  let baseV = orderByPriority(verifiedAll);
+
+  // 필터/검색
+  const match = (id)=>{
     const d = CARD_DATA[id];
+
+    // 섹션 필터
+    if(currentFilter==="guarantee" && !isGuarantee(id)) return false;
+    if(currentFilter==="verified"  &&  isGuarantee(id)) return false;
+
+    // 기존 태그 필터(호환)
     if(currentFilter==="rec" && d.tag!=="rec") return false;
     if(currentFilter==="new" && d.tag!=="new") return false;
     if(currentFilter==="ad"  && d.tag!=="ad") return false;
 
     if(q) {
-      const hay = norm(`${d.title} ${d.code||""} ${d.benefit||""} ${d.notice||""}`);
+      const hay = norm(`${d.title} ${d.code||""} ${d.benefit||""} ${d.notice||""} ${(d.recruitText||"")}`);
       if(!hay.includes(q)) return false;
     }
     return true;
-  });
+  };
+
+  let listG = baseG.filter(match);
+  let listV = baseV.filter(match);
 
   if(currentSort==="pop") {
-    filtered.sort((a,b)=> getClickCount(b)-getClickCount(a));
+    listG.sort((a,b)=> getClickCount(b)-getClickCount(a));
+    listV.sort((a,b)=> getClickCount(b)-getClickCount(a));
   }
 
-
-  // (UI) 카드 혜택에서 2~3개 키워드 칩 자동 추출
-  const CHIP_RULES = [
-    [/페이백/i, "페이백"],
-    [/(입플|입금플러스)/i, "입플"],
-    [/(첫충|첫매충|첫충전|첫매)/i, "첫충"],
-    [/매충/i, "매충"],
-    [/돌발/i, "돌발"],
-    [/출석/i, "출석"],
-    [/USDT/i, "USDT"],
-    [/무기명/i, "무기명"],
-    [/고액전용/i, "고액전용"],
-    [/|미니게임/i, ""],
-    [/카지노/i, "카지노"],
-    [/스포츠/i, "스포츠"],
-    [/슬롯/i, "슬롯"],
-  ];
-  function benefitChipsHTML(raw){
-    const t = String(raw||"");
-    const out = [];
-    for(const [re,label] of CHIP_RULES){
-      if(re.test(t) && !out.includes(label)) out.push(label);
-      if(out.length>=3) break;
-    }
-    if(out.length < 2){
-      if(/%|만원|만\s*원/.test(t)) out.push("이벤트");
-    }
-    return out.slice(0,3).map(l=>`<span class="kchip">${l}</span>`).join("");
-  }
-
-  grid.innerHTML = filtered.map(id=>{
-    const d = CARD_DATA[id];
-    const src = cardSourcesById(id);
-    const firstSrc = (src.gif || src.webp || src.jpg || '');
-const rawDesc = d.benefit ? d.benefit : "";
-    const desc = isCleanText ? cleanBenefit(rawDesc) : rawDesc;
-    const chipsHtml = benefitChipsHTML(rawDesc);
-
+  const cardHTML = (id)=>{
+    const d = CARD_DATA[id] || {};
+    const src = getCardSources(id);
+    const firstSrc = src.gif || src.webp || src.jpg || "";
     return `
-      <div class="card" data-card="${id}">
+      <div class="card card--imageOnly" data-card="${id}" role="button" tabindex="0"
+           aria-label="${(d.title||"카드").replace(/"/g,'&quot;')} 열기">
         <div class="img-box">
           <img class="cardThumb"
                src="${firstSrc}"
@@ -2143,20 +2321,28 @@ const rawDesc = d.benefit ? d.benefit : "";
                data-jpg="${src.jpg}"
                loading="lazy" decoding="async"
                alt="${(d.title||"").replace(/"/g,'&quot;')}">
-        </div>
-        <div class="content">
-          <div class="site">${d.title || ""}</div>
-          <div class="chip-row">${chipsHtml}</div>
-          <div class="desc">${desc}</div>
-          <div class="card-actions">
-            <div class="mini-share" role="button" tabindex="0" data-share="${id}" aria-label="공유하기">
-              <span aria-hidden="true">↗</span><span>공유</span>
-            </div>
-          </div>
+          <div class="img-title" aria-hidden="true">${d.title || ""}</div>
         </div>
       </div>
     `;
-  }).join("");
+  };
+
+  const outG = listG.map(cardHTML).join("");
+  const outV = listV.map(cardHTML).join("");
+
+  if(gridG) gridG.innerHTML = outG;
+  if(gridV) gridV.innerHTML = outV;
+
+  // 레거시 grid 지원(혹시 old markup이면 한 번에 뿌림)
+  if(legacy && !gridG && !gridV) legacy.innerHTML = [...listG, ...listV].map(cardHTML).join("");
+
+  // 섹션 빈 상태면 숨김
+  document.querySelectorAll(".vendor-section").forEach(sec=>{
+    const s = sec.getAttribute("data-section");
+    const grid = sec.querySelector(".vendor-grid");
+    const has = !!grid && grid.querySelectorAll(".card[data-card]").length > 0;
+    sec.style.display = has ? "block" : "none";
+  });
 
   // blur bg 세팅 + 이미지 에러 대응
   document.querySelectorAll(".img-box").forEach(box=>{
@@ -2169,14 +2355,15 @@ const rawDesc = d.benefit ? d.benefit : "";
 
     const applyBg = ()=>{
       let bg = img.currentSrc || img.src || "";
-      if(bg.endsWith(".gif")) bg = img.dataset.webp || img.dataset.jpg || bg;
-      if(bg) box.style.setProperty("--bgimg", `url('${bg}')`);
+      if(bg.endsWith(".gif")) bg = img.dataset.webp || img.dataset.jpg || bg; // GIF는 블러 배경에 부하가 커서 정적 이미지 우선
+      box.style.setProperty("--bgimg", bg ? `url('${bg}')` : "none");
     };
 
-    img.onload = ()=>{ applyBg(); };
+    img.addEventListener("load", applyBg, { once:false, passive:true });
+
     img.onerror = ()=>{
       step += 1;
-      if(step < chain.length){
+      if(chain[step]) {
         img.src = chain[step];
         return;
       }
@@ -2600,7 +2787,7 @@ function drawShareCard(d, link) {
   ctx.fillRect(0,0,W,H);
 
   // 글로우
-  ctx.fillStyle = "rgba(212,175,55,0.12)";
+  ctx.fillStyle = "rgb(var(--accentRGB) / 0.12)";
   ctx.beginPath();
   ctx.ellipse(W*0.58, H*0.14, W*0.55, H*0.22, 0, 0, Math.PI*2);
   ctx.fill();
@@ -2623,7 +2810,7 @@ function drawShareCard(d, link) {
   // 헤더 pill
   const pillH = 64, pillW = 260;
   roundRect(ctx, cardX+44, cardY+44, pillW, pillH, 999);
-  ctx.fillStyle = "rgba(212,175,55,0.95)";
+  ctx.fillStyle = "rgb(var(--accentRGB) / 0.95)";
   ctx.fill();
 
   ctx.fillStyle = "#111";
