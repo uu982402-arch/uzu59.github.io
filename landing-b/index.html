@@ -95,18 +95,33 @@ gtag('config', 'G-KWT87FBY6S', { 'send_page_view': true });
 
 *{box-sizing:border-box;}
 :root{
+  /* Theme (auto/preset) */
+  --accent1:#d4af37;
+  --accent2:#f5e27a;
+  --accentRGB:212,175,55;
+  --accentText:#000;
+  --accentOn:#00121a;
+
+  /* Glass intensity */
+  --glassA:.84;
+  --glassStrongA:.94;
+  --glassSoftA:.26;
+  --glassBorder:rgba(255,255,255,.06);
+
+  /* Backward-compat */
+  --gold: var(--accent1);
+  --gold2: var(--accent2);
+
   --bg:#0b0b0b;
-  --panel:rgba(18,18,18,.88);
-  --gold:#d4af37;
-  --gold2:#f5e27a;
-  --muted:#cfcfcf;
+  --panel:rgba(18,18,18,var(--glassA));
+--muted:#cfcfcf;
   --line:rgba(255,255,255,.08);
 }
 html{scroll-behavior:smooth;}
 body{
   margin:0;
   background:
-    radial-gradient(1200px 500px at 50% -10%, rgba(212,175,55,.14), transparent 55%),
+    radial-gradient(1200px 500px at 50% -10%, rgba(var(--accentRGB),.14), transparent 55%),
     radial-gradient(900px 500px at 10% 20%, rgba(90,160,255,.08), transparent 60%),
     linear-gradient(180deg, #07070a, var(--bg));
   font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
@@ -126,7 +141,7 @@ a{color:inherit;text-decoration:none;}
   gap:12px; padding:10px 0 14px;
 }
 .brand{display:flex; align-items:center; gap:10px;}
-.brand img{width:46px;height:46px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(212,175,55,.22));}
+.brand img{width:46px;height:46px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(var(--accentRGB),.22));}
 .brand .t{font-weight:900; letter-spacing:.2px;}
 .nav{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;}
 .nav a{
@@ -214,8 +229,26 @@ a{color:inherit;text-decoration:none;}
 }
 .smallLinks a:hover{color:var(--gold2); border-color:var(--gold2);}
 
+
+
+/* 88 logo spotlight */
+.logoImg, .logo-img{
+  width:min(170px,52vw) !important;
+  height:auto;
+  display:block;
+  padding:10px;
+  border-radius:20px;
+  background:rgba(20,20,24,var(--glassSoftA));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 14px 40px rgba(0,0,0,.42), 0 0 26px rgba(var(--accentRGB), .22);
+}
+@media(max-width:480px){
+  .logoImg, .logo-img{ width:min(150px,72vw) !important; padding:9px; }
+}
+
 </style>
 <link rel="stylesheet" href="../assets/glass-notice.css">
+<script src="../assets/theme-preset.js" defer></script>
 </head>
 <body>
   <div class="notice">
@@ -225,7 +258,7 @@ a{color:inherit;text-decoration:none;}
   <div class="wrap">
     <div class="top">
       <div class="brand">
-        <img src="/img/logo.png" alt="88 로고" loading="lazy" decoding="async">
+        <img class="logoImg" src="/img/logo.png" alt="88 로고" loading="lazy" decoding="async">
         <div class="t">88st.cloud</div>
       </div>
       <div class="nav">
