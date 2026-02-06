@@ -20,23 +20,40 @@
 <style>
 *{box-sizing:border-box}
 :root{
-  --bg:#0b0b0b; --panel:rgba(18,18,18,.88); --bd:rgba(255,255,255,.08);
-  --gold:#d4af37; --gold2:#f5e27a; --muted:#cfcfcf; --ok:#b7ffcf; --bad:#ffb3b3;
+  /* Theme (auto/preset) */
+  --accent1:#d4af37;
+  --accent2:#f5e27a;
+  --accentRGB:212,175,55;
+  --accentText:#000;
+  --accentOn:#00121a;
+
+  /* Glass intensity */
+  --glassA:.84;
+  --glassStrongA:.94;
+  --glassSoftA:.26;
+  --glassBorder:rgba(255,255,255,.06);
+
+  /* Backward-compat */
+  --gold: var(--accent1);
+  --gold2: var(--accent2);
+
+  --bg:#0b0b0b; --panel:rgba(18,18,18,var(--glassA)); --bd:rgba(255,255,255,.08);
+--muted:#cfcfcf; --ok:#b7ffcf; --bad:#ffb3b3;
 }
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;color:#fff;
   background:
-    radial-gradient(1200px 500px at 50% -10%, rgba(212,175,55,.14), transparent 55%),
+    radial-gradient(1200px 500px at 50% -10%, rgba(var(--accentRGB),.14), transparent 55%),
     radial-gradient(900px 500px at 10% 20%, rgba(90,160,255,.08), transparent 60%),
     linear-gradient(180deg, #07070a, var(--bg));}
 .notice-bar{position:sticky;top:0;z-index:1600;background:linear-gradient(135deg,var(--gold),var(--gold2));
   color:#000;font-weight:900;font-size:13px;padding:10px 12px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.35);}
 .notice-bar a{color:#000;text-decoration:none}
 #loader{position:fixed;inset:0;z-index:2000;background:
-  radial-gradient(900px 500px at 50% 30%, rgba(212,175,55,.18), transparent 55%),
+  radial-gradient(900px 500px at 50% 30%, rgba(var(--accentRGB),.18), transparent 55%),
   linear-gradient(180deg,#07070a,#0b0b0b);
   display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
 #loader .logoWrap{width:min(220px,60vw);aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
-  filter: drop-shadow(0 0 24px rgba(212,175,55,.22));}
+  filter: drop-shadow(0 0 24px rgba(var(--accentRGB),.22));}
 #loader img{width:100%;height:100%;object-fit:contain;animation:pulse 1.4s ease-in-out infinite;}
 #loader .text{font-weight:900;letter-spacing:.6px;color:#e9e9e9;opacity:.85;font-size:13px;}
 @keyframes pulse{0%{transform:scale(1);opacity:.85}50%{transform:scale(1.03);opacity:1}100%{transform:scale(1);opacity:.85}}
@@ -52,8 +69,8 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,syste
 .nav a{color:#ddd;text-decoration:none;font-weight:900;font-size:12px;border:1px solid var(--bd);background:rgba(0,0,0,.25);padding:8px 10px;border-radius:999px;}
 .nav a.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;border-color:transparent;}
 .logoLink{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;}
-.logoImg{width:min(220px,62vw);height:auto;display:block;padding:10px;border-radius:18px;background:radial-gradient(120px 60px at 50% 40%, rgba(212,175,55,.15), transparent 70%);
-  filter: drop-shadow(0 0 10px rgba(212,175,55,.25)) drop-shadow(0 0 24px rgba(212,175,55,.12));}
+.logoImg{width:min(220px,62vw);height:auto;display:block;padding:10px;border-radius:18px;background:radial-gradient(120px 60px at 50% 40%, rgba(var(--accentRGB),.15), transparent 70%);
+  filter: drop-shadow(0 0 10px rgba(var(--accentRGB),.25)) drop-shadow(0 0 24px rgba(var(--accentRGB),.12));}
 .sub{font-size:12px;color:#9a9a9a;margin-top:6px;padding:0 14px;line-height:1.5;}
 .wrap{max-width:1100px;margin:0 auto;padding:10px 14px 28px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
@@ -82,8 +99,26 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,syste
 .faq .a{margin-top:8px;color:#cfcfcf;font-size:13px;line-height:1.55}
 .footer{text-align:center;color:#9a9a9a;font-size:12px;padding:18px 14px 26px}
 small.muted{color:#9a9a9a}
+
+
+/* 88 logo spotlight */
+.logoImg, .logo-img{
+  width:min(170px,52vw) !important;
+  height:auto;
+  display:block;
+  padding:10px;
+  border-radius:20px;
+  background:rgba(20,20,24,var(--glassSoftA));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 14px 40px rgba(0,0,0,.42), 0 0 26px rgba(var(--accentRGB), .22);
+}
+@media(max-width:480px){
+  .logoImg, .logo-img{ width:min(150px,72vw) !important; padding:9px; }
+}
+
 </style>
 <link rel="stylesheet" href="../assets/glass-notice.css">
+<script src="../assets/theme-preset.js" defer></script>
 </head>
 
 <body>
@@ -92,7 +127,7 @@ small.muted{color:#9a9a9a}
 </div>
 
 <div id="loader">
-  <div class="logoWrap"><img src="../img/logo.png" alt="88 로고 로딩"></div>
+  <div class="logoWrap"><img class="logoImg" src="/img/logo.png" alt="88 로고 로딩"></div>
   <div class="text">Loading...</div>
 </div>
 
@@ -120,7 +155,7 @@ small.muted{color:#9a9a9a}
   </div>
 
   <a class="logoLink" href="../" aria-label="홈으로 이동">
-    <img class="logoImg" src="../img/logo.png" alt="88 커뮤니티 로고">
+    <img class="logoImg" src="/img/logo.png" alt="88 커뮤니티 로고">
   </a>
   <div class="sub">
     <b>온라인 카지노</b> 입플/페이백/보너스 조건과 주의사항을 정리했습니다.<br>
