@@ -2065,8 +2065,9 @@ function incCardClick(id){ localStorage.setItem(CLICK_KEY_PREFIX + id, String(ge
 function cardSourcesById(id) {
   const n = String(id).replace("card","");
   return {
-    jpg: `img/img${n}.jpg`,
-    webp: `img/img${n}.webp`
+    gif: `img/img${n}.gif`,
+    webp: `img/img${n}.webp`,
+    jpg: `img/img${n}.jpg`
   };
 }
 
@@ -2142,10 +2143,13 @@ const rawDesc = d.benefit ? d.benefit : "";
     return `
       <div class="card" data-card="${id}">
         <div class="img-box">
-          <picture>
-            <source type="image/webp" srcset="${src.webp}">
-            <img src="${src.jpg}" loading="lazy" decoding="async" alt="${(d.title||"").replace(/"/g,'&quot;')}">
-          </picture>
+          <img class="cardThumb"
+               src="${src.gif}"
+               data-gif="${src.gif}"
+               data-webp="${src.webp}"
+               data-jpg="${src.jpg}"
+               loading="lazy" decoding="async"
+               alt="${(d.title||"").replace(/"/g,'&quot;')}">
         </div>
         <div class="content">
           <div class="site">${d.title || ""}</div>
@@ -2165,13 +2169,31 @@ const rawDesc = d.benefit ? d.benefit : "";
   document.querySelectorAll(".img-box").forEach(box=>{
     const img = box.querySelector("img");
     if(!img) return;
-    const applyBg = ()=>{ box.style.setProperty("--bgimg", `url('${img.currentSrc || img.src}')`); };
-    img.addEventListener("load", applyBg, { once:true });
-    applyBg();
+
+    // GIF 우선 → WEBP → JPG 순서로 자동 폴백
+    const chain = [img.dataset.gif, img.dataset.webp, img.dataset.jpg].filter(Boolean);
+    let step = 0;
+
+    const applyBg = ()=>{
+      let bg = img.currentSrc || img.src || "";
+      if(bg.endsWith(".gif")) bg = img.dataset.webp || img.dataset.jpg || bg;
+      if(bg) box.style.setProperty("--bgimg", `url('${bg}')`);
+    };
+
+    img.onload = ()=>{ applyBg(); };
     img.onerror = ()=>{
+      step += 1;
+      if(step < chain.length){
+        img.src = chain[step];
+        return;
+      }
       img.style.display="none";
       box.style.minHeight="130px";
     };
+
+    // 초기 src가 비어있으면 체인 첫 값으로 세팅
+    if(!img.getAttribute("src") && chain[0]) img.src = chain[0];
+    applyBg();
   });
 
   setChipActive();
