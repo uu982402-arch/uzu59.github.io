@@ -975,11 +975,11 @@ const CARD_DATA = {
   card1:{ title:"어느날", code:"ST95", link:"http://oday-147.com", telegram:"UZU59",
     benefit:"고액전용 전용 무제제 삼치기OK / 입금플러스5+2 10+3 20+4 외 첫충 10%",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card2:{ title:"CAPS", code:"RUST", link:"https://caps-22.com", telegram:"UZU59",
-    benefit:"고액전용 미겜 첫충 5% / 페이백 5% / 출석 30만원",
+  card2:{ title: OK Bet", code:"88ST", link:"ok-8888.com/?code=88ST", telegram:"UZU59",
+    benefit:"신규가입쿠폰 77만원 쿠폰지급,코인 입/출금,롤 세트별 베팅,벤픽 후 마감,BJ롤,모든 스타리그 업데이트",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card3:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com", telegram:"UZU59",
-    benefit:"고액전용 스포츠 첫 10% 미겜 첫 5% 페이백 5% USDT무기명가입 %",
+  card3:{ title:"SPEED Bet", code:"88ST", link:"spd-7575.com/?code=88ST", telegram:"UZU59",
+    benefit:"신규가입쿠폰 77만원 쿠폰지급,코인 입/출금,롤 세트별 베팅,벤픽 후 마감,BJ롤,모든 스타리그 업데이트",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
   card4:{ title:"VEGAS", code:"6789", link:"https://las403.com", telegram:"UZU59",
     benefit:"스포츠·고액전용 입플 최대 30% 페이백 / 카지노 입플",
@@ -990,15 +990,12 @@ const CARD_DATA = {
   card6:{ title:"CHOY BET", code:"TAN", link:"https://cy-40.com", telegram:"DY0302",
     benefit:"신규 30% / 매충 10% / 페이백 10 / 입플 %",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-
-  card7:{ title:"광고/제휴 모집", code:"", link:"", telegram:"UZU59",
-    benefit:"88 커뮤니티에 광고/제휴를 원하시면 문의 주세요.",
-    notice:"광고 문의는 텔레그램 @UZU59 로만 진행합니다." },
-
-  card8:{ title:"광고 자리 오픈", code:"", link:"", telegram:"UZU59",
-    benefit:"배너/카드 광고 자리 오픈 · 합리적 조건",
-    notice:"사칭 주의: 공식 관리자 @UZU59 단 하나" },
-
+  card7:{ title:"CAPS", code:"RUST", link:"https://caps-22.com/", telegram:"UZU59",
+    benefit:"미겜 첫,매 5% 페이백5% 출석 30만원",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
+  card8:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com/", telegram:"UZU59",
+    benefit:"미겜 첫,매 5% 페이백5% 출석 30만원",
+    notice:"가입코드 미입력 시 혜택 적용 불가" },
   card9:{ title:"RIO", code:"opop", link:"https://rio2.casino/?b=OPOP", telegram:"Aven47",
     benefit:"고액전용 카지노 입플/페이백 중심 · 고액 유저 기준 혜택 안내",
     notice:"가입코드 미입력 시 혜택 적용이 어려울 수 있습니다." },
@@ -1203,7 +1200,6 @@ function appendUtm(urlStr) {
   <a class="logoLink" href="/" aria-label="홈으로 이동">
     <img class="logoImg" src="img/logo.png" alt="88 커뮤니티 로고">
   </a>
-  <div class="sub">배당 마진·EV·확률을 10초 만에 — 분석부터 선택까지 한 번에.</div>
 </div>
 
 <div class="section-wrap">
@@ -1212,7 +1208,7 @@ function appendUtm(urlStr) {
   <div class="section" id="analyzerSection">
     <div class="title"><span class="badge">MAIN</span>스포츠 배당 분석기</div>
     <div class="text">
-      배당 흐름·마진(오버라운드)·EV를 <b>초간단</b>으로 확인하는 도구입니다.
+      배당 흐름·마진(오버,언더)·EV <b>단순 </b> 확인하는 도구입니다.
       <span style="display:block;color:#9a9a9a;font-size:12px;margin-top:6px;">※ 도구는 참고용이며 결과를 보장하지 않습니다.</span>
     </div>
     <div class="cta-row">
@@ -1231,7 +1227,7 @@ function appendUtm(urlStr) {
             <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"></path>
           </svg>
         </span>
-        <span class="label">인증 놀이터 <span class="sub">바로 가기</span></span>
+        <span class="label"> 88ST.Cl0ud 보증 · 제휴놀이터 <span class="sub"> 바로가기</span></span>
       </a>
     </div>
   </div>
@@ -1395,9 +1391,9 @@ function appendUtm(urlStr) {
       <label for="filterSelect">카테고리</label>
       <select id="filterSelect" class="v-select">
         <option value="all">전체</option>
-        <option value="rec">추천</option>
+        <option value="rec">보증</option>
         <option value="new">신규</option>
-        <option value="ad">광고/제휴</option>
+        <option value="ad">제휴</option>
       </select>
     </div>
 
@@ -1765,13 +1761,13 @@ function calcSimpleMargin() {
   const set = (id, patch)=>{ CARD_DATA[id] = Object.assign({tag:"rec", priority:"normal", recruit:false, reasons:[]}, CARD_DATA[id], patch); };
 
   set("card1", {tag:"rec", priority:"high", reasons:["고액전용 전용 무제제 삼치기OK", "입금플러스 5+2 10+3 20+4", " 승인 관련 문의 필수!!"]});
-  set("card2", {tag:"rec", priority:"high", reasons:["혜택 구성(첫충/페이백) 확인 용이", "리워드형 혜택 포함", "문의 라인이 명확"]});
-  set("card3", {tag:"rec", priority:"high", reasons:["스포츠/ 첫충 + 페이백", "조건/코드 안내가 명확", "커뮤니티 피드백 반영"]});
-  set("card4", {tag:"rec", priority:"normal", reasons:["입플 폭이 넓어 선택지 다양", "혜택 분리 안내", "문의 채널 고정"]});
+  set("card2", {tag:"rec", priority:"high", reasons:["신규가입쿠폰 77만원 쿠폰지급", "코인 입/출금 ㅣ 돌발이벤트 매일 2회 진행", "롤 세트별,벤픽 후 마감,BJ롤,모든 스타리그 업데이트"]});
+  set("card3", {tag:"rec", priority:"high", reasons:["신규가입쿠폰 77만원 쿠폰지급", "코인 입/출금 ㅣ 돌발이벤트 매일 2회 진행", "롤 세트별,벤픽 후 마감,BJ롤,모든 스타리그 업데이트"]});
+  set("card4", {tag:"new", priority:"normal", reasons:["입플 폭이 넓어 선택지 다양", "혜택 분리 안내", "문의 채널 고정"]});
   set("card5", {tag:"new", priority:"normal", reasons:["원화/USDT 선택 가능", "페이백 비중 높은 편", "고액 유저 기준 확인"]});
-  set("card6", {tag:"new", priority:"normal", reasons:["신규/매충/페이백 조합", "유지형 구성", "문의 라인이 명확"]});
-  set("card7", {tag:"ad", priority:"ad", recruit:true, reasons:["광고 문의 전용", "배너/카드/문구 협의 가능", "텔레그램으로만 진행"]});
-  set("card8", {tag:"ad", priority:"ad", recruit:true, reasons:["광고 문의 전용", "고정 노출/추가 옵션", "사칭 주의"]});
+  set("card6", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택"]});
+  set("card7", {tag:"new", priority:"normal", reasons:["미니게임첫5%ㅣ페이백5%ㅣ출석30만원"]});
+  set("card8", {tag:"new", priority:"normal", reasons:["스포츠첫10%ㅣ미니게임첫5%ㅣ페이백5%ㅣ출석30만원"});
   set("card9", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택", "문의 채널 고정"]});
   set("card10", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택", "문의 채널 고정"]});
   set("card11", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택", "문의 채널 고정"]});
