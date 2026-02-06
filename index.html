@@ -37,30 +37,16 @@
 :root{
   --bg:#0b0b0b;
   --panel:#121212;
-
-  /* ===== Theme (auto from logo) ===== */
-  --accent:#d4af37;
-  --accent2:#f5e27a;
-  --accent-rgb:212,175,55;
-  --accent2-rgb:245,226,122;
-
-  /* backward-compat for existing styles */
-  --gold:var(--accent);
-  --gold2:var(--accent2);
-
+  --gold:#d4af37;
+  --gold2:#f5e27a;
   --muted:#cfcfcf;
-
-  /* ===== Logo / Glass tuning ===== */
-  --logoW:132px;      /* header logo width */
-  --logoHalo:0.38;    /* 0~1 */
-  --glassA:0.58;      /* 0~1 (higher = more opaque) */
 }
 
 html{ scroll-behavior:smooth; }
 body{
   margin:0;
   background:
-    radial-gradient(1200px 500px at 50% -10%, rgba(var(--accent-rgb),.14), transparent 55%),
+    radial-gradient(1200px 500px at 50% -10%, rgba(212,175,55,.14), transparent 55%),
     radial-gradient(900px 500px at 10% 20%, rgba(90,160,255,.08), transparent 60%),
     linear-gradient(180deg, #07070a, var(--bg));
   font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
@@ -86,7 +72,7 @@ body{
   inset:0;
   z-index:2000;
   background:
-    radial-gradient(900px 500px at 50% 30%, rgba(var(--accent-rgb),.18), transparent 55%),
+    radial-gradient(900px 500px at 50% 30%, rgba(212,175,55,.18), transparent 55%),
     linear-gradient(180deg,#07070a,#0b0b0b);
   display:flex;
   align-items:center;
@@ -100,7 +86,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  filter: drop-shadow(0 0 24px rgba(var(--accent-rgb),.22));
+  filter: drop-shadow(0 0 24px rgba(212,175,55,.22));
 }
 #loader img{
   width:100%;
@@ -140,8 +126,8 @@ body{
   display:block;
   padding:10px;
   border-radius:18px;
-  background:radial-gradient(120px 60px at 50% 40%, rgba(var(--accent-rgb),.15), transparent 70%);
-  filter: drop-shadow(0 0 10px rgba(var(--accent-rgb),.25)) drop-shadow(0 0 24px rgba(var(--accent-rgb),.12));
+  background:radial-gradient(120px 60px at 50% 40%, rgba(212,175,55,.15), transparent 70%);
+  filter: drop-shadow(0 0 10px rgba(212,175,55,.25)) drop-shadow(0 0 24px rgba(212,175,55,.12));
   animation: logoFloat 3.2s ease-in-out infinite;
 }
 @keyframes logoFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-2px); } }
@@ -222,7 +208,7 @@ select.insight-select{
 .analyze-btn.primary{
   color:#0b0b0b;
   background:linear-gradient(135deg,var(--gold),var(--gold2));
-  box-shadow:0 16px 40px rgba(var(--accent-rgb),.18);
+  box-shadow:0 16px 40px rgba(212,175,55,.18);
 }
 .analyze-btn.primary:hover{ filter:brightness(1.03); }
 
@@ -271,7 +257,7 @@ select.insight-select{
   content:"";
   position:absolute;
   inset:-40px;
-  background:radial-gradient(700px 240px at 50% 0%, rgba(var(--accent-rgb),.20), transparent 60%);
+  background:radial-gradient(700px 240px at 50% 0%, rgba(212,175,55,.20), transparent 60%);
   pointer-events:none;
 }
 .vendor-header h2{ position:relative; margin:0; font-size:18px; font-weight:900; color:var(--gold2); letter-spacing:.2px; }
@@ -315,7 +301,7 @@ select.insight-select{
   inset:0;
   border-radius:inherit;
   pointer-events:none;
-  background: radial-gradient(600px 140px at 40% 0%, rgba(var(--accent-rgb),.10), transparent 60%);
+  background: radial-gradient(600px 140px at 40% 0%, rgba(212,175,55,.10), transparent 60%);
   opacity:.9;
 }
 .vendor-tools > *{ position:relative; }
@@ -398,7 +384,7 @@ select.insight-select{
   position:absolute;
   inset:-18px;
   background:
-    radial-gradient(900px 320px at 50% 0%, rgba(var(--accent-rgb),.12), transparent 60%),
+    radial-gradient(900px 320px at 50% 0%, rgba(212,175,55,.12), transparent 60%),
     radial-gradient(700px 320px at 10% 20%, rgba(90,160,255,.10), transparent 60%);
   pointer-events:none;
   z-index:0;
@@ -420,7 +406,7 @@ select.insight-select{
 }
 .card:hover{
   transform: translateY(-4px);
-  border-color: rgba(var(--accent2-rgb),.22);
+  border-color: rgba(245,226,122,.22);
   box-shadow:0 16px 46px rgba(0,0,0,.62);
   filter:brightness(1.02);
 }
@@ -651,7 +637,7 @@ select.insight-select{
   flex-wrap:wrap;
 }
 .btn.share{
-  background:linear-gradient(135deg, rgba(var(--accent-rgb),.95), rgba(255,204,82,.95));
+  background:linear-gradient(135deg, rgba(212,175,55,.95), rgba(255,204,82,.95));
   color:#111;
   border:1px solid rgba(0,0,0,.1);
 }
@@ -822,14 +808,14 @@ select.insight-select{
   content:"";
   position:absolute;
   inset:-2px;
-  background: radial-gradient(520px 180px at 35% 0%, rgba(var(--accent-rgb),.18), transparent 60%),
+  background: radial-gradient(520px 180px at 35% 0%, rgba(212,175,55,.18), transparent 60%),
               radial-gradient(520px 220px at 85% 10%, rgba(90,160,255,.14), transparent 62%);
   pointer-events:none;
   opacity:.9;
 }
 .tool-card-link:hover{
   transform: translateY(-3px);
-  border-color: rgba(var(--accent2-rgb),.20);
+  border-color: rgba(245,226,122,.20);
   box-shadow: 0 18px 52px rgba(0,0,0,.62);
   filter: brightness(1.02);
 }
@@ -873,7 +859,7 @@ select.insight-select{
 }
 .tool-card-cta{
   font-weight:900;
-  color: rgba(var(--accent2-rgb),.98);
+  color: rgba(245,226,122,.98);
   font-size:12px;
 }
 .tool-card-note{
@@ -915,7 +901,7 @@ select.insight-select{
     transition: transform .18s ease;
   }
   .v-compact[open] summary{
-    border-color: rgba(var(--accent-rgb),0.22);
+    border-color: rgba(212,175,55,0.22);
     background: rgba(255,255,255,0.08);
   }
   .v-compact[open] .caret{ transform: rotate(180deg); }
@@ -928,45 +914,6 @@ select.insight-select{
   .v-compact{ display:none !important; }
 }
 
-
-/* ===== v6 Brand tuning: logo + theme halo ===== */
-:root{
-  --logo-halo: rgba(var(--accent-rgb), .38);
-}
-.header .logoLink{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 8px 10px;
-  border-radius: 18px;
-  background: rgba(18,18,22,.46);
-  border: 1px solid rgba(255,255,255,.10);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-.header .logoImg{
-  width: min(var(--logoW), 46vw);
-  max-width: 170px;
-  height: auto;
-  object-fit: contain;
-  filter:
-    drop-shadow(0 12px 26px rgba(0,0,0,.58))
-    drop-shadow(0 0 18px var(--logo-halo));
-}
-#loader .logoWrap img{
-  width: min(var(--logoW), 56vw);
-  height:auto;
-  filter:
-    drop-shadow(0 12px 26px rgba(0,0,0,.58))
-    drop-shadow(0 0 18px var(--logo-halo));
-}
-/* 버튼/배지 그림자도 로고 색에 맞게 */
-.analyze-btn.primary{
-  box-shadow:
-    0 18px 46px rgba(var(--accent-rgb), .22),
-    0 10px 26px rgba(0,0,0,.55) !important;
-}
-
 </style>
 
 <script>
@@ -975,11 +922,11 @@ const CARD_DATA = {
   card1:{ title:"어느날", code:"ST95", link:"http://oday-147.com", telegram:"UZU59",
     benefit:"고액전용 전용 무제제 삼치기OK / 입금플러스5+2 10+3 20+4 외 첫충 10%",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card2:{ title: OK Bet", code:"88ST", link:"ok-8888.com/?code=88ST", telegram:"UZU59",
-    benefit:"신규가입쿠폰 77만원 쿠폰지급,코인 입/출금,롤 세트별 베팅,벤픽 후 마감,BJ롤,모든 스타리그 업데이트",
+  card2:{ title:"CAPS", code:"RUST", link:"https://caps-22.com", telegram:"UZU59",
+    benefit:"고액전용 미겜 첫충 5% / 페이백 5% / 출석 30만원",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card3:{ title:"SPEED Bet", code:"88ST", link:"spd-7575.com/?code=88ST", telegram:"UZU59",
-    benefit:"신규가입쿠폰 77만원 쿠폰지급,코인 입/출금,롤 세트별 베팅,벤픽 후 마감,BJ롤,모든 스타리그 업데이트",
+  card3:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com", telegram:"UZU59",
+    benefit:"고액전용 스포츠 첫 10% 미겜 첫 5% 페이백 5% USDT무기명가입 %",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
   card4:{ title:"VEGAS", code:"6789", link:"https://las403.com", telegram:"UZU59",
     benefit:"스포츠·고액전용 입플 최대 30% 페이백 / 카지노 입플",
@@ -990,12 +937,15 @@ const CARD_DATA = {
   card6:{ title:"CHOY BET", code:"TAN", link:"https://cy-40.com", telegram:"DY0302",
     benefit:"신규 30% / 매충 10% / 페이백 10 / 입플 %",
     notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card7:{ title:"CAPS", code:"RUST", link:"https://caps-22.com/", telegram:"UZU59",
-    benefit:"미겜 첫,매 5% 페이백5% 출석 30만원",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card8:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com/", telegram:"UZU59",
-    benefit:"미겜 첫,매 5% 페이백5% 출석 30만원",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
+
+  card7:{ title:"광고/제휴 모집", code:"", link:"", telegram:"UZU59",
+    benefit:"88 커뮤니티에 광고/제휴를 원하시면 문의 주세요.",
+    notice:"광고 문의는 텔레그램 @UZU59 로만 진행합니다." },
+
+  card8:{ title:"광고 자리 오픈", code:"", link:"", telegram:"UZU59",
+    benefit:"배너/카드 광고 자리 오픈 · 합리적 조건",
+    notice:"사칭 주의: 공식 관리자 @UZU59 단 하나" },
+
   card9:{ title:"RIO", code:"opop", link:"https://rio2.casino/?b=OPOP", telegram:"Aven47",
     benefit:"고액전용 카지노 입플/페이백 중심 · 고액 유저 기준 혜택 안내",
     notice:"가입코드 미입력 시 혜택 적용이 어려울 수 있습니다." },
@@ -1200,6 +1150,7 @@ function appendUtm(urlStr) {
   <a class="logoLink" href="/" aria-label="홈으로 이동">
     <img class="logoImg" src="img/logo.png" alt="88 커뮤니티 로고">
   </a>
+  <div class="sub">배당 마진·EV·확률을 10초 만에 — 분석부터 선택까지 한 번에.</div>
 </div>
 
 <div class="section-wrap">
@@ -1208,7 +1159,7 @@ function appendUtm(urlStr) {
   <div class="section" id="analyzerSection">
     <div class="title"><span class="badge">MAIN</span>스포츠 배당 분석기</div>
     <div class="text">
-      배당 흐름·마진(오버,언더)·EV <b>단순 </b> 확인하는 도구입니다.
+      배당 흐름·마진(오버라운드)·EV를 <b>초간단</b>으로 확인하는 도구입니다.
       <span style="display:block;color:#9a9a9a;font-size:12px;margin-top:6px;">※ 도구는 참고용이며 결과를 보장하지 않습니다.</span>
     </div>
     <div class="cta-row">
@@ -1227,7 +1178,7 @@ function appendUtm(urlStr) {
             <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"></path>
           </svg>
         </span>
-        <span class="label"> 88ST.Cl0ud 보증 · 제휴놀이터 <span class="sub"> 바로가기</span></span>
+        <span class="label">인증 놀이터 <span class="sub">바로 가기</span></span>
       </a>
     </div>
   </div>
@@ -1384,16 +1335,16 @@ function appendUtm(urlStr) {
   </div>
 
 
-<div class="vendor-tools"<div class="vendor-tools" aria-label="카드 검색 및 필터">
+<div class="vendor-tools" aria-label="카드 검색 및 필터">
   <input id="searchInput" class="v-input" placeholder="업체 검색 (예: SPEED OK 어느날 )" autocomplete="off">
   <div class="v-controls" aria-label="필터 및 정렬">
     <div class="v-control">
       <label for="filterSelect">카테고리</label>
       <select id="filterSelect" class="v-select">
         <option value="all">전체</option>
-        <option value="rec">보증</option>
+        <option value="rec">추천</option>
         <option value="new">신규</option>
-        <option value="ad">제휴</option>
+        <option value="ad">광고/제휴</option>
       </select>
     </div>
 
@@ -1582,6 +1533,8 @@ function hideLoader() {
 }
 window.addEventListener("load", hideLoader);
 setTimeout(hideLoader, 2500);
+// DOM 파싱만 완료되어도 바로 닫기(네트워크 지연/차단 대비)
+document.addEventListener("DOMContentLoaded", ()=> setTimeout(hideLoader, 250));
 
 /* ===== 날짜 키(로컬) ===== */
 function dateKeyLocal() {
@@ -1761,13 +1714,13 @@ function calcSimpleMargin() {
   const set = (id, patch)=>{ CARD_DATA[id] = Object.assign({tag:"rec", priority:"normal", recruit:false, reasons:[]}, CARD_DATA[id], patch); };
 
   set("card1", {tag:"rec", priority:"high", reasons:["고액전용 전용 무제제 삼치기OK", "입금플러스 5+2 10+3 20+4", " 승인 관련 문의 필수!!"]});
-  set("card2", {tag:"rec", priority:"high", reasons:["신규가입쿠폰 77만원 쿠폰지급", "코인 입/출금 ㅣ 돌발이벤트 매일 2회 진행", "롤 세트별,벤픽 후 마감,BJ롤,모든 스타리그 업데이트"]});
-  set("card3", {tag:"rec", priority:"high", reasons:["신규가입쿠폰 77만원 쿠폰지급", "코인 입/출금 ㅣ 돌발이벤트 매일 2회 진행", "롤 세트별,벤픽 후 마감,BJ롤,모든 스타리그 업데이트"]});
-  set("card4", {tag:"new", priority:"normal", reasons:["입플 폭이 넓어 선택지 다양", "혜택 분리 안내", "문의 채널 고정"]});
+  set("card2", {tag:"rec", priority:"high", reasons:["혜택 구성(첫충/페이백) 확인 용이", "리워드형 혜택 포함", "문의 라인이 명확"]});
+  set("card3", {tag:"rec", priority:"high", reasons:["스포츠/ 첫충 + 페이백", "조건/코드 안내가 명확", "커뮤니티 피드백 반영"]});
+  set("card4", {tag:"rec", priority:"normal", reasons:["입플 폭이 넓어 선택지 다양", "혜택 분리 안내", "문의 채널 고정"]});
   set("card5", {tag:"new", priority:"normal", reasons:["원화/USDT 선택 가능", "페이백 비중 높은 편", "고액 유저 기준 확인"]});
-  set("card6", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택"]});
-  set("card7", {tag:"new", priority:"normal", reasons:["미니게임첫5%ㅣ페이백5%ㅣ출석30만원"]});
-  set("card8", {tag:"new", priority:"normal", reasons:["스포츠첫10%ㅣ미니게임첫5%ㅣ페이백5%ㅣ출석30만원"});
+  set("card6", {tag:"new", priority:"normal", reasons:["신규/매충/페이백 조합", "유지형 구성", "문의 라인이 명확"]});
+  set("card7", {tag:"ad", priority:"ad", recruit:true, reasons:["광고 문의 전용", "배너/카드/문구 협의 가능", "텔레그램으로만 진행"]});
+  set("card8", {tag:"ad", priority:"ad", recruit:true, reasons:["광고 문의 전용", "고정 노출/추가 옵션", "사칭 주의"]});
   set("card9", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택", "문의 채널 고정"]});
   set("card10", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택", "문의 채널 고정"]});
   set("card11", {tag:"new", priority:"normal", reasons:["입플/페이백 중심 안내", "고액 유저 기준 혜택", "문의 채널 고정"]});
@@ -2093,25 +2046,22 @@ function norm(s){ return String(s||"").toLowerCase().replace(/\s+/g,""); }
 function getClickCount(id){ return Number(localStorage.getItem(CLICK_KEY_PREFIX + id) || 0); }
 function incCardClick(id){ localStorage.setItem(CLICK_KEY_PREFIX + id, String(getClickCount(id) + 1)); }
 
-// ===== GIF 설정(404 없는 방식) =====
-// GIF가 있는 카드만 아래에 등록하면, 그 카드만 GIF를 요청합니다.
-// (등록 안 하면 webp/jpg만 요청 → 404 요청 0)
-const GIF_CARD_IDS = new Set([
-  // 예) "card1", "card7"
-]);
-
 function cardSourcesById(id) {
   const n = String(id).replace("card","");
-  const d = CARD_DATA[id] || {};
-  const hasGif = (d.gif === true) || GIF_CARD_IDS.has(id);
+  // GIF는 실제로 업로드된 카드만 지정하세요 (없는 경우 아예 요청하지 않음)
+  // 예) card2: img/imj2.gif, card3: img/img3.gif
+  const GIF_OVERRIDES = {
+    card2: "img/imj2.gif",
+    card3: "img/img3.gif"
+  };
 
+  const gif = GIF_OVERRIDES[id] || "";
   return {
-    gif: hasGif ? `img/img${n}.gif` : "",
+    gif,
     webp: `img/img${n}.webp`,
     jpg: `img/img${n}.jpg`
   };
 }
-
 
 function renderGrid() {
   const grid = document.getElementById("vendorGrid");
@@ -2142,12 +2092,7 @@ function renderGrid() {
   });
 
   if(currentSort==="pop") {
-    filtered.sort((a,b)=> {
-      const pa = (CARD_DATA[a]?.priority === "ad") ? 1 : 0; // 제휴(광고) 뒤로
-      const pb = (CARD_DATA[b]?.priority === "ad") ? 1 : 0;
-      if(pa !== pb) return pa - pb;
-      return getClickCount(b) - getClickCount(a);
-    });
+    filtered.sort((a,b)=> getClickCount(b)-getClickCount(a));
   }
 
 
@@ -2183,6 +2128,7 @@ function renderGrid() {
   grid.innerHTML = filtered.map(id=>{
     const d = CARD_DATA[id];
     const src = cardSourcesById(id);
+    const firstSrc = (src.gif || src.webp || src.jpg || '');
 const rawDesc = d.benefit ? d.benefit : "";
     const desc = isCleanText ? cleanBenefit(rawDesc) : rawDesc;
     const chipsHtml = benefitChipsHTML(rawDesc);
@@ -2191,8 +2137,8 @@ const rawDesc = d.benefit ? d.benefit : "";
       <div class="card" data-card="${id}">
         <div class="img-box">
           <img class="cardThumb"
-               src="${src.gif || src.webp || src.jpg}"
-               data-gif="${src.gif||""}"
+               src="${firstSrc}"
+               data-gif="${src.gif}"
                data-webp="${src.webp}"
                data-jpg="${src.jpg}"
                loading="lazy" decoding="async"
@@ -2654,7 +2600,7 @@ function drawShareCard(d, link) {
   ctx.fillRect(0,0,W,H);
 
   // 글로우
-  ctx.fillStyle = "rgba(var(--accent-rgb),0.12)";
+  ctx.fillStyle = "rgba(212,175,55,0.12)";
   ctx.beginPath();
   ctx.ellipse(W*0.58, H*0.14, W*0.55, H*0.22, 0, 0, Math.PI*2);
   ctx.fill();
@@ -2677,7 +2623,7 @@ function drawShareCard(d, link) {
   // 헤더 pill
   const pillH = 64, pillW = 260;
   roundRect(ctx, cardX+44, cardY+44, pillW, pillH, 999);
-  ctx.fillStyle = "rgba(var(--accent-rgb),0.95)";
+  ctx.fillStyle = "rgba(212,175,55,0.95)";
   ctx.fill();
 
   ctx.fillStyle = "#111";
@@ -2841,156 +2787,6 @@ function openFromUrl() {
   renderGrid();
   initInsights();
   openFromUrl();
-})();
-</script>
-
-
-<script>
-/* ===== v6 Theme preset (로고 기반 자동) =====
-  - 기본: 로고(img/logo.png) 색을 샘플링해 포인트 컬러를 자동 세팅
-  - 강제 고정: localStorage.setItem("88_theme","gold"|"blue"|"auto")
-*/
-(function(){
-  const PRESETS = {
-    gold: { accent:"#d4af37", accent2:"#f5e27a", rgb:"212,175,55", rgb2:"245,226,122" },
-    blue: { accent:"#46b7ff", accent2:"#c6f2ff", rgb:"70,183,255", rgb2:"198,242,255" }
-  };
-
-  const root = document.documentElement;
-  const setVar = (k,v)=> root.style.setProperty(k,v);
-
-  function applyPreset(p){
-    setVar("--accent", p.accent);
-    setVar("--accent2", p.accent2);
-    setVar("--accent-rgb", p.rgb);
-    setVar("--accent2-rgb", p.rgb2);
-    setVar("--logo-halo", `rgba(${p.rgb}, .38)`);
-  }
-
-  function rgbToHsl(r,g,b){
-    r/=255; g/=255; b/=255;
-    const max=Math.max(r,g,b), min=Math.min(r,g,b);
-    let h=0,s=0,l=(max+min)/2;
-    if(max!==min){
-      const d=max-min;
-      s = l>0.5 ? d/(2-max-min) : d/(max+min);
-      switch(max){
-        case r: h=(g-b)/d + (g<b?6:0); break;
-        case g: h=(b-r)/d + 2; break;
-        case b: h=(r-g)/d + 4; break;
-      }
-      h/=6;
-    }
-    return [h*360, s, l];
-  }
-
-  function hslToRgb(h,s,l){
-    h/=360;
-    const hue2rgb=(p,q,t)=>{
-      if(t<0) t+=1;
-      if(t>1) t-=1;
-      if(t<1/6) return p + (q-p)*6*t;
-      if(t<1/2) return q;
-      if(t<2/3) return p + (q-p)*(2/3 - t)*6;
-      return p;
-    };
-    let r,g,b;
-    if(s===0){ r=g=b=l; }
-    else{
-      const q = l<0.5 ? l*(1+s) : l + s - l*s;
-      const p = 2*l - q;
-      r = hue2rgb(p,q,h+1/3);
-      g = hue2rgb(p,q,h);
-      b = hue2rgb(p,q,h-1/3);
-    }
-    return [Math.round(r*255),Math.round(g*255),Math.round(b*255)];
-  }
-
-  function pickAccentFromLogo(img){
-    try{
-      const c = document.createElement("canvas");
-      const ctx = c.getContext("2d", { willReadFrequently:true });
-      const w = 56, h = 56;
-      c.width = w; c.height = h;
-
-      ctx.clearRect(0,0,w,h);
-      ctx.drawImage(img, 0, 0, w, h);
-
-      const data = ctx.getImageData(0,0,w,h).data;
-
-      let best = null;
-      let bestScore = -1;
-
-      for(let i=0;i<data.length;i+=4){
-        const a = data[i+3];
-        if(a < 30) continue;
-
-        const r = data[i], g = data[i+1], b = data[i+2];
-
-        const max = Math.max(r,g,b);
-        const min = Math.min(r,g,b);
-        const sat = (max - min) / (max + 1);      // 0~1
-        const val = max;                          // 0~255
-
-        // 너무 어둡거나 너무 흰 픽셀 제외(글자/하이라이트 노이즈 줄이기)
-        if(val < 70 || val > 235) continue;
-
-        // 채도 우선 + 중간밝기 가중치
-        const mid = 1 - Math.abs(160 - val) / 160;
-        const score = sat * 0.85 + mid * 0.15;
-
-        if(score > bestScore){
-          bestScore = score;
-          best = [r,g,b];
-        }
-      }
-
-      if(!best) return null;
-
-      // HSL로 보정: 너무 탁하면 살짝 선명하게
-      let [hh, ss, ll] = rgbToHsl(best[0], best[1], best[2]);
-      ss = Math.min(0.95, Math.max(0.65, ss));
-      ll = Math.min(0.62, Math.max(0.45, ll));
-
-      const [ar,ag,ab] = hslToRgb(hh, ss, ll);
-      const [br,bg,bb] = hslToRgb(hh, Math.min(0.98, ss*0.9), Math.min(0.82, ll+0.20));
-
-      return {
-        rgb: `${ar},${ag},${ab}`,
-        rgb2: `${br},${bg},${bb}`,
-        accent: `rgb(${ar},${ag},${ab})`,
-        accent2: `rgb(${br},${bg},${bb})`
-      };
-    }catch(e){
-      return null;
-    }
-  }
-
-  function applyAuto(){
-    const img = document.querySelector(".header .logoImg") || document.querySelector("#loader img") || document.querySelector('img[src*="logo"]');
-    if(!img) return;
-
-    const run = ()=>{
-      const picked = pickAccentFromLogo(img);
-      if(picked){
-        setVar("--accent", picked.accent);
-        setVar("--accent2", picked.accent2);
-        setVar("--accent-rgb", picked.rgb);
-        setVar("--accent2-rgb", picked.rgb2);
-        setVar("--logo-halo", `rgba(${picked.rgb}, .38)`);
-      }else{
-        applyPreset(PRESETS.blue); // fallback
-      }
-    };
-
-    if(img.complete && img.naturalWidth) run();
-    else img.addEventListener("load", run, { once:true });
-  }
-
-  const pref = (localStorage.getItem("88_theme") || "auto").toLowerCase();
-  if(pref === "gold" && PRESETS.gold) applyPreset(PRESETS.gold);
-  else if(pref === "blue" && PRESETS.blue) applyPreset(PRESETS.blue);
-  else applyAuto();
 })();
 </script>
 
