@@ -1295,26 +1295,6 @@ function appendUtm(urlStr) {
     </div>
   </div>
 
-  <div class="section">
-    <div class="title"><span class="badge">88</span>추천 기준</div>
-
-    <div class="text">
-      88은 단순히 링크를 모아두는 추천 페이지가 아닙니다.<br>
-      사용자 의견과 운영 이력을 바탕으로, 장기적으로 문제 없이 이용 가능한 정보만 정리합니다.
-    </div>
-
-    <ul class="text" style="margin:10px 0 0; padding-left:18px;">
-      <li>운영 안정성 및 장기 운영 이력</li>
-      <li>조건/안내(혜택·코드) 명확성</li>
-      <li>문의 및 대응 가능 여부</li>
-      <li>이슈 발생 시 해결 가능성(커뮤니티 피드백)</li>
-    </ul>
-
-    <p class="text" style="margin-top:10px;">
-      이 공간은 특정 업체를 강요하지 않고, 각자의 기준에 맞는 선택을 돕기 위한 안내를 목표로 합니다.
-    </p>
-  </div>
-
 
   <div class="section" id="bonusChecklistSection">
     <div class="title"><span class="badge">NEW</span>입플 체크리스트</div>
@@ -1355,50 +1335,8 @@ function appendUtm(urlStr) {
   </div>
 
 
-  <div class="section" id="bonusChecklistSection">
-    <div class="title"><span class="badge">NEW</span>입플 체크리스트</div>
-    <div class="text">
-      입플사이트 혜택을 보기 전에, <b>카지노 입플·슬롯 입플 조건</b>(롤링/제외게임/최대지급)을 빠르게 점검하세요.
-      애매한 조건은 “문의 템플릿 복사”로 한 번에 정리할 수 있습니다.
-    </div>
-
-    <div class="tool-card-grid" aria-label="입플 체크리스트 바로가기">
-      <a class="tool-card-link" href="/bonus-checklist/" data-cta="home_bonus_card" aria-label="입플 체크리스트 열기">
-        <div class="tool-card-head">
-          <div class="tool-card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path>
-              <rect x="9" y="3" width="6" height="4" rx="1"></rect>
-              <path d="M9 12h6"></path>
-              <path d="M9 16h6"></path>
-            </svg>
-          </div>
-          <div class="tool-card-text">
-            <div class="tool-card-title">입플 체크리스트</div>
-            <div class="tool-card-desc">카지노 입플·슬롯 입플 조건을 한 번에 확인</div>
-          </div>
-        </div>
-
-        <div class="chip-row" aria-hidden="true">
-          <span class="kchip">입플</span>
-          <span class="kchip">카지노</span>
-          <span class="kchip">슬롯</span>
-        </div>
-
-        <div class="tool-card-foot">
-          <span class="tool-card-cta">체크리스트 열기 →</span>
-          <span class="tool-card-note">조건 정리·문의 템플릿 포함</span>
-        </div>
-      </a>
-    </div>
-  </div>
-
-</div>
-
-
-
-<div class="vendor-tools"<div class="vendor-tools" aria-label="카드 검색 및 필터">
-  <input id="searchInput" class="v-input" placeholder="업체 검색 (예: CAPS, VEGAS, 페이백, USDT)" autocomplete="off">
+<div class="vendor-tools" aria-label="카드 검색 및 필터">
+  <input id="searchInput" class="v-input" placeholder="업체 검색 (예: SPEED OK 어느날 )" autocomplete="off">
   <div class="v-controls" aria-label="필터 및 정렬">
     <div class="v-control">
       <label for="filterSelect">카테고리</label>
@@ -1451,7 +1389,7 @@ function appendUtm(urlStr) {
     <div class="card stat-card" aria-label="오늘 많이 본 카드">
       <div class="stat-top">
         <div class="stat-title">오늘 많이 본 카드 TOP 5</div>
-        <div class="stat-meta" id="insightCardMeta">카드 상세를 열어본 횟수 기준입니다. (로컬 집계)</div>
+        <div class="stat-meta" id="insightCardMeta">카드 상세를 열어본 횟수 기준입니다. </div>
       </div>
       <div class="stat-list" id="insightCards"></div>
       <div class="note-mini">※ “인기순” 정렬은 카드 클릭 누적 기반, 이 영역은 “오늘 열람” 기반입니다.</div>
@@ -1595,6 +1533,8 @@ function hideLoader() {
 }
 window.addEventListener("load", hideLoader);
 setTimeout(hideLoader, 2500);
+// DOM 파싱만 완료되어도 바로 닫기(네트워크 지연/차단 대비)
+document.addEventListener("DOMContentLoaded", ()=> setTimeout(hideLoader, 250));
 
 /* ===== 날짜 키(로컬) ===== */
 function dateKeyLocal() {
@@ -2108,9 +2048,18 @@ function incCardClick(id){ localStorage.setItem(CLICK_KEY_PREFIX + id, String(ge
 
 function cardSourcesById(id) {
   const n = String(id).replace("card","");
+  // GIF는 실제로 업로드된 카드만 지정하세요 (없는 경우 아예 요청하지 않음)
+  // 예) card2: img/imj2.gif, card3: img/img3.gif
+  const GIF_OVERRIDES = {
+    card2: "img/imj2.gif",
+    card3: "img/img3.gif"
+  };
+
+  const gif = GIF_OVERRIDES[id] || "";
   return {
-    jpg: `img/img${n}.jpg`,
-    webp: `img/img${n}.webp`
+    gif,
+    webp: `img/img${n}.webp`,
+    jpg: `img/img${n}.jpg`
   };
 }
 
@@ -2179,6 +2128,7 @@ function renderGrid() {
   grid.innerHTML = filtered.map(id=>{
     const d = CARD_DATA[id];
     const src = cardSourcesById(id);
+    const firstSrc = (src.gif || src.webp || src.jpg || '');
 const rawDesc = d.benefit ? d.benefit : "";
     const desc = isCleanText ? cleanBenefit(rawDesc) : rawDesc;
     const chipsHtml = benefitChipsHTML(rawDesc);
@@ -2186,10 +2136,13 @@ const rawDesc = d.benefit ? d.benefit : "";
     return `
       <div class="card" data-card="${id}">
         <div class="img-box">
-          <picture>
-            <source type="image/webp" srcset="${src.webp}">
-            <img src="${src.jpg}" loading="lazy" decoding="async" alt="${(d.title||"").replace(/"/g,'&quot;')}">
-          </picture>
+          <img class="cardThumb"
+               src="${firstSrc}"
+               data-gif="${src.gif}"
+               data-webp="${src.webp}"
+               data-jpg="${src.jpg}"
+               loading="lazy" decoding="async"
+               alt="${(d.title||"").replace(/"/g,'&quot;')}">
         </div>
         <div class="content">
           <div class="site">${d.title || ""}</div>
@@ -2209,13 +2162,31 @@ const rawDesc = d.benefit ? d.benefit : "";
   document.querySelectorAll(".img-box").forEach(box=>{
     const img = box.querySelector("img");
     if(!img) return;
-    const applyBg = ()=>{ box.style.setProperty("--bgimg", `url('${img.currentSrc || img.src}')`); };
-    img.addEventListener("load", applyBg, { once:true });
-    applyBg();
+
+    // GIF 우선 → WEBP → JPG 순서로 자동 폴백
+    const chain = [img.dataset.gif, img.dataset.webp, img.dataset.jpg].filter(Boolean);
+    let step = 0;
+
+    const applyBg = ()=>{
+      let bg = img.currentSrc || img.src || "";
+      if(bg.endsWith(".gif")) bg = img.dataset.webp || img.dataset.jpg || bg;
+      if(bg) box.style.setProperty("--bgimg", `url('${bg}')`);
+    };
+
+    img.onload = ()=>{ applyBg(); };
     img.onerror = ()=>{
+      step += 1;
+      if(step < chain.length){
+        img.src = chain[step];
+        return;
+      }
       img.style.display="none";
       box.style.minHeight="130px";
     };
+
+    // 초기 src가 비어있으면 체인 첫 값으로 세팅
+    if(!img.getAttribute("src") && chain[0]) img.src = chain[0];
+    applyBg();
   });
 
   setChipActive();
