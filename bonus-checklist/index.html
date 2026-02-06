@@ -88,6 +88,23 @@ gtag('config', 'G-KWT87FBY6S', { 'send_page_view': true });
 
 <style>
     :root{
+  /* Theme (auto/preset) */
+  --accent1:#d4af37;
+  --accent2:#f5e27a;
+  --accentRGB:212,175,55;
+  --accentText:#000;
+  --accentOn:#00121a;
+
+  /* Glass intensity */
+  --glassA:.84;
+  --glassStrongA:.94;
+  --glassSoftA:.26;
+  --glassBorder:rgba(255,255,255,.06);
+
+  /* Backward-compat */
+  --gold: var(--accent1);
+  --gold2: var(--accent2);
+
       --bg:#07070a;
       --card:#0c0c12;
       --text:#e8e8ee;
@@ -366,7 +383,25 @@ gtag('config', 'G-KWT87FBY6S', { 'send_page_view': true });
       .tools{ grid-template-columns: repeat(2, minmax(0,1fr)); }
       .hero h1{ font-size: 24px; }
     }
-  </style>
+  
+
+/* 88 logo spotlight */
+.logoImg, .logo-img{
+  width:min(170px,52vw) !important;
+  height:auto;
+  display:block;
+  padding:10px;
+  border-radius:20px;
+  background:rgba(20,20,24,var(--glassSoftA));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 14px 40px rgba(0,0,0,.42), 0 0 26px rgba(var(--accentRGB), .22);
+}
+@media(max-width:480px){
+  .logoImg, .logo-img{ width:min(150px,72vw) !important; padding:9px; }
+}
+
+</style>
+<script src="../assets/theme-preset.js" defer></script>
 </head>
 <body>
   <div class="notice" id="noticeBar">
@@ -380,7 +415,7 @@ gtag('config', 'G-KWT87FBY6S', { 'send_page_view': true });
   <div class="wrap">
     <div class="top">
       <a class="brand" href="/?from=bonus_top">
-        <img src="/img/logo.png" alt="88" />
+        <img class="logoImg" src="/img/logo.png" alt="88" />
         <div class="name">88</div>
       </a>
       <div class="links">
