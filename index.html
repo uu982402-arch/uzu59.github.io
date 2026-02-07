@@ -1213,7 +1213,7 @@ function appendUtm(urlStr) {
   <a class="logoLink" href="/" aria-label="홈으로 이동">
     <img class="logoImg" src="img/logo.png" alt="88 커뮤니티 로고">
   </a>
-  <div class="sub">배당 마진·EV·확률을 10초 만에 — 분석부터 선택까지 한 번에.</div>
+  <div class="sub"> </div>
 </div>
 
 <div class="section-wrap">
@@ -1222,7 +1222,7 @@ function appendUtm(urlStr) {
   <div class="section" id="analyzerSection">
     <div class="title"><span class="badge">MAIN</span>스포츠 배당 분석기</div>
     <div class="text">
-      배당 흐름·마진(오버라운드)·EV를 <b>초간단</b>으로 확인하는 도구입니다.
+      배당 흐름·마진(오버·언더)·EV를 <b>초간단</b>으로 확인하는 도구입니다.
       <span style="display:block;color:#9a9a9a;font-size:12px;margin-top:6px;">※ 도구는 참고용이며 결과를 보장하지 않습니다.</span>
     </div>
     <div class="cta-row">
@@ -1241,7 +1241,7 @@ function appendUtm(urlStr) {
             <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"></path>
           </svg>
         </span>
-        <span class="label">인증 놀이터 <span class="sub">바로 가기</span></span>
+        <span class="label"> 보증 놀이터 <span class="sub">바로 가기</span></span>
       </a>
     </div>
   </div>
@@ -1436,7 +1436,7 @@ function appendUtm(urlStr) {
     <div class="vendor-section-head">
       <div class="vsh-left">
         <span class="vsh-title">보증 놀이터</span>
-        <span class="vsh-meta">CARD 1~3</span>
+        <span class="vsh-meta"> </span>
       </div>
       <div class="vsh-right">
         <span class="vsh-chip">보증</span>
@@ -1449,7 +1449,7 @@ function appendUtm(urlStr) {
     <div class="vendor-section-head">
       <div class="vsh-left">
         <span class="vsh-title">인증 놀이터</span>
-        <span class="vsh-meta">그 외 전체</span>
+        <span class="vsh-meta"> </span>
       </div>
       <div class="vsh-right">
         <span class="vsh-chip">인증</span>
@@ -1656,8 +1656,8 @@ function closeScam() {
 
 /* ===== 상단 공지 배너 자동 순환 ===== */
 const NOTICE_LIST = [
-  "🔔 88 공식 안내 · 관리자 사칭 주의 (@UZU59)",
-  "📊 스포츠 배당 분석기 무료 제공 중",
+  "🔔 88ST.Cl0ud 공식 안내 · 관리자 사칭 주의 (@UZU59)",
+  "📊 스포츠 배당 분석기 툴 무료 제공 중",
   "🧮 배당 마진 계산기로 수수료 체크",
   "⭐ 인증 정보는 아래 카드에서 확인",
   "⚠️ 가입코드 미입력 시 혜택 적용 불가"
@@ -1787,9 +1787,9 @@ function refreshInsight() {
 })();
 /* ===== 업데이트 로그 ===== */
 const UPDATE_LOG = [
-  { date:"02/01", text:"메인 CTA(분석기/놀이터) 정리" },
-  { date:"02/01", text:"이미지 webp + lazy 로딩 지원" },
-  { date:"02/01", text:"팝업 2차 CTA 추가(다른 추천도 보기)" }
+  { date:"02/06", text:"메인 UI/UX/CTA 버튼색상) 변경" },
+  { date:"02/06", text:"SPEED/OK Bet 보증 업체 추가 되었습니다." },
+  { date:"02/06", text:"메인 로고 변경 되었습니다." }
 ];
 (function renderLog() {
   const box = document.getElementById("updateLog");
@@ -1882,9 +1882,9 @@ function calcSimpleMargin() {
 (function enrichCards() {
   const set = (id, patch)=>{ CARD_DATA[id] = Object.assign({tag:"", priority:"normal", recruit:false, reasons:[]}, CARD_DATA[id], patch); };
 
-  set("card1", {tag:"rec", priority:"high", reasons:["고액전용 전용 무제제 삼치기OK", "입금플러스 5+2 10+3 20+4", " 승인 관련 문의 필수!!"]});
-  set("card2", {tag:"rec", priority:"high", reasons:["혜택 구성(첫충/페이백) 확인 용이", "리워드형 혜택 포함", "문의 라인이 명확"]});
-  set("card3", {tag:"rec", priority:"high", reasons:["스포츠/ 첫충 + 페이백", "조건/코드 안내가 명확", "커뮤니티 피드백 반영"]});
+  set("card1", {tag:"rec", priority:"high", reasons:["고액전용 전용 무제제 삼치기OK", "입금플러스 5+2 10+3 20+4", " 승인 문의 필수!!"]});
+  set("card2", {tag:"rec", priority:"high", reasons:["1레벨 카지노 배팅한도:3000만원 ", "신규 가입 혜택", "테더 입.출금 가능"]});
+  set("card3", {tag:"rec", priority:"high", reasons:["1레벨 카지노 배팅한도:3000만원", "신규 가입 혜택", "테더 입.출금 가능"]});
   set("card4", {tag:"rec", priority:"normal", reasons:["입플 폭이 넓어 선택지 다양", "혜택 분리 안내", "문의 채널 고정"]});
   set("card5", {tag:"new", priority:"normal", reasons:["원화/USDT 선택 가능", "페이백 비중 높은 편", "고액 유저 기준 확인"]});
   set("card6", {tag:"new", priority:"normal", reasons:["신규/매충/페이백 조합", "유지형 구성", "문의 라인이 명확"]});
