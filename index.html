@@ -50,6 +50,12 @@
   --gold2: var(--accent2);
 
   --muted:#cfcfcf;
+
+  /* logo shadow presets */
+  --logo-shadow-min: drop-shadow(0 10px 22px rgba(0,0,0,.35)) drop-shadow(0 0 14px rgb(var(--accentRGB) / .10));
+  --logo-shadow-presence: drop-shadow(0 14px 34px rgba(0,0,0,.55)) drop-shadow(0 0 26px rgb(var(--accentRGB) / .18));
+  --logo-shadow: var(--logo-shadow-min);
+  --logo-shadow-boost: var(--logo-shadow-presence);
 }
 
 html{ scroll-behavior:smooth; }
@@ -62,6 +68,8 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
   color:#fff;
 }
+body[data-logo-shadow="presence"]{ --logo-shadow: var(--logo-shadow-presence); }
+
 
 .notice-bar{
   position:sticky;
@@ -140,7 +148,9 @@ body{
   filter: drop-shadow(0 0 10px rgb(var(--accentRGB) / .25)) drop-shadow(0 0 24px rgb(var(--accentRGB) / .12));
   animation: logoFloat 3.2s ease-in-out infinite;
 }
-@keyframes logoFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-1px); } }
+@keyframes logoFloat{ 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-4px) scale(1.012); } }
+@keyframes logoGlow{ 0%,100%{ filter: var(--logo-shadow); opacity:1; } 50%{ filter: var(--logo-shadow-boost); opacity:1; } }
+ 50%{ transform:translateY(-1px); } }
 .header .sub{ font-size:12px; color:#9a9a9a; margin-top:6px; }
 
 .section-wrap{ max-width:1100px; margin:0 auto; padding:10px 14px 4px; }
@@ -158,7 +168,7 @@ body{
 .section .text{ color:var(--muted); font-size:13px; line-height:1.55; }
 
 .two-col{ display:grid; gap:14px; align-items:start; }
-@media(min-width:980px){ .two-col{ grid-template-columns: 1.25fr .75fr; } }
+@media(min-width:980px){ .two-col{ grid-template-columns: 1fr 1fr; } }
 .col{ min-width:0; }
 
 .insight-row{ display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
@@ -1249,13 +1259,15 @@ body::after{
   border:0 !important;
   box-shadow:none !important;
 
-  /* 로고 자체만 고급스럽게 */
-  filter:
-    drop-shadow(0 10px 26px rgba(0,0,0,.45))
-    drop-shadow(0 0 18px rgb(var(--accentRGB) / .14)) !important;
+  /* 2단계 그림자 프리셋(미니멀/존재감) */
+  filter: var(--logo-shadow) !important;
+  will-change: transform, filter;
+  transform-origin: 50% 50%;
 
-  /* 덜 유치하게: 아주 미세한 플로팅만 유지 */
-  animation: logoFloat 6.2s ease-in-out infinite !important;
+  /* 로고 플로팅 + 은은한 글로우 */
+  animation:
+    logoFloat 6.8s ease-in-out infinite,
+    logoGlow 3.6s ease-in-out infinite !important;
 }
 /* 3) buttons: reduce heavy blue fills, keep premium glass + subtle accent */
 .insight-btn{
@@ -1353,6 +1365,40 @@ body::after{
 .btn.tertiary:hover,
 .btn.ghost:hover{
   filter: brightness(1.06);
+}
+
+
+
+/* ===== quick memo (fills right column after guide/log removal) ===== */
+.memo-area{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.22);
+  color:#eaeaea;
+  outline:none;
+  min-height:112px;
+  resize:vertical;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+.memo-area:focus{
+  border-color: rgba(var(--accentRGB), .38);
+  box-shadow:
+    0 0 0 2px rgba(var(--accentRGB), .12),
+    inset 0 1px 0 rgba(255,255,255,.04);
+}
+.memo-actions{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+.insight-btn.secondary{
+  background: rgba(0,0,0,.20);
+  border:1px solid rgba(255,255,255,.12);
+  color:#e6e6e6;
+  box-shadow:none;
 }
 
 </style>
@@ -1627,28 +1673,7 @@ function appendUtm(urlStr) {
   <div class="two-col">
     <div class="col">
 
-      <div class="section">
-        <div class="title"><span class="badge">TODAY</span>오늘의 인사이트</div>
-        <div class="text" id="insight"></div>
-
-        <div class="insight-row">
-          <select class="insight-select" id="insightSport" aria-label="종목 선택">
-            <option value="축구">축구</option>
-            <option value="농구">농구</option>
-            <option value="야구">야구</option>
-            <option value="배구">배구</option>
-            <option value="e스포츠">e스포츠</option>
-            <option value="하키">하키</option>
-          </select>
-          <button class="insight-btn" type="button" onclick="refreshInsight()">인사이트 새로고침</button>
-        </div>
-
-        <div class="text" style="margin-top:8px;color:#9a9a9a;font-size:12px;">
-          ※ 종목 선택은 참고용이며, 실제 결과를 보장하지 않습니다.
-        </div>
-      </div>
-
-      <div class="section">
+<div class="section">
         <div class="title"><span class="badge">CHECK</span>배팅 전 체크리스트</div>
         <div class="text" id="checklistText"></div>
         <button class="insight-btn" type="button" onclick="refreshChecklist()" style="margin-top:10px;">체크리스트 새로고침</button>
@@ -1657,7 +1682,7 @@ function appendUtm(urlStr) {
         </div>
       </div>
 
-      <div class="section">
+<div class="section">
         <div class="title"><span class="badge">TOOL</span>배당 마진 계산기 (초간단)</div>
         <div class="text" style="margin-bottom:10px;">
           배당을 입력하면 <b>북메이커 마진(수수료)</b>을 계산합니다. (참고용)
@@ -1692,24 +1717,40 @@ function appendUtm(urlStr) {
 
     <div class="col">
 
-      <div class="section">
-        <div class="title"><span class="badge">GUIDE</span>분석기 사용법 (초간단)</div>
+<div class="section">
+        <div class="title">오늘의 인사이트</div>
+        <div class="text" id="insight"></div>
+
+        <div class="insight-row">
+          <select class="insight-select" id="insightSport" aria-label="종목 선택">
+            <option value="축구">축구</option>
+            <option value="농구">농구</option>
+            <option value="야구">야구</option>
+            <option value="배구">배구</option>
+            <option value="e스포츠">e스포츠</option>
+            <option value="하키">하키</option>
+          </select>
+          <button class="insight-btn" type="button" onclick="refreshInsight()">인사이트 새로고침</button>
+        </div>
+
+        <div class="text" style="margin-top:8px;color:#9a9a9a;font-size:12px;">
+          ※ 종목 선택은 참고용이며, 실제 결과를 보장하지 않습니다.
+        </div>
+      </div>
+
+      <div class="section" id="quickMemoSection">
+        <div class="title"><span class="badge">MEMO</span>오늘의 메모 (로컬 저장)</div>
         <div class="text">
-          ① 종목 선택 → ② 배당 입력 → ③ 결과 확인<br>
-          확률·배당 흐름·마진·EV를 한 번에 확인합니다.<br>
-          ※ 분석기는 참고용입니다.
+          간단히 기록해두면 다음 방문 때 그대로 남습니다. (브라우저 <b>로컬 저장</b> / 서버 전송 없음)
+        </div>
+        <textarea class="memo-area" id="quickMemoText" rows="5" placeholder="예) 오늘 체크 포인트 / 라인 변동 / 문의 내용 메모"></textarea>
+        <div class="memo-actions">
+          <button class="insight-btn" type="button" id="quickMemoSave">저장</button>
+          <button class="insight-btn secondary" type="button" id="quickMemoClear">비우기</button>
         </div>
       </div>
 
-      <div class="section">
-        <div class="title"><span class="badge">LOG</span>최근 업데이트</div>
-        <div class="log" id="updateLog"></div>
-        <div class="text" style="margin-top:10px;color:#9a9a9a;font-size:12px;">
-          ※ 업데이트 내용은 운영 상황에 따라 변경될 수 있습니다.
-        </div>
-      </div>
-
-      <div class="section faq" id="faq">
+<div class="section faq" id="faq">
         <div class="title"><span class="badge">FAQ</span>자주 묻는 질문</div>
 
         <details>
@@ -1735,9 +1776,7 @@ function appendUtm(urlStr) {
 
     </div>
   </div>
-
-
-  <div class="section" id="bonusChecklistSection">
+<div class="section" id="bonusChecklistSection">
     <div class="title"><span class="badge">NEW</span>입플 체크리스트</div>
     <div class="text">
       입플사이트 혜택을 보기 전에, <b>카지노 입플·슬롯 입플 조건</b>(롤링/제외게임/최대지급)을 빠르게 점검하세요.
@@ -3375,6 +3414,72 @@ function openFromUrl() {
   renderGrid();
   initInsights();
   openFromUrl();
+})();
+</script>
+
+
+
+<script>
+/* ===== logo shadow preset (2단계) + quick memo ===== */
+(function(){
+  function miniToast(msg){
+    try{
+      let el = document.getElementById("miniToast88");
+      if(!el){
+        el = document.createElement("div");
+        el.id = "miniToast88";
+        el.style.position = "fixed";
+        el.style.left = "50%";
+        el.style.bottom = "88px";
+        el.style.transform = "translateX(-50%)";
+        el.style.padding = "10px 12px";
+        el.style.borderRadius = "999px";
+        el.style.background = "rgba(0,0,0,.68)";
+        el.style.border = "1px solid rgba(255,255,255,.14)";
+        el.style.color = "#fff";
+        el.style.fontSize = "13px";
+        el.style.fontWeight = "800";
+        el.style.zIndex = "99999";
+        el.style.opacity = "0";
+        el.style.transition = "opacity .18s ease, transform .18s ease";
+        document.body.appendChild(el);
+      }
+      el.textContent = msg;
+      el.style.opacity = "1";
+      el.style.transform = "translateX(-50%) translateY(-4px)";
+      clearTimeout(el.__t);
+      el.__t = setTimeout(()=>{ el.style.opacity="0"; el.style.transform="translateX(-50%)"; }, 1400);
+    }catch(e){}
+  }
+
+  try{
+    // logo shadow: minimal(default) / presence
+    const qs = new URLSearchParams(location.search);
+    const fromQS = qs.get("logoShadow");
+    const saved = localStorage.getItem("logoShadowPreset");
+    const presetRaw = (fromQS || saved || "minimal").toLowerCase();
+    const preset = (presetRaw === "presence" || presetRaw === "bold" || presetRaw === "strong") ? "presence" : "minimal";
+    document.body.dataset.logoShadow = preset;
+    if(fromQS) localStorage.setItem("logoShadowPreset", preset);
+
+    // quick memo (local only)
+    const key = "88st_quickMemo_v1";
+    const ta = document.getElementById("quickMemoText");
+    const btnSave = document.getElementById("quickMemoSave");
+    const btnClear = document.getElementById("quickMemoClear");
+    if(ta){
+      ta.value = localStorage.getItem(key) || "";
+      btnSave && btnSave.addEventListener("click", ()=>{
+        localStorage.setItem(key, (ta.value||"").trim());
+        miniToast("메모 저장 완료");
+      });
+      btnClear && btnClear.addEventListener("click", ()=>{
+        ta.value = "";
+        localStorage.removeItem(key);
+        miniToast("메모 비움");
+      });
+    }
+  }catch(e){}
 })();
 </script>
 

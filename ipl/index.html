@@ -207,89 +207,37 @@ input{
   .logoImg, .logo-img{ width:min(150px,72vw) !important; padding:9px; }
 }
 
+
+
+/* ===== 88 logo: shadow preset(2단계) + subtle animation ===== */
+:root{
+  --logo-shadow-min: drop-shadow(0 10px 22px rgba(0,0,0,.35)) drop-shadow(0 0 14px rgba(63,183,255,.10));
+  --logo-shadow-presence: drop-shadow(0 14px 34px rgba(0,0,0,.55)) drop-shadow(0 0 26px rgba(63,183,255,.18));
+  --logo-shadow: var(--logo-shadow-min);
+  --logo-shadow-boost: var(--logo-shadow-presence);
+}
+body[data-logo-shadow="presence"]{ --logo-shadow: var(--logo-shadow-presence); }
+
+@keyframes logoFloat{ 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-4px) scale(1.012); } }
+@keyframes logoGlow{ 0%,100%{ filter: var(--logo-shadow); } 50%{ filter: var(--logo-shadow-boost); } }
+
+.header .logoImg,
+.header .logo-img,
+.logoImg,
+.logo-img{
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  padding:0 !important;
+  border-radius:0 !important;
+  filter: var(--logo-shadow) !important;
+  will-change: transform, filter;
+  transform-origin: 50% 50%;
+  animation: logoFloat 6.8s ease-in-out infinite, logoGlow 3.6s ease-in-out infinite;
+}
+
 </style>
 <script src="../assets/theme-preset.js" defer></script>
-
-<style id="v13_1_theme_override">
-/* === v13.1 look unify (from main index) === */
-:root{
-  /* unify accent (blue) */
-  --accent1:#5fb2ff !important;
-  --accent2:#a8dcff !important;
-  --accentRGB:95,178,255 !important;  /* for rgba(var(--accentRGB), .xx) */
-  --accentText:#00121a !important;
-  --accentOn:#00121a !important;
-
-  /* unify tokens */
-  --bg:#05060b !important;
-  --panel:rgba(12,14,22,.62) !important;
-  --glassA:.72 !important;
-  --glassStrongA:.86 !important;
-  --glassSoftA:.18 !important;
-  --glassBorder:rgba(255,255,255,.10) !important;
-
-  /* backward compat */
-  --gold: var(--accent1) !important;
-  --gold2: var(--accent2) !important;
-}
-
-/* premium midnight background */
-body{
-  background:
-    radial-gradient(1200px 620px at 50% -10%, rgba(var(--accentRGB),.18), transparent 58%),
-    radial-gradient(900px 540px at 15% 25%, rgba(120,170,255,.10), transparent 55%),
-    radial-gradient(900px 640px at 85% 35%, rgba(80,140,255,.08), transparent 55%),
-    linear-gradient(180deg, #05060b 0%, #060612 60%, #040408 100%) !important;
-  color:#fff;
-  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
-}
-
-/* remove small label badges (TODAY/MAIN/NEW...) */
-.title .badge,
-.section-title .badge,
-h1 .badge,
-h2 .badge,
-h3 .badge{ display:none !important; }
-
-/* panel unification (safe selectors) */
-.section, .panel, .box, .card, .wrap, .container, .hero, header{
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-/* inputs */
-input, select, textarea{
-  background: rgba(0,0,0,.28) !important;
-  border:1px solid rgba(255,255,255,.14) !important;
-  color:#fff !important;
-  border-radius:14px !important;
-  outline:none;
-}
-input:focus, select:focus, textarea:focus{
-  border-color: rgba(var(--accentRGB), .38) !important;
-  box-shadow: 0 0 0 3px rgba(var(--accentRGB), .12) !important;
-}
-
-/* buttons: less-blue, premium glass */
-.btn, button, a.btn{
-  background: rgba(255,255,255,.06) !important;
-  border:1px solid rgba(255,255,255,.14) !important;
-  color: rgba(255,255,255,.92) !important;
-  box-shadow: 0 12px 34px rgba(0,0,0,.38) !important;
-}
-.btn:hover, button:hover, a.btn:hover{ filter: brightness(1.06); }
-.btn.primary, .btn.go{
-  border-color: rgba(var(--accentRGB), .22) !important;
-  background: rgba(255,255,255,.08) !important;
-}
-.btn.secondary, .btn.ghost{
-  background: rgba(0,0,0,.18) !important;
-}
-
-/* links */
-a{ color:inherit; }
-</style>
-
 </head>
 
 <body>
@@ -457,5 +405,22 @@ function rotateNotice(){
 rotateNotice();
 setInterval(rotateNotice, 4200);
 </script>
+
+
+<script>
+/* logo shadow preset: minimal(default) / presence */
+(function(){
+  try{
+    const qs = new URLSearchParams(location.search);
+    const fromQS = qs.get("logoShadow");
+    const saved = localStorage.getItem("logoShadowPreset");
+    const raw = (fromQS || saved || "minimal").toLowerCase();
+    const preset = (raw === "presence" || raw === "bold" || raw === "strong") ? "presence" : "minimal";
+    document.body.dataset.logoShadow = preset;
+    if(fromQS) localStorage.setItem("logoShadowPreset", preset);
+  }catch(e){}
+})();
+</script>
+
 </body>
 </html>
