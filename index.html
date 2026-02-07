@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+<!-- 88 MAIN LUXE v13.1 (v12 기능 유지) -->
 <!-- ===== SEO 기본 세팅 ===== -->
 <title>배당 마진 계산기 · 스포츠 배당 분석기 | 라이브스코어 확인 후 배당 구조 분석 | 실시간 스코어를 보며 마진·확률 점검 </title>
 <meta name="description" content="88 — 스포츠 배당 분석기와 배당 마진(오버라운드) 계산기를 무료로 제공합니다. 분석기 사용 안내와 인증 놀이터 정보를 한 곳에서 확인하세요.">
@@ -1214,6 +1216,80 @@ body::after{
   border-color: rgba(255,255,255,.12);
 }
 .vendor-tools::before{ opacity:.75; }
+
+
+/* ===== v13.1 polish (premium & less-blue) ===== */
+
+/* 1) remove all "TODAY/MAIN/CHECK..." badges in section titles */
+.title .badge{ display:none !important; }
+
+/* 2) logo: no wrapped card, slightly larger */
+.header .logoImg{
+  width:min(142px, 40vw) !important;
+  padding:0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,.55)) drop-shadow(0 0 26px rgb(var(--accentRGB) / .12)) !important;
+}
+
+/* 3) buttons: reduce heavy blue fills, keep premium glass + subtle accent */
+.insight-btn{
+  background: rgba(255,255,255,.07) !important;
+  color: rgba(255,255,255,.92) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  box-shadow: 0 14px 40px rgba(0,0,0,.45) !important;
+}
+.insight-btn:hover{
+  background: rgba(255,255,255,.09) !important;
+  border-color: rgb(var(--accentRGB) / .22) !important;
+  box-shadow: 0 18px 52px rgba(0,0,0,.55), 0 0 0 1px rgb(var(--accentRGB) / .10) inset !important;
+  filter:none !important;
+}
+.small-btn,
+.btn.copy,
+.btn.more{
+  background: rgba(255,255,255,.06) !important;
+  color: rgba(255,255,255,.90) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  box-shadow: 0 12px 34px rgba(0,0,0,.38) !important;
+}
+.small-btn:hover,
+.btn.copy:hover,
+.btn.more:hover{
+  background: rgba(255,255,255,.08) !important;
+  border-color: rgb(var(--accentRGB) / .20) !important;
+}
+.btn.go{
+  background: rgba(255,255,255,.07) !important;
+  color: rgba(255,255,255,.95) !important;
+  border:1px solid rgb(var(--accentRGB) / .18) !important;
+  box-shadow: 0 14px 40px rgba(0,0,0,.45) !important;
+}
+.btn.go:hover{
+  background: rgba(255,255,255,.09) !important;
+  border-color: rgb(var(--accentRGB) / .26) !important;
+}
+
+/* optional: make active segment less "painted" */
+.seg.active{
+  background: linear-gradient(180deg, rgb(var(--accentRGB) / .20), rgba(255,255,255,.06)) !important;
+  color: rgba(255,255,255,.95) !important;
+  border-color: rgb(var(--accentRGB) / .18) !important;
+}
+
+/* 4) thumbnail premium tone: slightly lower saturation, higher contrast */
+.card.card--imageOnly .img-box img{
+  filter: contrast(1.09) saturate(.90) brightness(.99);
+  transform: translateZ(0);
+}
+.card.card--imageOnly:hover .img-box img{
+  filter: contrast(1.11) saturate(.94) brightness(1.01);
+}
+.img-box::after{
+  background: linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.74)) !important;
+}
 
 </style>
 
