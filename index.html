@@ -2,11 +2,12 @@
 
 <html lang="ko">
 <head>
+<meta name="description" content="배당 구조(정규확률·공정배당·오버라운드)와 손실 한도/고정 비중을 빠르게 계산하고, 결과를 바탕으로 보증·인증 업체 카드를 비교해 보세요."/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <!-- 88 MAIN LUXE v13.1 (v12 기능 유지) -->
 <!-- ===== SEO 기본 세팅 ===== -->
-<title>배당 마진 계산기 · 스포츠 배당 분석기 | 라이브스코어 확인 후 배당 구조 분석 | 실시간 스코어를 보며 마진·확률 점검 </title>
+<title>88st.cloud | 배당 구조 분석기 · 리스크 관리 · 보증 업체</title>
 <meta content="88 — 스포츠 배당 분석기와 배당 마진(오버라운드) 계산기를 무료로 제공합니다. 분석기 사용 안내와 인증 놀이터 정보를 한 곳에서 확인하세요." name="description"/>
 <link href="https://88st.cloud/" rel="canonical"/>
 <meta content="index,follow" name="robots"/>
@@ -1555,6 +1556,7 @@ body::after{
 .odds-pill .v{ color:#f5e27a; font-weight:950; text-shadow: 0 6px 18px rgba(245,226,122,.12); }
 .odds-pill.home, .odds-pill.draw, .odds-pill.away{ border-color: rgba(245,226,122,.22); }
 
+.odds-summary-cta{display:flex;justify-content:flex-start;}
 .odds-summary-note{
   margin-top:8px;
   font-size:12px;
@@ -1611,7 +1613,6 @@ body::after{
   color:#9a9a9a;
   font-size:12px;
 }
-
 /* === Memo extras to avoid empty space === */
 .memo-extras{
   margin-top:10px;
@@ -1694,6 +1695,30 @@ body::after{
 }
 
 </style>
+<script>
+
+
+</style>
+<script>
+/* === SAFE LOADER FAILSAFE (파서/런타임 에러 대비) === */
+(function(){
+  function hide(){
+    var l=document.getElementById("loader");
+    if(!l) return;
+    l.classList.add("hide");
+    setTimeout(function(){ try{ l.remove(); }catch(e){} }, 500);
+  }
+  // DOM만 준비돼도 닫기
+  document.addEventListener("DOMContentLoaded", function(){ setTimeout(hide, 350); });
+  // 네트워크가 막혀도 닫기
+  setTimeout(hide, 2800);
+  // 최종: load
+  window.addEventListener("load", hide);
+  // 스크립트 에러로 멈추는 케이스 대비
+  window.addEventListener("error", function(){ setTimeout(hide, 0); });
+})();
+</script>
+
 <script>
 /* ===== 카드 데이터 (card9 추가) ===== */
 const CARD_DATA = {
@@ -1890,6 +1915,46 @@ function appendUtm(urlStr) {
     }catch(e){}
   })();
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "88st.cloud 주요 도구 및 가이드",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "배당 구조 분석기",
+      "url": "https://88st.cloud/#oddsAnalyzerSection"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "리스크 관리 계산기",
+      "url": "https://88st.cloud/#riskCalcSection"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "보증·인증 업체",
+      "url": "https://88st.cloud/#vendorTop"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "입플 체크리스트",
+      "url": "https://88st.cloud/bonus-checklist/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "name": "입플·보너스 안내",
+      "url": "https://88st.cloud/landing-a/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="notice-bar">
@@ -2007,6 +2072,12 @@ function appendUtm(urlStr) {
       <div class="odds-metric-sub">합 100%</div>
     </div>
   </div>
+
+  <div class="odds-summary-cta">
+    <a class="insight-btn secondary" href="#vendorTop" data-cta="odds_to_vendors" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; margin-top:12px;">
+      추천 업체 카드 보기 <span aria-hidden="true">→</span>
+    </a>
+  </div>
 </div>
 <div class="odds-summary-note" id="oddsSummaryNote"></div>
 <div class="text" id="simpleMarginResult" style="display:none;"></div>
@@ -2053,27 +2124,26 @@ function appendUtm(urlStr) {
       </div>
 
       <div class="memo-extras">
-        <div class="memo-chip-row" aria-label="메모 템플릿">
-          <button class="memo-chip" type="button" data-memo-insert="체크 포인트: ">체크</button>
-          <button class="memo-chip" type="button" data-memo-insert="라인 변동: ">라인</button>
-          <button class="memo-chip" type="button" data-memo-insert="문의/상담: ">문의</button>
-          <button class="memo-chip" type="button" data-memo-insert="리스크: ">리스크</button>
-        </div>
-
-        <div class="memo-extra-actions">
-          <button class="insight-btn" id="memoAppendAnalysis" type="button">분석 요약 추가</button>
-          <button class="insight-btn secondary" id="memoCopy" type="button">메모 복사</button>
-        </div>
-
-        <div class="memo-history">
-          <div class="memo-history-title">
-            <span>최근 메모</span>
-            <span style="font-size:11px;color:rgba(255,255,255,.5);">클릭하면 불러오기</span>
-          </div>
-          <div id="memoHistoryList"></div>
-        </div>
-      </div>
-
+              <div class="memo-chip-row" aria-label="메모 템플릿">
+                <button class="memo-chip" type="button" data-memo-insert="체크 포인트: ">체크</button>
+                <button class="memo-chip" type="button" data-memo-insert="라인 변동: ">라인</button>
+                <button class="memo-chip" type="button" data-memo-insert="문의/상담: ">문의</button>
+                <button class="memo-chip" type="button" data-memo-insert="리스크: ">리스크</button>
+              </div>
+      
+              <div class="memo-extra-actions">
+                <button class="insight-btn" id="memoAppendAnalysis" type="button">분석 요약 추가</button>
+                <button class="insight-btn secondary" id="memoCopy" type="button">메모 복사</button>
+              </div>
+      
+              <div class="memo-history">
+                <div class="memo-history-title">
+                  <span>최근 메모</span>
+                  <span style="font-size:11px;color:rgba(255,255,255,.5);">클릭하면 불러오기</span>
+                </div>
+                <div id="memoHistoryList"></div>
+              </div>
+            </div>
 
     </div>
   </div>
@@ -2187,40 +2257,6 @@ function appendUtm(urlStr) {
           ※ 과몰입 방지/리스크 관리용 안내입니다.
         </div>
 </div></div>
-<div class="section" id="bonusChecklistSection">
-<div class="title"><span class="badge">NEW</span>입플 체크리스트</div>
-<div class="text">
-      입플사이트 혜택을 보기 전에, <b>카지노 입플·슬롯 입플 조건</b>(롤링/제외게임/최대지급)을 빠르게 점검하세요.
-      애매한 조건은 “문의 템플릿 복사”로 한 번에 정리할 수 있습니다.
-    </div>
-<div aria-label="입플 체크리스트 바로가기" class="tool-card-grid">
-<a aria-label="입플 체크리스트 열기" class="tool-card-link" data-cta="home_bonus_card" href="/bonus-checklist/">
-<div class="tool-card-head">
-<div aria-hidden="true" class="tool-card-icon">
-<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22">
-<path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path>
-<rect height="4" rx="1" width="6" x="9" y="3"></rect>
-<path d="M9 12h6"></path>
-<path d="M9 16h6"></path>
-</svg>
-</div>
-<div class="tool-card-text">
-<div class="tool-card-title">입플 체크리스트</div>
-<div class="tool-card-desc">카지노 입플·슬롯 입플 조건을 한 번에 확인</div>
-</div>
-</div>
-<div aria-hidden="true" class="chip-row">
-<span class="kchip">입플</span>
-<span class="kchip">카지노</span>
-<span class="kchip">슬롯</span>
-</div>
-<div class="tool-card-foot">
-<span class="tool-card-cta">체크리스트 열기 →</span>
-<span class="tool-card-note">조건 정리·문의 템플릿 포함</span>
-</div>
-</a>
-</div>
-</div>
 <div aria-label="카드 검색 및 필터" class="vendor-tools">
 <input autocomplete="off" class="v-input" id="searchInput" placeholder="업체 검색 (예: SPEED OK 어느날 )"/>
 <div aria-label="필터 및 정렬" class="v-controls">
@@ -2358,6 +2394,127 @@ function appendUtm(urlStr) {
 <div class="btn copy" id="closeShareBtn">닫기</div>
 </div>
 </div>
+<div class="section" id="guideHub">
+  <div class="title"><span class="badge">GUIDE</span>가이드 · 체크리스트</div>
+  <div class="text">
+    입플/보너스 조건 정리와 각 랜딩 안내를 <b>한 곳</b>에서 확인할 수 있습니다. (도구 사용 후 궁금한 항목을 빠르게 탐색)
+  </div>
+
+  <div class="tool-card-grid" aria-label="체크리스트 및 핵심 가이드">
+    <a class="tool-card-link" href="/bonus-checklist/" data-cta="hub_bonus">
+      <div class="tool-card-head">
+        <div class="tool-card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+            <rect x="9" y="3" width="6" height="4" rx="1"/>
+            <path d="M9 12h6"/><path d="M9 16h6"/>
+          </svg>
+        </div>
+        <div class="tool-card-text">
+          <div class="tool-card-title">입플 체크리스트</div>
+          <div class="tool-card-desc">롤링/제외게임/최대지급 조건을 빠르게 정리</div>
+        </div>
+      </div>
+      <div class="chip-row" aria-hidden="true">
+        <span class="kchip">입플</span><span class="kchip">롤링</span><span class="kchip">최대지급</span>
+      </div>
+      <div class="tool-card-foot">
+        <span class="tool-card-cta">체크리스트 열기 →</span>
+        <span class="tool-card-note">문의 템플릿 포함</span>
+      </div>
+    </a>
+
+    <a class="tool-card-link" href="/landing-a/" data-cta="hub_landing_a">
+      <div class="tool-card-head">
+        <div class="tool-card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/>
+            <path d="M3.3 7L12 12l8.7-5"/><path d="M12 22V12"/>
+          </svg>
+        </div>
+        <div class="tool-card-text">
+          <div class="tool-card-title">입플·보너스 안내</div>
+          <div class="tool-card-desc">혜택 구조/조건/유의사항 요약</div>
+        </div>
+      </div>
+      <div class="chip-row" aria-hidden="true">
+        <span class="kchip">보너스</span><span class="kchip">조건</span><span class="kchip">가이드</span>
+      </div>
+      <div class="tool-card-foot">
+        <span class="tool-card-cta">랜딩 보기 →</span>
+        <span class="tool-card-note">핵심만 정리</span>
+      </div>
+    </a>
+
+    <a class="tool-card-link" href="/landing-c/" data-cta="hub_landing_c">
+      <div class="tool-card-head">
+        <div class="tool-card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/>
+          </svg>
+        </div>
+        <div class="tool-card-text">
+          <div class="tool-card-title">마진·EV 계산 가이드</div>
+          <div class="tool-card-desc">공정배당/정규확률/오버라운드 이해</div>
+        </div>
+      </div>
+      <div class="chip-row" aria-hidden="true">
+        <span class="kchip">마진</span><span class="kchip">EV</span><span class="kchip">공정배당</span>
+      </div>
+      <div class="tool-card-foot">
+        <span class="tool-card-cta">가이드 보기 →</span>
+        <span class="tool-card-note">도구와 함께 사용</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="tool-card-grid" style="margin-top:12px;" aria-label="카테고리 바로가기">
+    <a class="tool-card-link" href="/casino/" data-cta="hub_casino">
+      <div class="tool-card-head">
+        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">C</span></div>
+        <div class="tool-card-text">
+          <div class="tool-card-title">카지노</div>
+          <div class="tool-card-desc">안내/정책/주요 체크포인트</div>
+        </div>
+      </div>
+      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
+    </a>
+
+    <a class="tool-card-link" href="/slot/" data-cta="hub_slot">
+      <div class="tool-card-head">
+        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">S</span></div>
+        <div class="tool-card-text">
+          <div class="tool-card-title">슬롯</div>
+          <div class="tool-card-desc">게임/제외/조건 참고</div>
+        </div>
+      </div>
+      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
+    </a>
+
+    <a class="tool-card-link" href="/minigame/" data-cta="hub_minigame">
+      <div class="tool-card-head">
+        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">M</span></div>
+        <div class="tool-card-text">
+          <div class="tool-card-title">미니게임</div>
+          <div class="tool-card-desc">룰/조건/주의사항</div>
+        </div>
+      </div>
+      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
+    </a>
+
+    <a class="tool-card-link" href="/ipl/" data-cta="hub_ipl">
+      <div class="tool-card-head">
+        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">I</span></div>
+        <div class="tool-card-text">
+          <div class="tool-card-title">IPL</div>
+          <div class="tool-card-desc">리그/일정/참고</div>
+        </div>
+      </div>
+      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
+    </a>
+  </div>
+</div>
+
 <div class="landing-seo">
 <h3>관련 정보</h3>
 <div class="links">
@@ -2369,7 +2526,12 @@ function appendUtm(urlStr) {
 <a href="/landing-b/">고액 유저 안내</a>
 <a href="/landing-c/">배당 마진·EV 계산</a>
 <a href="/landing-d/">배당 흐름 분석</a>
-</div>
+
+<a data-cta="seo_casino" href="/casino/">카지노 가이드</a>
+<a data-cta="seo_slot" href="/slot/">슬롯 가이드</a>
+<a data-cta="seo_minigame" href="/minigame/">미니게임 가이드</a>
+<a data-cta="seo_ipl" href="/ipl/">IPL 가이드</a>
+<a data-cta="seo_analysis" href="/analysis/">분석기 메인</a></div>
 </div>
 
 <div aria-label="빠른 이동" class="fab">
