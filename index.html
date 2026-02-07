@@ -150,7 +150,6 @@ body[data-logo-shadow="presence"]{ --logo-shadow: var(--logo-shadow-presence); }
 }
 @keyframes logoFloat{ 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-4px) scale(1.012); } }
 @keyframes logoGlow{ 0%,100%{ filter: var(--logo-shadow); opacity:1; } 50%{ filter: var(--logo-shadow-boost); opacity:1; } }
- 50%{ transform:translateY(-1px); } }
 .header .sub{ font-size:12px; color:#9a9a9a; margin-top:6px; }
 
 .section-wrap{ max-width:1100px; margin:0 auto; padding:10px 14px 4px; }
@@ -1401,6 +1400,67 @@ body::after{
   box-shadow:none;
 }
 
+
+
+/* ===== Risk Calc (v13.1) ===== */
+.chip-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:2px;
+}
+.chip{
+  border-radius:999px;
+  padding:6px 10px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.92);
+  font-weight:800;
+  font-size:12px;
+  cursor:pointer;
+  transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+  box-shadow: 0 10px 22px rgba(0,0,0,.25);
+}
+.chip:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.09);
+  border-color: rgba(255,255,255,.18);
+}
+.chip:active{
+  transform: translateY(0px) scale(.99);
+}
+
+/* ===== Floating Action Buttons (UI 통일) ===== */
+.fab{
+  right:16px;
+  bottom:16px;
+  gap:10px;
+}
+.fab a{
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.92);
+  box-shadow: 0 18px 44px rgba(0,0,0,.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.fab a:not(.secondary){
+  background: linear-gradient(180deg, rgb(var(--accentRGB) / .14), rgba(255,255,255,.04));
+  border-color: rgb(var(--accentRGB) / .22);
+}
+.fab a:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.09);
+  border-color: rgba(255,255,255,.22);
+}
+.fab a:not(.secondary):hover{
+  border-color: rgb(var(--accentRGB) / .32);
+}
+.fab a:active{
+  transform: translateY(0px) scale(.99);
+}
+
 </style>
 
 <script>
@@ -1712,6 +1772,81 @@ function appendUtm(urlStr) {
         <div class="text" id="simpleMarginResult" style="font-weight:900;color:#f5e27a;margin-top:8px;"></div>
         <div class="text" id="simpleMarginHint" style="color:#bdbdbd;font-size:12px;"></div>
       </div>
+
+      <div class="section" id="riskCalcSection">
+        <div class="title"><span class="badge">RISK</span>리스크 관리 계산기</div>
+        <div class="text" style="margin-bottom:10px;">
+          손실 한도 · 고정 비중 · 보수 켈리로 <b>과몰입을 줄이는</b> 참고 계산기입니다. (결과는 참고용)
+        </div>
+
+        <div class="seg-row" role="tablist" aria-label="리스크 관리 계산기 유형">
+          <button class="seg active" type="button" id="rModeStop" onclick="setRiskMode('stop')">손실 한도</button>
+          <button class="seg" type="button" id="rModeFixed" onclick="setRiskMode('fixed')">고정 비중</button>
+          <button class="seg" type="button" id="rModeKelly" onclick="setRiskMode('kelly')">보수 켈리</button>
+        </div>
+
+        <div id="riskStop" style="display:block; margin-top:10px;">
+          <div class="text" style="margin-bottom:8px;color:#bdbdbd;font-size:12px;">
+            하루/세션 손실 한도를 먼저 정해두면, 감정 베팅을 줄이는데 도움이 됩니다.
+          </div>
+          <div style="display:grid; gap:10px;">
+            <input id="rBankroll1" inputmode="decimal" placeholder="총 자본 (예: 1000000)">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+              <input id="rLossPct" inputmode="decimal" placeholder="손실 한도 % (예: 5)">
+              <input id="rStopPct" inputmode="decimal" placeholder="중단 트리거 % (예: 80)">
+            </div>
+          </div>
+          <button class="insight-btn" type="button" onclick="calcRiskStop()" style="margin-top:10px;">손실 한도 계산</button>
+          <div class="text" id="riskStopOut" style="font-weight:900;color:#f5e27a;margin-top:8px;"></div>
+          <div class="text" id="riskStopHint" style="color:#bdbdbd;font-size:12px;"></div>
+        </div>
+
+        <div id="riskFixed" style="display:none; margin-top:10px;">
+          <div class="text" style="margin-bottom:8px;color:#bdbdbd;font-size:12px;">
+            고정 비중은 변동을 줄이는 가장 단순한 룰입니다. (예: 1~2%)
+          </div>
+          <div style="display:grid; gap:10px;">
+            <input id="rBankroll2" inputmode="decimal" placeholder="총 자본 (예: 1000000)">
+            <input id="rStakePct" inputmode="decimal" placeholder="베팅 비중 % (예: 1.5)">
+            <div class="chip-row" aria-label="비중 프리셋">
+              <button class="chip" type="button" onclick="presetStake(0.5)">0.5%</button>
+              <button class="chip" type="button" onclick="presetStake(1)">1%</button>
+              <button class="chip" type="button" onclick="presetStake(1.5)">1.5%</button>
+              <button class="chip" type="button" onclick="presetStake(2)">2%</button>
+              <button class="chip" type="button" onclick="presetStake(3)">3%</button>
+            </div>
+          </div>
+          <button class="insight-btn" type="button" onclick="calcRiskFixed()" style="margin-top:10px;">고정 비중 계산</button>
+          <div class="text" id="riskFixedOut" style="font-weight:900;color:#f5e27a;margin-top:8px;"></div>
+          <div class="text" id="riskFixedHint" style="color:#bdbdbd;font-size:12px;"></div>
+        </div>
+
+        <div id="riskKelly" style="display:none; margin-top:10px;">
+          <div class="text" style="margin-bottom:8px;color:#bdbdbd;font-size:12px;">
+            켈리는 공격적일 수 있어 <b>보수 배수</b>(예: 25%~50%)로 줄여 쓰는 것을 권장합니다.
+          </div>
+          <div style="display:grid; gap:10px;">
+            <input id="rBankroll3" inputmode="decimal" placeholder="총 자본 (예: 1000000)">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+              <input id="rOdds" inputmode="decimal" placeholder="배당(Decimal) (예: 1.95)">
+              <input id="rWinPct" inputmode="decimal" placeholder="승률 % 추정 (예: 55)">
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+              <input id="rKellyFactor" inputmode="decimal" placeholder="보수 배수 % (예: 25)">
+              <input id="rMaxPct" inputmode="decimal" placeholder="최대 상한 % (예: 3)">
+            </div>
+          </div>
+          <button class="insight-btn" type="button" onclick="calcRiskKelly()" style="margin-top:10px;">보수 켈리 계산</button>
+          <div class="text" id="riskKellyOut" style="font-weight:900;color:#f5e27a;margin-top:8px;"></div>
+          <div class="text" id="riskKellyHint" style="color:#bdbdbd;font-size:12px;"></div>
+        </div>
+
+        <div class="text" style="margin-top:10px;color:#9a9a9a;font-size:12px;">
+          ※ 과몰입 방지용 참고 도구입니다. 불확실한 승률 추정/무리한 배팅은 손실로 이어질 수 있습니다.
+        </div>
+      </div>
+
+
 
     </div>
 
@@ -3481,6 +3616,130 @@ function openFromUrl() {
     }
   }catch(e){}
 })();
+</script>
+
+
+
+<script>
+/* ===== Risk Management Calculator (v13.1) ===== */
+function _num(v){
+  if(v==null) return NaN;
+  const s = String(v).replace(/[,\s]/g,'');
+  const n = parseFloat(s);
+  return Number.isFinite(n) ? n : NaN;
+}
+function _fmt(n){
+  if(!Number.isFinite(n)) return "-";
+  try { return Math.round(n).toLocaleString('ko-KR'); } catch(e){ return String(Math.round(n)); }
+}
+function setRiskMode(mode){
+  const map = { stop: "riskStop", fixed: "riskFixed", kelly: "riskKelly" };
+  const btns = { stop:"rModeStop", fixed:"rModeFixed", kelly:"rModeKelly" };
+  Object.keys(map).forEach(k=>{
+    const wrap = document.getElementById(map[k]);
+    if(wrap) wrap.style.display = (k===mode) ? "block" : "none";
+    const b = document.getElementById(btns[k]);
+    if(b){
+      if(k===mode) b.classList.add("active");
+      else b.classList.remove("active");
+    }
+  });
+}
+function calcRiskStop(){
+  const bankroll = _num(document.getElementById("rBankroll1")?.value);
+  const lossPct = _num(document.getElementById("rLossPct")?.value);
+  const stopPct = _num(document.getElementById("rStopPct")?.value);
+  const out = document.getElementById("riskStopOut");
+  const hint = document.getElementById("riskStopHint");
+  if(!out||!hint) return;
+
+  if(!Number.isFinite(bankroll) || bankroll<=0 || !Number.isFinite(lossPct) || lossPct<=0){
+    out.textContent = "총 자본과 손실 한도 %를 입력해줘.";
+    hint.textContent = "";
+    return;
+  }
+  const lossLimit = bankroll * (lossPct/100);
+  const triggerPct = (Number.isFinite(stopPct) && stopPct>0) ? stopPct : 80;
+  const stopAt = lossLimit * (triggerPct/100);
+
+  const suggest1 = bankroll * 0.01;
+  const suggest2 = bankroll * 0.02;
+
+  out.textContent = `손실 한도: ${_fmt(lossLimit)}원  ·  중단 기준: -${_fmt(stopAt)}원`;
+  hint.textContent = `참고: 1% 비중=${_fmt(suggest1)}원 / 2% 비중=${_fmt(suggest2)}원 (상황에 따라 더 낮게 권장)`;
+}
+function presetStake(pct){
+  const el = document.getElementById("rStakePct");
+  if(el) el.value = String(pct);
+  calcRiskFixed();
+}
+function calcRiskFixed(){
+  const bankroll = _num(document.getElementById("rBankroll2")?.value);
+  const stakePct = _num(document.getElementById("rStakePct")?.value);
+  const out = document.getElementById("riskFixedOut");
+  const hint = document.getElementById("riskFixedHint");
+  if(!out||!hint) return;
+
+  if(!Number.isFinite(bankroll) || bankroll<=0 || !Number.isFinite(stakePct) || stakePct<=0){
+    out.textContent = "총 자본과 베팅 비중 %를 입력해줘.";
+    hint.textContent = "";
+    return;
+  }
+  const stake = bankroll * (stakePct/100);
+  out.textContent = `추천 1회 베팅액(고정 ${stakePct}%): ${_fmt(stake)}원`;
+  hint.textContent = `참고: 연패/변동 구간이면 비중을 절반으로 낮추는게 안전합니다.`;
+}
+function calcRiskKelly(){
+  const bankroll = _num(document.getElementById("rBankroll3")?.value);
+  const odds = _num(document.getElementById("rOdds")?.value);
+  const winPct = _num(document.getElementById("rWinPct")?.value);
+  const factorPct = _num(document.getElementById("rKellyFactor")?.value);
+  const maxPct = _num(document.getElementById("rMaxPct")?.value);
+
+  const out = document.getElementById("riskKellyOut");
+  const hint = document.getElementById("riskKellyHint");
+  if(!out||!hint) return;
+
+  if(!Number.isFinite(bankroll) || bankroll<=0 || !Number.isFinite(odds) || odds<=1 || !Number.isFinite(winPct) || winPct<=0){
+    out.textContent = "총 자본 / 배당(Decimal) / 승률% 를 입력해줘.";
+    hint.textContent = "";
+    return;
+  }
+  const p = Math.min(Math.max(winPct/100, 0.0001), 0.9999);
+  const b = odds - 1;
+  const breakeven = 1/odds;
+
+  // full Kelly fraction
+  let f = (b*p - (1-p)) / b; // = (odds*p - 1)/(odds-1)
+  if(!Number.isFinite(f) || f < 0) f = 0;
+  const kellyPct = f * 100;
+
+  const factor = (Number.isFinite(factorPct) && factorPct>0) ? (factorPct/100) : 0.25;
+  let conservative = f * factor;
+
+  const cap = (Number.isFinite(maxPct) && maxPct>0) ? (maxPct/100) : 0.03;
+  const finalFrac = Math.min(conservative, cap);
+
+  const stake = bankroll * finalFrac;
+
+  if(f<=0){
+    out.textContent = `엣지 없음(손익분기 ${Math.round(breakeven*1000)/10}% 이상 필요) → 추천 0원`;
+    hint.textContent = `승률 추정(${Math.round(p*1000)/10}%)이 손익분기보다 낮습니다. 과몰입 방지 차원에서 패스 권장.`;
+    return;
+  }
+
+  out.textContent = `풀 켈리 ${Math.round(kellyPct*10)/10}% → 보수(${Math.round(factor*100)}%) 적용 ${Math.round(conservative*1000)/10}% (상한 ${Math.round(cap*1000)/10}%) · 추천 ${_fmt(stake)}원`;
+  hint.textContent = `손익분기 승률: ${Math.round(breakeven*1000)/10}% · 승률 추정치가 불확실하면 보수 배수/상한을 더 낮춰주세요.`;
+}
+
+// defaults
+document.addEventListener("DOMContentLoaded", ()=>{
+  // sane defaults (빈칸이면 불필요한 자동 계산 방지)
+  const rLossPct = document.getElementById("rLossPct"); if(rLossPct && !rLossPct.value) rLossPct.value = "5";
+  const rStopPct = document.getElementById("rStopPct"); if(rStopPct && !rStopPct.value) rStopPct.value = "80";
+  const rKellyFactor = document.getElementById("rKellyFactor"); if(rKellyFactor && !rKellyFactor.value) rKellyFactor.value = "25";
+  const rMaxPct = document.getElementById("rMaxPct"); if(rMaxPct && !rMaxPct.value) rMaxPct.value = "3";
+});
 </script>
 
 </body>
