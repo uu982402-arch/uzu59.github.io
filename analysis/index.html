@@ -3920,8 +3920,8 @@ function renderTopList(id, list, type){
 
   // 메인 페이지 상단 우선 업체 + 광고모집 포함
   const ads = [
-    {key:"card1", title:"SPEED Bet", sub:"고액전용 · 입금플러스 지원", href:"./#vendors", badge:"추천"},
-    {key:"card2", title:"OK Bet", sub:"고액전용 · 페이백/출석", href:"./#vendors", badge:"추천"},
+    {key:"card1", title:"SPEED Bet", sub:"고액전용 · 입금플러스 지원", href:"http://spd-7575.com/?code=88ST", badge:"추천"},
+    {key:"card2", title:"OK Bet", sub:"고액전용 · 페이백/출석", href:"http://ok-8888.com/?code=88ST", badge:"추천"},
     {key:"card3", title:"어느날", sub:"고액전용· 미니게임 · 무제제 ", href:"./#vendors", badge:"추천"},
     {key:"card7", title:"광고 모집", sub:"여기에 광고가 노출됩니다", href:"./#vendors", badge:"AD"},
     {key:"card8", title:"광고 모집", sub:"문의 후 등록 가능", href:"./#vendors", badge:"AD"}
@@ -3950,7 +3950,18 @@ function renderTopList(id, list, type){
 })();
 
 function goAd(href){
-  location.href = href;
+  // 클릭 후에는 오늘 하루 재노출 방지(1일 1회 정책)
+  try{
+    const today = new Date().toISOString().slice(0,10);
+    localStorage.setItem("88_analysis_adpopup_date", today);
+  }catch(e){}
+
+  // 안전장치: javascript: 링크 차단
+  if(typeof href !== "string") return;
+  const h = href.trim();
+  if(h.toLowerCase().startsWith("javascript:")) return;
+
+  location.href = h;
 }
 function closeAdPopup(disableToday){
   const pop = document.getElementById("adPopup");
