@@ -140,7 +140,7 @@ body{
   filter: drop-shadow(0 0 10px rgb(var(--accentRGB) / .25)) drop-shadow(0 0 24px rgb(var(--accentRGB) / .12));
   animation: logoFloat 3.2s ease-in-out infinite;
 }
-@keyframes logoFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-2px); } }
+@keyframes logoFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-1px); } }
 .header .sub{ font-size:12px; color:#9a9a9a; margin-top:6px; }
 
 .section-wrap{ max-width:1100px; margin:0 auto; padding:10px 14px 4px; }
@@ -1223,17 +1223,40 @@ body::after{
 /* 1) remove all "TODAY/MAIN/CHECK..." badges in section titles */
 .title .badge{ display:none !important; }
 
-/* 2) logo: no wrapped card, slightly larger */
-.header .logoImg{
-  width:min(142px, 40vw) !important;
-  padding:0 !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  filter: drop-shadow(0 10px 30px rgba(0,0,0,.55)) drop-shadow(0 0 26px rgb(var(--accentRGB) / .12)) !important;
+/* 2) header/logo: 카드박스 제거 + 로고만 또렷하게 */
+.header{
+  width:auto !important;
+  margin:14px auto 10px !important;
+  padding:18px 0 8px !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  overflow:visible !important;
 }
+.header::before{ content:none !important; display:none !important; }
+.header .logoLink{ display:inline-flex !important; align-items:center; justify-content:center; }
 
+.header .logoImg{
+  width:min(156px, 46vw) !important;
+
+  /* 카드박스 느낌 제거 */
+  padding:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+
+  /* 로고 자체만 고급스럽게 */
+  filter:
+    drop-shadow(0 10px 26px rgba(0,0,0,.45))
+    drop-shadow(0 0 18px rgb(var(--accentRGB) / .14)) !important;
+
+  /* 덜 유치하게: 아주 미세한 플로팅만 유지 */
+  animation: logoFloat 6.2s ease-in-out infinite !important;
+}
 /* 3) buttons: reduce heavy blue fills, keep premium glass + subtle accent */
 .insight-btn{
   background: rgba(255,255,255,.07) !important;
