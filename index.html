@@ -1695,9 +1695,94 @@ body::after{
 }
 
 </style>
-<script>
+<style>
+/* ===== MOBILE LUXE TUNE (v1.1) ===== */
+@media (max-width: 640px){
+  :root{ --tap: 44px; }
 
+  /* top bars */
+  .notice-bar{ font-size:12px; padding:8px 10px; }
+  .header{ padding:12px 0 6px; }
+  .header .logoImg{
+    width:min(120px, 44vw);
+    padding:0;
+    background:transparent;
+    border-radius:14px;
+  }
 
+  /* layout rhythm */
+  .section-wrap{ padding:8px 10px 10px; }
+  .section{
+    padding:12px;
+    border-radius:16px;
+    margin-bottom:12px;
+    box-shadow:0 10px 22px rgba(0,0,0,.42);
+  }
+  .section-header{ margin-bottom:10px; }
+  .section .title{ font-size:13px; }
+  .text{ font-size:13px; line-height:1.55; }
+
+  /* prevent iOS zoom on focus */
+  input, select, textarea, button{ font-size:16px; }
+  textarea{ line-height:1.5; }
+
+  /* buttons */
+  .insight-btn, .btn, .btn-mini{ min-height: var(--tap); }
+  .cta-row{ gap:8px; }
+  .cta-row a{ min-width:100% !important; }
+  .seg-row{ gap:8px; }
+  .seg{ min-width:0; flex:1 1 calc(50% - 4px); padding:10px 12px; }
+
+  /* odds summary */
+  .odds-summary-card{ padding:12px; border-radius:16px; }
+  .odds-summary-row{ gap:10px; }
+  .odds-metric{ padding:10px; border-radius:14px; }
+  .odds-metric-value{ font-size:26px; }
+  .odds-pills{ gap:6px; }
+  .chip, .odds-pill{ padding:7px 10px; font-size:12px; }
+  .odds-summary-cta a{ width:100%; justify-content:center; }
+
+  /* insight/memo */
+  .im-panels{ min-height:190px; }
+  .im-panel .memo-area{ min-height:120px; }
+  .memo-extras{ gap:8px; }
+  .memo-chip-row{ gap:8px; }
+  .memo-chip{ padding:8px 10px; }
+
+  /* vendor tools: avoid overlap with sticky notice-bar, keep luxe radius */
+  .vendor-tools{
+    top: calc(44px + env(safe-area-inset-top));
+    padding:10px 10px 10px;
+    border-radius:16px;
+    margin:0 auto 10px;
+    border-left:1px solid rgba(255,255,255,.10) !important;
+    border-right:1px solid rgba(255,255,255,.10) !important;
+  }
+
+  /* vendor cards */
+  .vendor-grid{ grid-template-columns: 1fr !important; gap:12px; }
+  .card{ border-radius:16px; }
+  .card:hover{ transform:none; }
+
+  /* floating actions */
+  .fab{
+    right:12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    gap:6px;
+  }
+  .fab a{ padding:11px 12px; font-size:13px; }
+
+  /* popups */
+  .popup{ padding:12px; }
+  .popup-box{ padding:18px; border-radius:16px; }
+
+  /* landing pages / generic containers */
+  .wrap, .container{ padding-left:10px; padding-right:10px; }
+  .ctaRow{ grid-template-columns:1fr !important; }
+}
+@media (min-width: 641px) and (max-width: 820px){
+  .vendor-grid{ grid-template-columns:repeat(2, 1fr) !important; }
+}
 </style>
 <script>
 /* === SAFE LOADER FAILSAFE (파서/런타임 에러 대비) === */
