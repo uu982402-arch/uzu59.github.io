@@ -1291,6 +1291,47 @@ body::after{
   background: linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.74)) !important;
 }
 
+
+/* ===== Popup CTA 3-tier (v13.1 final) ===== */
+.popup-cta{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:14px;
+}
+.popup-aux{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+.popup-aux .btn{ flex:1; }
+
+/* make hierarchy clearer without breaking existing classes */
+.btn.primary{
+  background: rgba(255,255,255,.08) !important;
+  border:1px solid rgb(var(--accentRGB) / .22) !important;
+  box-shadow: 0 16px 44px rgba(0,0,0,.48) !important;
+}
+.btn.secondary{
+  background: rgba(255,255,255,.06) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+}
+.btn.tertiary{
+  background: rgba(255,255,255,.05) !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+}
+.btn.ghost{
+  background: rgba(0,0,0,.18) !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  box-shadow: none !important;
+}
+.btn.primary:hover,
+.btn.secondary:hover,
+.btn.tertiary:hover,
+.btn.ghost:hover{
+  filter: brightness(1.06);
+}
+
 </style>
 
 <script>
@@ -1827,12 +1868,15 @@ function appendUtm(urlStr) {
     <p id="pBenefit" style="color:#f5e27a;font-size:13px;margin:10px 0 0;"></p>
     <p id="pNotice" style="color:#ff6b6b;font-size:12px;margin:8px 0 0;"></p>
 
-    <div class="btn copy" id="copyBtn">가입코드 복사</div>
-    <div class="btn share" id="shareBtn">공유하기</div>
-    <a class="btn go" id="pLink" target="_blank" rel="noopener">사이트 이동</a>
+    <div class="popup-cta" aria-label="주요 액션">
+      <a class="btn go primary" id="pLink" target="_blank" rel="noopener">사이트 이동</a>
+      <a class="btn copy secondary" id="pTelegram" target="_blank" rel="noopener">텔레그램 상담</a>
+      <div class="btn copy tertiary" id="copyBtn" role="button" tabindex="0">가입코드 복사</div>
+    </div>
 
-    <div class="telegram">
-      <a id="pTelegram" target="_blank" rel="noopener">텔레그램 문의</a>
+    <div class="popup-aux" aria-label="보조 액션">
+      <div class="btn share ghost" id="shareBtn" role="button" tabindex="0">공유하기</div>
+      <div class="btn copy ghost" id="closeBtn" role="button" tabindex="0">닫기</div>
     </div>
 
 
@@ -1843,7 +1887,7 @@ function appendUtm(urlStr) {
       <div class="reason-line" id="reason3"></div>
     </div>
 
-    <div class="btn copy" id="closeBtn">닫기</div>
+    <!-- closeBtn moved to .popup-aux -->
   
 </div>
 </div>
@@ -2916,7 +2960,7 @@ function openCard(id) {
   const tg = (d.telegram || "UZU59").replace("@","");
   const pTelegram = document.getElementById("pTelegram");
   pTelegram.href = appendUtm("https://t.me/" + tg);
-  pTelegram.innerText = isRecruit ? ("광고 문의 @" + tg) : ("텔레그램 문의 @" + tg);
+  pTelegram.innerText = isRecruit ? ("광고 문의 @" + tg) : ("텔레그램 상담 @" + tg);
 
   // 안내 3줄
   const rBox = document.getElementById("reasonBox");
@@ -3206,6 +3250,15 @@ function jumpToRec() {
   if(copyShareLinkBtn) copyShareLinkBtn.addEventListener("click", copyShareLink);
   if(downloadShareImgBtn) downloadShareImgBtn.addEventListener("click", downloadShareImage);
   if(copyShareTextBtn) copyShareTextBtn.addEventListener("click", copyShareText);
+
+  // (A11y) allow Enter/Space on div.btn role=button
+  [closeBtn, copyBtn, shareBtn].forEach(el=>{
+    if(!el) return;
+    el.addEventListener("keydown", (e)=>{
+      if(e.key==="Enter" || e.key===" "){ e.preventDefault(); el.click(); }
+    });
+  });
+
 
   // 바깥 클릭 닫기
   if(popup) popup.addEventListener("click", (e)=>{
