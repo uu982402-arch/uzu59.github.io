@@ -207,37 +207,110 @@ input{
   .logoImg, .logo-img{ width:min(150px,72vw) !important; padding:9px; }
 }
 
-
-
-/* ===== 88 logo: shadow preset(2단계) + subtle animation ===== */
-:root{
-  --logo-shadow-min: drop-shadow(0 10px 22px rgba(0,0,0,.35)) drop-shadow(0 0 14px rgba(63,183,255,.10));
-  --logo-shadow-presence: drop-shadow(0 14px 34px rgba(0,0,0,.55)) drop-shadow(0 0 26px rgba(63,183,255,.18));
-  --logo-shadow: var(--logo-shadow-min);
-  --logo-shadow-boost: var(--logo-shadow-presence);
-}
-body[data-logo-shadow="presence"]{ --logo-shadow: var(--logo-shadow-presence); }
-
-@keyframes logoFloat{ 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-4px) scale(1.012); } }
-@keyframes logoGlow{ 0%,100%{ filter: var(--logo-shadow); } 50%{ filter: var(--logo-shadow-boost); } }
-
-.header .logoImg,
-.header .logo-img,
-.logoImg,
-.logo-img{
-  background:transparent !important;
-  border:0 !important;
-  box-shadow:none !important;
-  padding:0 !important;
-  border-radius:0 !important;
-  filter: var(--logo-shadow) !important;
-  will-change: transform, filter;
-  transform-origin: 50% 50%;
-  animation: logoFloat 6.8s ease-in-out infinite, logoGlow 3.6s ease-in-out infinite;
-}
-
 </style>
 <script src="../assets/theme-preset.js" defer></script>
+
+<style id="v13_1_theme_override">
+/* === v13.1 look unify (from main index) === */
+:root{
+  /* unify accent (blue) */
+  --accent1:#5fb2ff !important;
+  --accent2:#a8dcff !important;
+  --accentRGB:95,178,255 !important;  /* for rgba(var(--accentRGB), .xx) */
+  --accentText:#00121a !important;
+  --accentOn:#00121a !important;
+
+  /* unify tokens */
+  --bg:#05060b !important;
+  --panel:rgba(12,14,22,.62) !important;
+  --glassA:.72 !important;
+  --glassStrongA:.86 !important;
+  --glassSoftA:.18 !important;
+  --glassBorder:rgba(255,255,255,.10) !important;
+
+  /* backward compat */
+  --gold: var(--accent1) !important;
+  --gold2: var(--accent2) !important;
+}
+
+/* premium midnight background */
+body{
+  background:
+    radial-gradient(1200px 620px at 50% -10%, rgba(var(--accentRGB),.18), transparent 58%),
+    radial-gradient(900px 540px at 15% 25%, rgba(120,170,255,.10), transparent 55%),
+    radial-gradient(900px 640px at 85% 35%, rgba(80,140,255,.08), transparent 55%),
+    linear-gradient(180deg, #05060b 0%, #060612 60%, #040408 100%) !important;
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
+}
+
+/* remove small label badges (TODAY/MAIN/NEW...) */
+.title .badge,
+.section-title .badge,
+h1 .badge,
+h2 .badge,
+h3 .badge{ display:none !important; }
+
+/* panel unification (safe selectors) */
+.section, .panel, .box, .card, .wrap, .container, .hero, header{
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* inputs */
+input, select, textarea{
+  background: rgba(0,0,0,.28) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  color:#fff !important;
+  border-radius:14px !important;
+  outline:none;
+}
+input:focus, select:focus, textarea:focus{
+  border-color: rgba(var(--accentRGB), .38) !important;
+  box-shadow: 0 0 0 3px rgba(var(--accentRGB), .12) !important;
+}
+
+/* buttons: less-blue, premium glass */
+.btn, button, a.btn{
+  background: rgba(255,255,255,.06) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  color: rgba(255,255,255,.92) !important;
+  box-shadow: 0 12px 34px rgba(0,0,0,.38) !important;
+}
+.btn:hover, button:hover, a.btn:hover{ filter: brightness(1.06); }
+.btn.primary, .btn.go{
+  border-color: rgba(var(--accentRGB), .22) !important;
+  background: rgba(255,255,255,.08) !important;
+}
+.btn.secondary, .btn.ghost{
+  background: rgba(0,0,0,.18) !important;
+}
+
+/* links */
+a{ color:inherit; }
+</style>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "홈",
+      "item": "https://88st.cloud/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "IPL",
+      "item": "https://88st.cloud/ipl/"
+    }
+  ]
+}
+</script>
 </head>
 
 <body>
@@ -405,22 +478,28 @@ function rotateNotice(){
 rotateNotice();
 setInterval(rotateNotice, 4200);
 </script>
-
-
-<script>
-/* logo shadow preset: minimal(default) / presence */
-(function(){
-  try{
-    const qs = new URLSearchParams(location.search);
-    const fromQS = qs.get("logoShadow");
-    const saved = localStorage.getItem("logoShadowPreset");
-    const raw = (fromQS || saved || "minimal").toLowerCase();
-    const preset = (raw === "presence" || raw === "bold" || raw === "strong") ? "presence" : "minimal";
-    document.body.dataset.logoShadow = preset;
-    if(fromQS) localStorage.setItem("logoShadowPreset", preset);
-  }catch(e){}
-})();
-</script>
-
+<section aria-label="관련 링크" class="rel-links">
+  <h2>관련 링크</h2>
+  <div class="rel-grid">
+    <a href="/" data-cta="rel_home">메인</a>
+    <a href="/#oddsAnalyzerSection" data-cta="rel_odds">배당 구조 분석기</a>
+    <a href="/tool-margin/" data-cta="rel_margin">마진 계산기</a>
+    <a href="/tool-ev/" data-cta="rel_ev">EV 계산기</a>
+    <a href="/tool-odds/" data-cta="rel_odds2">배당↔확률 변환</a>
+    <a href="/#vendorTop" data-cta="rel_vendors">보증·인증 업체</a>
+    <a href="/bonus-checklist/" data-cta="rel_bonus">입플 체크리스트</a>
+    <a href="/landing-a/" data-cta="rel_landing_a">입플·보너스 안내</a>
+  </div>
+</section>
+<style>
+  .rel-links{max-width:1080px;margin:26px auto 34px;padding:14px 14px 16px;border-radius:18px;
+    border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    box-shadow:0 14px 40px rgba(0,0,0,.35);}
+  .rel-links h2{margin:0 0 10px;font-size:13px;letter-spacing:.02em;color:rgba(245,226,122,.92);font-weight:900;}
+  .rel-grid{display:flex;flex-wrap:wrap;gap:8px;}
+  .rel-grid a{text-decoration:none;color:rgba(255,255,255,.82);font-size:12px;padding:8px 10px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
+  .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
+</style>
 </body>
 </html>
