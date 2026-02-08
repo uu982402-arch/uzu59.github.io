@@ -18,78 +18,7 @@
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
 <!-- GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
-<script>
 
-// ===== GA4 =====
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-
-// ===== UTM 저장/전파 =====
-function getUrlParams(){
-  const p = new URLSearchParams(location.search);
-  const obj = {};
-  ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(k=>{
-    const v = p.get(k);
-    if(v) obj[k]=v;
-  });
-  return obj;
-}
-function saveUtmFromUrl(){
-  const utm = getUrlParams();
-  const keys = Object.keys(utm);
-  if(!keys.length) return;
-  try{
-    localStorage.setItem("88_utm_last", JSON.stringify({...utm, ts: Date.now()}));
-  }catch(e){}
-}
-function getUtmQuery(){
-  try{
-    const raw = localStorage.getItem("88_utm_last");
-    if(!raw) return "";
-    const d = JSON.parse(raw);
-    const parts = [];
-    ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(k=>{
-      if(d && d[k]) parts.push(`${k}=${encodeURIComponent(d[k])}`);
-    });
-    return parts.length ? ("?" + parts.join("&")) : "";
-  }catch(e){ return ""; }
-}
-function appendUtm(href){
-  if(!href) return href;
-  // 외부링크 제외
-  if(/^https?:\/\//i.test(href)) return href;
-  // 앵커만 있는 경우
-  if(href.startsWith("#")) return href;
-  const q = getUtmQuery();
-  if(!q) return href;
-  // 이미 쿼리가 있으면 유지
-  if(href.includes("?")) return href;
-  // hash가 있으면 앞에 붙이기
-  const [path, hash] = href.split("#");
-  return path + q + (hash ? ("#" + hash) : "");
-}
-function bindUtmToLinks(){
-  document.querySelectorAll("a[data-utm='1']").forEach(a=>{
-    a.setAttribute("href", appendUtm(a.getAttribute("href")));
-  });
-}
-
-// ===== 이벤트 트래킹 =====
-function track(eventName, params){
-  try{
-    if(typeof gtag === "function") gtag("event", eventName, params || {});
-  }catch(e){}
-}
-
-saveUtmFromUrl();
-document.addEventListener("DOMContentLoaded", ()=>{
-  bindUtmToLinks();
-});
-
-gtag('js', new Date());
-gtag('config', 'G-KWT87FBY6S', { 'send_page_view': true });
-</script>
 
 <style>
 
@@ -351,6 +280,8 @@ a{ color:inherit; }
   ]
 }
 </script>
+
+<script src="/assets/js/88st-analytics.js"></script>
 </head>
 <body>
   <div class="notice">

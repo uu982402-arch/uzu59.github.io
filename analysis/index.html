@@ -1332,6 +1332,12 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   border:1px solid rgba(0,0,0,.10);
 }
 </style>
+<!-- ===== GA4 (공통) ===== -->
+
+
+<script>
+</script>
+
 <script src="../assets/theme-preset.js" defer></script>
 
 <style id="v13_1_theme_override">
@@ -1435,6 +1441,8 @@ a{ color:inherit; }
   ]
 }
 </script>
+
+<script src="/assets/js/88st-analytics.js"></script>
 </head>
 
 <body>
@@ -2338,6 +2346,19 @@ function calc(){
     bestEVPct:null
   };
 
+  // GA: 분석 시작
+  try{
+    track("analysis_start", {
+      sport,
+      level,
+      market_type: (is3 ? "3way" : "2way"),
+      odds_count: (is3 ? 3 : 2),
+      has_league: !!league,
+      has_teams: !!teams
+    });
+  }catch(e){}
+
+
   // ---- 메인 ----
   let mainMargin = null;
   let mainOver = null;
@@ -2552,6 +2573,24 @@ function calc(){
   renderResult(cfg.name, level, rows, copyLines);
   renderMarginDash({sport, main:mainMargin, ou:ouMargin, hc:hcMargin});
 
+
+  // GA: 분석 완료
+  try{
+    const p = {
+      sport,
+      level,
+      market_type: (is3 ? "3way" : "2way"),
+      odds_count: (is3 ? 3 : 2),
+      ev_positive: record.evPositive ? 1 : 0
+    };
+    if (typeof mainMargin === "number") p.main_margin_pct = +mainMargin.toFixed(4);
+    if (typeof mainOver === "number") p.main_overround = +mainOver.toFixed(6);
+    if (typeof ouMargin === "number") p.ou_margin_pct = +ouMargin.toFixed(4);
+    if (typeof hcMargin === "number") p.hc_margin_pct = +hcMargin.toFixed(4);
+    if (typeof record.bestEVPct === "number") p.best_ev_pct = +record.bestEVPct.toFixed(4);
+    track("analysis_complete", p);
+  }catch(e){}
+
   // 히스토리 저장
   addHistory(record);
 
@@ -2745,6 +2784,11 @@ function showError(msg){
   box.innerHTML = `<div class="kv"><div class="k">안내</div><div class="v warn">${msg}</div></div>`;
   box.style.display = "block";
   LAST_TEXT = `[88 커뮤니티] 안내\n${msg}\n주소: https://88st.cloud/analysis/`;
+
+  try{
+    const reason = String(msg||"").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim().slice(0,80);
+    track("analysis_error", { reason });
+  }catch(e){}
 }
 function hideResult(){
   const box = $("result");
@@ -3159,6 +3203,15 @@ function addHistory(rec){
   const arr = readHistory();
   arr.unshift(rec);
   writeHistory(arr);
+
+  try{
+    track("save_history", {
+      sport: rec.sport,
+      level: rec.level,
+      market_type: ((SPORT_CFG[rec.sport]||SPORT_CFG.soccer).main === "3way") ? "3way" : "2way"
+    });
+  }catch(e){}
+
   renderHistory();
 }
 function clearHistory(){
@@ -3727,6 +3780,7 @@ function renderHistory(){
 
 /* 히스토리 클릭(아이템 영역) -> 즉시 복원+재계산 */
 function onHistoryClick(evt, id){
+  try{ track("history_open", { page_path: location.pathname }); }catch(e){}
   // 내부 버튼 클릭은 stopPropagation 처리되어 여기 안 옴
   restoreFromHistory(id, true);
 }
@@ -4193,6 +4247,7 @@ function onbSkip(){
 }
 
 function boot(){
+  try{ saveUtmFromUrl(); }catch(e){}
   loadState();
   if(!localStorage.getItem(LS_KEY)){
     setVal("sport","soccer");
@@ -4208,6 +4263,7 @@ function boot(){
   setTimeout(()=>{ try{ onbStart(); }catch(e){} }, 450);
   setupShareCardBackdropClose();
   setupValidation();
+
   renderSnaps();
   renderPerfBox();
   // 입력 중 빨간 하이라이트 자동 해제
