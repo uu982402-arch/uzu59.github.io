@@ -4,7 +4,7 @@
 <head>
 <meta name="description" content="배당 구조(정규확률·공정배당·오버라운드)와 손실 한도/고정 비중을 빠르게 계산하고, 결과를 바탕으로 보증·인증 업체 카드를 비교해 보세요."/>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- 88 MAIN LUXE v13.1 (v12 기능 유지) -->
 <!-- ===== SEO 기본 세팅 ===== -->
 <title>88st.cloud | 배당 구조 분석기 · 리스크 관리 · 보증 업체</title>
@@ -456,6 +456,7 @@ select.insight-select{
 @media (hover:none){
   .card.card--imageOnly .img-title{ display:none; }
 }
+
 .vendor-grid::before{
   content:"";
   position:absolute;
@@ -1696,10 +1697,6 @@ body::after{
 
 </style>
 <script>
-
-
-</style>
-<script>
 /* === SAFE LOADER FAILSAFE (파서/런타임 에러 대비) === */
 (function(){
   function hide(){
@@ -1955,6 +1952,8 @@ function appendUtm(urlStr) {
   ]
 }
 </script>
+
+<link rel="stylesheet" href="assets/mobile-polish.css?v=2">
 </head>
 <body>
 <div class="notice-bar">
@@ -2287,6 +2286,8 @@ function appendUtm(urlStr) {
 <div class="v-small" id="evAutoHint"></div>
 <div class="v-small" id="cleanHint">정제된 문구: 카드 혜택 문구를 짧고 깔끔하게 보여줍니다.</div>
 </div>
+
+
 <div class="vendor-sections" id="vendorTop">
 <section class="vendor-section" data-section="guarantee">
 <div class="vendor-section-head">
@@ -3342,6 +3343,7 @@ function norm(s){ return String(s||"").toLowerCase().replace(/\s+/g,""); }
 function getClickCount(id){ return Number(localStorage.getItem(CLICK_KEY_PREFIX + id) || 0); }
 function incCardClick(id){ localStorage.setItem(CLICK_KEY_PREFIX + id, String(getClickCount(id) + 1)); }
 
+// ===== Favorites / Recents (client-only, additive) =====
 function cardSourcesById(id) {
   const n = String(id).replace("card","");
   // GIF는 실제로 업로드된 카드만 지정하세요 (없는 경우 아예 요청하지 않음)
@@ -3532,7 +3534,7 @@ function setFilter(key) {
   currentFilter = key || "all";
   setChipActive();
   renderGrid();
-  if(currentFilter!=="all") {
+if(currentFilter!=="all") {
     const top = document.getElementById("vendorTop");
     if(top) top.scrollIntoView({behavior:"smooth", block:"start"});
   }
@@ -3543,7 +3545,7 @@ function setSort(key) {
   currentSort = key || "default";
   setChipActive();
   renderGrid();
-  track("sort_change", {"sort": currentSort, "results_count": document.querySelectorAll(".card[data-card]").length});
+track("sort_change", {"sort": currentSort, "results_count": document.querySelectorAll(".card[data-card]").length});
 }
 
 
@@ -3607,7 +3609,7 @@ function bindCardClicks() {
       sessionStorage.setItem("88_clean_text", isCleanText ? "1" : "0");
       setChipActive();
       renderGrid();
-      track("clean_text_toggle", {"state": isCleanText ? "on" : "off"});
+track("clean_text_toggle", {"state": isCleanText ? "on" : "off"});
     });
   }
 
@@ -3616,7 +3618,7 @@ function bindCardClicks() {
     let kwTimer = null;
     input.addEventListener("input", ()=> {
       renderGrid();
-      clearTimeout(kwTimer);
+clearTimeout(kwTimer);
       const v = input.value;
       kwTimer = setTimeout(()=> bumpSearch(v), 900);
     });
@@ -3698,7 +3700,7 @@ function openCard(id) {
   if(!d) return;
 
   currentCardId = id;
-  bumpView(id);
+bumpView(id);
   incCardClick(id);
   track("card_open", {"card_id": id, "title": d.title || "", "tag": d.tag || "", "code": (d.code||"").slice(0,16)});
 
@@ -3830,8 +3832,7 @@ function openShare(id) {
   if(!d) return;
 
   currentCardId = id;
-
-  const popup = document.getElementById("sharePopup");
+const popup = document.getElementById("sharePopup");
   const link = buildDeepLink(id);
   const linkInput = document.getElementById("shareLink");
   if(linkInput) linkInput.value = link;
@@ -4119,7 +4120,7 @@ function openFromUrl() {
   setMarginMode("2");
   maybeAutoRecFilter();
   renderGrid();
-  initInsights();
+initInsights();
   openFromUrl();
 })();
 </script>

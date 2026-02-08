@@ -457,91 +457,6 @@ select.insight-select{
   .card.card--imageOnly .img-title{ display:none; }
 }
 
-/* ===== Vendor quick hub (Favorites / Recents) — additive, no behavior changes ===== */
-.vendor-hub{
-  width:min(1100px, calc(100% - 28px));
-  margin:10px auto 14px;
-  padding:14px 14px 12px;
-  border-radius: var(--radius-xl);
-  background: var(--glass2);
-  border:1px solid rgba(255,255,255,.10);
-  box-shadow: 0 16px 52px rgba(0,0,0,.46);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-.vh-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; }
-.vh-title{ font-weight:950; color:var(--gold2); letter-spacing:.2px; }
-.vh-actions{ display:flex; gap:8px; }
-.vh-btn{
-  appearance:none; border:1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.22);
-  color:#eaeaea; font-weight:850; font-size:12px;
-  padding:8px 10px; border-radius:999px;
-  cursor:pointer;
-}
-.vh-btn:active{ transform: translateY(1px); }
-.vh-row{ display:grid; grid-template-columns: 90px 1fr; gap:10px; align-items:start; }
-.vh-row + .vh-row{ margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,.06); }
-.vh-label{ font-size:12px; font-weight:900; color:#bdbdbd; padding-top:4px; }
-.vh-chips{ display:flex; flex-wrap:wrap; gap:8px; }
-.vh-chip{
-  display:inline-flex; align-items:center; gap:8px;
-  padding:9px 10px; border-radius:999px;
-  background: rgba(0,0,0,.28);
-  border:1px solid rgba(255,255,255,.12);
-  color:#fff; font-size:12px; font-weight:900;
-  cursor:pointer; user-select:none;
-  max-width: 100%;
-}
-.vh-chip span{ display:inline-block; max-width: 210px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.vh-chip .dot{ width:6px; height:6px; border-radius:999px; background: linear-gradient(135deg,var(--gold),var(--gold2)); box-shadow:0 8px 18px rgba(0,0,0,.35); }
-.vh-chip:hover{ border-color: rgba(245,226,122,.22); filter:brightness(1.02); }
-.vh-empty{ display:none; font-size:12px; color:#9a9a9a; padding:6px 2px 0; }
-.vendor-hub[data-has-favs="0"] [data-vh="favs"] .vh-empty{ display:block; }
-.vendor-hub[data-has-recents="0"] [data-vh="recents"] .vh-empty{ display:block; }
-
-/* Favorite star button (overlay) */
-.card.card--imageOnly .fav-btn{
-  position:absolute;
-  top:10px;
-  right:10px;
-  width:34px;
-  height:34px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.28);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:3;
-}
-.card.card--imageOnly .fav-btn::before{
-  content:"★";
-  font-size:15px;
-  color: rgba(245,226,122,.55);
-  transform: translateY(-.5px);
-}
-.card.card--imageOnly .fav-btn.active{
-  border-color: rgba(245,226,122,.34);
-  background: rgba(245,226,122,.10);
-}
-.card.card--imageOnly .fav-btn.active::before{ color: rgba(245,226,122,.95); }
-
-@media (max-width: 767px){
-  .vendor-hub{
-    width: calc(100% - 20px);
-    margin: 10px auto 12px;
-    padding: 12px;
-    border-radius: 18px;
-  }
-  .vh-row{ grid-template-columns: 74px 1fr; }
-  .vh-chip span{ max-width: 180px; }
-  .card.card--imageOnly .fav-btn{ width:32px; height:32px; top:8px; right:8px; }
-}
-
 .vendor-grid::before{
   content:"";
   position:absolute;
@@ -2372,27 +2287,6 @@ function appendUtm(urlStr) {
 <div class="v-small" id="cleanHint">정제된 문구: 카드 혜택 문구를 짧고 깔끔하게 보여줍니다.</div>
 </div>
 
-<div class="vendor-hub" id="vendorHub" aria-label="즐겨찾기 및 최근 본">
-  <div class="vh-head">
-    <div class="vh-title">빠른 접근</div>
-    <div class="vh-actions">
-      <button class="vh-btn" id="vhClearRecents" type="button">최근 비우기</button>
-      <button class="vh-btn" id="vhClearFavs" type="button">즐겨찾기 비우기</button>
-    </div>
-  </div>
-
-  <div class="vh-row" data-vh="favs">
-    <div class="vh-label">즐겨찾기</div>
-    <div class="vh-chips" id="vhFavChips"></div>
-    <div class="vh-empty" id="vhFavEmpty">카드 우측 상단 ★ 버튼으로 즐겨찾기를 추가하세요.</div>
-  </div>
-
-  <div class="vh-row" data-vh="recents">
-    <div class="vh-label">최근 본</div>
-    <div class="vh-chips" id="vhRecentChips"></div>
-    <div class="vh-empty" id="vhRecentEmpty">카드를 열어보면 최근 목록에 자동 기록됩니다.</div>
-  </div>
-</div>
 
 <div class="vendor-sections" id="vendorTop">
 <section class="vendor-section" data-section="guarantee">
@@ -3450,109 +3344,6 @@ function getClickCount(id){ return Number(localStorage.getItem(CLICK_KEY_PREFIX 
 function incCardClick(id){ localStorage.setItem(CLICK_KEY_PREFIX + id, String(getClickCount(id) + 1)); }
 
 // ===== Favorites / Recents (client-only, additive) =====
-const FAV_KEY = "88_favs_v1";
-const RECENT_KEY = "88_recent_cards_v1";
-
-function _loadArr(key){
-  try{
-    const raw = localStorage.getItem(key);
-    const v = raw ? JSON.parse(raw) : [];
-    return Array.isArray(v) ? v : [];
-  }catch(e){ return []; }
-}
-function _saveArr(key, arr){
-  try{ localStorage.setItem(key, JSON.stringify(arr)); }catch(e){}
-}
-function getFavs(){ return _loadArr(FAV_KEY); }
-function setFavs(arr){ _saveArr(FAV_KEY, (arr||[]).slice(0,50)); }
-function isFav(id){ return getFavs().includes(id); }
-function toggleFav(id){
-  if(!id) return;
-  const favs = getFavs();
-  const i = favs.indexOf(id);
-  if(i>=0) favs.splice(i,1);
-  else favs.unshift(id);
-  setFavs(favs);
-}
-
-function getRecents(){ return _loadArr(RECENT_KEY); }
-function setRecents(arr){ _saveArr(RECENT_KEY, (arr||[]).slice(0,12)); }
-function pushRecentCard(id){
-  if(!id) return;
-  const rec = getRecents().filter(x=>x!==id);
-  rec.unshift(id);
-  setRecents(rec);
-}
-
-function renderVendorHub(){
-  const hub = document.getElementById('vendorHub');
-  if(!hub) return;
-  const favBox = document.getElementById('vhFavChips');
-  const recBox = document.getElementById('vhRecentChips');
-  if(!favBox || !recBox) return;
-
-  const favs = getFavs().filter(id=>!!CARD_DATA[id]);
-  const recs = getRecents().filter(id=>!!CARD_DATA[id]);
-
-  hub.setAttribute('data-has-favs', favs.length ? '1' : '0');
-  hub.setAttribute('data-has-recents', recs.length ? '1' : '0');
-
-  const chip = (id)=>{
-    const d = CARD_DATA[id] || {};
-    const t = (d.title || id).toString();
-    return `<button class="vh-chip" type="button" data-open="${id}"><span class="dot" aria-hidden="true"></span><span>${t.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span></button>`;
-  };
-
-  favBox.innerHTML = favs.slice(0,10).map(chip).join('');
-  recBox.innerHTML = recs.slice(0,10).map(chip).join('');
-}
-
-function syncFavButtons(){
-  const favs = new Set(getFavs());
-  document.querySelectorAll('.fav-btn[data-fav]').forEach(btn=>{
-    const id = btn.getAttribute('data-fav');
-    btn.classList.toggle('active', favs.has(id));
-    btn.setAttribute('aria-pressed', favs.has(id) ? 'true' : 'false');
-  });
-}
-
-let __VENDOR_EXTRAS_INIT = false;
-function initVendorExtras(){
-  if(__VENDOR_EXTRAS_INIT) return;
-  __VENDOR_EXTRAS_INIT = true;
-
-  document.addEventListener('click', (e)=>{
-    const favBtn = e.target.closest && e.target.closest('.fav-btn[data-fav]');
-    if(favBtn){
-      e.preventDefault();
-      e.stopPropagation();
-      const id = favBtn.getAttribute('data-fav');
-      toggleFav(id);
-      syncFavButtons();
-      renderVendorHub();
-      track('fav_toggle', { card_id: id, state: isFav(id) ? 'on' : 'off' });
-      return;
-    }
-
-    const chip = e.target.closest && e.target.closest('.vh-chip[data-open]');
-    if(chip){
-      e.preventDefault();
-      const id = chip.getAttribute('data-open');
-      if(id && CARD_DATA[id]){
-        openCard(id);
-        track('hub_open_card', { card_id: id });
-      }
-      return;
-    }
-  }, { passive:false });
-
-  const cFav = document.getElementById('vhClearFavs');
-  const cRec = document.getElementById('vhClearRecents');
-  if(cFav) cFav.addEventListener('click', ()=>{ setFavs([]); syncFavButtons(); renderVendorHub(); track('hub_clear_favs',{}); });
-  if(cRec) cRec.addEventListener('click', ()=>{ setRecents([]); renderVendorHub(); track('hub_clear_recents',{}); });
-}
-
-
 function cardSourcesById(id) {
   const n = String(id).replace("card","");
   // GIF는 실제로 업로드된 카드만 지정하세요 (없는 경우 아예 요청하지 않음)
@@ -3670,7 +3461,6 @@ function renderGrid() {
                data-jpg="${src.jpg}"
                loading="lazy" decoding="async"
                alt="${(d.title||"").replace(/"/g,'&quot;')}">
-          <button class="fav-btn" type="button" data-fav="${id}" aria-label="즐겨찾기"></button>
           <div class="img-title" aria-hidden="true">${d.title || ""}</div>
         </div>
       </div>
@@ -3728,8 +3518,6 @@ function renderGrid() {
 
   setChipActive();
   bindCardClicks();
-  try{ syncFavButtons(); }catch(e){}
-  try{ renderVendorHub(); }catch(e){}
 }
 
 function setChipActive() {
@@ -3746,8 +3534,7 @@ function setFilter(key) {
   currentFilter = key || "all";
   setChipActive();
   renderGrid();
-  initVendorExtras();
-  if(currentFilter!=="all") {
+if(currentFilter!=="all") {
     const top = document.getElementById("vendorTop");
     if(top) top.scrollIntoView({behavior:"smooth", block:"start"});
   }
@@ -3758,8 +3545,7 @@ function setSort(key) {
   currentSort = key || "default";
   setChipActive();
   renderGrid();
-  initVendorExtras();
-  track("sort_change", {"sort": currentSort, "results_count": document.querySelectorAll(".card[data-card]").length});
+track("sort_change", {"sort": currentSort, "results_count": document.querySelectorAll(".card[data-card]").length});
 }
 
 
@@ -3823,8 +3609,7 @@ function bindCardClicks() {
       sessionStorage.setItem("88_clean_text", isCleanText ? "1" : "0");
       setChipActive();
       renderGrid();
-  initVendorExtras();
-      track("clean_text_toggle", {"state": isCleanText ? "on" : "off"});
+track("clean_text_toggle", {"state": isCleanText ? "on" : "off"});
     });
   }
 
@@ -3833,8 +3618,7 @@ function bindCardClicks() {
     let kwTimer = null;
     input.addEventListener("input", ()=> {
       renderGrid();
-  initVendorExtras();
-      clearTimeout(kwTimer);
+clearTimeout(kwTimer);
       const v = input.value;
       kwTimer = setTimeout(()=> bumpSearch(v), 900);
     });
@@ -3916,9 +3700,7 @@ function openCard(id) {
   if(!d) return;
 
   currentCardId = id;
-  try{ pushRecentCard(id); }catch(e){}
-  try{ renderVendorHub(); }catch(e){}
-  bumpView(id);
+bumpView(id);
   incCardClick(id);
   track("card_open", {"card_id": id, "title": d.title || "", "tag": d.tag || "", "code": (d.code||"").slice(0,16)});
 
@@ -4050,10 +3832,7 @@ function openShare(id) {
   if(!d) return;
 
   currentCardId = id;
-  try{ pushRecentCard(id); }catch(e){}
-  try{ renderVendorHub(); }catch(e){}
-
-  const popup = document.getElementById("sharePopup");
+const popup = document.getElementById("sharePopup");
   const link = buildDeepLink(id);
   const linkInput = document.getElementById("shareLink");
   if(linkInput) linkInput.value = link;
@@ -4341,8 +4120,7 @@ function openFromUrl() {
   setMarginMode("2");
   maybeAutoRecFilter();
   renderGrid();
-  initVendorExtras();
-  initInsights();
+initInsights();
   openFromUrl();
 })();
 </script>
