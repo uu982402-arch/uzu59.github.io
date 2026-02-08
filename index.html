@@ -2,7 +2,6 @@
 
 <html lang="ko">
 <head>
-<meta name="description" content="배당 구조(정규확률·공정배당·오버라운드)와 손실 한도/고정 비중을 빠르게 계산하고, 결과를 바탕으로 보증·인증 업체 카드를 비교해 보세요."/>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- 88 MAIN LUXE v13.1 (v12 기능 유지) -->
@@ -1803,20 +1802,20 @@ const INSIGHTS_BY_SPORT = {
     {
       "@type": "ListItem",
       "position": 1,
-      "name": "배당 구조 분석기",
-      "url": "https://88st.cloud/#oddsAnalyzerSection"
+      "name": "스포츠 배당 분석기",
+      "url": "https://88st.cloud/analysis/"
     },
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "리스크 관리 계산기",
-      "url": "https://88st.cloud/#riskCalcSection"
+      "name": "보증·인증 업체",
+      "url": "https://88st.cloud/#vendorTop"
     },
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "보증·인증 업체",
-      "url": "https://88st.cloud/#vendorTop"
+      "name": "FAQ",
+      "url": "https://88st.cloud/#faqSection"
     },
     {
       "@type": "ListItem",
@@ -1897,248 +1896,46 @@ const INSIGHTS_BY_SPORT = {
 </a>
 </div>
 </div>
-<div class="two-col">
-<div class="section" id="oddsAnalyzerSection">
-<div class="title"><span class="badge">ANALYZE</span>배당 구조 분석기</div>
-<div class="text" style="margin-bottom:10px;">
-          종목/마켓을 고르고 배당을 입력하면 <b>정규화 확률 · 공정배당 · 마진</b>을 정리합니다.
-        </div>
-<div class="insight-row" style="margin-top:10px; margin-bottom:6px;">
-<select aria-label="전종목 카테고리 선택" class="insight-select" id="oddsSport">
-<option value="축구">축구</option>
-<option value="농구">농구</option>
-<option value="야구">야구</option>
-<option value="배구">배구</option>
-<option value="하키">하키</option>
-<option value="테니스">테니스</option>
-<option value="미식축구">미식축구</option>
-<option value="격투기">격투기</option>
-<option value="e스포츠">e스포츠</option>
-<option value="기타">기타</option>
-</select>
-<div class="mini-note">전종목 카테고리 선택형</div>
-</div>
-<div aria-label="마진 계산기 유형" class="seg-row" role="tablist">
-<button class="seg active" id="mMode2" onclick="setMarginMode('2')" type="button">2-way (홈/원정)</button>
-<button class="seg" id="mMode3" onclick="setMarginMode('3')" type="button">3-way (홈/무/원정)</button>
-</div>
-<div id="margin2" style="display:block;">
-<div style="display:grid; gap:10px;">
-<input id="m2A" inputmode="decimal" placeholder="홈 배당 (예: 1.85)"/>
-<input id="m2B" inputmode="decimal" placeholder="원정 배당 (예: 2.05)"/>
-</div>
-</div>
-<div id="margin3" style="display:none;">
-<div style="display:grid; gap:10px;">
-<input id="m3H" inputmode="decimal" placeholder="홈 배당 (예: 1.85)"/>
-<input id="m3D" inputmode="decimal" placeholder="무 배당 (예: 3.40)"/>
-<input id="m3A" inputmode="decimal" placeholder="원정 배당 (예: 4.20)"/>
-</div>
-</div>
-<button class="insight-btn" onclick="calcSimpleMargin()" style="margin-top:10px;" type="button">분석 실행</button>
-<div class="odds-summary-card" id="oddsSummaryCard" aria-live="polite">
-  <div class="odds-summary-row">
-    <div class="odds-metric">
-      <div class="odds-metric-title">마진 (오버라운드)</div>
-      <div class="odds-metric-value" id="oddsMarginValue">—</div>
-      <div class="odds-metric-sub" id="oddsOverroundSub">오버라운드 —</div>
-    </div>
-    <div class="odds-metric">
-      <div class="odds-metric-title">공정 배당</div>
-      <div class="odds-pills" id="oddsFairPills"></div>
-      <div class="odds-metric-sub">정규화 기준</div>
-    </div>
-    <div class="odds-metric">
-      <div class="odds-metric-title">정규화 확률</div>
-      <div class="odds-pills" id="oddsProbPills"></div>
-      <div class="odds-metric-sub">합 100%</div>
-    </div>
+<div class="section" id="whySection">
+  <div class="title"><span class="badge">WHY</span>왜 88 배당 분석기인가?</div>
+  <div class="text" style="margin-bottom:10px;">
+    <b>3초 안에 결론</b>이 나오는 구조로 설계했습니다.
+  </div>
+  <div class="text" style="color:#cfcfcf;line-height:1.65;">
+    • <b>마진(오버라운드)</b>로 “비용이 낮은 라인”을 빠르게 분류<br/>
+    • <b>공정배당·정규화 확률</b>로 시장이 말하는 확률을 한 번에 확인<br/>
+    • (고급) <b>내 예상 확률</b>을 넣으면 EV/비중까지 계산해 “PASS/주의/추천”을 바로 표시
   </div>
 
-  <div class="odds-summary-cta">
-    <a class="insight-btn secondary" href="#vendorTop" data-cta="odds_to_vendors" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; margin-top:12px;">
-      추천 업체 카드 보기 <span aria-hidden="true">→</span>
-    </a>
-  </div>
-</div>
-<div class="odds-summary-note" id="oddsSummaryNote"></div>
-<div class="text" id="simpleMarginResult" style="display:none;"></div>
-<div class="text" id="simpleMarginHint" style="display:none;"></div>
-</div><div class="section" id="insightMemoSection">
-  <div class="section-header im-header">
-    <div class="title"><span class="badge">TODAY</span>인사이트 · 메모</div>
-    <div class="im-tabs" role="tablist" aria-label="인사이트/메모">
-      <button class="im-tab active" type="button" data-imtab="insight" aria-selected="true">인사이트</button>
-      <button class="im-tab" type="button" data-imtab="memo" aria-selected="false" tabindex="-1">메모</button>
-    </div>
-  </div>
-
-  <div class="im-panels">
-    <div class="im-panel active" data-impanel="insight">
-      <div class="text" id="insight"></div>
-
-      <div class="insight-row">
-        <select aria-label="종목 선택" class="insight-select" id="insightSport">
-          <option value="축구">축구</option>
-          <option value="농구">농구</option>
-          <option value="야구">야구</option>
-          <option value="배구">배구</option>
-          <option value="e스포츠">e스포츠</option>
-          <option value="하키">하키</option>
-        </select>
-        <button class="insight-btn" onclick="refreshInsight()" type="button">인사이트 새로고침</button>
+  <div class="odds-summary-card" aria-label="예시" style="margin-top:12px;">
+    <div class="odds-summary-row" style="grid-template-columns:1.2fr 1fr 1fr;">
+      <div class="odds-metric">
+        <div class="odds-metric-title">예시 (2-way)</div>
+        <div class="odds-metric-value">1.90 / 1.90</div>
+        <div class="odds-metric-sub">홈 / 원정</div>
       </div>
-
-      <div class="text im-note">
-        ※ 종목 선택은 참고용이며, 실제 결과를 보장하지 않습니다.
+      <div class="odds-metric">
+        <div class="odds-metric-title">오버라운드</div>
+        <div class="odds-metric-value">1.0526</div>
+        <div class="odds-metric-sub">마진 5.26%</div>
+      </div>
+      <div class="odds-metric">
+        <div class="odds-metric-title">해석</div>
+        <div class="odds-metric-value">보통·주의</div>
+        <div class="odds-metric-sub">낮을수록 비용↓</div>
       </div>
     </div>
-
-    <div class="im-panel" data-impanel="memo" hidden>
-      <div class="combo-subtitle">오늘의 메모</div>
-      <div class="text">간단히 기록해두면 다음 방문 때 그대로 남습니다.</div>
-
-      <textarea class="memo-area" id="quickMemoText" placeholder="예) 오늘 체크 포인트 / 라인 변동 / 문의 내용 메모" rows="6"></textarea>
-
-      <div class="memo-actions">
-        <button class="insight-btn" id="quickMemoSave" type="button">저장</button>
-        <button class="insight-btn secondary" id="quickMemoClear" type="button">비우기</button>
-      </div>
-
-      <div class="memo-extras">
-              <div class="memo-chip-row" aria-label="메모 템플릿">
-                <button class="memo-chip" type="button" data-memo-insert="체크 포인트: ">체크</button>
-                <button class="memo-chip" type="button" data-memo-insert="라인 변동: ">라인</button>
-                <button class="memo-chip" type="button" data-memo-insert="문의/상담: ">문의</button>
-                <button class="memo-chip" type="button" data-memo-insert="리스크: ">리스크</button>
-              </div>
-      
-              <div class="memo-extra-actions">
-                <button class="insight-btn" id="memoAppendAnalysis" type="button">분석 요약 추가</button>
-                <button class="insight-btn secondary" id="memoCopy" type="button">메모 복사</button>
-              </div>
-      
-              <div class="memo-history">
-                <div class="memo-history-title">
-                  <span>최근 메모</span>
-                  <span style="font-size:11px;color:rgba(255,255,255,.5);">클릭하면 불러오기</span>
-                </div>
-                <div id="memoHistoryList"></div>
-              </div>
-            </div>
-
+    <div class="odds-summary-note" style="margin:10px 0 0;">
+      같은 시장/종류라면 <b>마진이 낮을수록</b> 비용(수수료)이 낮은 편입니다. (참고용)
+    </div>
+    <div class="odds-summary-cta">
+      <a class="insight-btn secondary" data-cta="why_to_analysis" href="/analysis/" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; margin-top:12px;">
+        전체 분석기 열기 <span aria-hidden="true">→</span>
+      </a>
     </div>
   </div>
 </div>
 
-<div class="section" id="riskCalcSection">
-<div class="title"><span class="badge">RISK</span>리스크 관리 계산기</div>
-<div class="text" style="margin-bottom:10px;">
-     손실 한도 · 고정 비중 · 보수 켈리로 <b>과몰입을 줄이는</b> 참고 계산기입니다. 
-    </div>
-<div aria-label="리스크 관리 계산기 유형" class="seg-row" role="tablist">
-<button class="seg active" id="rModeStop" onclick="setRiskMode('stop')" type="button">손실 한도</button>
-<button class="seg" id="rModeFixed" onclick="setRiskMode('fixed')" type="button">고정 비중</button>
-<button class="seg" id="rModeKelly" onclick="setRiskMode('kelly')" type="button">보수 켈리</button>
-</div>
-<div id="riskStop" style="display:block; margin-top:10px;">
-<div class="text" style="margin-bottom:8px;color:#bdbdbd;font-size:12px;">
-      하루/세션 손실 한도를 먼저 정해두면, 감정 베팅을 줄이는데 도움이 됩니다.
-     </div>
-<div style="display:grid; gap:10px;">
-<input id="rBankroll1" inputmode="decimal" placeholder="총 자본 (예: 1000000)"/>
-<div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-<input id="rLossPct" inputmode="decimal" placeholder="손실 한도 % (예: 5)"/>
-<input id="rStopPct" inputmode="decimal" placeholder="중단 트리거 % (예: 80)"/>
-</div>
-</div>
-<button class="insight-btn" onclick="calcRiskStop()" style="margin-top:10px;" type="button">손실 한도 계산</button>
-<div class="text" id="riskStopOut" style="font-weight:900;color:#f5e27a;margin-top:8px;"></div>
-<div class="text" id="riskStopHint" style="color:#bdbdbd;font-size:12px;"></div>
-</div>
-<div id="riskFixed" style="display:none; margin-top:10px;">
-<div class="text" style="margin-bottom:8px;color:#bdbdbd;font-size:12px;">
-      고정 비중은 변동을 줄이는 가장 단순한 룰입니다. (예: 1~2%)
-     </div>
-<div style="display:grid; gap:10px;">
-<input id="rBankroll2" inputmode="decimal" placeholder="총 자본 (예: 1000000)"/>
-<input id="rStakePct" inputmode="decimal" placeholder="베팅 비중 % (예: 1.5)"/>
-<div aria-label="비중 프리셋" class="chip-row">
-<button class="chip" onclick="presetStake(0.5)" type="button">0.5%</button>
-<button class="chip" onclick="presetStake(1)" type="button">1%</button>
-<button class="chip" onclick="presetStake(1.5)" type="button">1.5%</button>
-<button class="chip" onclick="presetStake(2)" type="button">2%</button>
-<button class="chip" onclick="presetStake(3)" type="button">3%</button>
-</div>
-</div>
-<button class="insight-btn" onclick="calcRiskFixed()" style="margin-top:10px;" type="button">고정 비중 계산</button>
-<div class="text" id="riskFixedOut" style="font-weight:900;color:#f5e27a;margin-top:8px;"></div>
-<div class="text" id="riskFixedHint" style="color:#bdbdbd;font-size:12px;"></div>
-</div>
-<div id="riskKelly" style="display:none; margin-top:10px;">
-<div class="text" style="margin-bottom:8px;color:#bdbdbd;font-size:12px;">
-      켈리는 공격적일 수 있어 <b>보수 배수</b>(예: 25%~50%)로 줄여 쓰는 것을 권장합니다.
-     </div>
-<div style="display:grid; gap:10px;">
-<input id="rBankroll3" inputmode="decimal" placeholder="총 자본 (예: 1000000)"/>
-<div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-<input id="rOdds" inputmode="decimal" placeholder="배당(Decimal) (예: 1.95)"/>
-<input id="rWinPct" inputmode="decimal" placeholder="승률 % 추정 (예: 55)"/>
-</div>
-<div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-<input id="rKellyFactor" inputmode="decimal" placeholder="보수 배수 % (예: 25)"/>
-<input id="rMaxPct" inputmode="decimal" placeholder="최대 상한 % (예: 3)"/>
-</div>
-</div>
-<button class="insight-btn" onclick="calcRiskKelly()" style="margin-top:10px;" type="button">보수 켈리 계산</button>
-<div class="text" id="riskKellyOut" style="font-weight:900;color:#f5e27a;margin-top:8px;"></div>
-<div class="text" id="riskKellyHint" style="color:#bdbdbd;font-size:12px;"></div>
-</div>
-</div><div class="section" id="checklistSection">
-<div class="section-header">
-<div class="title"><span class="badge">CHECK</span>배팅 전 체크리스트</div>
-<button class="insight-btn secondary btn-mini" onclick="refreshChecklist()" type="button">새로고침</button>
-</div>
-<div class="text" id="checklistText"></div>
-<div class="session-plan" id="sessionPlanBox">
-  <div class="session-plan-head">
-    <div class="session-plan-title">오늘의 세션 플랜 <span class="session-plan-sub">(과몰입 방지)</span></div>
-    <div class="session-plan-actions">
-      <button class="insight-btn secondary btn-mini" type="button" id="spSaveBtn">저장</button>
-      <button class="insight-btn secondary btn-mini" type="button" id="spClearBtn">초기화</button>
-    </div>
-  </div>
-
-  <div class="text" style="color:#bdbdbd;font-size:12px; margin-top:6px;">
-    오늘의 손실 한도/1회 상한/최대 경기 수를 미리 고정해두면 “추격 배팅”을 줄이는 데 도움이 됩니다. (브라우저에만 저장)
-  </div>
-
-  <div class="session-plan-grid">
-    <div class="session-plan-field">
-      <label for="spBank">총 자본(원)</label>
-      <input id="spBank" inputmode="decimal" placeholder="예: 1000000">
-    </div>
-    <div class="session-plan-field">
-      <label for="spLossPct">오늘 손실 한도(%)</label>
-      <input id="spLossPct" inputmode="decimal" placeholder="예: 5">
-    </div>
-    <div class="session-plan-field">
-      <label for="spStakePct">1회 상한(%)</label>
-      <input id="spStakePct" inputmode="decimal" placeholder="예: 2">
-    </div>
-    <div class="session-plan-field">
-      <label for="spMaxBets">최대 경기 수</label>
-      <input id="spMaxBets" inputmode="decimal" placeholder="예: 3">
-    </div>
-  </div>
-
-  <div class="session-plan-summary" id="spSummary"></div>
-</div>
-
-<div class="text" style="margin-top:8px;color:#9a9a9a;font-size:12px;">
-          ※ 과몰입 방지/리스크 관리용 안내입니다.
-        </div>
-</div></div>
 <div aria-label="카드 검색 및 필터" class="vendor-tools">
 <input autocomplete="off" class="v-input" id="searchInput" placeholder="업체 검색 (예: SPEED OK 어느날 )"/>
 <div aria-label="필터 및 정렬" class="v-controls">
@@ -2197,45 +1994,39 @@ const INSIGHTS_BY_SPORT = {
 <div class="vendor-grid" id="vendorGridVerified"></div>
 </section>
 </div>
-<div class="insights-wrap" id="insights">
-<div class="insights-head">
-<div>
-<div class="h" id="insightHeadline">오늘의 인기</div>
-<div class="sub">방문자 수 대신, <b>이 사이트에서 실제로 많이 본/많이 검색한 항목</b>을 보여줍니다. </div>
+<div class="section" id="faqSection">
+  <div class="title"><span class="badge">FAQ</span>자주 묻는 질문</div>
+  <div class="text" style="margin-bottom:10px;">필요한 것만 짧게 정리했습니다.</div>
+
+  <details class="faq-item" open>
+    <summary class="faq-q">마진(오버라운드)이 뭐예요?</summary>
+    <div class="text faq-a">배당 역수의 합(오버라운드)에서 1을 뺀 값이 마진(%)입니다. 같은 시장이라면 보통 <b>낮을수록</b> 비용이 낮은 편입니다.</div>
+  </details>
+
+  <details class="faq-item">
+    <summary class="faq-q">공정배당/정규화 확률은 어떻게 보나요?</summary>
+    <div class="text faq-a">입력한 배당을 확률로 바꾼 뒤 합이 100%가 되도록 정규화합니다. 그 확률의 역수가 공정배당(참고값)입니다.</div>
+  </details>
+
+  <details class="faq-item">
+    <summary class="faq-q">EV는 언제 신뢰할 수 있어요?</summary>
+    <div class="text faq-a">EV는 “내가 생각하는 승률”이 들어가야 의미가 있습니다. 고급 모드에서 <b>내 예상 확률</b>을 넣으면 +EV / -EV를 바로 표시합니다. (결과 보장 아님)</div>
+  </details>
+
+  <details class="faq-item">
+    <summary class="faq-q">업체 카드는 어디서 보나요?</summary>
+    <div class="text faq-a">메인에서 바로 보거나, 분석기에서 계산 후 <b>업체 카드</b> 버튼으로 이동할 수 있습니다.</div>
+  </details>
 </div>
-</div>
-<div class="insights-grid">
-<div aria-label="오늘 많이 본 키워드" class="card stat-card">
-<div class="stat-top">
-<div class="stat-title">오늘 많이 본 키워드</div>
-<div class="stat-meta" id="insightKwMeta">검색창에 입력한 키워드 기준으로 집계됩니다. (데이터가 쌓이면 자동 갱신)</div>
-</div>
-<div class="stat-list" id="insightKeywords"></div>
-</div>
-<div aria-label="오늘 많이 본 카드" class="card stat-card">
-<div class="stat-top">
-<div class="stat-title">오늘 많이 본 카드 TOP 5</div>
-<div class="stat-meta" id="insightCardMeta">카드 상세를 열어본 횟수 기준입니다. </div>
-</div>
-<div class="stat-list" id="insightCards"></div>
-<div class="note-mini">※ “인기순” 정렬은 카드 클릭 누적 기반, 이 영역은 “오늘 열람” 기반입니다.</div>
-</div>
-<div aria-label="빠른 도구" class="card stat-card">
-<div class="stat-top">
-<div class="stat-title">빠른 도구</div>
-<div class="stat-meta">자주 쓰는 계산기를 바로 실행하세요.</div>
-</div>
-<div class="stat-actions">
-<a class="small-btn" data-cta="quick_analysis" href="/analysis/">분석기</a>
-<a class="small-btn" data-cta="quick_margin" href="/tool-margin/">마진</a>
-<a class="small-btn" data-cta="quick_ev" href="/tool-ev/">EV</a>
-<a class="small-btn" data-cta="quick_odds" href="/tool-odds/">배당 확률</a>
-<a class="small-btn" data-cta="quick_bonus" href="/bonus-checklist/">입플 체크</a>
-</div>
-<div class="note-mini">팁: 라인/배당 흐름은 “기록(로그)”이 쌓여야 의미가 커집니다. 다음 업데이트에서 베팅 로그/대시보드를 붙이면 재방문이 확 올라갑니다.</div>
-</div>
-</div>
-</div>
+
+<style>
+/* FAQ (index only) */
+#faqSection details{ background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:10px 12px; margin-top:10px; }
+#faqSection summary{ cursor:pointer; list-style:none; font-weight:900; color:#fff; }
+#faqSection summary::-webkit-details-marker{ display:none; }
+#faqSection .faq-a{ margin-top:8px; }
+</style>
+
 <div aria-label="업체 상세" aria-modal="true" class="popup" id="cardPopup" role="dialog">
 <div class="popup-box" role="document">
 <h2 id="pTitle"></h2>
@@ -2277,126 +2068,6 @@ const INSIGHTS_BY_SPORT = {
 </div>
 <div class="btn copy" id="closeShareBtn">닫기</div>
 </div>
-</div>
-<div class="section" id="guideHub">
-  <div class="title"><span class="badge">GUIDE</span>가이드 · 체크리스트</div>
-  <div class="text">
-    입플/보너스 조건 정리와 각 랜딩 안내를 <b>한 곳</b>에서 확인할 수 있습니다. (도구 사용 후 궁금한 항목을 빠르게 탐색)
-  </div>
-
-  <div class="tool-card-grid" aria-label="체크리스트 및 핵심 가이드">
-    <a class="tool-card-link" href="/bonus-checklist/" data-cta="hub_bonus">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
-            <rect x="9" y="3" width="6" height="4" rx="1"/>
-            <path d="M9 12h6"/><path d="M9 16h6"/>
-          </svg>
-        </div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">입플 체크리스트</div>
-          <div class="tool-card-desc">롤링/제외게임/최대지급 조건을 빠르게 정리</div>
-        </div>
-      </div>
-      <div class="chip-row" aria-hidden="true">
-        <span class="kchip">입플</span><span class="kchip">롤링</span><span class="kchip">최대지급</span>
-      </div>
-      <div class="tool-card-foot">
-        <span class="tool-card-cta">체크리스트 열기 →</span>
-        <span class="tool-card-note">문의 템플릿 포함</span>
-      </div>
-    </a>
-
-    <a class="tool-card-link" href="/landing-a/" data-cta="hub_landing_a">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/>
-            <path d="M3.3 7L12 12l8.7-5"/><path d="M12 22V12"/>
-          </svg>
-        </div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">입플·보너스 안내</div>
-          <div class="tool-card-desc">혜택 구조/조건/유의사항 요약</div>
-        </div>
-      </div>
-      <div class="chip-row" aria-hidden="true">
-        <span class="kchip">보너스</span><span class="kchip">조건</span><span class="kchip">가이드</span>
-      </div>
-      <div class="tool-card-foot">
-        <span class="tool-card-cta">랜딩 보기 →</span>
-        <span class="tool-card-note">핵심만 정리</span>
-      </div>
-    </a>
-
-    <a class="tool-card-link" href="/landing-c/" data-cta="hub_landing_c">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/>
-          </svg>
-        </div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">마진·EV 계산 가이드</div>
-          <div class="tool-card-desc">공정배당/정규확률/오버라운드 이해</div>
-        </div>
-      </div>
-      <div class="chip-row" aria-hidden="true">
-        <span class="kchip">마진</span><span class="kchip">EV</span><span class="kchip">공정배당</span>
-      </div>
-      <div class="tool-card-foot">
-        <span class="tool-card-cta">가이드 보기 →</span>
-        <span class="tool-card-note">도구와 함께 사용</span>
-      </div>
-    </a>
-  </div>
-
-  <div class="tool-card-grid" style="margin-top:12px;" aria-label="카테고리 바로가기">
-    <a class="tool-card-link" href="/casino/" data-cta="hub_casino">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">C</span></div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">카지노</div>
-          <div class="tool-card-desc">안내/정책/주요 체크포인트</div>
-        </div>
-      </div>
-      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
-    </a>
-
-    <a class="tool-card-link" href="/slot/" data-cta="hub_slot">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">S</span></div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">슬롯</div>
-          <div class="tool-card-desc">게임/제외/조건 참고</div>
-        </div>
-      </div>
-      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
-    </a>
-
-    <a class="tool-card-link" href="/minigame/" data-cta="hub_minigame">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">M</span></div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">미니게임</div>
-          <div class="tool-card-desc">룰/조건/주의사항</div>
-        </div>
-      </div>
-      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
-    </a>
-
-    <a class="tool-card-link" href="/ipl/" data-cta="hub_ipl">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">I</span></div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">IPL</div>
-          <div class="tool-card-desc">리그/일정/참고</div>
-        </div>
-      </div>
-      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
-    </a>
-  </div>
 </div>
 
 <div class="landing-seo">
@@ -3980,13 +3651,11 @@ function openFromUrl() {
 
 /* ===== 초기화 ===== */
 (function init() {
-  saveUtmFromUrl();
-  refreshChecklist();
-  setMarginMode("2");
-  maybeAutoRecFilter();
-  renderGrid();
-initInsights();
-  openFromUrl();
+  // UTM/트래킹 모듈은 /assets/js/88st-analytics.js 공통 사용
+  try{ if(typeof saveUtmFromUrl === 'function') saveUtmFromUrl(); }catch(e){}
+  try{ if(typeof maybeAutoRecFilter === 'function') maybeAutoRecFilter(); }catch(e){}
+  try{ if(typeof renderGrid === 'function') renderGrid(); }catch(e){}
+  try{ if(typeof openFromUrl === 'function') openFromUrl(); }catch(e){}
 })();
 </script>
 <script>

@@ -1331,7 +1331,13 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   color:#111;
   border:1px solid rgba(0,0,0,.10);
 }
-</style>
+
+/* Result action dock */
+.result-dock{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+.result-dock .btn{ flex:1; min-width:150px; }
+@media(max-width:560px){ .result-dock .btn{ min-width:0; } }
+
+
 <!-- ===== GA4 (공통) ===== -->
 
 
@@ -1482,7 +1488,7 @@ a{ color:inherit; }
     <div class="ad-grid" id="adGrid"></div>
 
     <div class="ad-actions">
-      <a class="btnx primary" href="/#vendors" aria-label="인증 놀이터 보기">인증 놀이터 보기</a>
+      <a class="btnx primary" href="/#vendorTop" aria-label="인증 놀이터 보기">인증 놀이터 보기</a>
       <a class="btnx" href="https://t.me/UZU59" target="_blank" rel="noopener">문의</a>
     </div>
 
@@ -1723,9 +1729,6 @@ a{ color:inherit; }
       <div class="actions">
         <button class="btn primary" id="btnCalc" onclick="calc()">계산하기</button>
         <button class="btn secondary" onclick="resetAll()">초기화</button>
-        <button class="btn gold" onclick="copyResult()">결과 복사</button>
-        <button class="btn secondary" onclick="shareResult()">공유</button>
-        <button class="btn secondary" onclick="openShareCard()">공유 카드</button>
       </div>
 
       <div class="note">
@@ -1744,6 +1747,12 @@ a{ color:inherit; }
       </div>
 
       <div class="result" id="result" style="display:none;"></div>
+
+      <div class="result-dock" id="resultDock" style="display:none;" aria-label="저장/공유/업체 바로가기">
+        <button class="btn secondary" type="button" onclick="quickJump('history')">저장됨 · 히스토리</button>
+        <button class="btn gold" type="button" onclick="openShareCard()">공유</button>
+        <a class="btn secondary" href="/#vendorTop" data-cta="analysis_to_vendors" data-no-auto-outbound="1">업체 카드</a>
+      </div>
 
       <div class="footer-links">
         <a class="linkbtn" href="/">홈으로</a>
@@ -1864,9 +1873,9 @@ a{ color:inherit; }
 <!-- 모바일 하단 도크 -->
 <div class="mobile-dock" id="mobileDock" aria-label="빠른 동작">
   <button class="dock-btn primary" type="button" onclick="calc()">계산</button>
-  <button class="dock-btn" type="button" onclick="copyResult()">복사</button>
-  <button class="dock-btn" type="button" onclick="openShareCard()">카드</button>
-  <button class="dock-btn" type="button" onclick="quickJump('top')">위로</button>
+  <button class="dock-btn" type="button" onclick="quickJump('history')">저장</button>
+  <button class="dock-btn" type="button" onclick="openShareCard()">공유</button>
+  <a class="dock-btn" href="/#vendorTop" data-cta="analysis_dock_vendors" data-no-auto-outbound="1">업체</a>
 </div>
 
 <div id="toast88"></div>
@@ -2600,6 +2609,9 @@ function calc(){
   const st = saveState();
   maybePushSnapshot(st, true);
   renderSnaps();
+
+  // 분석 완료 이후(1일 1회) 추천 팝업 노출
+  try{ maybeShowAdPopupAfterComplete(); }catch(e){}
 }
 
 /* =========================
@@ -2775,11 +2787,15 @@ function renderResult(sportName, level, rows, copyLines){
     </div>
   `;
   box.style.display = "block";
+  const dock = document.getElementById("resultDock");
+  if(dock) dock.style.display = "flex";
 
   copyLines.push(`주소: https://88st.cloud/analysis/`);
   LAST_TEXT = copyLines.join("\n") + "\n\n" + rows.map(r=>`${r[0]}: ${String(r[1]).replace(/<[^>]*>/g,"")}`).join("\n");
 }
 function showError(msg){
+  const dock = document.getElementById("resultDock");
+  if(dock) dock.style.display = "none";
   const box = $("result");
   box.innerHTML = `<div class="kv"><div class="k">안내</div><div class="v warn">${msg}</div></div>`;
   box.style.display = "block";
@@ -2791,6 +2807,8 @@ function showError(msg){
   }catch(e){}
 }
 function hideResult(){
+  const dock = document.getElementById("resultDock");
+  if(dock) dock.style.display = "none";
   const box = $("result");
   box.style.display = "none";
   box.innerHTML = "";
@@ -3954,43 +3972,34 @@ function renderTopList(id, list, type){
 ========================= */
 
 /* =========================
-   분석기 진입 광고 팝업 (A안)
-   - 1일 1회 표시
-   - 메인(index)에서 저장된 클릭 데이터가 있으면 인기 순 우선
+   분석기 진입 광고 팝업 (지연 노출)
+   - "진입"이 아니라 "분석 완료" 이후에만 1일 1회 노출
+   - index의 클릭 히스토리(있으면)로 2개 우선 노출
 ========================= */
-(function initAdPopup(){
-  const KEY = "88_analysis_adpopup_date";
-  const today = new Date().toISOString().slice(0,10);
 
-  try{
-    if(localStorage.getItem(KEY) === today) return;
-  }catch(e){}
+let _AD_PREPARED = false;
+function prepareAdPopup(){
+  if(_AD_PREPARED) return;
 
   // index.html 클릭 집계(있으면 활용)
   let clickMap = {};
-  try{
-    clickMap = JSON.parse(localStorage.getItem("88_card_clicks") || "{}") || {};
-  }catch(e){ clickMap = {}; }
+  try{ clickMap = JSON.parse(localStorage.getItem("88_card_clicks") || "{}") || {}; }
+  catch(e){ clickMap = {}; }
 
   // 메인 페이지 상단 우선 업체 + 광고모집 포함
   const ads = [
     {key:"card1", title:"SPEED Bet", sub:"고액전용 · 입금플러스 지원", href:"http://spd-7575.com/?code=88ST", badge:"추천"},
     {key:"card2", title:"OK Bet", sub:"고액전용 · 페이백/출석", href:"http://ok-8888.com/?code=88ST", badge:"추천"},
-    {key:"card3", title:"어느날", sub:"고액전용· 미니게임 · 무제제 ", href:"./#vendors", badge:"추천"},
-    {key:"card7", title:"광고 모집", sub:"여기에 광고가 노출됩니다", href:"./#vendors", badge:"AD"},
-    {key:"card8", title:"광고 모집", sub:"문의 후 등록 가능", href:"./#vendors", badge:"AD"}
+    {key:"card3", title:"어느날", sub:"고액전용· 미니게임 · 무제제 ", href:"/#vendorTop", badge:"추천"},
+    {key:"card7", title:"광고 모집", sub:"여기에 광고가 노출됩니다", href:"/#vendorTop", badge:"AD"},
+    {key:"card8", title:"광고 모집", sub:"문의 후 등록 가능", href:"/#vendorTop", badge:"AD"}
   ];
 
-  const ranked = [...ads].sort((a,b)=>{
-    const ca = Number(clickMap[a.key] || 0);
-    const cb = Number(clickMap[b.key] || 0);
-    return cb - ca;
-  });
-
+  const ranked = [...ads].sort((a,b)=> Number(clickMap[b.key]||0) - Number(clickMap[a.key]||0));
   const picks = ranked.slice(0,2);
+
   const grid = document.getElementById("adGrid");
-  const pop = document.getElementById("adPopup");
-  if(!grid || !pop) return;
+  if(!grid) return;
 
   grid.innerHTML = picks.map(x=>`
     <div class="ad-item" onclick="goAd('${x.href}')">
@@ -4000,8 +4009,23 @@ function renderTopList(id, list, type){
     </div>
   `).join("");
 
+  _AD_PREPARED = true;
+}
+
+function maybeShowAdPopupAfterComplete(){
+  const KEY = "88_analysis_adpopup_date";
+  const today = new Date().toISOString().slice(0,10);
+
+  try{ if(localStorage.getItem(KEY) === today) return; }catch(e){}
+
+  const pop = document.getElementById("adPopup");
+  if(!pop) return;
+
+  prepareAdPopup();
   pop.style.display = "flex";
-})();
+
+  try{ track("ad_popup_view", { page_path: location.pathname, trigger: "after_complete" }); }catch(e){}
+}
 
 function goAd(href){
   // 클릭 후에는 오늘 하루 재노출 방지(1일 1회 정책)
@@ -4027,8 +4051,6 @@ function closeAdPopup(disableToday){
     }catch(e){}
   }
 }
-
-
 
 /* ===== Demo Loader (for empty history) ===== */
 function loadDemo(kind){
