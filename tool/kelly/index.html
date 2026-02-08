@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>켈리(Kelly) 비중 계산기 | 88st.cloud</title>
+<meta name="description" content="배당과 내 예상 확률을 입력하면 켈리 기준 베팅 비중을 계산합니다. 보수적 1/2·1/4 Kelly, 최대 비중 캡을 지원합니다.">
+<link rel="canonical" href="https://88st.cloud/tool/kelly/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="88 (팔팔커뮤니티)">
+<meta property="og:title" content="켈리(Kelly) 비중 계산기">
+<meta property="og:description" content="배당+확률로 Kelly 비중을 계산(보수적 옵션/캡 지원).">
+<meta property="og:url" content="https://88st.cloud/tool/kelly/">
+<link rel="stylesheet" href="/assets/vendor-teasers.css">
+<style>
+:root{
+  --accent1:#5fb2ff; --accent2:#a8dcff; --accentRGB:95,178,255;
+  --gold:var(--accent1); --gold2:var(--accent2);
+  --bg:#05060b; --panel:rgba(12,14,22,.62);
+  --border:rgba(255,255,255,.12); --text:rgba(255,255,255,.92); --muted:rgba(255,255,255,.62);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:
+  radial-gradient(1200px 620px at 50% -10%, rgba(var(--accentRGB),.18), transparent 58%),
+  radial-gradient(900px 540px at 15% 25%, rgba(120,170,255,.10), transparent 55%),
+  linear-gradient(180deg, #05060b 0%, #060612 60%, #040408 100%);
+  color:var(--text);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:980px;margin:0 auto;padding:18px 14px 42px;}
+.topbar{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 0 6px;}
+.brand{display:flex;gap:10px;align-items:center;font-weight:1000;}
+.badge{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;font-weight:900;font-size:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;}
+.navlinks{display:flex;gap:10px;flex-wrap:wrap;}
+.navlinks a{padding:9px 12px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04);font-weight:900;font-size:12px;}
+.hero{margin-top:10px;border:1px solid var(--border);background:rgba(255,255,255,.03);border-radius:22px;padding:16px 14px;box-shadow:0 18px 60px rgba(0,0,0,.55);}
+.hero h1{margin:0;font-size:22px;letter-spacing:-.4px;}
+.hero p{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.55;}
+.grid{margin-top:12px;display:grid;gap:12px;grid-template-columns:1fr 1fr;}
+@media(max-width:720px){.grid{grid-template-columns:1fr;}}
+.card{border:1px solid var(--border);background:var(--panel);border-radius:22px;padding:14px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+.row{display:flex;gap:10px;flex-wrap:wrap;}
+.field{flex:1;min-width:180px;display:flex;flex-direction:column;gap:6px;}
+label{font-size:12px;color:var(--muted);font-weight:900;}
+input,select{width:100%;padding:11px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.28);color:#fff;outline:none;font-weight:900;}
+.btnrow{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:rgba(255,255,255,.92);font-weight:1000;cursor:pointer;user-select:none;box-shadow:0 12px 34px rgba(0,0,0,.38);}
+.btn.primary{border-color:rgba(var(--accentRGB),.22);background:rgba(255,255,255,.08);} 
+.kv{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:720px){.kv{grid-template-columns:1fr;}}
+.kv .item{border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);border-radius:18px;padding:12px;}
+.kv .k{color:var(--muted);font-weight:900;font-size:12px;}
+.kv .v{margin-top:6px;font-weight:1000;font-size:16px;}
+.small{font-size:12px;color:rgba(255,255,255,.60);line-height:1.6;}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"켈리 기준은 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"켈리 기준은 장기 로그성장률을 최대화하는 베팅 비중을 산출하는 방법입니다. 변동성이 커서 보수적(1/2, 1/4 Kelly)으로 쓰는 경우가 많습니다."}},{"@type":"Question","name":"확률이 정확하지 않으면 어떻게 되나요?","acceptedAnswer":{"@type":"Answer","text":"내 예상 확률이 과대평가되면 권장 비중이 과도해질 수 있습니다. 보수 계수(예: 1/4 Kelly)와 최대 비중 캡을 함께 사용하는 것을 권장합니다."}},{"@type":"Question","name":"켈리가 0% 이하로 나오면?","acceptedAnswer":{"@type":"Answer","text":"해당 입력 조건에서는 기대값이 음수로 해석될 수 있어 비중 0%가 권장됩니다."}},{"@type":"Question","name":"이 도구는 투자/배팅 조언인가요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 본 도구는 판단 보조용 계산기이며, 결과/수익을 보장하지 않습니다."}}]}</script>
+<script src="/assets/js/88st-analytics.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><span class="badge">88</span> Kelly 비중</div>
+    <div class="navlinks">
+      <a href="/" data-cta="nav_home">메인</a>
+      <a href="/analysis/" data-cta="nav_analysis">분석기</a>
+      <a href="/tool/overround/" data-cta="nav_overround">오버라운드</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>켈리(Kelly) 비중 계산기</h1>
+    <p>배당과 내 예상 확률을 입력하면 켈리 기준 비중을 계산합니다. 변동성을 줄이려면 <b>1/2·1/4 Kelly</b>와 <b>최대 비중 캡</b>을 함께 사용하세요.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="row">
+        <div class="field">
+          <label>배당(Decimal)</label>
+          <input id="odds" inputmode="decimal" placeholder="예: 1.95" value="1.95">
+        </div>
+        <div class="field">
+          <label>내 예상 확률(%)</label>
+          <input id="prob" inputmode="decimal" placeholder="예: 55" value="55">
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <div class="field">
+          <label>보수 계수</label>
+          <select id="frac">
+            <option value="1">1.0 (Full Kelly)</option>
+            <option value="0.5">0.5 (Half Kelly)</option>
+            <option value="0.25" selected>0.25 (Quarter Kelly)</option>
+            <option value="0.1">0.1 (Very conservative)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>최대 비중 캡(%)</label>
+          <input id="cap" inputmode="decimal" placeholder="예: 10" value="10">
+        </div>
+      </div>
+      <div class="btnrow">
+        <button class="btn primary" id="calcBtn">계산</button>
+        <button class="btn" id="resetBtn">예시값</button>
+      </div>
+      <div class="small" style="margin-top:10px;">
+        Kelly 공식(승/패 단일): <b>f* = (b·p - q) / b</b>, b=odds-1, q=1-p
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="kv">
+        <div class="item"><div class="k">기본 Kelly 비중</div><div class="v" id="kFull">—</div></div>
+        <div class="item"><div class="k">보수 적용 비중</div><div class="v" id="kAdj">—</div></div>
+        <div class="item"><div class="k">캡 적용 최종 비중</div><div class="v" id="kFinal">—</div></div>
+        <div class="item"><div class="k">판정</div><div class="v" id="judgement">—</div></div>
+      </div>
+      <div class="small" style="margin-top:10px;">
+        ※ 확률 입력은 본인 추정치입니다. 과대평가 시 리스크가 급증할 수 있어요.
+      </div>
+    </div>
+  </div>
+
+  <div class="vendor-teaser" id="vendorTeaser" aria-label="인증 업체 빠른보기">
+    <div class="vt-head">
+      <div>
+        <div class="vt-title">인증 업체 빠른보기</div>
+        <div class="vt-sub">카드 클릭 시 메인에서 상세 혜택/공지 확인 · 가입코드 확인 필수</div>
+      </div>
+      <div class="badge">보증·인증</div>
+    </div>
+    <div class="vendor-grid">
+      <a class="vendor-item" href="/?v=card1#vendorTop" data-cta="vendor_teaser_card1"><div class="v-top"><div class="v-title">어느날</div><div class="v-badge">코드 ST95</div></div><div class="v-note">고액전용/무제제 · 입플 혜택</div></a>
+      <a class="vendor-item" href="/?v=card2#vendorTop" data-cta="vendor_teaser_card2"><div class="v-top"><div class="v-title">OK Bet</div><div class="v-badge">코드 88ST</div></div><div class="v-note">신규 쿠폰 · 코인 입/출금</div></a>
+      <a class="vendor-item" href="/?v=card3#vendorTop" data-cta="vendor_teaser_card3"><div class="v-top"><div class="v-title">SPEED Bet</div><div class="v-badge">코드 88ST</div></div><div class="v-note">신규 쿠폰 · 벤픽/마감 지원</div></a>
+      <a class="vendor-item" href="/?v=card4#vendorTop" data-cta="vendor_teaser_card4"><div class="v-top"><div class="v-title">VEGAS</div><div class="v-badge">코드 6789</div></div><div class="v-note">스포츠·카지노 · 페이백/입플</div></a>
+      <a class="vendor-item" href="/?v=card5#vendorTop" data-cta="vendor_teaser_card5"><div class="v-top"><div class="v-title">LULA BET</div><div class="v-badge">코드 ZZ99</div></div><div class="v-note">원화·USDT · 페이백 10%</div></a>
+      <a class="vendor-item" href="/?v=card6#vendorTop" data-cta="vendor_teaser_card6"><div class="v-top"><div class="v-title">CHOY BET</div><div class="v-badge">코드 TAN</div></div><div class="v-note">신규/매충/페이백 · 혜택 확인</div></a>
+    </div>
+    <div class="vt-actions">
+      <a class="primary" href="/#vendorTop" data-cta="vendor_teaser_all">업체 카드 전체보기</a>
+      <a href="/analysis/" data-cta="vendor_teaser_to_analysis">무료 분석기</a>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:12px;">
+    <h2 style="margin:0 0 10px;font-size:16px;">자주 묻는 질문(FAQ)</h2>
+    <div class="faq">
+      <details><summary style="cursor:pointer;font-weight:1000;">켈리 비중이 높게 나오면 그대로 따라도 되나요?</summary><div class="small" style="margin-top:8px;">추천하지 않습니다. 확률 추정 오차와 변동성 때문에 <b>1/4 Kelly + 비중 캡</b>을 기본으로 두는 것이 안전합니다.</div></details>
+      <details><summary style="cursor:pointer;font-weight:1000;">배당이 낮아도 켈리가 나올 수 있나요?</summary><div class="small" style="margin-top:8px;">네. 확률 대비 배당이 충분히 유리(+EV)하면 비중이 0%보다 커질 수 있습니다.</div></details>
+      <details><summary style="cursor:pointer;font-weight:1000;">여러 베팅을 동시에 하면?</summary><div class="small" style="margin-top:8px;">동시에 여러 포지션을 잡으면 총 위험이 커집니다. 총합 비중이 과도해지지 않게 관리하세요.</div></details>
+    </div>
+  </div>
+
+  <div class="small" style="margin-top:14px;opacity:.75;">※ 본 도구는 판단 보조용이며 결과/수익을 보장하지 않습니다.</div>
+</div>
+
+<script>
+function fmtPct(x){ return (x*100).toFixed(2)+"%"; }
+function calcKelly(){
+  const odds = parseFloat(document.getElementById('odds').value);
+  const p = parseFloat(document.getElementById('prob').value)/100;
+  const frac = parseFloat(document.getElementById('frac').value);
+  const capPct = parseFloat(document.getElementById('cap').value);
+
+  if(!(odds>1.0) || !(p>0 && p<1)){
+    document.getElementById('kFull').textContent='—';
+    document.getElementById('kAdj').textContent='—';
+    document.getElementById('kFinal').textContent='—';
+    document.getElementById('judgement').textContent='입력값 확인';
+    return;
+  }
+  const b = odds-1;
+  const q = 1-p;
+  let f = (b*p - q)/b;
+  if(!isFinite(f)) f = 0;
+  const fFull = Math.max(0, f);
+  const fAdj = Math.max(0, fFull*frac);
+  let cap = (isFinite(capPct) && capPct>=0 && capPct<=100) ? (capPct/100) : 1;
+  const fFinal = Math.min(fAdj, cap);
+
+  document.getElementById('kFull').textContent = fmtPct(fFull);
+  document.getElementById('kAdj').textContent  = fmtPct(fAdj);
+  document.getElementById('kFinal').textContent = fmtPct(fFinal);
+
+  const ev = p*(odds-1) - (1-p);
+  const j = fFull<=0 ? '비중 0% (EV 음수 가능)' : (ev>0 ? '+EV 가능 · 변동성 주의' : 'EV 애매 · 보수 권장');
+  document.getElementById('judgement').textContent = j;
+
+  try{ if(typeof track==='function') track('kelly_calc',{odds:odds, prob:p, frac:frac, cap:capPct}); }catch(e){}
+}
+
+const calcBtn = document.getElementById('calcBtn');
+calcBtn.addEventListener('click', calcKelly);
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  document.getElementById('odds').value='1.95';
+  document.getElementById('prob').value='55';
+  document.getElementById('frac').value='0.25';
+  document.getElementById('cap').value='10';
+  calcKelly();
+});
+['odds','prob','frac','cap'].forEach(id=> document.getElementById(id).addEventListener('input', calcKelly));
+calcKelly();
+</script>
+</body>
+</html>

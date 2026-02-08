@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>배당 ↔ 확률 변환기</title>
-<meta name="description" content="배당을 확률로, 확률을 공정 배당으로 빠르게 변환합니다. (단일 결과 단순 기준)">
-<link rel="canonical" href="https://88st.cloud/tool-odds/">
+<title>EV(+EV) 계산기 | 88st.cloud</title>
+<meta name="description" content="배당과 내 예상 확률을 입력하면 EV(기대값)와 +EV 여부를 빠르게 계산합니다.">
+<link rel="canonical" href="https://88st.cloud/tool/ev/">
 <meta name="robots" content="index,follow">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="88 (팔팔커뮤니티)">
-<meta property="og:title" content="배당 ↔ 확률 변환기">
-<meta property="og:description" content="배당을 확률로, 확률을 공정 배당으로 빠르게 변환합니다. (단일 결과 단순 기준)">
-<meta property="og:url" content="https://88st.cloud/tool-odds/">
+<meta property="og:title" content="EV(+EV) 계산기 | 88st.cloud">
+<meta property="og:description" content="배당과 내 예상 확률을 입력하면 EV(기대값)와 +EV 여부를 빠르게 계산합니다.">
+<meta property="og:url" content="https://88st.cloud/tool/ev/">
 <style>
 :root{
   /* Theme (auto/preset) */
@@ -112,7 +112,7 @@ footer{ margin-top:16px; color:rgba(255,255,255,.50); font-size:12px; line-heigh
 }
 
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "배당 2.00은 확률로 얼마인가요?", "acceptedAnswer": {"@type": "Answer", "text": "암시 확률은 1/2.00 = 50% 입니다(단일 결과 기준)."}}, {"@type": "Question", "name": "확률 60%면 공정 배당은?", "acceptedAnswer": {"@type": "Answer", "text": "공정 배당은 1/0.60 = 1.667 입니다(마진 없는 단순 계산)."}}, {"@type": "Question", "name": "여러 결과(승/무/패)는 어떻게 하나요?", "acceptedAnswer": {"@type": "Answer", "text": "각 결과 배당을 모두 넣고 마진 계산기에서 오버라운드를 구한 뒤, 공정확률/공정배당을 확인하는 방식이 정확합니다."}}, {"@type": "Question", "name": "마진이 있으면 확률 변환이 왜 달라지나요?", "acceptedAnswer": {"@type": "Answer", "text": "북메이커는 각 결과에 수수료를 포함시키기 때문에(오버라운드), 단순 1/배당의 합이 100%를 넘을 수 있습니다."}}, {"@type": "Question", "name": "이 변환은 언제 쓰면 좋나요?", "acceptedAnswer": {"@type": "Answer", "text": "손익분기점 계산, EV 계산의 기본 입력값 확인, 배당 비교(가치 판단)에 유용합니다."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "손익분기점 승률은 왜 1/배당인가요?", "acceptedAnswer": {"@type": "Answer", "text": "배당이 o일 때, 기대수익이 0이 되는 확률이 1/o 입니다(수수료·마진 단순화 가정)."}}, {"@type": "Question", "name": "+EV이면 무조건 이기나요?", "acceptedAnswer": {"@type": "Answer", "text": "아닙니다. +EV는 장기 평균 관점에서 유리할 ‘가능성’을 뜻합니다. 단기 변동성은 매우 큽니다."}}, {"@type": "Question", "name": "추정 승률은 어떻게 잡나요?", "acceptedAnswer": {"@type": "Answer", "text": "최근 폼, 라인업, 일정, 상대 전적, 시장 변동 등 여러 요소를 참고해 ‘내 기준’으로 추정합니다."}}, {"@type": "Question", "name": "마진(오버라운드)을 제거한 EV도 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "가능합니다. 마진 계산기로 공정확률을 만든 뒤, 그 기준으로 승률/배당을 비교하면 더 보수적인 평가가 됩니다."}}, {"@type": "Question", "name": "추천 배팅 금액도 계산되나요?", "acceptedAnswer": {"@type": "Answer", "text": "현재 페이지는 EV만 계산합니다. 향후 켈리/유닛 사이징 도구로 확장할 수 있습니다."}}]}</script>
 <script src="../assets/theme-preset.js" defer></script>
 
 <style id="v13_1_theme_override">
@@ -210,8 +210,8 @@ a{ color:inherit; }
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "배당↔확률 변환",
-      "item": "https://88st.cloud/tool-odds/"
+      "name": "EV(+기대값) 계산기",
+      "item": "https://88st.cloud/tool/ev/"
     }
   ]
 }
@@ -223,7 +223,7 @@ a{ color:inherit; }
 <body>
   <div class="wrap">
     <div class="topbar">
-      <div class="brand"><span class="badge">88</span> 배당↔확률 변환</div>
+      <div class="brand"><span class="badge">88</span> EV 계산기</div>
       <div class="navlinks" aria-label="바로가기">
         <a href="/" rel="home">홈</a>
         <a href="/analysis/">분석기</a>
@@ -234,76 +234,87 @@ a{ color:inherit; }
     </div>
 
     <div class="hero">
-      <h1>배당 ↔ 확률 변환기</h1>
-      <p>배당을 확률로, 확률을 공정 배당으로 빠르게 변환합니다. (단일 결과 단순 기준)<br><span class="small">※ 정보 제공/참고용 · 결과를 보장하지 않습니다.</span></p>
+      <h1>EV(+EV) 계산기</h1>
+      <p>배당과 내 추정 승률을 넣으면 손익분기점 대비 +EV / -EV 여부와 기대수익을 계산합니다.<br><span class="small">※ 정보 제공/참고용 · 결과를 보장하지 않습니다.</span></p>
     </div>
 
     
 <div class="grid">
   <div class="card">
-    <h2>배당 → 확률</h2>
+    <h2>입력</h2>
     <div class="row">
       <div class="field">
         <label for="odds">배당</label>
-        <input id="odds" inputmode="decimal" placeholder="예: 1.95" value="1.95">
+        <input id="odds" inputmode="decimal" placeholder="예: 1.90" value="1.90">
+      </div>
+      <div class="field">
+        <label for="p">내 추정 승률(%)</label>
+        <input id="p" inputmode="decimal" placeholder="예: 55" value="55">
+      </div>
+      <div class="field">
+        <label for="stake">베팅 금액</label>
+        <input id="stake" inputmode="decimal" placeholder="예: 10000" value="10000">
       </div>
     </div>
     <div class="btnrow">
-      <div class="btn" id="toProbBtn">변환</div>
-      <div class="btn secondary" id="toProbReset">초기화</div>
+      <div class="btn" id="calcBtn">계산하기</div>
+      <div class="btn secondary" id="resetBtn">초기화</div>
     </div>
-    <div class="kv">
-      <div class="item"><div class="k">암시 확률</div><div class="v" id="probOut">-</div></div>
-      <div class="item"><div class="k">손익분기점</div><div class="v" id="beOut">-</div></div>
-    </div>
-    <div class="small" style="margin-top:8px;">※ 단일 결과 기준(마진 단순화 가정)</div>
+    <div class="out small">손익분기점(1/배당)과 비교해 +EV / -EV 여부를 확인합니다.</div>
   </div>
 
   <div class="card">
-    <h2>확률 → 배당</h2>
-    <div class="row">
-      <div class="field">
-        <label for="prob">확률(%)</label>
-        <input id="prob" inputmode="decimal" placeholder="예: 52" value="52">
-      </div>
-    </div>
-    <div class="btnrow">
-      <div class="btn" id="toOddsBtn">변환</div>
-      <div class="btn secondary" id="toOddsReset">초기화</div>
-    </div>
+    <h2>결과</h2>
     <div class="kv">
-      <div class="item"><div class="k">공정 배당</div><div class="v" id="oddsOut">-</div></div>
-      <div class="item"><div class="k">참고</div><div class="v" id="noteOut">-</div></div>
+      <div class="item"><div class="k">손익분기점 승률</div><div class="v" id="be">-</div></div>
+      <div class="item"><div class="k">EV (금액)</div><div class="v" id="evAmt">-</div></div>
+      <div class="item"><div class="k">EV (수익률)</div><div class="v" id="evPct">-</div></div>
+      <div class="item"><div class="k">판정</div><div class="v" id="judge">-</div></div>
     </div>
+    <div class="sep"></div>
+    <div class="small" id="explain"></div>
   </div>
 </div>
 
 <script>
 function num(v){ const x=parseFloat(v); return (isFinite(x)) ? x : NaN; }
 function pct(x){ return (x*100).toFixed(2) + "%"; }
-function fmt(x){ return isFinite(x) ? x.toFixed(3) : "-"; }
+function won(x){ 
+  if(!isFinite(x)) return "-";
+  const s = (x>=0? "" : "-");
+  const n = Math.abs(x);
+  return s + Math.round(n).toLocaleString() + "원";
+}
+function calc(){
+  const odds=num(document.getElementById("odds").value);
+  const p=num(document.getElementById("p").value)/100;
+  const stake=num(document.getElementById("stake").value);
+  if(!isFinite(odds) || odds<=1){ alert("배당을 올바르게 입력해 주세요 (1.01 이상)."); return; }
+  if(!isFinite(p) || p<=0 || p>=1){ alert("승률(%)을 1~99 사이로 입력해 주세요."); return; }
+  if(!isFinite(stake) || stake<=0){ alert("베팅 금액을 입력해 주세요."); return; }
 
-function toProb(){
-  const o=num(document.getElementById("odds").value);
-  if(!isFinite(o) || o<=1){ alert("배당을 올바르게 입력해 주세요 (1.01 이상)."); return; }
-  const p = 1/o;
-  document.getElementById("probOut").textContent = pct(p);
-  document.getElementById("beOut").textContent = pct(p);
+  const be = 1/odds;
+  const winProfit = (odds-1)*stake;
+  const ev = p*winProfit - (1-p)*stake;
+  const evRate = ev / stake;
+
+  document.getElementById("be").textContent = pct(be);
+  document.getElementById("evAmt").textContent = won(ev);
+  document.getElementById("evPct").textContent = pct(evRate);
+  document.getElementById("judge").textContent = (ev>0? "+EV" : (ev<0? "-EV" : "0"));
+
+  document.getElementById("explain").textContent =
+    `손익분기점은 ${pct(be)} 입니다. 내 추정 승률이 이보다 높으면 +EV 가능성이 있습니다(장기 평균 관점).`;
 }
-function toOdds(){
-  const p=num(document.getElementById("prob").value)/100;
-  if(!isFinite(p) || p<=0 || p>=1){ alert("확률(%)을 1~99 사이로 입력해 주세요."); return; }
-  const o = 1/p;
-  document.getElementById("oddsOut").textContent = fmt(o);
-  document.getElementById("noteOut").textContent = "마진 없는 공정 배당(단순 계산)";
-}
-document.getElementById("toProbBtn").addEventListener("click", toProb);
-document.getElementById("toOddsBtn").addEventListener("click", toOdds);
-document.getElementById("toProbReset").addEventListener("click", ()=>{ document.getElementById("odds").value="1.95"; toProb(); });
-document.getElementById("toOddsReset").addEventListener("click", ()=>{ document.getElementById("prob").value="52"; toOdds(); });
-document.getElementById("odds").addEventListener("input", toProb);
-document.getElementById("prob").addEventListener("input", toOdds);
-toProb(); toOdds();
+document.getElementById("calcBtn").addEventListener("click", calc);
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  document.getElementById("odds").value="1.90";
+  document.getElementById("p").value="55";
+  document.getElementById("stake").value="10000";
+  calc();
+});
+["odds","p","stake"].forEach(id=> document.getElementById(id).addEventListener("input", ()=> calc()));
+calc();
 </script>
 
 
@@ -351,28 +362,28 @@ toProb(); toOdds();
       <h2>자주 묻는 질문(FAQ)</h2>
       <div class="faq">
       <details>
-        <summary>배당 2.00은 확률로 얼마인가요?</summary>
-        <div class="small" style="margin-top:8px; line-height:1.6;">암시 확률은 1/2.00 = 50% 입니다(단일 결과 기준).</div>
+        <summary>손익분기점 승률은 왜 1/배당인가요?</summary>
+        <div class="small" style="margin-top:8px; line-height:1.6;">배당이 o일 때, 기대수익이 0이 되는 확률이 1/o 입니다(수수료·마진 단순화 가정).</div>
       </details>
 
       <details>
-        <summary>확률 60%면 공정 배당은?</summary>
-        <div class="small" style="margin-top:8px; line-height:1.6;">공정 배당은 1/0.60 = 1.667 입니다(마진 없는 단순 계산).</div>
+        <summary>+EV이면 무조건 이기나요?</summary>
+        <div class="small" style="margin-top:8px; line-height:1.6;">아닙니다. +EV는 장기 평균 관점에서 유리할 ‘가능성’을 뜻합니다. 단기 변동성은 매우 큽니다.</div>
       </details>
 
       <details>
-        <summary>여러 결과(승/무/패)는 어떻게 하나요?</summary>
-        <div class="small" style="margin-top:8px; line-height:1.6;">각 결과 배당을 모두 넣고 마진 계산기에서 오버라운드를 구한 뒤, 공정확률/공정배당을 확인하는 방식이 정확합니다.</div>
+        <summary>추정 승률은 어떻게 잡나요?</summary>
+        <div class="small" style="margin-top:8px; line-height:1.6;">최근 폼, 라인업, 일정, 상대 전적, 시장 변동 등 여러 요소를 참고해 ‘내 기준’으로 추정합니다.</div>
       </details>
 
       <details>
-        <summary>마진이 있으면 확률 변환이 왜 달라지나요?</summary>
-        <div class="small" style="margin-top:8px; line-height:1.6;">북메이커는 각 결과에 수수료를 포함시키기 때문에(오버라운드), 단순 1/배당의 합이 100%를 넘을 수 있습니다.</div>
+        <summary>마진(오버라운드)을 제거한 EV도 있나요?</summary>
+        <div class="small" style="margin-top:8px; line-height:1.6;">가능합니다. 마진 계산기로 공정확률을 만든 뒤, 그 기준으로 승률/배당을 비교하면 더 보수적인 평가가 됩니다.</div>
       </details>
 
       <details>
-        <summary>이 변환은 언제 쓰면 좋나요?</summary>
-        <div class="small" style="margin-top:8px; line-height:1.6;">손익분기점 계산, EV 계산의 기본 입력값 확인, 배당 비교(가치 판단)에 유용합니다.</div>
+        <summary>추천 배팅 금액도 계산되나요?</summary>
+        <div class="small" style="margin-top:8px; line-height:1.6;">현재 페이지는 EV만 계산합니다. 향후 켈리/유닛 사이징 도구로 확장할 수 있습니다.</div>
       </details></div>
     </div>
 

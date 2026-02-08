@@ -2,85 +2,110 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://88st.cloud/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://88st.cloud/analysis/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://88st.cloud/tool-margin/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://88st.cloud/tool-ev/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://88st.cloud/tool-odds/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://88st.cloud/tool/overround/</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://88st.cloud/tool/fair-odds/</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://88st.cloud/tool/ev/</loc>
+    <lastmod>2026-02-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://88st.cloud/tool/kelly/</loc>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://88st.cloud/bonus-checklist/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://88st.cloud/landing-a/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://88st.cloud/landing-b/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://88st.cloud/landing-c/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://88st.cloud/landing-d/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://88st.cloud/casino/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://88st.cloud/slot/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://88st.cloud/minigame/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://88st.cloud/ipl/</loc>
-    <lastmod>2026-02-07</lastmod>
+    <lastmod>2026-02-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>

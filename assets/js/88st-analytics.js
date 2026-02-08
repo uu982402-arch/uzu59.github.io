@@ -159,6 +159,7 @@
 
           var keyPath = /^\/analysis\/?$/.test(dest.pathname) ||
                         /^\/tool-/.test(dest.pathname) ||
+                        /^\/tool\//.test(dest.pathname) ||
                         /^\/landing-/.test(dest.pathname) ||
                         /^\/bonus-checklist\/?$/.test(dest.pathname);
 

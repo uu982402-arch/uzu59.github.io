@@ -1424,6 +1424,16 @@ input:focus, select:focus, textarea:focus{
 
 /* links */
 a{ color:inherit; }
+
+/* line compare */
+.lc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;}
+@media(max-width:820px){.lc-grid{grid-template-columns:1fr;}}
+.lc-col{border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:12px;background:rgba(0,0,0,.18);} 
+.lc-head{font-weight:900;font-size:13px;color:rgba(245,226,122,.92);margin-bottom:8px;}
+.lc-fields .field{margin-top:0;}
+.lc-out{margin-top:10px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);padding:12px;line-height:1.55;font-size:13px;}
+.lc-out .k{color:rgba(255,255,255,.62);font-weight:900;}
+.lc-out .v{color:rgba(255,255,255,.92);}
 </style>
 
 
@@ -1651,6 +1661,100 @@ a{ color:inherit; }
               <input id="stake" inputmode="numeric" placeholder="예: 100000">
               <div class="small-hint">※ 입력 시 기대값(EV)을 원 단위로도 표시합니다.</div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 라인 비교 (A vs B) ===== -->
+      <div class="box" id="lineCompareBox">
+        <div class="box-head">
+          <div class="box-title" style="margin:0;">라인 비교 (A vs B)</div>
+          <div class="toggle" onclick="toggleBox('lineCompareBody')">접기/펼치기</div>
+        </div>
+        <div id="lineCompareBody">
+          <div class="small-hint" style="margin-top:4px;">
+            두 업체(또는 두 라인) 배당을 넣고 <b>마진/공정배당</b>을 비교하세요. 같은 조건이면 마진이 낮은 쪽이 유리한 경우가 많습니다.
+          </div>
+
+          <div class="lc-grid">
+            <div class="lc-col">
+              <div class="lc-head">라인 A</div>
+
+              <div id="lcA2" class="grid lc-fields" style="display:none;">
+                <div class="field">
+                  <label id="lcA2LabelA">선택 A 배당</label>
+                  <input id="lcA2OddsA" inputmode="decimal" placeholder="예: 1.85">
+                </div>
+                <div class="field">
+                  <label id="lcA2LabelB">선택 B 배당</label>
+                  <input id="lcA2OddsB" inputmode="decimal" placeholder="예: 2.05">
+                </div>
+              </div>
+
+              <div id="lcA3" class="grid lc-fields" style="display:none;">
+                <div class="field">
+                  <label id="lcA3LabelH">홈 배당</label>
+                  <input id="lcA3OddsH" inputmode="decimal" placeholder="예: 2.10">
+                </div>
+                <div class="field">
+                  <label id="lcA3LabelD">무 배당</label>
+                  <input id="lcA3OddsD" inputmode="decimal" placeholder="예: 3.20">
+                </div>
+                <div class="field">
+                  <label id="lcA3LabelA">원정 배당</label>
+                  <input id="lcA3OddsA" inputmode="decimal" placeholder="예: 3.40">
+                </div>
+                <div class="field">
+                  <label> </label>
+                  <input disabled value="(A) 3배당 입력">
+                </div>
+              </div>
+
+              <button class="btn secondary" type="button" onclick="applyLineCompare('A')">A를 메인에 적용</button>
+            </div>
+
+            <div class="lc-col">
+              <div class="lc-head">라인 B</div>
+
+              <div id="lcB2" class="grid lc-fields" style="display:none;">
+                <div class="field">
+                  <label id="lcB2LabelA">선택 A 배당</label>
+                  <input id="lcB2OddsA" inputmode="decimal" placeholder="예: 1.85">
+                </div>
+                <div class="field">
+                  <label id="lcB2LabelB">선택 B 배당</label>
+                  <input id="lcB2OddsB" inputmode="decimal" placeholder="예: 2.05">
+                </div>
+              </div>
+
+              <div id="lcB3" class="grid lc-fields" style="display:none;">
+                <div class="field">
+                  <label id="lcB3LabelH">홈 배당</label>
+                  <input id="lcB3OddsH" inputmode="decimal" placeholder="예: 2.10">
+                </div>
+                <div class="field">
+                  <label id="lcB3LabelD">무 배당</label>
+                  <input id="lcB3OddsD" inputmode="decimal" placeholder="예: 3.20">
+                </div>
+                <div class="field">
+                  <label id="lcB3LabelA">원정 배당</label>
+                  <input id="lcB3OddsA" inputmode="decimal" placeholder="예: 3.40">
+                </div>
+                <div class="field">
+                  <label> </label>
+                  <input disabled value="(B) 3배당 입력">
+                </div>
+              </div>
+
+              <button class="btn secondary" type="button" onclick="applyLineCompare('B')">B를 메인에 적용</button>
+            </div>
+          </div>
+
+          <div id="lineCompareOut" class="lc-out" style="display:none;"></div>
+
+          <div class="actionRow" style="margin-top:10px;">
+            <button class="btn" type="button" onclick="runLineCompare()">비교 계산</button>
+            <button class="btn ghost" type="button" onclick="prefillLineCompare()">현재 메인값으로 채우기</button>
           </div>
         </div>
       </div>
@@ -1984,6 +2088,7 @@ const HIST_KEY = "88_analysis_history_v1";        // 히스토리
 const SNAP_KEY = "88_analysis_snaps_v1";          // 최근 입력 스냅샷
 const SNAP_META_KEY = "88_analysis_snaps_meta_v1";
 let LAST_TEXT = "";
+let LAST_ONE_LINE = "";      // 공유용 한 줄 요약
 let LAST_RECORD = null;
 
 const SPORT_CFG = {
@@ -2125,6 +2230,90 @@ function loadState(){
   }catch(e){}
 }
 
+/* =========================
+   퍼머링크(공유 링크) 상태 복원
+   - st=base64url(JSON)
+========================= */
+function b64urlEncode(str){
+  try{
+    return btoa(unescape(encodeURIComponent(str)))
+      .replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  }catch(e){ return ""; }
+}
+function b64urlDecode(str){
+  try{
+    let s = String(str||"").replace(/-/g,'+').replace(/_/g,'/');
+    while(s.length % 4) s += "=";
+    return decodeURIComponent(escape(atob(s)));
+  }catch(e){ return ""; }
+}
+
+function buildPermalinkState(){
+  try{
+    // saveState()가 스냅샷/배지까지 업데이트하므로 공유 직전엔 항상 호출
+    const st = saveState();
+    const payload = {
+      v:1,
+      sport: st.sport,
+      level: st.level,
+      league: st.league,
+      teams: st.teams,
+      fields: {
+        main2OddsA: st.main2OddsA, main2OddsB: st.main2OddsB,
+        main3OddsH: st.main3OddsH, main3OddsD: st.main3OddsD, main3OddsA: st.main3OddsA,
+        myProb: st.myProb, stake: st.stake,
+        handicapLine: st.handicapLine, handicapOddsA: st.handicapOddsA, handicapOddsB: st.handicapOddsB, handicapPush: st.handicapPush,
+        totalLine: st.totalLine, overOdds: st.overOdds, underOdds: st.underOdds, ouPush: st.ouPush,
+        myOverProb: st.myOverProb
+      }
+    };
+    const json = JSON.stringify(payload);
+    return b64urlEncode(json);
+  }catch(e){ return ""; }
+}
+
+function restoreFromPermalink(){
+  try{
+    const u = new URL(location.href);
+    const st = u.searchParams.get("st");
+    if(!st) return false;
+    const json = b64urlDecode(st);
+    if(!json) return false;
+    const data = JSON.parse(json);
+    if(!data || !data.fields) return false;
+
+    // 우선순위: 공유 링크(st) > localStorage
+    if(data.sport) setVal("sport", data.sport);
+    if(data.level) setVal("level", data.level);
+    onSportChange(true);
+    onLevelChange(true);
+    setVal("league", data.league || "");
+    setVal("teams", data.teams || "");
+
+    const f = data.fields || {};
+    [
+      "main2OddsA","main2OddsB","main3OddsH","main3OddsD","main3OddsA",
+      "myProb","stake",
+      "handicapLine","handicapOddsA","handicapOddsB","handicapPush",
+      "totalLine","overOdds","underOdds","ouPush","myOverProb"
+    ].forEach(k=> setVal(k, f[k]));
+
+    saveState();
+    try{ track("permalink_open", { has_state: true }); }catch(e){}
+
+    // 링크를 열면 바로 결과를 보여줘야 함
+    const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
+    const is3 = cfg.main === "3way";
+    const ok = is3
+      ? (parseOdds(val("main3OddsH"))!=null && parseOdds(val("main3OddsD"))!=null && parseOdds(val("main3OddsA"))!=null)
+      : (parseOdds(val("main2OddsA"))!=null && parseOdds(val("main2OddsB"))!=null);
+    if(ok){
+      setTimeout(()=>{ try{ calc(); }catch(e){} }, 50);
+    }
+    return true;
+  }catch(e){ return false; }
+}
+
 /* 입력 이벤트 자동 저장 */
 [
   "sport","level","league","teams",
@@ -2140,6 +2329,137 @@ function loadState(){
 /* =========================
    UI: 템플릿 + 난이도
 ========================= */
+
+/* =========================
+   라인 비교 (A vs B)
+========================= */
+function updateLineCompareUI(cfg){
+  cfg = cfg || (SPORT_CFG[val("sport")] || SPORT_CFG.soccer);
+  const is3 = cfg.main === "3way";
+  const a2 = document.getElementById("lcA2");
+  const b2 = document.getElementById("lcB2");
+  const a3 = document.getElementById("lcA3");
+  const b3 = document.getElementById("lcB3");
+  if(a2) a2.style.display = is3 ? "none" : "block";
+  if(b2) b2.style.display = is3 ? "none" : "block";
+  if(a3) a3.style.display = is3 ? "block" : "none";
+  if(b3) b3.style.display = is3 ? "block" : "none";
+
+  if(!is3){
+    const la = cfg.labels.A||"A", lb = cfg.labels.B||"B";
+    const ids = [
+      ["lcA2LabelA", `${la} 배당`], ["lcA2LabelB", `${lb} 배당`],
+      ["lcB2LabelA", `${la} 배당`], ["lcB2LabelB", `${lb} 배당`]
+    ];
+    ids.forEach(([id,txt])=>{ const el=document.getElementById(id); if(el) el.innerText = txt; });
+  }else{
+    const lh = cfg.labels.H||"홈", ld = cfg.labels.D||"무", la = cfg.labels.A||"원정";
+    const ids = [
+      ["lcA3LabelH", `${lh} 배당`], ["lcA3LabelD", `${ld} 배당`], ["lcA3LabelA", `${la} 배당`],
+      ["lcB3LabelH", `${lh} 배당`], ["lcB3LabelD", `${ld} 배당`], ["lcB3LabelA", `${la} 배당`]
+    ];
+    ids.forEach(([id,txt])=>{ const el=document.getElementById(id); if(el) el.innerText = txt; });
+  }
+}
+
+function getLineCompareSet(which){
+  const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
+  const is3 = cfg.main === "3way";
+  if(!is3){
+    const o1 = parseOdds(val(which==="A" ? "lcA2OddsA" : "lcB2OddsA"));
+    const o2 = parseOdds(val(which==="A" ? "lcA2OddsB" : "lcB2OddsB"));
+    if(o1==null || o2==null) return null;
+    const out = compute2Way(o1,o2,0);
+    return { is3:false, odds:[o1,o2], out };
+  }
+  const h = parseOdds(val(which==="A" ? "lcA3OddsH" : "lcB3OddsH"));
+  const d = parseOdds(val(which==="A" ? "lcA3OddsD" : "lcB3OddsD"));
+  const a = parseOdds(val(which==="A" ? "lcA3OddsA" : "lcB3OddsA"));
+  if(h==null || d==null || a==null) return null;
+  const out = compute3Way(h,d,a);
+  return { is3:true, odds:[h,d,a], out };
+}
+
+function fmtFairFromProbs(probs){
+  try{
+    return probs.map(p=> (p>0 ? (1/p).toFixed(2) : "-")).join(" / ");
+  }catch(e){ return "-"; }
+}
+
+function runLineCompare(){
+  const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
+  const outEl = document.getElementById("lineCompareOut");
+  if(!outEl) return;
+  const A = getLineCompareSet("A");
+  const B = getLineCompareSet("B");
+  if(!A || !B){
+    outEl.style.display = "block";
+    outEl.innerHTML = `<div class="k">안내</div><div class="v warn">라인 A/B 배당을 모두 입력해줘.</div>`;
+    try{ track("line_compare", { ok:0 }); }catch(e){}
+    return;
+  }
+  const mA = A.out.marginPct;
+  const mB = B.out.marginPct;
+  const best = (mA <= mB) ? "A" : "B";
+  const delta = Math.abs(mA - mB);
+  const labels = A.is3 ? [cfg.labels.H||"H", cfg.labels.D||"D", cfg.labels.A||"A"] : [cfg.labels.A||"A", cfg.labels.B||"B"];
+  const fairA = fmtFairFromProbs(A.out.probs);
+  const fairB = fmtFairFromProbs(B.out.probs);
+  outEl.style.display = "block";
+  outEl.innerHTML = `
+    <div class="k">비교 결과</div>
+    <div class="v">
+      • 라인 A 마진: <b>${mA.toFixed(2)}%</b> · 공정배당(${labels.join("/")}): <b>${fairA}</b><br>
+      • 라인 B 마진: <b>${mB.toFixed(2)}%</b> · 공정배당(${labels.join("/")}): <b>${fairB}</b><br>
+      • 더 낮은 마진: <b class="${best==='A'?'good':'warn'}">라인 ${best}</b> (차이 ${delta.toFixed(2)}%p)
+    </div>
+  `;
+  try{ track("line_compare", { ok:1, best, delta_pp:+delta.toFixed(4) }); }catch(e){}
+}
+
+function applyLineCompare(which){
+  const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
+  const is3 = cfg.main === "3way";
+  if(!is3){
+    const a = val(which==="A" ? "lcA2OddsA" : "lcB2OddsA");
+    const b = val(which==="A" ? "lcA2OddsB" : "lcB2OddsB");
+    setVal("main2OddsA", a);
+    setVal("main2OddsB", b);
+  }else{
+    const h = val(which==="A" ? "lcA3OddsH" : "lcB3OddsH");
+    const d = val(which==="A" ? "lcA3OddsD" : "lcB3OddsD");
+    const a = val(which==="A" ? "lcA3OddsA" : "lcB3OddsA");
+    setVal("main3OddsH", h);
+    setVal("main3OddsD", d);
+    setVal("main3OddsA", a);
+  }
+  saveState();
+  try{ calc(); }catch(e){}
+  try{ track("line_apply", { which }); }catch(e){}
+  try{ quickJump('result'); }catch(e){}
+}
+
+function prefillLineCompare(){
+  const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
+  const is3 = cfg.main === "3way";
+  if(!is3){
+    setVal("lcA2OddsA", val("main2OddsA"));
+    setVal("lcA2OddsB", val("main2OddsB"));
+    setVal("lcB2OddsA", "");
+    setVal("lcB2OddsB", "");
+  }else{
+    setVal("lcA3OddsH", val("main3OddsH"));
+    setVal("lcA3OddsD", val("main3OddsD"));
+    setVal("lcA3OddsA", val("main3OddsA"));
+    setVal("lcB3OddsH", "");
+    setVal("lcB3OddsD", "");
+    setVal("lcB3OddsA", "");
+  }
+  const outEl = document.getElementById("lineCompareOut");
+  if(outEl){ outEl.style.display="none"; outEl.innerHTML=""; }
+  try{ track("line_prefill", {}); }catch(e){}
+}
+
 function onSportChange(silent){
   const sport = val("sport");
   const cfg = SPORT_CFG[sport] || SPORT_CFG.soccer;
@@ -2170,6 +2490,7 @@ function onSportChange(silent){
 
   applyTemplate();
   updateMyProbHints(cfg, val("level"));
+  updateLineCompareUI(cfg);
 
   if(!silent) hideResult();
   renderMarginDash(); // 종목 바뀌면 기준표/대시보드 즉시 반영
@@ -2494,6 +2815,22 @@ function calc(){
     }
   }
 
+  // ---- 공유용 한 줄 요약(+ 공정배당) ----
+  try{
+    if(typeof mainMargin === "number" && mainProbs && mainProbs.length){
+      const labels = is3
+        ? [cfg.labels.H||"H", cfg.labels.D||"D", cfg.labels.A||"A"]
+        : [cfg.labels.A||"A", cfg.labels.B||"B"];
+      const fair = mainProbs.map(p=> (p>0 ? (1/p) : null));
+      const fairText = fair.map(o=> (o && isFinite(o) ? o.toFixed(2) : "-")).join(" / ");
+      const evText = (typeof record.bestEVPct !== "number") ? "EV 미입력" : (record.bestEVPct>0 ? "+EV 가능" : "-EV 가능");
+      LAST_ONE_LINE = `요약: 마진 ${mainMargin.toFixed(1)}% · 공정배당(${labels.join("/")}) ${fairText} · ${evText}`;
+      copyLines.push(LAST_ONE_LINE);
+    }else{
+      LAST_ONE_LINE = "";
+    }
+  }catch(e){ LAST_ONE_LINE = ""; }
+
   // ---- 오버언더 (2-way + 푸시 근사) ----
   let ouMargin = null;
   const tLine = val("totalLine").trim();
@@ -2790,7 +3127,21 @@ function renderResult(sportName, level, rows, copyLines){
   const dock = document.getElementById("resultDock");
   if(dock) dock.style.display = "flex";
 
-  copyLines.push(`주소: https://88st.cloud/analysis/`);
+  // 조건부 CTA 강화: 마진 낮음 or +EV일 때만 업체 버튼을 더 강하게
+  try{
+    const vbtn = document.querySelector('a[data-cta="analysis_to_vendors"]');
+    if(vbtn && LAST_RECORD && LAST_RECORD.markets && LAST_RECORD.markets.main){
+      const m = +LAST_RECORD.markets.main.marginPct;
+      const rule = ((MARGIN_RULE[LAST_RECORD.sport] || MARGIN_RULE.soccer).main || [5,7,9]);
+      const isLow = isFinite(m) && (m <= rule[0]);
+      const isBoost = !!LAST_RECORD.evPositive || isLow;
+      vbtn.classList.remove("gold","secondary","primary");
+      vbtn.classList.add(isBoost ? "gold" : "secondary");
+      vbtn.textContent = isBoost ? "추천 업체 카드" : "업체 카드";
+    }
+  }catch(e){}
+
+  copyLines.push(`링크: ${getShareLink()}`);
   LAST_TEXT = copyLines.join("\n") + "\n\n" + rows.map(r=>`${r[0]}: ${String(r[1]).replace(/<[^>]*>/g,"")}`).join("\n");
 }
 function showError(msg){
@@ -2799,7 +3150,7 @@ function showError(msg){
   const box = $("result");
   box.innerHTML = `<div class="kv"><div class="k">안내</div><div class="v warn">${msg}</div></div>`;
   box.style.display = "block";
-  LAST_TEXT = `[88 커뮤니티] 안내\n${msg}\n주소: https://88st.cloud/analysis/`;
+  LAST_TEXT = `[88 커뮤니티] 안내\n${msg}\n링크: ${getShareLink()}`;
 
   try{
     const reason = String(msg||"").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim().slice(0,80);
@@ -2944,10 +3295,26 @@ function closeShareCard(){
 }
 
 function getShareLink(){
-  const base = location.origin + location.pathname;
-  let qs = "";
-  try{ if(typeof getUtmQuery === "function") qs = getUtmQuery(); }catch(e){}
-  return base + (qs || "");
+  try{
+    const u = new URL(location.origin + location.pathname);
+    const st = buildPermalinkState();
+    if(st) u.searchParams.set("st", st);
+
+    // UTM은 저장된 값을 우선 붙여서 공유 루프 유지
+    try{
+      if(typeof getUtmQuery === "function"){
+        const qs = getUtmQuery();
+        if(qs){
+          const sp = new URLSearchParams(qs.replace(/^\?/,""));
+          sp.forEach((v,k)=>{ if(!u.searchParams.get(k)) u.searchParams.set(k,v); });
+        }
+      }
+    }catch(e){}
+
+    return u.toString();
+  }catch(e){
+    return location.origin + location.pathname;
+  }
 }
 
 function extractResultLines(){
@@ -3014,6 +3381,19 @@ function drawShareCard(){
   const ts = new Date();
   ctx.fillText(ts.toLocaleString("ko-KR"), pad+40, pad+145);
 
+  // summary one-line
+  let hasSummary = false;
+  try{
+    const sumRaw = (LAST_ONE_LINE || "").replace(/^요약\s*:\s*/,"").trim();
+    if(sumRaw){
+      const sum = sumRaw.length > 70 ? (sumRaw.slice(0,70) + "…") : sumRaw;
+      ctx.fillStyle = "rgba(255,255,255,0.92)";
+      ctx.font = "900 24px system-ui, -apple-system, Segoe UI, Roboto";
+      ctx.fillText(sum, pad+40, pad+240);
+      hasSummary = true;
+    }
+  }catch(e){ hasSummary = false; }
+
   // badge (EV flag)
   let badgeText = "";
   try{
@@ -3034,7 +3414,7 @@ function drawShareCard(){
 
   // lines
   const lines = extractResultLines().slice(0, 12);
-  let y = pad + 270;
+  let y = hasSummary ? (pad + 310) : (pad + 270);
   ctx.fillStyle = "rgba(255,255,255,0.92)";
   ctx.font = "800 30px system-ui, -apple-system, Segoe UI, Roboto";
   lines.forEach((line)=>{
@@ -4271,8 +4651,9 @@ function onbSkip(){
 
 function boot(){
   try{ saveUtmFromUrl(); }catch(e){}
-  loadState();
-  if(!localStorage.getItem(LS_KEY)){
+  const restored = restoreFromPermalink();
+  if(!restored) loadState();
+  if(!restored && !localStorage.getItem(LS_KEY)){
     setVal("sport","soccer");
     setVal("level","simple");
   }
