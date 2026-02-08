@@ -218,6 +218,7 @@ a{ color:inherit; }
 </script>
 
 <script src="/assets/js/88st-analytics.js"></script>
+<script src="/assets/js/vendor-teasers.js" defer></script>
 <link rel="stylesheet" href="/assets/vendor-teasers.css">
 </head>
 <body>
@@ -333,45 +334,28 @@ sync(); calc();
 </script>
 
 
-    <div class="vendor-teaser" id="vendorTeaser" aria-label="인증 업체 빠른보기">
+        <div class="vendor-teaser" id="vendorTeaser" aria-label="인증 업체 빠른보기"
+      data-vt-fixed="1,2,3,4" data-vt-pool="10,11,8,7" data-vt-pick="2">
       <div class="vt-head">
         <div>
           <div class="vt-title">인증 업체 빠른보기</div>
-          <div class="vt-sub">카드 클릭 시 메인에서 상세 혜택/공지 확인 · 가입코드 확인 필수</div>
+          <div class="vt-sub">고정 4 + 오늘의 추천 2(페이지별 자동 로테이션) · 카드 클릭 → 상세 혜택/공지 · 가입코드 미입력 시 혜택 불가</div>
         </div>
         <div class="badge">보증·인증</div>
       </div>
-      <div class="vendor-grid">
-        <a class="vendor-item" href="/?v=card1#vendorTop" data-cta="vendor_teaser_card1">
-          <div class="v-top"><div class="v-title">어느날</div><div class="v-badge">코드 ST95</div></div>
-          <div class="v-note">고액전용/무제제 · 입플 혜택</div>
-        </a>
-        <a class="vendor-item" href="/?v=card2#vendorTop" data-cta="vendor_teaser_card2">
-          <div class="v-top"><div class="v-title">OK Bet</div><div class="v-badge">코드 88ST</div></div>
-          <div class="v-note">신규 쿠폰 · 코인 입/출금</div>
-        </a>
-        <a class="vendor-item" href="/?v=card3#vendorTop" data-cta="vendor_teaser_card3">
-          <div class="v-top"><div class="v-title">SPEED Bet</div><div class="v-badge">코드 88ST</div></div>
-          <div class="v-note">신규 쿠폰 · 벤픽/마감 지원</div>
-        </a>
-        <a class="vendor-item" href="/?v=card4#vendorTop" data-cta="vendor_teaser_card4">
-          <div class="v-top"><div class="v-title">VEGAS</div><div class="v-badge">코드 6789</div></div>
-          <div class="v-note">스포츠·카지노 · 페이백/입플</div>
-        </a>
-        <a class="vendor-item" href="/?v=card5#vendorTop" data-cta="vendor_teaser_card5">
-          <div class="v-top"><div class="v-title">LULA BET</div><div class="v-badge">코드 ZZ99</div></div>
-          <div class="v-note">원화·USDT · 페이백 10%</div>
-        </a>
-        <a class="vendor-item" href="/?v=card6#vendorTop" data-cta="vendor_teaser_card6">
-          <div class="v-top"><div class="v-title">CHOY BET</div><div class="v-badge">코드 TAN</div></div>
-          <div class="v-note">신규/매충/페이백 · 혜택 확인</div>
-        </a>
-      </div>
+
+      <div class="vt-sec-title">필수 추천 TOP4 (고정)</div>
+      <div class="vendor-grid" data-vt-grid="fixed"></div>
+
+      <div class="vt-sec-title">오늘의 추천 TOP2 (자동 로테이션)</div>
+      <div class="vendor-grid" data-vt-grid="rot"></div>
+
       <div class="vt-actions">
-        <a class="primary" href="/#vendorTop" data-cta="vendor_teaser_all">업체 카드 전체보기</a>
-        <a href="/analysis/" data-cta="vendor_teaser_to_analysis">무료 분석기</a>
+        <a href="/#vendorTop" data-utm="1" data-cta="vendor_teaser_all">전체 혜택/공지 보기</a>
+        <a class="primary" href="/analysis/" data-utm="1" data-cta="vendor_teaser_to_analysis">분석기 바로가기</a>
       </div>
     </div>
+
 
     <div class="card" style="margin-top:12px;">
       <h2>자주 묻는 질문(FAQ)</h2>
