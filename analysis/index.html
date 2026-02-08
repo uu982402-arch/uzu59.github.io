@@ -2935,7 +2935,8 @@ function openShareCard(){
   }
   modal.style.display = "flex";
   drawShareCard();
-  try{ track("share_card_open", { page_path: location.pathname }); }catch(e){}
+  // Normalize share event names across the site (index ↔ analysis)
+  try{ track("share_open", { page_path: location.pathname }); }catch(e){}
 }
 function closeShareCard(){
   const modal = document.getElementById("shareCardModal");
@@ -3057,7 +3058,7 @@ async function copyShareLink(){
   try{
     await navigator.clipboard.writeText(link);
     toast("링크를 복사했습니다");
-    try{ track("share_link_copy", { page_path: location.pathname }); }catch(e){}
+    try{ track("share_copy_link", { page_path: location.pathname }); }catch(e){}
   }catch(e){
     toast("복사 실패");
   }
@@ -3068,7 +3069,7 @@ async function copyShareText(){
   try{
     await navigator.clipboard.writeText(LAST_TEXT + "\n" + getShareLink());
     toast("문구를 복사했습니다");
-    try{ track("share_text_copy", { page_path: location.pathname }); }catch(e){}
+    try{ track("share_copy_text", { page_path: location.pathname }); }catch(e){}
   }catch(e){
     toast("복사 실패");
   }
@@ -3089,7 +3090,7 @@ function downloadShareCard(){
       a.remove();
       setTimeout(()=>URL.revokeObjectURL(url), 800);
       toast("이미지를 저장했습니다");
-      try{ track("share_card_download", { page_path: location.pathname }); }catch(e){}
+      try{ track("share_download_image", { page_path: location.pathname }); }catch(e){}
     }, "image/png", 1.0);
   }catch(e){
     toast("저장 실패");

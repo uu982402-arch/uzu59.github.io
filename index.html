@@ -3567,7 +3567,8 @@ function jumpToRec() {
   if(shareBtn) shareBtn.addEventListener("click", ()=> openShare(currentCardId));
   if(moreBtn) moreBtn.addEventListener("click", jumpToRec);
 
-  if(goBtn) goBtn.addEventListener("click", ()=> track("outbound_click", {"type":"site", "card_id": currentCardId, "title": (CARD_DATA[currentCardId]?.title)||"", "url": (document.getElementById("pLink")?.href)||"" }));
+  // Normalize outbound type values across the site
+  if(goBtn) goBtn.addEventListener("click", ()=> track("outbound_click", {"type":"external", "card_id": currentCardId, "title": (CARD_DATA[currentCardId]?.title)||"", "url": (document.getElementById("pLink")?.href)||"" }));
   if(tgBtn) tgBtn.addEventListener("click", ()=> track("outbound_click", {"type":"telegram", "card_id": currentCardId, "title": (CARD_DATA[currentCardId]?.title)||"", "url": (document.getElementById("pTelegram")?.href)||"" }));
 
   if(closeShareBtn) closeShareBtn.addEventListener("click", closeShare);
