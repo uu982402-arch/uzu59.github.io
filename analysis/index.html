@@ -772,6 +772,8 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 }
 .modal-box.share{
   max-width:560px;
+  max-height:92vh;
+  overflow:auto;
 }
 .share-canvas-wrap{
   margin-top:12px;
@@ -786,6 +788,85 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   border-radius:12px;
   display:block;
 }
+
+/* ===== 묶음 공유(오늘 수집) ===== */
+.bundle-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:10px;
+  padding:10px 12px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  color:rgba(255,255,255,.86);
+  font-size:12px;
+}
+.bundle-meta b{ color:#fff; }
+.bundle-ta{
+  width:100%;
+  min-height:160px;
+  margin-top:10px;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(0,0,0,.28);
+  color:#fff;
+  font-size:12px;
+  line-height:1.5;
+  resize:vertical;
+}
+.bundle-ta:focus{ outline:2px solid rgba(var(--accentRGB),.26); box-shadow:0 0 0 8px rgba(var(--accentRGB),.10); }
+.bundle-mini{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.bundle-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(var(--accentRGB),.28);
+  background:rgba(var(--accentRGB),.14);
+  color:#fff;
+  font-weight:900;
+  font-size:11px;
+}
+
+.bundle-promo{
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px dashed rgba(255,255,255,.10);
+}
+.bundle-promo-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.bundle-promo-title{
+  font-weight:900;
+  font-size:13px;
+  color:#fff;
+}
+.bundle-promo-ctrl{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.inp.mini{
+  padding:8px 10px;
+  font-size:12px;
+  border-radius:12px;
+}
+.bundle-ta--promo{
+  min-height:140px;
+}
+
 @media (max-width:560px){
   body{ padding-bottom: calc(env(safe-area-inset-bottom) + 72px); }
   .mobile-dock{
@@ -1434,6 +1515,56 @@ a{ color:inherit; }
 .lc-out{margin-top:10px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);padding:12px;line-height:1.55;font-size:13px;}
 .lc-out .k{color:rgba(255,255,255,.62);font-weight:900;}
 .lc-out .v{color:rgba(255,255,255,.92);}
+
+
+/* ===== 텍스트 붙여넣기(자동 입력) ===== */
+.paste-area{display:flex;flex-direction:column;gap:10px}
+.paste-ta{width:100%;min-height:96px;resize:vertical;padding:12px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);
+  background:rgba(0,0,0,.22);color:#fff;font-size:13px;line-height:1.45;outline:none}
+.paste-ta:focus{border-color:rgba(var(--accentRGB),.35);box-shadow:0 0 0 3px rgba(var(--accentRGB),.12)}
+.paste-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.paste-badge{font-size:12px;color:rgba(255,255,255,.78);padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)}
+.paste-badge.good{border-color:rgba(183,255,207,.25);color:rgba(183,255,207,.92)}
+.paste-badge.warn{border-color:rgba(255,207,153,.25);color:rgba(255,207,153,.92)}
+.paste-inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.paste-inline .chk{display:flex;gap:6px;align-items:center;font-size:12px;color:rgba(255,255,255,.82)}
+.paste-inline input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent1)}
+
+/* multi paste list */
+.paste-list-wrap{margin-top:10px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);overflow:hidden}
+.paste-list-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.paste-list-head .k{font-weight:950;color:rgba(245,226,122,.95)}
+.paste-list-head .m{font-size:12px;color:rgba(255,255,255,.68)}
+.paste-list{display:flex;flex-direction:column}
+.paste-item{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.paste-item:last-child{border-bottom:none}
+.paste-item .left{min-width:0}
+.paste-item .t{font-weight:950;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.paste-item .s{margin-top:4px;font-size:12px;color:rgba(255,255,255,.72);line-height:1.35}
+.paste-item .chips{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+.paste-chip{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:rgba(255,255,255,.78)}
+.paste-chip.ok{border-color:rgba(183,255,207,.22);color:rgba(183,255,207,.90)}
+.paste-chip.warn{border-color:rgba(255,207,153,.22);color:rgba(255,207,153,.90)}
+.paste-item .right{display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex:0 0 auto}
+.paste-item .btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.paste-item .mini{padding:8px 10px;border-radius:12px;font-size:12px}
+.paste-raw{margin-top:8px;font-size:12px;white-space:pre-wrap;line-height:1.45;color:rgba(255,255,255,.70);border-top:1px dashed rgba(255,255,255,.12);padding-top:8px;display:none}
+.paste-item.is-open .paste-raw{display:block}
+
+
+/* paste list tools + chain save */
+.paste-select{height:30px;border-radius:10px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#fff;font-size:12px;padding:0 10px;outline:none}
+.paste-select:focus{border-color:rgba(var(--accentRGB),.35);box-shadow:0 0 0 3px rgba(var(--accentRGB),.10)}
+.paste-list-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.paste-mini-label{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.72)}
+.paste-num{width:64px;height:30px;border-radius:10px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#fff;font-size:12px;padding:0 10px;outline:none}
+.paste-num:focus{border-color:rgba(var(--accentRGB),.35);box-shadow:0 0 0 3px rgba(var(--accentRGB),.10)}
+.paste-item .left{cursor:pointer}
+.paste-item.is-saved{background:rgba(183,255,207,.05)}
+.paste-item.is-saved .t{color:rgba(183,255,207,.92)}
+.paste-stat{font-size:12px;color:rgba(255,255,255,.72);line-height:1.35;text-align:right}
+.paste-stat b{color:rgba(255,255,255,.92)}
+
 </style>
 
 
@@ -1607,6 +1738,66 @@ a{ color:inherit; }
 
 
 
+
+
+
+      <!-- ===== 텍스트 붙여넣기 (자동 입력) ===== -->
+      <div class="box" id="pasteBox">
+        <div class="box-head">
+          <div class="box-title" style="margin:0;">텍스트 붙여넣기 (자동 입력)</div>
+          <div class="toggle" onclick="toggleBox('pasteBody')">접기/펼치기</div>
+        </div>
+        <div id="pasteBody">
+          <div class="small-hint" style="margin-top:4px;">
+            커뮤니티 글/배당표 텍스트를 그대로 붙여넣으면 <b>메인/오버·언더/핸디</b> 배당을 자동으로 채워줍니다. (지원: 2배당/3배당, 오버·언더, 핸디)
+          </div>
+          <div class="paste-area" style="margin-top:10px;">
+            <textarea id="pasteInput" class="paste-ta" placeholder="예) 맨시티 vs 리버풀  승 1.85 무 3.40 패 4.20 / 오버 2.5 1.95 언더 1.85 / 핸디 -1.5 1.90 1.95"></textarea>
+            <div class="paste-actions">
+              <button class="btn primary" type="button" onclick="applyPaste(true)">자동 입력</button>
+              <button class="btn secondary" type="button" onclick="applyPaste(false)">입력만</button>
+              <button class="btn secondary" type="button" onclick="parsePasteMulti()">여러 경기 만들기</button>
+              <button class="btn ghost" type="button" onclick="fillPasteExample()">예시</button>
+              <button class="btn ghost" type="button" onclick="clearPaste()">지우기</button>
+              <button class="btn ghost" type="button" onclick="clearPasteList()">리스트 지우기</button>
+              <span class="paste-badge good" id="pasteBadgeOk" style="display:none;"></span>
+              <span class="paste-badge warn" id="pasteBadgeWarn" style="display:none;"></span>
+              <div class="paste-inline" style="margin-left:auto;">
+                <label class="chk">메인 타입
+                  <select id="pasteMainMode" class="paste-select" title="메인 배당 타입">
+                    <option value="auto">자동</option>
+                    <option value="2">2배당</option>
+                    <option value="3">3배당</option>
+                  </select>
+                </label>
+                <label class="chk"><input type="checkbox" id="pasteAutoLevel" checked> OU/핸디 감지 시 레벨 자동 전환</label>
+                <label class="chk"><input type="checkbox" id="pasteChainMode" checked> 클릭=연속 저장</label>
+                <label class="chk"><input type="checkbox" id="pasteSkipLow" checked> 정확도 낮음 제외</label>
+              </div>
+            </div>
+            <div class="small-hint" id="pasteHint"></div>
+
+            <div class="paste-list-wrap" id="pasteListWrap" style="display:none;">
+              <div class="paste-list-head">
+                <div class="k">감지된 경기</div>
+                <div class="m" id="pasteListMeta"></div>
+                <div class="paste-list-tools">
+                  <button class="btn ghost mini" type="button" onclick="togglePasteSort()">정렬: 마진 낮은순</button>
+                  <label class="paste-mini-label">연속
+                    <input id="pasteChainCount" class="paste-num" type="number" min="1" max="30" value="10">
+                    개
+                  </label>
+                  <button class="btn primary mini" type="button" onclick="startChainSave()">연속 저장</button>
+                  <button class="btn ghost mini" type="button" onclick="stopChainSave()" id="pasteChainStop" style="display:none;">중지</button>
+                  <button class="btn secondary mini" type="button" onclick="openBundleShare()" id="btnBundleShare">오늘 수집 묶음</button>
+                  <button class="btn danger mini" type="button" onclick="resetBundleToday()" title="오늘 수집 묶음(연속 저장으로 누적된 항목)을 초기화합니다.">초기화</button>
+                </div>
+              </div>
+              <div class="paste-list" id="pasteList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- ===== 메인 시장 ===== -->
       <div class="box" id="mainBox">
@@ -1974,6 +2165,58 @@ a{ color:inherit; }
   </div>
 </div>
 
+<!-- 오늘 수집 묶음 공유 모달 (연속 저장/클릭 저장 결과 묶음) -->
+<div class="modal" id="bundleShareModal" style="display:none;">
+  <div class="modal-box share">
+    <div class="modal-head">
+      <div class="t" id="bundleTitle">오늘 수집 묶음</div>
+      <div class="modal-close" onclick="closeBundleShare()">닫기</div>
+    </div>
+    <div class="small-hint" style="margin-bottom:10px;">
+      연속 저장(또는 클릭=연속 저장)으로 모은 항목을 <b>한 번에 공유</b>합니다. (각 항목 링크는 열면 동일 결과로 복원됩니다)
+    </div>
+    <div class="bundle-meta" id="bundleMeta"></div>
+    <div class="share-canvas-wrap">
+      <canvas id="bundleCanvas" class="share-canvas" width="1080" height="1080" aria-label="오늘 수집 묶음 공유 카드"></canvas>
+    </div>
+    <textarea id="bundleText" class="bundle-ta" readonly></textarea>
+<div class="bundle-promo">
+  <div class="bundle-promo-head">
+    <div class="bundle-promo-title">홍보글 자동 생성</div>
+    <div class="bundle-promo-ctrl">
+      <select id="bundlePromoChannel" class="inp mini" aria-label="홍보 채널 선택"></select>
+      <select id="bundlePromoStyle" class="inp mini" aria-label="홍보 톤 선택">
+        <option value="promo">홍보형</option>
+        <option value="info">정보형</option>
+        <option value="tg">텔레그램형</option>
+      </select>
+      <select id="bundlePromoLinks" class="inp mini" aria-label="링크 범위 선택">
+        <option value="top3">링크 TOP3만(권장)</option>
+        <option value="top5">링크 TOP5</option>
+        <option value="all">링크 전체</option>
+      </select>
+    </div>
+  </div>
+  <div class="small-hint" style="margin-top:8px;">
+    채널/톤을 바꾸면 홍보 문구가 자동 생성됩니다. (링크는 <b>결과 복원(st)</b> 링크)
+  </div>
+  <textarea id="bundlePromoText" class="bundle-ta bundle-ta--promo" readonly></textarea>
+  <div class="history-toolbar" style="margin-top:10px;">
+    <button class="btn secondary" type="button" onclick="copyBundlePromo()">홍보글 복사</button>
+    <button class="btn ghost" type="button" onclick="copyBundlePromoTitle()">제목 복사</button>
+    <button class="btn ghost" type="button" onclick="copyBundlePromoLead()">말머리 복사</button>
+  </div>
+</div>
+    <div class="history-toolbar" style="margin-top:12px;">
+      <button class="btn secondary" type="button" onclick="copyBundleText()">문구 복사</button>
+      <button class="btn secondary" type="button" onclick="copyBundleLinks()">링크만 복사</button>
+      <button class="btn ghost" type="button" onclick="copyBundleTop3()">TOP3 요약 복사</button>
+      <button class="btn gold" type="button" onclick="downloadBundleCard()">이미지 저장</button>
+      <button class="btn danger" type="button" onclick="resetBundleToday()">오늘 묶음 초기화</button>
+    </div>
+  </div>
+</div>
+
 <!-- 모바일 하단 도크 -->
 <div class="mobile-dock" id="mobileDock" aria-label="빠른 동작">
   <button class="dock-btn primary" type="button" onclick="calc()">계산</button>
@@ -2091,6 +2334,65 @@ let LAST_TEXT = "";
 let LAST_ONE_LINE = "";      // 공유용 한 줄 요약
 let LAST_RECORD = null;
 
+let MAIN_MODE_OVERRIDE = null; // "2way" | "3way" | null
+
+// 멀티 붙여넣기: 연속 저장(히스토리 자동 누적)용 상태
+let __PASTE_MULTI = [];
+let __PASTE_SORT = "input"; // "margin" | "input"
+let __PASTE_CHAIN_RUNNING = false;
+let __PASTE_CHAIN_ABORT = false;
+let __PASTE_SAVED_SIGS = new Set();
+
+// ===== 오늘 수집(연속 저장) 묶음 저장소 (서버 없이, localStorage) =====
+const CHAIN_PACK_PREFIX = "88_chain_pack_"; // date(YYYY-MM-DD)별
+function chainPackKey(dateStr){ return CHAIN_PACK_PREFIX + (dateStr || todayStr()); }
+function readChainPack(dateStr){
+  try{
+    const raw = localStorage.getItem(chainPackKey(dateStr));
+    if(!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  }catch(e){ return []; }
+}
+function writeChainPack(dateStr, arr){
+  try{ localStorage.setItem(chainPackKey(dateStr), JSON.stringify((arr||[]).slice(0,80))); }catch(e){}
+}
+function pushChainPackFromRecord(record){
+  if(!record) return;
+  const dateStr = record.date || todayStr();
+  const items = readChainPack(dateStr);
+  let link = "";
+  try{ link = getShareLink(); }catch(e){ link = location.origin + location.pathname; }
+  const oneLine = String(LAST_ONE_LINE||"").replace(/^요약\s*:\s*/," ").trim();
+  const item = {
+    ts: Date.now(),
+    id: record.id || null,
+    sig: record.sig || null,
+    date: dateStr,
+    time: record.time || null,
+    sport: record.sport || null,
+    league: record.league || "",
+    teams: record.teams || "",
+    mainMode: record.mainMode || null,
+    mainMarginPct: (record.markets && record.markets.main && typeof record.markets.main.marginPct==="number") ? record.markets.main.marginPct : null,
+    bestEVPct: (typeof record.bestEVPct==="number") ? record.bestEVPct : null,
+    oneLine,
+    link
+  };
+  const next = [item, ...items.filter(x=> (x && (x.sig && item.sig) ? x.sig!==item.sig : x.link!==item.link))];
+  writeChainPack(dateStr, next);
+  try{ updateBundleButton(); }catch(e){}
+}
+function getChainPackCountToday(){
+  try{ return readChainPack(todayStr()).length; }catch(e){ return 0; }
+}
+function updateBundleButton(){
+  const btn = document.getElementById("btnBundleShare");
+  if(!btn) return;
+  const n = getChainPackCountToday();
+  btn.textContent = n>0 ? `오늘 수집 묶음 (${Math.min(80,n)})` : "오늘 수집 묶음";
+}
+
 const SPORT_CFG = {
   soccer: {
     name: "축구",
@@ -2143,6 +2445,25 @@ const SPORT_CFG = {
 };
 
 /* ✅ 종목/유형별 “마진 낮음” 판정 기준 (마진% 기준) */
+
+function labels2Way(cfg){
+  // 2배당 라벨: cfg.labels.A/B가 없으면(축구 등) H/A를 A/B로 매핑
+  const A = (cfg && cfg.labels && cfg.labels.A) ? cfg.labels.A : ((cfg && cfg.labels && cfg.labels.H) ? cfg.labels.H : "A");
+  const B = (cfg && cfg.labels && cfg.labels.B) ? cfg.labels.B : ((cfg && cfg.labels && cfg.labels.A) ? cfg.labels.A : "B");
+  return {A, B};
+}
+function effectiveMainMode(cfg){
+  if(MAIN_MODE_OVERRIDE==="2way") return "2way";
+  if(MAIN_MODE_OVERRIDE==="3way") return "3way";
+  return (cfg && cfg.main==="3way") ? "3way" : "2way";
+}
+function setMainModeOverride(mode){
+  // mode: "2way" | "3way" | null
+  MAIN_MODE_OVERRIDE = mode || null;
+  try{ onSportChange(true); }catch(e){}
+  try{ saveState(); }catch(e){}
+}
+
 const MARGIN_RULE = {
   soccer:     { main:[6, 8, 10], ou:[5.5, 7.5, 9.5], hc:[5.5, 7.5, 9.5] },
   basketball: { main:[4, 6, 8],  ou:[4.5, 6.5, 8.5], hc:[4.5, 6.5, 8.5] },
@@ -2167,6 +2488,7 @@ function saveState(){
   const state = {
     sport: val("sport"),
     level: val("level"),
+    mainModeOverride: MAIN_MODE_OVERRIDE,
     league: val("league"),
     teams: val("teams"),
     main2OddsA: val("main2OddsA"),
@@ -2202,6 +2524,7 @@ function loadState(){
 
     if(s.sport) setVal("sport", s.sport);
     if(s.level) setVal("level", s.level);
+    if(typeof s.mainModeOverride !== "undefined") MAIN_MODE_OVERRIDE = s.mainModeOverride || null;
 
     onSportChange(true);
     onLevelChange(true);
@@ -2303,7 +2626,7 @@ function restoreFromPermalink(){
 
     // 링크를 열면 바로 결과를 보여줘야 함
     const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
-    const is3 = cfg.main === "3way";
+    const is3 = (effectiveMainMode(cfg) === "3way");
     const ok = is3
       ? (parseOdds(val("main3OddsH"))!=null && parseOdds(val("main3OddsD"))!=null && parseOdds(val("main3OddsA"))!=null)
       : (parseOdds(val("main2OddsA"))!=null && parseOdds(val("main2OddsB"))!=null);
@@ -2335,7 +2658,7 @@ function restoreFromPermalink(){
 ========================= */
 function updateLineCompareUI(cfg){
   cfg = cfg || (SPORT_CFG[val("sport")] || SPORT_CFG.soccer);
-  const is3 = cfg.main === "3way";
+  const is3 = (effectiveMainMode(cfg) === "3way");
   const a2 = document.getElementById("lcA2");
   const b2 = document.getElementById("lcB2");
   const a3 = document.getElementById("lcA3");
@@ -2364,7 +2687,7 @@ function updateLineCompareUI(cfg){
 
 function getLineCompareSet(which){
   const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
-  const is3 = cfg.main === "3way";
+  const is3 = (effectiveMainMode(cfg) === "3way");
   if(!is3){
     const o1 = parseOdds(val(which==="A" ? "lcA2OddsA" : "lcB2OddsA"));
     const o2 = parseOdds(val(which==="A" ? "lcA2OddsB" : "lcB2OddsB"));
@@ -2419,7 +2742,7 @@ function runLineCompare(){
 
 function applyLineCompare(which){
   const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
-  const is3 = cfg.main === "3way";
+  const is3 = (effectiveMainMode(cfg) === "3way");
   if(!is3){
     const a = val(which==="A" ? "lcA2OddsA" : "lcB2OddsA");
     const b = val(which==="A" ? "lcA2OddsB" : "lcB2OddsB");
@@ -2441,7 +2764,7 @@ function applyLineCompare(which){
 
 function prefillLineCompare(){
   const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
-  const is3 = cfg.main === "3way";
+  const is3 = (effectiveMainMode(cfg) === "3way");
   if(!is3){
     setVal("lcA2OddsA", val("main2OddsA"));
     setVal("lcA2OddsB", val("main2OddsB"));
@@ -2464,16 +2787,25 @@ function onSportChange(silent){
   const sport = val("sport");
   const cfg = SPORT_CFG[sport] || SPORT_CFG.soccer;
 
+  // 사용자가 종목을 직접 바꾸면 메인 타입 오버라이드는 기본값으로 리셋
+  if(!silent) MAIN_MODE_OVERRIDE = null;
+
   $("sportHint").innerText = `선택 종목: ${cfg.name} · ${cfg.hint}`;
 
-  const is3 = cfg.main === "3way";
+  const is3 = (effectiveMainMode(cfg) === "3way");
   $("main2").style.display = is3 ? "none" : "block";
   $("main3").style.display = is3 ? "block" : "none";
-  $("mainMarketTitle").innerText = is3 ? "메인 배당 (홈/무/원정)" : "메인 배당 (승/패)";
+  if(is3){
+    $("mainMarketTitle").innerText = `메인 배당 (${cfg.labels.H||"H"}/${cfg.labels.D||"D"}/${cfg.labels.A||"A"})`;
+  }else{
+    const L2t = labels2Way(cfg);
+    $("mainMarketTitle").innerText = `메인 배당 (${L2t.A}/${L2t.B})`;
+  }
 
   if(!is3){
-    $("main2LabelA").innerText = `${cfg.labels.A} 배당`;
-    $("main2LabelB").innerText = `${cfg.labels.B} 배당`;
+    const L2 = labels2Way(cfg);
+    $("main2LabelA").innerText = `${L2.A} 배당`;
+    $("main2LabelB").innerText = `${L2.B} 배당`;
   }else{
     $("main3LabelH").innerText = `${cfg.labels.H} 배당`;
     $("main3LabelD").innerText = `${cfg.labels.D} 배당`;
@@ -2513,7 +2845,7 @@ function onLevelChange(silent){
 }
 
 function updateMyProbHints(cfg, level){
-  const is3 = cfg.main === "3way";
+  const is3 = (effectiveMainMode(cfg) === "3way");
   if(level === "simple"){
     $("myProbLabel").innerText = "내 예상 확률(선택) %";
     $("myProbHint").innerText = "";
@@ -2582,6 +2914,983 @@ function parseMoney(v){
   if(!isFinite(x) || x<=0) return null;
   return x;
 }
+
+/* =========================
+   텍스트 붙여넣기 파서 (MVP)
+   - 커뮤니티/배당표 텍스트에서 메인/OU/핸디를 자동 추출
+   - 전부 클라이언트에서만 처리(서버/비용 0)
+========================= */
+function setupPasteBox(){
+  const ta = $("pasteInput");
+  if(!ta) return;
+  ta.addEventListener("keydown", (e)=>{
+    if((e.ctrlKey || e.metaKey) && e.key === "Enter"){
+      e.preventDefault();
+      if(e.shiftKey){
+        // Ctrl+Shift+Enter: 멀티 파싱
+        try{ parsePasteMulti(); }catch(err){ applyPaste(true); }
+      }else{
+        // Ctrl+Enter: 단일 적용+계산
+        applyPaste(true);
+      }
+    }
+  });
+}
+
+function clearPaste(){
+  setVal("pasteInput", "");
+  setPasteBadge("", "");
+  const hint = $("pasteHint");
+  if(hint) hint.innerText = "";
+}
+
+function fillPasteExample(){
+  const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
+  const is3 = (effectiveMainMode(cfg) === "3way");
+  const ex = is3
+    ? "맨시티 vs 리버풀  승 1.85 무 3.40 패 4.20 / 오버 2.5 1.95 언더 1.85 / 핸디 -1.5 1.90 1.95"
+    : "레이커스 vs 워리어스 승 1.87 패 2.03 / 오버 228.5 1.93 언더 1.87 / 핸디 -3.5 1.90 1.95";
+  setVal("pasteInput", ex);
+  try{ $("pasteInput").focus(); }catch(e){}
+}
+
+function setPasteBadge(okMsg, warnMsg){
+  const ok = $("pasteBadgeOk");
+  const warn = $("pasteBadgeWarn");
+  if(ok){
+    if(okMsg){ ok.style.display = "inline-flex"; ok.textContent = okMsg; }
+    else{ ok.style.display = "none"; ok.textContent = ""; }
+  }
+  if(warn){
+    if(warnMsg){ warn.style.display = "inline-flex"; warn.textContent = warnMsg; }
+    else{ warn.style.display = "none"; warn.textContent = ""; }
+  }
+}
+
+function normalizePasteText(s){
+  if(!s) return "";
+  let t = String(s).replace(/ /g, " ");
+  t = t.replace(/\s+/g, " ").trim();
+  // decimal comma -> dot (1,85)
+  t = t.replace(/(\d),(\d{1,3})(?!\d)/g, (m,a,b)=>`${a}.${b}`);
+  return t;
+}
+
+function extractNextNumberTokens(text, startIndex, maxCount){
+  const out = [];
+  const re = /[+-]?\d+(?:\.\d+)?/g;
+  re.lastIndex = startIndex;
+  let m;
+  while((m = re.exec(text)) && out.length < maxCount){
+    const v = Number(m[0]);
+    if(!isFinite(v)) continue;
+    out.push({ v, start: m.index, end: m.index + m[0].length, raw: m[0] });
+  }
+  return out;
+}
+
+function extractTeamsFromText(text){
+  // "A vs B" / "A v B" / "A 대 B" 형태를 가볍게 추출
+  const re = /([^0-9]{2,40}?)\s*(?:vs|v|VS|대)\s*([^0-9]{2,40}?)(?=\s|$|\/)/;
+  const m = re.exec(text);
+  if(!m) return null;
+  const a = m[1].replace(/[\[\]<>]/g, "").trim();
+  const b = m[2].replace(/[\[\]<>]/g, "").trim();
+  if(a.length < 2 || b.length < 2) return null;
+  return `${a} vs ${b}`;
+}
+
+function parseOUFromText(text){
+  let t = text;
+  const overKW = /(?:오버|over)/i;
+  const underKW = /(?:언더|under)/i;
+
+  let over = null, under = null;
+  let cutEnd = -1;
+
+  const mo = overKW.exec(t);
+  if(mo){
+    const toks = extractNextNumberTokens(t, mo.index + mo[0].length, 3);
+    if(toks.length >= 2){
+      // 오버 {라인} {배당}
+      const line = toks[0].v;
+      const odds = toks[1].v;
+      if(isFinite(line) && isFinite(odds) && odds > 1){
+        over = { line, odds };
+        cutEnd = Math.max(cutEnd, toks[1].end);
+        t = t.slice(0, mo.index) + " " + t.slice(toks[1].end);
+      }
+    }else if(toks.length >= 1){
+      // 라인 누락 가능: 오버 {배당}
+      const odds = toks[0].v;
+      if(isFinite(odds) && odds > 1){
+        over = { line: null, odds };
+        cutEnd = Math.max(cutEnd, toks[0].end);
+        t = t.slice(0, mo.index) + " " + t.slice(toks[0].end);
+      }
+    }
+  }
+
+  const mu = underKW.exec(t);
+  if(mu){
+    const toks = extractNextNumberTokens(t, mu.index + mu[0].length, 3);
+    if(toks.length >= 2){
+      const line = toks[0].v;
+      const odds = toks[1].v;
+      if(isFinite(line) && isFinite(odds) && odds > 1){
+        under = { line, odds };
+        cutEnd = Math.max(cutEnd, toks[1].end);
+        t = t.slice(0, mu.index) + " " + t.slice(toks[1].end);
+      }
+    }else if(toks.length >= 1){
+      const odds = toks[0].v;
+      if(isFinite(odds) && odds > 1){
+        under = { line: null, odds };
+        cutEnd = Math.max(cutEnd, toks[0].end);
+        t = t.slice(0, mu.index) + " " + t.slice(toks[0].end);
+      }
+    }
+  }
+
+  const full = !!(over && under && over.odds && under.odds);
+  const line = (over && over.line != null) ? over.line : (under && under.line != null ? under.line : null);
+  return { full, line, overOdds: over ? over.odds : null, underOdds: under ? under.odds : null, cleanedText: t };
+}
+
+function parseHCFromText(text){
+  let t = text;
+  const kw = /(?:핸디캡|핸디|handicap|ah)/i;
+  const m = kw.exec(t);
+  if(!m) return { full:false, line:null, a:null, b:null, cleanedText:t };
+
+  const toks = extractNextNumberTokens(t, m.index + m[0].length, 5);
+  if(toks.length < 3) return { full:false, line:null, a:null, b:null, cleanedText:t };
+
+  const line = toks[0].v;
+  const a = toks[1].v;
+  const b = toks[2].v;
+  const full = (isFinite(line) && Math.abs(line) <= 50 && isFinite(a) && isFinite(b) && a > 1 && b > 1);
+
+  if(full){
+    t = t.slice(0, m.index) + " " + t.slice(toks[2].end);
+    return { full, line, a, b, cleanedText:t };
+  }
+  return { full:false, line:null, a:null, b:null, cleanedText:t };
+}
+
+function extractOddsCandidates(text){
+  const re = /[1-9]\d*(?:\.\d+)?/g;
+  const out=[];
+  let m;
+  while((m=re.exec(text))){
+    const v = Number(m[0]);
+    if(!isFinite(v)) continue;
+    if(v > 1 && v <= 200) out.push(v);
+  }
+  return out;
+}
+
+function parseMainFromText(text, is3){
+  const t = text;
+  if(is3){
+    const re = /(?:홈|승|1)\s*[:\-]?\s*([1-9]\d*(?:\.\d+)?)[\s\S]{0,60}?(?:무|x|draw)\s*[:\-]?\s*([1-9]\d*(?:\.\d+)?)[\s\S]{0,60}?(?:원정|패|2)\s*[:\-]?\s*([1-9]\d*(?:\.\d+)?)/i;
+    const m = re.exec(t);
+    if(m){
+      const h = Number(m[1]), d = Number(m[2]), a = Number(m[3]);
+      if(isFinite(h) && isFinite(d) && isFinite(a) && h>1 && d>1 && a>1) return { found:true, odds:[h,d,a] };
+    }
+    const c = extractOddsCandidates(t);
+    if(c.length >= 3) return { found:true, odds:[c[0],c[1],c[2]], extra:c.length-3 };
+    return { found:false, odds:[] };
+  }
+  // 2-way
+  const re2 = /(?:승|홈|1)\s*[:\-]?\s*([1-9]\d*(?:\.\d+)?)[\s\S]{0,60}?(?:패|원정|2)\s*[:\-]?\s*([1-9]\d*(?:\.\d+)?)/i;
+  const m2 = re2.exec(t);
+  if(m2){
+    const a = Number(m2[1]), b = Number(m2[2]);
+    if(isFinite(a) && isFinite(b) && a>1 && b>1) return { found:true, odds:[a,b] };
+  }
+  const c = extractOddsCandidates(t);
+  if(c.length >= 2) return { found:true, odds:[c[0],c[1]], extra:c.length-2 };
+  return { found:false, odds:[] };
+}
+
+function applyPaste(autoCalc){
+  const raw = val("pasteInput");
+  const txt = normalizePasteText(raw);
+  if(!txt){
+    setPasteBadge("", "텍스트를 붙여넣어줘.");
+    return;
+  }
+
+  // 1) 팀명 자동 추출(입력이 비어있을 때만)
+  try{
+    if(!val("teams")){
+      const teams = extractTeamsFromText(txt);
+      if(teams) setVal("teams", teams);
+    }
+  }catch(e){}
+
+  // 2) OU/핸디 먼저 추출하고 텍스트에서 제거(메인 오인식 방지)
+  let working = txt;
+  const ou = parseOUFromText_v2(working);
+  working = ou.cleanedText;
+  const hc = parseHCFromText_v2(working);
+  working = hc.cleanedText;
+
+  // 3) OU/핸디가 있으면 레벨 자동 전환(선택)
+  const wantsAutoLevel = (function(){ const el=$("pasteAutoLevel"); return el ? el.checked : false; })();
+  if(wantsAutoLevel && val("level") === "simple" && (ou.full || hc.full)){
+    setVal("level", "mid");
+    onLevelChange(true);
+  }
+
+  const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
+  const modeEl = $("pasteMainMode");
+  const mode = modeEl ? modeEl.value : "auto";
+  const prefer3 = (cfg.main === "3way");
+  const tryMain = (is3)=> parseMainFromText_robust(working, is3);
+
+  let is3 = (mode==="3") ? true : (mode==="2") ? false : prefer3;
+  let main = tryMain(is3);
+
+  if(!main || !main.found){
+    if(mode==="auto"){
+      const alt = tryMain(!is3);
+      if(alt && alt.found){ is3 = !is3; main = alt; }
+    }
+  }
+
+  // 4) 메인 배당 추출
+  if(!main || !main.found){
+    let msg = "메인 배당을 찾지 못했어.";
+    if(mode==="3") msg += " 예: 승 1.85 무 3.40 패 4.20";
+    else if(mode==="2") msg += " 예: 승 1.87 패 2.03";
+    else msg += " 예: 승 1.85 무 3.40 패 4.20 (3배당) 또는 승 1.87 패 2.03 (2배당)";
+    setPasteBadge("", msg);
+    const hint=$("pasteHint");
+    if(hint) hint.innerText = "팁: '팀A vs 팀B' 뒤에 배당 숫자(소수점 포함)가 같이 있어야 자동 인식돼요.";
+    return;
+  }
+
+  // (선택) 메인 타입 오버라이드 반영 (축구 2배당 등)
+  try{ setMainModeOverride(is3 ? "3way" : "2way"); }catch(e){}
+
+  // 5) 입력 적용
+  if(is3){
+    setVal("main3OddsH", String(main.odds[0]));
+    setVal("main3OddsD", String(main.odds[1]));
+    setVal("main3OddsA", String(main.odds[2]));
+  }else{
+    setVal("main2OddsA", String(main.odds[0]));
+    setVal("main2OddsB", String(main.odds[1]));
+  }
+
+  if(ou.full){
+    if(ou.line != null) setVal("totalLine", String(ou.line));
+    if(ou.overOdds != null) setVal("overOdds", String(ou.overOdds));
+    if(ou.underOdds != null) setVal("underOdds", String(ou.underOdds));
+  }
+  if(hc.full){
+    setVal("handicapLine", String(hc.line));
+    setVal("handicapOddsA", String(hc.a));
+    setVal("handicapOddsB", String(hc.b));
+  }
+
+  // 라인 비교 입력도 같이 채워두기(편의)
+  try{ prefillLineCompare(); }catch(e){}
+
+  hideResult();
+  renderMarginDash();
+  saveState();
+
+  // 6) 피드백
+  let okMsg = `메인 ${is3 ? "3배당" : "2배당"} 입력됨`;
+  if(ou.full) okMsg += ` · OU ${ou.line != null ? ou.line : ""}`;
+  if(hc.full) okMsg += ` · 핸디 ${hc.line}`;
+  setPasteBadge(okMsg, "");
+
+  const hint = $("pasteHint");
+  if(hint){
+    hint.innerText = "단축키: Ctrl+Enter = 자동 입력+계산 · Ctrl+Shift+Enter = 여러 경기 리스트";
+  }
+
+  try{
+    track("paste_apply", { auto_calc: autoCalc?1:0, main: is3?"3":"2", has_ou: ou.full?1:0, has_hc: hc.full?1:0 });
+  }catch(e){}
+
+  if(autoCalc){
+    try{ calc(); }catch(e){}
+    try{ quickJump('result'); }catch(e){}
+  }
+}
+
+/* =========================
+   멀티 붙여넣기 (2단계)
+   - 여러 경기 텍스트를 한 번에 붙여넣기 → 경기 리스트 자동 생성
+   - 리스트 아이템 클릭 → 분석기 입력 자동 적용(선택: 자동 계산)
+   - 사용자 입력 편차(순서/구분자/약어)를 최대한 흡수
+========================= */
+
+function normalizePasteTextMulti(s){
+  if(!s) return "";
+  let t = String(s).replace(/\r\n?/g, "\n");
+  t = t.replace(/\t/g, " ");
+  t = t.replace(/\u00a0/g, " ");
+  // decimal comma -> dot (1,85)
+  t = t.replace(/(\d),(\d{1,3})(?!\d)/g, (m,a,b)=>`${a}.${b}`);
+  // normalize separators
+  t = t.replace(/[|｜]/g, " / ");
+  t = t.split("\n").map(l=>l.replace(/\s+/g," ").trim()).join("\n");
+  return t.trim();
+}
+
+function hasVsToken(s){
+  return /(?:\bvs\b|\bv\b|대|@)/i.test(s);
+}
+
+function splitLineByRepeatedVs(line){
+  // 한 줄에 경기 여러 개가 들어온 경우를 가볍게 분리
+  // ex) A vs B 1.8 3.4 4.2  C vs D 1.9 3.2 3.8
+  const parts = [];
+  const re = /([^\d]{2,40}?\s*(?:vs|VS|\bv\b|V|대|@)\s*[^\d]{2,40}?)/g;
+  let idxs = [];
+  let m;
+  while((m = re.exec(line))){
+    idxs.push(m.index);
+  }
+  if(idxs.length <= 1) return [line];
+  for(let i=0;i<idxs.length;i++){
+    const start = idxs[i];
+    const end = (i+1<idxs.length) ? idxs[i+1] : line.length;
+    const seg = line.slice(start, end).trim();
+    if(seg) parts.push(seg);
+  }
+  return parts.length ? parts : [line];
+}
+
+function splitPasteBlocks(text){
+  const t = normalizePasteTextMulti(text);
+  if(!t) return [];
+  let lines = t.split("\n").map(l=>l.trim()).filter(Boolean);
+  // 1) 한 줄에 경기 여러 개면 분리
+  let expanded = [];
+  for(const ln of lines){
+    const segs = splitLineByRepeatedVs(ln);
+    for(const s of segs) expanded.push(s);
+  }
+  lines = expanded;
+
+  const anyVs = lines.some(hasVsToken);
+  if(!anyVs){
+    // VS 토큰이 없으면 줄 단위로 처리
+    return lines;
+  }
+
+  const blocks = [];
+  let cur = [];
+  for(const ln of lines){
+    if(hasVsToken(ln) && cur.length && cur.some(hasVsToken)){
+      blocks.push(cur.join(" / "));
+      cur = [ln];
+    }else{
+      cur.push(ln);
+    }
+  }
+  if(cur.length) blocks.push(cur.join(" / "));
+  return blocks;
+}
+
+function findEarliestMatch(text, regexList){
+  let best = null;
+  for(const re of regexList){
+    const m = re.exec(text);
+    if(m){
+      if(best == null || m.index < best.index){
+        best = { m, index:m.index, re };
+      }
+    }
+  }
+  return best;
+}
+
+function parseOUFromText_v2(text){
+  // 기존 parseOUFromText 확장: O/U 약어도 허용
+  let t = text;
+  const overMatches = [
+    /오버/i,
+    /\bover\b/i,
+    /(?:^|[\s\/])O(?=[\s\/]|$)/i,
+    /O\s*\/\s*U/i,
+    /\bOU\b/i
+  ];
+  const underMatches = [
+    /언더/i,
+    /\bunder\b/i,
+    /(?:^|[\s\/])U(?=[\s\/]|$)/i
+  ];
+
+  let over = null, under = null;
+
+  const mo = findEarliestMatch(t, overMatches);
+  if(mo){
+    const toks = extractNextNumberTokens(t, mo.index + mo.m[0].length, 3);
+    if(toks.length >= 2){
+      const line = toks[0].v;
+      const odds = toks[1].v;
+      if(isFinite(line) && isFinite(odds) && odds > 1){
+        over = { line, odds };
+        t = t.slice(0, mo.index) + " " + t.slice(toks[1].end);
+      }
+    }else if(toks.length >= 1){
+      const odds = toks[0].v;
+      if(isFinite(odds) && odds > 1){
+        over = { line:null, odds };
+        t = t.slice(0, mo.index) + " " + t.slice(toks[0].end);
+      }
+    }
+  }
+
+  const mu = findEarliestMatch(t, underMatches);
+  if(mu){
+    const toks = extractNextNumberTokens(t, mu.index + mu.m[0].length, 3);
+    if(toks.length >= 2){
+      const line = toks[0].v;
+      const odds = toks[1].v;
+      if(isFinite(line) && isFinite(odds) && odds > 1){
+        under = { line, odds };
+        t = t.slice(0, mu.index) + " " + t.slice(toks[1].end);
+      }
+    }else if(toks.length >= 1){
+      const odds = toks[0].v;
+      if(isFinite(odds) && odds > 1){
+        under = { line:null, odds };
+        t = t.slice(0, mu.index) + " " + t.slice(toks[0].end);
+      }
+    }
+  }
+
+  const full = !!(over && under && over.odds && under.odds);
+  const line = (over && over.line != null) ? over.line : (under && under.line != null ? under.line : null);
+  return { full, line, overOdds: over ? over.odds : null, underOdds: under ? under.odds : null, cleanedText: t };
+}
+
+function parseHCFromText_v2(text){
+  let t = text;
+  const kw = /(?:핸디캡|핸디|handicap|ah|hdp|spread|스프레드)/i;
+  const m = kw.exec(t);
+  if(m){
+    const toks = extractNextNumberTokens(t, m.index + m[0].length, 5);
+    if(toks.length >= 3){
+      const line = toks[0].v;
+      const a = toks[1].v;
+      const b = toks[2].v;
+      const full = (isFinite(line) && Math.abs(line) <= 2000 && isFinite(a) && isFinite(b) && a > 1 && b > 1);
+      if(full){
+        t = t.slice(0, m.index) + " " + t.slice(toks[2].end);
+        return { full, line, a, b, cleanedText: t };
+      }
+    }
+  }
+
+  // 키워드가 없어도 "-3.5 1.90 1.95" 같은 스프레드 패턴을 가볍게 인식
+  const re = /([+-]?\d+(?:\.\d+)?)\s+([1-9]\d*(?:\.\d+)?)\s+([1-9]\d*(?:\.\d+)?)/;
+  const m2 = re.exec(t);
+  if(m2){
+    const line = Number(m2[1]);
+    const a = Number(m2[2]);
+    const b = Number(m2[3]);
+    if(isFinite(line) && Math.abs(line) <= 30 && isFinite(a) && isFinite(b) && a>1 && b>1 && (String(m2[1]).startsWith("+") || String(m2[1]).startsWith("-")) ){
+      const cutStart = m2.index;
+      const cutEnd = m2.index + m2[0].length;
+      const cleaned = t.slice(0, cutStart) + " " + t.slice(cutEnd);
+      return { full:true, line, a, b, cleanedText: cleaned };
+    }
+  }
+  return { full:false, line:null, a:null, b:null, cleanedText:t };
+}
+
+function parseMainFromText_robust(text, is3){
+  // 1) 기존 키워드 기반
+  const r1 = parseMainFromText(text, is3);
+  if(r1.found) return { ...r1, conf:"high", method:"keyword" };
+
+  // 2) 팀명 이후를 우선
+  let startIdx = 0;
+  try{
+    const re = /([^0-9]{2,40}?)\s*(?:vs|v|VS|대|@)\s*([^0-9]{2,40}?)(?=\s|$|\/)/;
+    const m = re.exec(text);
+    if(m) startIdx = m.index + m[0].length;
+  }catch(e){}
+  const after = text.slice(startIdx);
+  const c = extractOddsCandidates(after);
+  if(is3){
+    if(c.length >= 3) return { found:true, odds:[c[0],c[1],c[2]], extra: Math.max(0,c.length-3), conf: c.length===3?"mid":"low", method:"after_team" };
+  }else{
+    if(c.length >= 2){
+      // 2-way인데 3개면 중간(draw) 끼어있을 수 있어서 첫/마지막 우선
+      if(c.length >= 3) return { found:true, odds:[c[0],c[2]], extra: Math.max(0,c.length-2), conf:"low", method:"skip_mid" };
+      return { found:true, odds:[c[0],c[1]], extra: Math.max(0,c.length-2), conf:"mid", method:"after_team" };
+    }
+  }
+
+  // 3) 마지막 fallback: 문장 전체에서 순차 추출
+  const c2 = extractOddsCandidates(text);
+  if(is3){
+    if(c2.length >= 3) return { found:true, odds:[c2[0],c2[1],c2[2]], extra: Math.max(0,c2.length-3), conf:"low", method:"fallback" };
+  }else{
+    if(c2.length >= 2) return { found:true, odds:[c2[0],c2[1]], extra: Math.max(0,c2.length-2), conf:"low", method:"fallback" };
+  }
+  return { found:false, odds:[], conf:"low", method:"none" };
+}
+
+function parseGameBlock(blockText){
+  const cfg = SPORT_CFG[val("sport")] || SPORT_CFG.soccer;
+
+  const raw = normalizePasteText(blockText);
+  if(!raw) return null;
+
+  // 팀명 추출 (없으면 null)
+  const teams = extractTeamsFromText(raw);
+
+  // OU/HC 먼저 제거(메인 오인식 방지)
+  let working = raw;
+  const ou = parseOUFromText_v2(working);
+  working = ou.cleanedText;
+  const hc = parseHCFromText_v2(working);
+  working = hc.cleanedText;
+
+  // 메인 타입(유저 입력 편차 대응): 자동/2배당/3배당
+  const modeEl = $("pasteMainMode");
+  const mode = modeEl ? modeEl.value : "auto";
+  const prefer3 = (cfg.main === "3way"); // 종목 기본 선호(축구 3way 등)
+  const tryMain = (is3)=> parseMainFromText_robust(working, is3);
+
+  let is3 = (mode==="3") ? true : (mode==="2") ? false : prefer3;
+  let main = tryMain(is3);
+
+  if(!main || !main.found){
+    if(mode==="auto"){
+      const alt = tryMain(!is3);
+      if(alt && alt.found){ is3 = !is3; main = alt; }
+    }
+  }
+  if(!main || !main.found) return null;
+
+  const conf = main.conf || "low";
+  const extra = main.extra || 0;
+  const warn = (conf === "low" || extra >= 2);
+
+  // 예상 마진(메인) — 리스트 미리보기용
+  let mainOver = null, mainMarginPct = null;
+  try{
+    if(is3){
+      const out = compute3Way(Number(main.odds[0]), Number(main.odds[1]), Number(main.odds[2]));
+      mainOver = out.over; mainMarginPct = out.marginPct;
+    }else{
+      const out = compute2Way(Number(main.odds[0]), Number(main.odds[1]), 0);
+      mainOver = out.over; mainMarginPct = out.marginPct;
+    }
+  }catch(e){}
+
+  const sig = (function(){
+    const norm=(x)=>String(x??"").toLowerCase().replace(/\s+/g,"");
+    const f=(n)=>{ const v=Number(n); return Number.isFinite(v)?v.toFixed(4):""; };
+    const parts=[norm(val("sport")), is3?"3way":"2way", norm(teams||"")];
+    if(is3){ parts.push(f(main.odds[0]), f(main.odds[1]), f(main.odds[2])); }
+    else { parts.push(f(main.odds[0]), f(main.odds[1])); }
+    if(ou && ou.full) parts.push("ou:"+norm(ou.line)+":"+f(ou.overOdds)+":"+f(ou.underOdds));
+    if(hc && hc.full) parts.push("hc:"+norm(hc.line)+":"+f(hc.a)+":"+f(hc.b));
+    return parts.join("|");
+  })();
+
+  return {
+    id: Math.random().toString(36).slice(2),
+    raw,
+    teams,
+    is3,
+    mainOdds: main.odds,
+    mainOver,
+    mainMarginPct,
+    ou,
+    hc,
+    conf,
+    method: main.method || "",
+    warn,
+    extra,
+    sig
+  };
+}
+
+
+function fmtOddsArr(arr){
+  return (arr||[]).map(x=>Number(x).toFixed(2)).join(" / ");
+}
+
+function confLabel(c){
+  if(c === "high") return "높음";
+  if(c === "mid") return "중간";
+  return "낮음";
+}
+
+function renderPasteList(games){
+  const wrap = $("pasteListWrap");
+  const list = $("pasteList");
+  const meta = $("pasteListMeta");
+  if(!wrap || !list) return;
+
+  __PASTE_MULTI = games || [];
+  if(!__PASTE_MULTI.length){
+    wrap.style.display = "none";
+    list.innerHTML = "";
+    if(meta) meta.textContent = "";
+    return;
+  }
+
+  wrap.style.display = "block";
+  if(meta) meta.textContent = `${__PASTE_MULTI.length}개 감지 · ${isPasteChainMode()?"클릭=연속 저장":"클릭=원문 토글"} · 버튼으로 즉시 적용 가능`;
+
+  const view = __PASTE_MULTI.map((g, idx)=>({g, idx}));
+  if(__PASTE_SORT==="margin"){
+    view.sort((a,b)=>{
+      const ma = (typeof a.g.mainMarginPct==="number") ? a.g.mainMarginPct : 9999;
+      const mb = (typeof b.g.mainMarginPct==="number") ? b.g.mainMarginPct : 9999;
+      return ma-mb;
+    });
+  }
+
+  list.innerHTML = view.map(({g, idx})=>{
+    const title = g.teams ? safeText(g.teams) : `경기 ${idx+1}`;
+    const mainTxt = g.is3 ? `메인(3): ${fmtOddsArr(g.mainOdds)}` : `메인(2): ${fmtOddsArr(g.mainOdds)}`;
+    const chips = [];
+    // 예상 마진(메인)
+    if(typeof g.mainMarginPct==="number"){
+      const 판정 = classifyMargin(val("sport"), "main", g.mainMarginPct);
+      chips.push(`<span class="paste-chip ${판정.cls==="ok"?"ok":(판정.cls==="mid"?"warn":"warn")}">예상 ${safeText(판정.label)}</span>`);
+    }
+    chips.push(`<span class="paste-chip ${g.warn?"warn":"ok"}">정확도 ${confLabel(g.conf)}</span>`);
+    if(g.extra) chips.push(`<span class="paste-chip warn">추가 숫자 ${g.extra}개</span>`);
+    if(g.ou && g.ou.full) chips.push(`<span class="paste-chip ok">OU ${g.ou.line!=null?g.ou.line:""} · ${Number(g.ou.overOdds).toFixed(2)}/${Number(g.ou.underOdds).toFixed(2)}</span>`);
+    if(g.hc && g.hc.full) chips.push(`<span class="paste-chip ok">핸디 ${g.hc.line} · ${Number(g.hc.a).toFixed(2)}/${Number(g.hc.b).toFixed(2)}</span>`);
+    return `
+      <div class="paste-item" id="pasteItem_${idx}">
+        <div class="left" onclick="onPasteItemClick(${idx})">
+          <div class="t">${title}</div>
+          <div class="s">${safeText(mainTxt)}</div>
+          <div class="chips">${chips.join("")}</div>
+          <div class="paste-raw">${safeText(g.raw)}</div>
+        </div>
+        <div class="right">
+          <div class="btns">
+            <button class="btn primary mini" type="button" onclick="applyParsedGame(${idx}, true, false); event.stopPropagation();">적용+계산</button>
+            <button class="btn secondary mini" type="button" onclick="applyParsedGame(${idx}, false, false); event.stopPropagation();">적용만</button>
+            <button class="btn ghost mini" type="button" onclick="togglePasteItem(${idx}); event.stopPropagation();">원문</button>
+          </div>
+          <div class="paste-stat" id="pasteStat_${idx}" style="display:none;"></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  // 이미 저장된 항목 표시
+  try{ if(__PASTE_SAVED_SIGS.size===0) buildSavedSigSet(); }catch(e){}
+  try{
+    __PASTE_MULTI.forEach((g, idx)=>{
+      if(!g) return;
+      if(pasteAlreadySaved(g)){
+        const el = $("pasteItem_"+idx);
+        if(el) el.classList.add("is-saved");
+        const stat = $("pasteStat_"+idx);
+        if(stat){ stat.innerHTML = "저장됨"; stat.style.display="block"; }
+      }
+    });
+  }catch(e){}
+}
+
+function togglePasteItem(idx){
+  const el = $(`pasteItem_${idx}`);
+  if(!el) return;
+  el.classList.toggle("is-open");
+}
+
+function clearPasteList(){
+  __PASTE_MULTI = [];
+  const wrap = $("pasteListWrap");
+  const list = $("pasteList");
+  const meta = $("pasteListMeta");
+  if(list) list.innerHTML = "";
+  if(meta) meta.textContent = "";
+  if(wrap) wrap.style.display = "none";
+  try{ track("paste_multi_clear", {}); }catch(e){}
+}
+
+function parsePasteMulti(){
+  const raw = val("pasteInput");
+  const t = normalizePasteTextMulti(raw);
+  if(!t){
+    setPasteBadge("", "텍스트를 붙여넣어줘.");
+    return;
+  }
+  const blocks = splitPasteBlocks(t);
+  const games = [];
+  for(const b of blocks){
+    const g = parseGameBlock(b);
+    if(g) games.push(g);
+  }
+  if(!games.length){
+    // 흔한 오입력: 확률(%) 또는 배당이 아닌 숫자만 포함
+    if(/%|퍼센트|확률/i.test(t)){
+      setPasteBadge("", "확률(%)이 아니라 배당(1.85 같은 값)이 필요해.");
+    }else{
+      setPasteBadge("", "경기를 찾지 못했어. (팀 vs 팀 + 배당 숫자 포함 필요)");
+    }
+    const hint = $("pasteHint");
+    if(hint) hint.innerText = "팁: 각 경기마다 ‘팀A vs 팀B’ 또는 줄바꿈으로 구분해줘. 숫자만 있어도 돼요. 예: 맨시티 vs 리버풀 1.85 3.40 4.20";
+    renderPasteList([]);
+    return;
+  }
+  setPasteBadge(`${games.length}경기 감지됨`, "");
+  const hint = $("pasteHint");
+  if(hint) hint.innerText = "리스트에서 경기 선택 → 자동 입력(선택: 계산). 정확도 낮음 표시가 뜨면 적용 후 숫자만 한 번 확인!";
+  renderPasteList(games);
+  try{ track("paste_multi_parse", { count: games.length, main: (SPORT_CFG[val("sport")]||SPORT_CFG.soccer).main }); }catch(e){}
+}
+
+function isPasteChainMode(){ const el=$("pasteChainMode"); return el ? el.checked : false; }
+function isPasteSkipLow(){ const el=$("pasteSkipLow"); return el ? el.checked : false; }
+function getPasteChainCount(){ const el=$("pasteChainCount"); const n = el ? parseInt(el.value,10) : 10; return (isFinite(n)&&n>0)? Math.min(30, Math.max(1,n)) : 10; }
+
+function buildSavedSigSet(){
+  try{
+    const norm = (x)=>String(x??"").toLowerCase().replace(/\s+/g,"");
+    const f = (n)=>{ const v=Number(n); return Number.isFinite(v)?v.toFixed(4):""; };
+    const arr = readHistory();
+    for(const h of arr){
+      if(!h) continue;
+      if(h.sig){ __PASTE_SAVED_SIGS.add(h.sig); continue; }
+      // 구버전 히스토리(시그니처 없던 시절)도 최대한 복원
+      try{
+        const mode = h.mainMode ? h.mainMode : (((SPORT_CFG[h.sport]||SPORT_CFG.soccer).main==="3way") ? "3way" : "2way");
+        const parts=[norm(h.sport), mode, norm(h.teams)];
+        if(mode==="3way"){
+          parts.push(f(h.inputs?.main3OddsH), f(h.inputs?.main3OddsD), f(h.inputs?.main3OddsA));
+        }else{
+          parts.push(f(h.inputs?.main2OddsA), f(h.inputs?.main2OddsB));
+        }
+        if(h.inputs?.totalLine) parts.push("ou:"+norm(h.inputs.totalLine)+":"+f(h.inputs.overOdds)+":"+f(h.inputs.underOdds));
+        if(h.inputs?.handicapLine) parts.push("hc:"+norm(h.inputs.handicapLine)+":"+f(h.inputs.handicapOddsA)+":"+f(h.inputs.handicapOddsB));
+        __PASTE_SAVED_SIGS.add(parts.join("|"));
+      }catch(e){}
+    }
+  }catch(e){}
+}
+
+function setPasteItemSaved(idx, record){
+  const g = __PASTE_MULTI[idx];
+  if(!g) return;
+  g.__saved = true;
+  if(record && record.sig) __PASTE_SAVED_SIGS.add(record.sig);
+  const el = $("pasteItem_"+idx);
+  if(el) el.classList.add("is-saved");
+  const stat = $("pasteStat_"+idx);
+  if(stat){
+    const m = (record && record.markets && record.markets.main && typeof record.markets.main.marginPct==="number") ? record.markets.main.marginPct : (typeof g.mainMarginPct==="number" ? g.mainMarginPct : null);
+    const ev = (record && typeof record.bestEVPct==="number") ? record.bestEVPct : null;
+    const parts = [];
+    if(m!=null) parts.push(`마진 <b>${m.toFixed(2)}%</b>`);
+    if(ev!=null) parts.push(`EV <b>${(ev>=0?"+":"-")}${Math.abs(ev).toFixed(2)}%</b>`);
+    stat.innerHTML = `저장됨 · ${parts.join(" · ")}`;
+    stat.style.display = "block";
+  }
+  // 연속 저장/클릭 저장으로 저장된 경우: 오늘 수집 묶음에도 누적
+  try{
+    if(record && (isPasteChainMode() || __PASTE_CHAIN_RUNNING)){
+      pushChainPackFromRecord(record);
+    }
+  }catch(e){}
+
+}
+
+function pasteAlreadySaved(g){
+  if(!g) return false;
+  if(g.__saved) return true;
+  if(g.sig && __PASTE_SAVED_SIGS.has(g.sig)) return true;
+  return false;
+}
+
+function applyParsedGame(idx, autoCalc, keepView){
+  const g = __PASTE_MULTI[idx];
+  if(!g) return;
+
+  // 연속 저장(또는 링크 복원) 시: 메인 타입 오버라이드 반영
+  try{ setMainModeOverride(g.is3 ? "3way" : "2way"); }catch(e){}
+
+  // 팀명 반영
+  try{ if(g.teams) setVal("teams", g.teams); }catch(e){}
+
+  const is3 = g.is3;
+  if(is3){
+    setVal("main3OddsH", String(g.mainOdds[0]));
+    setVal("main3OddsD", String(g.mainOdds[1]));
+    setVal("main3OddsA", String(g.mainOdds[2]));
+  }else{
+    setVal("main2OddsA", String(g.mainOdds[0]));
+    setVal("main2OddsB", String(g.mainOdds[1]));
+  }
+
+  if(g.ou && g.ou.full){
+    if(g.ou.line != null) setVal("totalLine", String(g.ou.line));
+    if(g.ou.overOdds != null) setVal("overOdds", String(g.ou.overOdds));
+    if(g.ou.underOdds != null) setVal("underOdds", String(g.ou.underOdds));
+  }
+  if(g.hc && g.hc.full){
+    setVal("handicapLine", String(g.hc.line));
+    setVal("handicapOddsA", String(g.hc.a));
+    setVal("handicapOddsB", String(g.hc.b));
+  }
+
+  // OU/핸디 감지 시 레벨 자동 전환 옵션
+  const wantsAutoLevel = (function(){ const el=$("pasteAutoLevel"); return el ? el.checked : false; })();
+  if(wantsAutoLevel && val("level") === "simple" && ((g.ou && g.ou.full) || (g.hc && g.hc.full))){
+    setVal("level", "mid");
+    onLevelChange(true);
+  }
+
+  try{ prefillLineCompare(); }catch(e){}
+  hideResult();
+  renderMarginDash();
+  saveState();
+
+  try{ track("paste_multi_apply", { idx, auto_calc: autoCalc?1:0, keep_view: keepView?1:0, conf: g.conf, has_ou: g.ou&&g.ou.full?1:0, has_hc: g.hc&&g.hc.full?1:0 }); }catch(e){}
+
+  if(autoCalc){
+    try{ calc(); }catch(e){}
+    // calc() 안에서 히스토리 저장까지 수행됨
+    try{ setPasteItemSaved(idx, LAST_RECORD); }catch(e){}
+    if(!keepView){
+      try{ quickJump('result'); }catch(e){}
+    }
+  }else{
+    if(!keepView){
+      try{ quickJump('main'); }catch(e){}
+    }
+  }
+}
+
+function onPasteItemClick(idx){
+  const g = __PASTE_MULTI[idx];
+  if(!g) return;
+  if(isPasteChainMode()){
+    if(isPasteSkipLow() && g.conf==="low"){
+      toast("정확도 낮음 항목은 제외 설정이에요.");
+      return;
+    }
+    if(pasteAlreadySaved(g)){
+      setPasteItemSaved(idx, null);
+      toast("이미 저장된 항목이에요.");
+      return;
+    }
+    applyParsedGame(idx, true, true);
+    return;
+  }
+  togglePasteItem(idx);
+}
+
+function startChainSave(){
+  if(__PASTE_CHAIN_RUNNING){
+    toast("이미 연속 저장 중이에요.");
+    return;
+  }
+  if(!__PASTE_MULTI.length){
+    toast("먼저 '여러 경기 만들기'로 리스트를 만들어줘.");
+    return;
+  }
+  if(__PASTE_SAVED_SIGS.size===0) buildSavedSigSet();
+
+  const n = getPasteChainCount();
+  __PASTE_CHAIN_RUNNING = true;
+  __PASTE_CHAIN_ABORT = false;
+  const stopBtn = $("pasteChainStop");
+  if(stopBtn) stopBtn.style.display = "inline-flex";
+
+  // 현재 정렬 기준으로 인덱스 목록 생성
+  const view = __PASTE_MULTI.map((g,i)=>({g,i}));
+  if(__PASTE_SORT==="margin"){
+    view.sort((a,b)=>{
+      const ma = (typeof a.g.mainMarginPct==="number") ? a.g.mainMarginPct : 9999;
+      const mb = (typeof b.g.mainMarginPct==="number") ? b.g.mainMarginPct : 9999;
+      return ma-mb;
+    });
+  }
+  let targets = view.map(x=>x.i);
+
+  // 정확도 낮음 제외(옵션)
+  if(isPasteSkipLow()){
+    targets = targets.filter(i => __PASTE_MULTI[i] && __PASTE_MULTI[i].conf!=="low");
+  }
+  // 이미 저장된 것 제외
+  targets = targets.filter(i => !pasteAlreadySaved(__PASTE_MULTI[i]));
+
+  const total = Math.min(n, targets.length);
+  if(total<=0){
+    toast("저장할 항목이 없어요. (이미 저장됨/정확도 낮음 제외)");
+    __PASTE_CHAIN_RUNNING = false;
+    if(stopBtn) stopBtn.style.display = "none";
+    return;
+  }
+
+  const meta = $("pasteListMeta");
+  let done = 0;
+
+  const step = ()=>{
+    if(__PASTE_CHAIN_ABORT){
+      __PASTE_CHAIN_RUNNING = false;
+      if(stopBtn) stopBtn.style.display = "none";
+      if(meta) meta.textContent = `연속 저장 중지됨 · ${done}/${total} 저장`;
+      toast(`연속 저장 중지 (${done}/${total})`);
+      return;
+    }
+    if(done >= total){
+      __PASTE_CHAIN_RUNNING = false;
+      if(stopBtn) stopBtn.style.display = "none";
+      if(meta) meta.textContent = `연속 저장 완료 · ${done}/${total} 저장`;
+      toast(`연속 저장 완료 (${done}/${total})`);
+      try{ track("paste_chain_done", { done, total }); }catch(e){}
+      return;
+    }
+    const idx = targets[done];
+    if(meta) meta.textContent = `연속 저장 중... ${done+1}/${total}`;
+    applyParsedGame(idx, true, true); // keepView=true
+    done += 1;
+    // UI/스토리지 반영 여유
+    setTimeout(step, 140);
+  };
+
+  try{ track("paste_chain_start", { target_total: total, requested: n, sort: __PASTE_SORT }); }catch(e){}
+  step();
+}
+
+function stopChainSave(){
+  if(!__PASTE_CHAIN_RUNNING){
+    toast("진행 중인 연속 저장이 없어요.");
+    return;
+  }
+  __PASTE_CHAIN_ABORT = true;
+  try{ track("paste_chain_stop", {}); }catch(e){}
+}
+
+function togglePasteSort(){
+  __PASTE_SORT = (__PASTE_SORT==="margin") ? "input" : "margin";
+  const btns = document.querySelectorAll('.paste-list-tools .btn.ghost.mini');
+  // 첫 버튼 텍스트만 바꿈
+  try{
+    const head = document.querySelector('.paste-list-tools .btn.ghost.mini');
+    if(head) head.textContent = (__PASTE_SORT==="margin") ? "정렬: 입력순" : "정렬: 마진 낮은순";
+  }catch(e){}
+  renderPasteList(__PASTE_MULTI);
+}
+
+
 function pct(x){ return (x*100).toFixed(1) + "%"; }
 function money(x){
   const n = Math.round(x);
@@ -2653,7 +3962,7 @@ function calc(){
   const sport = val("sport");
   const level = val("level");
   const cfg = SPORT_CFG[sport] || SPORT_CFG.soccer;
-  const is3 = cfg.main === "3way";
+  const is3 = (effectiveMainMode(cfg) === "3way");
 
   const rows = [];
   const copyLines = [];
@@ -2670,6 +3979,7 @@ function calc(){
     date: todayStr(),
     time: nowTimeStr(),
     sport, level, league, teams,
+    mainMode: (effectiveMainMode(cfg) === "3way") ? "3way" : "2way",
     inputs:{},
     markets:{},
     evPositive:false,
@@ -2704,14 +4014,16 @@ function calc(){
     mainMargin = out.marginPct;
     mainProbs = out.probs;
 
-    rows.push([`승리 확률(배당 기반·추정, ${cfg.labels.A})`, pct(out.probs[0])]);
-    rows.push([`승리 확률(배당 기반·추정, ${cfg.labels.B})`, pct(out.probs[1])]);
+    const L2 = labels2Way(cfg);
+    rows.push([`승리 확률(배당 기반·추정, ${L2.A})`, pct(out.probs[0])]);
+    rows.push([`승리 확률(배당 기반·추정, ${L2.B})`, pct(out.probs[1])]);
     rows.push(["오버라운드(마진 추정)", out.over.toFixed(4)]);
 
     const 판정 = classifyMargin(sport,"main",out.marginPct);
     rows.push(["메인 마진 판정", `<span class="${clsToTextColor(판정.cls)}">${판정.label}</span>`]);
 
-    copyLines.push(`메인 배당(${cfg.labels.A}/${cfg.labels.B}): ${a} / ${b}`);
+    const L2b = labels2Way(cfg);
+    copyLines.push(`메인 배당(${L2b.A}/${L2b.B}): ${a} / ${b}`);
 
     record.inputs.main2OddsA = val("main2OddsA");
     record.inputs.main2OddsB = val("main2OddsB");
@@ -2914,6 +4226,24 @@ function calc(){
   // ---- 대시보드/히스토리 반영 ----
   // (표현/통계용) 현재 기록의 분류 메타 — 계산 로직에는 영향 없음
   record.advice = adviceKeyFromMetrics(record.bestEVPct, record.markets?.main?.marginPct);
+  record.sig = (function(){
+    // 입력 시그니처(중복 방지/연속 저장 표시용) — 계산값에는 영향 없음
+    const norm = (x)=>String(x??"").toLowerCase().replace(/\s+/g,"");
+    const f2 = (n)=>{ const v = Number(n); return Number.isFinite(v) ? v.toFixed(4) : ""; };
+    const parts = [];
+    parts.push(norm(record.sport));
+    parts.push(record.mainMode || "");
+    parts.push(norm(record.teams));
+    if(record.mainMode==="3way"){
+      parts.push(f2(record.inputs.main3OddsH)); parts.push(f2(record.inputs.main3OddsD)); parts.push(f2(record.inputs.main3OddsA));
+    }else{
+      parts.push(f2(record.inputs.main2OddsA)); parts.push(f2(record.inputs.main2OddsB));
+    }
+    if(record.inputs.totalLine) parts.push("ou:"+norm(record.inputs.totalLine)+":"+f2(record.inputs.overOdds)+":"+f2(record.inputs.underOdds));
+    if(record.inputs.handicapLine) parts.push("hc:"+norm(record.inputs.handicapLine)+":"+f2(record.inputs.handicapOddsA)+":"+f2(record.inputs.handicapOddsB));
+    return parts.join("|");
+  })();
+
   LAST_RECORD = record;
 
   renderResult(cfg.name, level, rows, copyLines);
@@ -3284,6 +4614,7 @@ function openShareCard(){
   if(!resultBox || resultBox.style.display==="none" || !resultBox.innerText.trim()){
     return showError("먼저 '계산하기'로 결과를 만든 뒤 공유 카드를 생성할 수 있어요.");
   }
+  try{ updateBundlePromo(items); }catch(e){}
   modal.style.display = "flex";
   drawShareCard();
   // Normalize share event names across the site (index ↔ analysis)
@@ -3477,6 +4808,503 @@ function downloadShareCard(){
   }
 }
 
+
+
+/* =========================
+   오늘 수집 묶음 공유 (연속 저장/클릭 저장 누적)
+   - 서버 없이 localStorage(오늘 날짜 key)에 저장된 링크를 묶어서 공유
+========================= */
+function truncateText(s, n){
+  const t = String(s||"").trim();
+  if(!t) return "";
+  return t.length > n ? (t.slice(0,n-1) + "…") : t;
+}
+
+function getBundleItems(limit){
+  const items = readChainPack(todayStr());
+  const clean = (items||[]).filter(x=>x && x.link);
+  // dedupe by link
+  const seen = new Set();
+  const uniq = [];
+  for(const it of clean){
+    if(seen.has(it.link)) continue;
+    seen.add(it.link);
+    uniq.push(it);
+  }
+  // sort: margin asc (then recent)
+  uniq.sort((a,b)=>{
+    const ma = (typeof a.mainMarginPct === "number") ? a.mainMarginPct : 9999;
+    const mb = (typeof b.mainMarginPct === "number") ? b.mainMarginPct : 9999;
+    if(ma !== mb) return ma - mb;
+    return (b.ts||0) - (a.ts||0);
+  });
+  return uniq.slice(0, limit || 10);
+}
+
+function bundleTop3OneLine(items){
+  const top = (items||[]).slice(0,3);
+  if(!top.length) return "";
+  const shortTeams = (s)=>{
+    const t = String(s||"").replace(/\s+/g," ").trim();
+    if(!t) return "팀명";
+    // 너무 길면 앞/뒤를 보존
+    if(t.length <= 14) return t;
+    const parts = t.split(/\s+vs\s+|\s+VS\s+|\s+-\s+|\s+v\s+/i);
+    if(parts.length>=2){
+      const a = parts[0].trim();
+      const b = parts[1].trim();
+      const aa = a.length>8 ? a.slice(0,8)+"…" : a;
+      const bb = b.length>8 ? b.slice(0,8)+"…" : b;
+      return `${aa} vs ${bb}`;
+    }
+    return t.slice(0,13)+"…";
+  };
+  const parts = top.map((it, i)=>{
+    const title = shortTeams(it.teams);
+    const m = (typeof it.mainMarginPct === "number") ? it.mainMarginPct.toFixed(2)+"%" : "-";
+    return `${i+1}) ${title}(${m})`;
+  });
+  return `TOP3: ${parts.join(" / ")}`;
+}
+
+function buildBundleText(items){
+  const d = todayStr();
+  const lines = [];
+  lines.push(`[88ST] 오늘 수집 ${items.length}경기 (마진 낮은 순) · ${d}`);
+  lines.push(`분석기: https://88st.cloud/analysis/`);
+  const top3 = bundleTop3OneLine(items);
+  if(top3){
+    lines.push(top3);
+  }
+  lines.push("");
+  items.forEach((it, i)=>{
+    const sportName = (SPORT_CFG[it.sport] || SPORT_CFG.soccer).name || (it.sport||"");
+    const title = (it.teams && it.teams.trim()) ? it.teams.trim() : "팀명 미입력";
+    const m = (typeof it.mainMarginPct === "number") ? `마진 ${it.mainMarginPct.toFixed(2)}%` : "마진 -";
+    const ev = (typeof it.bestEVPct === "number") ? `EV ${(it.bestEVPct>=0?"+":"-")}${Math.abs(it.bestEVPct).toFixed(2)}%` : "EV 미입력";
+    lines.push(`${i+1}) ${title}`);
+    lines.push(`   ${sportName} · ${m} · ${ev}`);
+    lines.push(`   ${it.link}`);
+    lines.push("");
+  });
+  lines.push("※ 판단 보조용 / 결과를 보장하지 않습니다.");
+  return lines.join("\n");
+}
+
+function buildBundleLinks(items){
+  return items.map(it=>it.link).join("\n");
+}
+
+function drawBundleCard(items){
+  const canvas = document.getElementById("bundleCanvas");
+  if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+
+  // bg
+  const bg = ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0, "#0b0b0b");
+  bg.addColorStop(0.55, "#121212");
+  bg.addColorStop(1, "#07070a");
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+
+  // glow
+  ctx.fillStyle = "rgba(var(--accentRGB),0.12)";
+  ctx.beginPath(); ctx.arc(W*0.62, H*0.18, 330, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = "rgba(90,160,255,0.08)";
+  ctx.beginPath(); ctx.arc(W*0.18, H*0.28, 260, 0, Math.PI*2); ctx.fill();
+
+  const pad = 70;
+  const r = 34;
+  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  roundRect(ctx, pad, pad, W-pad*2, H-pad*2, r, true, false);
+  ctx.strokeStyle = "rgba(255,255,255,0.10)";
+  ctx.lineWidth = 2;
+  roundRect(ctx, pad, pad, W-pad*2, H-pad*2, r, false, true);
+
+  // header
+  ctx.fillStyle = "#f5e27a";
+  ctx.font = "900 50px system-ui, -apple-system, Segoe UI, Roboto";
+  ctx.fillText("88 오늘 수집", pad+40, pad+92);
+
+  ctx.fillStyle = "rgba(255,255,255,0.82)";
+  ctx.font = "800 26px system-ui, -apple-system, Segoe UI, Roboto";
+  ctx.fillText(`${todayStr()} · 마진 낮은 순 TOP${items.length}`, pad+40, pad+140);
+
+  // TOP3 one-line
+  const top3 = bundleTop3OneLine(items);
+  let baseY = pad + 210;
+  if(top3){
+    ctx.fillStyle = "rgba(255,255,255,0.72)";
+    ctx.font = "900 22px system-ui, -apple-system, Segoe UI, Roboto";
+    const t = truncateText(top3, 54);
+    ctx.fillText(t, pad+40, pad+178);
+    baseY = pad + 242;
+  }
+
+  // list
+  let y = baseY;
+  const lineH = 74;
+  items.slice(0,10).forEach((it, i)=>{
+    const title = truncateText((it.teams && it.teams.trim()) ? it.teams.trim() : "팀명 미입력", 28);
+    const sportName = (SPORT_CFG[it.sport] || SPORT_CFG.soccer).name || (it.sport||"");
+    const m = (typeof it.mainMarginPct === "number") ? `마진 ${it.mainMarginPct.toFixed(2)}%` : "마진 -";
+    const ev = (typeof it.bestEVPct === "number") ? `EV ${(it.bestEVPct>=0?"+":"-")}${Math.abs(it.bestEVPct).toFixed(2)}%` : "EV 미입력";
+
+    ctx.fillStyle = "rgba(255,255,255,0.94)";
+    ctx.font = "900 30px system-ui, -apple-system, Segoe UI, Roboto";
+    ctx.fillText(`${i+1}. ${title}`, pad+40, y);
+
+    ctx.fillStyle = "rgba(255,255,255,0.78)";
+    ctx.font = "800 22px system-ui, -apple-system, Segoe UI, Roboto";
+    ctx.fillText(`${sportName} · ${m} · ${ev}`, pad+40, y + 34);
+
+    y += lineH;
+  });
+
+  // footer
+  ctx.fillStyle = "rgba(255,255,255,0.70)";
+  ctx.font = "800 24px system-ui, -apple-system, Segoe UI, Roboto";
+  ctx.fillText("88st.cloud/analysis", pad+40, H - pad - 58);
+
+  ctx.fillStyle = "rgba(255,255,255,0.55)";
+  ctx.font = "700 20px system-ui, -apple-system, Segoe UI, Roboto";
+  ctx.fillText("※ 텍스트에 각 경기 복원 링크 포함", pad+40, H - pad - 28);
+}
+
+function openBundleShare(){
+  const items = getBundleItems(10);
+  if(!items.length){
+    toast("오늘 수집된 항목이 아직 없어요. (텍스트 붙여넣기에서 '연속 저장' 또는 '클릭=연속 저장'을 사용해줘)");
+    return;
+  }
+  const modal = document.getElementById("bundleShareModal");
+  if(!modal) return;
+
+  const titleEl = document.getElementById("bundleTitle");
+  const metaEl  = document.getElementById("bundleMeta");
+  const ta      = document.getElementById("bundleText");
+
+  if(titleEl) titleEl.textContent = `오늘 수집 묶음 (${items.length}경기)`;
+  if(ta) ta.value = buildBundleText(items);
+
+  if(metaEl){
+    const ms = items.map(it=> (typeof it.mainMarginPct === "number") ? it.mainMarginPct : null).filter(v=>v!=null);
+    const min = ms.length ? Math.min(...ms) : null;
+    const avg = ms.length ? (ms.reduce((a,b)=>a+b,0) / ms.length) : null;
+    const pos = items.filter(it=> typeof it.bestEVPct === "number" && it.bestEVPct > 0).length;
+    const pill = (txt)=>`<span class="bundle-pill">${txt}</span>`;
+    const top3 = bundleTop3OneLine(items);
+    metaEl.innerHTML = `<div class="bundle-mini"><b>${todayStr()}</b> · ${items.length}개</div>` +
+      `<div class="bundle-mini">` +
+        pill(min!=null?`최저 마진 ${min.toFixed(2)}%`:`최저 마진 -`) +
+        pill(avg!=null?`평균 마진 ${avg.toFixed(2)}%`:`평균 마진 -`) +
+        pill(`+EV ${pos}개`) +
+      `</div>` +
+      (top3 ? `<div class="bundle-mini">${safeText(top3)}</div>` : "");
+  }
+
+  modal.style.display = "flex";
+  drawBundleCard(items);
+  try{ track("bundle_open", { count: items.length, page_path: location.pathname }); }catch(e){}
+}
+
+async function copyBundleTop3(){
+  const items = getBundleItems(10);
+  if(!items.length) return;
+  const t = bundleTop3OneLine(items);
+  if(!t) return;
+  try{
+    await navigator.clipboard.writeText(t);
+    toast("TOP3 요약을 복사했습니다");
+    try{ track("bundle_copy_top3", { page_path: location.pathname }); }catch(e){}
+  }catch(e){ toast("복사 실패"); }
+}
+
+function resetBundleToday(){
+  if(!confirm("오늘 수집 묶음을 초기화할까요?\n\n• 히스토리(저장 기록)는 유지됩니다\n• '오늘 수집 묶음'만 비워집니다")) return;
+  try{ localStorage.removeItem(chainPackKey(todayStr())); }catch(e){}
+  try{ updateBundleButton(); }catch(e){}
+  toast("오늘 수집 묶음을 초기화했습니다");
+  try{ track("bundle_reset", { page_path: location.pathname }); }catch(e){}
+  try{ closeBundleShare(); }catch(e){}
+}
+
+function closeBundleShare(){
+  const modal = document.getElementById("bundleShareModal");
+  if(modal) modal.style.display = "none";
+}
+
+async function copyBundleText(){
+  const ta = document.getElementById("bundleText");
+  if(!ta || !ta.value) return;
+  try{
+    await navigator.clipboard.writeText(ta.value);
+    toast("묶음 문구를 복사했습니다");
+    try{ track("bundle_copy_text", { page_path: location.pathname }); }catch(e){}
+  }catch(e){ toast("복사 실패"); }
+}
+
+async function copyBundleLinks(){
+  const items = getBundleItems(10);
+  if(!items.length) return;
+  const txt = buildBundleLinks(items);
+  try{
+    await navigator.clipboard.writeText(txt);
+    toast("링크만 복사했습니다");
+    try{ track("bundle_copy_links", { count: items.length, page_path: location.pathname }); }catch(e){}
+  }catch(e){ toast("복사 실패"); }
+}
+
+
+/* ===== 묶음 홍보글(채널/톤) 자동 생성 ===== */
+const BUNDLE_PROMO_LS_CH = "88_bundle_promo_channel";
+const BUNDLE_PROMO_LS_STYLE = "88_bundle_promo_style";
+const BUNDLE_PROMO_LS_LINKS = "88_bundle_promo_links";
+
+const BUNDLE_PROMO_CHANNELS = [
+  { key:"tochatsa",       label:"토찾사",             source:"tochatsa",       medium:"community", defaultStyle:"promo" },
+  { key:"toto_hot",       label:"토토핫",             source:"toto_hot",       medium:"community", defaultStyle:"promo" },
+  { key:"mt_dajava",      label:"먹튀다자바",         source:"mt_dajava",      medium:"community", defaultStyle:"info"  },
+  { key:"meokjab",        label:"먹잡",               source:"meokjab",        medium:"community", defaultStyle:"info"  },
+  { key:"toto_town",      label:"토토타운",           source:"toto_town",      medium:"community", defaultStyle:"promo" },
+  { key:"chongpan_guard", label:"총판구조대",         source:"chongpan_guard", medium:"community", defaultStyle:"promo" },
+  { key:"powerball_auto", label:"파워볼오토",         source:"powerball_auto", medium:"community", defaultStyle:"promo" },
+  { key:"daumde",         label:"다음드",             source:"daumde",         medium:"community", defaultStyle:"promo" },
+  { key:"tg_freepromo",   label:"텔레그램 토토자유홍보방", source:"tg_freepromo", medium:"telegram", defaultStyle:"tg" },
+  { key:"etc",            label:"기타",               source:"etc",            medium:"community", defaultStyle:"promo" }
+];
+
+function getPromoChannel(key){
+  return BUNDLE_PROMO_CHANNELS.find(c=>c.key===key) || BUNDLE_PROMO_CHANNELS[0];
+}
+
+function promoUtm(channelKey, styleKey){
+  const ch = getPromoChannel(channelKey);
+  const source = ch.source || ch.key || channelKey || "community";
+  const medium = ch.medium || "community";
+  const camp = "bundle_w1";
+  const content = `${source}_${styleKey}_${todayStr().replace(/-/g,"")}`;
+  return { utm_source:source, utm_medium:medium, utm_campaign:camp, utm_content:content };
+}
+
+function stripUtmFromUrl(raw){
+  try{
+    const u = new URL(raw, location.origin);
+    const keys = [...u.searchParams.keys()];
+    for(const k of keys){
+      if(/^utm_/i.test(k)) u.searchParams.delete(k);
+    }
+    return u.toString();
+  }catch(e){ return raw; }
+}
+
+function applyUtmToUrl(raw, utm){
+  try{
+    const u = new URL(stripUtmFromUrl(raw), location.origin);
+    for(const [k,v] of Object.entries(utm||{})){
+      if(v==null || v==="") continue;
+      u.searchParams.set(k, v);
+    }
+    return u.toString();
+  }catch(e){ return raw; }
+}
+
+function promoTitle(styleKey, n){
+  const d = todayStr();
+  if(styleKey==="info") return `오버라운드(마진) 낮은 경기 TOP${n} 모음 · ${d}`;
+  if(styleKey==="tg") return `무료 배당 마진(오버라운드) · 오늘 TOP${n} (복원 링크)`;
+  return `무료 배당분석기 · 오늘 마진 낮은 경기 TOP${n} (복원 링크)`;
+}
+
+function promoLead(styleKey){
+  if(styleKey==="info") return `배당 2~3개 입력 → 마진/공정배당/EV를 자동으로 정리합니다. 아래 링크는 열면 동일 결과가 복원됩니다.`;
+  if(styleKey==="tg") return `텍스트 붙여넣기로 수집한 오늘 경기들입니다. 링크 열면 결과 그대로 복원됩니다.`;
+  return `배당 2~3개 입력하면 마진/공정배당/EV 한방에 정리됩니다. 아래는 오늘 수집(마진 낮은 순)입니다.`;
+}
+
+function buildBundlePromo(items){
+  const elCh = document.getElementById("bundlePromoChannel");
+  const elSty= document.getElementById("bundlePromoStyle");
+  const elLn = document.getElementById("bundlePromoLinks");
+
+  const channelKey = elCh ? elCh.value : "tochatsa";
+  const styleKey = elSty ? elSty.value : "promo";
+  const linksKey = elLn ? elLn.value : "top3";
+
+  const utm = promoUtm(channelKey, styleKey);
+  const origin = (location && location.origin) ? location.origin : "https://88st.cloud";
+  const analysisBase = applyUtmToUrl(origin.replace(/\/$/,"") + "/analysis/", utm);
+
+  const n = Math.min(10, (items||[]).length);
+  const title = promoTitle(styleKey, n);
+  const lead  = promoLead(styleKey);
+  const top3  = bundleTop3OneLine(items);
+
+  let linkN = 3;
+  if(linksKey==="top5") linkN = 5;
+  if(linksKey==="all")  linkN = n;
+
+  const lines = [];
+  lines.push(title);
+  lines.push(lead);
+  lines.push(`분석기(무료): ${analysisBase}`);
+  if(top3) lines.push(top3);
+  lines.push("");
+  lines.push(`오늘 수집 ${n}경기 (마진 낮은 순)`);
+  lines.push("");
+
+  (items||[]).slice(0,n).forEach((it, idx)=>{
+    const sportName = (SPORT_CFG[it.sport] || SPORT_CFG.soccer).name || (it.sport||"");
+    const teams = (it.teams && String(it.teams).trim()) ? String(it.teams).trim() : `경기 ${idx+1}`;
+    const m = (typeof it.mainMarginPct==="number") ? `마진 ${it.mainMarginPct.toFixed(2)}%` : "마진 -";
+    const ev = (typeof it.bestEVPct==="number") ? `EV ${(it.bestEVPct>=0?"+":"-")}${Math.abs(it.bestEVPct).toFixed(2)}%` : "EV 미입력";
+
+    if(styleKey==="tg"){
+      lines.push(`${idx+1}) ${teams} · ${m} · ${ev}`);
+    }else{
+      lines.push(`${idx+1}) ${teams} (${sportName}) · ${m} · ${ev}`);
+    }
+    if(idx < linkN){
+      const link = applyUtmToUrl(it.link || "", utm);
+      if(link) lines.push(`   링크: ${link}`);
+    }
+    lines.push("");
+  });
+
+  if(linkN < n){
+    lines.push(`※ 링크는 TOP${linkN}만 포함(게시판 스팸 방지). 더 보려면 분석기에서 '오늘 수집 묶음' 사용`);
+  }
+  lines.push("※ 링크 열면 입력/결과가 그대로 복원됩니다(st)");
+
+  const text = lines.join("\n").replace(/\n{3,}/g,"\n\n").trim();
+  return { title, lead, text, channelKey, styleKey, linksKey };
+}
+
+function updateBundlePromo(items){
+  const ta = document.getElementById("bundlePromoText");
+  if(!ta) return;
+  const p = buildBundlePromo(items || getBundleItems(10));
+  ta.value = p.text || "";
+}
+
+async function copyBundlePromo(){
+  const items = getBundleItems(10);
+  if(!items.length) return;
+  const p = buildBundlePromo(items);
+  try{
+    await navigator.clipboard.writeText(p.text);
+    toast("홍보글을 복사했습니다");
+    try{ track("bundle_copy_promo", { channel: p.channelKey, tone: p.styleKey, links: p.linksKey, count: items.length, page_path: location.pathname }); }catch(e){}
+  }catch(e){ toast("복사 실패"); }
+}
+
+async function copyBundlePromoTitle(){
+  const items = getBundleItems(10);
+  if(!items.length) return;
+  const p = buildBundlePromo(items);
+  try{
+    await navigator.clipboard.writeText(p.title);
+    toast("제목을 복사했습니다");
+    try{ track("bundle_copy_promo_title", { channel: p.channelKey, tone: p.styleKey, page_path: location.pathname }); }catch(e){}
+  }catch(e){ toast("복사 실패"); }
+}
+
+async function copyBundlePromoLead(){
+  const items = getBundleItems(10);
+  if(!items.length) return;
+  const p = buildBundlePromo(items);
+  try{
+    await navigator.clipboard.writeText(p.lead);
+    toast("말머리를 복사했습니다");
+    try{ track("bundle_copy_promo_lead", { channel: p.channelKey, tone: p.styleKey, page_path: location.pathname }); }catch(e){}
+  }catch(e){ toast("복사 실패"); }
+}
+
+function setupBundlePromo(){
+  const sel = document.getElementById("bundlePromoChannel");
+  const sty = document.getElementById("bundlePromoStyle");
+  const lnk = document.getElementById("bundlePromoLinks");
+  if(!sel || !sty || !lnk) return;
+
+  // options (only once)
+  if(!sel.options.length){
+    for(const ch of BUNDLE_PROMO_CHANNELS){
+      const opt = document.createElement("option");
+      opt.value = ch.key;
+      opt.textContent = ch.label;
+      sel.appendChild(opt);
+    }
+  }
+
+  const savedCh = localStorage.getItem(BUNDLE_PROMO_LS_CH) || "tochatsa";
+  const savedStyle = localStorage.getItem(BUNDLE_PROMO_LS_STYLE);
+  const savedLinks = localStorage.getItem(BUNDLE_PROMO_LS_LINKS) || "top3";
+
+  if([...sel.options].some(o=>o.value===savedCh)) sel.value = savedCh;
+
+  const ch = getPromoChannel(sel.value);
+  const defStyle = (ch && ch.defaultStyle) ? ch.defaultStyle : "promo";
+  if(savedStyle && [...sty.options].some(o=>o.value===savedStyle)) sty.value = savedStyle;
+  else sty.value = defStyle;
+
+  if([...lnk.options].some(o=>o.value===savedLinks)) lnk.value = savedLinks;
+
+  const refresh = ()=>{
+    try{ localStorage.setItem(BUNDLE_PROMO_LS_CH, sel.value); }catch(e){}
+    try{ localStorage.setItem(BUNDLE_PROMO_LS_STYLE, sty.value); }catch(e){}
+    try{ localStorage.setItem(BUNDLE_PROMO_LS_LINKS, lnk.value); }catch(e){}
+    try{
+      const items = getBundleItems(10);
+      updateBundlePromo(items);
+    }catch(e){}
+  };
+
+  sel.addEventListener("change", ()=>{
+    const ch2 = getPromoChannel(sel.value);
+    if(ch2 && ch2.defaultStyle) sty.value = ch2.defaultStyle;
+    refresh();
+  });
+  sty.addEventListener("change", refresh);
+  lnk.addEventListener("change", refresh);
+
+  refresh();
+}
+
+
+function downloadBundleCard(){
+  const canvas = document.getElementById("bundleCanvas");
+  if(!canvas) return;
+  try{
+    canvas.toBlob((blob)=>{
+      if(!blob) return;
+      const a = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      a.href = url;
+      a.download = "88-bundle-today.png";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 800);
+      toast("이미지를 저장했습니다");
+      try{ track("bundle_download_image", { page_path: location.pathname }); }catch(e){}
+    }, "image/png", 1.0);
+  }catch(e){ toast("저장 실패"); }
+}
+
+function setupBundleBackdropClose(){
+  const modal = document.getElementById("bundleShareModal");
+  if(!modal) return;
+  modal.addEventListener("click", (e)=>{
+    if(e.target === modal) closeBundleShare();
+  });
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape"){
+      try{ if(modal.style.display === "flex") closeBundleShare(); }catch(err){}
+    }
+  });
+}
+
 function setupShareCardBackdropClose(){
   const modal = document.getElementById("shareCardModal");
   if(modal){
@@ -3607,7 +5435,7 @@ function addHistory(rec){
     track("save_history", {
       sport: rec.sport,
       level: rec.level,
-      market_type: ((SPORT_CFG[rec.sport]||SPORT_CFG.soccer).main === "3way") ? "3way" : "2way"
+      market_type: (rec.mainMode ? rec.mainMode : (((SPORT_CFG[rec.sport]||SPORT_CFG.soccer).main === "3way") ? "3way" : "2way"))
     });
   }catch(e){}
 
@@ -3854,6 +5682,20 @@ function renderSnaps(){
     const extra = (s.teams || s.league) ? escapeHtml(s.teams || s.league) : "";
     return `<button class="snap-chip" type="button" onclick="restoreSnapshot('${s.id}')">${label}${extra?` <span class="snap-meta">· ${extra}</span>`:""}</button>`;
   }).join("");
+
+  // 이미 저장된 항목 표시
+  try{ if(__PASTE_SAVED_SIGS.size===0) buildSavedSigSet(); }catch(e){}
+  try{
+    __PASTE_MULTI.forEach((g, idx)=>{
+      if(!g) return;
+      if(pasteAlreadySaved(g)){
+        const el = $("pasteItem_"+idx);
+        if(el) el.classList.add("is-saved");
+        const stat = $("pasteStat_"+idx);
+        if(stat){ stat.innerHTML = "저장됨"; stat.style.display="block"; }
+      }
+    });
+  }catch(e){}
 }
 function restoreSnapshot(id){
   const arr = readSnaps();
@@ -4666,7 +6508,11 @@ function boot(){
   // 첫 방문자 1회 온보딩(3스텝)
   setTimeout(()=>{ try{ onbStart(); }catch(e){} }, 450);
   setupShareCardBackdropClose();
+  setupBundleBackdropClose();
+  try{ setupBundlePromo(); }catch(e){}
+  try{ updateBundleButton(); }catch(e){}
   setupValidation();
+  setupPasteBox();
 
   renderSnaps();
   renderPerfBox();
