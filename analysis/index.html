@@ -886,6 +886,55 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 }
 .bundle-switch span{ font-weight:900; }
 
+
+.bundle-promo-adv{
+  margin-top:10px;
+  padding:10px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:16px;
+}
+.bundle-adv-row{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.bundle-adv-label{
+  font-weight:900;
+  font-size:12px;
+  color:rgba(255,255,255,.92);
+  min-width:140px;
+}
+.bundle-adv-controls{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  flex:1;
+}
+.bundle-range{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(0,0,0,.18);
+  border-radius:14px;
+  color:rgba(255,255,255,.92);
+  font-size:12px;
+  font-weight:900;
+}
+.bundle-range input[type="range"]{
+  width:180px;
+  max-width:40vw;
+}
+#bundlePresetHint{
+  border-color: rgba(var(--accentRGB), .35);
+  background: rgba(var(--accentRGB), .12);
+}
+
 @media (max-width:560px){
   body{ padding-bottom: calc(env(safe-area-inset-bottom) + 72px); }
   .mobile-dock{
@@ -1609,6 +1658,10 @@ a{ color:inherit; }
 </script>
 
 <script src="/assets/js/88st-analytics.js"></script>
+
+<!-- 88ST Theme Toggle (system/dark/light) -->
+<script src="/assets/88st-theme.js"></script>
+<link rel="stylesheet" href="/assets/88st-theme.css">
 </head>
 
 <body>
@@ -2204,6 +2257,11 @@ a{ color:inherit; }
     <div class="bundle-promo-title">홍보글 자동 생성</div>
     <div class="bundle-promo-ctrl">
       <select id="bundlePromoChannel" class="inp mini" aria-label="홍보 채널 선택"></select>
+      <label class="bundle-switch" title="채널별 게시판 규칙(링크/톤/형식)에 맞춘 프리셋을 자동 적용합니다. 필요하면 꺼서 직접 조절하세요.">
+        <input type="checkbox" id="bundlePromoPreset" checked>
+        <span>프리셋 자동</span>
+      </label>
+      <span class="bundle-pill" id="bundlePresetHint" style="display:none;"></span>
       <select id="bundlePromoStyle" class="inp mini" aria-label="홍보 톤 선택">
         <option value="promo">홍보형</option>
         <option value="info">정보형</option>
@@ -2228,11 +2286,34 @@ a{ color:inherit; }
         <input type="checkbox" id="bundlePromoCompact">
         <span>줄바꿈 최소</span>
       </label>
+      <label class="bundle-switch" title="링크를 못 올리는 게시판(링크 0개)에서 댓글로 요청을 유도하는 버전 문구를 추가합니다.">
+        <input type="checkbox" id="bundlePromoComment">
+        <span>댓글 유도</span>
+      </label>
       <label class="bundle-switch" title="마진 낮음 또는 +EV 조건을 만족할 때만 업체 티저 1개를 포함합니다.">
         <input type="checkbox" id="bundlePromoVendor" checked>
         <span>업체 1개(조건부)</span>
       </label>
+      <button class="btn ghost mini" type="button" onclick="toggleBundlePromoAdv()" id="btnPromoAdv" title="업체 티저 포함 조건(마진/EV 임계값)과 프리셋 상태를 세부 조절합니다.">고급</button>
       <button class="btn ghost mini" type="button" onclick="regenBundlePromo()" title="문구 변형(3종) 중 다음 템플릿으로 바꿉니다">새 문구</button>
+    </div>
+  </div>
+  <div class="bundle-promo-adv" id="bundlePromoAdv" style="display:none;">
+    <div class="bundle-adv-row">
+      <div class="bundle-adv-label">업체 티저 포함 조건</div>
+      <div class="bundle-adv-controls">
+        <label class="bundle-range" title="최저 마진이 이 값 이하이면 업체 티저를 포함할 수 있습니다.">
+          마진 ≤ <span id="bundleVendorMarginVal">3.2</span>%
+          <input type="range" id="bundleVendorMargin" min="2.0" max="6.0" step="0.1" value="3.2">
+        </label>
+        <label class="bundle-range" title="+EV(0보다 큰 EV)이 최소 몇 개 이상일 때 업체 티저를 포함할지 설정합니다.">
+          +EV ≥ <span id="bundleVendorEvVal">1</span>개
+          <input type="range" id="bundleVendorEv" min="0" max="5" step="1" value="1">
+        </label>
+      </div>
+    </div>
+    <div class="small-hint" style="margin-top:8px;">
+      임계값을 올리면 업체 티저가 더 자주 포함될 수 있어요. (게시판 규칙이 엄격한 채널은 프리셋이 링크/톤을 자동으로 제한합니다)
     </div>
   </div>
   <div class="small-hint" style="margin-top:8px;">
@@ -4911,6 +4992,12 @@ function buildBundleText(items){
   lines.push(`[88ST] 오늘 수집 ${items.length}경기 (마진 낮은 순) · ${d}`);
   lines.push(`분석기: https://88st.cloud/analysis/`);
   const top3 = bundleTop3OneLine(items);
+  // 링크 0개 규칙 대응: 댓글 유도 버전
+  if(linksMode==="none" && commentOn){
+    if(!compact) lines.push(commentCtaLine(channelKey));
+    else lines.push(commentCtaLine(channelKey));
+  }
+
   if(top3){
     lines.push(top3);
   }
@@ -5104,22 +5191,145 @@ const BUNDLE_PROMO_LS_COMPACT   = "88_bundle_promo_compact";
 const BUNDLE_PROMO_LS_VENDOR    = "88_bundle_promo_vendor";
 const BUNDLE_PROMO_LS_ONE_TGT   = "88_bundle_promo_one_target";
 const BUNDLE_PROMO_LS_VAR       = "88_bundle_promo_variant";
+const BUNDLE_PROMO_LS_PRESET    = "88_bundle_promo_preset";
+const BUNDLE_PROMO_LS_COMMENT   = "88_bundle_promo_comment";
+const BUNDLE_PROMO_LS_VTHR_M    = "88_bundle_promo_vthr_margin";
+const BUNDLE_PROMO_LS_VTHR_EVC  = "88_bundle_promo_vthr_evcount";
+const BUNDLE_PROMO_LS_ADV_OPEN  = "88_bundle_promo_adv_open";
 
 const BUNDLE_PROMO_CHANNELS = [
-  { key:"tochatsa",       label:"토찾사",                 source:"tochatsa",       medium:"community", defaultStyle:"promo" },
-  { key:"toto_hot",       label:"토토핫",                 source:"toto_hot",       medium:"community", defaultStyle:"promo" },
-  { key:"mt_dajava",      label:"먹튀다자바",             source:"mt_dajava",      medium:"community", defaultStyle:"info"  },
-  { key:"meokjab",        label:"먹잡",                   source:"meokjab",        medium:"community", defaultStyle:"info"  },
-  { key:"toto_town",      label:"토토타운",               source:"toto_town",      medium:"community", defaultStyle:"promo" },
-  { key:"chongpan_guard", label:"총판구조대",             source:"chongpan_guard", medium:"community", defaultStyle:"promo" },
-  { key:"powerball_auto", label:"파워볼오토",             source:"powerball_auto", medium:"community", defaultStyle:"promo" },
-  { key:"daumde",         label:"다음드",                 source:"daumde",         medium:"community", defaultStyle:"promo" },
-  { key:"tg_freepromo",   label:"텔레그램 토토자유홍보방", source:"tg_freepromo",   medium:"telegram",  defaultStyle:"tg" },
-  { key:"etc",            label:"기타",                   source:"etc",            medium:"community", defaultStyle:"promo" }
+  { key:"tochatsa",       label:"토찾사",                 source:"tochatsa",       medium:"community",
+    preset:{ style:"promo", links:"top3", compact:false, shortUrl:false, vendor:true, oneTarget:"analysis", comment:false, enforce:{} },
+    forbidden:[] },
+  { key:"toto_hot",       label:"토토핫",                 source:"toto_hot",       medium:"community",
+    preset:{ style:"promo", links:"top3", compact:false, shortUrl:false, vendor:true, oneTarget:"analysis", comment:false, enforce:{} },
+    forbidden:[] },
+  { key:"mt_dajava",      label:"먹튀다자바",             source:"mt_dajava",      medium:"community",
+    preset:{ style:"info",  links:"one",  compact:true,  shortUrl:true,  vendor:false, oneTarget:"analysis", comment:false,
+            enforce:{ links:true, vendor:true, style:false, compact:false, shortUrl:false, comment:false } },
+    forbidden:["홍보","가입","쿠폰","코드","추천","🎁"] },
+  { key:"meokjab",        label:"먹잡",                   source:"meokjab",        medium:"community",
+    preset:{ style:"info",  links:"one",  compact:true,  shortUrl:true,  vendor:false, oneTarget:"analysis", comment:false,
+            enforce:{ links:true, vendor:true, style:false, compact:false, shortUrl:false, comment:false } },
+    forbidden:["홍보","가입","쿠폰","코드","추천","🎁"] },
+  { key:"toto_town",      label:"토토타운",               source:"toto_town",      medium:"community",
+    preset:{ style:"promo", links:"top3", compact:false, shortUrl:false, vendor:true, oneTarget:"analysis", comment:false, enforce:{} },
+    forbidden:[] },
+  { key:"chongpan_guard", label:"총판구조대",             source:"chongpan_guard", medium:"community",
+    preset:{ style:"promo", links:"top5", compact:true,  shortUrl:false, vendor:true, oneTarget:"analysis", comment:false, enforce:{} },
+    forbidden:["무료"] },
+  { key:"powerball_auto", label:"파워볼오토",             source:"powerball_auto", medium:"community",
+    preset:{ style:"promo", links:"one",  compact:true,  shortUrl:true,  vendor:true, oneTarget:"analysis", comment:false, enforce:{} },
+    forbidden:[] },
+  { key:"daumde",         label:"다음드",                 source:"daumde",         medium:"community",
+    preset:{ style:"promo", links:"top3", compact:false, shortUrl:false, vendor:true, oneTarget:"analysis", comment:false, enforce:{} },
+    forbidden:[] },
+  { key:"tg_freepromo",   label:"텔레그램 토토자유홍보방", source:"tg_freepromo",   medium:"telegram",
+    preset:{ style:"tg",    links:"top3", compact:true,  shortUrl:false, vendor:true, oneTarget:"analysis", comment:false, enforce:{} },
+    forbidden:["댓글"] },
+  { key:"etc",            label:"기타",                   source:"etc",            medium:"community",
+    preset:{ style:"promo", links:"top3", compact:false, shortUrl:false, vendor:true, oneTarget:"analysis", comment:false, enforce:{} },
+    forbidden:[] }
 ];
 
 function getPromoChannel(key){
   return BUNDLE_PROMO_CHANNELS.find(c=>c.key===key) || BUNDLE_PROMO_CHANNELS[0];
+
+function getChannelPreset(channelKey){
+  const ch = getPromoChannel(channelKey);
+  return (ch && ch.preset) ? ch.preset : null;
+}
+
+function applyPresetToUI(channelKey, isPresetOn){
+  const preset = getChannelPreset(channelKey);
+  if(!preset || !isPresetOn) return { preset:null, enforced:false };
+
+  const sty  = document.getElementById("bundlePromoStyle");
+  const lnk  = document.getElementById("bundlePromoLinks");
+  const sh   = document.getElementById("bundlePromoShortUrl");
+  const cp   = document.getElementById("bundlePromoCompact");
+  const vd   = document.getElementById("bundlePromoVendor");
+  const one  = document.getElementById("bundlePromoOneTarget");
+  const cm   = document.getElementById("bundlePromoComment");
+  const hint = document.getElementById("bundlePresetHint");
+
+  if(sty && preset.style) sty.value = preset.style;
+  if(lnk && preset.links) lnk.value = preset.links;
+  if(sh) sh.checked = !!preset.shortUrl;
+  if(cp) cp.checked = !!preset.compact;
+  if(vd) vd.checked = !!preset.vendor;
+  if(one && preset.oneTarget) one.value = preset.oneTarget;
+  if(cm) cm.checked = !!preset.comment;
+
+  // show hint pill
+  if(hint){
+    const label = [];
+    label.push((sty? sty.options[sty.selectedIndex].text : preset.style));
+    label.push((lnk? lnk.options[lnk.selectedIndex].text : preset.links));
+    if(cp && cp.checked) label.push("줄바꿈 최소");
+    if(sh && sh.checked) label.push("URL 짧게");
+    if(vd && vd.checked) label.push("업체 조건부");
+    hint.textContent = "프리셋: " + label.join(" · ");
+    hint.style.display = "";
+  }
+
+  // enforce specific controls (disable) if preset.enforce flags set
+  const enforce = preset.enforce || {};
+  if(lnk) lnk.disabled = !!enforce.links;
+  if(one) one.disabled = !!enforce.links;
+  if(sty) sty.disabled = !!enforce.style;
+  if(vd)  vd.disabled  = !!enforce.vendor;
+  if(cm)  cm.disabled  = !!enforce.comment;
+  // allow user to still tweak compact/shortUrl unless explicitly locked
+  if(cp) cp.disabled = !!enforce.compact;
+  if(sh) sh.disabled = !!enforce.shortUrl;
+
+  return { preset, enforced:true };
+}
+
+function clearPresetEnforcement(){
+  const lnk  = document.getElementById("bundlePromoLinks");
+  const one  = document.getElementById("bundlePromoOneTarget");
+  const sh   = document.getElementById("bundlePromoShortUrl");
+  const cp   = document.getElementById("bundlePromoCompact");
+  const sty  = document.getElementById("bundlePromoStyle");
+  const vd   = document.getElementById("bundlePromoVendor");
+  const cm   = document.getElementById("bundlePromoComment");
+  const hint = document.getElementById("bundlePresetHint");
+  if(lnk) lnk.disabled = false;
+  if(one) one.disabled = false;
+  if(sty) sty.disabled = false;
+  if(vd)  vd.disabled = false;
+  if(cm)  cm.disabled = false;
+  if(sh) sh.disabled = false;
+  if(cp) cp.disabled = false;
+  if(hint) hint.style.display = "none";
+}
+
+function sanitizePromoText(text, channelKey, presetOn){
+  if(!presetOn) return text;
+  const ch = getPromoChannel(channelKey);
+  const forbidden = (ch && Array.isArray(ch.forbidden)) ? ch.forbidden : [];
+  if(!forbidden.length) return text;
+  let out = String(text||"");
+  // remove forbidden tokens (not obfuscation — compliance-oriented)
+  forbidden.forEach(tok=>{
+    if(!tok) return;
+    const esc = tok.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    out = out.replace(new RegExp(esc, "g"), "");
+  });
+  out = out.replace(/[ ]{2,}/g, " ").replace(/\n{3,}/g, "\n\n").trim();
+  return out;
+}
+
+function commentCtaLine(channelKey){
+  const ch = getPromoChannel(channelKey);
+  const medium = (ch && ch.medium) ? ch.medium : "community";
+  if(medium==="telegram"){
+    return "※ 링크 제한이 있으면 ‘88ST 링크’라고 남겨줘. (답글로 안내)";
+  }
+  return "※ 링크 제한이 있는 게시판이면 댓글로 ‘링크’라고 남기면 안내할게요.";
+}
 }
 
 function promoUtm(channelKey, styleKey){
@@ -5270,11 +5480,31 @@ function hashStr(s){
   return (h>>>0);
 }
 
-function shouldInsertVendor(items){
+function getVendorThresholds(){
+  const elM = document.getElementById("bundleVendorMargin");
+  const elE = document.getElementById("bundleVendorEv");
+  let m = null, e = null;
+  if(elM) m = parseFloat(elM.value);
+  if(elE) e = parseInt(elE.value, 10);
+  if(!(m>=0)){
+    const saved = localStorage.getItem(BUNDLE_PROMO_LS_VTHR_M);
+    if(saved!=null) m = parseFloat(saved);
+  }
+  if(!(e>=0)){
+    const saved = localStorage.getItem(BUNDLE_PROMO_LS_VTHR_EVC);
+    if(saved!=null) e = parseInt(saved,10);
+  }
+  if(!(m>=0)) m = 3.2;
+  if(!(e>=0)) e = 1;
+  return { marginMax:m, posEvMin:e };
+}
+
+function shouldInsertVendor(items, thr){
+  thr = thr || getVendorThresholds();
   const ms = (items||[]).map(it=> (typeof it.mainMarginPct==="number") ? it.mainMarginPct : null).filter(v=>v!=null);
   const min = ms.length ? Math.min(...ms) : null;
   const pos = (items||[]).filter(it=> typeof it.bestEVPct==="number" && it.bestEVPct > 0).length;
-  return (min!=null && min<=3.20) || (pos>=1);
+  return (min!=null && min<=thr.marginMax) || (pos>=thr.posEvMin);
 }
 
 function pickVendorId(channelKey){
@@ -5304,9 +5534,24 @@ function buildBundlePromo(items, opts){
   const elComp = document.getElementById("bundlePromoCompact");
   const elVend = document.getElementById("bundlePromoVendor");
   const elOneT = document.getElementById("bundlePromoOneTarget");
+  const elPreset = document.getElementById("bundlePromoPreset");
+  const elComm = document.getElementById("bundlePromoComment");
+
+  const presetOn  = !!(elPreset && elPreset.checked);
+  const commentOn = !!(elComm && elComm.checked);
+
 
   const channelKey = elCh ? elCh.value : "tochatsa";
-  const styleKey   = elSty ? elSty.value : "promo";
+  let styleKey   = elSty ? elSty.value : "promo";
+  // 채널 프리셋 자동 적용(옵션/정책)
+  try{
+    clearPresetEnforcement();
+    applyPresetToUI(channelKey, presetOn);
+  }catch(e){}
+
+  // 프리셋 적용 이후 값 동기화
+  const styleKey2   = elSty ? elSty.value : "promo";
+  styleKey = styleKey2;
   const linksMode  = elLn ? elLn.value : "top3";
   const shortUrl   = !!(elShort && elShort.checked);
   const compact    = !!(elComp && elComp.checked);
@@ -5360,7 +5605,7 @@ function buildBundlePromo(items, opts){
 
   // 조건부 업체 티저 1개
   let vendorInserted = false;
-  if(vendorOn && shouldInsertVendor(items)){
+  if(vendorOn && shouldInsertVendor(items, getVendorThresholds())){
     const vid = pickVendorId(channelKey);
     const vline = vendorLine(utm, shortUrl, allowVendorLink, vid);
     if(compact) lines.push(vline);
@@ -5428,6 +5673,7 @@ function buildBundlePromo(items, opts){
     text = text.replace(/\n{3,}/g,"\n\n").trim();
   }
 
+  text = sanitizePromoText(text, channelKey, presetOn);
   return { title: tpl.title, lead: tpl.lead, text, channelKey, styleKey, linksMode, shortUrl, compact, vendorInserted, oneTarget };
 }
 
@@ -5438,6 +5684,16 @@ function updateBundlePromo(items, opts){
   ta.value = p.text || "";
 }
 
+
+function toggleBundlePromoAdv(){
+  const box = document.getElementById("bundlePromoAdv");
+  const btn = document.getElementById("btnPromoAdv");
+  if(!box) return;
+  const isOpen = (box.style.display !== "none");
+  box.style.display = isOpen ? "none" : "";
+  if(btn) btn.textContent = isOpen ? "고급" : "고급 닫기";
+  try{ localStorage.setItem(BUNDLE_PROMO_LS_ADV_OPEN, (!isOpen)?"1":"0"); }catch(e){}
+}
 function regenBundlePromo(){
   try{
     const items = getBundleItems(10);
@@ -5487,6 +5743,14 @@ function setupBundlePromo(){
   const sh  = document.getElementById("bundlePromoShortUrl");
   const cp  = document.getElementById("bundlePromoCompact");
   const vd  = document.getElementById("bundlePromoVendor");
+  const ps  = document.getElementById("bundlePromoPreset");
+  const cm  = document.getElementById("bundlePromoComment");
+  const vM  = document.getElementById("bundleVendorMargin");
+  const vE  = document.getElementById("bundleVendorEv");
+  const vMv = document.getElementById("bundleVendorMarginVal");
+  const vEv = document.getElementById("bundleVendorEvVal");
+  const adv = document.getElementById("bundlePromoAdv");
+  const advBtn = document.getElementById("btnPromoAdv");
   if(!sel || !sty || !lnk) return;
 
   // options (only once)
@@ -5506,6 +5770,16 @@ function setupBundlePromo(){
   const savedComp  = localStorage.getItem(BUNDLE_PROMO_LS_COMPACT);
   const savedVend  = localStorage.getItem(BUNDLE_PROMO_LS_VENDOR);
   const savedOne   = localStorage.getItem(BUNDLE_PROMO_LS_ONE_TGT) || "analysis";
+  const savedPreset = localStorage.getItem(BUNDLE_PROMO_LS_PRESET);
+  const savedComm   = localStorage.getItem(BUNDLE_PROMO_LS_COMMENT);
+  const savedVM     = localStorage.getItem(BUNDLE_PROMO_LS_VTHR_M);
+  const savedVE     = localStorage.getItem(BUNDLE_PROMO_LS_VTHR_EVC);
+  const savedAdv    = localStorage.getItem(BUNDLE_PROMO_LS_ADV_OPEN);
+  const savedPreset= localStorage.getItem(BUNDLE_PROMO_LS_PRESET);
+  const savedComm  = localStorage.getItem(BUNDLE_PROMO_LS_COMMENT);
+  const savedVM    = localStorage.getItem(BUNDLE_PROMO_LS_VTHR_M);
+  const savedVE    = localStorage.getItem(BUNDLE_PROMO_LS_VTHR_EVC);
+  const savedAdv   = localStorage.getItem(BUNDLE_PROMO_LS_ADV_OPEN);
 
   if([...sel.options].some(o=>o.value===savedCh)) sel.value = savedCh;
 
@@ -5514,6 +5788,12 @@ function setupBundlePromo(){
   if(savedStyle && [...sty.options].some(o=>o.value===savedStyle)) sty.value = savedStyle;
   else sty.value = defStyle;
 
+  // 프리셋 자동 적용(초기)
+  try{
+    clearPresetEnforcement();
+    applyPresetToUI(sel.value, !!(ps && ps.checked));
+  }catch(e){}
+
   if([...lnk.options].some(o=>o.value===savedLinks)) lnk.value = savedLinks;
 
   if(one && [...one.options].some(o=>o.value===savedOne)) one.value = savedOne;
@@ -5521,6 +5801,53 @@ function setupBundlePromo(){
   if(sh) sh.checked = (savedShort==="1" || savedShort==="true");
   if(cp) cp.checked = (savedComp==="1"  || savedComp==="true");
   if(vd) vd.checked = (savedVend==null ? true : (savedVend==="1" || savedVend==="true"));
+  if(ps) ps.checked = (savedPreset==null ? true : (savedPreset==="1" || savedPreset==="true"));
+  if(cm) cm.checked = (savedComm==="1" || savedComm==="true");
+
+  // vendor thresholds
+  if(vM){
+    const vm = (savedVM!=null) ? parseFloat(savedVM) : parseFloat(vM.value);
+    if(vm>=0) vM.value = String(vm);
+    if(vMv) vMv.textContent = parseFloat(vM.value).toFixed(1);
+  }
+  if(vE){
+    const ve = (savedVE!=null) ? parseInt(savedVE,10) : parseInt(vE.value,10);
+    if(ve>=0) vE.value = String(ve);
+    if(vEv) vEv.textContent = String(parseInt(vE.value,10));
+  }
+
+  // advanced panel open state
+  if(adv){
+    const open = (savedAdv==="1" || savedAdv==="true");
+    adv.style.display = open ? "" : "none";
+    if(advBtn) advBtn.textContent = open ? "고급 닫기" : "고급";
+  }
+
+  // apply preset (initial)
+  try{
+    clearPresetEnforcement();
+    applyPresetToUI(sel.value, !!(ps && ps.checked));
+  }catch(e){}
+  if(ps) ps.checked = (savedPreset==null ? true : (savedPreset==="1" || savedPreset==="true"));
+  if(cm) cm.checked = (savedComm==="1" || savedComm==="true");
+  if(vM){
+    const vm = (savedVM!=null) ? parseFloat(savedVM) : parseFloat(vM.value);
+    if(vm>=0) vM.value = String(vm);
+  }
+  if(vE){
+    const ve = (savedVE!=null) ? parseInt(savedVE,10) : parseInt(vE.value,10);
+    if(ve>=0) vE.value = String(ve);
+  }
+  if(vMv && vM) vMv.textContent = parseFloat(vM.value).toFixed(1);
+  if(vEv && vE) vEv.textContent = String(parseInt(vE.value,10));
+  // 고급 패널 상태 복원
+  try{
+    const adv = document.getElementById("bundlePromoAdv");
+    const btn = document.getElementById("btnPromoAdv");
+    const open = (savedAdv==="1" || savedAdv==="true");
+    if(adv) adv.style.display = open ? "" : "none";
+    if(btn) btn.textContent = open ? "고급 닫기" : "고급";
+  }catch(e){}
 
   const refresh = (advanceVariant=false)=>{
     try{ localStorage.setItem(BUNDLE_PROMO_LS_CH, sel.value); }catch(e){}
@@ -5530,10 +5857,21 @@ function setupBundlePromo(){
     try{ if(cp) localStorage.setItem(BUNDLE_PROMO_LS_COMPACT,  cp.checked?"1":"0"); }catch(e){}
     try{ if(vd) localStorage.setItem(BUNDLE_PROMO_LS_VENDOR,   vd.checked?"1":"0"); }catch(e){}
     try{ if(one) localStorage.setItem(BUNDLE_PROMO_LS_ONE_TGT, one.value); }catch(e){}
+    try{ if(ps) localStorage.setItem(BUNDLE_PROMO_LS_PRESET, ps.checked?"1":"0"); }catch(e){}
+    try{ if(cm) localStorage.setItem(BUNDLE_PROMO_LS_COMMENT, cm.checked?"1":"0"); }catch(e){}
+    try{ if(vM) localStorage.setItem(BUNDLE_PROMO_LS_VTHR_M, String(parseFloat(vM.value))); }catch(e){}
+    try{ if(vE) localStorage.setItem(BUNDLE_PROMO_LS_VTHR_EVC, String(parseInt(vE.value,10))); }catch(e){}
+    try{ if(vMv && vM) vMv.textContent = parseFloat(vM.value).toFixed(1); }catch(e){}
+    try{ if(vEv && vE) vEv.textContent = String(parseInt(vE.value,10)); }catch(e){}
 
     if(one){
       one.style.display = (lnk.value==="one") ? "" : "none";
     }
+
+    try{
+      clearPresetEnforcement();
+      applyPresetToUI(sel.value, !!(ps && ps.checked));
+    }catch(e){}
 
     try{
       const items = getBundleItems(10);
@@ -5543,11 +5881,17 @@ function setupBundlePromo(){
 
   sel.addEventListener("change", ()=>{
     const ch2 = getPromoChannel(sel.value);
-    if(ch2 && ch2.defaultStyle) sty.value = ch2.defaultStyle;
+    const presetOn = !!(ps && ps.checked);
+    if(!presetOn && ch2 && ch2.defaultStyle) sty.value = ch2.defaultStyle;
     refresh(true);
   });
   sty.addEventListener("change", ()=>refresh(true));
-  lnk.addEventListener("change", ()=>refresh(true));
+  lnk.addEventListener("change", ()=>{
+    try{
+      if(cm && lnk.value==="none" && localStorage.getItem(BUNDLE_PROMO_LS_COMMENT)==null) cm.checked = true;
+    }catch(e){}
+    refresh(true);
+  });
   if(one) one.addEventListener("change", ()=>refresh(true));
   if(sh)  sh.addEventListener("change", ()=>refresh(true));
   if(cp)  cp.addEventListener("change", ()=>refresh(true));
