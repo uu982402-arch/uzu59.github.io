@@ -1659,9 +1659,8 @@ a{ color:inherit; }
 
 <script src="/assets/js/88st-analytics.js"></script>
 
-<!-- 88ST Theme Toggle (system/dark/light) -->
-<script src="/assets/88st-theme.js"></script>
-<link rel="stylesheet" href="/assets/88st-theme.css">
+<link rel="stylesheet" href="/assets/88st-theme.css?v=20260210">
+<script defer src="/assets/88st-theme.js?v=20260210"></script>
 </head>
 
 <body>
@@ -1817,7 +1816,7 @@ a{ color:inherit; }
       <div class="box" id="pasteBox">
         <div class="box-head">
           <div class="box-title" style="margin:0;">텍스트 붙여넣기 (자동 입력)</div>
-          <div class="toggle" onclick="toggleBox('pasteBody')">접기/펼치기</div>
+          <div class="toggle" data-target="pasteBody" onclick="toggleBox('pasteBody')">접기</div>
         </div>
         <div id="pasteBody">
           <div class="small-hint" style="margin-top:4px;">
@@ -1932,9 +1931,9 @@ a{ color:inherit; }
       <div class="box" id="lineCompareBox">
         <div class="box-head">
           <div class="box-title" style="margin:0;">라인 비교 (A vs B)</div>
-          <div class="toggle" onclick="toggleBox('lineCompareBody')">접기/펼치기</div>
+          <div class="toggle" data-target="lineCompareBody" onclick="toggleBox('lineCompareBody')">펼치기</div>
         </div>
-        <div id="lineCompareBody">
+        <div id="lineCompareBody" style="display:none;">
           <div class="small-hint" style="margin-top:4px;">
             두 업체(또는 두 라인) 배당을 넣고 <b>마진/공정배당</b>을 비교하세요. 같은 조건이면 마진이 낮은 쪽이 유리한 경우가 많습니다.
           </div>
@@ -2026,7 +2025,7 @@ a{ color:inherit; }
       <div class="box" id="handicapBox" style="display:none;">
         <div class="box-head">
           <div class="box-title" style="margin:0;">핸디캡 (선택 · 정밀 마진)</div>
-          <div class="toggle" onclick="toggleBox('handicapBody')">접기/펼치기</div>
+          <div class="toggle" data-target="handicapBody" onclick="toggleBox('handicapBody')">접기</div>
         </div>
         <div id="handicapBody">
           <div class="grid">
@@ -2057,7 +2056,7 @@ a{ color:inherit; }
       <div class="box" id="totalBox" style="display:none;">
         <div class="box-head">
           <div class="box-title" style="margin:0;">오버/언더 (선택 · 아시안 근사 지원)</div>
-          <div class="toggle" onclick="toggleBox('totalBody')">접기/펼치기</div>
+          <div class="toggle" data-target="totalBody" onclick="toggleBox('totalBody')">접기</div>
         </div>
         <div id="totalBody">
           <div class="grid">
@@ -2094,8 +2093,8 @@ a{ color:inherit; }
       <div class="input-warn" id="inputWarn" aria-live="polite"></div>
 
       <div class="actions">
-        <button class="btn primary" id="btnCalc" onclick="calc()">계산하기</button>
-        <button class="btn secondary" onclick="resetAll()">초기화</button>
+        <button type="button" class="btn primary" id="btnCalc" onclick="calc()">계산하기</button>
+        <button type="button" class="btn secondary" onclick="resetAll()">초기화</button>
       </div>
 
       <div class="note">
@@ -2647,6 +2646,7 @@ function loadState(){
 
     onSportChange(true);
     onLevelChange(true);
+  syncToggleLabels();
 
     setVal("league", s.league);
     setVal("teams", s.teams);
@@ -2992,7 +2992,14 @@ function applyTemplate(){
 function toggleBox(id){
   const now = isCollapsed(id);
   setCollapsed(id, !now);
-  saveState();
+  syncToggleLabels();
+  try{ saveState(); }catch(e){}
+}
+function syncToggleLabels(){
+  document.querySelectorAll('.toggle[data-target]').forEach(btn=>{
+    const tid = btn.getAttribute('data-target');
+    btn.textContent = isCollapsed(tid) ? "펼치기" : "접기";
+  });
 }
 function isCollapsed(id){
   const el = $(id);
@@ -4793,31 +4800,92 @@ function roundRect(ctx, x, y, w, h, r, fill, stroke){
   if(stroke) ctx.stroke();
 }
 
+
+function getActiveTheme(){
+  try{
+    const t = document.documentElement.dataset.theme;
+    if(t === "light" || t === "dark") return t;
+  }catch(e){}
+  return (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+}
+function getCssVar(name, fallback){
+  try{
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback || "";
+  }catch(e){ return fallback || ""; }
+}
+function normalizeRgb(v, fallback){
+  let s = String(v||"").trim();
+  if(!s) s = String(fallback||"");
+  s = s.replace(/[()]/g,"").trim();
+  // allow forms: "245,226,122" or "rgb(245 226 122)"
+  const nums = s.match(/\d+/g);
+  if(!nums || nums.length < 3) return String(fallback||"245,226,122");
+  return `${nums[0]},${nums[1]},${nums[2]}`;
+}
+function rgbaFrom(rgb, a){
+  return `rgba(${rgb},${a})`;
+}
+function rgbaAccent(a){
+  const rgb = normalizeRgb(getCssVar("--accent-rgb", getCssVar("--accentRGB","245,226,122")), "245,226,122");
+  return rgbaFrom(rgb, a);
+}
+function rgbaBlue(a){
+  const rgb = normalizeRgb(getCssVar("--blue-rgb","90,160,255"), "90,160,255");
+  return rgbaFrom(rgb, a);
+}
+function palette(){
+  const t = getActiveTheme();
+  if(t === "light"){
+    return {
+      t,
+      bg0:"#ffffff", bg1:"#f2f6ff", bg2:"#ffffff",
+      cardFill:"rgba(0,0,0,0.035)",
+      cardStroke:"rgba(18,20,28,0.10)",
+      text:"rgba(18,20,28,0.92)",
+      text2:"rgba(18,20,28,0.76)",
+      text3:"rgba(18,20,28,0.60)",
+    };
+  }
+  return {
+    t,
+    bg0:"#0b0b0b", bg1:"#121212", bg2:"#07070a",
+    cardFill:"rgba(255,255,255,0.06)",
+    cardStroke:"rgba(255,255,255,0.10)",
+    text:"rgba(255,255,255,0.92)",
+    text2:"rgba(255,255,255,0.80)",
+    text3:"rgba(255,255,255,0.55)",
+  };
+}
+
+
 function drawShareCard(){
   const canvas = document.getElementById("shareCardCanvas");
   if(!canvas) return;
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
 
+  const pal = palette();
+
   // bg
   const g = ctx.createLinearGradient(0,0,W,H);
-  g.addColorStop(0, "#0b0b0b");
-  g.addColorStop(0.55, "#121212");
-  g.addColorStop(1, "#07070a");
+  g.addColorStop(0, pal.bg0);
+  g.addColorStop(0.55, pal.bg1);
+  g.addColorStop(1, pal.bg2);
   ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
 
   // glow
-  ctx.fillStyle = "rgba(var(--accentRGB),0.12)";
+  ctx.fillStyle = rgbaAccent(pal.t === "light" ? 0.10 : 0.12);
   ctx.beginPath(); ctx.arc(W*0.60, H*0.15, 330, 0, Math.PI*2); ctx.fill();
-  ctx.fillStyle = "rgba(90,160,255,0.08)";
+  ctx.fillStyle = rgbaBlue(pal.t === "light" ? 0.06 : 0.08);
   ctx.beginPath(); ctx.arc(W*0.18, H*0.25, 260, 0, Math.PI*2); ctx.fill();
 
   // card
   const pad = 70;
   const r = 34;
-  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.fillStyle = pal.cardFill;
   roundRect(ctx, pad, pad, W-pad*2, H-pad*2, r, true, false);
-  ctx.strokeStyle = "rgba(255,255,255,0.10)";
+  ctx.strokeStyle = pal.cardStroke;
   ctx.lineWidth = 2;
   roundRect(ctx, pad, pad, W-pad*2, H-pad*2, r, false, true);
 
@@ -4826,7 +4894,7 @@ function drawShareCard(){
   ctx.font = "900 54px system-ui, -apple-system, Segoe UI, Roboto";
   ctx.fillText("88 분석 결과", pad+40, pad+95);
 
-  ctx.fillStyle = "rgba(255,255,255,0.80)";
+  ctx.fillStyle = pal.text2;
   ctx.font = "700 28px system-ui, -apple-system, Segoe UI, Roboto";
   const ts = new Date();
   ctx.fillText(ts.toLocaleString("ko-KR"), pad+40, pad+145);
@@ -4837,7 +4905,7 @@ function drawShareCard(){
     const sumRaw = (LAST_ONE_LINE || "").replace(/^요약\s*:\s*/,"").trim();
     if(sumRaw){
       const sum = sumRaw.length > 70 ? (sumRaw.slice(0,70) + "…") : sumRaw;
-      ctx.fillStyle = "rgba(255,255,255,0.92)";
+      ctx.fillStyle = pal.text;
       ctx.font = "900 24px system-ui, -apple-system, Segoe UI, Roboto";
       ctx.fillText(sum, pad+40, pad+240);
       hasSummary = true;
@@ -4852,9 +4920,9 @@ function drawShareCard(){
   }catch(e){}
   if(badgeText){
     const bx = pad+40, by = pad+170, bw = 340, bh = 54;
-    ctx.fillStyle = "rgba(var(--accentRGB),0.18)";
+    ctx.fillStyle = rgbaAccent(0.18);
     roundRect(ctx, bx, by, bw, bh, 999, true, false);
-    ctx.strokeStyle = "rgba(var(--accentRGB),0.35)";
+    ctx.strokeStyle = rgbaAccent(0.35);
     ctx.lineWidth = 2;
     roundRect(ctx, bx, by, bw, bh, 999, false, true);
     ctx.fillStyle = "#fff";
@@ -4865,7 +4933,7 @@ function drawShareCard(){
   // lines
   const lines = extractResultLines().slice(0, 12);
   let y = hasSummary ? (pad + 310) : (pad + 270);
-  ctx.fillStyle = "rgba(255,255,255,0.92)";
+  ctx.fillStyle = pal.text;
   ctx.font = "800 30px system-ui, -apple-system, Segoe UI, Roboto";
   lines.forEach((line)=>{
     const txt = line.length > 46 ? (line.slice(0,46) + "…") : line;
@@ -4874,11 +4942,11 @@ function drawShareCard(){
   });
 
   // footer
-  ctx.fillStyle = "rgba(255,255,255,0.75)";
+  ctx.fillStyle = pal.text2;
   ctx.font = "800 26px system-ui, -apple-system, Segoe UI, Roboto";
   ctx.fillText("링크: " + getShareLink(), pad+40, H - pad - 70);
 
-  ctx.fillStyle = "rgba(255,255,255,0.55)";
+  ctx.fillStyle = pal.text3;
   ctx.font = "700 22px system-ui, -apple-system, Segoe UI, Roboto";
   ctx.fillText("※ 판단 보조용 / 결과를 보장하지 않습니다.", pad+40, H - pad - 30);
 }
@@ -5026,24 +5094,26 @@ function drawBundleCard(items){
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
 
+  const pal = palette();
+
   // bg
   const bg = ctx.createLinearGradient(0,0,W,H);
-  bg.addColorStop(0, "#0b0b0b");
-  bg.addColorStop(0.55, "#121212");
-  bg.addColorStop(1, "#07070a");
+  bg.addColorStop(0, pal.bg0);
+  bg.addColorStop(0.55, pal.bg1);
+  bg.addColorStop(1, pal.bg2);
   ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
 
   // glow
-  ctx.fillStyle = "rgba(var(--accentRGB),0.12)";
+  ctx.fillStyle = rgbaAccent(pal.t === "light" ? 0.10 : 0.12);
   ctx.beginPath(); ctx.arc(W*0.62, H*0.18, 330, 0, Math.PI*2); ctx.fill();
-  ctx.fillStyle = "rgba(90,160,255,0.08)";
+  ctx.fillStyle = rgbaBlue(pal.t === "light" ? 0.06 : 0.08);
   ctx.beginPath(); ctx.arc(W*0.18, H*0.28, 260, 0, Math.PI*2); ctx.fill();
 
   const pad = 70;
   const r = 34;
-  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.fillStyle = pal.cardFill;
   roundRect(ctx, pad, pad, W-pad*2, H-pad*2, r, true, false);
-  ctx.strokeStyle = "rgba(255,255,255,0.10)";
+  ctx.strokeStyle = pal.cardStroke;
   ctx.lineWidth = 2;
   roundRect(ctx, pad, pad, W-pad*2, H-pad*2, r, false, true);
 
@@ -5052,7 +5122,7 @@ function drawBundleCard(items){
   ctx.font = "900 50px system-ui, -apple-system, Segoe UI, Roboto";
   ctx.fillText("88 오늘 수집", pad+40, pad+92);
 
-  ctx.fillStyle = "rgba(255,255,255,0.82)";
+  ctx.fillStyle = pal.text2;
   ctx.font = "800 26px system-ui, -apple-system, Segoe UI, Roboto";
   ctx.fillText(`${todayStr()} · 마진 낮은 순 TOP${items.length}`, pad+40, pad+140);
 
@@ -5060,7 +5130,7 @@ function drawBundleCard(items){
   const top3 = bundleTop3OneLine(items);
   let baseY = pad + 210;
   if(top3){
-    ctx.fillStyle = "rgba(255,255,255,0.72)";
+    ctx.fillStyle = pal.text3;
     ctx.font = "900 22px system-ui, -apple-system, Segoe UI, Roboto";
     const t = truncateText(top3, 54);
     ctx.fillText(t, pad+40, pad+178);
@@ -5092,7 +5162,7 @@ function drawBundleCard(items){
   ctx.font = "800 24px system-ui, -apple-system, Segoe UI, Roboto";
   ctx.fillText("88st.cloud/analysis", pad+40, H - pad - 58);
 
-  ctx.fillStyle = "rgba(255,255,255,0.55)";
+  ctx.fillStyle = pal.text3;
   ctx.font = "700 20px system-ui, -apple-system, Segoe UI, Roboto";
   ctx.fillText("※ 텍스트에 각 경기 복원 링크 포함", pad+40, H - pad - 28);
 }
@@ -5159,6 +5229,19 @@ function closeBundleShare(){
   const modal = document.getElementById("bundleShareModal");
   if(modal) modal.style.display = "none";
 }
+
+
+// Theme change → redraw share cards (light/dark)
+window.addEventListener("88st:theme", ()=>{
+  try{ drawShareCard(); }catch(e){}
+  try{
+    const m = document.getElementById("bundleShareModal");
+    if(m && m.style && m.style.display === "flex"){
+      drawBundleCard(getBundleItems(10));
+    }
+  }catch(e){}
+});
+
 
 async function copyBundleText(){
   const ta = document.getElementById("bundleText");
@@ -6069,6 +6152,7 @@ function addHistory(rec){
   }catch(e){}
 
   renderHistory();
+  syncToggleLabels();
 }
 function clearHistory(){
   if(!confirm("히스토리를 모두 삭제할까요?")) return;

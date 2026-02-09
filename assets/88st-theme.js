@@ -1,235 +1,155 @@
-/*
-  88ST Theme Toggle
-  - Modes: system / dark / light
-  - Persistence: localStorage key '88st_theme_mode'
-  - Applies resolved theme on <html data-theme="..."> and stores mode on data-theme-mode
-  - Injects a small floating control on every page
-*/
+/* 88ST Theme Toggle — System/Dark/Light (saved) + auto docking */
 (function(){
-  "use strict";
+  const KEY = "88st_theme_mode_v1"; // system|dark|light
+  const root = document.documentElement;
 
-  var KEY = "88st_theme_mode";
-  var docEl = document.documentElement;
-  var mql = null;
-  try { mql = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null; } catch(e) { mql = null; }
-
-  function safeGet(){
-    try { return localStorage.getItem(KEY); } catch(e) { return null; }
-  }
-  function safeSet(v){
-    try { localStorage.setItem(KEY, v); } catch(e) {}
-  }
+  function getSaved(){ return localStorage.getItem(KEY) || "system"; }
+  function save(v){ localStorage.setItem(KEY, v); }
+  function prefersDark(){ return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches; }
 
   function resolve(mode){
-    if(mode === "dark" || mode === "light") return mode;
-    // system
-    var prefersDark = mql ? !!mql.matches : false;
-    return prefersDark ? "dark" : "light";
+    if(mode === "dark") return "dark";
+    if(mode === "light") return "light";
+    return prefersDark() ? "dark" : "light";
   }
 
-  function apply(mode){
-    var resolved = resolve(mode);
-    docEl.setAttribute("data-theme", resolved);
-    docEl.setAttribute("data-theme-mode", mode);
+  function setTheme(mode){
+    const theme = resolve(mode);
+    root.classList.add("_themeTransition");
+    window.setTimeout(()=>root.classList.remove("_themeTransition"), 260);
+
+    root.dataset.theme = theme;
+    root.dataset.themeMode = mode;
+    updateToggleLabel();
+    dockToggle();
+    try{ window.dispatchEvent(new CustomEvent('88st:theme', {detail:{theme: theme, mode: mode}})); }catch(e){}
   }
 
-  function nextMode(cur){
-    if(cur === "system") return "dark";
-    if(cur === "dark") return "light";
+  function cycle(mode){
+    if(mode === "system") return "dark";
+    if(mode === "dark") return "light";
     return "system";
   }
 
-  // Early apply (avoid flash)
-  var mode = safeGet();
-  if(mode !== "dark" && mode !== "light" && mode !== "system") mode = "system";
-  apply(mode);
-
-  // Keep in sync with OS theme when in system mode
-  function onSystemChange(){
-    var now = safeGet();
-    if((now || "system") !== "system") return;
-    apply("system");
-    updateUI();
+  function iconFor(theme){
+    return theme === "light" ? "☀️" : "🌙";
   }
-  if(mql && mql.addEventListener){
-    mql.addEventListener("change", onSystemChange);
-  } else if(mql && mql.addListener){
-    mql.addListener(onSystemChange);
-  }
-
-  // UI injection
-  var btn = null;
-  function iconFor(resolved){
-    return resolved === "light" ? "☀️" : "🌙";
-  }
-  function labelFor(mode, resolved){
-    if(mode === "system") return "자동";
-    return resolved === "light" ? "라이트" : "다크";
-  }
-  function modeHint(mode){
+  function labelFor(mode){
     if(mode === "system") return "SYSTEM";
-    return mode.toUpperCase();
+    if(mode === "dark") return "DARK";
+    return "LIGHT";
   }
 
-  function ensureButton(){
-    if(btn) return;
-    btn = document.getElementById("stThemeToggle");
-    if(btn) return;
+  function ensureToggle(){
+    if(document.getElementById("_88stThemeToggle")) return;
+    const btn = document.createElement("div");
+    btn.id = "_88stThemeToggle";
+    btn.setAttribute("role","button");
+    btn.setAttribute("aria-label","테마 변경");
+    btn.innerHTML = `
+      <div class="icon" aria-hidden="true">🌙</div>
+      <div style="display:flex;flex-direction:column;gap:2px;line-height:1;">
+        <div class="label">테마</div>
+        <div class="mode">SYSTEM</div>
+      </div>
+    `;
+    btn.addEventListener("click", ()=>{
+      const current = getSaved();
+      const next = cycle(current);
+      save(next);
+      setTheme(next);
+    });
+    btn.addEventListener("contextmenu", (e)=>{
+      e.preventDefault();
+      save("system");
+      setTheme("system");
+    });
+    document.body.appendChild(btn);
+  }
 
-    btn = document.createElement("button");
-    btn.id = "stThemeToggle";
-    btn.type = "button";
-    btn.setAttribute("aria-label", "테마 변경 (자동/다크/라이트)");
-    btn.innerHTML =
-      '<span class="stIcon" aria-hidden="true">🌙</span>' +
-      '<span class="stLabel">테마</span>' +
-      '<span class="stMode">SYSTEM</span>';
+  function updateToggleLabel(){
+    const btn = document.getElementById("_88stThemeToggle");
+    if(!btn) return;
+    const theme = root.dataset.theme || "dark";
+    const mode = root.dataset.themeMode || "system";
+    const icon = btn.querySelector(".icon");
+    const modeEl = btn.querySelector(".mode");
+    if(icon) icon.textContent = iconFor(theme);
+    if(modeEl) modeEl.textContent = labelFor(mode);
+  }
 
-    // Avoid interfering with page layout; append to body
-    (document.body || docEl).appendChild(btn);
+  // Docking: avoid overlapping with bottom fixed UI (FAB, dock, CTA bar)
+  function dockToggle(){
+    const btn = document.getElementById("_88stThemeToggle");
+    if(!btn) return;
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const base = 18; // px
+    let extra = 0;
 
-    btn.addEventListener("click", function(){
-      var cur = safeGet();
-      if(cur !== "dark" && cur !== "light" && cur !== "system") cur = "system";
-      var nm = nextMode(cur);
-      safeSet(nm);
-      apply(nm);
-      updateUI();
-      toast(nm);
+    const selectors = [
+      ".fab", ".floating-fab", ".floating-actions", ".floating-buttons",
+      "#bottomDock", ".cta-dock", ".dock", ".bottom-dock", ".action-dock",
+      ".stickyDock", ".analysisDock", ".fixedDock", ".fixed-dock", ".dock-wrap"
+    ];
+
+    const candidates = [];
+    selectors.forEach(sel=>{
+      document.querySelectorAll(sel).forEach(el=>candidates.push(el));
     });
 
-    // Right click: reset to system
-    btn.addEventListener("contextmenu", function(ev){
-      ev.preventDefault();
-      safeSet("system");
-      apply("system");
-      updateUI();
-      toast("system");
-      return false;
+    candidates.forEach(el=>{
+      const st = getComputedStyle(el);
+      if(st.display === "none" || st.visibility === "hidden" || st.opacity === "0") return;
+      if(st.position !== "fixed") return;
+      const rect = el.getBoundingClientRect();
+      if(rect.height < 24) return;
+      // Only consider elements occupying bottom band
+      if(rect.bottom > (vh - 4) && rect.top > (vh - 320)){
+        const needed = Math.max(0, vh - rect.top + 12);
+        extra = Math.max(extra, needed);
+      }
     });
+
+    btn.style.bottom = `calc(${base + extra}px + env(safe-area-inset-bottom, 0px))`;
   }
 
-  // Avoid overlapping with page-specific fixed docks (analysis/action bars, etc.)
-  function adjustForDock(){
-    if(!btn) return;
-    try{
-      var extra = 0;
-      var candidates = [
-        document.getElementById("mobileDock"),
-        document.getElementById("resultDock"),
-        document.querySelector(".mobile-dock"),
-        document.querySelector(".result-dock"),
-        document.querySelector(".cta-dock"),
-        document.querySelector(".dock"),
-      ].filter(Boolean);
-
-      for(var i=0;i<candidates.length;i++){
-        var el = candidates[i];
-        var cs = window.getComputedStyle(el);
-        if(!cs) continue;
-        if(cs.display === "none" || cs.visibility === "hidden" || cs.opacity === "0") continue;
-        // only consider fixed/sticky elements that could collide near bottom
-        var pos = cs.position;
-        if(pos !== "fixed" && pos !== "sticky") continue;
-        var r = el.getBoundingClientRect();
-        if(r.height <= 10) continue;
-        // If it lives near the bottom, reserve space
-        if(r.bottom > (window.innerHeight - 30)){
-          extra = Math.max(extra, Math.min(120, r.height));
-        }
-      }
-
-      var base = 14;
-      var px = base + (extra ? (extra + 10) : 0);
-      btn.style.bottom = "calc(" + px + "px + env(safe-area-inset-bottom))";
-    } catch(e) {}
+  function initMetaThemeColor(){
+    // Helps mobile address bar match theme
+    const ensure = (content, media)=>{
+      const m = document.createElement("meta");
+      m.name = "theme-color";
+      m.content = content;
+      if(media) m.media = media;
+      document.head.appendChild(m);
+    };
+    // Add only if not already present
+    const existing = Array.from(document.querySelectorAll('meta[name="theme-color"]'));
+    if(existing.length === 0){
+      ensure("#0b0c10", "(prefers-color-scheme: dark)");
+      ensure("#f6f8ff", "(prefers-color-scheme: light)");
+    }
   }
 
-  var toastEl = null;
-  var toastTimer = null;
-  function toast(mode){
-    try{
-      if(!toastEl){
-        toastEl = document.createElement("div");
-        toastEl.id = "stThemeToast";
-        toastEl.style.position = "fixed";
-        toastEl.style.right = "14px";
-        toastEl.style.bottom = "64px";
-        toastEl.style.zIndex = "9999";
-        toastEl.style.padding = "10px 12px";
-        toastEl.style.borderRadius = "14px";
-        toastEl.style.border = "1px solid rgba(255,255,255,.16)";
-        toastEl.style.background = "rgba(20,20,24,.55)";
-        toastEl.style.backdropFilter = "blur(10px)";
-        toastEl.style.webkitBackdropFilter = "blur(10px)";
-        toastEl.style.color = "rgba(255,255,255,.92)";
-        toastEl.style.fontWeight = "900";
-        toastEl.style.fontSize = "12px";
-        toastEl.style.opacity = "0";
-        toastEl.style.transform = "translateY(6px)";
-        toastEl.style.transition = "opacity .18s ease, transform .18s ease";
-        (document.body || docEl).appendChild(toastEl);
-      }
-
-      var resolved = resolve(mode);
-      var txt = (mode === "system" ? "자동" : (mode === "dark" ? "다크" : "라이트")) + " · " + (resolved === "light" ? "라이트 적용" : "다크 적용");
-      toastEl.textContent = txt + " (우클릭=자동)";
-
-      // Light theme tweaks for toast
-      if(docEl.getAttribute("data-theme") === "light"){
-        toastEl.style.border = "1px solid rgba(10,20,30,.12)";
-        toastEl.style.background = "rgba(255,255,255,.78)";
-        toastEl.style.color = "rgba(10,18,26,.92)";
-      } else {
-        toastEl.style.border = "1px solid rgba(255,255,255,.16)";
-        toastEl.style.background = "rgba(20,20,24,.55)";
-        toastEl.style.color = "rgba(255,255,255,.92)";
-      }
-
-      clearTimeout(toastTimer);
-      requestAnimationFrame(function(){
-        toastEl.style.opacity = "1";
-        toastEl.style.transform = "translateY(0)";
-      });
-      toastTimer = setTimeout(function(){
-        toastEl.style.opacity = "0";
-        toastEl.style.transform = "translateY(6px)";
-      }, 1400);
-    } catch(e) {}
+  function bindSystemListener(){
+    if(!window.matchMedia) return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = ()=>{
+      if(getSaved() === "system") setTheme("system");
+    };
+    if(mq.addEventListener) mq.addEventListener("change", handler);
+    else if(mq.addListener) mq.addListener(handler);
   }
 
-  function updateUI(){
-    if(!btn) return;
-    var curMode = safeGet();
-    if(curMode !== "dark" && curMode !== "light" && curMode !== "system") curMode = "system";
-    var resolved = docEl.getAttribute("data-theme") || resolve(curMode);
-    var icon = iconFor(resolved);
-    var label = labelFor(curMode, resolved);
-
-    var iconEl = btn.querySelector(".stIcon");
-    var modeEl = btn.querySelector(".stMode");
-    var labelEl = btn.querySelector(".stLabel");
-    if(iconEl) iconEl.textContent = icon;
-    if(labelEl) labelEl.textContent = "테마";
-    if(modeEl) modeEl.textContent = modeHint(curMode) + " · " + label;
-
-    btn.setAttribute("title", "클릭: 자동→다크→라이트 순환 / 우클릭: 자동");
-    btn.setAttribute("aria-pressed", resolved === "dark" ? "true" : "false");
+  function boot(){
+    ensureToggle();
+    initMetaThemeColor();
+    bindSystemListener();
+    setTheme(getSaved());
+    window.addEventListener("resize", dockToggle);
+    window.addEventListener("orientationchange", dockToggle);
+    window.addEventListener("scroll", ()=>{ window.requestAnimationFrame(dockToggle); }, {passive:true});
   }
 
-  function init(){
-    ensureButton();
-    updateUI();
-    adjustForDock();
-    // Re-check after layout settles (some docks appear after calculation)
-    setTimeout(adjustForDock, 350);
-    setTimeout(adjustForDock, 1200);
-    window.addEventListener("resize", function(){ setTimeout(adjustForDock, 120); });
-  }
-
-  if(document.readyState === "complete" || document.readyState === "interactive"){
-    init();
-  } else {
-    document.addEventListener("DOMContentLoaded", init);
-  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
 })();
