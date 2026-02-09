@@ -867,6 +867,25 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   min-height:140px;
 }
 
+.bundle-switch{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.06);
+  border-radius:999px;
+  font-size:12px;
+  color:rgba(255,255,255,.92);
+  cursor:pointer;
+  user-select:none;
+}
+.bundle-switch input{
+  width:14px; height:14px;
+  accent-color:#d4af37;
+}
+.bundle-switch span{ font-weight:900; }
+
 @media (max-width:560px){
   body{ padding-bottom: calc(env(safe-area-inset-bottom) + 72px); }
   .mobile-dock{
@@ -2191,14 +2210,33 @@ a{ color:inherit; }
         <option value="tg">텔레그램형</option>
       </select>
       <select id="bundlePromoLinks" class="inp mini" aria-label="링크 범위 선택">
-        <option value="top3">링크 TOP3만(권장)</option>
+        <option value="top3">링크 TOP3(권장)</option>
         <option value="top5">링크 TOP5</option>
         <option value="all">링크 전체</option>
+        <option value="one">링크 1개만</option>
+        <option value="none">링크 0개</option>
       </select>
+      <select id="bundlePromoOneTarget" class="inp mini" aria-label="링크 1개 대상" style="display:none;">
+        <option value="analysis">분석기 링크</option>
+        <option value="vendor">업체 카드 링크</option>
+      </select>
+      <label class="bundle-switch" title="UTM을 제거하고 https://를 생략해 URL을 짧게 표시합니다. (추적 정확도는 낮아질 수 있어요)">
+        <input type="checkbox" id="bundlePromoShortUrl">
+        <span>URL 줄이기</span>
+      </label>
+      <label class="bundle-switch" title="줄바꿈을 최소화해 게시판 규칙/필터에 더 잘 맞게 만듭니다.">
+        <input type="checkbox" id="bundlePromoCompact">
+        <span>줄바꿈 최소</span>
+      </label>
+      <label class="bundle-switch" title="마진 낮음 또는 +EV 조건을 만족할 때만 업체 티저 1개를 포함합니다.">
+        <input type="checkbox" id="bundlePromoVendor" checked>
+        <span>업체 1개(조건부)</span>
+      </label>
+      <button class="btn ghost mini" type="button" onclick="regenBundlePromo()" title="문구 변형(3종) 중 다음 템플릿으로 바꿉니다">새 문구</button>
     </div>
   </div>
   <div class="small-hint" style="margin-top:8px;">
-    채널/톤을 바꾸면 홍보 문구가 자동 생성됩니다. (링크는 <b>결과 복원(st)</b> 링크)
+    채널/톤/옵션을 바꾸면 홍보 문구가 자동 생성됩니다. (게시판 규칙에 맞춰 링크 0~전체/URL 짧게/줄바꿈 최소를 선택 가능)
   </div>
   <textarea id="bundlePromoText" class="bundle-ta bundle-ta--promo" readonly></textarea>
   <div class="history-toolbar" style="margin-top:10px;">
@@ -5058,21 +5096,26 @@ async function copyBundleLinks(){
 
 
 /* ===== 묶음 홍보글(채널/톤) 자동 생성 ===== */
-const BUNDLE_PROMO_LS_CH = "88_bundle_promo_channel";
-const BUNDLE_PROMO_LS_STYLE = "88_bundle_promo_style";
-const BUNDLE_PROMO_LS_LINKS = "88_bundle_promo_links";
+const BUNDLE_PROMO_LS_CH        = "88_bundle_promo_channel";
+const BUNDLE_PROMO_LS_STYLE     = "88_bundle_promo_style";
+const BUNDLE_PROMO_LS_LINKS     = "88_bundle_promo_links";
+const BUNDLE_PROMO_LS_SHORTURL  = "88_bundle_promo_short_url";
+const BUNDLE_PROMO_LS_COMPACT   = "88_bundle_promo_compact";
+const BUNDLE_PROMO_LS_VENDOR    = "88_bundle_promo_vendor";
+const BUNDLE_PROMO_LS_ONE_TGT   = "88_bundle_promo_one_target";
+const BUNDLE_PROMO_LS_VAR       = "88_bundle_promo_variant";
 
 const BUNDLE_PROMO_CHANNELS = [
-  { key:"tochatsa",       label:"토찾사",             source:"tochatsa",       medium:"community", defaultStyle:"promo" },
-  { key:"toto_hot",       label:"토토핫",             source:"toto_hot",       medium:"community", defaultStyle:"promo" },
-  { key:"mt_dajava",      label:"먹튀다자바",         source:"mt_dajava",      medium:"community", defaultStyle:"info"  },
-  { key:"meokjab",        label:"먹잡",               source:"meokjab",        medium:"community", defaultStyle:"info"  },
-  { key:"toto_town",      label:"토토타운",           source:"toto_town",      medium:"community", defaultStyle:"promo" },
-  { key:"chongpan_guard", label:"총판구조대",         source:"chongpan_guard", medium:"community", defaultStyle:"promo" },
-  { key:"powerball_auto", label:"파워볼오토",         source:"powerball_auto", medium:"community", defaultStyle:"promo" },
-  { key:"daumde",         label:"다음드",             source:"daumde",         medium:"community", defaultStyle:"promo" },
-  { key:"tg_freepromo",   label:"텔레그램 토토자유홍보방", source:"tg_freepromo", medium:"telegram", defaultStyle:"tg" },
-  { key:"etc",            label:"기타",               source:"etc",            medium:"community", defaultStyle:"promo" }
+  { key:"tochatsa",       label:"토찾사",                 source:"tochatsa",       medium:"community", defaultStyle:"promo" },
+  { key:"toto_hot",       label:"토토핫",                 source:"toto_hot",       medium:"community", defaultStyle:"promo" },
+  { key:"mt_dajava",      label:"먹튀다자바",             source:"mt_dajava",      medium:"community", defaultStyle:"info"  },
+  { key:"meokjab",        label:"먹잡",                   source:"meokjab",        medium:"community", defaultStyle:"info"  },
+  { key:"toto_town",      label:"토토타운",               source:"toto_town",      medium:"community", defaultStyle:"promo" },
+  { key:"chongpan_guard", label:"총판구조대",             source:"chongpan_guard", medium:"community", defaultStyle:"promo" },
+  { key:"powerball_auto", label:"파워볼오토",             source:"powerball_auto", medium:"community", defaultStyle:"promo" },
+  { key:"daumde",         label:"다음드",                 source:"daumde",         medium:"community", defaultStyle:"promo" },
+  { key:"tg_freepromo",   label:"텔레그램 토토자유홍보방", source:"tg_freepromo",   medium:"telegram",  defaultStyle:"tg" },
+  { key:"etc",            label:"기타",                   source:"etc",            medium:"community", defaultStyle:"promo" }
 ];
 
 function getPromoChannel(key){
@@ -5110,92 +5153,307 @@ function applyUtmToUrl(raw, utm){
   }catch(e){ return raw; }
 }
 
-function promoTitle(styleKey, n){
+function fmtUrlForBoard(raw, shortUrl){
+  if(!raw) return "";
+  let url = String(raw);
+  if(shortUrl){
+    url = stripUtmFromUrl(url);
+    url = url.replace(/^https?:\/\//i, "");
+    url = url.replace(/\/$/,"");
+  }
+  return url;
+}
+
+// === 3종 템플릿 자동 랜덤(중복 방지) ===
+const PROMO_VARIANTS = 3;
+const PROMO_TEMPLATES = {
+  promo:{
+    titles:[
+      (n,d)=>`무료 배당분석기 · 오늘 마진 낮은 경기 TOP${n} (복원 링크)`,
+      (n,d)=>`[무료] 오버라운드(마진) 낮은 경기 TOP${n} · ${d}`,
+      (n,d)=>`마진 낮은 배당만 빠르게 정리 (TOP${n}) · ${d}`
+    ],
+    leads:[
+      ()=>`배당 2~3개 입력하면 마진/공정배당/EV를 한 번에 정리합니다. 아래는 오늘 수집(마진 낮은 순)입니다.`,
+      ()=>`예측이 아니라 “판단 비용 절감”용 정리입니다. 링크를 열면 입력/결과가 그대로 복원됩니다.`,
+      ()=>`커뮤니티에 근거 남기기 편하게 만들었습니다. 텍스트 붙여넣기 → 자동 계산/저장됩니다.`
+    ],
+    headers:[
+      (n)=>`오늘 수집 ${n}경기 (마진 낮은 순)`,
+      (n)=>`오늘 정리 ${n}경기 · 마진 기준`,
+      (n)=>`오늘 TOP${n} · 마진 정렬`
+    ]
+  },
+  info:{
+    titles:[
+      (n,d)=>`오버라운드(마진) 낮은 경기 TOP${n} 정리 · ${d}`,
+      (n,d)=>`배당 ‘비용(마진)’ 낮은 라인 모음(TOP${n}) · ${d}`,
+      (n,d)=>`마진/공정배당/EV 빠른 체크(TOP${n}) · ${d}`
+    ],
+    leads:[
+      ()=>`마진(오버라운드)이 낮을수록 동일 배당에서도 비용이 적은 편입니다. 아래 링크는 열면 동일 결과가 복원됩니다.`,
+      ()=>`배당을 ‘예측’하는 게 아니라, 숫자로 정리해서 판단을 빠르게 하는 도구입니다. 복원 링크 포함.`,
+      ()=>`마진/공정배당/EV를 한 번에 계산합니다. 커뮤니티 공유용으로 복원 링크를 같이 붙였습니다.`
+    ],
+    headers:[
+      (n)=>`TOP${n} (마진 낮은 순)`,
+      (n)=>`오늘 체크한 TOP${n}`,
+      (n)=>`마진 기준 TOP${n}`
+    ]
+  },
+  tg:{
+    titles:[
+      (n,d)=>`무료 배당 마진(오버라운드) · 오늘 TOP${n} (복원 링크)`,
+      (n,d)=>`오늘 경기 정리 TOP${n} · 마진/EV (복원 링크)`,
+      (n,d)=>`텍스트 붙여넣기 수집 · 오늘 TOP${n} (복원 링크)`
+    ],
+    leads:[
+      ()=>`텍스트 붙여넣기로 수집한 오늘 경기들입니다. 링크 열면 결과 그대로 복원됩니다.`,
+      ()=>`무료 분석기: 마진/공정배당/EV 정리용. 아래는 오늘 수집 TOP입니다.`,
+      ()=>`오늘 체크용으로 정리해둔 리스트 공유합니다. 복원 링크 포함.`
+    ],
+    headers:[
+      (n)=>`오늘 TOP${n} (마진 낮은 순)`,
+      (n)=>`TOP${n} 리스트`,
+      (n)=>`오늘 수집 TOP${n}`
+    ]
+  }
+};
+
+function nextPromoVariant(){
+  let prev = 0;
+  try{ prev = parseInt(localStorage.getItem(BUNDLE_PROMO_LS_VAR)||"0",10) || 0; }catch(e){ prev=0; }
+  const r = Math.floor(Math.random()*PROMO_VARIANTS);
+  const v = (r===prev) ? ((r+1)%PROMO_VARIANTS) : r;
+  try{ localStorage.setItem(BUNDLE_PROMO_LS_VAR, String(v)); }catch(e){}
+  return v;
+}
+function currentPromoVariant(){
+  let v = 0;
+  try{ v = parseInt(localStorage.getItem(BUNDLE_PROMO_LS_VAR)||"0",10) || 0; }catch(e){ v=0; }
+  if(v<0 || v>=PROMO_VARIANTS) v=0;
+  return v;
+}
+
+function pickTemplate(styleKey, variant, n){
+  const t = PROMO_TEMPLATES[styleKey] || PROMO_TEMPLATES.promo;
   const d = todayStr();
-  if(styleKey==="info") return `오버라운드(마진) 낮은 경기 TOP${n} 모음 · ${d}`;
-  if(styleKey==="tg") return `무료 배당 마진(오버라운드) · 오늘 TOP${n} (복원 링크)`;
-  return `무료 배당분석기 · 오늘 마진 낮은 경기 TOP${n} (복원 링크)`;
+  const v = Math.max(0, Math.min(PROMO_VARIANTS-1, variant|0));
+  return {
+    title: t.titles[v](n,d),
+    lead:  t.leads[v](),
+    header: t.headers[v](n)
+  };
 }
 
-function promoLead(styleKey){
-  if(styleKey==="info") return `배당 2~3개 입력 → 마진/공정배당/EV를 자동으로 정리합니다. 아래 링크는 열면 동일 결과가 복원됩니다.`;
-  if(styleKey==="tg") return `텍스트 붙여넣기로 수집한 오늘 경기들입니다. 링크 열면 결과 그대로 복원됩니다.`;
-  return `배당 2~3개 입력하면 마진/공정배당/EV 한방에 정리됩니다. 아래는 오늘 수집(마진 낮은 순)입니다.`;
+// === 조건부 업체 티저(1개) ===
+const PROMO_VENDOR_POOL = ["card10","card11","card8","card7"];
+const PROMO_VENDOR_FIXED = ["card1","card2","card3","card4"];
+const PROMO_VENDOR_DATA = {
+  card1:{ title:"어느날", benefit:"입플 5+2 / 10+3 / 20+4 · 첫충 10% (고액전용)" },
+  card2:{ title:"OK Bet", benefit:"신규 77만원 · 코인 입/출금 · 업데이트" },
+  card3:{ title:"SPEED Bet", benefit:"신규 77만원 · 코인 입/출금 · 업데이트" },
+  card4:{ title:"VEGAS", benefit:"고액전용 · 입플 최대 30% · 카지노 입플" },
+  card7:{ title:"CAPS", benefit:"미겜 첫충 5% · 페이백 5% · 출석 30만원" },
+  card8:{ title:"BETZY", benefit:"스포츠 첫충 10% · 페이백 5% · 출석 30만원" },
+  card10:{ title:"RED HULK", benefit:"신규 30% · 매충 10% · 페이백 5%" },
+  card11:{ title:"TOP GUN", benefit:"신규 30% · 매충 10% · 페이백 5%" }
+};
+
+function hashStr(s){
+  s = String(s||"");
+  let h = 2166136261;
+  for(let i=0;i<s.length;i++){
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return (h>>>0);
 }
 
-function buildBundlePromo(items){
-  const elCh = document.getElementById("bundlePromoChannel");
-  const elSty= document.getElementById("bundlePromoStyle");
-  const elLn = document.getElementById("bundlePromoLinks");
+function shouldInsertVendor(items){
+  const ms = (items||[]).map(it=> (typeof it.mainMarginPct==="number") ? it.mainMarginPct : null).filter(v=>v!=null);
+  const min = ms.length ? Math.min(...ms) : null;
+  const pos = (items||[]).filter(it=> typeof it.bestEVPct==="number" && it.bestEVPct > 0).length;
+  return (min!=null && min<=3.20) || (pos>=1);
+}
+
+function pickVendorId(channelKey){
+  const seed = `${todayStr()}|${channelKey}|vendor`;
+  const idx = hashStr(seed) % PROMO_VENDOR_POOL.length;
+  return PROMO_VENDOR_POOL[idx] || "card2";
+}
+
+function vendorLine(utm, shortUrl, withLink, vendorId){
+  const v = PROMO_VENDOR_DATA[vendorId] || PROMO_VENDOR_DATA.card2;
+  const origin = (location && location.origin) ? location.origin : "https://88st.cloud";
+  const url = applyUtmToUrl(origin.replace(/\/$/,"") + `/?v=${vendorId}#vendorTop`, utm);
+  const link = withLink ? fmtUrlForBoard(url, shortUrl) : "";
+  const benefit = v.benefit ? v.benefit : "";
+  if(link){
+    return `🎁 인증업체 1개(조건부): ${v.title} · ${benefit} · ${link}`;
+  }
+  return `🎁 인증업체 1개(조건부): ${v.title} · ${benefit}`;
+}
+
+function buildBundlePromo(items, opts){
+  opts = opts || {};
+  const elCh   = document.getElementById("bundlePromoChannel");
+  const elSty  = document.getElementById("bundlePromoStyle");
+  const elLn   = document.getElementById("bundlePromoLinks");
+  const elShort= document.getElementById("bundlePromoShortUrl");
+  const elComp = document.getElementById("bundlePromoCompact");
+  const elVend = document.getElementById("bundlePromoVendor");
+  const elOneT = document.getElementById("bundlePromoOneTarget");
 
   const channelKey = elCh ? elCh.value : "tochatsa";
-  const styleKey = elSty ? elSty.value : "promo";
-  const linksKey = elLn ? elLn.value : "top3";
+  const styleKey   = elSty ? elSty.value : "promo";
+  const linksMode  = elLn ? elLn.value : "top3";
+  const shortUrl   = !!(elShort && elShort.checked);
+  const compact    = !!(elComp && elComp.checked);
+  const vendorOn   = !!(elVend && elVend.checked);
+  const oneTarget  = elOneT ? elOneT.value : "analysis";
 
   const utm = promoUtm(channelKey, styleKey);
   const origin = (location && location.origin) ? location.origin : "https://88st.cloud";
-  const analysisBase = applyUtmToUrl(origin.replace(/\/$/,"") + "/analysis/", utm);
+  const analysisUrl = applyUtmToUrl(origin.replace(/\/$/,"") + "/analysis/", utm);
 
-  const n = Math.min(10, (items||[]).length);
-  const title = promoTitle(styleKey, n);
-  const lead  = promoLead(styleKey);
-  const top3  = bundleTop3OneLine(items);
+  const nTotal = Math.min(10, (items||[]).length);
+  const linkN = (linksMode==="top5") ? 5 : (linksMode==="all" ? nTotal : 3);
+  const tplVar = (opts.advanceVariant) ? nextPromoVariant() : currentPromoVariant();
+  const tpl = pickTemplate(styleKey, tplVar, Math.min(linkN, nTotal));
 
-  let linkN = 3;
-  if(linksKey==="top5") linkN = 5;
-  if(linksKey==="all")  linkN = n;
+  const top3 = bundleTop3OneLine(items);
+
+  // 링크 정책
+  const allowAnyLink = (linksMode !== "none");
+  const singleLinkOnly = (linksMode === "one");
+  const allowItemLinks = (linksMode === "top3" || linksMode === "top5" || linksMode === "all");
+  const allowAnalysisLink = allowAnyLink && (!singleLinkOnly || oneTarget==="analysis");
+  const allowVendorLink = allowAnyLink && (!singleLinkOnly || oneTarget==="vendor");
 
   const lines = [];
-  lines.push(title);
-  lines.push(lead);
-  lines.push(`분석기(무료): ${analysisBase}`);
-  if(top3) lines.push(top3);
-  lines.push("");
-  lines.push(`오늘 수집 ${n}경기 (마진 낮은 순)`);
-  lines.push("");
+  lines.push(tpl.title);
 
-  (items||[]).slice(0,n).forEach((it, idx)=>{
+  // lead + analysis link
+  if(allowAnalysisLink){
+    const a = fmtUrlForBoard(analysisUrl, shortUrl);
+    if(compact){
+      lines.push(`${tpl.lead} · 분석기: ${a}`);
+    }else{
+      lines.push(tpl.lead);
+      lines.push(`분석기(무료): ${a}`);
+    }
+  }else{
+    // 링크 0개 or 링크 1개(업체)인 경우: 링크 대신 안내 문구
+    const hint = (linksMode==="none") ? "88st[dot]cloud 접속 → /analysis" : "분석기: 88st[dot]cloud/analysis";
+    if(compact) lines.push(`${tpl.lead} · ${hint}`);
+    else{
+      lines.push(tpl.lead);
+      lines.push(hint);
+    }
+  }
+
+  if(top3){
+    if(compact) lines.push(top3.replace(/^TOP3:\s*/,"TOP3: "));
+    else lines.push(top3);
+  }
+
+  // 조건부 업체 티저 1개
+  let vendorInserted = false;
+  if(vendorOn && shouldInsertVendor(items)){
+    const vid = pickVendorId(channelKey);
+    const vline = vendorLine(utm, shortUrl, allowVendorLink, vid);
+    if(compact) lines.push(vline);
+    else{
+      lines.push("");
+      lines.push(vline);
+      lines.push("");
+    }
+    vendorInserted = true;
+  }else{
+    if(!compact) lines.push("");
+  }
+
+  // list header
+  const header = tpl.header || `오늘 수집 ${nTotal}경기`;
+  if(!compact) lines.push(header);
+  else lines.push(header);
+
+  // list items
+  const listItems = (items||[]).slice(0, nTotal);
+  for(let i=0;i<listItems.length;i++){
+    const it = listItems[i];
     const sportName = (SPORT_CFG[it.sport] || SPORT_CFG.soccer).name || (it.sport||"");
-    const teams = (it.teams && String(it.teams).trim()) ? String(it.teams).trim() : `경기 ${idx+1}`;
+    const teams = (it.teams && String(it.teams).trim()) ? String(it.teams).trim() : `경기 ${i+1}`;
     const m = (typeof it.mainMarginPct==="number") ? `마진 ${it.mainMarginPct.toFixed(2)}%` : "마진 -";
     const ev = (typeof it.bestEVPct==="number") ? `EV ${(it.bestEVPct>=0?"+":"-")}${Math.abs(it.bestEVPct).toFixed(2)}%` : "EV 미입력";
 
-    if(styleKey==="tg"){
-      lines.push(`${idx+1}) ${teams} · ${m} · ${ev}`);
-    }else{
-      lines.push(`${idx+1}) ${teams} (${sportName}) · ${m} · ${ev}`);
-    }
-    if(idx < linkN){
-      const link = applyUtmToUrl(it.link || "", utm);
-      if(link) lines.push(`   링크: ${link}`);
-    }
-    lines.push("");
-  });
+    let line = (styleKey==="tg")
+      ? `${i+1}) ${teams} · ${m} · ${ev}`
+      : `${i+1}) ${teams} (${sportName}) · ${m} · ${ev}`;
 
-  if(linkN < n){
-    lines.push(`※ 링크는 TOP${linkN}만 포함(게시판 스팸 방지). 더 보려면 분석기에서 '오늘 수집 묶음' 사용`);
+    // 링크 포함 (게시판 규칙 옵션)
+    if(allowItemLinks && i < linkN){
+      const link = applyUtmToUrl(it.link || "", utm);
+      const f = fmtUrlForBoard(link, shortUrl);
+      if(f){
+        if(compact) line += ` · 링크 ${f}`;
+        else{
+          lines.push(line);
+          lines.push(`   링크: ${f}`);
+          if(!compact) lines.push("");
+          continue;
+        }
+      }
+    }
+
+    lines.push(line);
+    if(!compact) lines.push("");
   }
+
+  if(!allowItemLinks){
+    if(!compact) lines.push("");
+    lines.push("※ 복원 링크는 분석기에서 ‘오늘 수집 묶음’ → ‘문구/링크 복사’로 얻을 수 있어요.");
+  }else if(linkN < nTotal){
+    lines.push(`※ 링크는 TOP${linkN}만 포함(게시판 규칙/필터 대응).`);
+  }
+
   lines.push("※ 링크 열면 입력/결과가 그대로 복원됩니다(st)");
 
-  const text = lines.join("\n").replace(/\n{3,}/g,"\n\n").trim();
-  return { title, lead, text, channelKey, styleKey, linksKey };
+  // compact 정리
+  let text = lines.join("\n");
+  if(compact){
+    text = text.replace(/\n{2,}/g,"\n").trim();
+  }else{
+    text = text.replace(/\n{3,}/g,"\n\n").trim();
+  }
+
+  return { title: tpl.title, lead: tpl.lead, text, channelKey, styleKey, linksMode, shortUrl, compact, vendorInserted, oneTarget };
 }
 
-function updateBundlePromo(items){
+function updateBundlePromo(items, opts){
   const ta = document.getElementById("bundlePromoText");
   if(!ta) return;
-  const p = buildBundlePromo(items || getBundleItems(10));
+  const p = buildBundlePromo(items || getBundleItems(10), opts||{});
   ta.value = p.text || "";
+}
+
+function regenBundlePromo(){
+  try{
+    const items = getBundleItems(10);
+    updateBundlePromo(items, { advanceVariant:true });
+    toast("새 문구로 바꿨어요");
+  }catch(e){}
 }
 
 async function copyBundlePromo(){
   const items = getBundleItems(10);
   if(!items.length) return;
-  const p = buildBundlePromo(items);
+  const p = buildBundlePromo(items, { advanceVariant:true });
   try{
     await navigator.clipboard.writeText(p.text);
     toast("홍보글을 복사했습니다");
-    try{ track("bundle_copy_promo", { channel: p.channelKey, tone: p.styleKey, links: p.linksKey, count: items.length, page_path: location.pathname }); }catch(e){}
+    try{ track("bundle_copy_promo", { channel: p.channelKey, tone: p.styleKey, links: p.linksMode, short_url: p.shortUrl?1:0, compact: p.compact?1:0, vendor: p.vendorInserted?1:0, page_path: location.pathname }); }catch(e){}
   }catch(e){ toast("복사 실패"); }
 }
 
@@ -5225,6 +5483,10 @@ function setupBundlePromo(){
   const sel = document.getElementById("bundlePromoChannel");
   const sty = document.getElementById("bundlePromoStyle");
   const lnk = document.getElementById("bundlePromoLinks");
+  const one = document.getElementById("bundlePromoOneTarget");
+  const sh  = document.getElementById("bundlePromoShortUrl");
+  const cp  = document.getElementById("bundlePromoCompact");
+  const vd  = document.getElementById("bundlePromoVendor");
   if(!sel || !sty || !lnk) return;
 
   // options (only once)
@@ -5237,9 +5499,13 @@ function setupBundlePromo(){
     }
   }
 
-  const savedCh = localStorage.getItem(BUNDLE_PROMO_LS_CH) || "tochatsa";
+  const savedCh    = localStorage.getItem(BUNDLE_PROMO_LS_CH) || "tochatsa";
   const savedStyle = localStorage.getItem(BUNDLE_PROMO_LS_STYLE);
   const savedLinks = localStorage.getItem(BUNDLE_PROMO_LS_LINKS) || "top3";
+  const savedShort = localStorage.getItem(BUNDLE_PROMO_LS_SHORTURL);
+  const savedComp  = localStorage.getItem(BUNDLE_PROMO_LS_COMPACT);
+  const savedVend  = localStorage.getItem(BUNDLE_PROMO_LS_VENDOR);
+  const savedOne   = localStorage.getItem(BUNDLE_PROMO_LS_ONE_TGT) || "analysis";
 
   if([...sel.options].some(o=>o.value===savedCh)) sel.value = savedCh;
 
@@ -5250,25 +5516,44 @@ function setupBundlePromo(){
 
   if([...lnk.options].some(o=>o.value===savedLinks)) lnk.value = savedLinks;
 
-  const refresh = ()=>{
+  if(one && [...one.options].some(o=>o.value===savedOne)) one.value = savedOne;
+
+  if(sh) sh.checked = (savedShort==="1" || savedShort==="true");
+  if(cp) cp.checked = (savedComp==="1"  || savedComp==="true");
+  if(vd) vd.checked = (savedVend==null ? true : (savedVend==="1" || savedVend==="true"));
+
+  const refresh = (advanceVariant=false)=>{
     try{ localStorage.setItem(BUNDLE_PROMO_LS_CH, sel.value); }catch(e){}
     try{ localStorage.setItem(BUNDLE_PROMO_LS_STYLE, sty.value); }catch(e){}
     try{ localStorage.setItem(BUNDLE_PROMO_LS_LINKS, lnk.value); }catch(e){}
+    try{ if(sh) localStorage.setItem(BUNDLE_PROMO_LS_SHORTURL, sh.checked?"1":"0"); }catch(e){}
+    try{ if(cp) localStorage.setItem(BUNDLE_PROMO_LS_COMPACT,  cp.checked?"1":"0"); }catch(e){}
+    try{ if(vd) localStorage.setItem(BUNDLE_PROMO_LS_VENDOR,   vd.checked?"1":"0"); }catch(e){}
+    try{ if(one) localStorage.setItem(BUNDLE_PROMO_LS_ONE_TGT, one.value); }catch(e){}
+
+    if(one){
+      one.style.display = (lnk.value==="one") ? "" : "none";
+    }
+
     try{
       const items = getBundleItems(10);
-      updateBundlePromo(items);
+      updateBundlePromo(items, { advanceVariant: !!advanceVariant });
     }catch(e){}
   };
 
   sel.addEventListener("change", ()=>{
     const ch2 = getPromoChannel(sel.value);
     if(ch2 && ch2.defaultStyle) sty.value = ch2.defaultStyle;
-    refresh();
+    refresh(true);
   });
-  sty.addEventListener("change", refresh);
-  lnk.addEventListener("change", refresh);
+  sty.addEventListener("change", ()=>refresh(true));
+  lnk.addEventListener("change", ()=>refresh(true));
+  if(one) one.addEventListener("change", ()=>refresh(true));
+  if(sh)  sh.addEventListener("change", ()=>refresh(true));
+  if(cp)  cp.addEventListener("change", ()=>refresh(true));
+  if(vd)  vd.addEventListener("change", ()=>refresh(true));
 
-  refresh();
+  refresh(false);
 }
 
 
