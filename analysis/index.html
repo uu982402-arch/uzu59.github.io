@@ -162,9 +162,11 @@ body{
 .box-title{ font-weight:900; margin:0 0 8px; color:var(--gold2); font-size:13px; }
 .box-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
 .toggle{
+  appearance:none; -webkit-appearance:none;
   cursor:pointer; font-size:12px; color:#cfcfcf;
   user-select:none; padding:6px 10px; border-radius:999px;
   border:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.25);
+  appearance:none; -webkit-appearance:none; font: inherit;
 }
 
 /* 액션 */
@@ -635,12 +637,15 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   font-weight:900;
 }
 .mini-guide .head .pill{
+  appearance:none; -webkit-appearance:none;
   font-size:11px;
   font-weight:900;
+  color:var(--text);
   background:rgba(var(--accentRGB),.18);
   border:1px solid rgba(var(--accentRGB),.28);
   padding:6px 10px;
   border-radius:999px;
+  cursor:pointer;
 }
 .mini-guide .body{
   display:none;
@@ -1371,13 +1376,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 .result-dock .btn{ flex:1; min-width:150px; }
 @media(max-width:560px){ .result-dock .btn{ min-width:0; } }
 
-
 <!-- ===== GA4 (공통) ===== -->
-
-
-<script>
-</script>
-
 <script src="../assets/theme-preset.js" defer></script>
 
 <style id="v13_1_theme_override">
@@ -1542,10 +1541,10 @@ a{ color:inherit; }
 <script src="/assets/js/88st-analytics.js"></script>
 <link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
 <script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
-<link href="/assets/88st-tool-history.css?v=20260210_B2" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B2"></script>
-<link href="/assets/88st-shell.css?v=20260210_B2" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=20260210_B2"></script>
+<link href="/assets/88st-tool-history.css?v=20260210_B5" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B5"></script>
+<link href="/assets/88st-shell.css?v=20260210_B5" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=20260210_B5"></script>
 </head>
 <body>
 <!-- ✅ 사칭주의 팝업 (1일 1회) -->
@@ -1650,7 +1649,7 @@ a{ color:inherit; }
 <div class="mini-guide" id="miniGuide">
 <div class="head" onclick="toggleMiniGuide()">
 <div>💡 처음이면 <b>10초 가이드</b></div>
-<div class="pill" id="miniGuidePill">열기</div>
+<button type="button" class="pill" id="miniGuidePill" aria-expanded="false">열기</button>
 </div>
 <div class="body" id="miniGuideBody">
           1) <b>종목/모드</b> 선택 → 2) <b>메인 배당</b> 입력(필수) → 3) 오버·언더/핸디(선택) → 4) <b>중급/고급</b>이면 <b>내 예상 확률</b> 입력 시 EV/켈리까지 계산됩니다.<br/>
@@ -1670,7 +1669,7 @@ a{ color:inherit; }
 <div class="box" id="pasteBox">
 <div class="box-head">
 <div class="box-title" style="margin:0;">텍스트 붙여넣기 (자동 입력)</div>
-<div class="toggle" data-target="pasteBody" onclick="toggleBox('pasteBody')">접기</div>
+<button type="button" class="toggle" data-target="pasteBody" onclick="toggleBox('pasteBody')">접기</button>
 </div>
 <div id="pasteBody">
 <div class="small-hint" style="margin-top:4px;">
@@ -1779,7 +1778,7 @@ a{ color:inherit; }
 <div class="box" id="lineCompareBox">
 <div class="box-head">
 <div class="box-title" style="margin:0;">라인 비교 (A vs B)</div>
-<div class="toggle" data-target="lineCompareBody" onclick="toggleBox('lineCompareBody')">펼치기</div>
+<button type="button" class="toggle" data-target="lineCompareBody" onclick="toggleBox('lineCompareBody')">펼치기</button>
 </div>
 <div id="lineCompareBody" style="display:none;">
 <div class="small-hint" style="margin-top:4px;">
@@ -1862,7 +1861,7 @@ a{ color:inherit; }
 <div class="box" id="handicapBox" style="display:none;">
 <div class="box-head">
 <div class="box-title" style="margin:0;">핸디캡 (선택 · 정밀 마진)</div>
-<div class="toggle" data-target="handicapBody" onclick="toggleBox('handicapBody')">접기</div>
+<button type="button" class="toggle" data-target="handicapBody" onclick="toggleBox('handicapBody')">접기</button>
 </div>
 <div id="handicapBody">
 <div class="grid">
@@ -1892,7 +1891,7 @@ a{ color:inherit; }
 <div class="box" id="totalBox" style="display:none;">
 <div class="box-head">
 <div class="box-title" style="margin:0;">오버/언더 (선택 · 아시안 근사 지원)</div>
-<div class="toggle" data-target="totalBody" onclick="toggleBox('totalBody')">접기</div>
+<button type="button" class="toggle" data-target="totalBody" onclick="toggleBox('totalBody')">접기</button>
 </div>
 <div id="totalBody">
 <div class="grid">
@@ -4450,6 +4449,7 @@ function toggleMiniGuide(){
   const next = !isOpen;
   body.style.display = next ? "block" : "none";
   pill.textContent = next ? "닫기" : "열기";
+  pill.setAttribute("aria-expanded", next ? "true" : "false");
   try{ localStorage.setItem("88_mini_guide_open", next ? "1":"0"); }catch(e){}
 }
 
@@ -4462,6 +4462,7 @@ function restoreMiniGuide(){
     const open = v === "1";
     body.style.display = open ? "block" : "none";
     pill.textContent = open ? "닫기" : "열기";
+    pill.setAttribute("aria-expanded", open ? "true" : "false");
   }catch(e){}
 }
 

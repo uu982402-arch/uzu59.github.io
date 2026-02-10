@@ -68,10 +68,10 @@
   color:var(--text);
   font-weight:950;
   font-size:12px;
-  transition:transform .15s ease, filter .15s ease, border-color .15s ease;
+  transition:transform .13s cubic-bezier(.2,.9,.2,1), filter .13s ease, border-color .13s ease, background .13s ease;
 }
-.st-shell-link:hover{ filter:brightness(1.06); border-color:rgba(var(--accent-rgb), .26); }
-.st-shell-link:active{ transform:scale(.98); }
+.st-shell-link:hover{ transform:translateY(-1px); filter:brightness(1.06); border-color:rgba(var(--accent-rgb), .26); }
+.st-shell-link:active{ transform:translateY(0) scale(.99); }
 
 /* Dropdown */
 .st-shell-dd{ position:relative; }
@@ -117,10 +117,10 @@
   border-radius:14px;
   cursor:pointer;
   box-shadow:var(--shadow-sm);
-  transition:transform .15s ease, filter .15s ease, border-color .15s ease;
+  transition:transform .13s cubic-bezier(.2,.9,.2,1), filter .13s ease, border-color .13s ease, background .13s ease;
 }
-.st-shell-btn:hover{ filter:brightness(1.06); border-color:rgba(var(--accent-rgb), .36); }
-.st-shell-btn:active{ transform:scale(.98); }
+.st-shell-btn:hover{ transform:translateY(-1px); filter:brightness(1.06); border-color:rgba(var(--accent-rgb), .36); }
+.st-shell-btn:active{ transform:translateY(0) scale(.99); }
 .st-shell-btn.ghost{
   border-color:var(--panel-border);
   background:color-mix(in srgb, var(--panel-2) 92%, transparent);

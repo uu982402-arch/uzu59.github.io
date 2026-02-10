@@ -3,8 +3,8 @@
   "use strict";
 
   // Ensure shared styling is present on every page (even if a page misses the <link>)
-  const SHELL_CSS = "/assets/88st-shell.css?v=20260210_B4";
-  const UNIFY_CSS = "/assets/88st-unify.css?v=20260210_B4";
+  const SHELL_CSS = "/assets/88st-shell.css?v=20260210_B5";
+  const UNIFY_CSS = "/assets/88st-unify.css?v=20260210_B5";
 
   function ensureCss(href){
     try{
