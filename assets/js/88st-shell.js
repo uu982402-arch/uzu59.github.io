@@ -71,11 +71,17 @@
               <a href="/slot/" role="menuitem"><span>슬롯</span><span class="hint">기초</span></a>
               <a href="/minigame/" role="menuitem"><span>미니게임</span><span class="hint">기초</span></a>
               <a href="/ipl/" role="menuitem"><span>IPL</span><span class="hint">기초</span></a>
-              <a href="/landing-e/" role="menuitem"><span>랜딩 E</span><span class="hint">promo</span></a>
-              <a href="/landing-f/" role="menuitem"><span>랜딩 F</span><span class="hint">promo</span></a>
-            </div>
+                          </div>
           </div>
-        </nav>
+        
+
+          <div class="st-shell-dd">
+            <div class="st-shell-link" role="button" tabindex="0" aria-label="보증사이트 메뉴">보증사이트</div>
+            <div class="st-shell-menu" role="menu" aria-label="보증사이트 목록">
+              <a href="/speed/" role="menuitem"><span>SPEED</span><span class="hint">promo</span></a>
+              <a href="/ok/" role="menuitem"><span>OK</span><span class="hint">promo</span></a>
+            </div>
+          </div></nav>
 
         <div class="st-shell-actions">
           <button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn">최근 저장</button>
@@ -116,8 +122,10 @@
             <a class="st-shell-link" href="/slot/">슬롯</a>
             <a class="st-shell-link" href="/minigame/">미니게임</a>
             <a class="st-shell-link" href="/ipl/">IPL</a>
-            <a class="st-shell-link" href="/landing-e/">랜딩 E</a>
-            <a class="st-shell-link" href="/landing-f/">랜딩 F</a>
+            <div class="st-shell-divider"></div>
+            <div style="font-weight:900; font-size:12px; opacity:.75; margin:6px 2px 2px;">보증사이트</div>
+            <a class="st-shell-link" href="/speed/">SPEED</a>
+            <a class="st-shell-link" href="/ok/">OK</a>
           </div>
           <div class="st-shell-drawer-foot">
             <button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn2">최근 저장</button>

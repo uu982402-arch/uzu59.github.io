@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>88ST.CLOUD | SPEED</title>
+  <meta name="description" content="88ST.CLOUD 안내 랜딩 페이지입니다."/>
+  <link rel="canonical" href="https://88st.cloud/speed/"/>
+  <meta name="robots" content="index,follow"/>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+
+  <link rel="stylesheet" href="/assets/88st-theme.css?v=20260210_4"/>
+  <script defer src="/assets/88st-theme.js?v=20260210_4"></script>
+
+  <style>
+    *{box-sizing:border-box;}
+    body{ margin:0; }
+    .st-landing-wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 14px 40px;
+    }
+    .st-landing-cover{
+      position: relative;
+      display:block;
+      width:100%;
+      min-height: calc(100vh - 92px);
+      border-radius: 26px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 22px 70px rgba(0,0,0,.55);
+      background: rgba(0,0,0,.10);
+    }
+    .st-landing-cover img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      filter: brightness(1.08) contrast(1.06) saturate(1.06);
+      transform: scale(1.005);
+    }
+    .st-landing-overlay{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 420px at 15% 20%, rgba(95,178,255,.18), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.10) 0%, rgba(0,0,0,.34) 78%, rgba(0,0,0,.44) 100%);
+      pointer-events:none;
+    }
+    .st-landing-caption{
+      position:absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      padding: 16px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: color-mix(in srgb, rgba(12,14,22,.64) 86%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: rgba(244,246,255,.92);
+      box-shadow: 0 18px 48px rgba(0,0,0,.48);
+    }
+    .st-landing-caption .t{
+      font-weight: 1000;
+      letter-spacing: -0.2px;
+      font-size: 16px;
+      line-height: 1.25;
+      margin:0;
+    }
+    .st-landing-caption .d{
+      margin: 8px 0 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(244,246,255,.78);
+    }
+    .st-landing-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(95,178,255,.22);
+      background: rgba(95,178,255,.10);
+      color: rgba(244,246,255,.92);
+      font-weight: 950;
+      font-size: 12px;
+      margin-top: 10px;
+      pointer-events:none;
+    }
+
+    /* Floating telegram 상담 */
+    .st-tg-fab{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 2500;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(95,178,255,.26);
+      background: linear-gradient(135deg, rgba(95,178,255,.18), rgba(12,14,22,.78));
+      color: rgba(244,246,255,.95);
+      font-weight: 1000;
+      box-shadow: 0 18px 48px rgba(0,0,0,.48);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      text-decoration:none;
+    }
+    .st-tg-fab:hover{ filter: brightness(1.06); }
+    .st-tg-dot{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: rgba(95,178,255,.9);
+      box-shadow: 0 0 0 4px rgba(95,178,255,.18);
+    }
+
+    @media (max-width: 520px){
+      .st-landing-cover{ min-height: calc(100vh - 84px); border-radius: 22px; }
+      .st-landing-caption{ left: 12px; right: 12px; bottom: 12px; }
+      .st-tg-fab{ right: 12px; bottom: 12px; padding: 11px 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="st-landing-wrap">
+    
+    <a class="st-landing-cover" href="/analysis/" aria-label="클릭하여 분석기로 이동">
+      <img src="/img/img99.webp" alt="88ST.CLOUD 랜딩 이미지" loading="eager"/>
+      <div class="st-landing-overlay" aria-hidden="true"></div>
+      <div class="st-landing-caption" aria-hidden="true">
+        <p class="t">SPEED 안내</p>
+        <p class="d">클릭하면 분석기로 이동합니다. 상담이 필요하면 텔레그램 문의를 이용하세요.</p>
+        <div class="st-landing-pill">🔎 안내 페이지</div>
+      </div>
+    </a>
+  </div>
+
+  <a class="st-tg-fab" href="https://t.me/UZU59" target="_blank" rel="noopener" aria-label="텔레그램 상담 문의">
+    <span class="st-tg-dot" aria-hidden="true"></span>
+    텔레그램 상담문의
+  </a>
+
+  <script defer src="/assets/js/88st-shell.js?v=20260210_B5"></script>
+  <script defer src="/assets/js/88st-tool-history.js?v=20260210_B5"></script>
+</body>
+</html>
