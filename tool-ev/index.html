@@ -218,6 +218,8 @@ a{ color:inherit; }
 <script defer="" src="/assets/js/vendor-teasers.js"></script>
 <link href="/assets/vendor-teasers.css?v=20260210_4" rel="stylesheet"/>
 <link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
+<link href="/assets/88st-tool-history.css?v=20260210_5" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-tool-history.js?v=20260210_5"></script>
 <script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
 </head>
 <body>
@@ -311,6 +313,31 @@ document.getElementById("resetBtn").addEventListener("click", ()=>{
 ["odds","p","stake"].forEach(id=> document.getElementById(id).addEventListener("input", ()=> calc()));
 calc();
 </script>
+
+<!-- Tool share/history config (auto UI injection) -->
+<script type="application/json" id="__88stToolConfig">
+{
+  "tool": "ev",
+  "title": "EV 계산기",
+  "inputs": ["odds", "p", "stake"],
+  "outputs": {
+    "be": "#be",
+    "evAmt": "#evAmt",
+    "evPct": "#evPct",
+    "judge": "#judge"
+  },
+  "shareParams": {
+    "odds": "o",
+    "p": "p",
+    "stake": "s"
+  },
+  "examples": [
+    {"label": "안전 예시", "values": {"odds": "1.85", "p": "56", "stake": "10000"}},
+    {"label": "공격 예시", "values": {"odds": "2.40", "p": "45", "stake": "15000"}}
+  ]
+}
+</script>
+
 <div aria-label="인증 업체 빠른보기" class="vendor-teaser" data-vt-fixed="1,2,3,4" data-vt-pick="2" data-vt-pool="10,11,8,7" id="vendorTeaser">
 <div class="vt-head">
 <div>

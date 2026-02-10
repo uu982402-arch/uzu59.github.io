@@ -218,6 +218,8 @@ a{ color:inherit; }
 <script defer="" src="/assets/js/vendor-teasers.js"></script>
 <link href="/assets/vendor-teasers.css?v=20260210_4" rel="stylesheet"/>
 <link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
+<link href="/assets/88st-tool-history.css?v=20260210_5" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-tool-history.js?v=20260210_5"></script>
 <script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
 </head>
 <body>
@@ -326,6 +328,32 @@ document.getElementById("resetBtn").addEventListener("click", ()=>{
 ["o1","o2","o3"].forEach(id=> document.getElementById(id).addEventListener("input", ()=> calc()));
 sync(); calc();
 </script>
+
+<!-- Tool share/history config (auto UI injection) -->
+<script type="application/json" id="__88stToolConfig">
+{
+  "tool": "margin",
+  "title": "마진 계산기",
+  "inputs": ["mode", "o1", "o2", "o3"],
+  "outputs": {
+    "sumImp": "#sumImp",
+    "margin": "#margin",
+    "fairProb": "#fairProb",
+    "fairOdds": "#fairOdds"
+  },
+  "shareParams": {
+    "mode": "m",
+    "o1": "a",
+    "o2": "b",
+    "o3": "c"
+  },
+  "examples": [
+    {"label": "2-way 예시", "values": {"mode": "2", "o1": "1.95", "o2": "1.95"}},
+    {"label": "3-way 예시", "values": {"mode": "3", "o1": "2.10", "o2": "3.40", "o3": "3.60"}}
+  ]
+}
+</script>
+
 <div aria-label="인증 업체 빠른보기" class="vendor-teaser" data-vt-fixed="1,2,3,4" data-vt-pick="2" data-vt-pool="10,11,8,7" id="vendorTeaser">
 <div class="vt-head">
 <div>
