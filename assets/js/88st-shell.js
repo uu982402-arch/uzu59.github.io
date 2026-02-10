@@ -3,8 +3,8 @@
   "use strict";
 
   // Ensure shared styling is present on every page (even if a page misses the <link>)
-  const SHELL_CSS = "/assets/88st-shell.css?v=20260210_B5";
-  const UNIFY_CSS = "/assets/88st-unify.css?v=20260210_B5";
+  const SHELL_CSS = "/assets/88st-shell.css?v=20260210_B6";
+  const UNIFY_CSS = "/assets/88st-unify.css?v=20260210_B6";
 
   function ensureCss(href){
     try{
@@ -39,6 +39,9 @@
 
     const here = location.pathname || "/";
     const isActive = (p)=> (here === p || here.startsWith(p));
+
+    // Show "최근 저장" only on tool pages (header request: hide on 메인/분석기/랜딩)
+    const showGlobalHistory = (p.startsWith("/tool-") || p.startsWith("/tool/"));
 
     header.innerHTML = `
       <div class="st-shell-inner">
@@ -84,7 +87,7 @@
           </div></nav>
 
         <div class="st-shell-actions">
-          <button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn">최근 저장</button>
+          ${showGlobalHistory ? `<button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn">최근 저장</button>` : ``}
           <a class="st-shell-btn" href="https://t.me/UZU59" target="_blank" rel="noopener">문의</a>
           <button class="st-shell-btn ghost" type="button" id="_88stShellBurger" aria-label="메뉴" aria-expanded="false">☰</button>
         </div>
@@ -128,7 +131,7 @@
             <a class="st-shell-link" href="/ok/">OK</a>
           </div>
           <div class="st-shell-drawer-foot">
-            <button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn2">최근 저장</button>
+            ${showGlobalHistory ? `<button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn2">최근 저장</button>` : ``}
             <a class="st-shell-btn" href="https://t.me/UZU59" target="_blank" rel="noopener">문의</a>
           </div>
         </div>

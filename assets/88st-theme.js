@@ -82,12 +82,19 @@
   function dockToggle(){
     const btn = document.getElementById("_88stThemeToggle");
     if(!btn) return;
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    let extra = 0;
 
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    let extraBottom = 0;
+
+    // Candidates that often occupy bottom space (FABs / action docks)
     const selectors = [
-      ".notice-bar", ".glass-notice", "#glassNotice", ".top-notice", ".notice", ".announcement",
-      "header", ".header", ".topbar", ".top-bar", ".sticky-header", ".header-fixed", ".top-fixed"
+      ".fab",
+      ".mobile-dock",
+      "#resultDock",
+      ".result-dock",
+      ".st-fab",
+      ".floating-dock",
+      ".quick-dock"
     ];
 
     const candidates = [];
@@ -96,58 +103,21 @@
     });
 
     candidates.forEach(el=>{
+      if(el === btn) return;
       const st = getComputedStyle(el);
       if(st.display === "none" || st.visibility === "hidden" || st.opacity === "0") return;
-      if(st.position !== "fixed" && st.position !== "sticky") return;
+      if(st.position !== "fixed") return;
+
       const rect = el.getBoundingClientRect();
-      if(rect.height < 24) return;
-      // Only consider elements occupying the top band
-      if(rect.top <= 0 && rect.bottom > 0 && rect.bottom < (vh * 0.6)){
-        extra = Math.max(extra, Math.round(rect.bottom) + 8);
+      if(rect.height < 36) return;
+
+      // Consider elements touching the bottom band
+      if(rect.bottom >= (vh - 2) && rect.top < vh){
+        const reserved = Math.round(vh - rect.top) + 10; // add breathing room
+        extraBottom = Math.max(extraBottom, reserved);
       }
     });
 
-    // Communicate via CSS variable to keep positioning consistent across pages
-    root.style.setProperty('--_88stToggleTopExtra', `${extra}px`);
-  }
-
-  function initMetaThemeColor(){
-    // Helps mobile address bar match theme
-    const ensure = (content, media)=>{
-      const m = document.createElement("meta");
-      m.name = "theme-color";
-      m.content = content;
-      if(media) m.media = media;
-      document.head.appendChild(m);
-    };
-    // Add only if not already present
-    const existing = Array.from(document.querySelectorAll('meta[name="theme-color"]'));
-    if(existing.length === 0){
-      ensure("#0b0c10", "(prefers-color-scheme: dark)");
-      ensure("#f6f8ff", "(prefers-color-scheme: light)");
-    }
-  }
-
-  function bindSystemListener(){
-    if(!window.matchMedia) return;
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = ()=>{
-      if(getSaved() === "system") setTheme("system");
-    };
-    if(mq.addEventListener) mq.addEventListener("change", handler);
-    else if(mq.addListener) mq.addListener(handler);
-  }
-
-  function boot(){
-    ensureToggle();
-    initMetaThemeColor();
-    bindSystemListener();
-    setTheme(getSaved());
-    window.addEventListener("resize", dockToggle);
-    window.addEventListener("orientationchange", dockToggle);
-    window.addEventListener("scroll", ()=>{ window.requestAnimationFrame(dockToggle); }, {passive:true});
-  }
-
-  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
-})();
+    // If nothing detected but iOS bottom bars are present, safe-area inset handles it.
+    root.style.setProperty('--_88stToggleBottomExtra', `${extraBottom}px`);
+  })();
