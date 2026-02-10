@@ -118,7 +118,6 @@ small.muted{color:#9a9a9a}
 }
 
 </style>
-<link href="../assets/glass-notice.css" rel="stylesheet"/>
 <script defer="" src="../assets/theme-preset.js"></script>
 <style id="v13_1_theme_override">
 /* === v13.1 look unify (from main index) === */
@@ -222,15 +221,12 @@ a{ color:inherit; }
 <script src="/assets/js/88st-analytics.js"></script>
 <link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
 <script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
-<link href="/assets/88st-tool-history.css?v=20260210_B1" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B1"></script>
-<link href="/assets/88st-shell.css?v=20260210_B1" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=20260210_B1"></script>
+<link href="/assets/88st-tool-history.css?v=20260210_B2" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B2"></script>
+<link href="/assets/88st-shell.css?v=20260210_B2" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=20260210_B2"></script>
 </head>
 <body>
-<div class="notice-bar">
-<a href="https://t.me/UZU59" rel="noopener" target="_blank"><span id="noticeText"></span></a>
-</div>
 <div id="loader">
 <div class="logoWrap"><img alt="88 로고 로딩" class="logoImg" src="/img/logo.png"/></div>
 <div class="text">Loading...</div>
@@ -346,23 +342,7 @@ function closeScam(){
   if(el) el.style.display="none";
 }
 
-const NOTICE_LIST=[
-  "🔔 공식 문의는 @UZU59 단일 운영 (사칭 주의)",
-  "⭐ 슬롯 보너스는 '롤링/상한/제한'부터 확인하세요",
-  "📊 마진/EV는 분석기에서 빠르게 확인",
-  "⚠️ 가입코드 미입력 시 혜택 적용이 불가할 수 있습니다"
-];
-let noticeIndex=0;
-const noticeTextEl=document.getElementById("noticeText");
-function rotateNotice(){
-  if(!noticeTextEl) return;
-  noticeTextEl.innerText=NOTICE_LIST[noticeIndex];
-  noticeIndex=(noticeIndex+1)%NOTICE_LIST.length;
-}
-rotateNotice();
-setInterval(rotateNotice,4200);
 </script>
-<script defer="" src="../assets/glass-notice.js"></script>
 <section aria-label="관련 링크" class="rel-links">
 <h2>관련 링크</h2>
 <div class="rel-grid">

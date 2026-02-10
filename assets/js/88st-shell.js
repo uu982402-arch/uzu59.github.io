@@ -2,6 +2,23 @@
 (function(){
   "use strict";
 
+  // Ensure shared styling is present on every page (even if a page misses the <link>)
+  const SHELL_CSS = "/assets/88st-shell.css?v=20260210_B2";
+  const UNIFY_CSS = "/assets/88st-unify.css?v=20260210_B2";
+
+  function ensureCss(href){
+    try{
+      const base = String(href).split("?")[0];
+      const existing = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+        .map(l=> (l.getAttribute('href')||"").split("?")[0]);
+      if(existing.includes(base)) return;
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      document.head.appendChild(link);
+    }catch(e){}
+  }
+
   const $$ = (sel, root=document)=> Array.from(root.querySelectorAll(sel));
 
   function inject(){
@@ -198,6 +215,8 @@
   }
 
   function boot(){
+    ensureCss(SHELL_CSS);
+    ensureCss(UNIFY_CSS);
     addDrawerStyles();
     inject();
   }

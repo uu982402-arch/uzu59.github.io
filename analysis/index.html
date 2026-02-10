@@ -49,120 +49,6 @@ body{
   color:var(--text);
 }
 
-/* ===== 상단 공지/이벤트 배너 (자동 순환) ===== */
-.notice-bar{
-  position:sticky;
-  top:10px;
-  z-index:1600;
-
-  /* glass + rounded */
-  width:min(980px, calc(100% - 24px));
-  margin:10px auto 0;
-  border-radius:999px;
-
-  background:rgba(20,20,24,.38);
-  border:1px solid rgba(255,255,255,.14);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  color:var(--text);
-  font-weight:900;
-  font-size:13px;
-  padding:10px 12px;
-  text-align:center;
-
-  box-shadow:0 10px 30px rgba(0,0,0,.35);
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  transition:padding .18s ease, font-size .18s ease, box-shadow .18s ease,
-             background .18s ease, border-color .18s ease, opacity .18s ease;
-}
-.notice-bar a{
-  color:var(--text);
-  text-decoration:none;
-  flex:1;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.notice-toggle{
-  flex:0 0 auto;
-  width:34px;
-  height:28px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.18);
-  background:rgba(255,255,255,.08);
-  color:var(--text);
-  font-weight:1000;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  line-height:1;
-  transition:transform .18s ease, background .18s ease, border-color .18s ease;
-}
-.notice-toggle:hover{ background:rgba(255,255,255,.12); border-color:var(--muted-2); }
-.notice-toggle:active{ transform:scale(.98); }
-
-.notice-icon{
-  flex:0 0 auto;
-  width:28px;
-  height:28px;
-  border-radius:999px;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.16);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  line-height:1;
-  box-shadow:0 6px 16px rgba(0,0,0,.22);
-}
-.notice-mini-text{
-  display:none;
-  font-weight:950;
-  letter-spacing:-.2px;
-}
-
-/* (옵션) 초슬림/미니 형태 - 기존 클래스 유지 */
-.notice-bar.is-mini{
-  padding:7px 10px;
-  font-size:12px;
-  background:rgba(20,20,24,.22);
-  border-color:var(--muted-2);
-  opacity:.88;
-  box-shadow:0 8px 22px rgba(0,0,0,.25);
-}
-.notice-bar.is-mini a{
-  text-align:left;
-  display:flex;
-  align-items:center;
-}
-.notice-bar.is-mini #noticeText{ display:none; }
-.notice-bar.is-mini .notice-mini-text{
-  display:block;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.notice-bar.is-mini .notice-toggle{ display:none; }
-
-/* 스크롤/접힘 상태: 더 투명 + 더 컴팩트 */
-.notice-bar.is-collapsed{
-  padding:7px 10px;
-  font-size:12px;
-  background:rgba(20,20,24,.20);
-  border-color:var(--muted-2);
-  opacity:.88;
-  box-shadow:0 8px 22px rgba(0,0,0,.25);
-}
-
-@media (max-width:520px){
-  .notice-bar{ top:8px; width:calc(100% - 20px); margin:8px auto 0; }
-  .notice-toggle{ width:32px; height:26px; }
-}
-
 /* ===== 사칭주의 팝업 (1일 1회) ===== */
 .scam-popup{
   position:fixed;
@@ -1656,21 +1542,12 @@ a{ color:inherit; }
 <script src="/assets/js/88st-analytics.js"></script>
 <link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
 <script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
-<link href="/assets/88st-tool-history.css?v=20260210_B1" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B1"></script>
-<link href="/assets/88st-shell.css?v=20260210_B1" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=20260210_B1"></script>
+<link href="/assets/88st-tool-history.css?v=20260210_B2" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B2"></script>
+<link href="/assets/88st-shell.css?v=20260210_B2" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=20260210_B2"></script>
 </head>
 <body>
-<!-- ✅ 상단 공지/이벤트 배너(자동 순환) -->
-<div aria-label="상단 공지" class="notice-bar" id="noticeBar" role="region">
-<span aria-hidden="true" class="notice-icon">🔔</span>
-<a aria-label="공지 열기 (텔레그램)" href="https://t.me/UZU59" rel="noopener" target="_blank">
-<span id="noticeText"></span>
-<span class="notice-mini-text" id="noticeMiniText">사칭 주의 · @UZU59</span>
-</a>
-<button aria-label="공지 접기/펼치기" class="notice-toggle" id="noticeToggle" title="공지 접기/펼치기" type="button">▾</button>
-</div>
 <!-- ✅ 사칭주의 팝업 (1일 1회) -->
 <div class="scam-popup" id="scamPopup">
 <div class="scam-box">
@@ -2289,60 +2166,6 @@ a{ color:inherit; }
 </div>
 <div id="toast88"></div>
 <script>
-/* =========================
-   공지/사칭주의
-========================= */
-const NOTICE_LIST = [
-  "🔔 88 커뮤니티 공식 안내 · 관리자 사칭 주의 (@UZU59)",
-  "📊 분석기: 승리 확률(배당 기반·추정) / 마진 / EV / Kelly까지",
-  "⭐ 히스토리 저장 + TOP3 자동 노출",
-  "⚠️ 본 페이지는 판단 보조용이며 결과를 보장하지 않습니다"
-];
-let noticeIndex = 0;
-function rotateNotice(){
-  const el = document.getElementById("noticeText");
-  if(!el) return;
-  el.innerText = NOTICE_LIST[noticeIndex];
-  const mini = document.getElementById("noticeMiniText");
-  if(mini) mini.innerText = "사칭 주의 · @UZU59";
-  noticeIndex = (noticeIndex + 1) % NOTICE_LIST.length;
-}
-rotateNotice();
-setInterval(rotateNotice, 4000);
-
-/* 공지 배너: 스크롤 시 자동으로 슬림하게(가시성 + 첫 화면 확보) */
-(function initNoticeBar(){
-  const bar = document.getElementById("noticeBar");
-  const tgl = document.getElementById("noticeToggle");
-  if(!bar || !tgl) return;
-
-  let manual = null; // null=자동, true=접힘, false=펼침
-
-  const apply = (collapsed)=>{
-    bar.classList.toggle("is-collapsed", collapsed);
-    tgl.innerText = collapsed ? "▾" : "▴";
-    tgl.setAttribute("aria-label", collapsed ? "공지 펼치기" : "공지 접기");
-  };
-
-  const onScroll = ()=>{
-    if(manual !== null) return;
-    const y = window.scrollY || document.documentElement.scrollTop || 0;
-    apply(y > 18);
-  };
-
-  window.addEventListener("scroll", onScroll, {passive:true});
-  onScroll();
-
-  tgl.addEventListener("click", (e)=>{
-    e.preventDefault();
-    e.stopPropagation();
-    const now = bar.classList.contains("is-collapsed");
-    manual = !now; // 사용자가 선택한 상태로 고정
-    apply(!now);
-  });
-})();
-
-
 /* 사칭주의 (1일 1회) */
 (function(){
   const key="scam_popup_date";
@@ -5801,11 +5624,6 @@ function setupBundlePromo(){
   const savedVM     = localStorage.getItem(BUNDLE_PROMO_LS_VTHR_M);
   const savedVE     = localStorage.getItem(BUNDLE_PROMO_LS_VTHR_EVC);
   const savedAdv    = localStorage.getItem(BUNDLE_PROMO_LS_ADV_OPEN);
-  const savedPreset= localStorage.getItem(BUNDLE_PROMO_LS_PRESET);
-  const savedComm  = localStorage.getItem(BUNDLE_PROMO_LS_COMMENT);
-  const savedVM    = localStorage.getItem(BUNDLE_PROMO_LS_VTHR_M);
-  const savedVE    = localStorage.getItem(BUNDLE_PROMO_LS_VTHR_EVC);
-  const savedAdv   = localStorage.getItem(BUNDLE_PROMO_LS_ADV_OPEN);
 
   if([...sel.options].some(o=>o.value===savedCh)) sel.value = savedCh;
 

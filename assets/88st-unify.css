@@ -1,0 +1,121 @@
+/* 88ST Unify — stronger grid/typo/button consistency (Option B++) */
+:root{
+  --st-container: var(--shell-max, 1100px);
+  --st-pad: var(--shell-pad, 14px);
+  --st-radius-xl: 22px;
+  --st-radius-lg: 18px;
+  --st-radius-md: 14px;
+  --st-radius-sm: 12px;
+  --st-gap: 14px;
+  --st-accent-rgb: var(--accent-rgb, var(--accentRGB, 95,178,255));
+  --st-accent-1: var(--accent1, #5fb2ff);
+  --st-accent-2: var(--accent2, #a8dcff);
+  --st-accent-text: var(--accentText, #00121a);
+
+  /* Brand-unify: keep one accent system across landing/guide/tools */
+  --accent1:#5fb2ff;
+  --accent2:#a8dcff;
+  --accentRGB:95,178,255;
+  --accentText:#00121a;
+  --accentOn:#00121a;
+  /* legacy tokens */
+  --gold: var(--accent1);
+  --gold2: var(--accent2);
+}
+
+html, body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,Apple SD Gothic Neo,"Noto Sans KR",sans-serif;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Layout rhythm: make non-tool pages feel like one product */
+:where(main, .wrap, .container, .content, .page, .inner, .shell){
+  max-width: var(--st-container);
+}
+body.st-shell-on :where(main, .wrap, .container, .content, .page, .inner, .shell){
+  margin-left:auto;
+  margin-right:auto;
+}
+body.st-shell-on :where(main, .wrap, .container, .content, .page, .inner, .shell):not(.no-shell-pad){
+  padding-left: var(--st-pad);
+  padding-right: var(--st-pad);
+}
+
+/* Typo */
+:where(h1,h2,h3){
+  letter-spacing: var(--tracking-h, -0.2px);
+  color: var(--text, #f4f6ff);
+}
+:where(h1){ font-weight:1000; font-size:clamp(24px, 3vw, 34px); line-height:1.16; }
+:where(h2){ font-weight:1000; font-size:clamp(18px, 2vw, 22px); line-height:1.22; }
+:where(h3){ font-weight:950; font-size:15px; line-height:1.28; }
+:where(p, li){
+  font-size:14px;
+  line-height:1.65;
+  color: var(--text-2, rgba(244,246,255,.86));
+}
+
+/* Card/panel surfaces: unify corners + border */
+:where(.card, .box, .panel, .tile, .section, .hero, .modal, .modal-box, .calc-card):not(.no-unify){
+  border-radius: var(--st-radius-xl);
+  border-color: var(--panel-border, rgba(255,255,255,.10));
+}
+
+/* Inputs */
+:where(input, select, textarea):not([type="checkbox"]):not([type="radio"]):not(.no-unify){
+  border-radius: var(--st-radius-md);
+  border: 1px solid var(--panel-border, rgba(255,255,255,.10));
+  background: color-mix(in srgb, var(--panel-2, rgba(16,18,28,.68)) 92%, transparent);
+  color: var(--text, #f4f6ff);
+}
+:where(input, select, textarea):not([type="checkbox"]):not([type="radio"]):focus{
+  outline: none;
+  border-color: rgba(var(--st-accent-rgb), .34);
+  box-shadow: 0 0 0 3px rgba(var(--st-accent-rgb), .14);
+}
+
+/* Buttons: only skin — do not touch layout (flex/width) */
+:where(.btn, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):not(.no-unify){
+  border-radius: var(--st-radius-md);
+  border: 1px solid rgba(var(--st-accent-rgb), .18);
+  background: linear-gradient(135deg, rgba(var(--st-accent-rgb),.14), color-mix(in srgb, var(--panel, rgba(12,14,22,.62)) 86%, transparent));
+  color: var(--text, #f4f6ff);
+  font-weight: 1000;
+  letter-spacing: var(--tracking-h, .2px);
+  box-shadow: var(--shadow-sm, 0 10px 24px rgba(0,0,0,.30));
+  transition: transform .15s ease, filter .15s ease, border-color .15s ease;
+}
+:where(.btn, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):hover{
+  filter: brightness(1.06);
+  border-color: rgba(var(--st-accent-rgb), .34);
+}
+:where(.btn, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):active{ transform: scale(.985); }
+:where(.btn, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):focus-visible{
+  outline:none;
+  box-shadow: 0 0 0 3px rgba(var(--st-accent-rgb), .16), var(--shadow-sm, 0 10px 24px rgba(0,0,0,.30));
+}
+
+/* Variants commonly used across pages */
+:where(.btn.primary, .cta.primary, a.cta.primary, button.primary):not(.no-unify){
+  background: linear-gradient(135deg, var(--st-accent-1), var(--st-accent-2));
+  color: var(--st-accent-text);
+  border-color: rgba(var(--st-accent-rgb), .24);
+}
+:where(.btn.ghost, .cta.ghost, .st-shell-btn.ghost, button.ghost):not(.no-unify){
+  background: color-mix(in srgb, var(--panel-2, rgba(16,18,28,.68)) 92%, transparent);
+  border-color: var(--panel-border, rgba(255,255,255,.10));
+  color: var(--text-2, rgba(244,246,255,.86));
+}
+:where(.btn.danger, button.danger):not(.no-unify){
+  background: color-mix(in srgb, rgba(255,110,110,.14) 44%, var(--panel-2, rgba(16,18,28,.68)));
+  border-color: rgba(255,110,110,.26);
+}
+
+/* Links inside cards — consistent */
+:where(a){ color: inherit; }
+:where(a:hover){ text-decoration: none; }
+
+/* Kill accidental top floating announcement UI if it ever slips in */
+:where(.notice-bar){ display:none !important; }

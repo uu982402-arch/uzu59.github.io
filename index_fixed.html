@@ -1833,17 +1833,12 @@ const INSIGHTS_BY_SPORT = {
 <script src="/assets/js/88st-analytics.js"></script>
 <link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
 <script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
-</meta><link href="/assets/88st-tool-history.css?v=20260210_B1" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B1"></script>
-<link href="/assets/88st-shell.css?v=20260210_B1" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=20260210_B1"></script>
+</meta><link href="/assets/88st-tool-history.css?v=20260210_B2" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B2"></script>
+<link href="/assets/88st-shell.css?v=20260210_B2" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=20260210_B2"></script>
 </head>
 <body>
-<div class="notice-bar">
-<a href="https://t.me/UZU59" id="noticeLink" rel="noopener" target="_blank">
-<span id="noticeText"></span>
-</a>
-</div>
 <div aria-hidden="true" id="loader">
 <div class="logoWrap">
 <img alt="88 로고 로딩" src="img/logo.png"/>
@@ -2433,38 +2428,6 @@ function closeScam() {
   if(el) el.style.display="none";
   track("scam_popup_close", {"page":"index"});
 }
-
-/* ===== 상단 공지 배너 자동 순환 ===== */
-const NOTICE_LIST = [
-  "🔔 88ST.Cl0ud 공식 안내 · 관리자 사칭 주의 (@UZU59)",
-  "📊 스포츠 배당 분석기 툴 무료 제공 중",
-  "🧮 배당 마진 계산기로 수수료 체크",
-  "⭐ 인증 정보는 아래 카드에서 확인",
-  "⚠️ 가입코드 미입력 시 혜택 적용 불가"
-];
-let noticeIndex = 0;
-const noticeTextEl = document.getElementById("noticeText");
-function rotateNotice() {
-  if(noticeTextEl) noticeTextEl.innerText = NOTICE_LIST[noticeIndex];
-  noticeIndex = (noticeIndex + 1) % NOTICE_LIST.length;
-}
-rotateNotice();
-setInterval(rotateNotice, 4000);
-
-/* (UI) 스크롤 시 공지 배너를 더 투명/슬림하게 */
-(function noticeFadeOnScroll(){
-  const bar = document.querySelector(".notice-bar");
-  if(!bar) return;
-  let last = null;
-  const onScroll = ()=>{
-    const sc = window.scrollY > 60;
-    if(sc === last) return;
-    bar.classList.toggle("is-scrolled", sc);
-    last = sc;
-  };
-  onScroll();
-  window.addEventListener("scroll", onScroll, {passive:true});
-})();
 
 
 /* ===== 인사이트 ===== */

@@ -429,10 +429,10 @@ a{ color:inherit; }
 <script src="/assets/js/88st-analytics.js"></script>
 <link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
 <script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
-<link href="/assets/88st-tool-history.css?v=20260210_B1" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B1"></script>
-<link href="/assets/88st-shell.css?v=20260210_B1" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=20260210_B1"></script>
+<link href="/assets/88st-tool-history.css?v=20260210_B2" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B2"></script>
+<link href="/assets/88st-shell.css?v=20260210_B2" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=20260210_B2"></script>
 </head>
 <body>
 <section aria-label="랜딩 바로가기" class="rel-links" style="margin-top:16px;">
@@ -448,13 +448,6 @@ a{ color:inherit; }
 <a data-cta="bc_ipl" href="/ipl/">IPL</a>
 </div>
 </section>
-<div class="notice" id="noticeBar">
-<a data-utm="1" href="/?from=bonus">
-<span class="pill">안내</span>
-<span class="txt">공식 문의/공지 채널은 한 곳만 운영합니다 · 사칭 주의</span>
-<span class="chev">↗</span>
-</a>
-</div>
 <div class="wrap">
 <div class="top">
 <a class="brand" href="/?from=bonus_top">
@@ -568,11 +561,6 @@ a{ color:inherit; }
 <script>
 // ===== Page-specific UI + events =====
 (function(){
-  const bar = document.getElementById('noticeBar');
-  const onScroll = () => { if(bar) bar.classList.toggle('is-scrolled', window.scrollY > 60); };
-  onScroll();
-  window.addEventListener('scroll', onScroll, {passive:true});
-
   // copy checklist template
   const btn = document.getElementById('copyChecklist');
   const note = document.getElementById('copyNote');
