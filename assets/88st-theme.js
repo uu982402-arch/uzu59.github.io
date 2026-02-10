@@ -104,7 +104,7 @@
       const rect = el.getBoundingClientRect();
       if(rect.height < 24) return;
       // Only consider elements occupying bottom band
-      if(rect.bottom > (vh - 4) && rect.top > (vh - 320)){
+      if(rect.bottom > (vh - 80) && rect.top > (vh - 420)){
         const needed = Math.max(0, vh - rect.top + 12);
         extra = Math.max(extra, needed);
       }

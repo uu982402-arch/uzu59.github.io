@@ -1,17 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>공정배당(Fair Odds) 계산기 | 88st.cloud</title>
-<meta name="description" content="배당을 입력하면 마진을 제거한 공정확률/공정배당(Fair Odds)을 계산해 비교할 수 있습니다.">
-<link rel="canonical" href="https://88st.cloud/tool/fair-odds/">
-<meta name="robots" content="index,follow">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="88 (팔팔커뮤니티)">
-<meta property="og:title" content="공정배당(Fair Odds) 계산기 | 88st.cloud">
-<meta property="og:description" content="배당을 입력하면 마진을 제거한 공정확률/공정배당(Fair Odds)을 계산해 비교할 수 있습니다.">
-<meta property="og:url" content="https://88st.cloud/tool/fair-odds/">
+<meta content="배당을 입력하면 마진을 제거한 공정확률/공정배당(Fair Odds)을 계산해 비교할 수 있습니다." name="description"/>
+<link href="https://88st.cloud/tool/fair-odds/" rel="canonical"/>
+<meta content="index,follow" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="88 (팔팔커뮤니티)" property="og:site_name"/>
+<meta content="공정배당(Fair Odds) 계산기 | 88st.cloud" property="og:title"/>
+<meta content="배당을 입력하면 마진을 제거한 공정확률/공정배당(Fair Odds)을 계산해 비교할 수 있습니다." property="og:description"/>
+<meta content="https://88st.cloud/tool/fair-odds/" property="og:url"/>
 <style>
 :root{
   /* Theme (auto/preset) */
@@ -81,7 +82,7 @@ input, select{
   user-select:none;
 }
 .btn.secondary{ background:rgba(255,255,255,.05); border:1px solid var(--border); color:var(--text); }
-.out{ margin-top:10px; color:rgba(255,255,255,.86); font-size:13px; line-height:1.6; }
+.out{ margin-top:10px; color:var(--text-2); font-size:13px; line-height:1.6; }
 .kv{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px; }
 @media(max-width:720px){ .kv{ grid-template-columns:1fr; } }
 .kv .item{ border:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.18); border-radius:18px; padding:12px; }
@@ -92,8 +93,8 @@ input, select{
 .faq details:first-child{ border-top:none; }
 .faq summary{ cursor:pointer; list-style:none; font-weight:1000; }
 .faq summary::-webkit-details-marker{ display:none; }
-footer{ margin-top:16px; color:rgba(255,255,255,.50); font-size:12px; line-height:1.6; }
-.small{ font-size:12px; color:rgba(255,255,255,.55); }
+footer{ margin-top:16px; color:var(--muted-2); font-size:12px; line-height:1.6; }
+.small{ font-size:12px; color:var(--muted-2); }
 
 
 /* 88 logo spotlight */
@@ -113,29 +114,28 @@ footer{ margin-top:16px; color:rgba(255,255,255,.50); font-size:12px; line-heigh
 
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "오버라운드(마진)가 몇 %면 높은 편인가요?", "acceptedAnswer": {"@type": "Answer", "text": "종목/리그/시장에 따라 다르지만, 일반적으로 마진이 낮을수록 유리합니다. 같은 조건이면 2~4%대가 6~10%대보다 장기 기대값이 좋습니다."}}, {"@type": "Question", "name": "공정확률/공정배당은 무엇인가요?", "acceptedAnswer": {"@type": "Answer", "text": "암시확률을 100%로 정규화해 마진을 제거한 값입니다. ‘마진이 없는 시장’이라고 가정한 공정 기준으로 비교할 때 사용합니다."}}, {"@type": "Question", "name": "2-way와 3-way는 언제 쓰나요?", "acceptedAnswer": {"@type": "Answer", "text": "승/패만 있는 시장은 2-way, 승/무/패가 있는 시장은 3-way로 계산합니다."}}, {"@type": "Question", "name": "마진이 낮으면 무조건 좋은 배팅인가요?", "acceptedAnswer": {"@type": "Answer", "text": "아닙니다. 마진은 ‘수수료’에 가깝고, 실제 수익 여부는 추정 승률(엣지)과 배당의 균형(EV)에 달려 있습니다."}}, {"@type": "Question", "name": "이 계산기는 정답인가요?", "acceptedAnswer": {"@type": "Answer", "text": "계산 자체는 산술이지만, 실제 결과는 변동성이 큽니다. 참고용으로만 활용해 주세요."}}]}</script>
-<script src="../assets/theme-preset.js" defer></script>
-
+<script defer="" src="../assets/theme-preset.js"></script>
 <style id="v13_1_theme_override">
 /* === v13.1 look unify (from main index) === */
 :root{
   /* unify accent (blue) */
-  --accent1:#5fb2ff !important;
-  --accent2:#a8dcff !important;
-  --accentRGB:95,178,255 !important;  /* for rgba(var(--accentRGB), .xx) */
-  --accentText:#00121a !important;
-  --accentOn:#00121a !important;
+  --accent1:#5fb2ff;
+  --accent2:#a8dcff;
+  --accentRGB:95,178,255;  /* for rgba(var(--accentRGB), .xx) */
+  --accentText:#00121a;
+  --accentOn:#00121a;
 
   /* unify tokens */
-  --bg:#05060b !important;
-  --panel:rgba(12,14,22,.62) !important;
-  --glassA:.72 !important;
-  --glassStrongA:.86 !important;
-  --glassSoftA:.18 !important;
-  --glassBorder:rgba(255,255,255,.10) !important;
+  --bg:#05060b;
+  --panel:rgba(12,14,22,.62);
+  --glassA:.72;
+  --glassStrongA:.86;
+  --glassSoftA:.18;
+  --glassBorder:rgba(255,255,255,.10);
 
   /* backward compat */
-  --gold: var(--accent1) !important;
-  --gold2: var(--accent2) !important;
+  --gold: var(--accent1);
+  --gold2: var(--accent2);
 }
 
 /* premium midnight background */
@@ -145,7 +145,7 @@ body{
     radial-gradient(900px 540px at 15% 25%, rgba(120,170,255,.10), transparent 55%),
     radial-gradient(900px 640px at 85% 35%, rgba(80,140,255,.08), transparent 55%),
     linear-gradient(180deg, #05060b 0%, #060612 60%, #040408 100%) !important;
-  color:#fff;
+  color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
 }
 
@@ -166,7 +166,7 @@ h3 .badge{ display:none !important; }
 input, select, textarea{
   background: rgba(0,0,0,.28) !important;
   border:1px solid rgba(255,255,255,.14) !important;
-  color:#fff !important;
+  color:var(--text) !important;
   border-radius:14px !important;
   outline:none;
 }
@@ -179,7 +179,7 @@ input:focus, select:focus, textarea:focus{
 .btn, button, a.btn{
   background: rgba(255,255,255,.06) !important;
   border:1px solid rgba(255,255,255,.14) !important;
-  color: rgba(255,255,255,.92) !important;
+  color:var(--text) !important;
   box-shadow: 0 12px 34px rgba(0,0,0,.38) !important;
 }
 .btn:hover, button:hover, a.btn:hover{ filter: brightness(1.06); }
@@ -194,8 +194,6 @@ input:focus, select:focus, textarea:focus{
 /* links */
 a{ color:inherit; }
 </style>
-
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -216,77 +214,70 @@ a{ color:inherit; }
   ]
 }
 </script>
-
 <script src="/assets/js/88st-analytics.js"></script>
-<script src="/assets/js/vendor-teasers.js" defer></script>
-<link rel="stylesheet" href="/assets/vendor-teasers.css">
-
-<link rel="stylesheet" href="/assets/88st-theme.css?v=20260210_2">
-<script defer src="/assets/88st-theme.js?v=20260210_2"></script>
+<script defer="" src="/assets/js/vendor-teasers.js"></script>
+<link href="/assets/vendor-teasers.css" rel="stylesheet"/>
+<link href="/assets/88st-theme.css?v=20260210_3" rel="stylesheet"/>
+<script defer="" src="/assets/88st-theme.js?v=20260210_3"></script>
 </head>
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="brand"><span class="badge">88</span> 배당 마진 계산기</div>
-      <div class="navlinks" aria-label="바로가기">
-        <a href="/" rel="home">홈</a>
-        <a href="/analysis/">분석기</a>
-        <a href="/tool-margin/">마진</a>
-        <a href="/tool-ev/">EV</a>
-        <a href="/tool-odds/">배당↔확률</a>
-      </div>
-    </div>
-
-    <div class="hero">
-      <h1>공정배당(Fair Odds) 계산기</h1>
-      <p>배당을 입력하면 암시확률 합(오버라운드)과 마진%, 공정확률/공정배당을 계산합니다.<br><span class="small">※ 정보 제공/참고용 · 결과를 보장하지 않습니다.</span></p>
-    </div>
-
-    
-<div class="grid">
-  <div class="card">
-    <h2>입력</h2>
-    <div class="row">
-      <div class="field">
-        <label for="mode">시장</label>
-        <select id="mode">
-          <option value="2">2-way (승/패)</option>
-          <option value="3" selected>3-way (승/무/패)</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="o1">홈/승 배당</label>
-        <input id="o1" inputmode="decimal" placeholder="예: 1.85" value="1.85">
-      </div>
-      <div class="field">
-        <label for="o2">무/원정 배당</label>
-        <input id="o2" inputmode="decimal" placeholder="예: 3.40" value="3.40">
-      </div>
-      <div class="field" id="o3wrap">
-        <label for="o3">원정/패 배당</label>
-        <input id="o3" inputmode="decimal" placeholder="예: 4.20" value="4.20">
-      </div>
-    </div>
-    <div class="btnrow">
-      <div class="btn" id="calcBtn">계산하기</div>
-      <div class="btn secondary" id="resetBtn">초기화</div>
-    </div>
-    <div class="out" id="hint">배당을 입력하면 오버라운드(마진)와 공정확률/공정배당을 계산합니다.</div>
-  </div>
-
-  <div class="card">
-    <h2>결과</h2>
-    <div class="kv">
-      <div class="item"><div class="k">오버라운드 합(암시확률)</div><div class="v" id="sumImp">-</div></div>
-      <div class="item"><div class="k">마진(오버라운드)</div><div class="v" id="margin">-</div></div>
-      <div class="item"><div class="k">공정확률(정규화)</div><div class="v" id="fairProb">-</div></div>
-      <div class="item"><div class="k">공정배당(마진 제거)</div><div class="v" id="fairOdds">-</div></div>
-    </div>
-    <div class="sep"></div>
-    <div class="small" id="explain"></div>
-  </div>
+<div class="wrap">
+<div class="topbar">
+<div class="brand"><span class="badge">88</span> 배당 마진 계산기</div>
+<div aria-label="바로가기" class="navlinks">
+<a href="/" rel="home">홈</a>
+<a href="/analysis/">분석기</a>
+<a href="/tool-margin/">마진</a>
+<a href="/tool-ev/">EV</a>
+<a href="/tool-odds/">배당↔확률</a>
 </div>
-
+</div>
+<div class="hero">
+<h1>공정배당(Fair Odds) 계산기</h1>
+<p>배당을 입력하면 암시확률 합(오버라운드)과 마진%, 공정확률/공정배당을 계산합니다.<br/><span class="small">※ 정보 제공/참고용 · 결과를 보장하지 않습니다.</span></p>
+</div>
+<div class="grid">
+<div class="card">
+<h2>입력</h2>
+<div class="row">
+<div class="field">
+<label for="mode">시장</label>
+<select id="mode">
+<option value="2">2-way (승/패)</option>
+<option selected="" value="3">3-way (승/무/패)</option>
+</select>
+</div>
+<div class="field">
+<label for="o1">홈/승 배당</label>
+<input id="o1" inputmode="decimal" placeholder="예: 1.85" value="1.85"/>
+</div>
+<div class="field">
+<label for="o2">무/원정 배당</label>
+<input id="o2" inputmode="decimal" placeholder="예: 3.40" value="3.40"/>
+</div>
+<div class="field" id="o3wrap">
+<label for="o3">원정/패 배당</label>
+<input id="o3" inputmode="decimal" placeholder="예: 4.20" value="4.20"/>
+</div>
+</div>
+<div class="btnrow">
+<div class="btn" id="calcBtn">계산하기</div>
+<div class="btn secondary" id="resetBtn">초기화</div>
+</div>
+<div class="out" id="hint">배당을 입력하면 오버라운드(마진)와 공정확률/공정배당을 계산합니다.</div>
+</div>
+<div class="card">
+<h2>결과</h2>
+<div class="kv">
+<div class="item"><div class="k">오버라운드 합(암시확률)</div><div class="v" id="sumImp">-</div></div>
+<div class="item"><div class="k">마진(오버라운드)</div><div class="v" id="margin">-</div></div>
+<div class="item"><div class="k">공정확률(정규화)</div><div class="v" id="fairProb">-</div></div>
+<div class="item"><div class="k">공정배당(마진 제거)</div><div class="v" id="fairOdds">-</div></div>
+</div>
+<div class="sep"></div>
+<div class="small" id="explain"></div>
+</div>
+</div>
 <script>
 function num(v){ const x=parseFloat(v); return (isFinite(x) && x>1e-9) ? x : NaN; }
 function pct(x){ return (x*100).toFixed(2) + "%"; }
@@ -335,77 +326,64 @@ document.getElementById("resetBtn").addEventListener("click", ()=>{
 ["o1","o2","o3"].forEach(id=> document.getElementById(id).addEventListener("input", ()=> calc()));
 sync(); calc();
 </script>
-
-
-        <div class="vendor-teaser" id="vendorTeaser" aria-label="인증 업체 빠른보기"
-      data-vt-fixed="1,2,3,4" data-vt-pool="10,11,8,7" data-vt-pick="2">
-      <div class="vt-head">
-        <div>
-          <div class="vt-title">인증 업체 빠른보기</div>
-          <div class="vt-sub">고정 4 + 오늘의 추천 2(페이지별 자동 로테이션) · 카드 클릭 → 상세 혜택/공지 · 가입코드 미입력 시 혜택 불가</div>
-        </div>
-        <div class="badge">보증·인증</div>
-      </div>
-
-      <div class="vt-sec-title">필수 추천 TOP4 (고정)</div>
-      <div class="vendor-grid" data-vt-grid="fixed"></div>
-
-      <div class="vt-sec-title">오늘의 추천 TOP2 (자동 로테이션)</div>
-      <div class="vendor-grid" data-vt-grid="rot"></div>
-
-      <div class="vt-actions">
-        <a href="/#vendorTop" data-utm="1" data-cta="vendor_teaser_all">전체 혜택/공지 보기</a>
-        <a class="primary" href="/analysis/" data-utm="1" data-cta="vendor_teaser_to_analysis">분석기 바로가기</a>
-      </div>
-    </div>
-
-
-    <div class="card" style="margin-top:12px;">
-      <h2>자주 묻는 질문(FAQ)</h2>
-      <div class="faq">
-      <details>
-        <summary>오버라운드(마진)가 몇 %면 높은 편인가요?</summary>
-        <div class="small" style="margin-top:8px; line-height:1.6;">종목/리그/시장에 따라 다르지만, 일반적으로 마진이 낮을수록 유리합니다. 같은 조건이면 2~4%대가 6~10%대보다 장기 기대값이 좋습니다.</div>
-      </details>
-
-      <details>
-        <summary>공정확률/공정배당은 무엇인가요?</summary>
-        <div class="small" style="margin-top:8px; line-height:1.6;">암시확률을 100%로 정규화해 마진을 제거한 값입니다. ‘마진이 없는 시장’이라고 가정한 공정 기준으로 비교할 때 사용합니다.</div>
-      </details>
-
-      <details>
-        <summary>2-way와 3-way는 언제 쓰나요?</summary>
-        <div class="small" style="margin-top:8px; line-height:1.6;">승/패만 있는 시장은 2-way, 승/무/패가 있는 시장은 3-way로 계산합니다.</div>
-      </details>
-
-      <details>
-        <summary>마진이 낮으면 무조건 좋은 배팅인가요?</summary>
-        <div class="small" style="margin-top:8px; line-height:1.6;">아닙니다. 마진은 ‘수수료’에 가깝고, 실제 수익 여부는 추정 승률(엣지)과 배당의 균형(EV)에 달려 있습니다.</div>
-      </details>
-
-      <details>
-        <summary>이 계산기는 정답인가요?</summary>
-        <div class="small" style="margin-top:8px; line-height:1.6;">계산 자체는 산술이지만, 실제 결과는 변동성이 큽니다. 참고용으로만 활용해 주세요.</div>
-      </details></div>
-    </div>
-
-    <footer>
-      <div>© 88 — Tools</div>
-      <div class="small">책임감 있게 이용해 주세요. 과몰입 방지/리스크 관리가 우선입니다.</div>
-    </footer>
-  </div>
+<div aria-label="인증 업체 빠른보기" class="vendor-teaser" data-vt-fixed="1,2,3,4" data-vt-pick="2" data-vt-pool="10,11,8,7" id="vendorTeaser">
+<div class="vt-head">
+<div>
+<div class="vt-title">인증 업체 빠른보기</div>
+<div class="vt-sub">고정 4 + 오늘의 추천 2(페이지별 자동 로테이션) · 카드 클릭 → 상세 혜택/공지 · 가입코드 미입력 시 혜택 불가</div>
+</div>
+<div class="badge">보증·인증</div>
+</div>
+<div class="vt-sec-title">필수 추천 TOP4 (고정)</div>
+<div class="vendor-grid" data-vt-grid="fixed"></div>
+<div class="vt-sec-title">오늘의 추천 TOP2 (자동 로테이션)</div>
+<div class="vendor-grid" data-vt-grid="rot"></div>
+<div class="vt-actions">
+<a data-cta="vendor_teaser_all" data-utm="1" href="/#vendorTop">전체 혜택/공지 보기</a>
+<a class="primary" data-cta="vendor_teaser_to_analysis" data-utm="1" href="/analysis/">분석기 바로가기</a>
+</div>
+</div>
+<div class="card" style="margin-top:12px;">
+<h2>자주 묻는 질문(FAQ)</h2>
+<div class="faq">
+<details>
+<summary>오버라운드(마진)가 몇 %면 높은 편인가요?</summary>
+<div class="small" style="margin-top:8px; line-height:1.6;">종목/리그/시장에 따라 다르지만, 일반적으로 마진이 낮을수록 유리합니다. 같은 조건이면 2~4%대가 6~10%대보다 장기 기대값이 좋습니다.</div>
+</details>
+<details>
+<summary>공정확률/공정배당은 무엇인가요?</summary>
+<div class="small" style="margin-top:8px; line-height:1.6;">암시확률을 100%로 정규화해 마진을 제거한 값입니다. ‘마진이 없는 시장’이라고 가정한 공정 기준으로 비교할 때 사용합니다.</div>
+</details>
+<details>
+<summary>2-way와 3-way는 언제 쓰나요?</summary>
+<div class="small" style="margin-top:8px; line-height:1.6;">승/패만 있는 시장은 2-way, 승/무/패가 있는 시장은 3-way로 계산합니다.</div>
+</details>
+<details>
+<summary>마진이 낮으면 무조건 좋은 배팅인가요?</summary>
+<div class="small" style="margin-top:8px; line-height:1.6;">아닙니다. 마진은 ‘수수료’에 가깝고, 실제 수익 여부는 추정 승률(엣지)과 배당의 균형(EV)에 달려 있습니다.</div>
+</details>
+<details>
+<summary>이 계산기는 정답인가요?</summary>
+<div class="small" style="margin-top:8px; line-height:1.6;">계산 자체는 산술이지만, 실제 결과는 변동성이 큽니다. 참고용으로만 활용해 주세요.</div>
+</details></div>
+</div>
+<footer>
+<div>© 88 — Tools</div>
+<div class="small">책임감 있게 이용해 주세요. 과몰입 방지/리스크 관리가 우선입니다.</div>
+</footer>
+</div>
 <section aria-label="관련 링크" class="rel-links">
-  <h2>관련 링크</h2>
-  <div class="rel-grid">
-    <a href="/" data-cta="rel_home">메인</a>
-    <a href="/#oddsAnalyzerSection" data-cta="rel_odds">배당 구조 분석기</a>
-    <a href="/tool-margin/" data-cta="rel_margin">마진 계산기</a>
-    <a href="/tool-ev/" data-cta="rel_ev">EV 계산기</a>
-    <a href="/tool-odds/" data-cta="rel_odds2">배당↔확률 변환</a>
-    <a href="/#vendorTop" data-cta="rel_vendors">보증·인증 업체</a>
-    <a href="/bonus-checklist/" data-cta="rel_bonus">입플 체크리스트</a>
-    <a href="/landing-a/" data-cta="rel_landing_a">입플·보너스 안내</a>
-  </div>
+<h2>관련 링크</h2>
+<div class="rel-grid">
+<a data-cta="rel_home" href="/">메인</a>
+<a data-cta="rel_odds" href="/#oddsAnalyzerSection">배당 구조 분석기</a>
+<a data-cta="rel_margin" href="/tool-margin/">마진 계산기</a>
+<a data-cta="rel_ev" href="/tool-ev/">EV 계산기</a>
+<a data-cta="rel_odds2" href="/tool-odds/">배당↔확률 변환</a>
+<a data-cta="rel_vendors" href="/#vendorTop">보증·인증 업체</a>
+<a data-cta="rel_bonus" href="/bonus-checklist/">입플 체크리스트</a>
+<a data-cta="rel_landing_a" href="/landing-a/">입플·보너스 안내</a>
+</div>
 </section>
 <style>
   .rel-links{max-width:1080px;margin:26px auto 34px;padding:14px 14px 16px;border-radius:18px;
@@ -413,7 +391,7 @@ sync(); calc();
     box-shadow:0 14px 40px rgba(0,0,0,.35);}
   .rel-links h2{margin:0 0 10px;font-size:13px;letter-spacing:.02em;color:rgba(245,226,122,.92);font-weight:900;}
   .rel-grid{display:flex;flex-wrap:wrap;gap:8px;}
-  .rel-grid a{text-decoration:none;color:rgba(255,255,255,.82);font-size:12px;padding:8px 10px;border-radius:999px;
+  .rel-grid a{text-decoration:none;color:var(--text-2);font-size:12px;padding:8px 10px;border-radius:999px;
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
   .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
 </style>

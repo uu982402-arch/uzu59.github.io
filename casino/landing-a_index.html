@@ -1,15 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>입플·보너스·페이백 분석기 | 88 커뮤니티</title>
-<meta name="description" content="입플/보너스/페이백 혜택 + 배당 마진·EV 분석기로 빠르게 비교하세요.">
-<link rel="canonical" href="https://88st.cloud/landing-a/">
-<meta name="robots" content="noindex,follow"/>
+<meta content="입플/보너스/페이백 혜택 + 배당 마진·EV 분석기로 빠르게 비교하세요." name="description"/>
+<link href="https://88st.cloud/landing-a/" rel="canonical"/>
+<meta content="noindex,follow" name="robots">
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;background:#0b0b0b;color:#fff}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;background:#0b0b0b;color:var(--text)}
 .wrap{max-width:980px;margin:0 auto;padding:18px 14px 28px}
 .hero{background:rgba(18,18,18,.9);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:16px;box-shadow:0 10px 26px rgba(0,0,0,.45)}
 .h-title{font-weight:900;color:#f5e27a;font-size:18px;line-height:1.25;margin:0}
@@ -17,40 +18,39 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,syste
 .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 .btn{flex:1;min-width:190px;border:none;border-radius:14px;padding:12px;font-weight:900;cursor:pointer;text-decoration:none;display:block;text-align:center}
 .primary{background:linear-gradient(135deg,#1da1f2,#78d6ff);color:#00121a}
-.secondary{background:#1f1f1f;color:#fff;border:1px solid rgba(255,255,255,.08)}
+.secondary{background:#1f1f1f;color:var(--text);border:1px solid rgba(255,255,255,.08)}
 .section{margin-top:14px;background:rgba(18,18,18,.85);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:14px;box-shadow:0 10px 26px rgba(0,0,0,.45)}
 .s-title{font-weight:900;color:#f5e27a;font-size:14px;margin:0 0 10px}
 .mini-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 @media(max-width:760px){.mini-row{grid-template-columns:1fr}}
 .mini-card{position:relative;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;cursor:pointer;overflow:hidden}
 .mini-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:900;font-size:11px;margin-bottom:8px;color:#111;background:linear-gradient(135deg,#d4af37,#f5e27a)}
-.mini-badge.ad{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.14)}
+.mini-badge.ad{background:rgba(255,255,255,.14);color:var(--text);border:1px solid rgba(255,255,255,.14)}
 .mini-name{font-weight:900}
 .mini-sub{margin-top:6px;font-size:12px;color:#cfcfcf;line-height:1.4}
 .footer{margin-top:14px;color:#9a9a9a;font-size:12px;line-height:1.55;text-align:center}
 </style>
-
 <style id="v13_1_theme_override">
 /* === v13.1 look unify (from main index) === */
 :root{
   /* unify accent (blue) */
-  --accent1:#5fb2ff !important;
-  --accent2:#a8dcff !important;
-  --accentRGB:95,178,255 !important;  /* for rgba(var(--accentRGB), .xx) */
-  --accentText:#00121a !important;
-  --accentOn:#00121a !important;
+  --accent1:#5fb2ff;
+  --accent2:#a8dcff;
+  --accentRGB:95,178,255;  /* for rgba(var(--accentRGB), .xx) */
+  --accentText:#00121a;
+  --accentOn:#00121a;
 
   /* unify tokens */
-  --bg:#05060b !important;
-  --panel:rgba(12,14,22,.62) !important;
-  --glassA:.72 !important;
-  --glassStrongA:.86 !important;
-  --glassSoftA:.18 !important;
-  --glassBorder:rgba(255,255,255,.10) !important;
+  --bg:#05060b;
+  --panel:rgba(12,14,22,.62);
+  --glassA:.72;
+  --glassStrongA:.86;
+  --glassSoftA:.18;
+  --glassBorder:rgba(255,255,255,.10);
 
   /* backward compat */
-  --gold: var(--accent1) !important;
-  --gold2: var(--accent2) !important;
+  --gold: var(--accent1);
+  --gold2: var(--accent2);
 }
 
 /* premium midnight background */
@@ -60,7 +60,7 @@ body{
     radial-gradient(900px 540px at 15% 25%, rgba(120,170,255,.10), transparent 55%),
     radial-gradient(900px 640px at 85% 35%, rgba(80,140,255,.08), transparent 55%),
     linear-gradient(180deg, #05060b 0%, #060612 60%, #040408 100%) !important;
-  color:#fff;
+  color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
 }
 
@@ -81,7 +81,7 @@ h3 .badge{ display:none !important; }
 input, select, textarea{
   background: rgba(0,0,0,.28) !important;
   border:1px solid rgba(255,255,255,.14) !important;
-  color:#fff !important;
+  color:var(--text) !important;
   border-radius:14px !important;
   outline:none;
 }
@@ -94,7 +94,7 @@ input:focus, select:focus, textarea:focus{
 .btn, button, a.btn{
   background: rgba(255,255,255,.06) !important;
   border:1px solid rgba(255,255,255,.14) !important;
-  color: rgba(255,255,255,.92) !important;
+  color:var(--text) !important;
   box-shadow: 0 12px 34px rgba(0,0,0,.38) !important;
 }
 .btn:hover, button:hover, a.btn:hover{ filter: brightness(1.06); }
@@ -109,8 +109,6 @@ input:focus, select:focus, textarea:focus{
 /* links */
 a{ color:inherit; }
 </style>
-
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -131,34 +129,29 @@ a{ color:inherit; }
   ]
 }
 </script>
-
 <script src="/assets/js/88st-analytics.js"></script>
-
-<link rel="stylesheet" href="/assets/88st-theme.css?v=20260210_2">
-<script defer src="/assets/88st-theme.js?v=20260210_2"></script>
-</head>
+<link href="/assets/88st-theme.css?v=20260210_3" rel="stylesheet"/>
+<script defer="" src="/assets/88st-theme.js?v=20260210_3"></script>
+</meta></head>
 <body>
 <div class="wrap">
-  <div class="hero">
-    <h1 class="h-title">입플·보너스 중심 유저를 위한 랜딩</h1>
-    <div class="h-sub">입플(입금플러스)·보너스·페이백 정보를 찾는 분들을 위해, 배당 마진/EV 체크 도구와 함께 검증 카드 TOP3를 바로 보여드립니다.</div>
-    <div class="cta">
-      <a class="btn primary" href="/">마진·EV 분석기 사용</a>
-      <a class="btn secondary" href="/?open=card1">추천 카드 바로 보기</a>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="s-title">추천 카드 요약 TOP3</div>
-    <div class="mini-row" id="recRow"></div>
-  </div>
-
-  <div class="footer">
-    ※ 본 페이지는 참고용 안내입니다. 손실을 감당 가능한 범위 내에서 이용하세요.<br>
-    문의: <a href="https://t.me/UZU59" target="_blank" rel="noopener" style="color:#45b3ff;text-decoration:none;font-weight:900">@UZU59</a>
-  </div>
+<div class="hero">
+<h1 class="h-title">입플·보너스 중심 유저를 위한 랜딩</h1>
+<div class="h-sub">입플(입금플러스)·보너스·페이백 정보를 찾는 분들을 위해, 배당 마진/EV 체크 도구와 함께 검증 카드 TOP3를 바로 보여드립니다.</div>
+<div class="cta">
+<a class="btn primary" href="/">마진·EV 분석기 사용</a>
+<a class="btn secondary" href="/?open=card1">추천 카드 바로 보기</a>
 </div>
-
+</div>
+<div class="section">
+<div class="s-title">추천 카드 요약 TOP3</div>
+<div class="mini-row" id="recRow"></div>
+</div>
+<div class="footer">
+    ※ 본 페이지는 참고용 안내입니다. 손실을 감당 가능한 범위 내에서 이용하세요.<br/>
+    문의: <a href="https://t.me/UZU59" rel="noopener" style="color:#45b3ff;text-decoration:none;font-weight:900" target="_blank">@UZU59</a>
+</div>
+</div>
 <script>
 const CARD_DATA = {
   card1:{ title:"B WIN", code:"AS88", link:"https://bwk999.com", telegram:"UZU59",
@@ -226,17 +219,17 @@ function badgeText(d, id){
 })();
 </script>
 <section aria-label="관련 링크" class="rel-links">
-  <h2>관련 링크</h2>
-  <div class="rel-grid">
-    <a href="/" data-cta="rel_home">메인</a>
-    <a href="/#oddsAnalyzerSection" data-cta="rel_odds">배당 구조 분석기</a>
-    <a href="/tool-margin/" data-cta="rel_margin">마진 계산기</a>
-    <a href="/tool-ev/" data-cta="rel_ev">EV 계산기</a>
-    <a href="/tool-odds/" data-cta="rel_odds2">배당↔확률 변환</a>
-    <a href="/#vendorTop" data-cta="rel_vendors">보증·인증 업체</a>
-    <a href="/bonus-checklist/" data-cta="rel_bonus">입플 체크리스트</a>
-    <a href="/landing-a/" data-cta="rel_landing_a">입플·보너스 안내</a>
-  </div>
+<h2>관련 링크</h2>
+<div class="rel-grid">
+<a data-cta="rel_home" href="/">메인</a>
+<a data-cta="rel_odds" href="/#oddsAnalyzerSection">배당 구조 분석기</a>
+<a data-cta="rel_margin" href="/tool-margin/">마진 계산기</a>
+<a data-cta="rel_ev" href="/tool-ev/">EV 계산기</a>
+<a data-cta="rel_odds2" href="/tool-odds/">배당↔확률 변환</a>
+<a data-cta="rel_vendors" href="/#vendorTop">보증·인증 업체</a>
+<a data-cta="rel_bonus" href="/bonus-checklist/">입플 체크리스트</a>
+<a data-cta="rel_landing_a" href="/landing-a/">입플·보너스 안내</a>
+</div>
 </section>
 <style>
   .rel-links{max-width:1080px;margin:26px auto 34px;padding:14px 14px 16px;border-radius:18px;
@@ -244,7 +237,7 @@ function badgeText(d, id){
     box-shadow:0 14px 40px rgba(0,0,0,.35);}
   .rel-links h2{margin:0 0 10px;font-size:13px;letter-spacing:.02em;color:rgba(245,226,122,.92);font-weight:900;}
   .rel-grid{display:flex;flex-wrap:wrap;gap:8px;}
-  .rel-grid a{text-decoration:none;color:rgba(255,255,255,.82);font-size:12px;padding:8px 10px;border-radius:999px;
+  .rel-grid a{text-decoration:none;color:var(--text-2);font-size:12px;padding:8px 10px;border-radius:999px;
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
   .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
 </style>

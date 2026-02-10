@@ -1,14 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>스포츠 배당 분석기 | 88 커뮤니티</title>
-<meta name="description" content="종목(축구/농구/야구/배구/e스포츠/하키)별 배당 입력으로 승리 확률(배당 기반·추정), 오버라운드, 마진, 밸류(EV), 권장 비중(보수적 Kelly), 메인/오버언더/핸디 마진을 통합 계산하고 히스토리/비교까지 지원하는 분석기입니다. (판단 보조용)" />
-<link rel="canonical" href="https://88st.cloud/analysis/" />
-<meta name="robots" content="index,follow" />
-
+<meta content="종목(축구/농구/야구/배구/e스포츠/하키)별 배당 입력으로 승리 확률(배당 기반·추정), 오버라운드, 마진, 밸류(EV), 권장 비중(보수적 Kelly), 메인/오버언더/핸디 마진을 통합 계산하고 히스토리/비교까지 지원하는 분석기입니다. (판단 보조용)" name="description"/>
+<link href="https://88st.cloud/analysis/" rel="canonical"/>
+<meta content="index,follow" name="robots"/>
 <style>
 *{box-sizing:border-box}
 :root{
@@ -47,7 +46,7 @@ body{
     radial-gradient(1200px 500px at 50% -10%, rgba(var(--accentRGB),.14), transparent 55%),
     radial-gradient(900px 500px at 10% 20%, rgba(90,160,255,.08), transparent 60%),
     linear-gradient(180deg, #07070a, var(--bg));
-  color:#fff;
+  color:var(--text);
 }
 
 /* ===== 상단 공지/이벤트 배너 (자동 순환) ===== */
@@ -66,7 +65,7 @@ body{
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 
-  color:rgba(255,255,255,.92);
+  color:var(--text);
   font-weight:900;
   font-size:13px;
   padding:10px 12px;
@@ -81,7 +80,7 @@ body{
              background .18s ease, border-color .18s ease, opacity .18s ease;
 }
 .notice-bar a{
-  color:rgba(255,255,255,.92);
+  color:var(--text);
   text-decoration:none;
   flex:1;
   white-space:nowrap;
@@ -95,7 +94,7 @@ body{
   border-radius:999px;
   border:1px solid rgba(255,255,255,.18);
   background:rgba(255,255,255,.08);
-  color:#fff;
+  color:var(--text);
   font-weight:1000;
   cursor:pointer;
   display:flex;
@@ -104,7 +103,7 @@ body{
   line-height:1;
   transition:transform .18s ease, background .18s ease, border-color .18s ease;
 }
-.notice-toggle:hover{ background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.26); }
+.notice-toggle:hover{ background:rgba(255,255,255,.12); border-color:var(--muted-2); }
 .notice-toggle:active{ transform:scale(.98); }
 
 .notice-icon{
@@ -131,7 +130,7 @@ body{
   padding:7px 10px;
   font-size:12px;
   background:rgba(20,20,24,.22);
-  border-color:rgba(255,255,255,.10);
+  border-color:var(--muted-2);
   opacity:.88;
   box-shadow:0 8px 22px rgba(0,0,0,.25);
 }
@@ -154,7 +153,7 @@ body{
   padding:7px 10px;
   font-size:12px;
   background:rgba(20,20,24,.20);
-  border-color:rgba(255,255,255,.10);
+  border-color:var(--muted-2);
   opacity:.88;
   box-shadow:0 8px 22px rgba(0,0,0,.25);
 }
@@ -242,7 +241,7 @@ body{
   border-radius:14px;
   border:1px solid rgba(255,255,255,.08);
   background:var(--panel2);
-  color:#fff;
+  color:var(--text);
   outline:none;
   font-weight:800;
 }
@@ -262,7 +261,7 @@ body{
 .field input{
   width:100%; padding:12px; border-radius:14px;
   border:1px solid rgba(255,255,255,.08);
-  background:var(--panel2); color:#fff; outline:none;
+  background:var(--panel2); color:var(--text); outline:none;
 }
 .field input::placeholder{color:#555}
 
@@ -290,7 +289,7 @@ body{
   font-weight:900; cursor:pointer;
 }
 .primary{ background:linear-gradient(135deg,#1da1f2,#78d6ff); color:#00121a; }
-.secondary{ background:var(--chip); color:#fff; border:1px solid rgba(255,255,255,.06); }
+.secondary{ background:var(--chip); color:var(--text); border:1px solid rgba(255,255,255,.06); }
 .gold{ background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#111; }
 
 /* 결과 */
@@ -318,7 +317,7 @@ body{
 @keyframes popIn{ from{ transform:translateY(6px); opacity:0;} to{transform:none; opacity:1;} }
 .heroTop{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
 .heroText{ min-width:240px; }
-.heroTitle{ font-weight:1000; font-size:15px; color:#fff; letter-spacing:-.2px; }
+.heroTitle{ font-weight:1000; font-size:15px; color:var(--text); letter-spacing:-.2px; }
 .heroSub{ margin-top:3px; font-size:12px; color:#bdbdbd; line-height:1.35; }
 .heroBadges{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
 
@@ -334,7 +333,7 @@ body{
   max-width:340px;
 }
 .heroConclusion .cIcon{ font-size:16px; line-height:1; }
-.heroConclusion .cText{ font-size:13px; font-weight:900; letter-spacing:-.2px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.heroConclusion .cText{ font-size:13px; font-weight:900; letter-spacing:-.2px; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .heroConclusion.good{ border-color: rgba(48,209,88,.35); background: rgba(48,209,88,.12); }
 .heroConclusion.warn{ border-color: rgba(255,193,7,.35); background: rgba(255,193,7,.12); }
 .heroConclusion.bad{ border-color: rgba(255,59,48,.35); background: rgba(255,59,48,.12); }
@@ -358,13 +357,13 @@ body{
   padding:10px 10px;
 }
 .statK{ font-size:11px; color:#bdbdbd; }
-.statV{ margin-top:4px; font-size:16px; font-weight:1000; color:#fff; letter-spacing:-.2px; }
+.statV{ margin-top:4px; font-size:16px; font-weight:1000; color:var(--text); letter-spacing:-.2px; }
 .statS{ margin-top:2px; font-size:11px; color:#9a9a9a; }
 .detailHead{
   margin:10px 0 4px;
   font-weight:900;
   font-size:13px;
-  color:#fff;
+  color:var(--text);
   display:flex; align-items:center; gap:8px;
 }
 .detailHead:before{
@@ -398,7 +397,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   flex:1; min-width:160px;
   display:block; text-align:center; padding:12px;
   border-radius:14px; text-decoration:none; font-weight:900;
-  background:var(--chip); color:#fff;
+  background:var(--chip); color:var(--text);
   border:1px solid rgba(255,255,255,.06);
 }
 
@@ -408,7 +407,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   font-size:13px;
   line-height:1.55;
 }
-.checklist strong{ color:#fff; }
+.checklist strong{ color:var(--text); }
 
 /* 마진 대시보드 */
 .m-grid{
@@ -423,7 +422,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   padding:12px;
 }
 .m-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
-.m-name{ font-weight:900; color:#fff; font-size:13px; }
+.m-name{ font-weight:900; color:var(--text); font-size:13px; }
 .chip{
   display:inline-flex; align-items:center; gap:6px;
   padding:6px 10px;
@@ -437,7 +436,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 .chip.mid{ color:var(--warn); }
 .chip.bad{ color:var(--bad); }
 .m-lines{ margin-top:10px; font-size:12px; color:#cfcfcf; line-height:1.45; }
-.m-lines b{ color:#fff; }
+.m-lines b{ color:var(--text); }
 
 /* 히스토리 */
 .history-toolbar{
@@ -475,7 +474,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 .history-filters .seg.on{
   background:linear-gradient(135deg, rgba(255,203,66,.22), rgba(255,176,60,.12));
   border-color:rgba(255,203,66,.35);
-  color:#fff;
+  color:var(--text);
 }
 .pick-ind{
   margin-left:auto;
@@ -487,7 +486,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   font-size:12px;
   font-weight:800;
 }
-.pick-ind b{ color:#fff; }
+.pick-ind b{ color:var(--text); }
 @media (max-width:420px){
   .pick-ind{ margin-left:0; }
 }
@@ -517,7 +516,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   padding:8px 10px;
   border:1px solid rgba(255,255,255,.10);
   background:rgba(0,0,0,.25);
-  color:#fff;
+  color:var(--text);
   font-weight:900;
   cursor:pointer;
   font-size:12px;
@@ -588,12 +587,12 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   font-weight:900; cursor:pointer;
 }
 .compare-col .mini-actions .restore{ background:linear-gradient(135deg,#1da1f2,#78d6ff); color:#00121a; }
-.compare-col .mini-actions .close{ background:#1f1f1f; color:#fff; border:1px solid rgba(255,255,255,.06); }
+.compare-col .mini-actions .close{ background:#1f1f1f; color:var(--text); border:1px solid rgba(255,255,255,.06); }
 
 /* 토스트 */
 #toast88{
   position:fixed; left:50%; bottom:22px; transform:translateX(-50%);
-  background:rgba(0,0,0,.85); color:#fff;
+  background:rgba(0,0,0,.85); color:var(--text);
   padding:10px 12px; border-radius:12px; font-size:12px;
   z-index:4000; border:1px solid rgba(255,255,255,.08);
   opacity:0; pointer-events:none; transition:opacity .2s ease;
@@ -640,7 +639,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   border-radius:999px;
   border:1px solid rgba(255,255,255,.10);
   background:rgba(0,0,0,.28);
-  color:#fff;
+  color:var(--text);
 }
 .ad-grid{
   display:grid;
@@ -683,7 +682,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   cursor:pointer;
   border:1px solid rgba(255,255,255,.08);
   background:#1f1f1f;
-  color:#fff;
+  color:var(--text);
   text-decoration:none;
 }
 .ad-actions .btnx.primary{
@@ -703,7 +702,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   margin-left:auto;
   font-size:11px;
   font-weight:900;
-  color:rgba(255,255,255,.86);
+  color:var(--text-2);
   letter-spacing:.2px;
   display:inline-flex;
   align-items:center;
@@ -723,7 +722,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 .quick-nav .chip{
   border:1px solid rgba(var(--accentRGB),.28);
   background:rgba(255,255,255,.06);
-  color:#fff;
+  color:var(--text);
   padding:8px 10px;
   border-radius:999px;
   font-weight:900;
@@ -764,7 +763,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   font-size:12px;
   line-height:1.5;
 }
-.mini-guide .body b{ color:#fff; }
+.mini-guide .body b{ color:var(--text); }
 .is-invalid{
   outline:2px solid rgba(255,90,90,.75) !important;
   box-shadow:0 0 0 6px rgba(255,90,90,.12) !important;
@@ -800,10 +799,10 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   border:1px solid rgba(255,255,255,.10);
   background:rgba(255,255,255,.04);
   border-radius:14px;
-  color:rgba(255,255,255,.86);
+  color:var(--text-2);
   font-size:12px;
 }
-.bundle-meta b{ color:#fff; }
+.bundle-meta b{ color:var(--text); }
 .bundle-ta{
   width:100%;
   min-height:160px;
@@ -812,7 +811,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   border-radius:14px;
   border:1px solid rgba(255,255,255,.10);
   background:rgba(0,0,0,.28);
-  color:#fff;
+  color:var(--text);
   font-size:12px;
   line-height:1.5;
   resize:vertical;
@@ -831,7 +830,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   border-radius:999px;
   border:1px solid rgba(var(--accentRGB),.28);
   background:rgba(var(--accentRGB),.14);
-  color:#fff;
+  color:var(--text);
   font-weight:900;
   font-size:11px;
 }
@@ -850,7 +849,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 .bundle-promo-title{
   font-weight:900;
   font-size:13px;
-  color:#fff;
+  color:var(--text);
 }
 .bundle-promo-ctrl{
   display:flex;
@@ -876,7 +875,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   background:rgba(255,255,255,.06);
   border-radius:999px;
   font-size:12px;
-  color:rgba(255,255,255,.92);
+  color:var(--text);
   cursor:pointer;
   user-select:none;
 }
@@ -904,7 +903,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 .bundle-adv-label{
   font-weight:900;
   font-size:12px;
-  color:rgba(255,255,255,.92);
+  color:var(--text);
   min-width:140px;
 }
 .bundle-adv-controls{
@@ -922,7 +921,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   border:1px solid rgba(255,255,255,.10);
   background:rgba(0,0,0,.18);
   border-radius:14px;
-  color:rgba(255,255,255,.92);
+  color:var(--text);
   font-size:12px;
   font-weight:900;
 }
@@ -951,7 +950,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
     flex:1;
     border:1px solid rgba(255,255,255,.10);
     background:rgba(255,255,255,.06);
-    color:#fff;
+    color:var(--text);
     border-radius:14px;
     padding:12px 10px;
     font-weight:1000;
@@ -1048,7 +1047,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   line-height:1.45;
   display:none;
 }
-.input-warn b{ color:#fff; }
+.input-warn b{ color:var(--text); }
 
 /* ===== 최근 입력 스냅샷 ===== */
 .snap-wrap{
@@ -1077,7 +1076,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   cursor:pointer;
   border:1px solid rgba(255,255,255,.16);
   background:rgba(255,255,255,.06);
-  color:#fff;
+  color:var(--text);
   border-radius:999px;
   padding:6px 10px;
   font-size:12px;
@@ -1085,7 +1084,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 }
 .snap-chip:hover{
   transform: translateY(-1px);
-  border-color: rgba(255,255,255,.28);
+  border-color:var(--muted-2);
 }
 .snap-meta{ color:#cfcfcf; font-weight:700; margin-left:6px; font-size:11px; }
 
@@ -1129,12 +1128,12 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   font-weight:900;
   border:1px solid rgba(255,255,255,.14);
   background:rgba(255,255,255,.06);
-  color:#fff;
+  color:var(--text);
 }
 .outTag.win{ border-color: rgba(67,226,164,.40); background: rgba(67,226,164,.12); }
 .outTag.lose{ border-color: rgba(255,90,90,.40); background: rgba(255,90,90,.12); }
 .outTag.void{ border-color: rgba(255,208,72,.40); background: rgba(255,208,72,.10); }
-.outTag.none{ border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.06); color:#cfcfcf; }
+.outTag.none{ border-color:var(--muted-2); background: rgba(255,255,255,.06); color:#cfcfcf; }
 
 .outBtns{
   margin-top:8px;
@@ -1146,14 +1145,14 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   cursor:pointer;
   border:1px solid rgba(255,255,255,.14);
   background:rgba(255,255,255,.06);
-  color:#fff;
+  color:var(--text);
   border-radius:12px;
   padding:6px 10px;
   font-size:12px;
   font-weight:900;
 }
-.oBtn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.24); }
-.oBtn.on{ border-color: rgba(255,255,255,.40); background:rgba(255,255,255,.12); }
+.oBtn:hover{ transform: translateY(-1px); border-color:var(--muted-2); }
+.oBtn.on{ border-color:var(--muted-2); background:rgba(255,255,255,.12); }
 
 .h-outcome{
   margin-top:10px;
@@ -1176,7 +1175,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   color:#cfcfcf;
   line-height:1.45;
 }
-.trustLine b{ color:#fff; }
+.trustLine b{ color:var(--text); }
 
 .heroReason{
   margin-top:8px;
@@ -1228,7 +1227,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   padding:6px 10px;
   border-radius:999px;
   border:1px solid rgba(var(--accentRGB),.30);
-  color:rgba(255,255,255,.92);
+  color:var(--text);
   background:rgba(var(--accentRGB),.10);
   display:inline-flex;
   align-items:center;
@@ -1249,7 +1248,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   margin:0 0 6px 6px;
   font-size:12px;
   font-weight:900;
-  color:rgba(255,255,255,.82);
+  color:var(--text-2);
 }
 #calcCard .stepBubble{
   width:18px; height:18px;
@@ -1279,7 +1278,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   border:1px dashed rgba(255,255,255,.12);
   background:rgba(255,255,255,.03);
   font-size:12px;
-  color:rgba(255,255,255,.78);
+  color:var(--text-2);
 }
 #calcCard .row2{
   margin-top:12px !important;
@@ -1348,7 +1347,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   margin-top:4px;
   font-size:16px;
   font-weight:1000;
-  color:#fff;
+  color:var(--text);
   line-height:1.25;
 }
 .calc-headline .accent{ color:var(--gold2); }
@@ -1359,7 +1358,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   border-radius:999px;
   font-size:12px;
   font-weight:900;
-  color:#fff;
+  color:var(--text);
   background:rgba(0,0,0,.22);
   border:1px solid rgba(255,255,255,.10);
 }
@@ -1404,7 +1403,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   border-radius:14px;
   border:1px solid rgba(255,255,255,.10);
   background:rgba(255,255,255,.06);
-  color:#fff;
+  color:var(--text);
   font-weight:950;
   letter-spacing:.2px;
   cursor:pointer;
@@ -1427,7 +1426,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 }
 .btn.secondary{
   background:rgba(0,0,0,.22);
-  border-color:rgba(255,255,255,.12);
+  border-color:var(--muted-2);
 }
 .btn.gold{
   background:rgba(0,0,0,.12);
@@ -1465,7 +1464,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   gap:8px;
   margin-bottom:10px;
   font-weight:1000;
-  color:#fff;
+  color:var(--text);
   font-size:13px;
 }
 .mini-badge{
@@ -1499,23 +1498,23 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 /* === v13.1 look unify (from main index) === */
 :root{
   /* unify accent (blue) */
-  --accent1:#5fb2ff !important;
-  --accent2:#a8dcff !important;
-  --accentRGB:95,178,255 !important;  /* for rgba(var(--accentRGB), .xx) */
-  --accentText:#00121a !important;
-  --accentOn:#00121a !important;
+  --accent1:#5fb2ff;
+  --accent2:#a8dcff;
+  --accentRGB:95,178,255;  /* for rgba(var(--accentRGB), .xx) */
+  --accentText:#00121a;
+  --accentOn:#00121a;
 
   /* unify tokens */
-  --bg:#05060b !important;
-  --panel:rgba(12,14,22,.62) !important;
-  --glassA:.72 !important;
-  --glassStrongA:.86 !important;
-  --glassSoftA:.18 !important;
-  --glassBorder:rgba(255,255,255,.10) !important;
+  --bg:#05060b;
+  --panel:rgba(12,14,22,.62);
+  --glassA:.72;
+  --glassStrongA:.86;
+  --glassSoftA:.18;
+  --glassBorder:rgba(255,255,255,.10);
 
   /* backward compat */
-  --gold: var(--accent1) !important;
-  --gold2: var(--accent2) !important;
+  --gold: var(--accent1);
+  --gold2: var(--accent2);
 }
 
 /* premium midnight background */
@@ -1525,7 +1524,7 @@ body{
     radial-gradient(900px 540px at 15% 25%, rgba(120,170,255,.10), transparent 55%),
     radial-gradient(900px 640px at 85% 35%, rgba(80,140,255,.08), transparent 55%),
     linear-gradient(180deg, #05060b 0%, #060612 60%, #040408 100%) !important;
-  color:#fff;
+  color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
 }
 
@@ -1546,7 +1545,7 @@ h3 .badge{ display:none !important; }
 input, select, textarea{
   background: rgba(0,0,0,.28) !important;
   border:1px solid rgba(255,255,255,.14) !important;
-  color:#fff !important;
+  color:var(--text) !important;
   border-radius:14px !important;
   outline:none;
 }
@@ -1559,7 +1558,7 @@ input:focus, select:focus, textarea:focus{
 .btn, button, a.btn{
   background: rgba(255,255,255,.06) !important;
   border:1px solid rgba(255,255,255,.14) !important;
-  color: rgba(255,255,255,.92) !important;
+  color:var(--text) !important;
   box-shadow: 0 12px 34px rgba(0,0,0,.38) !important;
 }
 .btn:hover, button:hover, a.btn:hover{ filter: brightness(1.06); }
@@ -1581,61 +1580,59 @@ a{ color:inherit; }
 .lc-head{font-weight:900;font-size:13px;color:rgba(245,226,122,.92);margin-bottom:8px;}
 .lc-fields .field{margin-top:0;}
 .lc-out{margin-top:10px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);padding:12px;line-height:1.55;font-size:13px;}
-.lc-out .k{color:rgba(255,255,255,.62);font-weight:900;}
-.lc-out .v{color:rgba(255,255,255,.92);}
+.lc-out .k{color:var(--muted);font-weight:900;}
+.lc-out .v{color:var(--text);}
 
 
 /* ===== 텍스트 붙여넣기(자동 입력) ===== */
 .paste-area{display:flex;flex-direction:column;gap:10px}
 .paste-ta{width:100%;min-height:96px;resize:vertical;padding:12px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);
-  background:rgba(0,0,0,.22);color:#fff;font-size:13px;line-height:1.45;outline:none}
+  background:rgba(0,0,0,.22);color:var(--text);font-size:13px;line-height:1.45;outline:none}
 .paste-ta:focus{border-color:rgba(var(--accentRGB),.35);box-shadow:0 0 0 3px rgba(var(--accentRGB),.12)}
 .paste-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.paste-badge{font-size:12px;color:rgba(255,255,255,.78);padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)}
+.paste-badge{font-size:12px;color:var(--text-2);padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)}
 .paste-badge.good{border-color:rgba(183,255,207,.25);color:rgba(183,255,207,.92)}
 .paste-badge.warn{border-color:rgba(255,207,153,.25);color:rgba(255,207,153,.92)}
 .paste-inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.paste-inline .chk{display:flex;gap:6px;align-items:center;font-size:12px;color:rgba(255,255,255,.82)}
+.paste-inline .chk{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--text-2)}
 .paste-inline input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent1)}
 
 /* multi paste list */
 .paste-list-wrap{margin-top:10px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);overflow:hidden}
 .paste-list-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
 .paste-list-head .k{font-weight:950;color:rgba(245,226,122,.95)}
-.paste-list-head .m{font-size:12px;color:rgba(255,255,255,.68)}
+.paste-list-head .m{font-size:12px;color:var(--muted)}
 .paste-list{display:flex;flex-direction:column}
 .paste-item{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
 .paste-item:last-child{border-bottom:none}
 .paste-item .left{min-width:0}
 .paste-item .t{font-weight:950;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.paste-item .s{margin-top:4px;font-size:12px;color:rgba(255,255,255,.72);line-height:1.35}
+.paste-item .s{margin-top:4px;font-size:12px;color:var(--muted);line-height:1.35}
 .paste-item .chips{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
-.paste-chip{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:rgba(255,255,255,.78)}
+.paste-chip{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:var(--text-2)}
 .paste-chip.ok{border-color:rgba(183,255,207,.22);color:rgba(183,255,207,.90)}
 .paste-chip.warn{border-color:rgba(255,207,153,.22);color:rgba(255,207,153,.90)}
 .paste-item .right{display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex:0 0 auto}
 .paste-item .btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .paste-item .mini{padding:8px 10px;border-radius:12px;font-size:12px}
-.paste-raw{margin-top:8px;font-size:12px;white-space:pre-wrap;line-height:1.45;color:rgba(255,255,255,.70);border-top:1px dashed rgba(255,255,255,.12);padding-top:8px;display:none}
+.paste-raw{margin-top:8px;font-size:12px;white-space:pre-wrap;line-height:1.45;color:var(--muted);border-top:1px dashed rgba(255,255,255,.12);padding-top:8px;display:none}
 .paste-item.is-open .paste-raw{display:block}
 
 
 /* paste list tools + chain save */
-.paste-select{height:30px;border-radius:10px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#fff;font-size:12px;padding:0 10px;outline:none}
+.paste-select{height:30px;border-radius:10px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:var(--text);font-size:12px;padding:0 10px;outline:none}
 .paste-select:focus{border-color:rgba(var(--accentRGB),.35);box-shadow:0 0 0 3px rgba(var(--accentRGB),.10)}
 .paste-list-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.paste-mini-label{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.72)}
-.paste-num{width:64px;height:30px;border-radius:10px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#fff;font-size:12px;padding:0 10px;outline:none}
+.paste-mini-label{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.paste-num{width:64px;height:30px;border-radius:10px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:var(--text);font-size:12px;padding:0 10px;outline:none}
 .paste-num:focus{border-color:rgba(var(--accentRGB),.35);box-shadow:0 0 0 3px rgba(var(--accentRGB),.10)}
 .paste-item .left{cursor:pointer}
 .paste-item.is-saved{background:rgba(183,255,207,.05)}
 .paste-item.is-saved .t{color:rgba(183,255,207,.92)}
-.paste-stat{font-size:12px;color:rgba(255,255,255,.72);line-height:1.35;text-align:right}
-.paste-stat b{color:rgba(255,255,255,.92)}
+.paste-stat{font-size:12px;color:var(--muted);line-height:1.35;text-align:right}
+.paste-stat b{color:var(--text)}
 
 </style>
-
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1656,695 +1653,631 @@ a{ color:inherit; }
   ]
 }
 </script>
-
 <script src="/assets/js/88st-analytics.js"></script>
-
-<link rel="stylesheet" href="/assets/88st-theme.css?v=20260210_2">
-<script defer src="/assets/88st-theme.js?v=20260210_2"></script>
+<link href="/assets/88st-theme.css?v=20260210_3" rel="stylesheet"/>
+<script defer="" src="/assets/88st-theme.js?v=20260210_3"></script>
 </head>
-
 <body>
-
 <!-- ✅ 상단 공지/이벤트 배너(자동 순환) -->
-<div class="notice-bar" id="noticeBar" role="region" aria-label="상단 공지">
-  <span class="notice-icon" aria-hidden="true">🔔</span>
-  <a href="https://t.me/UZU59" target="_blank" rel="noopener" aria-label="공지 열기 (텔레그램)">
-    <span id="noticeText"></span>
-    <span class="notice-mini-text" id="noticeMiniText">사칭 주의 · @UZU59</span>
-  </a>
-  <button class="notice-toggle" id="noticeToggle" type="button" aria-label="공지 접기/펼치기" title="공지 접기/펼치기">▾</button>
+<div aria-label="상단 공지" class="notice-bar" id="noticeBar" role="region">
+<span aria-hidden="true" class="notice-icon">🔔</span>
+<a aria-label="공지 열기 (텔레그램)" href="https://t.me/UZU59" rel="noopener" target="_blank">
+<span id="noticeText"></span>
+<span class="notice-mini-text" id="noticeMiniText">사칭 주의 · @UZU59</span>
+</a>
+<button aria-label="공지 접기/펼치기" class="notice-toggle" id="noticeToggle" title="공지 접기/펼치기" type="button">▾</button>
 </div>
-
 <!-- ✅ 사칭주의 팝업 (1일 1회) -->
 <div class="scam-popup" id="scamPopup">
-  <div class="scam-box">
-    <h3>⚠️ 사칭 주의 안내</h3>
-    <p>
-      88 커뮤니티 공식 관리자 텔레그램은<br>
-      <b>@UZU59</b> 단 하나입니다.<br><br>
-      그 외 계정은 사칭일 수 있으니<br>
+<div class="scam-box">
+<h3>⚠️ 사칭 주의 안내</h3>
+<p>
+      88 커뮤니티 공식 관리자 텔레그램은<br/>
+<b>@UZU59</b> 단 하나입니다.<br/><br/>
+      그 외 계정은 사칭일 수 있으니<br/>
       반드시 주의해 주세요.
     </p>
-    <div class="btn primary" onclick="closeScam()">확인</div>
-  </div>
+<div class="btn primary" onclick="closeScam()">확인</div>
 </div>
-
+</div>
 <!-- ✅ 분석기 진입 광고 팝업 (1일 1회) -->
 <div class="ad-popup" id="adPopup">
-  <div class="ad-box">
-    <div class="ad-head">
-      <div class="ad-title">🎁 지금 많이 찾는 추천 놀이터</div>
-      <div class="ad-close" onclick="closeAdPopup(true)">오늘 그만 보기</div>
-    </div>
-
-    <div class="ad-grid" id="adGrid"></div>
-
-    <div class="ad-actions">
-      <a class="btnx primary" href="/#vendorTop" aria-label="인증 놀이터 보기">인증 놀이터 보기</a>
-      <a class="btnx" href="https://t.me/UZU59" target="_blank" rel="noopener">문의</a>
-    </div>
-
-    <div class="ad-note">※ 팝업은 1일 1회만 표시됩니다. (원치 않으면 닫기)</div>
-    <div class="ad-close" style="margin-top:10px;text-align:center;" onclick="closeAdPopup(false)">닫기</div>
-  </div>
+<div class="ad-box">
+<div class="ad-head">
+<div class="ad-title">🎁 지금 많이 찾는 추천 놀이터</div>
+<div class="ad-close" onclick="closeAdPopup(true)">오늘 그만 보기</div>
 </div>
-
-
+<div class="ad-grid" id="adGrid"></div>
+<div class="ad-actions">
+<a aria-label="인증 놀이터 보기" class="btnx primary" href="/#vendorTop">인증 놀이터 보기</a>
+<a class="btnx" href="https://t.me/UZU59" rel="noopener" target="_blank">문의</a>
+</div>
+<div class="ad-note">※ 팝업은 1일 1회만 표시됩니다. (원치 않으면 닫기)</div>
+<div class="ad-close" onclick="closeAdPopup(false)" style="margin-top:10px;text-align:center;">닫기</div>
+</div>
+</div>
 <div class="header">
-  <a class="logo-link" href="/" aria-label="홈으로 이동">
-    <img src="/img/logo.png" alt="88 커뮤니티" class="logo-img logoImg">
-  </a>
-  <div class="sub">스포츠 배당 분석기 (완전체 · 통합 마진/EV/히스토리 · 판단 보조용)</div>
+<a aria-label="홈으로 이동" class="logo-link" href="/">
+<img alt="88 커뮤니티" class="logo-img logoImg" src="/img/logo.png"/>
+</a>
+<div class="sub">스포츠 배당 분석기 (완전체 · 통합 마진/EV/히스토리 · 판단 보조용)</div>
 </div>
-
 <div class="wrap">
-
-  <div class="card card--hero" id="calcCard">
-      <h2 class="sr-only">스포츠 배당 분석기</h2>
-      <div class="calc-hero">
-        <div class="calc-hero-left">
-          <div class="calc-kicker">88 커뮤니티 · 배당 분석기</div>
-          <div class="calc-headline">마진 · EV · 켈리 · 라인별 마진까지 <span class="accent">한 번에</span></div>
-          <div class="calc-tags" aria-label="주요 기능">
-            <span class="tag">메인/OU/핸디 통합</span>
-            <span class="tag">히스토리·비교</span>
-            <span class="tag">공유·공유카드</span>
-          </div>
-        </div>
-        <div class="calc-hero-right">
-          <div class="autosave" aria-label="자동 저장 상태">
-            <span class="autosave-label">자동 저장</span>
-            <span id="saveBadge" class="save-badge" aria-live="polite"></span>
-          </div>
-          <button class="btn secondary mini" type="button" onclick="toggleMiniGuide()">10초 가이드</button>
-        </div>
-      </div>
-      <div class="calc-divider" aria-hidden="true"></div>
-
-  <div class="controls controls-settings">
-        <div class="selectWrap">
-          <div class="fieldLabel"><span class="stepBubble">1</span> 종목</div>
-          <select id="sport" class="select" onchange="onSportChange()">
-          <option value="soccer">축구</option>
-          <option value="basketball">농구</option>
-          <option value="baseball">야구</option>
-          <option value="volleyball">배구</option>
-          <option value="esports">e스포츠</option>
-          <option value="hockey">하키</option>
-        </select>
-        </div>
-        <div class="selectWrap">
-          <div class="fieldLabel"><span class="stepBubble">2</span> 분석 레벨</div>
-          <select id="level" class="select" onchange="onLevelChange()">
-          <option value="simple">간단</option>
-          <option value="mid">중급</option>
-          <option value="adv">고급</option>
-        </select>
-        </div>
-      </div>
-      <div class="settingsHint">👇 먼저 <b>종목</b>과 <b>레벨</b>을 선택하면, 아래 입력 폼(메인/오버·언더/핸디)이 자동으로 최적화됩니다.</div>
-
-
-      <!-- ✅ 팀/리그 입력(선택) -->
-      <div class="row2">
-        <div>
-          <input id="league" class="textinput" placeholder="리그/대회명 (선택)">
-          <div class="small-hint">※ 입력하지 않아도 분석 가능 / 공유 시 입력한 내용만 포함됩니다.</div>
-        </div>
-        <div>
-          <input id="teams" class="textinput" placeholder="팀명 (선택) 예: 맨시티 vs 리버풀">
-          <div class="small-hint">※ 팀/리그는 선택사항입니다.</div>
-        </div>
-      </div>
-
-      <div class="small-hint" id="sportHint" style="margin-top:10px;"></div>
-      <div class="quick-nav" id="quickNav">
-        <button class="chip" type="button" onclick="quickJump('main')">메인</button>
-        <button class="chip" type="button" onclick="quickJump('total')">오버·언더</button>
-        <button class="chip" type="button" onclick="quickJump('handicap')">핸디캡</button>
-        <button class="chip" type="button" onclick="quickJump('result')">결과</button>
-        <button class="chip" type="button" onclick="quickJump('history')">히스토리</button>
-      </div>
-
-      <div class="mini-guide" id="miniGuide">
-        <div class="head" onclick="toggleMiniGuide()">
-          <div>💡 처음이면 <b>10초 가이드</b></div>
-          <div class="pill" id="miniGuidePill">열기</div>
-        </div>
-        <div class="body" id="miniGuideBody">
-          1) <b>종목/모드</b> 선택 → 2) <b>메인 배당</b> 입력(필수) → 3) 오버·언더/핸디(선택) → 4) <b>중급/고급</b>이면 <b>내 예상 확률</b> 입력 시 EV/켈리까지 계산됩니다.<br>
-          • 결과는 <b>판단 보조용</b>이며, 마진이 높을수록 장기 기대값이 불리해질 수 있어요.<br>
+<div class="card card--hero" id="calcCard">
+<h2 class="sr-only">스포츠 배당 분석기</h2>
+<div class="calc-hero">
+<div class="calc-hero-left">
+<div class="calc-kicker">88 커뮤니티 · 배당 분석기</div>
+<div class="calc-headline">마진 · EV · 켈리 · 라인별 마진까지 <span class="accent">한 번에</span></div>
+<div aria-label="주요 기능" class="calc-tags">
+<span class="tag">메인/OU/핸디 통합</span>
+<span class="tag">히스토리·비교</span>
+<span class="tag">공유·공유카드</span>
+</div>
+</div>
+<div class="calc-hero-right">
+<div aria-label="자동 저장 상태" class="autosave">
+<span class="autosave-label">자동 저장</span>
+<span aria-live="polite" class="save-badge" id="saveBadge"></span>
+</div>
+<button class="btn secondary mini" onclick="toggleMiniGuide()" type="button">10초 가이드</button>
+</div>
+</div>
+<div aria-hidden="true" class="calc-divider"></div>
+<div class="controls controls-settings">
+<div class="selectWrap">
+<div class="fieldLabel"><span class="stepBubble">1</span> 종목</div>
+<select class="select" id="sport" onchange="onSportChange()">
+<option value="soccer">축구</option>
+<option value="basketball">농구</option>
+<option value="baseball">야구</option>
+<option value="volleyball">배구</option>
+<option value="esports">e스포츠</option>
+<option value="hockey">하키</option>
+</select>
+</div>
+<div class="selectWrap">
+<div class="fieldLabel"><span class="stepBubble">2</span> 분석 레벨</div>
+<select class="select" id="level" onchange="onLevelChange()">
+<option value="simple">간단</option>
+<option value="mid">중급</option>
+<option value="adv">고급</option>
+</select>
+</div>
+</div>
+<div class="settingsHint">👇 먼저 <b>종목</b>과 <b>레벨</b>을 선택하면, 아래 입력 폼(메인/오버·언더/핸디)이 자동으로 최적화됩니다.</div>
+<!-- ✅ 팀/리그 입력(선택) -->
+<div class="row2">
+<div>
+<input class="textinput" id="league" placeholder="리그/대회명 (선택)"/>
+<div class="small-hint">※ 입력하지 않아도 분석 가능 / 공유 시 입력한 내용만 포함됩니다.</div>
+</div>
+<div>
+<input class="textinput" id="teams" placeholder="팀명 (선택) 예: 맨시티 vs 리버풀"/>
+<div class="small-hint">※ 팀/리그는 선택사항입니다.</div>
+</div>
+</div>
+<div class="small-hint" id="sportHint" style="margin-top:10px;"></div>
+<div class="quick-nav" id="quickNav">
+<button class="chip" onclick="quickJump('main')" type="button">메인</button>
+<button class="chip" onclick="quickJump('total')" type="button">오버·언더</button>
+<button class="chip" onclick="quickJump('handicap')" type="button">핸디캡</button>
+<button class="chip" onclick="quickJump('result')" type="button">결과</button>
+<button class="chip" onclick="quickJump('history')" type="button">히스토리</button>
+</div>
+<div class="mini-guide" id="miniGuide">
+<div class="head" onclick="toggleMiniGuide()">
+<div>💡 처음이면 <b>10초 가이드</b></div>
+<div class="pill" id="miniGuidePill">열기</div>
+</div>
+<div class="body" id="miniGuideBody">
+          1) <b>종목/모드</b> 선택 → 2) <b>메인 배당</b> 입력(필수) → 3) 오버·언더/핸디(선택) → 4) <b>중급/고급</b>이면 <b>내 예상 확률</b> 입력 시 EV/켈리까지 계산됩니다.<br/>
+          • 결과는 <b>판단 보조용</b>이며, 마진이 높을수록 장기 기대값이 불리해질 수 있어요.<br/>
           • 히스토리 항목 클릭하면 <b>입력 자동 복원 + 재계산</b>됩니다.
         </div>
-      </div>
-
-      <!-- ✅ 최근 입력 스냅샷(최근 5개) -->
-      <div class="snap-wrap" id="snapWrap" style="display:none;">
-        <div class="snap-head">
-          <div>🕘 최근 입력</div>
-          <div class="snap-meta" id="snapMeta"></div>
-        </div>
-        <div class="snap-list" id="snapList"></div>
-      </div>
-
-
-
-
-
-
-      <!-- ===== 텍스트 붙여넣기 (자동 입력) ===== -->
-      <div class="box" id="pasteBox">
-        <div class="box-head">
-          <div class="box-title" style="margin:0;">텍스트 붙여넣기 (자동 입력)</div>
-          <div class="toggle" data-target="pasteBody" onclick="toggleBox('pasteBody')">접기</div>
-        </div>
-        <div id="pasteBody">
-          <div class="small-hint" style="margin-top:4px;">
+</div>
+<!-- ✅ 최근 입력 스냅샷(최근 5개) -->
+<div class="snap-wrap" id="snapWrap" style="display:none;">
+<div class="snap-head">
+<div>🕘 최근 입력</div>
+<div class="snap-meta" id="snapMeta"></div>
+</div>
+<div class="snap-list" id="snapList"></div>
+</div>
+<!-- ===== 텍스트 붙여넣기 (자동 입력) ===== -->
+<div class="box" id="pasteBox">
+<div class="box-head">
+<div class="box-title" style="margin:0;">텍스트 붙여넣기 (자동 입력)</div>
+<div class="toggle" data-target="pasteBody" onclick="toggleBox('pasteBody')">접기</div>
+</div>
+<div id="pasteBody">
+<div class="small-hint" style="margin-top:4px;">
             커뮤니티 글/배당표 텍스트를 그대로 붙여넣으면 <b>메인/오버·언더/핸디</b> 배당을 자동으로 채워줍니다. (지원: 2배당/3배당, 오버·언더, 핸디)
           </div>
-          <div class="paste-area" style="margin-top:10px;">
-            <textarea id="pasteInput" class="paste-ta" placeholder="예) 맨시티 vs 리버풀  승 1.85 무 3.40 패 4.20 / 오버 2.5 1.95 언더 1.85 / 핸디 -1.5 1.90 1.95"></textarea>
-            <div class="paste-actions">
-              <button class="btn primary" type="button" onclick="applyPaste(true)">자동 입력</button>
-              <button class="btn secondary" type="button" onclick="applyPaste(false)">입력만</button>
-              <button class="btn secondary" type="button" onclick="parsePasteMulti()">여러 경기 만들기</button>
-              <button class="btn ghost" type="button" onclick="fillPasteExample()">예시</button>
-              <button class="btn ghost" type="button" onclick="clearPaste()">지우기</button>
-              <button class="btn ghost" type="button" onclick="clearPasteList()">리스트 지우기</button>
-              <span class="paste-badge good" id="pasteBadgeOk" style="display:none;"></span>
-              <span class="paste-badge warn" id="pasteBadgeWarn" style="display:none;"></span>
-              <div class="paste-inline" style="margin-left:auto;">
-                <label class="chk">메인 타입
-                  <select id="pasteMainMode" class="paste-select" title="메인 배당 타입">
-                    <option value="auto">자동</option>
-                    <option value="2">2배당</option>
-                    <option value="3">3배당</option>
-                  </select>
-                </label>
-                <label class="chk"><input type="checkbox" id="pasteAutoLevel" checked> OU/핸디 감지 시 레벨 자동 전환</label>
-                <label class="chk"><input type="checkbox" id="pasteChainMode" checked> 클릭=연속 저장</label>
-                <label class="chk"><input type="checkbox" id="pasteSkipLow" checked> 정확도 낮음 제외</label>
-              </div>
-            </div>
-            <div class="small-hint" id="pasteHint"></div>
-
-            <div class="paste-list-wrap" id="pasteListWrap" style="display:none;">
-              <div class="paste-list-head">
-                <div class="k">감지된 경기</div>
-                <div class="m" id="pasteListMeta"></div>
-                <div class="paste-list-tools">
-                  <button class="btn ghost mini" type="button" onclick="togglePasteSort()">정렬: 마진 낮은순</button>
-                  <label class="paste-mini-label">연속
-                    <input id="pasteChainCount" class="paste-num" type="number" min="1" max="30" value="10">
+<div class="paste-area" style="margin-top:10px;">
+<textarea class="paste-ta" id="pasteInput" placeholder="예) 맨시티 vs 리버풀  승 1.85 무 3.40 패 4.20 / 오버 2.5 1.95 언더 1.85 / 핸디 -1.5 1.90 1.95"></textarea>
+<div class="paste-actions">
+<button class="btn primary" onclick="applyPaste(true)" type="button">자동 입력</button>
+<button class="btn secondary" onclick="applyPaste(false)" type="button">입력만</button>
+<button class="btn secondary" onclick="parsePasteMulti()" type="button">여러 경기 만들기</button>
+<button class="btn ghost" onclick="fillPasteExample()" type="button">예시</button>
+<button class="btn ghost" onclick="clearPaste()" type="button">지우기</button>
+<button class="btn ghost" onclick="clearPasteList()" type="button">리스트 지우기</button>
+<span class="paste-badge good" id="pasteBadgeOk" style="display:none;"></span>
+<span class="paste-badge warn" id="pasteBadgeWarn" style="display:none;"></span>
+<div class="paste-inline" style="margin-left:auto;">
+<label class="chk">메인 타입
+                  <select class="paste-select" id="pasteMainMode" title="메인 배당 타입">
+<option value="auto">자동</option>
+<option value="2">2배당</option>
+<option value="3">3배당</option>
+</select>
+</label>
+<label class="chk"><input checked="" id="pasteAutoLevel" type="checkbox"/> OU/핸디 감지 시 레벨 자동 전환</label>
+<label class="chk"><input checked="" id="pasteChainMode" type="checkbox"/> 클릭=연속 저장</label>
+<label class="chk"><input checked="" id="pasteSkipLow" type="checkbox"/> 정확도 낮음 제외</label>
+</div>
+</div>
+<div class="small-hint" id="pasteHint"></div>
+<div class="paste-list-wrap" id="pasteListWrap" style="display:none;">
+<div class="paste-list-head">
+<div class="k">감지된 경기</div>
+<div class="m" id="pasteListMeta"></div>
+<div class="paste-list-tools">
+<button class="btn ghost mini" onclick="togglePasteSort()" type="button">정렬: 마진 낮은순</button>
+<label class="paste-mini-label">연속
+                    <input class="paste-num" id="pasteChainCount" max="30" min="1" type="number" value="10"/>
                     개
                   </label>
-                  <button class="btn primary mini" type="button" onclick="startChainSave()">연속 저장</button>
-                  <button class="btn ghost mini" type="button" onclick="stopChainSave()" id="pasteChainStop" style="display:none;">중지</button>
-                  <button class="btn secondary mini" type="button" onclick="openBundleShare()" id="btnBundleShare">오늘 수집 묶음</button>
-                  <button class="btn danger mini" type="button" onclick="resetBundleToday()" title="오늘 수집 묶음(연속 저장으로 누적된 항목)을 초기화합니다.">초기화</button>
-                </div>
-              </div>
-              <div class="paste-list" id="pasteList"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ===== 메인 시장 ===== -->
-      <div class="box" id="mainBox">
-        <div class="box-title" id="mainMarketTitle">메인 배당</div>
-
-        <!-- 2-way -->
-        <div id="main2" style="display:none;">
-          <div class="grid">
-            <div class="field">
-              <label id="main2LabelA">선택 A 배당</label>
-              <input id="main2OddsA" inputmode="decimal" placeholder="예: 1.85">
-            </div>
-            <div class="field">
-              <label id="main2LabelB">선택 B 배당</label>
-              <input id="main2OddsB" inputmode="decimal" placeholder="예: 2.05">
-            </div>
-          </div>
-        </div>
-
-        <!-- 3-way -->
-        <div id="main3" style="display:none;">
-          <div class="grid">
-            <div class="field">
-              <label id="main3LabelH">홈 배당</label>
-              <input id="main3OddsH" inputmode="decimal" placeholder="예: 2.10">
-            </div>
-            <div class="field">
-              <label id="main3LabelD">무 배당</label>
-              <input id="main3OddsD" inputmode="decimal" placeholder="예: 3.20">
-            </div>
-            <div class="field">
-              <label id="main3LabelA">원정 배당</label>
-              <input id="main3OddsA" inputmode="decimal" placeholder="예: 3.40">
-            </div>
-            <div class="field">
-              <label> </label>
-              <input disabled value="※ 축구는 3배당이 기본입니다">
-            </div>
-          </div>
-        </div>
-
-        <!-- 중급/고급: 내 확률/베팅금 -->
-        <div id="valueInputs" style="display:none;">
-          <div class="grid">
-            <div class="field">
-              <label id="myProbLabel">내 예상 확률(선택) %</label>
-              <input id="myProb" inputmode="decimal" placeholder="예: 55  또는  45,28,27">
-              <div class="small-hint" id="myProbHint"></div>
-            </div>
-            <div class="field">
-              <label>베팅금(선택)</label>
-              <input id="stake" inputmode="numeric" placeholder="예: 100000">
-              <div class="small-hint">※ 입력 시 기대값(EV)을 원 단위로도 표시합니다.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ===== 라인 비교 (A vs B) ===== -->
-      <div class="box" id="lineCompareBox">
-        <div class="box-head">
-          <div class="box-title" style="margin:0;">라인 비교 (A vs B)</div>
-          <div class="toggle" data-target="lineCompareBody" onclick="toggleBox('lineCompareBody')">펼치기</div>
-        </div>
-        <div id="lineCompareBody" style="display:none;">
-          <div class="small-hint" style="margin-top:4px;">
+<button class="btn primary mini" onclick="startChainSave()" type="button">연속 저장</button>
+<button class="btn ghost mini" id="pasteChainStop" onclick="stopChainSave()" style="display:none;" type="button">중지</button>
+<button class="btn secondary mini" id="btnBundleShare" onclick="openBundleShare()" type="button">오늘 수집 묶음</button>
+<button class="btn danger mini" onclick="resetBundleToday()" title="오늘 수집 묶음(연속 저장으로 누적된 항목)을 초기화합니다." type="button">초기화</button>
+</div>
+</div>
+<div class="paste-list" id="pasteList"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ===== 메인 시장 ===== -->
+<div class="box" id="mainBox">
+<div class="box-title" id="mainMarketTitle">메인 배당</div>
+<!-- 2-way -->
+<div id="main2" style="display:none;">
+<div class="grid">
+<div class="field">
+<label id="main2LabelA">선택 A 배당</label>
+<input id="main2OddsA" inputmode="decimal" placeholder="예: 1.85"/>
+</div>
+<div class="field">
+<label id="main2LabelB">선택 B 배당</label>
+<input id="main2OddsB" inputmode="decimal" placeholder="예: 2.05"/>
+</div>
+</div>
+</div>
+<!-- 3-way -->
+<div id="main3" style="display:none;">
+<div class="grid">
+<div class="field">
+<label id="main3LabelH">홈 배당</label>
+<input id="main3OddsH" inputmode="decimal" placeholder="예: 2.10"/>
+</div>
+<div class="field">
+<label id="main3LabelD">무 배당</label>
+<input id="main3OddsD" inputmode="decimal" placeholder="예: 3.20"/>
+</div>
+<div class="field">
+<label id="main3LabelA">원정 배당</label>
+<input id="main3OddsA" inputmode="decimal" placeholder="예: 3.40"/>
+</div>
+<div class="field">
+<label> </label>
+<input disabled="" value="※ 축구는 3배당이 기본입니다"/>
+</div>
+</div>
+</div>
+<!-- 중급/고급: 내 확률/베팅금 -->
+<div id="valueInputs" style="display:none;">
+<div class="grid">
+<div class="field">
+<label id="myProbLabel">내 예상 확률(선택) %</label>
+<input id="myProb" inputmode="decimal" placeholder="예: 55  또는  45,28,27"/>
+<div class="small-hint" id="myProbHint"></div>
+</div>
+<div class="field">
+<label>베팅금(선택)</label>
+<input id="stake" inputmode="numeric" placeholder="예: 100000"/>
+<div class="small-hint">※ 입력 시 기대값(EV)을 원 단위로도 표시합니다.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ===== 라인 비교 (A vs B) ===== -->
+<div class="box" id="lineCompareBox">
+<div class="box-head">
+<div class="box-title" style="margin:0;">라인 비교 (A vs B)</div>
+<div class="toggle" data-target="lineCompareBody" onclick="toggleBox('lineCompareBody')">펼치기</div>
+</div>
+<div id="lineCompareBody" style="display:none;">
+<div class="small-hint" style="margin-top:4px;">
             두 업체(또는 두 라인) 배당을 넣고 <b>마진/공정배당</b>을 비교하세요. 같은 조건이면 마진이 낮은 쪽이 유리한 경우가 많습니다.
           </div>
-
-          <div class="lc-grid">
-            <div class="lc-col">
-              <div class="lc-head">라인 A</div>
-
-              <div id="lcA2" class="grid lc-fields" style="display:none;">
-                <div class="field">
-                  <label id="lcA2LabelA">선택 A 배당</label>
-                  <input id="lcA2OddsA" inputmode="decimal" placeholder="예: 1.85">
-                </div>
-                <div class="field">
-                  <label id="lcA2LabelB">선택 B 배당</label>
-                  <input id="lcA2OddsB" inputmode="decimal" placeholder="예: 2.05">
-                </div>
-              </div>
-
-              <div id="lcA3" class="grid lc-fields" style="display:none;">
-                <div class="field">
-                  <label id="lcA3LabelH">홈 배당</label>
-                  <input id="lcA3OddsH" inputmode="decimal" placeholder="예: 2.10">
-                </div>
-                <div class="field">
-                  <label id="lcA3LabelD">무 배당</label>
-                  <input id="lcA3OddsD" inputmode="decimal" placeholder="예: 3.20">
-                </div>
-                <div class="field">
-                  <label id="lcA3LabelA">원정 배당</label>
-                  <input id="lcA3OddsA" inputmode="decimal" placeholder="예: 3.40">
-                </div>
-                <div class="field">
-                  <label> </label>
-                  <input disabled value="(A) 3배당 입력">
-                </div>
-              </div>
-
-              <button class="btn secondary" type="button" onclick="applyLineCompare('A')">A를 메인에 적용</button>
-            </div>
-
-            <div class="lc-col">
-              <div class="lc-head">라인 B</div>
-
-              <div id="lcB2" class="grid lc-fields" style="display:none;">
-                <div class="field">
-                  <label id="lcB2LabelA">선택 A 배당</label>
-                  <input id="lcB2OddsA" inputmode="decimal" placeholder="예: 1.85">
-                </div>
-                <div class="field">
-                  <label id="lcB2LabelB">선택 B 배당</label>
-                  <input id="lcB2OddsB" inputmode="decimal" placeholder="예: 2.05">
-                </div>
-              </div>
-
-              <div id="lcB3" class="grid lc-fields" style="display:none;">
-                <div class="field">
-                  <label id="lcB3LabelH">홈 배당</label>
-                  <input id="lcB3OddsH" inputmode="decimal" placeholder="예: 2.10">
-                </div>
-                <div class="field">
-                  <label id="lcB3LabelD">무 배당</label>
-                  <input id="lcB3OddsD" inputmode="decimal" placeholder="예: 3.20">
-                </div>
-                <div class="field">
-                  <label id="lcB3LabelA">원정 배당</label>
-                  <input id="lcB3OddsA" inputmode="decimal" placeholder="예: 3.40">
-                </div>
-                <div class="field">
-                  <label> </label>
-                  <input disabled value="(B) 3배당 입력">
-                </div>
-              </div>
-
-              <button class="btn secondary" type="button" onclick="applyLineCompare('B')">B를 메인에 적용</button>
-            </div>
-          </div>
-
-          <div id="lineCompareOut" class="lc-out" style="display:none;"></div>
-
-          <div class="actionRow" style="margin-top:10px;">
-            <button class="btn" type="button" onclick="runLineCompare()">비교 계산</button>
-            <button class="btn ghost" type="button" onclick="prefillLineCompare()">현재 메인값으로 채우기</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ===== 핸디캡 (정밀: 양쪽 배당) ===== -->
-      <div class="box" id="handicapBox" style="display:none;">
-        <div class="box-head">
-          <div class="box-title" style="margin:0;">핸디캡 (선택 · 정밀 마진)</div>
-          <div class="toggle" data-target="handicapBody" onclick="toggleBox('handicapBody')">접기</div>
-        </div>
-        <div id="handicapBody">
-          <div class="grid">
-            <div class="field">
-              <label id="handicapLineLabel">핸디 라인 (예: -1.5, +3.5)</label>
-              <input id="handicapLine" inputmode="decimal" placeholder="예: -1.5">
-            </div>
-            <div class="field">
-              <label id="handicapOddsALabel">핸디 선택A 배당</label>
-              <input id="handicapOddsA" inputmode="decimal" placeholder="예: 1.90">
-            </div>
-            <div class="field">
-              <label id="handicapOddsBLabel">반대(선택B) 배당</label>
-              <input id="handicapOddsB" inputmode="decimal" placeholder="예: 1.95">
-            </div>
-            <div class="field">
-              <label>아시안(푸시) 근사(선택)</label>
-              <input id="handicapPush" inputmode="decimal" placeholder="푸시 확률 % (예: 2)">
-            </div>
-          </div>
-          <div class="small-hint">
+<div class="lc-grid">
+<div class="lc-col">
+<div class="lc-head">라인 A</div>
+<div class="grid lc-fields" id="lcA2" style="display:none;">
+<div class="field">
+<label id="lcA2LabelA">선택 A 배당</label>
+<input id="lcA2OddsA" inputmode="decimal" placeholder="예: 1.85"/>
+</div>
+<div class="field">
+<label id="lcA2LabelB">선택 B 배당</label>
+<input id="lcA2OddsB" inputmode="decimal" placeholder="예: 2.05"/>
+</div>
+</div>
+<div class="grid lc-fields" id="lcA3" style="display:none;">
+<div class="field">
+<label id="lcA3LabelH">홈 배당</label>
+<input id="lcA3OddsH" inputmode="decimal" placeholder="예: 2.10"/>
+</div>
+<div class="field">
+<label id="lcA3LabelD">무 배당</label>
+<input id="lcA3OddsD" inputmode="decimal" placeholder="예: 3.20"/>
+</div>
+<div class="field">
+<label id="lcA3LabelA">원정 배당</label>
+<input id="lcA3OddsA" inputmode="decimal" placeholder="예: 3.40"/>
+</div>
+<div class="field">
+<label> </label>
+<input disabled="" value="(A) 3배당 입력"/>
+</div>
+</div>
+<button class="btn secondary" onclick="applyLineCompare('A')" type="button">A를 메인에 적용</button>
+</div>
+<div class="lc-col">
+<div class="lc-head">라인 B</div>
+<div class="grid lc-fields" id="lcB2" style="display:none;">
+<div class="field">
+<label id="lcB2LabelA">선택 A 배당</label>
+<input id="lcB2OddsA" inputmode="decimal" placeholder="예: 1.85"/>
+</div>
+<div class="field">
+<label id="lcB2LabelB">선택 B 배당</label>
+<input id="lcB2OddsB" inputmode="decimal" placeholder="예: 2.05"/>
+</div>
+</div>
+<div class="grid lc-fields" id="lcB3" style="display:none;">
+<div class="field">
+<label id="lcB3LabelH">홈 배당</label>
+<input id="lcB3OddsH" inputmode="decimal" placeholder="예: 2.10"/>
+</div>
+<div class="field">
+<label id="lcB3LabelD">무 배당</label>
+<input id="lcB3OddsD" inputmode="decimal" placeholder="예: 3.20"/>
+</div>
+<div class="field">
+<label id="lcB3LabelA">원정 배당</label>
+<input id="lcB3OddsA" inputmode="decimal" placeholder="예: 3.40"/>
+</div>
+<div class="field">
+<label> </label>
+<input disabled="" value="(B) 3배당 입력"/>
+</div>
+</div>
+<button class="btn secondary" onclick="applyLineCompare('B')" type="button">B를 메인에 적용</button>
+</div>
+</div>
+<div class="lc-out" id="lineCompareOut" style="display:none;"></div>
+<div class="actionRow" style="margin-top:10px;">
+<button class="btn" onclick="runLineCompare()" type="button">비교 계산</button>
+<button class="btn ghost" onclick="prefillLineCompare()" type="button">현재 메인값으로 채우기</button>
+</div>
+</div>
+</div>
+<!-- ===== 핸디캡 (정밀: 양쪽 배당) ===== -->
+<div class="box" id="handicapBox" style="display:none;">
+<div class="box-head">
+<div class="box-title" style="margin:0;">핸디캡 (선택 · 정밀 마진)</div>
+<div class="toggle" data-target="handicapBody" onclick="toggleBox('handicapBody')">접기</div>
+</div>
+<div id="handicapBody">
+<div class="grid">
+<div class="field">
+<label id="handicapLineLabel">핸디 라인 (예: -1.5, +3.5)</label>
+<input id="handicapLine" inputmode="decimal" placeholder="예: -1.5"/>
+</div>
+<div class="field">
+<label id="handicapOddsALabel">핸디 선택A 배당</label>
+<input id="handicapOddsA" inputmode="decimal" placeholder="예: 1.90"/>
+</div>
+<div class="field">
+<label id="handicapOddsBLabel">반대(선택B) 배당</label>
+<input id="handicapOddsB" inputmode="decimal" placeholder="예: 1.95"/>
+</div>
+<div class="field">
+<label>아시안(푸시) 근사(선택)</label>
+<input id="handicapPush" inputmode="decimal" placeholder="푸시 확률 % (예: 2)"/>
+</div>
+</div>
+<div class="small-hint">
             ※ “양쪽 배당”이 있어야 핸디 마진을 정밀 계산할 수 있습니다. (단일 배당만 있으면 참고 수준)
           </div>
-        </div>
-      </div>
-
-      <!-- ===== 오버언더 ===== -->
-      <div class="box" id="totalBox" style="display:none;">
-        <div class="box-head">
-          <div class="box-title" style="margin:0;">오버/언더 (선택 · 아시안 근사 지원)</div>
-          <div class="toggle" data-target="totalBody" onclick="toggleBox('totalBody')">접기</div>
-        </div>
-        <div id="totalBody">
-          <div class="grid">
-            <div class="field">
-              <label>기준점 (예: 2.5, 7.5, 2.0)</label>
-              <input id="totalLine" inputmode="decimal" placeholder="예: 2.5">
-            </div>
-            <div class="field">
-              <label>오버 배당</label>
-              <input id="overOdds" inputmode="decimal" placeholder="예: 1.95">
-            </div>
-            <div class="field">
-              <label>언더 배당</label>
-              <input id="underOdds" inputmode="decimal" placeholder="예: 1.85">
-            </div>
-            <div class="field">
-              <label>아시안(푸시) 근사(선택)</label>
-              <input id="ouPush" inputmode="decimal" placeholder="푸시 확률 % (예: 6)">
-            </div>
-            <div class="field">
-              <label>내 예상 확률(오버) % (고급)</label>
-              <input id="myOverProb" inputmode="decimal" placeholder="예: 52">
-            </div>
-            <div class="field">
-              <label> </label>
-              <input disabled value="※ 푸시 확률 미입력 시 종목 기본값으로 근사합니다">
-            </div>
-          </div>
-          <div class="small-hint">※ 고급에서 내 예상 확률(오버)을 넣으면 오버 EV/비중 계산이 가능합니다.</div>
-        </div>
-      </div>
-
-
-      <div class="input-warn" id="inputWarn" aria-live="polite"></div>
-
-      <div class="actions">
-        <button type="button" class="btn primary" id="btnCalc" onclick="calc()">계산하기</button>
-        <button type="button" class="btn secondary" onclick="resetAll()">초기화</button>
-      </div>
-
-      <div class="note">
+</div>
+</div>
+<!-- ===== 오버언더 ===== -->
+<div class="box" id="totalBox" style="display:none;">
+<div class="box-head">
+<div class="box-title" style="margin:0;">오버/언더 (선택 · 아시안 근사 지원)</div>
+<div class="toggle" data-target="totalBody" onclick="toggleBox('totalBody')">접기</div>
+</div>
+<div id="totalBody">
+<div class="grid">
+<div class="field">
+<label>기준점 (예: 2.5, 7.5, 2.0)</label>
+<input id="totalLine" inputmode="decimal" placeholder="예: 2.5"/>
+</div>
+<div class="field">
+<label>오버 배당</label>
+<input id="overOdds" inputmode="decimal" placeholder="예: 1.95"/>
+</div>
+<div class="field">
+<label>언더 배당</label>
+<input id="underOdds" inputmode="decimal" placeholder="예: 1.85"/>
+</div>
+<div class="field">
+<label>아시안(푸시) 근사(선택)</label>
+<input id="ouPush" inputmode="decimal" placeholder="푸시 확률 % (예: 6)"/>
+</div>
+<div class="field">
+<label>내 예상 확률(오버) % (고급)</label>
+<input id="myOverProb" inputmode="decimal" placeholder="예: 52"/>
+</div>
+<div class="field">
+<label> </label>
+<input disabled="" value="※ 푸시 확률 미입력 시 종목 기본값으로 근사합니다"/>
+</div>
+</div>
+<div class="small-hint">※ 고급에서 내 예상 확률(오버)을 넣으면 오버 EV/비중 계산이 가능합니다.</div>
+</div>
+</div>
+<div aria-live="polite" class="input-warn" id="inputWarn"></div>
+<div class="actions">
+<button class="btn primary" id="btnCalc" onclick="calc()" type="button">계산하기</button>
+<button class="btn secondary" onclick="resetAll()" type="button">초기화</button>
+</div>
+<div class="note">
         ※ 본 도구는 “판단 보조용”입니다. 승률을 보장하지 않으며, 손실을 감당 가능한 범위 내에서 이용하세요.
       </div>
-
-      <!-- ✅ 통합 마진 대시보드 -->
-      <div class="box" style="margin-top:12px;">
-        <div class="box-title">통합 마진 대시보드 (메인/OU/핸디)</div>
-        <div class="m-grid" id="marginDash">
-          <!-- JS 렌더 -->
-        </div>
-        <div class="small-hint" style="margin-top:10px;">
+<!-- ✅ 통합 마진 대시보드 -->
+<div class="box" style="margin-top:12px;">
+<div class="box-title">통합 마진 대시보드 (메인/OU/핸디)</div>
+<div class="m-grid" id="marginDash">
+<!-- JS 렌더 -->
+</div>
+<div class="small-hint" style="margin-top:10px;">
           ※ 색상: <span class="good">낮음</span> / <span class="mid">보통·주의</span> / <span class="warn">고마진</span>
-        </div>
-      </div>
-
-      <div class="result" id="result" style="display:none;"></div>
-
-      <div class="result-dock" id="resultDock" style="display:none;" aria-label="저장/공유/업체 바로가기">
-        <button class="btn secondary" type="button" onclick="quickJump('history')">저장됨 · 히스토리</button>
-        <button class="btn gold" type="button" onclick="openShareCard()">공유</button>
-        <a class="btn secondary" href="/#vendorTop" data-cta="analysis_to_vendors" data-no-auto-outbound="1">업체 카드</a>
-      </div>
-
-      <div class="footer-links">
-        <a class="linkbtn" href="/">홈으로</a>
-        <a class="linkbtn" href="https://t.me/UZU59" target="_blank" rel="noopener">문의 (텔레그램)</a>
-      </div>
-    </div>
-
-  <!-- ✅ TOP3 + 기준/예시 (반반) -->
-  <div class="card" id="topInfoCard">
-    <h2 class="sr-only">오늘 마진 낮은 TOP3 및 마진 기준</h2>
-    <div class="split">
-      <section class="split-col" aria-label="오늘 마진 낮은 계산 TOP3">
-        <div class="subhead"><span class="mini-badge">TOP3</span>오늘 마진 낮은 계산 TOP3</div>
+</div>
+</div>
+<div class="result" id="result" style="display:none;"></div>
+<div aria-label="저장/공유/업체 바로가기" class="result-dock" id="resultDock" style="display:none;">
+<button class="btn secondary" onclick="quickJump('history')" type="button">저장됨 · 히스토리</button>
+<button class="btn gold" onclick="openShareCard()" type="button">공유</button>
+<a class="btn secondary" data-cta="analysis_to_vendors" data-no-auto-outbound="1" href="/#vendorTop">업체 카드</a>
+</div>
+<div class="footer-links">
+<a class="linkbtn" href="/">홈으로</a>
+<a class="linkbtn" href="https://t.me/UZU59" rel="noopener" target="_blank">문의 (텔레그램)</a>
+</div>
+</div>
+<!-- ✅ TOP3 + 기준/예시 (반반) -->
+<div class="card" id="topInfoCard">
+<h2 class="sr-only">오늘 마진 낮은 TOP3 및 마진 기준</h2>
+<div class="split">
+<section aria-label="오늘 마진 낮은 계산 TOP3" class="split-col">
+<div class="subhead"><span class="mini-badge">TOP3</span>오늘 마진 낮은 계산 TOP3</div>
 <div class="small-hint">※ 오늘 저장된 히스토리에서 “마진%”가 가장 낮은 순으로 자동 정렬됩니다.</div>
-    <div class="box" style="margin-top:10px;">
-      <div class="box-title">메인 마진 TOP3</div>
-      <div id="topMain" class="small-hint"></div>
-    </div>
-    <div class="box">
-      <div class="box-title">오버/언더 마진 TOP3</div>
-      <div id="topOU" class="small-hint"></div>
-    </div>
-    <div class="box">
-      <div class="box-title">핸디캡 마진 TOP3</div>
-      <div id="topHC" class="small-hint"></div>
-    </div>
-      </section>
-
-      <section class="split-col" aria-label="마진 낮은 경기 기준과 예시">
-        <div class="subhead"><span class="mini-badge">INFO</span>“마진 낮은 경기” 기준 & 예시</div>
+<div class="box" style="margin-top:10px;">
+<div class="box-title">메인 마진 TOP3</div>
+<div class="small-hint" id="topMain"></div>
+</div>
+<div class="box">
+<div class="box-title">오버/언더 마진 TOP3</div>
+<div class="small-hint" id="topOU"></div>
+</div>
+<div class="box">
+<div class="box-title">핸디캡 마진 TOP3</div>
+<div class="small-hint" id="topHC"></div>
+</div>
+</section>
+<section aria-label="마진 낮은 경기 기준과 예시" class="split-col">
+<div class="subhead"><span class="mini-badge">INFO</span>“마진 낮은 경기” 기준 &amp; 예시</div>
 <div class="note" style="margin-top:0;">
-      • 마진(수수료)은 <b>오버라운드-1</b>을 %로 표현한 값입니다.<br>
-      • 종목/유형별로 일반적인 마진 범위가 달라서, 이 페이지는 <b>종목+유형별 기준</b>으로 “낮음/보통/주의/고마진”을 판정합니다.<br>
+      • 마진(수수료)은 <b>오버라운드-1</b>을 %로 표현한 값입니다.<br/>
+      • 종목/유형별로 일반적인 마진 범위가 달라서, 이 페이지는 <b>종목+유형별 기준</b>으로 “낮음/보통/주의/고마진”을 판정합니다.<br/>
       • 아래 기준은 “대략적인 체감”을 빠르게 돕기 위한 용도이며, 실제 라인/업체/시장에 따라 달라질 수 있어요.
     </div>
-    <div class="box" style="margin-top:10px;">
-      <div class="box-title">예시 (축구 1X2)</div>
-      <div class="small-hint">
-        배당: <b>1.70 / 3.20 / 3.40</b> → 오버라운드가 커져 <b>고마진</b>으로 뜰 수 있습니다.<br>
+<div class="box" style="margin-top:10px;">
+<div class="box-title">예시 (축구 1X2)</div>
+<div class="small-hint">
+        배당: <b>1.70 / 3.20 / 3.40</b> → 오버라운드가 커져 <b>고마진</b>으로 뜰 수 있습니다.<br/>
         반대로 동일 시장에서 오버라운드가 1.05 근처면 대체로 <b>마진 낮음</b>으로 표시됩니다.
       </div>
-    </div>
-      </section>
-    </div>
-  </div>
-
-  <div class="card" id="historyCard">
-      <h2 class="sr-only">최근 계산 히스토리</h2>
-
-  <div class="small-hint">
-        • 히스토리 항목 클릭 → <b>입력 자동 복원 + 즉시 재계산</b><br>
+</div>
+</section>
+</div>
+</div>
+<div class="card" id="historyCard">
+<h2 class="sr-only">최근 계산 히스토리</h2>
+<div class="small-hint">
+        • 히스토리 항목 클릭 → <b>입력 자동 복원 + 즉시 재계산</b><br/>
         • 체크 2개 선택 → <b>비교(2개 나란히)</b> 가능
       </div>
-      <div class="history-actions">
-        <div class="history-toolbar">
-          <button class="btn secondary danger" type="button" id="btnDeleteSelected" onclick="deleteSelected()" disabled>선택 삭제</button>
-          <button class="btn secondary" type="button" onclick="clearHistory()">전체 삭제</button>
-          <button class="btn secondary" type="button" id="btnCompare" onclick="openCompare()" disabled>비교</button>
-          <button class="btn secondary" type="button" onclick="renderTop3()">TOP3</button>
-        </div>
-
-        <div class="history-filters" aria-label="히스토리 필터">
-          <button class="seg on" type="button" data-filter="all" onclick="setHistoryFilter('all', this)">전체</button>
-          <button class="seg" type="button" data-filter="rec" onclick="setHistoryFilter('rec', this)">추천</button>
-          <button class="seg" type="button" data-filter="untracked" onclick="setHistoryFilter('untracked', this)">미기록</button>
-          <div class="pick-ind">선택 <b id="pickCount">0</b></div>
-        </div>
-      </div>
-  <div class="perf-box" id="perfBox" style="display:none;">
-        <div class="perf-title">
-          <div>📊 내 성과</div>
-          <div class="snap-meta" id="perfMeta"></div>
-        </div>
-        <div class="perf-sub" id="perfSub"></div>
-        <div class="perf-grid" id="perfGrid"></div>
-      </div>
-
-      <div class="h-list" id="historyList"></div>
-    </div>
+<div class="history-actions">
+<div class="history-toolbar">
+<button class="btn secondary danger" disabled="" id="btnDeleteSelected" onclick="deleteSelected()" type="button">선택 삭제</button>
+<button class="btn secondary" onclick="clearHistory()" type="button">전체 삭제</button>
+<button class="btn secondary" disabled="" id="btnCompare" onclick="openCompare()" type="button">비교</button>
+<button class="btn secondary" onclick="renderTop3()" type="button">TOP3</button>
 </div>
-
+<div aria-label="히스토리 필터" class="history-filters">
+<button class="seg on" data-filter="all" onclick="setHistoryFilter('all', this)" type="button">전체</button>
+<button class="seg" data-filter="rec" onclick="setHistoryFilter('rec', this)" type="button">추천</button>
+<button class="seg" data-filter="untracked" onclick="setHistoryFilter('untracked', this)" type="button">미기록</button>
+<div class="pick-ind">선택 <b id="pickCount">0</b></div>
+</div>
+</div>
+<div class="perf-box" id="perfBox" style="display:none;">
+<div class="perf-title">
+<div>📊 내 성과</div>
+<div class="snap-meta" id="perfMeta"></div>
+</div>
+<div class="perf-sub" id="perfSub"></div>
+<div class="perf-grid" id="perfGrid"></div>
+</div>
+<div class="h-list" id="historyList"></div>
+</div>
+</div>
 <!-- 비교 모달 -->
 <div class="modal" id="compareModal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div class="t">비교 (2개 나란히)</div>
-      <div class="modal-close" onclick="closeCompare()">닫기</div>
-    </div>
-    <div class="small-hint" style="margin-bottom:10px;">
+<div class="modal-box">
+<div class="modal-head">
+<div class="t">비교 (2개 나란히)</div>
+<div class="modal-close" onclick="closeCompare()">닫기</div>
+</div>
+<div class="small-hint" style="margin-bottom:10px;">
       히스토리에서 체크박스로 2개 선택 후 “비교 열기”를 누르세요.
     </div>
-    <div class="compare-grid" id="compareGrid"></div>
-  </div>
+<div class="compare-grid" id="compareGrid"></div>
 </div>
-
-
+</div>
 <!-- 공유 카드 모달 (이미지 저장) -->
 <div class="modal" id="shareCardModal" style="display:none;">
-  <div class="modal-box share">
-    <div class="modal-head">
-      <div class="t">공유 카드 (이미지 저장)</div>
-      <div class="modal-close" onclick="closeShareCard()">닫기</div>
-    </div>
-    <div class="small-hint" style="margin-bottom:10px;">
+<div class="modal-box share">
+<div class="modal-head">
+<div class="t">공유 카드 (이미지 저장)</div>
+<div class="modal-close" onclick="closeShareCard()">닫기</div>
+</div>
+<div class="small-hint" style="margin-bottom:10px;">
       결과가 생성된 상태에서만 카드가 만들어집니다. (텍스트/링크도 함께 복사 가능)
     </div>
-    <div class="share-canvas-wrap">
-      <canvas id="shareCardCanvas" class="share-canvas" width="1080" height="1080" aria-label="공유 카드 캔버스"></canvas>
-    </div>
-    <div class="history-toolbar" style="margin-top:12px;">
-      <button class="btn secondary" type="button" onclick="copyShareLink()">링크 복사</button>
-      <button class="btn gold" type="button" onclick="downloadShareCard()">이미지 저장</button>
-      <button class="btn secondary" type="button" onclick="copyShareText()">문구 복사</button>
-    </div>
-  </div>
+<div class="share-canvas-wrap">
+<canvas aria-label="공유 카드 캔버스" class="share-canvas" height="1080" id="shareCardCanvas" width="1080"></canvas>
 </div>
-
+<div class="history-toolbar" style="margin-top:12px;">
+<button class="btn secondary" onclick="copyShareLink()" type="button">링크 복사</button>
+<button class="btn gold" onclick="downloadShareCard()" type="button">이미지 저장</button>
+<button class="btn secondary" onclick="copyShareText()" type="button">문구 복사</button>
+</div>
+</div>
+</div>
 <!-- 오늘 수집 묶음 공유 모달 (연속 저장/클릭 저장 결과 묶음) -->
 <div class="modal" id="bundleShareModal" style="display:none;">
-  <div class="modal-box share">
-    <div class="modal-head">
-      <div class="t" id="bundleTitle">오늘 수집 묶음</div>
-      <div class="modal-close" onclick="closeBundleShare()">닫기</div>
-    </div>
-    <div class="small-hint" style="margin-bottom:10px;">
+<div class="modal-box share">
+<div class="modal-head">
+<div class="t" id="bundleTitle">오늘 수집 묶음</div>
+<div class="modal-close" onclick="closeBundleShare()">닫기</div>
+</div>
+<div class="small-hint" style="margin-bottom:10px;">
       연속 저장(또는 클릭=연속 저장)으로 모은 항목을 <b>한 번에 공유</b>합니다. (각 항목 링크는 열면 동일 결과로 복원됩니다)
     </div>
-    <div class="bundle-meta" id="bundleMeta"></div>
-    <div class="share-canvas-wrap">
-      <canvas id="bundleCanvas" class="share-canvas" width="1080" height="1080" aria-label="오늘 수집 묶음 공유 카드"></canvas>
-    </div>
-    <textarea id="bundleText" class="bundle-ta" readonly></textarea>
+<div class="bundle-meta" id="bundleMeta"></div>
+<div class="share-canvas-wrap">
+<canvas aria-label="오늘 수집 묶음 공유 카드" class="share-canvas" height="1080" id="bundleCanvas" width="1080"></canvas>
+</div>
+<textarea class="bundle-ta" id="bundleText" readonly=""></textarea>
 <div class="bundle-promo">
-  <div class="bundle-promo-head">
-    <div class="bundle-promo-title">홍보글 자동 생성</div>
-    <div class="bundle-promo-ctrl">
-      <select id="bundlePromoChannel" class="inp mini" aria-label="홍보 채널 선택"></select>
-      <label class="bundle-switch" title="채널별 게시판 규칙(링크/톤/형식)에 맞춘 프리셋을 자동 적용합니다. 필요하면 꺼서 직접 조절하세요.">
-        <input type="checkbox" id="bundlePromoPreset" checked>
-        <span>프리셋 자동</span>
-      </label>
-      <span class="bundle-pill" id="bundlePresetHint" style="display:none;"></span>
-      <select id="bundlePromoStyle" class="inp mini" aria-label="홍보 톤 선택">
-        <option value="promo">홍보형</option>
-        <option value="info">정보형</option>
-        <option value="tg">텔레그램형</option>
-      </select>
-      <select id="bundlePromoLinks" class="inp mini" aria-label="링크 범위 선택">
-        <option value="top3">링크 TOP3(권장)</option>
-        <option value="top5">링크 TOP5</option>
-        <option value="all">링크 전체</option>
-        <option value="one">링크 1개만</option>
-        <option value="none">링크 0개</option>
-      </select>
-      <select id="bundlePromoOneTarget" class="inp mini" aria-label="링크 1개 대상" style="display:none;">
-        <option value="analysis">분석기 링크</option>
-        <option value="vendor">업체 카드 링크</option>
-      </select>
-      <label class="bundle-switch" title="UTM을 제거하고 https://를 생략해 URL을 짧게 표시합니다. (추적 정확도는 낮아질 수 있어요)">
-        <input type="checkbox" id="bundlePromoShortUrl">
-        <span>URL 줄이기</span>
-      </label>
-      <label class="bundle-switch" title="줄바꿈을 최소화해 게시판 규칙/필터에 더 잘 맞게 만듭니다.">
-        <input type="checkbox" id="bundlePromoCompact">
-        <span>줄바꿈 최소</span>
-      </label>
-      <label class="bundle-switch" title="링크를 못 올리는 게시판(링크 0개)에서 댓글로 요청을 유도하는 버전 문구를 추가합니다.">
-        <input type="checkbox" id="bundlePromoComment">
-        <span>댓글 유도</span>
-      </label>
-      <label class="bundle-switch" title="마진 낮음 또는 +EV 조건을 만족할 때만 업체 티저 1개를 포함합니다.">
-        <input type="checkbox" id="bundlePromoVendor" checked>
-        <span>업체 1개(조건부)</span>
-      </label>
-      <button class="btn ghost mini" type="button" onclick="toggleBundlePromoAdv()" id="btnPromoAdv" title="업체 티저 포함 조건(마진/EV 임계값)과 프리셋 상태를 세부 조절합니다.">고급</button>
-      <button class="btn ghost mini" type="button" onclick="regenBundlePromo()" title="문구 변형(3종) 중 다음 템플릿으로 바꿉니다">새 문구</button>
-    </div>
-  </div>
-  <div class="bundle-promo-adv" id="bundlePromoAdv" style="display:none;">
-    <div class="bundle-adv-row">
-      <div class="bundle-adv-label">업체 티저 포함 조건</div>
-      <div class="bundle-adv-controls">
-        <label class="bundle-range" title="최저 마진이 이 값 이하이면 업체 티저를 포함할 수 있습니다.">
+<div class="bundle-promo-head">
+<div class="bundle-promo-title">홍보글 자동 생성</div>
+<div class="bundle-promo-ctrl">
+<select aria-label="홍보 채널 선택" class="inp mini" id="bundlePromoChannel"></select>
+<label class="bundle-switch" title="채널별 게시판 규칙(링크/톤/형식)에 맞춘 프리셋을 자동 적용합니다. 필요하면 꺼서 직접 조절하세요.">
+<input checked="" id="bundlePromoPreset" type="checkbox"/>
+<span>프리셋 자동</span>
+</label>
+<span class="bundle-pill" id="bundlePresetHint" style="display:none;"></span>
+<select aria-label="홍보 톤 선택" class="inp mini" id="bundlePromoStyle">
+<option value="promo">홍보형</option>
+<option value="info">정보형</option>
+<option value="tg">텔레그램형</option>
+</select>
+<select aria-label="링크 범위 선택" class="inp mini" id="bundlePromoLinks">
+<option value="top3">링크 TOP3(권장)</option>
+<option value="top5">링크 TOP5</option>
+<option value="all">링크 전체</option>
+<option value="one">링크 1개만</option>
+<option value="none">링크 0개</option>
+</select>
+<select aria-label="링크 1개 대상" class="inp mini" id="bundlePromoOneTarget" style="display:none;">
+<option value="analysis">분석기 링크</option>
+<option value="vendor">업체 카드 링크</option>
+</select>
+<label class="bundle-switch" title="UTM을 제거하고 https://를 생략해 URL을 짧게 표시합니다. (추적 정확도는 낮아질 수 있어요)">
+<input id="bundlePromoShortUrl" type="checkbox"/>
+<span>URL 줄이기</span>
+</label>
+<label class="bundle-switch" title="줄바꿈을 최소화해 게시판 규칙/필터에 더 잘 맞게 만듭니다.">
+<input id="bundlePromoCompact" type="checkbox"/>
+<span>줄바꿈 최소</span>
+</label>
+<label class="bundle-switch" title="링크를 못 올리는 게시판(링크 0개)에서 댓글로 요청을 유도하는 버전 문구를 추가합니다.">
+<input id="bundlePromoComment" type="checkbox"/>
+<span>댓글 유도</span>
+</label>
+<label class="bundle-switch" title="마진 낮음 또는 +EV 조건을 만족할 때만 업체 티저 1개를 포함합니다.">
+<input checked="" id="bundlePromoVendor" type="checkbox"/>
+<span>업체 1개(조건부)</span>
+</label>
+<button class="btn ghost mini" id="btnPromoAdv" onclick="toggleBundlePromoAdv()" title="업체 티저 포함 조건(마진/EV 임계값)과 프리셋 상태를 세부 조절합니다." type="button">고급</button>
+<button class="btn ghost mini" onclick="regenBundlePromo()" title="문구 변형(3종) 중 다음 템플릿으로 바꿉니다" type="button">새 문구</button>
+</div>
+</div>
+<div class="bundle-promo-adv" id="bundlePromoAdv" style="display:none;">
+<div class="bundle-adv-row">
+<div class="bundle-adv-label">업체 티저 포함 조건</div>
+<div class="bundle-adv-controls">
+<label class="bundle-range" title="최저 마진이 이 값 이하이면 업체 티저를 포함할 수 있습니다.">
           마진 ≤ <span id="bundleVendorMarginVal">3.2</span>%
-          <input type="range" id="bundleVendorMargin" min="2.0" max="6.0" step="0.1" value="3.2">
-        </label>
-        <label class="bundle-range" title="+EV(0보다 큰 EV)이 최소 몇 개 이상일 때 업체 티저를 포함할지 설정합니다.">
+          <input id="bundleVendorMargin" max="6.0" min="2.0" step="0.1" type="range" value="3.2"/>
+</label>
+<label class="bundle-range" title="+EV(0보다 큰 EV)이 최소 몇 개 이상일 때 업체 티저를 포함할지 설정합니다.">
           +EV ≥ <span id="bundleVendorEvVal">1</span>개
-          <input type="range" id="bundleVendorEv" min="0" max="5" step="1" value="1">
-        </label>
-      </div>
-    </div>
-    <div class="small-hint" style="margin-top:8px;">
+          <input id="bundleVendorEv" max="5" min="0" step="1" type="range" value="1"/>
+</label>
+</div>
+</div>
+<div class="small-hint" style="margin-top:8px;">
       임계값을 올리면 업체 티저가 더 자주 포함될 수 있어요. (게시판 규칙이 엄격한 채널은 프리셋이 링크/톤을 자동으로 제한합니다)
     </div>
-  </div>
-  <div class="small-hint" style="margin-top:8px;">
+</div>
+<div class="small-hint" style="margin-top:8px;">
     채널/톤/옵션을 바꾸면 홍보 문구가 자동 생성됩니다. (게시판 규칙에 맞춰 링크 0~전체/URL 짧게/줄바꿈 최소를 선택 가능)
   </div>
-  <textarea id="bundlePromoText" class="bundle-ta bundle-ta--promo" readonly></textarea>
-  <div class="history-toolbar" style="margin-top:10px;">
-    <button class="btn secondary" type="button" onclick="copyBundlePromo()">홍보글 복사</button>
-    <button class="btn ghost" type="button" onclick="copyBundlePromoTitle()">제목 복사</button>
-    <button class="btn ghost" type="button" onclick="copyBundlePromoLead()">말머리 복사</button>
-  </div>
+<textarea class="bundle-ta bundle-ta--promo" id="bundlePromoText" readonly=""></textarea>
+<div class="history-toolbar" style="margin-top:10px;">
+<button class="btn secondary" onclick="copyBundlePromo()" type="button">홍보글 복사</button>
+<button class="btn ghost" onclick="copyBundlePromoTitle()" type="button">제목 복사</button>
+<button class="btn ghost" onclick="copyBundlePromoLead()" type="button">말머리 복사</button>
 </div>
-    <div class="history-toolbar" style="margin-top:12px;">
-      <button class="btn secondary" type="button" onclick="copyBundleText()">문구 복사</button>
-      <button class="btn secondary" type="button" onclick="copyBundleLinks()">링크만 복사</button>
-      <button class="btn ghost" type="button" onclick="copyBundleTop3()">TOP3 요약 복사</button>
-      <button class="btn gold" type="button" onclick="downloadBundleCard()">이미지 저장</button>
-      <button class="btn danger" type="button" onclick="resetBundleToday()">오늘 묶음 초기화</button>
-    </div>
-  </div>
 </div>
-
+<div class="history-toolbar" style="margin-top:12px;">
+<button class="btn secondary" onclick="copyBundleText()" type="button">문구 복사</button>
+<button class="btn secondary" onclick="copyBundleLinks()" type="button">링크만 복사</button>
+<button class="btn ghost" onclick="copyBundleTop3()" type="button">TOP3 요약 복사</button>
+<button class="btn gold" onclick="downloadBundleCard()" type="button">이미지 저장</button>
+<button class="btn danger" onclick="resetBundleToday()" type="button">오늘 묶음 초기화</button>
+</div>
+</div>
+</div>
 <!-- 모바일 하단 도크 -->
-<div class="mobile-dock" id="mobileDock" aria-label="빠른 동작">
-  <button class="dock-btn primary" type="button" onclick="calc()">계산</button>
-  <button class="dock-btn" type="button" onclick="quickJump('history')">저장</button>
-  <button class="dock-btn" type="button" onclick="openShareCard()">공유</button>
-  <a class="dock-btn" href="/#vendorTop" data-cta="analysis_dock_vendors" data-no-auto-outbound="1">업체</a>
+<div aria-label="빠른 동작" class="mobile-dock" id="mobileDock">
+<button class="dock-btn primary" onclick="calc()" type="button">계산</button>
+<button class="dock-btn" onclick="quickJump('history')" type="button">저장</button>
+<button class="dock-btn" onclick="openShareCard()" type="button">공유</button>
+<a class="dock-btn" data-cta="analysis_dock_vendors" data-no-auto-outbound="1" href="/#vendorTop">업체</a>
 </div>
-
 <div id="toast88"></div>
-
 <script>
 /* =========================
    공지/사칭주의
@@ -6896,7 +6829,7 @@ function renderTopList(id, list, type){
     const tag = classifyMargin(h.sport, type, m);
     const text = `${i+1}) ${h.time} · ${cfg.name}${h.teams?` · ${escapeHtml(h.teams)}`:""} · ${tag.label}`;
     return `<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);">
-      <a href="#calcCard" onclick="restoreFromHistory('${h.id}', true)" style="color:#fff;text-decoration:none;">
+      <a href="#calcCard" onclick="restoreFromHistory('${h.id}', true)" style="color:inherit;text-decoration:none;">
         <span class="${clsToTextColor(tag.cls)}"><b>${text}</b></span>
       </a>
     </div>`;
@@ -7250,33 +7183,31 @@ function boot(){
 }
 boot();
 </script>
-
 <!-- First-Visit Onboarding Popover -->
-<div id="onbPopover" role="dialog" aria-modal="true" aria-label="처음 이용 가이드">
-  <div class="onb-hd">
-    <div class="onb-title" id="onbTitle">처음 이용 가이드</div>
-    <div class="onb-step" id="onbStep">1/3</div>
-  </div>
-  <div class="onb-body" id="onbBody"></div>
-  <div class="onb-actions">
-    <button class="btn onb-skip" type="button" onclick="onbSkip()">건너뛰기</button>
-    <button class="btn secondary" type="button" onclick="onbPrev()">이전</button>
-    <button class="btn primary" type="button" onclick="onbNext()">다음</button>
-  </div>
+<div aria-label="처음 이용 가이드" aria-modal="true" id="onbPopover" role="dialog">
+<div class="onb-hd">
+<div class="onb-title" id="onbTitle">처음 이용 가이드</div>
+<div class="onb-step" id="onbStep">1/3</div>
 </div>
-
+<div class="onb-body" id="onbBody"></div>
+<div class="onb-actions">
+<button class="btn onb-skip" onclick="onbSkip()" type="button">건너뛰기</button>
+<button class="btn secondary" onclick="onbPrev()" type="button">이전</button>
+<button class="btn primary" onclick="onbNext()" type="button">다음</button>
+</div>
+</div>
 <section aria-label="관련 링크" class="rel-links">
-  <h2>관련 링크</h2>
-  <div class="rel-grid">
-    <a href="/" data-cta="rel_home">메인</a>
-    <a href="/#oddsAnalyzerSection" data-cta="rel_odds">배당 구조 분석기</a>
-    <a href="/tool-margin/" data-cta="rel_margin">마진 계산기</a>
-    <a href="/tool-ev/" data-cta="rel_ev">EV 계산기</a>
-    <a href="/tool-odds/" data-cta="rel_odds2">배당↔확률 변환</a>
-    <a href="/#vendorTop" data-cta="rel_vendors">보증·인증 업체</a>
-    <a href="/bonus-checklist/" data-cta="rel_bonus">입플 체크리스트</a>
-    <a href="/landing-a/" data-cta="rel_landing_a">입플·보너스 안내</a>
-  </div>
+<h2>관련 링크</h2>
+<div class="rel-grid">
+<a data-cta="rel_home" href="/">메인</a>
+<a data-cta="rel_odds" href="/#oddsAnalyzerSection">배당 구조 분석기</a>
+<a data-cta="rel_margin" href="/tool-margin/">마진 계산기</a>
+<a data-cta="rel_ev" href="/tool-ev/">EV 계산기</a>
+<a data-cta="rel_odds2" href="/tool-odds/">배당↔확률 변환</a>
+<a data-cta="rel_vendors" href="/#vendorTop">보증·인증 업체</a>
+<a data-cta="rel_bonus" href="/bonus-checklist/">입플 체크리스트</a>
+<a data-cta="rel_landing_a" href="/landing-a/">입플·보너스 안내</a>
+</div>
 </section>
 <style>
   .rel-links{max-width:1080px;margin:26px auto 34px;padding:14px 14px 16px;border-radius:18px;
@@ -7284,7 +7215,7 @@ boot();
     box-shadow:0 14px 40px rgba(0,0,0,.35);}
   .rel-links h2{margin:0 0 10px;font-size:13px;letter-spacing:.02em;color:rgba(245,226,122,.92);font-weight:900;}
   .rel-grid{display:flex;flex-wrap:wrap;gap:8px;}
-  .rel-grid a{text-decoration:none;color:rgba(255,255,255,.82);font-size:12px;padding:8px 10px;border-radius:999px;
+  .rel-grid a{text-decoration:none;color:var(--text-2);font-size:12px;padding:8px 10px;border-radius:999px;
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
   .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
 </style>

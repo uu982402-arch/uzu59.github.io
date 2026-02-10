@@ -1,22 +1,19 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>온라인 슬롯 입플·보너스 조건 정리 | 88 커뮤니티</title>
-<meta name="description" content="온라인 슬롯 유저가 자주 찾는 입플/보너스 조건과 주의사항(롤링/게임제한/환전)을 정리했습니다. 검증 기준과 문의 가이드를 제공합니다." />
-<link rel="canonical" href="https://88st.cloud/slot/" />
-<meta name="robots" content="index,follow" />
-
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="88 커뮤니티" />
-<meta property="og:title" content="온라인 슬롯 입플·보너스 조건 정리 | 88" />
-<meta property="og:description" content="슬롯 보너스 조건·주의사항·검증 포인트 정리." />
-<meta property="og:url" content="https://88st.cloud/slot/" />
-
-<link rel="icon" href="/favicon.ico" type="image/x-icon" />
-
+<meta content="온라인 슬롯 유저가 자주 찾는 입플/보너스 조건과 주의사항(롤링/게임제한/환전)을 정리했습니다. 검증 기준과 문의 가이드를 제공합니다." name="description"/>
+<link href="https://88st.cloud/slot/" rel="canonical"/>
+<meta content="index,follow" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="88 커뮤니티" property="og:site_name"/>
+<meta content="온라인 슬롯 입플·보너스 조건 정리 | 88" property="og:title"/>
+<meta content="슬롯 보너스 조건·주의사항·검증 포인트 정리." property="og:description"/>
+<meta content="https://88st.cloud/slot/" property="og:url"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
 <style>
 *{box-sizing:border-box}
 :root{
@@ -40,7 +37,7 @@
   --bg:#0b0b0b; --panel:rgba(18,18,18,var(--glassA)); --bd:rgba(255,255,255,.08);
 --muted:#cfcfcf; --ok:#b7ffcf; --bad:#ffb3b3;
 }
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;color:#fff;
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;color:var(--text);
   background:
     radial-gradient(1200px 500px at 50% -10%, rgba(var(--accentRGB),.14), transparent 55%),
     radial-gradient(900px 500px at 10% 20%, rgba(90,160,255,.08), transparent 60%),
@@ -95,10 +92,10 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,syste
 .btn{flex:1;min-width:160px;padding:12px;border-radius:14px;border:none;font-weight:900;cursor:pointer;text-decoration:none;text-align:center}
 .btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111}
 .btn.blue{background:linear-gradient(135deg,#1da1f2,#78d6ff);color:#00121a}
-.btn.dark{background:#1f1f1f;color:#fff;border:1px solid rgba(255,255,255,.08)}
+.btn.dark{background:#1f1f1f;color:var(--text);border:1px solid rgba(255,255,255,.08)}
 .faq details{border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.28);border-radius:14px;padding:10px 12px}
 .faq details + details{margin-top:10px}
-.faq summary{cursor:pointer;font-weight:900;color:#fff;list-style:none}
+.faq summary{cursor:pointer;font-weight:900;color:var(--text);list-style:none}
 .faq summary::-webkit-details-marker{display:none}
 .faq .a{margin-top:8px;color:#cfcfcf;font-size:13px;line-height:1.55}
 .footer{text-align:center;color:#9a9a9a;font-size:12px;padding:18px 14px 26px}
@@ -121,30 +118,29 @@ small.muted{color:#9a9a9a}
 }
 
 </style>
-<link rel="stylesheet" href="../assets/glass-notice.css">
-<script src="../assets/theme-preset.js" defer></script>
-
+<link href="../assets/glass-notice.css" rel="stylesheet"/>
+<script defer="" src="../assets/theme-preset.js"></script>
 <style id="v13_1_theme_override">
 /* === v13.1 look unify (from main index) === */
 :root{
   /* unify accent (blue) */
-  --accent1:#5fb2ff !important;
-  --accent2:#a8dcff !important;
-  --accentRGB:95,178,255 !important;  /* for rgba(var(--accentRGB), .xx) */
-  --accentText:#00121a !important;
-  --accentOn:#00121a !important;
+  --accent1:#5fb2ff;
+  --accent2:#a8dcff;
+  --accentRGB:95,178,255;  /* for rgba(var(--accentRGB), .xx) */
+  --accentText:#00121a;
+  --accentOn:#00121a;
 
   /* unify tokens */
-  --bg:#05060b !important;
-  --panel:rgba(12,14,22,.62) !important;
-  --glassA:.72 !important;
-  --glassStrongA:.86 !important;
-  --glassSoftA:.18 !important;
-  --glassBorder:rgba(255,255,255,.10) !important;
+  --bg:#05060b;
+  --panel:rgba(12,14,22,.62);
+  --glassA:.72;
+  --glassStrongA:.86;
+  --glassSoftA:.18;
+  --glassBorder:rgba(255,255,255,.10);
 
   /* backward compat */
-  --gold: var(--accent1) !important;
-  --gold2: var(--accent2) !important;
+  --gold: var(--accent1);
+  --gold2: var(--accent2);
 }
 
 /* premium midnight background */
@@ -154,7 +150,7 @@ body{
     radial-gradient(900px 540px at 15% 25%, rgba(120,170,255,.10), transparent 55%),
     radial-gradient(900px 640px at 85% 35%, rgba(80,140,255,.08), transparent 55%),
     linear-gradient(180deg, #05060b 0%, #060612 60%, #040408 100%) !important;
-  color:#fff;
+  color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
 }
 
@@ -175,7 +171,7 @@ h3 .badge{ display:none !important; }
 input, select, textarea{
   background: rgba(0,0,0,.28) !important;
   border:1px solid rgba(255,255,255,.14) !important;
-  color:#fff !important;
+  color:var(--text) !important;
   border-radius:14px !important;
   outline:none;
 }
@@ -188,7 +184,7 @@ input:focus, select:focus, textarea:focus{
 .btn, button, a.btn{
   background: rgba(255,255,255,.06) !important;
   border:1px solid rgba(255,255,255,.14) !important;
-  color: rgba(255,255,255,.92) !important;
+  color:var(--text) !important;
   box-shadow: 0 12px 34px rgba(0,0,0,.38) !important;
 }
 .btn:hover, button:hover, a.btn:hover{ filter: brightness(1.06); }
@@ -203,8 +199,6 @@ input:focus, select:focus, textarea:focus{
 /* links */
 a{ color:inherit; }
 </style>
-
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -225,123 +219,104 @@ a{ color:inherit; }
   ]
 }
 </script>
-
 <script src="/assets/js/88st-analytics.js"></script>
-
-<link rel="stylesheet" href="/assets/88st-theme.css?v=20260210_2">
-<script defer src="/assets/88st-theme.js?v=20260210_2"></script>
+<link href="/assets/88st-theme.css?v=20260210_3" rel="stylesheet"/>
+<script defer="" src="/assets/88st-theme.js?v=20260210_3"></script>
 </head>
-
 <body>
 <div class="notice-bar">
-  <a href="https://t.me/UZU59" target="_blank" rel="noopener"><span id="noticeText"></span></a>
+<a href="https://t.me/UZU59" rel="noopener" target="_blank"><span id="noticeText"></span></a>
 </div>
-
 <div id="loader">
-  <div class="logoWrap"><img class="logoImg" src="/img/logo.png" alt="88 로고 로딩"></div>
-  <div class="text">Loading...</div>
+<div class="logoWrap"><img alt="88 로고 로딩" class="logoImg" src="/img/logo.png"/></div>
+<div class="text">Loading...</div>
 </div>
-
 <div class="scam-popup" id="scamPopup">
-  <div class="scam-box">
-    <h3>⚠️ 사칭 주의 안내</h3>
-    <p>
-      88 커뮤니티 공식 관리자 텔레그램은<br>
-      <b>@UZU59</b> 단 하나입니다.<br><br>
-      그 외 계정은 사칭일 수 있으니<br>
+<div class="scam-box">
+<h3>⚠️ 사칭 주의 안내</h3>
+<p>
+      88 커뮤니티 공식 관리자 텔레그램은<br/>
+<b>@UZU59</b> 단 하나입니다.<br/><br/>
+      그 외 계정은 사칭일 수 있으니<br/>
       반드시 주의해 주세요.
     </p>
-    <div class="btn" onclick="closeScam()">확인</div>
-  </div>
+<div class="btn" onclick="closeScam()">확인</div>
 </div>
-
+</div>
 <div class="header">
-  <div class="nav">
-    <a href="../">메인</a>
-    <a href="../analysis.html">분석기</a>
-    <a href="../ipl/">입플/보너스</a>
-    <a href="../minigame/">동행 미니게임</a>
-    <a href="../casino/">카지노</a>
-    <a class="active" href="./">슬롯</a>
-  </div>
-
-  <a class="logoLink" href="../" aria-label="홈으로 이동">
-    <img class="logoImg" src="/img/logo.png" alt="88 커뮤니티 로고">
-  </a>
-  <div class="sub">
-    <b>온라인 슬롯</b> 입플/보너스 조건과 주의사항(롤링/제한/환전)을 정리했습니다.<br>
-    <small class="muted">※ “보너스 크기”보다 “제한/환전조건”이 실사용 만족을 좌우합니다.</small>
-  </div>
+<div class="nav">
+<a href="../">메인</a>
+<a href="../analysis.html">분석기</a>
+<a href="../ipl/">입플/보너스</a>
+<a href="../minigame/">동행 미니게임</a>
+<a href="../casino/">카지노</a>
+<a class="active" href="./">슬롯</a>
 </div>
-
+<a aria-label="홈으로 이동" class="logoLink" href="../">
+<img alt="88 커뮤니티 로고" class="logoImg" src="/img/logo.png"/>
+</a>
+<div class="sub">
+<b>온라인 슬롯</b> 입플/보너스 조건과 주의사항(롤링/제한/환전)을 정리했습니다.<br/>
+<small class="muted">※ “보너스 크기”보다 “제한/환전조건”이 실사용 만족을 좌우합니다.</small>
+</div>
+</div>
 <div class="wrap">
-  <div class="grid2">
-    <div class="card">
-      <div class="title"><span class="badge">CHECK</span>슬롯 보너스 체크리스트 (핵심 6)</div>
-      <ul class="list">
-        <li>슬롯 보너스 <b>롤링 배수</b> (게임별 상이)</li>
-        <li>특정 제공사/게임 <b>제한</b> 여부</li>
-        <li>보너스 상한(최대 당첨/최대 환전)</li>
-        <li>환전 최소/최대/횟수 제한</li>
-        <li>보너스 회수/몰수 조건(규정 위반)</li>
-        <li>문의 대응 및 처리 기록</li>
-      </ul>
-
-      <div class="callout text">
-        <b>팁:</b> 고액 유저는 “광고성 문구”보다 <b>규정 투명성</b>을 더 중요하게 봅니다.
+<div class="grid2">
+<div class="card">
+<div class="title"><span class="badge">CHECK</span>슬롯 보너스 체크리스트 (핵심 6)</div>
+<ul class="list">
+<li>슬롯 보너스 <b>롤링 배수</b> (게임별 상이)</li>
+<li>특정 제공사/게임 <b>제한</b> 여부</li>
+<li>보너스 상한(최대 당첨/최대 환전)</li>
+<li>환전 최소/최대/횟수 제한</li>
+<li>보너스 회수/몰수 조건(규정 위반)</li>
+<li>문의 대응 및 처리 기록</li>
+</ul>
+<div class="callout text">
+<b>팁:</b> 고액 유저는 “광고성 문구”보다 <b>규정 투명성</b>을 더 중요하게 봅니다.
       </div>
-
-      <div class="btnRow">
-        <a class="btn blue" href="../analysis.html">분석기(마진/EV)</a>
-        <a class="btn gold" href="https://t.me/UZU59" target="_blank" rel="noopener">문의(텔레그램)</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="title"><span class="badge">PRO</span>고액 유저 기준 “검증 포인트”</div>
-      <div class="callout">
-        <div class="kv"><div class="k">정산/환전 안정성</div><div class="v ok">최우선</div></div>
-        <div class="kv"><div class="k">규정 투명(상한/제한/롤링)</div><div class="v ok">필수</div></div>
-        <div class="kv"><div class="k">문의 대응/근거 제시</div><div class="v ok">필수</div></div>
-        <div class="kv"><div class="k">제공사 제한 과다</div><div class="v bad">주의</div></div>
-      </div>
-
-      <div class="title" style="margin-top:12px;"><span class="badge">SAFE</span>주의 신호</div>
-      <ul class="list">
-        <li>규정이 페이지마다 다르게 안내됨</li>
-        <li>환전조건/상한을 숨기고 이벤트만 강조</li>
-        <li>문의처가 여러 개로 분산(사칭 위험)</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="card faq" style="margin-top:14px;">
-    <div class="title"><span class="badge">FAQ</span>자주 묻는 질문 (슬롯)</div>
-
-    <details open>
-      <summary>슬롯 보너스는 롤링이 왜 중요하죠?</summary>
-      <div class="a">롤링은 “환전 가능해지기까지 필요한 조건”입니다. <b>롤링/상한/제한</b>을 같이 봐야 체감 효율이 나옵니다.</div>
-    </details>
-
-    <details>
-      <summary>특정 제공사 슬롯이 제한되는 이유는?</summary>
-      <div class="a">업체별 정책/리스크 관리에 따라 제한이 있을 수 있습니다. 참여 전 제공사 제한을 확인하세요.</div>
-    </details>
-
-    <details>
-      <summary>공식 문의처는 어디인가요?</summary>
-      <div class="a">공식 텔레그램은 <b>@UZU59</b> 단 하나입니다. 사칭 계정 주의하세요.</div>
-    </details>
-
-    <details>
-      <summary>분석기는 슬롯에도 도움이 되나요?</summary>
-      <div class="a">분석기는 스포츠 배당/마진/EV에 최적화되어 있습니다. 다만 “불리한 구조(수수료/마진)”를 이해하는 데는 도움 됩니다.</div>
-    </details>
-  </div>
-
-  <div class="footer">© 88 Community · 안내/검증 정보는 운영 상황에 따라 변경될 수 있습니다.</div>
+<div class="btnRow">
+<a class="btn blue" href="../analysis.html">분석기(마진/EV)</a>
+<a class="btn gold" href="https://t.me/UZU59" rel="noopener" target="_blank">문의(텔레그램)</a>
 </div>
-
+</div>
+<div class="card">
+<div class="title"><span class="badge">PRO</span>고액 유저 기준 “검증 포인트”</div>
+<div class="callout">
+<div class="kv"><div class="k">정산/환전 안정성</div><div class="v ok">최우선</div></div>
+<div class="kv"><div class="k">규정 투명(상한/제한/롤링)</div><div class="v ok">필수</div></div>
+<div class="kv"><div class="k">문의 대응/근거 제시</div><div class="v ok">필수</div></div>
+<div class="kv"><div class="k">제공사 제한 과다</div><div class="v bad">주의</div></div>
+</div>
+<div class="title" style="margin-top:12px;"><span class="badge">SAFE</span>주의 신호</div>
+<ul class="list">
+<li>규정이 페이지마다 다르게 안내됨</li>
+<li>환전조건/상한을 숨기고 이벤트만 강조</li>
+<li>문의처가 여러 개로 분산(사칭 위험)</li>
+</ul>
+</div>
+</div>
+<div class="card faq" style="margin-top:14px;">
+<div class="title"><span class="badge">FAQ</span>자주 묻는 질문 (슬롯)</div>
+<details open="">
+<summary>슬롯 보너스는 롤링이 왜 중요하죠?</summary>
+<div class="a">롤링은 “환전 가능해지기까지 필요한 조건”입니다. <b>롤링/상한/제한</b>을 같이 봐야 체감 효율이 나옵니다.</div>
+</details>
+<details>
+<summary>특정 제공사 슬롯이 제한되는 이유는?</summary>
+<div class="a">업체별 정책/리스크 관리에 따라 제한이 있을 수 있습니다. 참여 전 제공사 제한을 확인하세요.</div>
+</details>
+<details>
+<summary>공식 문의처는 어디인가요?</summary>
+<div class="a">공식 텔레그램은 <b>@UZU59</b> 단 하나입니다. 사칭 계정 주의하세요.</div>
+</details>
+<details>
+<summary>분석기는 슬롯에도 도움이 되나요?</summary>
+<div class="a">분석기는 스포츠 배당/마진/EV에 최적화되어 있습니다. 다만 “불리한 구조(수수료/마진)”를 이해하는 데는 도움 됩니다.</div>
+</details>
+</div>
+<div class="footer">© 88 Community · 안내/검증 정보는 운영 상황에 따라 변경될 수 있습니다.</div>
+</div>
 <script>
 function hideLoader(){
   const l=document.getElementById("loader");
@@ -383,19 +358,19 @@ function rotateNotice(){
 rotateNotice();
 setInterval(rotateNotice,4200);
 </script>
-<script src="../assets/glass-notice.js" defer></script>
+<script defer="" src="../assets/glass-notice.js"></script>
 <section aria-label="관련 링크" class="rel-links">
-  <h2>관련 링크</h2>
-  <div class="rel-grid">
-    <a href="/" data-cta="rel_home">메인</a>
-    <a href="/#oddsAnalyzerSection" data-cta="rel_odds">배당 구조 분석기</a>
-    <a href="/tool-margin/" data-cta="rel_margin">마진 계산기</a>
-    <a href="/tool-ev/" data-cta="rel_ev">EV 계산기</a>
-    <a href="/tool-odds/" data-cta="rel_odds2">배당↔확률 변환</a>
-    <a href="/#vendorTop" data-cta="rel_vendors">보증·인증 업체</a>
-    <a href="/bonus-checklist/" data-cta="rel_bonus">입플 체크리스트</a>
-    <a href="/landing-a/" data-cta="rel_landing_a">입플·보너스 안내</a>
-  </div>
+<h2>관련 링크</h2>
+<div class="rel-grid">
+<a data-cta="rel_home" href="/">메인</a>
+<a data-cta="rel_odds" href="/#oddsAnalyzerSection">배당 구조 분석기</a>
+<a data-cta="rel_margin" href="/tool-margin/">마진 계산기</a>
+<a data-cta="rel_ev" href="/tool-ev/">EV 계산기</a>
+<a data-cta="rel_odds2" href="/tool-odds/">배당↔확률 변환</a>
+<a data-cta="rel_vendors" href="/#vendorTop">보증·인증 업체</a>
+<a data-cta="rel_bonus" href="/bonus-checklist/">입플 체크리스트</a>
+<a data-cta="rel_landing_a" href="/landing-a/">입플·보너스 안내</a>
+</div>
 </section>
 <style>
   .rel-links{max-width:1080px;margin:26px auto 34px;padding:14px 14px 16px;border-radius:18px;
@@ -403,7 +378,7 @@ setInterval(rotateNotice,4200);
     box-shadow:0 14px 40px rgba(0,0,0,.35);}
   .rel-links h2{margin:0 0 10px;font-size:13px;letter-spacing:.02em;color:rgba(245,226,122,.92);font-weight:900;}
   .rel-grid{display:flex;flex-wrap:wrap;gap:8px;}
-  .rel-grid a{text-decoration:none;color:rgba(255,255,255,.82);font-size:12px;padding:8px 10px;border-radius:999px;
+  .rel-grid a{text-decoration:none;color:var(--text-2);font-size:12px;padding:8px 10px;border-radius:999px;
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
   .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
 </style>

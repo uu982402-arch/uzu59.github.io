@@ -2,13 +2,13 @@
 
 <html lang="ko">
 <head>
-<meta name="description" content="배당 구조(정규확률·공정배당·오버라운드)와 손실 한도/고정 비중을 빠르게 계산하고, 결과를 바탕으로 보증·인증 업체 카드를 비교해 보세요."/>
+<meta content="배당 구조(정규확률·공정배당·오버라운드)와 손실 한도/고정 비중을 빠르게 계산하고, 결과를 바탕으로 보증·인증 업체 카드를 비교해 보세요." name="description"/>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <!-- 88 MAIN LUXE v13.1 (v12 기능 유지) -->
 <!-- ===== SEO 기본 세팅 ===== -->
 <title>88st.cloud | 배당 구조 분석기 · 리스크 관리 · 보증 업체</title>
-<meta content="88 — 스포츠 배당 분석기와 배당 마진(오버라운드) 계산기를 무료로 제공합니다. 분석기 사용 안내와 인증 놀이터 정보를 한 곳에서 확인하세요." name="description"/>
+<meta content="88 — 스포츠 배당 분석기와 배당 마진(오버라운드) 계산기를 무료로 제공합니다. 분석기 사용 안내와 인증 놀이터 정보를 한 곳에서 확인하세요." name="description">
 <link href="https://88st.cloud/" rel="canonical"/>
 <meta content="index,follow" name="robots"/>
 <!-- SNS 공유 -->
@@ -20,7 +20,6 @@
 <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
 <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
 <!-- ===== GA4 (원하면 ID만 교체) ===== -->
-
 <style>
 *,
 *::before,
@@ -56,7 +55,7 @@ body{
     radial-gradient(900px 500px at 10% 20%, rgba(90,160,255,.08), transparent 60%),
     linear-gradient(180deg, #07070a, var(--bg));
   font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
-  color:#fff;
+  color:var(--text);
 }
 body[data-logo-shadow="presence"]{ --logo-shadow: var(--logo-shadow-presence); }
 
@@ -171,7 +170,7 @@ body[data-logo-shadow="presence"]{ --logo-shadow: var(--logo-shadow-presence); }
 .insight-row{ display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
 select.insight-select{
   background:rgba(0,0,0,.35);
-  color:#fff;
+  color:var(--text);
   border:1px solid rgba(255,255,255,.12);
   padding:10px 12px;
   border-radius:12px;
@@ -182,11 +181,11 @@ select.insight-select{
 
 .section input{
   padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.35); color:#fff; font-weight:800; outline:none;
+  background:rgba(0,0,0,.35); color:var(--text); font-weight:800; outline:none;
 }
 
 .seg-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
-.seg{ flex:1; min-width:140px; padding:10px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.25); color:#fff; font-weight:900; cursor:pointer; }
+.seg{ flex:1; min-width:140px; padding:10px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.25); color:var(--text); font-weight:900; cursor:pointer; }
 .seg.active{ background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#111; border-color:transparent; }
 
 .cta-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
@@ -230,7 +229,7 @@ select.insight-select{
 .analyze-btn.primary:hover{ filter:brightness(1.03); }
 
 .analyze-btn.secondary{
-  color:#fff;
+  color:var(--text);
   background:linear-gradient(135deg,#2d7dff,#6bdcff);
   box-shadow:0 16px 40px rgba(80,160,255,.16);
 }
@@ -253,7 +252,7 @@ select.insight-select{
 
 .faq details{ border:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.28); border-radius:14px; padding:10px 12px; }
 .faq details + details{ margin-top:10px; }
-.faq summary{ cursor:pointer; font-weight:900; color:#fff; list-style:none; }
+.faq summary{ cursor:pointer; font-weight:900; color:var(--text); list-style:none; }
 .faq summary::-webkit-details-marker{ display:none; }
 .faq .a{ margin-top:8px; color:#cfcfcf; font-size:13px; line-height:1.55; }
 
@@ -329,23 +328,23 @@ select.insight-select{
   .v-input{ padding:12px 12px; font-size:14px; }
   .v-toggle{ width:100%; justify-content:space-between; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
 }
-.v-input{ width:100%; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.28); color:#fff; outline:none; font-weight:800; }
+.v-input{ width:100%; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.28); color:var(--text); outline:none; font-weight:800; }
 .v-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-.v-chip{ padding:9px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.25); color:#fff; font-weight:900; cursor:pointer; transition: transform .14s ease, filter .14s ease, border-color .14s ease; }
-.v-chip:hover{ transform: translateY(-1px); filter:brightness(1.03); border-color: rgba(255,255,255,.16); }
+.v-chip{ padding:9px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.25); color:var(--text); font-weight:900; cursor:pointer; transition: transform .14s ease, filter .14s ease, border-color .14s ease; }
+.v-chip:hover{ transform: translateY(-1px); filter:brightness(1.03); border-color:var(--muted-2); }
 .v-chip.active{ background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#111; border-color:transparent; }
 
 /* ===== 새 컨트롤(배찌 제거 버전) ===== */
 .v-controls{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; align-items:flex-end; }
 .v-control{ display:flex; flex-direction:column; gap:6px; min-width:120px; }
-.v-control label{ font-size:12px; color:rgba(255,255,255,.68); font-weight:800; letter-spacing:-.2px; }
+.v-control label{ font-size:12px; color:var(--muted); font-weight:800; letter-spacing:-.2px; }
 .v-select{
   width:100%;
   padding:10px 12px;
   border-radius:12px;
   border:1px solid rgba(255,255,255,.12);
   background:rgba(0,0,0,.28);
-  color:#fff;
+  color:var(--text);
   outline:none;
   font-weight:900;
 }
@@ -391,7 +390,7 @@ select.insight-select{
 .v-toggle input:checked + .v-switch::after{
   transform: translateX(20px);
 }
-.v-toggle-text{ font-weight:900; font-size:12px; color:#fff; }
+.v-toggle-text{ font-weight:900; font-size:12px; color:var(--text); }
 .v-small{ margin-top:8px; font-size:12px; color:#a7a7a7; }
 #evAutoHint{ display:none; }
 
@@ -408,7 +407,7 @@ select.insight-select{
 .vsh-title{
   font-size:16px; font-weight:1000; letter-spacing:-.2px;
 }
-.vsh-meta{ font-size:12px; color:rgba(255,255,255,.6); font-weight:700; }
+.vsh-meta{ font-size:12px; color:var(--muted); font-weight:700; }
 .vsh-chip{
   display:inline-flex; align-items:center; justify-content:center;
   padding:6px 10px;
@@ -434,7 +433,7 @@ select.insight-select{
   border-radius:14px;
   font-size:12px;
   font-weight:900;
-  color:#fff;
+  color:var(--text);
   background:rgba(0,0,0,.38);
   border:1px solid rgba(255,255,255,.12);
   backdrop-filter: blur(10px);
@@ -503,7 +502,7 @@ select.insight-select{
   background:linear-gradient(135deg,#2d7dff,#6bdcff);
 }
 .tag-badge.ad{
-  color:#fff;
+  color:var(--text);
   background:rgba(255,255,255,.10);
 }
 .img-box{
@@ -580,8 +579,8 @@ select.insight-select{
   user-select:none;
 }
 .go{ background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#0b0b0b; }
-.copy{ background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); color:#fff; border:1px solid rgb(var(--accentRGB) / .22); box-shadow:0 10px 30px rgba(0,0,0,.35); }
-.more{ background:linear-gradient(180deg, rgb(var(--accentRGB) / .16), rgba(255,255,255,.04)); color:#fff; border:1px solid rgb(var(--accentRGB) / .26); box-shadow:0 10px 30px rgba(0,0,0,.35); }
+.copy{ background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); color:var(--text); border:1px solid rgb(var(--accentRGB) / .22); box-shadow:0 10px 30px rgba(0,0,0,.35); }
+.more{ background:linear-gradient(180deg, rgb(var(--accentRGB) / .16), rgba(255,255,255,.04)); color:var(--text); border:1px solid rgb(var(--accentRGB) / .26); box-shadow:0 10px 30px rgba(0,0,0,.35); }
 .telegram a{ display:block; margin-top:10px; color:#45b3ff; text-decoration:none; font-weight:900; }
 
 .reason-box{
@@ -639,7 +638,7 @@ select.insight-select{
 }
 .fab a.secondary{
   background:rgba(255,255,255,.08);
-  color:#fff;
+  color:var(--text);
   border:1px solid rgba(255,255,255,.12);
 }
 
@@ -666,7 +665,7 @@ select.insight-select{
   border-radius:12px;
   border:1px solid rgba(255,255,255,.12);
   background:rgba(255,255,255,.06);
-  color:#fff;
+  color:var(--text);
   font-size:12px;
   font-weight:900;
   cursor:pointer;
@@ -676,7 +675,7 @@ select.insight-select{
 .mini-share:hover{
   transform: translateY(-1px);
   filter: brightness(1.05);
-  border-color: rgba(255,255,255,.18);
+  border-color:var(--muted-2);
 }
 
 /* ===== 공유 팝업 ===== */
@@ -725,7 +724,7 @@ select.insight-select{
 @media(min-width:1024px){ .insights-grid{ grid-template-columns:1.1fr .9fr .9fr; } }
 
 .stat-card{ cursor:default; }
-.stat-card:hover{ transform:none; border-color:rgba(255,255,255,.06); box-shadow:0 10px 30px rgba(0,0,0,.55); filter:none; }
+.stat-card:hover{ transform:none; border-color:var(--muted-2); box-shadow:0 10px 30px rgba(0,0,0,.55); filter:none; }
 .stat-top{ padding:14px 14px 8px; }
 .stat-title{ font-weight:900; font-size:14px; display:flex; align-items:center; gap:8px; }
 .stat-meta{ color:var(--muted); font-size:12px; margin-top:4px; line-height:1.35; }
@@ -733,7 +732,7 @@ select.insight-select{
 .stat-item{ display:flex; justify-content:space-between; gap:10px; align-items:center; }
 .stat-left{ display:flex; align-items:center; gap:10px; min-width:0; }
 .stat-rank{ width:18px; text-align:center; color:#f5e27a; font-weight:900; font-size:12px; flex:0 0 auto; }
-.stat-link{ background:transparent; border:0; padding:0; color:#fff; font-size:13px; font-weight:800; cursor:pointer; text-align:left; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.stat-link{ background:transparent; border:0; padding:0; color:var(--text); font-size:13px; font-weight:800; cursor:pointer; text-align:left; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .stat-link:hover{ text-decoration:underline; }
 .stat-count{ color:var(--muted); font-size:12px; font-weight:800; flex:0 0 auto; }
 .stat-actions{ padding:0 14px 14px; display:flex; gap:10px; flex-wrap:wrap; }
@@ -742,14 +741,14 @@ select.insight-select{
   border-radius:12px;
   border:1px solid rgb(var(--accentRGB) / .22);
   background:linear-gradient(180deg, rgb(var(--accentRGB) / .12), rgba(255,255,255,.04));
-  color:#fff;
+  color:var(--text);
   font-size:12px;
   font-weight:900;
   cursor:pointer;
   user-select:none;
   box-shadow:0 10px 30px rgba(0,0,0,.28);
 }
-.small-btn:hover{ filter:brightness(1.08); border-color:rgba(255,255,255,.16); }
+.small-btn:hover{ filter:brightness(1.08); border-color:var(--muted-2); }
 .small-btn:active{ transform: translateY(1px); }
 .note-mini{ color:var(--muted); font-size:12px; padding:0 14px 14px; line-height:1.35; }
 
@@ -769,7 +768,7 @@ select.insight-select{
   border:1px solid rgba(255,255,255,.12);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  color:rgba(255,255,255,.92);
+  color:var(--text);
   font-weight:900;
   font-size:13px;
   text-align:center;
@@ -796,7 +795,7 @@ select.insight-select{
 .notice-bar.is-scrolled{
   opacity:.62;
   background:rgba(18,18,22,.36);
-  border-color:rgba(255,255,255,.10);
+  border-color:var(--muted-2);
   padding:7px 12px;
   transform: translateY(-1px);
 }
@@ -820,7 +819,7 @@ select.insight-select{
   border-radius:999px;
   background: rgba(255,255,255,0.08);
   border:1px solid rgba(255,255,255,0.14);
-  color:rgba(255,255,255,0.92);
+  color:var(--text);
   letter-spacing:.15px;
 }
 
@@ -832,7 +831,7 @@ select.insight-select{
   position:relative;
   display:block;
   text-decoration:none;
-  color:#fff;
+  color:var(--text);
   padding:14px 14px 12px;
   border-radius:18px;
   border:1px solid rgba(255,255,255,0.10);
@@ -871,7 +870,7 @@ select.insight-select{
   justify-content:center;
   background: rgba(255,255,255,0.08);
   border:1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.92);
+  color:var(--text);
   flex:0 0 auto;
 }
 .tool-card-title{
@@ -882,7 +881,7 @@ select.insight-select{
 .tool-card-desc{
   margin-top:3px;
   font-size:12px;
-  color: rgba(255,255,255,0.70);
+  color:var(--muted);
   font-weight:800;
   line-height:1.35;
 }
@@ -901,7 +900,7 @@ select.insight-select{
 }
 .tool-card-note{
   font-size:11px;
-  color: rgba(255,255,255,0.62);
+  color:var(--muted);
   font-weight:800;
 }
 
@@ -927,7 +926,7 @@ select.insight-select{
   .v-compact .sum{
     font-weight:900;
     font-size:12px;
-    color: rgba(255,255,255,0.88);
+    color:var(--text);
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -1097,15 +1096,15 @@ body::after{
   box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
 }
 .analyze-btn.primary{
-  color:#fff;
+  color:var(--text);
   background: linear-gradient(180deg, rgb(var(--accentRGB) / .24), rgba(255,255,255,.04));
   border-color: rgb(var(--accentRGB) / .28);
   box-shadow: 0 22px 70px rgb(var(--accentRGB) / .10);
 }
 .analyze-btn.secondary{
-  color:#fff;
+  color:var(--text);
   background: rgba(255,255,255,.05);
-  border-color: rgba(255,255,255,.14);
+  border-color:var(--muted-2);
   box-shadow: 0 22px 70px rgba(0,0,0,.52);
 }
 .analyze-btn:hover{
@@ -1153,19 +1152,19 @@ body::after{
 .vsh-title{ font-size:15px; }
 .vsh-chip{
   background: rgba(255,255,255,.06);
-  color: rgba(255,255,255,.92);
+  color:var(--text);
   border:1px solid rgb(var(--accentRGB) / .18);
   box-shadow:none;
 }
 .vendor-section[data-section="verified"] .vsh-chip{
   background: rgba(255,255,255,.05);
-  border-color: rgba(255,255,255,.16);
+  border-color:var(--muted-2);
 }
 
 /* notice bar: more subtle, premium line */
 .notice-bar{
   background: rgba(12,14,22,.46);
-  border-color: rgba(255,255,255,.12);
+  border-color:var(--muted-2);
   box-shadow: 0 16px 46px rgba(0,0,0,.34);
 }
 .notice-bar::after{
@@ -1185,7 +1184,7 @@ body::after{
 /* vendor tools: keep sticky but match new glass */
 .vendor-tools{
   background: rgba(12,14,22,.62);
-  border-color: rgba(255,255,255,.12);
+  border-color:var(--muted-2);
 }
 .vendor-tools::before{ opacity:.75; }
 
@@ -1234,7 +1233,7 @@ body::after{
 /* 3) buttons: reduce heavy blue fills, keep premium glass + subtle accent */
 .insight-btn{
   background: rgba(255,255,255,.07) !important;
-  color: rgba(255,255,255,.92) !important;
+  color:var(--text) !important;
   border:1px solid rgba(255,255,255,.14) !important;
   box-shadow: 0 14px 40px rgba(0,0,0,.45) !important;
 }
@@ -1248,7 +1247,7 @@ body::after{
 .btn.copy,
 .btn.more{
   background: rgba(255,255,255,.06) !important;
-  color: rgba(255,255,255,.90) !important;
+  color:var(--text) !important;
   border:1px solid rgba(255,255,255,.14) !important;
   box-shadow: 0 12px 34px rgba(0,0,0,.38) !important;
 }
@@ -1260,7 +1259,7 @@ body::after{
 }
 .btn.go{
   background: rgba(255,255,255,.07) !important;
-  color: rgba(255,255,255,.95) !important;
+  color:var(--text) !important;
   border:1px solid rgb(var(--accentRGB) / .18) !important;
   box-shadow: 0 14px 40px rgba(0,0,0,.45) !important;
 }
@@ -1272,7 +1271,7 @@ body::after{
 /* optional: make active segment less "painted" */
 .seg.active{
   background: linear-gradient(180deg, rgb(var(--accentRGB) / .20), rgba(255,255,255,.06)) !important;
-  color: rgba(255,255,255,.95) !important;
+  color:var(--text) !important;
   border-color: rgb(var(--accentRGB) / .18) !important;
 }
 
@@ -1377,7 +1376,7 @@ body::after{
   padding:6px 10px;
   border:1px solid rgba(255,255,255,.12);
   background:rgba(255,255,255,.06);
-  color:rgba(255,255,255,.92);
+  color:var(--text);
   font-weight:800;
   font-size:12px;
   cursor:pointer;
@@ -1387,7 +1386,7 @@ body::after{
 .chip:hover{
   transform: translateY(-1px);
   background: rgba(255,255,255,.09);
-  border-color: rgba(255,255,255,.18);
+  border-color:var(--muted-2);
 }
 .chip:active{
   transform: translateY(0px) scale(.99);
@@ -1402,7 +1401,7 @@ body::after{
 .fab a{
   background: rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.14);
-  color: rgba(255,255,255,.92);
+  color:var(--text);
   box-shadow: 0 18px 44px rgba(0,0,0,.55);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -1415,7 +1414,7 @@ body::after{
 .fab a:hover{
   transform: translateY(-1px);
   background: rgba(255,255,255,.09);
-  border-color: rgba(255,255,255,.22);
+  border-color:var(--muted-2);
 }
 .fab a:not(.secondary):hover{
   border-color: rgb(var(--accentRGB) / .32);
@@ -1451,7 +1450,7 @@ body::after{
 }
 .session-plan-sub{
   font-size:12px;
-  color: rgba(255,255,255,.55);
+  color:var(--muted-2);
   font-weight:800;
 }
 .session-plan-actions{
@@ -1473,7 +1472,7 @@ body::after{
   margin:0 0 6px;
   font-size:12px;
   font-weight:800;
-  color: rgba(255,255,255,.70);
+  color:var(--muted);
 }
 .session-plan-field input{
   width:100%;
@@ -1547,7 +1546,7 @@ body::after{
   font-weight:900;
   color:#eaeaea;
 }
-.odds-pill .k{ color: rgba(255,255,255,.60); font-weight:800; }
+.odds-pill .k{ color:var(--muted); font-weight:800; }
 .odds-pill .v{ color:#f5e27a; font-weight:950; text-shadow: 0 6px 18px rgba(245,226,122,.12); }
 .odds-pill.home, .odds-pill.draw, .odds-pill.away{ border-color: rgba(245,226,122,.22); }
 
@@ -1626,7 +1625,7 @@ body::after{
   appearance:none;
   border:1px solid rgba(245,226,122,.22);
   background: rgba(0,0,0,.18);
-  color: rgba(255,255,255,.88);
+  color:var(--text);
   padding:7px 10px;
   border-radius:999px;
   font-weight:900;
@@ -1651,7 +1650,7 @@ body::after{
 .memo-history-title{
   font-weight:900;
   font-size:12px;
-  color: rgba(255,255,255,.78);
+  color:var(--text-2);
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -1676,12 +1675,12 @@ body::after{
   align-items:center;
   justify-content:space-between;
   font-size:11px;
-  color: rgba(255,255,255,.55);
+  color:var(--muted-2);
   margin-bottom:6px;
 }
 .memo-history-text{
   font-size:12px;
-  color: rgba(255,255,255,.82);
+  color:var(--text-2);
   line-height:1.35;
   display:-webkit-box;
   -webkit-line-clamp:2;
@@ -1709,7 +1708,6 @@ body::after{
   window.addEventListener("error", function(){ setTimeout(hide, 0); });
 })();
 </script>
-
 <script>
 /* ===== 카드 데이터 (card9 추가) ===== */
 const CARD_DATA = {
@@ -1792,8 +1790,6 @@ const INSIGHTS_BY_SPORT = {
 };
 
 </script>
-
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1833,14 +1829,11 @@ const INSIGHTS_BY_SPORT = {
   ]
 }
 </script>
-
-<link rel="stylesheet" href="assets/mobile-polish.css?v=2">
-
+<link href="assets/mobile-polish.css?v=2" rel="stylesheet"/>
 <script src="/assets/js/88st-analytics.js"></script>
-
-<link rel="stylesheet" href="/assets/88st-theme.css?v=20260210_2">
-<script defer src="/assets/88st-theme.js?v=20260210_2"></script>
-</head>
+<link href="/assets/88st-theme.css?v=20260210_3" rel="stylesheet"/>
+<script defer="" src="/assets/88st-theme.js?v=20260210_3"></script>
+</meta></head>
 <body>
 <div class="notice-bar">
 <a href="https://t.me/UZU59" id="noticeLink" rel="noopener" target="_blank">
@@ -1939,101 +1932,89 @@ const INSIGHTS_BY_SPORT = {
 </div>
 </div>
 <button class="insight-btn" onclick="calcSimpleMargin()" style="margin-top:10px;" type="button">분석 실행</button>
-<div class="odds-summary-card" id="oddsSummaryCard" aria-live="polite">
-  <div class="odds-summary-row">
-    <div class="odds-metric">
-      <div class="odds-metric-title">마진 (오버라운드)</div>
-      <div class="odds-metric-value" id="oddsMarginValue">—</div>
-      <div class="odds-metric-sub" id="oddsOverroundSub">오버라운드 —</div>
-    </div>
-    <div class="odds-metric">
-      <div class="odds-metric-title">공정 배당</div>
-      <div class="odds-pills" id="oddsFairPills"></div>
-      <div class="odds-metric-sub">정규화 기준</div>
-    </div>
-    <div class="odds-metric">
-      <div class="odds-metric-title">정규화 확률</div>
-      <div class="odds-pills" id="oddsProbPills"></div>
-      <div class="odds-metric-sub">합 100%</div>
-    </div>
-  </div>
-
-  <div class="odds-summary-cta">
-    <a class="insight-btn secondary" href="#vendorTop" data-cta="odds_to_vendors" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; margin-top:12px;">
+<div aria-live="polite" class="odds-summary-card" id="oddsSummaryCard">
+<div class="odds-summary-row">
+<div class="odds-metric">
+<div class="odds-metric-title">마진 (오버라운드)</div>
+<div class="odds-metric-value" id="oddsMarginValue">—</div>
+<div class="odds-metric-sub" id="oddsOverroundSub">오버라운드 —</div>
+</div>
+<div class="odds-metric">
+<div class="odds-metric-title">공정 배당</div>
+<div class="odds-pills" id="oddsFairPills"></div>
+<div class="odds-metric-sub">정규화 기준</div>
+</div>
+<div class="odds-metric">
+<div class="odds-metric-title">정규화 확률</div>
+<div class="odds-pills" id="oddsProbPills"></div>
+<div class="odds-metric-sub">합 100%</div>
+</div>
+</div>
+<div class="odds-summary-cta">
+<a class="insight-btn secondary" data-cta="odds_to_vendors" href="#vendorTop" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; margin-top:12px;">
       추천 업체 카드 보기 <span aria-hidden="true">→</span>
-    </a>
-  </div>
+</a>
+</div>
 </div>
 <div class="odds-summary-note" id="oddsSummaryNote"></div>
 <div class="text" id="simpleMarginResult" style="display:none;"></div>
 <div class="text" id="simpleMarginHint" style="display:none;"></div>
 </div><div class="section" id="insightMemoSection">
-  <div class="section-header im-header">
-    <div class="title"><span class="badge">TODAY</span>인사이트 · 메모</div>
-    <div class="im-tabs" role="tablist" aria-label="인사이트/메모">
-      <button class="im-tab active" type="button" data-imtab="insight" aria-selected="true">인사이트</button>
-      <button class="im-tab" type="button" data-imtab="memo" aria-selected="false" tabindex="-1">메모</button>
-    </div>
-  </div>
-
-  <div class="im-panels">
-    <div class="im-panel active" data-impanel="insight">
-      <div class="text" id="insight"></div>
-
-      <div class="insight-row">
-        <select aria-label="종목 선택" class="insight-select" id="insightSport">
-          <option value="축구">축구</option>
-          <option value="농구">농구</option>
-          <option value="야구">야구</option>
-          <option value="배구">배구</option>
-          <option value="e스포츠">e스포츠</option>
-          <option value="하키">하키</option>
-        </select>
-        <button class="insight-btn" onclick="refreshInsight()" type="button">인사이트 새로고침</button>
-      </div>
-
-      <div class="text im-note">
+<div class="section-header im-header">
+<div class="title"><span class="badge">TODAY</span>인사이트 · 메모</div>
+<div aria-label="인사이트/메모" class="im-tabs" role="tablist">
+<button aria-selected="true" class="im-tab active" data-imtab="insight" type="button">인사이트</button>
+<button aria-selected="false" class="im-tab" data-imtab="memo" tabindex="-1" type="button">메모</button>
+</div>
+</div>
+<div class="im-panels">
+<div class="im-panel active" data-impanel="insight">
+<div class="text" id="insight"></div>
+<div class="insight-row">
+<select aria-label="종목 선택" class="insight-select" id="insightSport">
+<option value="축구">축구</option>
+<option value="농구">농구</option>
+<option value="야구">야구</option>
+<option value="배구">배구</option>
+<option value="e스포츠">e스포츠</option>
+<option value="하키">하키</option>
+</select>
+<button class="insight-btn" onclick="refreshInsight()" type="button">인사이트 새로고침</button>
+</div>
+<div class="text im-note">
         ※ 종목 선택은 참고용이며, 실제 결과를 보장하지 않습니다.
       </div>
-    </div>
-
-    <div class="im-panel" data-impanel="memo" hidden>
-      <div class="combo-subtitle">오늘의 메모</div>
-      <div class="text">간단히 기록해두면 다음 방문 때 그대로 남습니다.</div>
-
-      <textarea class="memo-area" id="quickMemoText" placeholder="예) 오늘 체크 포인트 / 라인 변동 / 문의 내용 메모" rows="6"></textarea>
-
-      <div class="memo-actions">
-        <button class="insight-btn" id="quickMemoSave" type="button">저장</button>
-        <button class="insight-btn secondary" id="quickMemoClear" type="button">비우기</button>
-      </div>
-
-      <div class="memo-extras">
-              <div class="memo-chip-row" aria-label="메모 템플릿">
-                <button class="memo-chip" type="button" data-memo-insert="체크 포인트: ">체크</button>
-                <button class="memo-chip" type="button" data-memo-insert="라인 변동: ">라인</button>
-                <button class="memo-chip" type="button" data-memo-insert="문의/상담: ">문의</button>
-                <button class="memo-chip" type="button" data-memo-insert="리스크: ">리스크</button>
-              </div>
-      
-              <div class="memo-extra-actions">
-                <button class="insight-btn" id="memoAppendAnalysis" type="button">분석 요약 추가</button>
-                <button class="insight-btn secondary" id="memoCopy" type="button">메모 복사</button>
-              </div>
-      
-              <div class="memo-history">
-                <div class="memo-history-title">
-                  <span>최근 메모</span>
-                  <span style="font-size:11px;color:rgba(255,255,255,.5);">클릭하면 불러오기</span>
-                </div>
-                <div id="memoHistoryList"></div>
-              </div>
-            </div>
-
-    </div>
-  </div>
 </div>
-
+<div class="im-panel" data-impanel="memo" hidden="">
+<div class="combo-subtitle">오늘의 메모</div>
+<div class="text">간단히 기록해두면 다음 방문 때 그대로 남습니다.</div>
+<textarea class="memo-area" id="quickMemoText" placeholder="예) 오늘 체크 포인트 / 라인 변동 / 문의 내용 메모" rows="6"></textarea>
+<div class="memo-actions">
+<button class="insight-btn" id="quickMemoSave" type="button">저장</button>
+<button class="insight-btn secondary" id="quickMemoClear" type="button">비우기</button>
+</div>
+<div class="memo-extras">
+<div aria-label="메모 템플릿" class="memo-chip-row">
+<button class="memo-chip" data-memo-insert="체크 포인트: " type="button">체크</button>
+<button class="memo-chip" data-memo-insert="라인 변동: " type="button">라인</button>
+<button class="memo-chip" data-memo-insert="문의/상담: " type="button">문의</button>
+<button class="memo-chip" data-memo-insert="리스크: " type="button">리스크</button>
+</div>
+<div class="memo-extra-actions">
+<button class="insight-btn" id="memoAppendAnalysis" type="button">분석 요약 추가</button>
+<button class="insight-btn secondary" id="memoCopy" type="button">메모 복사</button>
+</div>
+<div class="memo-history">
+<div class="memo-history-title">
+<span>최근 메모</span>
+<span style="font-size:11px;color:rgba(255,255,255,.5);">클릭하면 불러오기</span>
+</div>
+<div id="memoHistoryList"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="riskCalcSection">
 <div class="title"><span class="badge">RISK</span>리스크 관리 계산기</div>
 <div class="text" style="margin-bottom:10px;">
@@ -2104,46 +2085,42 @@ const INSIGHTS_BY_SPORT = {
 </div>
 <div class="text" id="checklistText"></div>
 <div class="session-plan" id="sessionPlanBox">
-  <div class="session-plan-head">
-    <div class="session-plan-title">오늘의 세션 플랜 <span class="session-plan-sub">(과몰입 방지)</span></div>
-    <div class="session-plan-actions">
-      <button class="insight-btn secondary btn-mini" type="button" id="spSaveBtn">저장</button>
-      <button class="insight-btn secondary btn-mini" type="button" id="spClearBtn">초기화</button>
-    </div>
-  </div>
-
-  <div class="text" style="color:#bdbdbd;font-size:12px; margin-top:6px;">
+<div class="session-plan-head">
+<div class="session-plan-title">오늘의 세션 플랜 <span class="session-plan-sub">(과몰입 방지)</span></div>
+<div class="session-plan-actions">
+<button class="insight-btn secondary btn-mini" id="spSaveBtn" type="button">저장</button>
+<button class="insight-btn secondary btn-mini" id="spClearBtn" type="button">초기화</button>
+</div>
+</div>
+<div class="text" style="color:#bdbdbd;font-size:12px; margin-top:6px;">
     오늘의 손실 한도/1회 상한/최대 경기 수를 미리 고정해두면 “추격 배팅”을 줄이는 데 도움이 됩니다. (브라우저에만 저장)
   </div>
-
-  <div class="session-plan-grid">
-    <div class="session-plan-field">
-      <label for="spBank">총 자본(원)</label>
-      <input id="spBank" inputmode="decimal" placeholder="예: 1000000">
-    </div>
-    <div class="session-plan-field">
-      <label for="spLossPct">오늘 손실 한도(%)</label>
-      <input id="spLossPct" inputmode="decimal" placeholder="예: 5">
-    </div>
-    <div class="session-plan-field">
-      <label for="spStakePct">1회 상한(%)</label>
-      <input id="spStakePct" inputmode="decimal" placeholder="예: 2">
-    </div>
-    <div class="session-plan-field">
-      <label for="spMaxBets">최대 경기 수</label>
-      <input id="spMaxBets" inputmode="decimal" placeholder="예: 3">
-    </div>
-  </div>
-
-  <div class="session-plan-summary" id="spSummary"></div>
+<div class="session-plan-grid">
+<div class="session-plan-field">
+<label for="spBank">총 자본(원)</label>
+<input id="spBank" inputmode="decimal" placeholder="예: 1000000"/>
 </div>
-
+<div class="session-plan-field">
+<label for="spLossPct">오늘 손실 한도(%)</label>
+<input id="spLossPct" inputmode="decimal" placeholder="예: 5"/>
+</div>
+<div class="session-plan-field">
+<label for="spStakePct">1회 상한(%)</label>
+<input id="spStakePct" inputmode="decimal" placeholder="예: 2"/>
+</div>
+<div class="session-plan-field">
+<label for="spMaxBets">최대 경기 수</label>
+<input id="spMaxBets" inputmode="decimal" placeholder="예: 3"/>
+</div>
+</div>
+<div class="session-plan-summary" id="spSummary"></div>
+</div>
 <div class="text" style="margin-top:8px;color:#9a9a9a;font-size:12px;">
           ※ 과몰입 방지/리스크 관리용 안내입니다.
         </div>
 </div></div>
 <div aria-label="카드 검색 및 필터" class="vendor-tools">
-<input autocomplete="off" class="v-input" id="searchInput" placeholder="업체 검색 (예: SPEED OK 어느날 )"/>
+<input autocomplete="off" class="v-input" id="searchInput" placeholder="업체 검색 (예: SPEED OK 어느날 )">
 <div aria-label="필터 및 정렬" class="v-controls">
 <div class="v-control">
 <label for="filterSelect">카테고리</label>
@@ -2164,16 +2141,14 @@ const INSIGHTS_BY_SPORT = {
 </select>
 </div>
 <label aria-label="정제된 문구 토글" class="v-toggle" for="cleanToggle">
-<input id="cleanToggle" type="checkbox"/>
+<input id="cleanToggle" type="checkbox">
 <span aria-hidden="true" class="v-switch"></span>
 <span class="v-toggle-text">정제된 문구</span>
-</label>
+</input></label>
 </div>
 <div class="v-small" id="evAutoHint"></div>
 <div class="v-small" id="cleanHint">정제된 문구: 카드 혜택 문구를 짧고 깔끔하게 보여줍니다.</div>
-</div>
-
-
+</input></div>
 <div class="vendor-sections" id="vendorTop">
 <section class="vendor-section" data-section="guarantee">
 <div class="vendor-section-head">
@@ -2246,8 +2221,8 @@ const INSIGHTS_BY_SPORT = {
 <p id="pBenefit" style="color:#f5e27a;font-size:13px;margin:10px 0 0;"></p>
 <p id="pNotice" style="color:#ff6b6b;font-size:12px;margin:8px 0 0;"></p>
 <div aria-label="주요 액션" class="popup-cta">
-<a class="btn go primary" id="pLink" rel="noopener" target="_blank" data-no-auto-outbound="1">사이트 이동</a>
-<a class="btn copy secondary" id="pTelegram" rel="noopener" target="_blank" data-no-auto-outbound="1">텔레그램 상담</a>
+<a class="btn go primary" data-no-auto-outbound="1" id="pLink" rel="noopener" target="_blank">사이트 이동</a>
+<a class="btn copy secondary" data-no-auto-outbound="1" id="pTelegram" rel="noopener" target="_blank">텔레그램 상담</a>
 <div class="btn copy tertiary" id="copyBtn" role="button" tabindex="0">가입코드 복사</div>
 </div>
 <div aria-label="보조 액션" class="popup-aux">
@@ -2271,9 +2246,9 @@ const INSIGHTS_BY_SPORT = {
 <canvas aria-label="공유 이미지 미리보기" height="1080" id="shareCanvas" width="1080"></canvas>
 </div>
 <div class="share-row">
-<input aria-label="공유 링크" class="v-input" id="shareLink" readonly=""/>
+<input aria-label="공유 링크" class="v-input" id="shareLink" readonly="">
 <div class="btn copy" id="copyShareLinkBtn" style="min-width:120px;">링크 복사</div>
-</div>
+</input></div>
 <div class="share-actions">
 <div class="btn go" id="downloadShareImgBtn">이미지 저장</div>
 <div class="btn copy" id="copyShareTextBtn">문구 복사</div>
@@ -2282,126 +2257,118 @@ const INSIGHTS_BY_SPORT = {
 </div>
 </div>
 <div class="section" id="guideHub">
-  <div class="title"><span class="badge">GUIDE</span>가이드 · 체크리스트</div>
-  <div class="text">
+<div class="title"><span class="badge">GUIDE</span>가이드 · 체크리스트</div>
+<div class="text">
     입플/보너스 조건 정리와 각 랜딩 안내를 <b>한 곳</b>에서 확인할 수 있습니다. (도구 사용 후 궁금한 항목을 빠르게 탐색)
   </div>
-
-  <div class="tool-card-grid" aria-label="체크리스트 및 핵심 가이드">
-    <a class="tool-card-link" href="/bonus-checklist/" data-cta="hub_bonus">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
-            <rect x="9" y="3" width="6" height="4" rx="1"/>
-            <path d="M9 12h6"/><path d="M9 16h6"/>
-          </svg>
-        </div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">입플 체크리스트</div>
-          <div class="tool-card-desc">롤링/제외게임/최대지급 조건을 빠르게 정리</div>
-        </div>
-      </div>
-      <div class="chip-row" aria-hidden="true">
-        <span class="kchip">입플</span><span class="kchip">롤링</span><span class="kchip">최대지급</span>
-      </div>
-      <div class="tool-card-foot">
-        <span class="tool-card-cta">체크리스트 열기 →</span>
-        <span class="tool-card-note">문의 템플릿 포함</span>
-      </div>
-    </a>
-
-    <a class="tool-card-link" href="/landing-a/" data-cta="hub_landing_a">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/>
-            <path d="M3.3 7L12 12l8.7-5"/><path d="M12 22V12"/>
-          </svg>
-        </div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">입플·보너스 안내</div>
-          <div class="tool-card-desc">혜택 구조/조건/유의사항 요약</div>
-        </div>
-      </div>
-      <div class="chip-row" aria-hidden="true">
-        <span class="kchip">보너스</span><span class="kchip">조건</span><span class="kchip">가이드</span>
-      </div>
-      <div class="tool-card-foot">
-        <span class="tool-card-cta">랜딩 보기 →</span>
-        <span class="tool-card-note">핵심만 정리</span>
-      </div>
-    </a>
-
-    <a class="tool-card-link" href="/landing-c/" data-cta="hub_landing_c">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/>
-          </svg>
-        </div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">마진·EV 계산 가이드</div>
-          <div class="tool-card-desc">공정배당/정규확률/오버라운드 이해</div>
-        </div>
-      </div>
-      <div class="chip-row" aria-hidden="true">
-        <span class="kchip">마진</span><span class="kchip">EV</span><span class="kchip">공정배당</span>
-      </div>
-      <div class="tool-card-foot">
-        <span class="tool-card-cta">가이드 보기 →</span>
-        <span class="tool-card-note">도구와 함께 사용</span>
-      </div>
-    </a>
-  </div>
-
-  <div class="tool-card-grid" style="margin-top:12px;" aria-label="카테고리 바로가기">
-    <a class="tool-card-link" href="/casino/" data-cta="hub_casino">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">C</span></div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">카지노</div>
-          <div class="tool-card-desc">안내/정책/주요 체크포인트</div>
-        </div>
-      </div>
-      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
-    </a>
-
-    <a class="tool-card-link" href="/slot/" data-cta="hub_slot">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">S</span></div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">슬롯</div>
-          <div class="tool-card-desc">게임/제외/조건 참고</div>
-        </div>
-      </div>
-      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
-    </a>
-
-    <a class="tool-card-link" href="/minigame/" data-cta="hub_minigame">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">M</span></div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">미니게임</div>
-          <div class="tool-card-desc">룰/조건/주의사항</div>
-        </div>
-      </div>
-      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
-    </a>
-
-    <a class="tool-card-link" href="/ipl/" data-cta="hub_ipl">
-      <div class="tool-card-head">
-        <div class="tool-card-icon" aria-hidden="true"><span style="font-weight:900;">I</span></div>
-        <div class="tool-card-text">
-          <div class="tool-card-title">IPL</div>
-          <div class="tool-card-desc">리그/일정/참고</div>
-        </div>
-      </div>
-      <div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
-    </a>
-  </div>
+<div aria-label="체크리스트 및 핵심 가이드" class="tool-card-grid">
+<a class="tool-card-link" data-cta="hub_bonus" href="/bonus-checklist/">
+<div class="tool-card-head">
+<div aria-hidden="true" class="tool-card-icon">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22">
+<path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path>
+<rect height="4" rx="1" width="6" x="9" y="3"></rect>
+<path d="M9 12h6"></path><path d="M9 16h6"></path>
+</svg>
 </div>
-
+<div class="tool-card-text">
+<div class="tool-card-title">입플 체크리스트</div>
+<div class="tool-card-desc">롤링/제외게임/최대지급 조건을 빠르게 정리</div>
+</div>
+</div>
+<div aria-hidden="true" class="chip-row">
+<span class="kchip">입플</span><span class="kchip">롤링</span><span class="kchip">최대지급</span>
+</div>
+<div class="tool-card-foot">
+<span class="tool-card-cta">체크리스트 열기 →</span>
+<span class="tool-card-note">문의 템플릿 포함</span>
+</div>
+</a>
+<a class="tool-card-link" data-cta="hub_landing_a" href="/landing-a/">
+<div class="tool-card-head">
+<div aria-hidden="true" class="tool-card-icon">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22">
+<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"></path>
+<path d="M3.3 7L12 12l8.7-5"></path><path d="M12 22V12"></path>
+</svg>
+</div>
+<div class="tool-card-text">
+<div class="tool-card-title">입플·보너스 안내</div>
+<div class="tool-card-desc">혜택 구조/조건/유의사항 요약</div>
+</div>
+</div>
+<div aria-hidden="true" class="chip-row">
+<span class="kchip">보너스</span><span class="kchip">조건</span><span class="kchip">가이드</span>
+</div>
+<div class="tool-card-foot">
+<span class="tool-card-cta">랜딩 보기 →</span>
+<span class="tool-card-note">핵심만 정리</span>
+</div>
+</a>
+<a class="tool-card-link" data-cta="hub_landing_c" href="/landing-c/">
+<div class="tool-card-head">
+<div aria-hidden="true" class="tool-card-icon">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22">
+<path d="M3 3v18h18"></path><path d="M7 14l3-3 3 2 5-6"></path>
+</svg>
+</div>
+<div class="tool-card-text">
+<div class="tool-card-title">마진·EV 계산 가이드</div>
+<div class="tool-card-desc">공정배당/정규확률/오버라운드 이해</div>
+</div>
+</div>
+<div aria-hidden="true" class="chip-row">
+<span class="kchip">마진</span><span class="kchip">EV</span><span class="kchip">공정배당</span>
+</div>
+<div class="tool-card-foot">
+<span class="tool-card-cta">가이드 보기 →</span>
+<span class="tool-card-note">도구와 함께 사용</span>
+</div>
+</a>
+</div>
+<div aria-label="카테고리 바로가기" class="tool-card-grid" style="margin-top:12px;">
+<a class="tool-card-link" data-cta="hub_casino" href="/casino/">
+<div class="tool-card-head">
+<div aria-hidden="true" class="tool-card-icon"><span style="font-weight:900;">C</span></div>
+<div class="tool-card-text">
+<div class="tool-card-title">카지노</div>
+<div class="tool-card-desc">안내/정책/주요 체크포인트</div>
+</div>
+</div>
+<div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
+</a>
+<a class="tool-card-link" data-cta="hub_slot" href="/slot/">
+<div class="tool-card-head">
+<div aria-hidden="true" class="tool-card-icon"><span style="font-weight:900;">S</span></div>
+<div class="tool-card-text">
+<div class="tool-card-title">슬롯</div>
+<div class="tool-card-desc">게임/제외/조건 참고</div>
+</div>
+</div>
+<div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
+</a>
+<a class="tool-card-link" data-cta="hub_minigame" href="/minigame/">
+<div class="tool-card-head">
+<div aria-hidden="true" class="tool-card-icon"><span style="font-weight:900;">M</span></div>
+<div class="tool-card-text">
+<div class="tool-card-title">미니게임</div>
+<div class="tool-card-desc">룰/조건/주의사항</div>
+</div>
+</div>
+<div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
+</a>
+<a class="tool-card-link" data-cta="hub_ipl" href="/ipl/">
+<div class="tool-card-head">
+<div aria-hidden="true" class="tool-card-icon"><span style="font-weight:900;">I</span></div>
+<div class="tool-card-text">
+<div class="tool-card-title">IPL</div>
+<div class="tool-card-desc">리그/일정/참고</div>
+</div>
+</div>
+<div class="tool-card-foot"><span class="tool-card-cta">바로가기 →</span><span class="tool-card-note">카테고리</span></div>
+</a>
+</div>
+</div>
 <div class="landing-seo">
 <h3>관련 정보</h3>
 <div class="links">
@@ -2413,14 +2380,12 @@ const INSIGHTS_BY_SPORT = {
 <a href="/landing-b/">고액 유저 안내</a>
 <a href="/landing-c/">배당 마진·EV 계산</a>
 <a href="/landing-d/">배당 흐름 분석</a>
-
 <a data-cta="seo_casino" href="/casino/">카지노 가이드</a>
 <a data-cta="seo_slot" href="/slot/">슬롯 가이드</a>
 <a data-cta="seo_minigame" href="/minigame/">미니게임 가이드</a>
 <a data-cta="seo_ipl" href="/ipl/">IPL 가이드</a>
 <a data-cta="seo_analysis" href="/analysis/">분석기 메인</a></div>
 </div>
-
 <div aria-label="빠른 이동" class="fab">
 <a class="primary" data-cta="fab_analysis" href="/analysis/">분석기</a>
 <a class="secondary" data-cta="fab_vendors" href="#vendorTop">놀이터</a>
