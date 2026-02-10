@@ -77,7 +77,7 @@ body.st-shell-on :where(main, .wrap, .container, .content, .page, .inner, .shell
 }
 
 /* Buttons: only skin — do not touch layout (flex/width) */
-:where(.btn, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):not(.no-unify){
+:where(.btn, .btnx, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):not(.no-unify){
   border-radius: var(--st-radius-md);
   border: 1px solid rgba(var(--st-accent-rgb), .18);
   background: linear-gradient(135deg, rgba(var(--st-accent-rgb),.14), color-mix(in srgb, var(--panel, rgba(12,14,22,.62)) 86%, transparent));
@@ -87,28 +87,28 @@ body.st-shell-on :where(main, .wrap, .container, .content, .page, .inner, .shell
   box-shadow: var(--shadow-sm, 0 10px 24px rgba(0,0,0,.30));
   transition: transform .15s ease, filter .15s ease, border-color .15s ease;
 }
-:where(.btn, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):hover{
+:where(.btn, .btnx, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):hover{
   filter: brightness(1.06);
   border-color: rgba(var(--st-accent-rgb), .34);
 }
-:where(.btn, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):active{ transform: scale(.985); }
-:where(.btn, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):focus-visible{
+:where(.btn, .btnx, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):active{ transform: scale(.985); }
+:where(.btn, .btnx, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):focus-visible{
   outline:none;
   box-shadow: 0 0 0 3px rgba(var(--st-accent-rgb), .16), var(--shadow-sm, 0 10px 24px rgba(0,0,0,.30));
 }
 
 /* Variants commonly used across pages */
-:where(.btn.primary, .cta.primary, a.cta.primary, button.primary):not(.no-unify){
+:where(.btn.primary, .btnx.primary, .cta.primary, a.cta.primary, button.primary):not(.no-unify){
   background: linear-gradient(135deg, var(--st-accent-1), var(--st-accent-2));
   color: var(--st-accent-text);
   border-color: rgba(var(--st-accent-rgb), .24);
 }
-:where(.btn.ghost, .cta.ghost, .st-shell-btn.ghost, button.ghost):not(.no-unify){
+:where(.btn.ghost, .btnx.ghost, .cta.ghost, .st-shell-btn.ghost, button.ghost):not(.no-unify){
   background: color-mix(in srgb, var(--panel-2, rgba(16,18,28,.68)) 92%, transparent);
   border-color: var(--panel-border, rgba(255,255,255,.10));
   color: var(--text-2, rgba(244,246,255,.86));
 }
-:where(.btn.danger, button.danger):not(.no-unify){
+:where(.btn.danger, .btnx.danger, button.danger):not(.no-unify){
   background: color-mix(in srgb, rgba(255,110,110,.14) 44%, var(--panel-2, rgba(16,18,28,.68)));
   border-color: rgba(255,110,110,.26);
 }
@@ -119,3 +119,135 @@ body.st-shell-on :where(main, .wrap, .container, .content, .page, .inner, .shell
 
 /* Kill accidental top floating announcement UI if it ever slips in */
 :where(.notice-bar){ display:none !important; }
+
+/* ===============================
+   vB4 — sizing + spacing rhythm system
+   =============================== */
+:root{
+  /* Spacing scale (8-based w/ small steps) */
+  --st-s1: 6px;
+  --st-s2: 10px;
+  --st-s3: 14px;
+  --st-s4: 18px;
+  --st-s5: 24px;
+  --st-s6: 32px;
+  --st-s7: 40px;
+
+  /* Control sizing */
+  --st-control-h: 44px;
+  --st-control-h-sm: 38px;
+  --st-control-pad-x: 14px;
+  --st-control-pad-y: 10px;
+  --st-control-font: 13px;
+}
+
+/* ---- Inputs: size + consistent padding ---- */
+:where(input, select):not([type="checkbox"]):not([type="radio"]):not(.no-unify){
+  min-height: var(--st-control-h);
+  padding: var(--st-control-pad-y) var(--st-control-pad-x);
+  font-size: var(--st-control-font);
+  line-height: 1.2;
+}
+:where(textarea):not(.no-unify){
+  padding: 12px var(--st-control-pad-x);
+  font-size: var(--st-control-font);
+  line-height: 1.5;
+}
+
+/* Tool pages sometimes use compact controls */
+body.st-app :where(input, select):not([type="checkbox"]):not([type="radio"]):not(.no-unify){
+  min-height: var(--st-control-h-sm);
+  padding: 9px 12px;
+}
+
+/* ---- Buttons: enforce premium sizing ---- */
+:where(.btn, .btnx, .cta, .linkbtn, .copybtn, .st-shell-btn, a.btn, a.cta, button.btn, button.cta):not(.chip):not(.toggle):not(.no-unify):not([type="checkbox"]):not([type="radio"]){
+  min-height: var(--st-control-h);
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1;
+}
+body.st-app :where(.btn, .btnx, .cta, .linkbtn, .copybtn, button.btn, button.cta):not(.chip):not(.toggle):not(.no-unify):not([type="checkbox"]):not([type="radio"]){
+  min-height: var(--st-control-h-sm);
+  padding: 9px 12px;
+}
+
+/* Icon-only / tiny buttons opt-out */
+:where(.iconbtn, .btn.icon, .btn.tiny, .btn.xs, .st-icon, .toggle, .chip){
+  min-height: unset !important;
+  padding: unset !important;
+}
+
+/* ===============================
+   Marketing pages — rhythm + components
+   (landing / guide pages)
+   =============================== */
+body.st-shell-on.st-marketing :where(.wrap, main){
+  padding-top: var(--st-s5);
+  padding-bottom: var(--st-s7);
+}
+
+/* Section rhythm */
+body.st-shell-on.st-marketing :where(.hero, .section, .card, .panel, .box){
+  padding: var(--st-s5);
+}
+body.st-shell-on.st-marketing :where(.hero, .section, .card, .panel, .box) :where(h1,h2,h3){
+  margin-top: 0;
+  margin-bottom: var(--st-s2);
+}
+body.st-shell-on.st-marketing :where(.hero, .section, .card, .panel, .box) :where(p, ul, ol){
+  margin-top: 0;
+  margin-bottom: var(--st-s2);
+}
+
+/* Grid components */
+body.st-shell-on.st-marketing :where(.grid2, .grid3, .cards, .ctaRow){
+  display:grid;
+  gap: var(--st-s4) !important;
+}
+body.st-shell-on.st-marketing :where(.grid2){
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media(max-width:900px){
+  body.st-shell-on.st-marketing :where(.grid2){ grid-template-columns: 1fr; }
+}
+
+/* Card component: same hover + border rhythm */
+body.st-shell-on.st-marketing :where(.card, .section, .hero){
+  border-color: rgba(255,255,255,.10) !important;
+  box-shadow: 0 18px 48px rgba(0,0,0,.46);
+}
+body.st-shell-on.st-marketing :where(.card, .section, .hero):hover{
+  border-color: rgba(var(--st-accent-rgb), .22) !important;
+}
+
+/* Button rows/pills consistent gap */
+body.st-shell-on.st-marketing :where(.btnRow, .pills, .smallLinks){
+  gap: var(--st-s2) !important;
+}
+body.st-shell-on.st-marketing :where(.btnRow){
+  display:flex;
+  flex-wrap:wrap;
+}
+body.st-shell-on.st-marketing :where(.btnRow) > :where(a,button){
+  flex: 1;
+  min-width: 180px;
+}
+
+/* FAQ blocks uniform */
+body.st-shell-on.st-marketing :where(.faq details){
+  border-radius: var(--st-radius-lg);
+}
+
+/* Remove inconsistent per-page nav spacing (shell nav already exists) */
+body.st-shell-on.st-marketing :where(.nav){
+  display:none !important;
+}
+
+body.st-shell-on.st-marketing :where(.top){
+  display:none !important;
+}
+
+/* Hide legacy per-page top bars on marketing pages (shell provides nav) */
+body.st-shell-on.st-marketing :where(.top){ display:none !important; }
+

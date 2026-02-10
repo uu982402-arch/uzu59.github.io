@@ -3,8 +3,8 @@
   "use strict";
 
   // Ensure shared styling is present on every page (even if a page misses the <link>)
-  const SHELL_CSS = "/assets/88st-shell.css?v=20260210_B2";
-  const UNIFY_CSS = "/assets/88st-unify.css?v=20260210_B2";
+  const SHELL_CSS = "/assets/88st-shell.css?v=20260210_B4";
+  const UNIFY_CSS = "/assets/88st-unify.css?v=20260210_B4";
 
   function ensureCss(href){
     try{
@@ -24,6 +24,10 @@
   function inject(){
     if(document.getElementById("_88stShellHeader")) return;
     document.body.classList.add("st-shell-on");
+
+    const p = location.pathname || "/";
+    const isApp = (p.startsWith("/analysis")) || (p.startsWith("/tool-")) || (p.startsWith("/tool/"));
+    document.body.classList.add(isApp ? "st-app" : "st-marketing");
 
     // Find insert point: after notice bar if present, else at top of body
     const notice = document.querySelector(".notice-bar");
@@ -67,6 +71,8 @@
               <a href="/slot/" role="menuitem"><span>슬롯</span><span class="hint">기초</span></a>
               <a href="/minigame/" role="menuitem"><span>미니게임</span><span class="hint">기초</span></a>
               <a href="/ipl/" role="menuitem"><span>IPL</span><span class="hint">기초</span></a>
+              <a href="/landing-e/" role="menuitem"><span>랜딩 E</span><span class="hint">promo</span></a>
+              <a href="/landing-f/" role="menuitem"><span>랜딩 F</span><span class="hint">promo</span></a>
             </div>
           </div>
         </nav>
@@ -110,6 +116,8 @@
             <a class="st-shell-link" href="/slot/">슬롯</a>
             <a class="st-shell-link" href="/minigame/">미니게임</a>
             <a class="st-shell-link" href="/ipl/">IPL</a>
+            <a class="st-shell-link" href="/landing-e/">랜딩 E</a>
+            <a class="st-shell-link" href="/landing-f/">랜딩 F</a>
           </div>
           <div class="st-shell-drawer-foot">
             <button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn2">최근 저장</button>
