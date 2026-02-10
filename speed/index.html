@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  
-  </script>
+
+  <link href="/assets/88st-theme.css?v=20260210_B7" rel="stylesheet"/>
+  <script defer src="/assets/88st-theme.js?v=20260210_B7"></script>
 
   <style>
     *{box-sizing:border-box;}
@@ -53,6 +54,7 @@
       -webkit-backdrop-filter: blur(14px);
       color: rgba(244,246,255,.92);
       box-shadow: 0 18px 48px rgba(0,0,0,.48);
+      padding-right: 140px;
     }
     .st-landing-caption .t{
       font-weight: 1000;
@@ -82,38 +84,10 @@
       pointer-events:none;
     }
 
-    /* Floating telegram 상담 */
-    .st-tg-fab{
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      z-index: 2500;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 12px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(95,178,255,.26);
-      background: linear-gradient(135deg, rgba(95,178,255,.18), rgba(12,14,22,.78));
-      color: rgba(244,246,255,.95);
-      font-weight: 1000;
-      box-shadow: 0 18px 48px rgba(0,0,0,.48);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      text-decoration:none;
-    }
-    .st-tg-fab:hover{ filter: brightness(1.06); }
-    .st-tg-dot{
-      width: 10px; height: 10px;
-      border-radius: 999px;
-      background: rgba(95,178,255,.9);
-      box-shadow: 0 0 0 4px rgba(95,178,255,.18);
-    }
-
     @media (max-width: 520px){
       .st-landing-cover{ min-height: calc(100vh - 84px); border-radius: 22px; }
       .st-landing-caption{ left: 12px; right: 12px; bottom: 12px; }
-      .st-tg-fab{ right: 12px; bottom: 12px; padding: 11px 13px; }
+      .st-landing-caption{ padding-right: 120px; }
     }
   </style>
     <title>SPEED 안내 | 88ST.CLOUD</title>
@@ -134,11 +108,11 @@
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "SPEED 안내 | 88ST.CLOUD", "url": "https://88st.cloud/speed/", "description": "88ST.CLOUD에서 배당 마진(Overround), 공정배당, EV, Kelly 기준을 빠르게 계산하고 결과를 저장/공유하세요. 문의는 텔레그램 상담으로 연결됩니다.", "primaryImageOfPage": {"@type": "ImageObject", "url": "https://88st.cloud/img/img98.webp"}}</script>
 </head>
 <body>
-  <h1 class=\"sr-only\">SPEED 안내 - 88ST.CLOUD</h1>
+  <h1 class="sr-only">SPEED 안내 - 88ST.CLOUD</h1>
   <div class="st-landing-wrap">
     
     <a class="st-landing-cover" href="https://t.me/UZU59" target="_blank" rel="noopener" aria-label="클릭하여 텔레그램 상담으로 이동">
-      <img src="/img/img99.webp" alt="88ST.CLOUD 랜딩 이미지" loading="eager"/>
+      <img src="/img/img98.webp" alt="SPEED 안내 이미지" loading="eager"/>
       <div class="st-landing-overlay" aria-hidden="true"></div>
       <div class="st-landing-caption" aria-hidden="true">
         <p class="t">SPEED 안내</p>
@@ -148,12 +122,6 @@
     </a>
   </div>
 
-  <a class="st-tg-fab" href="https://t.me/UZU59" target="_blank" rel="noopener" aria-label="텔레그램 상담 문의">
-    <span class="st-tg-dot" aria-hidden="true"></span>
-    텔레그램 상담문의
-  </a>
-
-  <script defer src="/assets/js/88st-shell.js?v=20260210_B6"></script>
-  <script defer src="/assets/js/88st-tool-history.js?v=20260210_B6"></script>
+  <script defer src="/assets/js/88st-shell.js?v=20260210_B7"></script>
 </body>
 </html>
