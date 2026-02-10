@@ -189,6 +189,40 @@ body{
   margin-top:12px;
 }
 
+/* v2.1: 결과 카드/탭 구조 컴포넌트 */
+.st-result{ display:block; }
+.st-r-tabs{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  padding:10px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.20);
+  margin-bottom:10px;
+}
+.st-r-tab{
+  appearance:none;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+  padding:8px 11px;
+  border-radius:999px;
+  font-weight:950;
+  font-size:12px;
+  cursor:pointer;
+  transition:transform .13s cubic-bezier(.2,.9,.2,1), filter .13s ease, border-color .13s ease, background .13s ease;
+}
+.st-r-tab:hover{ transform:translateY(-1px); filter:brightness(1.06); border-color:rgba(var(--accentRGB),.22); }
+.st-r-tab:active{ transform:translateY(0) scale(.99); }
+.st-r-tab.on{ background:rgba(var(--accentRGB),.16); border-color:rgba(var(--accentRGB),.30); }
+.st-r-tab:focus-visible{ outline:2px solid rgba(var(--accentRGB),.55); outline-offset:2px; }
+.st-r-meta{ margin-left:auto; font-size:11px; font-weight:900; color:rgba(255,255,255,.66); }
+
+.st-r-panel{ display:block; }
+.st-r-panel[hidden]{ display:none; }
+
 /* 결과 요약 카드(첫 화면 강조) */
 .resultHero{
   border:1px solid rgba(255,255,255,.10);
@@ -385,7 +419,12 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   background:rgba(0,0,0,.25);
   border-radius:16px;
   padding:10px 12px;
+  cursor:pointer;
+  transition:transform .13s cubic-bezier(.2,.9,.2,1), border-color .13s ease, filter .13s ease;
 }
+.h-item:hover{ transform:translateY(-1px); border-color:rgba(var(--accentRGB),.16); filter:brightness(1.03); }
+.h-item:active{ transform:translateY(0) scale(.995); }
+.h-item:focus-visible{ outline:2px solid rgba(var(--accentRGB),.55); outline-offset:3px; }
 .h-top{
   display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
 }
@@ -619,6 +658,47 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   transition:transform .12s ease, background .12s ease;
 }
 .quick-nav .chip:hover{ transform:translateY(-1px); background:rgba(255,255,255,.09); }
+
+/* v2.1: 섹션 탭(HTML 컴포넌트화) */
+.st-tabbar{
+  position:sticky;
+  top:calc(var(--shell-h, 62px) + 10px);
+  z-index:1100;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  padding:10px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.22);
+  backdrop-filter: blur(12px);
+}
+.st-tab{
+  appearance:none;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+  padding:9px 12px;
+  border-radius:999px;
+  font-weight:950;
+  font-size:12px;
+  cursor:pointer;
+  transition:transform .13s cubic-bezier(.2,.9,.2,1), filter .13s ease, border-color .13s ease, background .13s ease;
+}
+.st-tab:hover{ transform:translateY(-1px); filter:brightness(1.06); border-color:rgba(var(--accentRGB),.22); }
+.st-tab:active{ transform:translateY(0) scale(.99); }
+.st-tab.on{
+  background:linear-gradient(135deg, rgba(var(--accentRGB),.22), rgba(90,160,255,.10));
+  border-color:rgba(var(--accentRGB),.30);
+}
+.st-tab:focus-visible{ outline:2px solid rgba(var(--accentRGB),.55); outline-offset:2px; }
+
+@media (max-width:520px){
+  .st-tabbar{ padding:8px; }
+  .st-tab{ padding:8px 10px; }
+}
+
 .mini-guide{
   margin-top:10px;
   border:1px solid rgba(255,255,255,.08);
@@ -1639,13 +1719,13 @@ a{ color:inherit; }
 </div>
 </div>
 <div class="small-hint" id="sportHint" style="margin-top:10px;"></div>
-<div class="quick-nav" id="quickNav">
-<button class="chip" onclick="quickJump('main')" type="button">메인</button>
-<button class="chip" onclick="quickJump('total')" type="button">오버·언더</button>
-<button class="chip" onclick="quickJump('handicap')" type="button">핸디캡</button>
-<button class="chip" onclick="quickJump('result')" type="button">결과</button>
-<button class="chip" onclick="quickJump('history')" type="button">히스토리</button>
-</div>
+<nav aria-label="분석기 섹션" class="st-tabbar" id="appTabbar" role="tablist">
+  <button aria-selected="true" class="st-tab on" data-jump="main" role="tab" type="button">메인</button>
+  <button aria-selected="false" class="st-tab" data-jump="total" role="tab" type="button">오버·언더</button>
+  <button aria-selected="false" class="st-tab" data-jump="handicap" role="tab" type="button">핸디캡</button>
+  <button aria-selected="false" class="st-tab" data-jump="result" role="tab" type="button">결과</button>
+  <button aria-selected="false" class="st-tab" data-jump="history" role="tab" type="button">히스토리</button>
+</nav>
 <div class="mini-guide" id="miniGuide">
 <div class="head" onclick="toggleMiniGuide()">
 <div>💡 처음이면 <b>10초 가이드</b></div>
@@ -2164,6 +2244,65 @@ a{ color:inherit; }
 <a class="dock-btn" data-cta="analysis_dock_vendors" data-no-auto-outbound="1" href="/#vendorTop">업체</a>
 </div>
 <div id="toast88"></div>
+
+<!-- v2.1: HTML 구조까지 컴포넌트화(템플릿) -->
+<template id="tplResultCard">
+  <section aria-label="분석 결과" class="st-result" data-role="result">
+    <div aria-label="결과 탭" class="st-r-tabs" role="tablist">
+      <button aria-selected="true" class="st-r-tab on" data-r-tab="summary" role="tab" type="button">요약</button>
+      <button aria-selected="false" class="st-r-tab" data-r-tab="detail" role="tab" type="button">상세</button>
+      <div class="st-r-meta" id="resultMeta" aria-live="polite"></div>
+    </div>
+    <div class="st-r-panel" data-r-panel="summary"></div>
+    <div class="st-r-panel" data-r-panel="detail" hidden></div>
+  </section>
+</template>
+
+<template id="tplHistoryEmpty">
+  <div class="demo-empty" data-role="history-empty">
+    <div class="demo-title" data-slot="title"></div>
+    <div class="demo-desc" data-slot="desc"></div>
+    <div class="demo-btns">
+      <button class="btn primary2" data-demo="soccer" type="button">⚽ 축구 예시로 계산</button>
+      <button class="btn primary2" data-demo="basketball" type="button">🏀 농구 예시로 계산</button>
+    </div>
+    <div class="demo-note">※ 예시는 샘플 데이터이며, 실제 결과/승률을 보장하지 않습니다.</div>
+  </div>
+</template>
+
+<template id="tplHistoryItem">
+  <article class="h-item" data-role="history-item" role="button" tabindex="0">
+    <div class="h-top">
+      <div class="h-left">
+        <div class="h-title" data-slot="title"></div>
+        <div class="h-sub" data-slot="sub"></div>
+
+        <div class="h-outcome" data-role="outcome">
+          <div class="row">
+            <div class="label">결과 기록</div>
+            <span class="outTag" data-slot="outTag">미기록</span>
+          </div>
+          <div class="outBtns">
+            <button class="oBtn" data-h-action="outcome" data-outcome="W" type="button">✅ 적중</button>
+            <button class="oBtn" data-h-action="outcome" data-outcome="L" type="button">❌ 미적중</button>
+            <button class="oBtn" data-h-action="outcome" data-outcome="V" type="button">⚪ 취소</button>
+            <button class="oBtn" data-h-action="outcome" data-outcome="" type="button">↩︎ 미기록</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="h-actions" data-role="actions">
+        <button class="primary2" data-h-action="restoreCalc" type="button">복원+재계산</button>
+        <button data-h-action="restoreOnly" type="button">복원만</button>
+        <label class="pick">
+          <input data-h-action="pick" type="checkbox"/>
+          비교
+        </label>
+      </div>
+    </div>
+  </article>
+</template>
+
 <script>
 /* 사칭주의 (1일 1회) */
 (function(){
@@ -4333,17 +4472,47 @@ function renderResult(sportName, level, rows, copyLines){
     return `<div class="kv"><div class="k">${k}</div><div class="v ${cls}">${v}</div></div>`;
   }).join("");
 
-  box.innerHTML = `
-    ${hero}
-    <div class="detailHead">상세 지표</div>
-    ${html}
-    <hr class="sep">
-    <div style="font-size:12px;color:#9a9a9a;line-height:1.5;">
-      ※ “승리 확률(배당 기반·추정)”은 배당 역수를 정규화한 값(시장 기반 추정)입니다.<br>
-      ※ EV/비중은 사용자가 입력한 “내 예상 확률” 기반의 참고 지표이며 승률을 보장하지 않습니다.<br>
-      ※ 아시안(푸시) 근사는 사용자가 입력한 푸시 확률(또는 종목 기본값)로 근사합니다.
-    </div>
-  `;
+  // v2.1: 결과 영역을 '탭/패널' 컴포넌트로 고정(HTML 구조까지 통일)
+  const tpl = document.getElementById("tplResultCard");
+  if(tpl && tpl.content){
+    box.innerHTML = "";
+    const frag = tpl.content.cloneNode(true);
+    const sum = frag.querySelector('[data-r-panel="summary"]');
+    const det = frag.querySelector('[data-r-panel="detail"]');
+    const meta = frag.querySelector('#resultMeta');
+
+    const metaTxt = (evPct!=null)
+      ? `EV ${(evPct>=0?"+":"")}${evPct.toFixed(2)}%`
+      : (marginPct!=null ? `마진 ${marginPct.toFixed(1)}%` : "");
+    if(meta) meta.textContent = metaTxt;
+
+    if(sum) sum.innerHTML = hero;
+    if(det) det.innerHTML = `
+      <div class="detailHead">상세 지표</div>
+      ${html}
+      <hr class="sep">
+      <div class="resultNote" style="font-size:12px;color:#9a9a9a;line-height:1.5;">
+        ※ “승리 확률(배당 기반·추정)”은 배당 역수를 정규화한 값(시장 기반 추정)입니다.<br>
+        ※ EV/비중은 사용자가 입력한 “내 예상 확률” 기반의 참고 지표이며 승률을 보장하지 않습니다.<br>
+        ※ 아시안(푸시) 근사는 사용자가 입력한 푸시 확률(또는 종목 기본값)로 근사합니다.
+      </div>
+    `;
+    box.appendChild(frag);
+    initResultTabs(box);
+  }else{
+    // (fallback) 템플릿이 없을 때 기존 렌더
+    box.innerHTML = `
+      ${hero}
+      <div class="detailHead">상세 지표</div>
+      ${html}
+      <hr class="sep">
+      <div style="font-size:12px;color:#9a9a9a;line-height:1.5;">
+        ※ “승리 확률(배당 기반·추정)”은 배당 역수를 정규화한 값(시장 기반 추정)입니다.<br>
+        ※ EV/비중은 사용자가 입력한 “내 예상 확률” 기반의 참고 지표이며 승률을 보장하지 않습니다.<br>
+        ※ 아시안(푸시) 근사는 사용자가 입력한 푸시 확률(또는 종목 기본값)로 근사합니다.
+      </div>
+    `;
+  }
   box.style.display = "block";
   const dock = document.getElementById("resultDock");
   if(dock) dock.style.display = "flex";
@@ -4365,6 +4534,46 @@ function renderResult(sportName, level, rows, copyLines){
   copyLines.push(`링크: ${getShareLink()}`);
   LAST_TEXT = copyLines.join("\n") + "\n\n" + rows.map(r=>`${r[0]}: ${String(r[1]).replace(/<[^>]*>/g,"")}`).join("\n");
 }
+
+// v2.1: 결과 탭(요약/상세) — 구조/동작 통일
+function initResultTabs(root){
+  if(!root) return;
+  const wrap = root.querySelector('[data-role="result"]');
+  if(!wrap || wrap.__tabsBound) return;
+  wrap.__tabsBound = true;
+
+  const tabs = Array.from(wrap.querySelectorAll('[data-r-tab]'));
+  const panels = Array.from(wrap.querySelectorAll('[data-r-panel]'));
+  if(!tabs.length || !panels.length) return;
+
+  function setTab(name){
+    tabs.forEach(btn=>{
+      const on = btn.getAttribute('data-r-tab') === name;
+      btn.classList.toggle('on', on);
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+      btn.tabIndex = on ? 0 : -1;
+    });
+    panels.forEach(p=>{
+      const on = p.getAttribute('data-r-panel') === name;
+      p.hidden = !on;
+    });
+  }
+
+  setTab('summary');
+
+  tabs.forEach(btn=>{
+    btn.addEventListener('click', ()=> setTab(btn.getAttribute('data-r-tab')));
+    btn.addEventListener('keydown', (e)=>{
+      if(e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      e.preventDefault();
+      const i = tabs.indexOf(document.activeElement);
+      if(i < 0) return;
+      const ni = (e.key === 'ArrowRight') ? (i+1) % tabs.length : (i-1+tabs.length) % tabs.length;
+      tabs[ni].focus();
+    });
+  });
+}
+
 function showError(msg){
   const dock = document.getElementById("resultDock");
   if(dock) dock.style.display = "none";
@@ -4498,6 +4707,64 @@ function quickJump(which){
   if(which==="total"){ setCollapsed("totalBody", false); }
   if(which==="handicap"){ setCollapsed("handicapBody", false); }
   try{ el.scrollIntoView({behavior:"smooth", block:"start"}); }catch(e){}
+}
+
+// v2.1: 상단 섹션 탭바(메인/OU/핸디/결과/히스토리) — HTML 구조/동작 통일
+function setAppTabActive(which){
+  const bar = document.getElementById("appTabbar");
+  if(!bar) return;
+  bar.querySelectorAll(".st-tab").forEach(btn=>{
+    const on = btn.getAttribute("data-jump") === which;
+    btn.classList.toggle("on", on);
+    btn.setAttribute("aria-selected", on ? "true" : "false");
+  });
+}
+
+function initAppTabbar(){
+  const bar = document.getElementById("appTabbar");
+  if(!bar || bar.__bound) return;
+  bar.__bound = true;
+
+  bar.addEventListener("click", (e)=>{
+    const btn = e.target.closest(".st-tab[data-jump]");
+    if(!btn) return;
+    const which = btn.getAttribute("data-jump");
+    if(!which) return;
+    setAppTabActive(which);
+    quickJump(which);
+  });
+
+  // 스크롤 위치에 따라 현재 섹션을 자동 하이라이트
+  try{
+    const secMap = {
+      main: document.getElementById("mainBox"),
+      total: document.getElementById("totalBox"),
+      handicap: document.getElementById("handicapBox"),
+      result: document.getElementById("result"),
+      history: document.getElementById("historyList")
+    };
+    const keys = Object.keys(secMap).filter(k=>secMap[k]);
+    if(!keys.length) return;
+
+    const io = new IntersectionObserver((entries)=>{
+      // 가장 많이 보이는 섹션 선택
+      let best = null;
+      entries.forEach(en=>{
+        if(!en.isIntersecting) return;
+        const k = keys.find(x=>secMap[x] === en.target);
+        if(!k) return;
+        const score = en.intersectionRatio;
+        if(!best || score > best.score) best = { which:k, score };
+      });
+      if(best && best.which) setAppTabActive(best.which);
+    }, {
+      root: null,
+      threshold: [0.08, 0.18, 0.28],
+      rootMargin: "-45% 0px -50% 0px"
+    });
+
+    keys.forEach(k=>{ try{ io.observe(secMap[k]); }catch(e){} });
+  }catch(e){}
 }
 
 function openShareCard(){
@@ -6412,23 +6679,55 @@ function renderHistory(){
   }else if(historyFilter === "untracked"){
     view = arr.filter(h => !h.outcome);
   }
+  // v2.1: HTML 구조까지 템플릿으로 고정
+  const mountEmpty = (title, desc, mode)=>{
+    const tpl = document.getElementById("tplHistoryEmpty");
+    list.innerHTML = "";
+    if(tpl && tpl.content){
+      const frag = tpl.content.cloneNode(true);
+      const t = frag.querySelector('[data-slot="title"]');
+      const d = frag.querySelector('[data-slot="desc"]');
+      if(t) t.textContent = title;
+      if(d) d.innerHTML = desc;
+
+      // 필터 결과 없음일 때는 예시 버튼을 숨기고 전체 보기 버튼을 노출
+      if(mode === "filtered"){
+        const btns = frag.querySelector('.demo-btns');
+        if(btns) btns.style.display = "none";
+        const note = frag.querySelector('.demo-note');
+        if(note) note.innerHTML = `필터를 바꾸거나 <b>전체</b>로 되돌려 보세요.`;
+      }
+      list.appendChild(frag);
+    }else{
+      list.innerHTML = `
+        <div class="demo-empty">
+          <div class="demo-title">${escapeHtml(title)}</div>
+          <div class="demo-desc">${desc}</div>
+        </div>`;
+    }
+  };
+
   if(!arr.length){
-    list.innerHTML = `
-      <div class="demo-empty">
-        <div class="demo-title">${(arr.length && historyFilter!=="all") ? "조건에 맞는 기록이 없어요." : "히스토리가 비어있어요."}</div>
-        <div class="demo-desc">${(arr.length && historyFilter!=="all") ? "필터 조건에 맞는 기록이 없습니다. <b>전체</b>로 바꾸거나 새로 계산해보세요." : "아래 <b>예시 버튼</b>을 눌러 입력을 자동 채우고, 바로 계산까지 실행해볼 수 있어요."}</div>
-        <div class="demo-btns">
-          <button class="btn primary2" type="button" onclick="loadDemo('soccer')">⚽ 축구 예시로 계산</button>
-          <button class="btn primary2" type="button" onclick="loadDemo('basketball')">🏀 농구 예시로 계산</button>
-        </div>
-        <div class="demo-note">※ 예시는 샘플 데이터이며, 실제 결과/승률을 보장하지 않습니다.</div>
-      </div>`;
+    mountEmpty("히스토리가 비어있어요.", "아래 <b>예시 버튼</b>을 눌러 입력을 자동 채우고, 바로 계산까지 실행해볼 수 있어요.", "empty");
     renderPerfBox();
     updatePickUI();
+    initHistoryListEvents();
     return;
   }
 
-  list.innerHTML = view.map(h=>{
+  if(!view.length){
+    mountEmpty("조건에 맞는 기록이 없어요.", "필터 조건에 맞는 기록이 없습니다. <b>전체</b>로 바꾸거나 새로 계산해보세요.", "filtered");
+    renderPerfBox();
+    updatePickUI();
+    initHistoryListEvents();
+    return;
+  }
+
+  list.innerHTML = "";
+  const itemTpl = document.getElementById("tplHistoryItem");
+  const fragAll = document.createDocumentFragment();
+
+  view.forEach(h=>{
     const cfg = SPORT_CFG[h.sport] || {name:h.sport||"-"};
     const mMain = h.markets?.main?.marginPct;
     const mOU = h.markets?.ou?.marginPct;
@@ -6441,57 +6740,123 @@ function renderHistory(){
     const evTxt = (typeof h.bestEVPct==="number") ? `${h.bestEVPct.toFixed(2)}%` : "-";
     const evCls = (h.evPositive) ? "good" : "warn";
 
-    const checked = pickSet.has(h.id) ? "checked" : "";
-
     const adviceKey = (h.advice || adviceKeyForRecord(h));
     const adviceInfo = adviceInfoForKey(adviceKey);
-
     const out = outcomeInfo(h.outcome);
 
-    return `
-      <div class="h-item" onclick="onHistoryClick(event,'${h.id}')">
-        <div class="h-top">
-          <div>
-            <div class="h-title">${h.time} · ${cfg.name} · ${levelLabel(h.level)} ${h.teams?`· ${escapeHtml(h.teams)}`:""}</div>
-            <div class="h-sub">
-              메인: ${mainTag?`<span class="${clsToTextColor(mainTag.cls)}">${mainTag.label}</span>`:"-"} /
-              OU: ${ouTag?`<span class="${clsToTextColor(ouTag.cls)}">${ouTag.label}</span>`:"-"} /
-              핸디: ${hcTag?`<span class="${clsToTextColor(hcTag.cls)}">${hcTag.label}</span>`:"-"}
-              <br>
-              최고 EV: <span class="${evCls}"><b>${evTxt}</b></span> ·
-              판단: <span class="${adviceInfo.cls}"><b>${adviceInfo.text}</b></span>
-            </div>
+    let node;
+    if(itemTpl && itemTpl.content){
+      const one = itemTpl.content.cloneNode(true);
+      node = one.querySelector('[data-role="history-item"]');
+      if(node){
+        node.dataset.id = h.id;
+        const titleEl = node.querySelector('[data-slot="title"]');
+        const subEl = node.querySelector('[data-slot="sub"]');
+        const outTagEl = node.querySelector('[data-slot="outTag"]');
+        const pickEl = node.querySelector('input[data-h-action="pick"]');
 
-            <div class="h-outcome" onclick="event.stopPropagation()">
-              <div class="row">
-                <div class="label">결과 기록</div>
-                <span class="outTag ${out.cls}">${out.text}</span>
-              </div>
-              <div class="outBtns">
-                <button class="oBtn ${h.outcome==='W'?'on':''}" type="button" onclick="setOutcome('${h.id}','W')">✅ 적중</button>
-                <button class="oBtn ${h.outcome==='L'?'on':''}" type="button" onclick="setOutcome('${h.id}','L')">❌ 미적중</button>
-                <button class="oBtn ${h.outcome==='V'?'on':''}" type="button" onclick="setOutcome('${h.id}','V')">⚪ 취소</button>
-                <button class="oBtn ${(!h.outcome)?'on':''}" type="button" onclick="setOutcome('${h.id}','')">↩︎ 미기록</button>
-              </div>
-            </div>
+        if(titleEl) titleEl.textContent = `${h.time} · ${cfg.name} · ${levelLabel(h.level)}${h.teams?` · ${cleanTeam(h.teams)}`:""}`;
 
-          </div>
+        if(subEl) subEl.innerHTML = `
+          메인: ${mainTag?`<span class="${clsToTextColor(mainTag.cls)}">${mainTag.label}</span>`:"-"} /
+          OU: ${ouTag?`<span class="${clsToTextColor(ouTag.cls)}">${ouTag.label}</span>`:"-"} /
+          핸디: ${hcTag?`<span class="${clsToTextColor(hcTag.cls)}">${hcTag.label}</span>`:"-"}
+          <br>
+          최고 EV: <span class="${evCls}"><b>${evTxt}</b></span> ·
+          판단: <span class="${adviceInfo.cls}"><b>${adviceInfo.text}</b></span>
+        `;
 
-          <div class="h-actions" onclick="event.stopPropagation()">
-            <button class="primary2" type="button" onclick="restoreFromHistory('${h.id}', true)">복원+재계산</button>
-            <button type="button" onclick="restoreFromHistory('${h.id}', false)">복원만</button>
-            <label class="pick">
-              <input type="checkbox" ${checked} onchange="togglePick('${h.id}', this.checked)">
-              비교
-            </label>
-          </div>
-        </div>
-      </div>
-    `;
-  }).join("");
+        if(outTagEl){
+          outTagEl.className = `outTag ${out.cls}`;
+          outTagEl.textContent = out.text;
+        }
+
+        // outcome 버튼 on 상태
+        node.querySelectorAll('button[data-h-action="outcome"]').forEach(btn=>{
+          const v = btn.getAttribute('data-outcome') || "";
+          const on = (v && h.outcome===v) || (!v && !h.outcome);
+          btn.classList.toggle('on', !!on);
+        });
+
+        if(pickEl) pickEl.checked = pickSet.has(h.id);
+      }
+      fragAll.appendChild(one);
+    }
+  });
+
+  list.appendChild(fragAll);
 
   renderPerfBox();
   updatePickUI();
+  initHistoryListEvents();
+}
+
+// v2.1: 히스토리 리스트 이벤트(구조 컴포넌트화에 맞춘 위임 처리)
+function initHistoryListEvents(){
+  const list = document.getElementById("historyList");
+  if(!list || list.__bound) return;
+  list.__bound = true;
+
+  // 카드 클릭/버튼 클릭
+  list.addEventListener("click", (e)=>{
+    const demoBtn = e.target.closest("[data-demo]");
+    if(demoBtn){
+      const mode = demoBtn.getAttribute("data-demo");
+      if(mode === "soccer") loadDemo("soccer");
+      else if(mode === "basketball") loadDemo("basketball");
+      return;
+    }
+
+    const actionEl = e.target.closest("[data-h-action]");
+    if(actionEl){
+      const item = actionEl.closest('[data-role="history-item"]');
+      const id = item?.dataset?.id;
+      const act = actionEl.getAttribute("data-h-action");
+
+      if(act === "outcome"){
+        if(!id) return;
+        const v = actionEl.getAttribute("data-outcome") || "";
+        setOutcome(id, v);
+        return;
+      }
+      if(act === "restoreCalc"){
+        if(!id) return;
+        restoreFromHistory(id, true);
+        return;
+      }
+      if(act === "restoreOnly"){
+        if(!id) return;
+        restoreFromHistory(id, false);
+        return;
+      }
+      // checkbox는 change에서 처리
+      return;
+    }
+
+    const item = e.target.closest('[data-role="history-item"]');
+    if(item && item.dataset.id){
+      onHistoryClick(null, item.dataset.id);
+    }
+  });
+
+  list.addEventListener("change", (e)=>{
+    const cb = e.target.closest('input[data-h-action="pick"]');
+    if(!cb) return;
+    const item = cb.closest('[data-role="history-item"]');
+    const id = item?.dataset?.id;
+    if(!id) return;
+    togglePick(id, cb.checked);
+  });
+
+  list.addEventListener("keydown", (e)=>{
+    if(e.key !== "Enter" && e.key !== " ") return;
+    const item = e.target.closest('[data-role="history-item"]');
+    if(!item || !item.dataset.id) return;
+    // 버튼/체크박스 포커스에서는 기본 동작 유지
+    if(e.target && (e.target.tagName === "BUTTON" || e.target.tagName === "INPUT")) return;
+    e.preventDefault();
+    onHistoryClick(null, item.dataset.id);
+  });
 }
 
 /* 히스토리 클릭(아이템 영역) -> 즉시 복원+재계산 */
@@ -6976,6 +7341,7 @@ function boot(){
   }
   onSportChange(true);
   onLevelChange(true);
+  initAppTabbar();
   renderHistory();
   renderTop3();
   renderMarginDash();
