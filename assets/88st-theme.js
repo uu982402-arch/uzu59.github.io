@@ -78,18 +78,16 @@
     if(modeEl) modeEl.textContent = labelFor(mode);
   }
 
-  // Docking: avoid overlapping with bottom fixed UI (FAB, dock, CTA bar)
+  // Docking: avoid overlapping with TOP fixed UI (notice bar, sticky header)
   function dockToggle(){
     const btn = document.getElementById("_88stThemeToggle");
     if(!btn) return;
     const vh = window.innerHeight || document.documentElement.clientHeight;
-    const base = 18; // px
     let extra = 0;
 
     const selectors = [
-      ".fab", ".floating-fab", ".floating-actions", ".floating-buttons",
-      "#bottomDock", ".cta-dock", ".dock", ".bottom-dock", ".action-dock",
-      ".stickyDock", ".analysisDock", ".fixedDock", ".fixed-dock", ".dock-wrap"
+      ".notice-bar", ".glass-notice", "#glassNotice", ".top-notice", ".notice", ".announcement",
+      "header", ".header", ".topbar", ".top-bar", ".sticky-header", ".header-fixed", ".top-fixed"
     ];
 
     const candidates = [];
@@ -100,17 +98,17 @@
     candidates.forEach(el=>{
       const st = getComputedStyle(el);
       if(st.display === "none" || st.visibility === "hidden" || st.opacity === "0") return;
-      if(st.position !== "fixed") return;
+      if(st.position !== "fixed" && st.position !== "sticky") return;
       const rect = el.getBoundingClientRect();
       if(rect.height < 24) return;
-      // Only consider elements occupying bottom band
-      if(rect.bottom > (vh - 80) && rect.top > (vh - 420)){
-        const needed = Math.max(0, vh - rect.top + 12);
-        extra = Math.max(extra, needed);
+      // Only consider elements occupying the top band
+      if(rect.top <= 0 && rect.bottom > 0 && rect.bottom < (vh * 0.6)){
+        extra = Math.max(extra, Math.round(rect.bottom) + 8);
       }
     });
 
-    btn.style.bottom = `calc(${base + extra}px + env(safe-area-inset-bottom, 0px))`;
+    // Communicate via CSS variable to keep positioning consistent across pages
+    root.style.setProperty('--_88stToggleTopExtra', `${extra}px`);
   }
 
   function initMetaThemeColor(){

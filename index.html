@@ -1196,8 +1196,8 @@ body::after{
 /* 2) header/logo: 카드박스 제거 + 로고만 또렷하게 */
 .header{
   width:auto !important;
-  margin:14px auto 10px !important;
-  padding:18px 0 8px !important;
+  margin:12px auto 6px !important;
+  padding:14px 0 4px !important;
   border-radius:0 !important;
   background:transparent !important;
   border:0 !important;
@@ -1208,6 +1208,12 @@ body::after{
 }
 .header::before{ content:none !important; display:none !important; }
 .header .logoLink{ display:inline-flex !important; align-items:center; justify-content:center; }
+
+.header .sub{
+  color:var(--muted) !important;
+  margin-top:6px !important;
+  font-weight:800;
+}
 
 .header .logoImg{
   width:min(156px, 46vw) !important;
@@ -1830,8 +1836,8 @@ const INSIGHTS_BY_SPORT = {
 </script>
 <link href="assets/mobile-polish.css?v=2" rel="stylesheet"/>
 <script src="/assets/js/88st-analytics.js"></script>
-<link href="/assets/88st-theme.css?v=20260210_3" rel="stylesheet"/>
-<script defer="" src="/assets/88st-theme.js?v=20260210_3"></script>
+<link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
+<script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
 </meta></head>
 <body>
 <div class="notice-bar">
@@ -1862,7 +1868,7 @@ const INSIGHTS_BY_SPORT = {
 <a aria-label="홈으로 이동" class="logoLink" href="/">
 <img alt="88 커뮤니티 로고" class="logoImg" src="img/logo.png"/>
 </a>
-<div class="sub"> </div>
+<div class="sub">배당을 숫자로 정리하는 가장 빠른 분석기</div>
 </div>
 <div class="section-wrap">
 <!-- 메인 루트: 분석기 사용 -->
