@@ -3,11 +3,8 @@
   "use strict";
 
   // Ensure shared styling is present on every page (even if a page misses the <link>)
-  const SHELL_CSS = "/assets/88st-shell.css?v=20260210_B7";
-  const UNIFY_CSS = "/assets/88st-unify.css?v=20260210_B7";
-  // Theme assets are loaded in most pages, but ensure SPEED/OK (and any future pages) get them too.
-  const THEME_CSS = "/assets/88st-theme.css?v=20260210_B7";
-  const THEME_JS  = "/assets/88st-theme.js?v=20260210_B7";
+  const SHELL_CSS = "/assets/88st-shell.css?v=20260210_B5";
+  const UNIFY_CSS = "/assets/88st-unify.css?v=20260210_B5";
 
   function ensureCss(href){
     try{
@@ -22,30 +19,11 @@
     }catch(e){}
   }
 
-  function ensureScript(src){
-    try{
-      const base = String(src).split("?")[0];
-      const existing = Array.from(document.querySelectorAll('script[src]'))
-        .map(s=> (s.getAttribute('src')||"").split("?")[0]);
-      if(existing.includes(base)) return;
-      const s = document.createElement('script');
-      s.src = src;
-      s.defer = true;
-      document.head.appendChild(s);
-    }catch(e){}
-  }
-
   const $$ = (sel, root=document)=> Array.from(root.querySelectorAll(sel));
 
   function inject(){
     if(document.getElementById("_88stShellHeader")) return;
     document.body.classList.add("st-shell-on");
-
-    // Ensure baseline CSS/JS (in case a page missed them)
-    ensureCss(THEME_CSS);
-    ensureCss(SHELL_CSS);
-    ensureCss(UNIFY_CSS);
-    ensureScript(THEME_JS);
 
     const p = location.pathname || "/";
     const isApp = (p.startsWith("/analysis")) || (p.startsWith("/tool-")) || (p.startsWith("/tool/"));
@@ -61,9 +39,6 @@
 
     const here = location.pathname || "/";
     const isActive = (p)=> (here === p || here.startsWith(p));
-
-    // Show "최근 저장" only on tool pages (header request: hide on 메인/분석기/랜딩)
-    const showGlobalHistory = (p.startsWith("/tool-") || p.startsWith("/tool/"));
 
     header.innerHTML = `
       <div class="st-shell-inner">
@@ -109,7 +84,7 @@
           </div></nav>
 
         <div class="st-shell-actions">
-          ${showGlobalHistory ? `<button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn">최근 저장</button>` : ``}
+          <button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn">최근 저장</button>
           <a class="st-shell-btn" href="https://t.me/UZU59" target="_blank" rel="noopener">문의</a>
           <button class="st-shell-btn ghost" type="button" id="_88stShellBurger" aria-label="메뉴" aria-expanded="false">☰</button>
         </div>
@@ -122,26 +97,6 @@
     }else{
       document.body.insertBefore(header, document.body.firstChild);
     }
-
-    // Bottom quick dock (분석기/놀이터) — unify product feel across all pages
-    (function(){
-      if(document.getElementById('_88stBottomDock')) return;
-      // If a page already has legacy .fab, keep it (avoid duplicates)
-      if(document.querySelector('.fab')){
-        try{ window.dispatchEvent(new Event('88st:dock')); }catch(e){}
-        return;
-      }
-      const dock = document.createElement('div');
-      dock.id = '_88stBottomDock';
-      dock.className = 'st-bottom-dock floating-dock';
-      dock.setAttribute('aria-label','빠른 이동');
-      dock.innerHTML = `
-        <a class="dock-btn primary" href="/analysis/" data-cta="dock_analysis">분석기</a>
-        <a class="dock-btn secondary" href="/#vendorTop" data-cta="dock_vendors">놀이터</a>
-      `;
-      document.body.appendChild(dock);
-      try{ window.dispatchEvent(new Event('88st:dock')); }catch(e){}
-    })();
 
     // Mobile drawer
     const drawer = document.createElement("div");
@@ -173,7 +128,7 @@
             <a class="st-shell-link" href="/ok/">OK</a>
           </div>
           <div class="st-shell-drawer-foot">
-            ${showGlobalHistory ? `<button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn2">최근 저장</button>` : ``}
+            <button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn2">최근 저장</button>
             <a class="st-shell-btn" href="https://t.me/UZU59" target="_blank" rel="noopener">문의</a>
           </div>
         </div>
@@ -242,24 +197,6 @@
       `;
       document.body.appendChild(foot);
     }
-
-    // Global bottom dock (분석기 / 놀이터) — unify product feel across pages
-    // Do not duplicate if a page already has its own .fab
-    if(!document.getElementById("_88stBottomDock") && !document.querySelector('.fab')){
-      const dock = document.createElement('div');
-      dock.id = "_88stBottomDock";
-      dock.className = "st-bottom-dock floating-dock";
-      dock.setAttribute('aria-label','빠른 이동');
-      dock.innerHTML = `
-        <a class="dock-btn primary" data-cta="dock_analysis" href="/analysis/">분석기</a>
-        <a class="dock-btn secondary" data-cta="dock_vendors" href="/#vendorTop">놀이터</a>
-      `;
-      document.body.appendChild(dock);
-      try{ window.dispatchEvent(new Event('88st:dock')); }catch(e){}
-    }
-
-    // Notify theme toggle (and others) that shell is ready
-    try{ window.dispatchEvent(new Event('88st:shellReady')); }catch(e){}
   }
 
   function addDrawerStyles(){
@@ -296,8 +233,6 @@
   function boot(){
     ensureCss(SHELL_CSS);
     ensureCss(UNIFY_CSS);
-    ensureCss(THEME_CSS);
-    ensureScript(THEME_JS);
     addDrawerStyles();
     inject();
   }

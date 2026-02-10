@@ -207,8 +207,8 @@ textarea, .bundle-ta, .share-ta, .promo-ta{
 #_88stThemeToggle{
   position:fixed;
   right:14px;
-  top:auto;
-  bottom:calc(14px + env(safe-area-inset-bottom, 0px) + var(--_88stToggleBottomExtra, 0px));
+  top:calc(12px + env(safe-area-inset-top, 0px) + var(--_88stToggleTopExtra, 0px));
+  bottom:auto !important; /* prevent legacy bottom-fixed overrides */
   z-index:99999;
   display:flex;
   align-items:center;
@@ -222,6 +222,17 @@ textarea, .bundle-ta, .share-ta, .promo-ta{
   box-shadow:var(--shadow-md);
   cursor:pointer;
   user-select:none;
+}
+
+/* Mobile: keep the toggle near the header (avoid covering cards/buttons) */
+@media (max-width: 860px){
+  #_88stThemeToggle{
+    right:12px;
+    padding:10px 12px;
+    gap:8px;
+  }
+  #_88stThemeToggle .label{ display:none; }
+  #_88stThemeToggle .mode{ font-size:11px; }
 }
 #_88stThemeToggle .icon{
   width:26px; height:26px;
