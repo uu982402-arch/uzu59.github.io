@@ -3,8 +3,9 @@
   "use strict";
 
   // Ensure shared styling is present on every page (even if a page misses the <link>)
-  const SHELL_CSS = "/assets/88st-shell.css?v=20260210_B5";
-  const UNIFY_CSS = "/assets/88st-unify.css?v=20260210_B5";
+  const SHELL_CSS = "/assets/88st-shell.css?v=20260210_LUX2";
+  const UNIFY_CSS = "/assets/88st-unify.css?v=20260210_LUX2";
+  const LUX2_CSS = "/assets/88st-luxury-v2.css?v=20260210_LUX2";
 
   function ensureCss(href){
     try{
@@ -23,7 +24,7 @@
 
   function inject(){
     if(document.getElementById("_88stShellHeader")) return;
-    document.body.classList.add("st-shell-on");
+    document.body.classList.add("st-shell-on", "st-lux2");
 
     const p = location.pathname || "/";
     const isApp = (p.startsWith("/analysis")) || (p.startsWith("/tool-")) || (p.startsWith("/tool/"));
@@ -199,6 +200,54 @@
     }
   }
 
+  let _revealBooted = false;
+  function initReveal(){
+    if(_revealBooted) return;
+    _revealBooted = true;
+    try{
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduce) return;
+      const sel = [
+        '.st-guide-hero', '.hero', '.card', '.panel', '.box', '.tile', '.section', '.calc-card',
+        '.kv .item', '.st-shell-footer'
+      ];
+      const set = new Set();
+      sel.forEach(s=> document.querySelectorAll(s).forEach(el=> set.add(el)));
+      const els = Array.from(set);
+      // Header/footers: no reveal animation to avoid flicker
+      const head = document.getElementById('_88stShellHeader');
+      if(head) head.classList.add('st-reveal','is-in');
+      els.forEach(el=>{
+        if(!(el instanceof HTMLElement)) return;
+        if(el.id === '_88stShellHeader') return;
+        el.classList.add('st-reveal');
+      });
+      if(!('IntersectionObserver' in window)){
+        els.forEach(el=> el.classList.add('is-in'));
+        return;
+      }
+      const io = new IntersectionObserver((entries)=>{
+        for(const e of entries){
+          if(e.isIntersecting){
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        }
+      }, {threshold: 0.08, rootMargin: '0px 0px -10% 0px'});
+      els.forEach(el=>{
+        if(!(el instanceof HTMLElement)) return;
+        if(el.id === '_88stShellHeader') return;
+        // reveal above-the-fold quickly
+        const r = el.getBoundingClientRect();
+        if(r.top < (window.innerHeight * 0.92)){
+          el.classList.add('is-in');
+          return;
+        }
+        io.observe(el);
+      });
+    }catch(e){}
+  }
+
   function addDrawerStyles(){
     // Minimal drawer styles appended once (keep CSS file light)
     if(document.getElementById("_88stShellDrawerStyle")) return;
@@ -233,8 +282,10 @@
   function boot(){
     ensureCss(SHELL_CSS);
     ensureCss(UNIFY_CSS);
+    ensureCss(LUX2_CSS);
     addDrawerStyles();
     inject();
+    initReveal();
   }
 
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
