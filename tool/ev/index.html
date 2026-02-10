@@ -114,7 +114,7 @@ footer{ margin-top:16px; color:var(--muted-2); font-size:12px; line-height:1.6; 
 
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "손익분기점 승률은 왜 1/배당인가요?", "acceptedAnswer": {"@type": "Answer", "text": "배당이 o일 때, 기대수익이 0이 되는 확률이 1/o 입니다(수수료·마진 단순화 가정)."}}, {"@type": "Question", "name": "+EV이면 무조건 이기나요?", "acceptedAnswer": {"@type": "Answer", "text": "아닙니다. +EV는 장기 평균 관점에서 유리할 ‘가능성’을 뜻합니다. 단기 변동성은 매우 큽니다."}}, {"@type": "Question", "name": "추정 승률은 어떻게 잡나요?", "acceptedAnswer": {"@type": "Answer", "text": "최근 폼, 라인업, 일정, 상대 전적, 시장 변동 등 여러 요소를 참고해 ‘내 기준’으로 추정합니다."}}, {"@type": "Question", "name": "마진(오버라운드)을 제거한 EV도 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "가능합니다. 마진 계산기로 공정확률을 만든 뒤, 그 기준으로 승률/배당을 비교하면 더 보수적인 평가가 됩니다."}}, {"@type": "Question", "name": "추천 배팅 금액도 계산되나요?", "acceptedAnswer": {"@type": "Answer", "text": "현재 페이지는 EV만 계산합니다. 향후 켈리/유닛 사이징 도구로 확장할 수 있습니다."}}]}</script>
-<script defer="" src="../assets/theme-preset.js"></script>
+<script defer="" src="/assets/theme-preset.js"></script>
 <style id="v13_1_theme_override">
 /* === v13.1 look unify (from main index) === */
 :root{
@@ -219,6 +219,11 @@ a{ color:inherit; }
 <link href="/assets/vendor-teasers.css?v=20260210_4" rel="stylesheet"/>
 <link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
 <script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
+<link href="/assets/88st-tool-history.css?v=20260210_B1" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-tool-history.js?v=20260210_B1"></script>
+<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B1"></script>
+<link href="/assets/88st-shell.css?v=20260210_B1" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=20260210_B1"></script>
 </head>
 <body>
 <div class="wrap">
@@ -311,6 +316,30 @@ document.getElementById("resetBtn").addEventListener("click", ()=>{
 ["odds","p","stake"].forEach(id=> document.getElementById(id).addEventListener("input", ()=> calc()));
 calc();
 </script>
+<script type="application/json" id="__88stToolConfig">
+{
+  "tool": "ev",
+  "title": "EV 계산기",
+  "inputs": ["odds", "p", "stake"],
+  "outputs": {
+    "be": "#be",
+    "evAmt": "#evAmt",
+    "evPct": "#evPct",
+    "judge": "#judge"
+  },
+  "shareParams": {
+    "odds": "o",
+    "p": "p",
+    "stake": "s"
+  },
+  "examples": [
+    {"label": "+EV 예시", "values": {"odds": "2.10", "p": "55", "stake": "10000"}},
+    {"label": "-EV 예시", "values": {"odds": "1.80", "p": "50", "stake": "10000"}},
+    {"label": "보수 예시", "values": {"odds": "1.95", "p": "53", "stake": "20000"}}
+  ]
+}
+</script>
+
 <div aria-label="인증 업체 빠른보기" class="vendor-teaser" data-vt-fixed="1,2,3,4" data-vt-pick="2" data-vt-pool="10,11,8,7" id="vendorTeaser">
 <div class="vt-head">
 <div>

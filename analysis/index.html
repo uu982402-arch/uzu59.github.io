@@ -1656,6 +1656,10 @@ a{ color:inherit; }
 <script src="/assets/js/88st-analytics.js"></script>
 <link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
 <script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
+<link href="/assets/88st-tool-history.css?v=20260210_B1" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B1"></script>
+<link href="/assets/88st-shell.css?v=20260210_B1" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=20260210_B1"></script>
 </head>
 <body>
 <!-- ✅ 상단 공지/이벤트 배너(자동 순환) -->
@@ -1714,6 +1718,7 @@ a{ color:inherit; }
 <span class="tag">히스토리·비교</span>
 <span class="tag">공유·공유카드</span>
 </div>
+
 </div>
 <div class="calc-hero-right">
 <div aria-label="자동 저장 상태" class="autosave">
@@ -2072,6 +2077,11 @@ a{ color:inherit; }
 </div>
 </div>
 <!-- ✅ TOP3 + 기준/예시 (반반) -->
+<!-- 최근 저장된 계산 (툴/계산기 공통) -->
+<div class="card" id="_88stHistoryHubCard">
+  <div id="_88stHistoryHub" data-limit="6"></div>
+</div>
+
 <div class="card" id="topInfoCard">
 <h2 class="sr-only">오늘 마진 낮은 TOP3 및 마진 기준</h2>
 <div class="split">

@@ -59,6 +59,11 @@ input,select{width:100%;padding:11px 12px;border-radius:14px;border:1px solid rg
 <script defer="" src="/assets/js/vendor-teasers.js"></script>
 <link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
 <script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
+<link href="/assets/88st-tool-history.css?v=20260210_B1" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-tool-history.js?v=20260210_B1"></script>
+<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B1"></script>
+<link href="/assets/88st-shell.css?v=20260210_B1" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=20260210_B1"></script>
 </head>
 <body>
 <div class="wrap">
@@ -121,6 +126,31 @@ input,select{width:100%;padding:11px 12px;border-radius:14px;border:1px solid rg
       </div>
 </div>
 </div>
+<script type="application/json" id="__88stToolConfig">
+{
+  "tool": "kelly",
+  "title": "Kelly 비중 계산기",
+  "inputs": ["odds", "prob", "frac", "cap"],
+  "outputs": {
+    "kFull": "#kFull",
+    "kAdj": "#kAdj",
+    "kFinal": "#kFinal",
+    "judgement": "#judgement"
+  },
+  "shareParams": {
+    "odds": "o",
+    "prob": "p",
+    "frac": "f",
+    "cap": "c"
+  },
+  "examples": [
+    {"label": "보수 예시", "values": {"odds": "1.95", "prob": "55", "frac": "0.25", "cap": "10"}},
+    {"label": "하프 Kelly", "values": {"odds": "2.10", "prob": "54", "frac": "0.5", "cap": "12"}},
+    {"label": "고배당", "values": {"odds": "3.20", "prob": "38", "frac": "0.25", "cap": "8"}}
+  ]
+}
+</script>
+
 <div aria-label="인증 업체 빠른보기" class="vendor-teaser" data-vt-fixed="1,2,3,4" data-vt-pick="2" data-vt-pool="10,11,8,7" id="vendorTeaser">
 <div class="vt-head">
 <div>

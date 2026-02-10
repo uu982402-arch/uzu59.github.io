@@ -1838,7 +1838,11 @@ const INSIGHTS_BY_SPORT = {
 <script src="/assets/js/88st-analytics.js"></script>
 <link href="/assets/88st-theme.css?v=20260210_4" rel="stylesheet"/>
 <script defer="" src="/assets/88st-theme.js?v=20260210_4"></script>
-</meta></head>
+<link href="/assets/88st-tool-history.css?v=20260210_B1" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B1"></script>
+</meta><link href="/assets/88st-shell.css?v=20260210_B1" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=20260210_B1"></script>
+</head>
 <body>
 <div class="notice-bar">
 <a href="https://t.me/UZU59" id="noticeLink" rel="noopener" target="_blank">
@@ -1896,6 +1900,20 @@ const INSIGHTS_BY_SPORT = {
 </span>
 <span class="label"> 보증 · 인증 사이트  <span class="sub">바로 가기</span></span>
 </a>
+</div>
+
+<!-- 최근 저장된 계산 (로컬) -->
+<div class="tool-card-grid" style="margin-top:12px;">
+  <div class="tool-card-link" id="_88stHistoryHubCard" style="cursor:default;">
+    <div class="tool-card-head">
+      <div class="tool-card-icon" aria-hidden="true">⏱️</div>
+      <div>
+        <div class="tool-card-title">최근 저장된 계산</div>
+        <div class="tool-card-desc">저장한 계산 링크를 바로 열거나 복사할 수 있어요.</div>
+      </div>
+    </div>
+    <div id="_88stHistoryHub" data-limit="5"></div>
+  </div>
 </div>
 </div>
 <div class="section" id="whySection">

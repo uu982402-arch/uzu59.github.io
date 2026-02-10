@@ -196,6 +196,14 @@
       const oOut = outputs.oddsOut || "";
       return `배당 ${o} → ${pOut || "-"} · 확률 ${pr}% → ${oOut || "-"}`;
     }
+    if(tool === "kelly"){
+      const o = inputs.odds || "-";
+      const p = inputs.prob || "-";
+      const frac = inputs.frac || "-";
+      const cap = inputs.cap || "-";
+      const kFinal = outputs.kFinal || "";
+      return `배당 ${o} · 확률 ${p}% · ${frac}x · cap ${cap}% · 최종 ${kFinal || "-"}`;
+    }
     return `${cfg.title}`;
   }
 

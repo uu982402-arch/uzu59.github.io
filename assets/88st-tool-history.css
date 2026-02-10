@@ -181,3 +181,46 @@
   .stx-modal-box{ max-height:84vh; }
   .stx-btn{ padding:10px 11px; }
 }
+
+/* ===== History Hub (main/analysis/global) ===== */
+.stx-hub{
+  margin-top:10px;
+}
+.stx-hub .stx-hist-item{ padding:10px 12px; }
+.stx-hub-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+.stx-hub-title{
+  font-weight:1000;
+  letter-spacing:var(--tracking-h);
+}
+.stx-hub-sub{
+  margin-top:4px;
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+}
+.stx-hub-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+.stx-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid var(--panel-border);
+  background:color-mix(in srgb, var(--panel-2) 92%, transparent);
+  color:var(--text-2);
+  font-weight:900;
+  font-size:12px;
+}
+.stx-dot{
+  width:8px; height:8px;
+  border-radius:999px;
+  background:rgba(var(--accent-rgb), .75);
+  box-shadow:0 0 0 3px rgba(var(--accent-rgb), .12);
+}
