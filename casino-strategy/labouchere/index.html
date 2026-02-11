@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>라부셰르 배팅법(Labouchere) | 리스트 전략 바카라 계산기</title>
+  <meta name="description" content="라부셰르(Labouchere) 리스트 전략을 바카라 PLAYER 2.00 / BANKER 1.97 기준으로 계산합니다. 리스트 기반으로 다음 베팅을 즉시 산출하고 세션 트래커로 위험도를 관리하세요."/>
+  <meta name="keywords" content="라부셰르 배팅법, Labouchere 계산기, 리스트 전략, 목표 수익 설정, 손실 시 리스트 확장, 바카라 자금관리"/>
+  <meta name="robots" content="index,follow"/>
+  <link rel="canonical" href="https://88st.cloud/casino-strategy/labouchere/"/>
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="88 (팔팔커뮤니티)"/>
+  <meta property="og:title" content="라부셰르 배팅법(Labouchere) | 리스트 전략 바카라 계산기"/>
+  <meta property="og:description" content="라부셰르(Labouchere) 리스트 전략을 바카라 PLAYER 2.00 / BANKER 1.97 기준으로 계산합니다. 리스트 기반으로 다음 베팅을 즉시 산출하고 세션 트래커로 위험도를 관리하세요."/>
+  <meta property="og:url" content="https://88st.cloud/casino-strategy/labouchere/"/>
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+
+  <script defer src="/assets/theme-preset.js"></script>
+  <link rel="stylesheet" href="/assets/88st-shell.css?v=20260211_v22_casino1"/>
+  <script defer src="/assets/js/88st-shell.js?v=20260211_v22_casino1"></script>
+  <link rel="stylesheet" href="/assets/88st-strategy-landing.css?v=20260211_v22_casino1"/>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"홈","item":"https://88st.cloud/"},
+      {"@type":"ListItem","position":2,"name":"카지노 계산기","item":"https://88st.cloud/tool-casino/"},
+      {"@type":"ListItem","position":3,"name":"라부셰르","item":"https://88st.cloud/casino-strategy/labouchere/"}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"라부셰르(Labouchere) 전략은 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"목표 수익을 리스트(시퀀스)로 두고, 승/패에 따라 리스트를 줄이거나 늘리며 진행하는 전략입니다."}},
+    {"@type":"Question","name":"라부셰르 베팅 금액은 어떻게 정하나요?","acceptedAnswer":{"@type":"Answer","text":"기본적으로 리스트의 첫 항+마지막 항을 더한 값을 유닛으로 하여 베팅합니다."}},
+    {"@type":"Question","name":"연패가 길어지면 리스트가 커지나요?","acceptedAnswer":{"@type":"Answer","text":"네. 패배 시 리스트 끝에 (첫+끝) 유닛을 추가해 리스트가 커질 수 있습니다."}},
+    {"@type":"Question","name":"리스트는 어떻게 시작하는 게 좋나요?","acceptedAnswer":{"@type":"Answer","text":"보통 1,2,3,4 같은 짧은 리스트로 시작하며 자금/한도에 맞춰 조정합니다."}},
+    {"@type":"Question","name":"라부셰르는 수익을 보장하나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 변동성과 제한이 크므로 책임감 있게 이용하세요."}}
+  ]
+}
+  </script>
+</head>
+<body class="st-app">
+  <main class="st-land-wrap">
+    <section class="st-land-hero">
+      <h1>라부셰르</h1>
+      <p>리스트(시퀀스)로 목표 수익을 관리하는 라부셰르 소개 페이지입니다.</p>
+      <div class="st-land-cta">
+        <a class="st-land-btn primary" href="/tool-casino/#labouchere">계산기 바로가기</a>
+        <a class="st-land-btn" href="/tool-casino/">카지노 전략 계산기</a>
+      </div>
+      <p class="st-land-note" style="margin-top:10px;">바카라 기준 프리셋: <b>PLAYER 2.00</b> / <b>BANKER 1.97</b> (커미션 반영). 스피드 조작형(WIN/LOSE)으로 즉시 계산합니다.</p>
+    </section>
+
+    <div class="st-land-grid">
+      <section class="st-land-card">
+        <h2>빠른 요약</h2>
+        <div class="st-facts">
+          <div class="fact"><div class="k">승리 시</div><div class="v">WIN 시 리스트 양끝을 제거하며 목표 수익에 가까워집니다.</div></div>
+          <div class="fact"><div class="k">패배 시</div><div class="v">LOSE 시 (첫+끝) 유닛을 리스트 끝에 추가해 다음 베팅이 커질 수 있습니다.</div></div>
+          <div class="fact"><div class="k">리스크 포인트</div><div class="v">연패 시 리스트가 커져 베팅이 급증할 수 있습니다. 짧은 리스트+한도 설정을 권장합니다.</div></div>
+        </div>
+      </section>
+
+      <section class="st-land-card st-sticky">
+        <h2>추천 사용 방식</h2>
+        <ul class="st-steps">
+          <li><div class="s">1</div><div class="d">기본 베팅(유닛)과 단위 올림(예: 1,000원)을 설정합니다.</div></li>
+          <li><div class="s">2</div><div class="d">PLAYER/BANKER 프리셋을 선택합니다.</div></li>
+          <li><div class="s">3</div><div class="d">라운드 결과에 따라 <b>WIN/LOSE</b>만 누릅니다. 다음 베팅이 즉시 갱신됩니다.</div></li>
+          <li><div class="s">4</div><div class="d">세션 손익/최대 낙폭(MDD)로 과몰입을 방지합니다.</div></li>
+        </ul>
+      </section>
+
+      <section class="st-land-card" style="grid-column:1/-1;">
+        <h2>예시</h2>
+        <p style="margin:0;">예: PLAYER(2.00), 리스트 1,2,3,4(유닛)로 시작. 첫+끝(5유닛) 베팅 후 WIN이면 리스트가 줄어들고, LOSE면 5가 추가됩니다.</p>
+        <p class="st-land-note" style="margin-top:10px;">※ 실제 결과는 변동성이 큽니다. 참고용 도구로만 사용해 주세요.</p>
+      </section>
+
+      <section class="st-land-card st-faq" style="grid-column:1/-1;">
+        <h2>FAQ</h2>
+        <details><summary>라부셰르은(는) 몇 연패까지 버티나요?</summary><div class="st-land-note" style="margin-top:8px;">자금(뱅크롤), 기본베팅, 배당(특히 BANKER 1.97)과 단위 올림에 따라 달라집니다. 계산기에서 자금(선택)을 입력하면 세션 손익과 최대 낙폭을 함께 확인할 수 있습니다.</div></details>
+        <details><summary>BANKER 1.97에서 베팅이 더 커지는 이유는?</summary><div class="st-land-note" style="margin-top:8px;">승리 수익이 <b>베팅×(배당-1)</b>이기 때문에, BANKER는 (1.97-1)=0.97로 PLAYER(1.0)보다 회복에 필요한 베팅이 커질 수 있습니다.</div></details>
+        <details><summary>단위 올림(라운딩)은 왜 필요한가요?</summary><div class="st-land-note" style="margin-top:8px;">실전에서는 특정 단위(1,000/10,000원)로 베팅하는 경우가 많습니다. 라운딩을 적용하면 실제 베팅 환경과 더 잘 맞습니다.</div></details>
+        <details><summary>세션/자금 관리 트래커는 뭘 보여주나요?</summary><div class="st-land-note" style="margin-top:8px;">세션 손익(P/L), 최대 낙폭(MDD), 현재 단계와 최근 라운드 로그를 통해 현재 위험도를 한눈에 보여줍니다.</div></details>
+        <details><summary>이 전략은 수익을 보장하나요?</summary><div class="st-land-note" style="margin-top:8px;">어떤 배팅기법도 수익을 보장하지 않습니다. 변동성과 한도/규정/커미션 등의 변수가 크므로 책임감 있게 이용해 주세요.</div></details>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

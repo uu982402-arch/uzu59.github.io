@@ -118,6 +118,13 @@
     {group:"계산기", title:"EV 계산기", href:"/tool-ev/", tag:"계산기"},
     {group:"계산기", title:"배당↔확률 변환", href:"/tool-odds/", tag:"계산기"},
     {group:"계산기", title:"Kelly 비중", href:"/tool/kelly/", tag:"계산기"},
+    {group:"카지노 계산기", title:"바카라 전략 계산기", href:"/tool-casino/", tag:"카지노"},
+    {group:"카지노 계산기", title:"마틴게일", href:"/casino-strategy/martingale/", tag:"전략"},
+    {group:"카지노 계산기", title:"파롤리(역마틴게일)", href:"/casino-strategy/paroli/", tag:"전략"},
+    {group:"카지노 계산기", title:"달랑베르", href:"/casino-strategy/dalembert/", tag:"전략"},
+    {group:"카지노 계산기", title:"오스카 그라인드", href:"/casino-strategy/oscar-grind/", tag:"전략"},
+    {group:"카지노 계산기", title:"피보나치", href:"/casino-strategy/fibonacci/", tag:"전략"},
+    {group:"카지노 계산기", title:"라부셰르", href:"/casino-strategy/labouchere/", tag:"전략"},
     {group:"가이드", title:"입플 체크리스트", href:"/bonus-checklist/", tag:"가이드"},
     {group:"가이드", title:"카지노", href:"/casino/", tag:"가이드"},
     {group:"가이드", title:"슬롯", href:"/slot/", tag:"가이드"},
@@ -170,10 +177,24 @@
             <div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">계산기</button>
               <div class="st-shell-menu mega" role="menu" aria-label="계산기 목록">
-                <a href="/tool-margin/" role="menuitem"><span>마진 계산기</span><span class="hint">오버라운드</span></a>
-                <a href="/tool-ev/" role="menuitem"><span>EV 계산기</span><span class="hint">기대값</span></a>
-                <a href="/tool-odds/" role="menuitem"><span>배당↔확률</span><span class="hint">변환</span></a>
-                <a href="/tool/kelly/" role="menuitem"><span>Kelly 비중</span><span class="hint">리스크</span></a>
+                <div class="st-shell-menu-group">
+                  <div class="st-shell-menu-title">스포츠 계산기</div>
+                  <a href="/tool-margin/" role="menuitem"><span>마진 계산기</span><span class="hint">오버라운드</span></a>
+                  <a href="/tool-ev/" role="menuitem"><span>EV 계산기</span><span class="hint">기대값</span></a>
+                  <a href="/tool-odds/" role="menuitem"><span>배당↔확률</span><span class="hint">변환</span></a>
+                  <a href="/tool/kelly/" role="menuitem"><span>Kelly 비중</span><span class="hint">리스크</span></a>
+                </div>
+                <div class="st-shell-menu-sep" aria-hidden="true"></div>
+                <div class="st-shell-menu-group">
+                  <div class="st-shell-menu-title">카지노 계산기</div>
+                  <a href="/tool-casino/" role="menuitem"><span>바카라 전략 계산기</span><span class="hint">스피드</span></a>
+                  <a href="/casino-strategy/martingale/" role="menuitem"><span>마틴게일</span><span class="hint">손실회복</span></a>
+                  <a href="/casino-strategy/paroli/" role="menuitem"><span>파롤리</span><span class="hint">연승</span></a>
+                  <a href="/casino-strategy/dalembert/" role="menuitem"><span>달랑베르</span><span class="hint">완만</span></a>
+                  <a href="/casino-strategy/oscar-grind/" role="menuitem"><span>오스카 그라인드</span><span class="hint">1유닛</span></a>
+                  <a href="/casino-strategy/fibonacci/" role="menuitem"><span>피보나치</span><span class="hint">수열</span></a>
+                  <a href="/casino-strategy/labouchere/" role="menuitem"><span>라부셰르</span><span class="hint">리스트</span></a>
+                </div>
               </div>
             </div>
 
@@ -234,10 +255,20 @@
             <details class="st-shell-acc" open>
               <summary class="st-shell-link">계산기</summary>
               <div class="st-shell-acc-body">
+                <div class="st-shell-acc-title">스포츠 계산기</div>
                 <a class="st-shell-link" href="/tool-margin/">마진 계산기</a>
                 <a class="st-shell-link" href="/tool-ev/">EV 계산기</a>
                 <a class="st-shell-link" href="/tool-odds/">배당↔확률</a>
                 <a class="st-shell-link" href="/tool/kelly/">Kelly 비중</a>
+                <div class="st-shell-acc-sep" aria-hidden="true"></div>
+                <div class="st-shell-acc-title">카지노 계산기</div>
+                <a class="st-shell-link" href="/tool-casino/">바카라 전략 계산기</a>
+                <a class="st-shell-link" href="/casino-strategy/martingale/">마틴게일</a>
+                <a class="st-shell-link" href="/casino-strategy/paroli/">파롤리</a>
+                <a class="st-shell-link" href="/casino-strategy/dalembert/">달랑베르</a>
+                <a class="st-shell-link" href="/casino-strategy/oscar-grind/">오스카 그라인드</a>
+                <a class="st-shell-link" href="/casino-strategy/fibonacci/">피보나치</a>
+                <a class="st-shell-link" href="/casino-strategy/labouchere/">라부셰르</a>
               </div>
             </details>
 
