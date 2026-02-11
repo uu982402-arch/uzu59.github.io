@@ -51,38 +51,41 @@
           </div>
         </a>
 
-        <nav class="st-shell-nav" aria-label="주요 메뉴">
-          <a class="st-shell-link" href="/" data-act="nav" data-path="/"${isActive("/") ? "" : ""}>홈</a>
-          <a class="st-shell-link" href="/analysis/" data-act="nav" data-path="/analysis/">분석기</a>
-          <div class="st-shell-dd">
-            <div class="st-shell-link" role="button" tabindex="0" aria-label="계산기 메뉴">계산기</div>
-            <div class="st-shell-menu" role="menu" aria-label="계산기 목록">
-              <a href="/tool-margin/" role="menuitem"><span>마진 계산기</span><span class="hint">오버라운드</span></a>
-              <a href="/tool-ev/" role="menuitem"><span>EV 계산기</span><span class="hint">기대값</span></a>
-              <a href="/tool-odds/" role="menuitem"><span>배당↔확률</span><span class="hint">변환</span></a>
-              <a href="/tool/kelly/" role="menuitem"><span>Kelly 비중</span><span class="hint">리스크</span></a>
-              <a href="/tool/overround/" role="menuitem"><span>마진(미러)</span><span class="hint">레거시</span></a>
-            </div>
-          </div>
-          <div class="st-shell-dd">
-            <div class="st-shell-link" role="button" tabindex="0" aria-label="가이드 메뉴">가이드</div>
-            <div class="st-shell-menu" role="menu" aria-label="가이드 목록">
-              <a href="/bonus-checklist/" role="menuitem"><span>입플 체크</span><span class="hint">필수</span></a>
-              <a href="/casino/" role="menuitem"><span>카지노</span><span class="hint">기초</span></a>
-              <a href="/slot/" role="menuitem"><span>슬롯</span><span class="hint">기초</span></a>
-              <a href="/minigame/" role="menuitem"><span>미니게임</span><span class="hint">기초</span></a>
-              <a href="/ipl/" role="menuitem"><span>IPL</span><span class="hint">기초</span></a>
-                          </div>
-          </div>
-        
+        <div class="st-shell-center">
+          <nav class="st-shell-nav" aria-label="주요 메뉴">
+            <a class="st-shell-link" href="/#vendors-guarantee">보증업체</a>
+            <a class="st-shell-link" href="/#vendors-verified">인증업체</a>
+            <a class="st-shell-link" href="/analysis/">분석기</a>
 
-          <div class="st-shell-dd">
-            <div class="st-shell-link" role="button" tabindex="0" aria-label="보증사이트 메뉴">보증사이트</div>
-            <div class="st-shell-menu" role="menu" aria-label="보증사이트 목록">
-              <a href="/speed/" role="menuitem"><span>SPEED</span><span class="hint">promo</span></a>
-              <a href="/ok/" role="menuitem"><span>OK</span><span class="hint">promo</span></a>
+            <div class="st-shell-dd">
+              <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">계산기</button>
+              <div class="st-shell-menu" role="menu" aria-label="계산기 목록">
+                <a href="/tool-margin/" role="menuitem"><span>마진 계산기</span><span class="hint">오버라운드</span></a>
+                <a href="/tool-ev/" role="menuitem"><span>EV 계산기</span><span class="hint">기대값</span></a>
+                <a href="/tool-odds/" role="menuitem"><span>배당↔확률</span><span class="hint">변환</span></a>
+                <a href="/tool/kelly/" role="menuitem"><span>Kelly 비중</span><span class="hint">리스크</span></a>
+                <a href="/tool/overround/" role="menuitem"><span>마진(미러)</span><span class="hint">레거시</span></a>
+              </div>
             </div>
-          </div></nav>
+
+            <div class="st-shell-dd">
+              <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">가이드</button>
+              <div class="st-shell-menu" role="menu" aria-label="가이드 목록">
+                <a href="/bonus-checklist/" role="menuitem"><span>입플 체크</span><span class="hint">필수</span></a>
+                <a href="/casino/" role="menuitem"><span>카지노</span><span class="hint">기초</span></a>
+                <a href="/slot/" role="menuitem"><span>슬롯</span><span class="hint">기초</span></a>
+                <a href="/minigame/" role="menuitem"><span>미니게임</span><span class="hint">기초</span></a>
+                <a href="/ipl/" role="menuitem"><span>IPL</span><span class="hint">기초</span></a>
+              </div>
+            </div>
+          </nav>
+
+          <a class="st-shell-search" href="https://www.google.com/search?q=%ED%8C%94%ED%8C%94%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0" target="_blank" rel="noopener" aria-label="구글에서 팔팔커뮤니티 검색">
+            <span class="g" aria-hidden="true"></span>
+            <span class="q">구글에서 <b>팔팔커뮤니티</b> 검색</span>
+            <span class="kbd">바로가기</span>
+          </a>
+        </div>
 
         <div class="st-shell-actions">
           <button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn">최근 저장</button>
@@ -99,6 +102,68 @@
       document.body.insertBefore(header, document.body.firstChild);
     }
 
+
+
+    // Desktop dropdown: click-to-open (PC hover 메뉴 클릭 불가 문제 방지)
+    try{
+      const dds = $$('.st-shell-dd', header);
+      const closeAll = (except)=>{
+        dds.forEach(dd=>{
+          if(except && dd === except) return;
+          dd.classList.remove('open');
+          const b = dd.querySelector('[aria-haspopup="menu"]');
+          if(b) b.setAttribute('aria-expanded','false');
+        });
+      };
+
+      const openOne = (dd)=>{
+        closeAll(dd);
+        dd.classList.add('open');
+        const b = dd.querySelector('[aria-haspopup="menu"]');
+        if(b) b.setAttribute('aria-expanded','true');
+      };
+
+      dds.forEach(dd=>{
+        const btn = dd.querySelector('[aria-haspopup="menu"]');
+        const menu = dd.querySelector('.st-shell-menu');
+        if(!btn || !menu) return;
+
+        btn.addEventListener('click', (e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          const isOpen = dd.classList.contains('open');
+          if(isOpen) closeAll();
+          else openOne(dd);
+        });
+
+        btn.addEventListener('keydown', (e)=>{
+          const k = e.key;
+          if(k === 'Enter' || k === ' '){
+            e.preventDefault();
+            btn.click();
+          }
+          if(k === 'ArrowDown'){
+            e.preventDefault();
+            openOne(dd);
+            const a = menu.querySelector('a');
+            if(a) a.focus();
+          }
+        });
+
+        menu.querySelectorAll('a').forEach(a=>{
+          a.addEventListener('click', ()=> closeAll());
+        });
+      });
+
+      document.addEventListener('click', (e)=>{
+        const t = e.target;
+        if(!(t instanceof HTMLElement)) return;
+        if(!header.contains(t)) closeAll();
+      });
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape') closeAll();
+      });
+    }catch(e){}
     // Mobile drawer
     const drawer = document.createElement("div");
     drawer.id = "_88stShellDrawer";
@@ -111,22 +176,24 @@
             <button class="st-shell-btn ghost" type="button" data-close="1" aria-label="닫기">✕</button>
           </div>
           <div class="st-shell-drawer-body">
+            <a class="st-shell-link" href="/#vendors-guarantee">보증업체</a>
+            <a class="st-shell-link" href="/#vendors-verified">인증업체</a>
             <a class="st-shell-link" href="/analysis/">분석기</a>
             <div class="st-shell-divider"></div>
+            <div style="font-weight:900; font-size:12px; opacity:.75; margin:6px 2px 2px;">계산기</div>
             <a class="st-shell-link" href="/tool-margin/">마진 계산기</a>
             <a class="st-shell-link" href="/tool-ev/">EV 계산기</a>
             <a class="st-shell-link" href="/tool-odds/">배당↔확률</a>
             <a class="st-shell-link" href="/tool/kelly/">Kelly 비중</a>
             <div class="st-shell-divider"></div>
-            <a class="st-shell-link" href="/bonus-checklist/">입플 체크리스트</a>
+            <div style="font-weight:900; font-size:12px; opacity:.75; margin:6px 2px 2px;">가이드</div>
+            <a class="st-shell-link" href="/bonus-checklist/">입플 체크</a>
             <a class="st-shell-link" href="/casino/">카지노</a>
             <a class="st-shell-link" href="/slot/">슬롯</a>
             <a class="st-shell-link" href="/minigame/">미니게임</a>
             <a class="st-shell-link" href="/ipl/">IPL</a>
             <div class="st-shell-divider"></div>
-            <div style="font-weight:900; font-size:12px; opacity:.75; margin:6px 2px 2px;">보증사이트</div>
-            <a class="st-shell-link" href="/speed/">SPEED</a>
-            <a class="st-shell-link" href="/ok/">OK</a>
+            <a class="st-shell-link" href="https://www.google.com/search?q=%ED%8C%94%ED%8C%94%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0" target="_blank" rel="noopener">구글에서 팔팔커뮤니티 검색</a>
           </div>
           <div class="st-shell-drawer-foot">
             <button class="st-shell-btn ghost" type="button" id="_88stGlobalHistoryBtn2">최근 저장</button>
@@ -136,31 +203,6 @@
       </div>
     `;
     document.body.appendChild(drawer);
-
-    const burger = document.getElementById("_88stShellBurger");
-    const wrap = drawer.querySelector(".st-shell-drawer");
-    const openDrawer = ()=>{
-      if(!wrap) return;
-      wrap.classList.add("open");
-      wrap.setAttribute("aria-hidden","false");
-      burger && burger.setAttribute("aria-expanded","true");
-    };
-    const closeDrawer = ()=>{
-      if(!wrap) return;
-      wrap.classList.remove("open");
-      wrap.setAttribute("aria-hidden","true");
-      burger && burger.setAttribute("aria-expanded","false");
-    };
-
-    if(burger) burger.addEventListener("click", openDrawer);
-    drawer.addEventListener("click", (e)=>{
-      const t = e.target;
-      if(!(t instanceof HTMLElement)) return;
-      if(t.dataset.close === "1") closeDrawer();
-    });
-    document.addEventListener("keydown", (e)=>{
-      if(e.key === "Escape") closeDrawer();
-    });
 
     // Mirror history button
     const btn2 = document.getElementById("_88stGlobalHistoryBtn2");

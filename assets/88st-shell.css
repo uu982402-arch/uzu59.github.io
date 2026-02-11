@@ -162,3 +162,138 @@ body.st-shell-on > .topbar{ display:none !important; }
   .st-shell-sub{ display:none; }
   .st-shell-nav{ display:none; }
 }
+
+/* ===== Luxury v2.2 Header Center Search + Dropdown Click Fix ===== */
+.st-shell-center{ display:flex; align-items:center; justify-content:center; gap:10px; flex:1; min-width:0; }
+.st-shell-nav{ flex-wrap:nowrap; }
+
+/* Google-like search bar (visual + link) */
+.st-shell-search{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:color-mix(in srgb, rgba(255,255,255,.07) 70%, transparent);
+  box-shadow: 0 10px 30px rgba(0,0,0,.28);
+  text-decoration:none;
+  min-width: 280px;
+  max-width: 360px;
+  flex: 0 1 360px;
+}
+.st-shell-search:hover{ filter:brightness(1.05); border-color:rgba(var(--accent-rgb), .24); }
+.st-shell-search:active{ transform:scale(.99); }
+.st-shell-search .g{
+  width:18px; height:18px;
+  border-radius:999px;
+  background: conic-gradient(from 225deg, #4285F4, #34A853, #FBBC05, #EA4335, #4285F4);
+  box-shadow: 0 6px 16px rgba(0,0,0,.26);
+  flex: 0 0 18px;
+}
+.st-shell-search .q{
+  font-weight:950;
+  font-size:12px;
+  color: rgba(244,246,255,.86);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  min-width:0;
+}
+.st-shell-search .hint{
+  margin-left:auto;
+  font-size:11px;
+  font-weight:900;
+  color: rgba(244,246,255,.62);
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.18);
+  padding:6px 10px;
+  border-radius:999px;
+}
+
+/* Dropdown: allow click-open + ensure pointer/click works on desktop */
+.st-shell-menu{ z-index: 1800; }
+.st-shell-dd.open .st-shell-menu{ display:block; }
+.st-shell-dd:hover .st-shell-menu{ display:block; }
+/* hover bridge */
+.st-shell-dd::after{ content:""; position:absolute; left:0; right:0; top:100%; height:8px; }
+
+@media (max-width: 1060px){
+  .st-shell-search{ display:none; }
+}
+
+/* ===== Luxury v2.2 Header Center Search + Dropdown Click Fix ===== */
+.st-shell-center{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex:1;
+  min-width:0;
+}
+
+/* Google-like search bar (visual + link) */
+.st-shell-search{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:color-mix(in srgb, var(--panel-2) 80%, rgba(255,255,255,.02));
+  box-shadow: 0 10px 26px rgba(0,0,0,.28);
+  text-decoration:none;
+  color:var(--text);
+  max-width: 360px;
+  min-width: 280px;
+  flex: 0 1 360px;
+  transition: transform .13s cubic-bezier(.2,.9,.2,1), filter .13s ease, border-color .13s ease, background .13s ease;
+}
+.st-shell-search:hover{ transform:translateY(-1px); filter:brightness(1.06); border-color:rgba(var(--accent-rgb), .28); }
+.st-shell-search:active{ transform:translateY(0) scale(.99); }
+
+.st-shell-search .g{
+  width:18px; height:18px;
+  border-radius:999px;
+  background: conic-gradient(from 210deg, #4285F4 0 25%, #34A853 0 50%, #FBBC05 0 75%, #EA4335 0 100%);
+  box-shadow: 0 0 0 3px rgba(255,255,255,.08);
+  flex: 0 0 auto;
+}
+.st-shell-search .q{
+  font-weight:950;
+  font-size:12px;
+  color: rgba(244,246,255,.82);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  min-width:0;
+}
+.st-shell-search .kbd{
+  margin-left:auto;
+  padding:6px 8px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.16);
+  font-size:11px;
+  font-weight:900;
+  color: rgba(244,246,255,.72);
+}
+
+/* Dropdown: allow click open + ensure menu is on top */
+.st-shell-dd{ position:relative; }
+.st-shell-dd::after{ content:""; position:absolute; left:0; right:0; top:100%; height:10px; }
+.st-shell-dd > .st-shell-link::after{ content:"▾"; font-size:11px; opacity:.75; }
+.st-shell-menu{
+  position:absolute;
+  top:calc(100% + 6px);
+  left:0;
+  z-index: 1700;
+}
+.st-shell-dd:hover .st-shell-menu,
+.st-shell-dd.open .st-shell-menu{ display:block; }
+
+/* Hide search earlier on smaller widths to keep header tidy */
+@media (max-width: 1060px){
+  .st-shell-search{ display:none; }
+}
+
