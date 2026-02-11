@@ -224,10 +224,12 @@ textarea, .bundle-ta, .share-ta, .promo-ta{
   user-select:none;
 }
 
-/* Mobile: keep the toggle near the header (avoid covering cards/buttons) */
+/* Mobile: pin to bottom-right (prevents covering hero/cards at the top) */
 @media (max-width: 860px){
   #_88stThemeToggle{
     right:12px;
+    top:auto !important;
+    bottom:calc(14px + env(safe-area-inset-bottom, 0px));
     padding:10px 12px;
     gap:8px;
   }

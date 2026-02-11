@@ -9,6 +9,11 @@ body{ margin:0; }
 
 .cs-wrap{ max-width: var(--cs-max); margin: 0 auto; padding: 18px 14px 44px; }
 
+/* Mobile: add safe bottom padding so fixed theme toggle doesn't cover last controls */
+@media (max-width: 860px){
+  .cs-wrap{ padding-bottom: 96px; }
+}
+
 .cs-hero{
   margin-top: 10px;
   border:1px solid var(--panel-border, rgba(255,255,255,.10));

@@ -142,3 +142,56 @@ body.st-premium :focus-visible{
   outline: none;
   box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .18);
 }
+
+/* App-like WHY cards: stable 3-col on desktop, 1-col on mobile (even if inline styles exist) */
+body.st-premium .odds-summary-card{ display:flex; flex-direction:column; gap:10px; }
+
+body.st-premium .odds-summary-row{ align-items:stretch; }
+
+/* Desktop: confident 3 columns */
+@media (min-width: 921px){
+  body.st-premium .odds-summary-row{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Mobile: force single column (overrides inline grid-template-columns) */
+@media (max-width: 920px){
+  body.st-premium .odds-summary-row{ grid-template-columns: 1fr !important; gap:12px; }
+}
+
+/* Metric blocks: consistent height + better vertical rhythm */
+body.st-premium .odds-metric{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height: 118px;
+}
+@media (max-width: 520px){
+  body.st-premium .odds-summary-card{ padding: 12px !important; }
+  body.st-premium .odds-metric{ min-height: 104px; padding: 10px 10px 9px; }
+  body.st-premium .odds-metric-value{ font-size: clamp(22px, 9vw, 30px); }
+}
+
+/* CTA: bottom-aligned and full-width on mobile for an "app" feel */
+body.st-premium .odds-summary-cta{
+  margin-top: auto;
+  display:flex;
+  justify-content:flex-end;
+  padding-top: 6px;
+}
+@media (max-width: 920px){
+  body.st-premium .odds-summary-cta{ justify-content:stretch; }
+  body.st-premium .odds-summary-cta a{ width:100%; justify-content:center; }
+}
+
+/* WHY duo cards (스포츠/카지노) — desktop: 2-up equal height, mobile: stack */
+body.st-premium .why-duo{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 921px){
+  body.st-premium .why-duo{ grid-template-columns: 1fr 1fr; align-items:stretch; }
+  body.st-premium .why-duo > .odds-summary-card{ height:100%; }
+}
