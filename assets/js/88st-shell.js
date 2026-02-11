@@ -6,8 +6,9 @@
   const UNIFY_CSS    = "/assets/88st-unify.css?v=20260210_LUX2";
   const LUX2_CSS     = "/assets/88st-luxury-v2.css?v=20260210_LUX2";
   const TOOL_HIS_CSS = "/assets/88st-tool-history.css?v=20260210_LUX2";
-  const MOBILE_POLISH_CSS = "/assets/mobile-polish.css?v=20260211_POL2";
-  const POLISH_CSS        = "/assets/88st-polish.css?v=20260211_POL2";
+  // cache-bust for polish tweaks
+  const MOBILE_POLISH_CSS = "/assets/mobile-polish.css?v=20260211_POL3";
+  const POLISH_CSS        = "/assets/88st-polish.css?v=20260211_POL3";
 
   function ensureCss(href){
     try{
@@ -163,9 +164,6 @@
 
         <div class="st-shell-center">
           <nav class="st-shell-nav" aria-label="주요 메뉴">
-            <a class="st-shell-link" href="/#vendors-guarantee">보증업체</a>
-            <a class="st-shell-link" href="/#vendors-verified">인증업체</a>
-
             <div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">보증사이트</button>
               <div class="st-shell-menu mega" role="menu" aria-label="보증사이트">
@@ -179,7 +177,7 @@
 
             <div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">계산기</button>
-              <div class="st-shell-menu mega" role="menu" aria-label="계산기 목록">
+              <div class="st-shell-menu mega st-shell-mega-grid" role="menu" aria-label="계산기 목록">
                 <div class="st-shell-menu-group">
                   <div class="st-shell-menu-title">스포츠 계산기</div>
                   <a href="/tool-margin/" role="menuitem"><span>마진 계산기</span><span class="hint">오버라운드</span></a>
@@ -215,12 +213,10 @@
           <button class="st-shell-search" type="button" id="_88stSearchOpen" aria-label="통합검색 열기">
             <span class="g" aria-hidden="true"></span>
             <span class="q">구글창처럼 <b>팔팔커뮤니티</b> 검색 →</span>
-            <span class="kbd">Ctrl K</span>
           </button>
         </div>
 
         <div class="st-shell-actions">
-          <button class="st-shell-btn ghost" type="button" id="_88stUserOpen">내 메뉴</button>
           <button class="st-shell-btn ghost" type="button" id="_88stShellBurger" aria-label="메뉴" aria-expanded="false">☰</button>
         </div>
       </div>
@@ -241,9 +237,6 @@
             <button class="st-shell-btn ghost" type="button" data-close="1" aria-label="닫기">✕</button>
           </div>
           <div class="st-shell-drawer-body">
-            <a class="st-shell-link" href="/#vendors-guarantee">보증업체</a>
-            <a class="st-shell-link" href="/#vendors-verified">인증업체</a>
-
             <details class="st-shell-acc" open>
               <summary class="st-shell-link">보증사이트</summary>
               <div class="st-shell-acc-body">
@@ -287,7 +280,6 @@
           </div>
           <div class="st-shell-drawer-foot">
             <button class="st-shell-btn ghost" type="button" id="_88stDrawerSearch">검색</button>
-            <button class="st-shell-btn" type="button" id="_88stDrawerUser">내 메뉴</button>
           </div>
         </div>
       </div>
@@ -309,32 +301,10 @@
             <input class="st-shell-input" id="_88stSearchInput" placeholder="검색어 입력 (예: 마진, 인증, SPEED, 카지노)" />
             <div class="st-shell-chips" id="_88stSearchChips"></div>
             <div class="st-shell-results" id="_88stSearchResults"></div>
-            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
-              <a class="st-shell-chip" href="https://www.google.com/search?q=%ED%8C%94%ED%8C%94%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0" target="_blank" rel="noopener">구글에서 팔팔커뮤니티 검색</a>
-            </div>
-          </div>
-          <div class="st-shell-modal-foot">
-            <span class="st-shell-kbd">팁: Ctrl/Cmd + K</span>
           </div>
         </div>
       </div>
 
-      <div class="st-shell-modal" id="_88stUserModal" aria-hidden="true">
-        <div class="st-shell-modal-backdrop" data-close="1"></div>
-        <div class="st-shell-modal-box" role="dialog" aria-modal="true" aria-label="내 메뉴">
-          <div class="st-shell-modal-head">
-            <div class="st-shell-modal-title">내 메뉴</div>
-            <button class="st-shell-icon" type="button" data-close="1" aria-label="닫기">✕</button>
-          </div>
-          <div class="st-shell-modal-body">
-            <div class="st-shell-tabs" role="tablist">
-              <button class="st-shell-tab is-on" type="button" data-tab="fav">즐겨찾기</button>
-              <button class="st-shell-tab" type="button" data-tab="recent">최근</button>
-            </div>
-            <div id="_88stUserBody"></div>
-          </div>
-        </div>
-      </div>
     `;
     document.body.appendChild(modalWrap);
 
@@ -583,7 +553,7 @@
     }
 
     userOpenBtn?.addEventListener('click', openUser);
-    userModal?.querySelectorAll('.st-shell-tab').forEach(btn=>{
+    userModal?.querySelectorAll('.st-shell-tab')?.forEach(btn=>{
       btn.addEventListener('click', ()=> setTab(btn.getAttribute('data-tab')||'fav'));
     });
 

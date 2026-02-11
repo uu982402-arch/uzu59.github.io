@@ -94,3 +94,188 @@ body.st-shell-on :where(.seg.active, .v-chip.active, .chip.active, .nav a.active
 
 /* ---- Prevent horizontal jiggle on touch devices ---- */
 body{ overflow-x: hidden; }
+
+/* ========================================================================
+   Premium Header Polish ("돈 많이 투자한" 느낌)
+   - 더 넓은 컨테이너 + 리듬 통일
+   - 센터 레일(rail)로 메뉴를 한 덩어리처럼 고급스럽게
+   - 타이포/버튼 사이즈 업, 간격 조정, 정렬 안정화
+   ======================================================================== */
+
+/* Wider shell container + balanced padding (desktop) */
+:root{
+  --shell-max: 1240px;
+  --shell-h: 66px;
+  --shell-pad: 18px;
+}
+
+/* Header glass: richer depth + premium highlight line */
+body.st-shell-on .st-shell-header{
+  box-shadow: 0 18px 60px rgba(0,0,0,.26);
+}
+body.st-shell-on .st-shell-header::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-1px;
+  height:1px;
+  background: linear-gradient(90deg,
+    rgba(var(--accent-rgb),0) 0%,
+    rgba(var(--accent-rgb),.32) 20%,
+    rgba(255,255,255,.10) 50%,
+    rgba(var(--accent-rgb),.32) 80%,
+    rgba(var(--accent-rgb),0) 100%
+  );
+  pointer-events:none;
+}
+
+/* Layout: make the header feel filled & aligned */
+body.st-shell-on .st-shell-inner{
+  padding: 10px var(--shell-pad);
+  gap: 14px;
+}
+
+/* Brand block: a bit stronger, less "thin" */
+body.st-shell-on .st-shell-brand{ min-width: 200px; }
+body.st-shell-on .st-shell-logo{ width:36px; height:36px; border-radius:14px; }
+body.st-shell-on .st-shell-title{ font-size: 14px; }
+body.st-shell-on .st-shell-sub{ font-size: 11px; letter-spacing: .02em; }
+
+/* Brand wordmark: subtle luxe gradient (dark mode), plain in light mode */
+:root:not([data-theme="light"]) body.st-shell-on .st-shell-title{
+  background: linear-gradient(90deg, var(--gold2), rgba(255,255,255,.92));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 10px 28px rgba(0,0,0,.28);
+}
+:root[data-theme="light"] body.st-shell-on .st-shell-title{
+  background: none;
+  color: var(--text);
+  text-shadow: none;
+}
+
+/* Center rail: visually unify nav + search into one expensive glass pill */
+body.st-shell-on .st-shell-center{
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: color-mix(in srgb, var(--panel) 58%, rgba(255,255,255,.04));
+  box-shadow: 0 16px 44px rgba(0,0,0,.22);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Nav group centered in the rail */
+body.st-shell-on .st-shell-nav{
+  flex: 1 1 auto;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Premium pill links: consistent height, slightly larger, cleaner borders */
+body.st-shell-on .st-shell-link{
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 1000;
+  border-color: rgba(255,255,255,.10);
+  background: rgba(0,0,0,.08);
+  min-height: 42px;
+}
+@media (hover:hover){
+  body.st-shell-on .st-shell-link:hover{
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .10);
+  }
+}
+
+/* Dropdown menu: bigger hit areas + title separators */
+body.st-shell-on .st-shell-menu{
+  border-radius: 20px;
+}
+body.st-shell-on .st-shell-menu a{ padding: 12px 12px; }
+
+/* Mega dropdown grid for calculator menu (2 columns with section titles) */
+body.st-shell-on .st-shell-mega-grid{
+  min-width: 560px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+body.st-shell-on .st-shell-mega-grid .st-shell-menu-sep{ display:none; }
+body.st-shell-on .st-shell-mega-grid .st-shell-menu-group{
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+}
+body.st-shell-on .st-shell-mega-grid .st-shell-menu-title{
+  font-size: 11px;
+  font-weight: 1000;
+  letter-spacing: .06em;
+  color: var(--muted);
+  padding: 4px 8px 2px;
+}
+body.st-shell-on .st-shell-mega-grid a{
+  background: rgba(0,0,0,.06);
+  border: 1px solid rgba(255,255,255,.08);
+}
+@media (hover:hover){
+  body.st-shell-on .st-shell-mega-grid a:hover{
+    border-color: rgba(var(--accent-rgb), .22);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .08);
+  }
+}
+
+@media (max-width: 720px){
+  body.st-shell-on .st-shell-mega-grid{ min-width: 0; width: calc(100vw - 28px); grid-template-columns: 1fr; }
+}
+
+/* Mobile: when nav/search are hidden, remove empty rail and keep header clean */
+@media (max-width: 860px){
+  body.st-shell-on .st-shell-center{ display:none; }
+}
+
+/* Search button inside rail: make it feel like part of the system */
+body.st-shell-on .st-shell-search{
+  box-shadow: none;
+  border-color: rgba(255,255,255,.10);
+  background: rgba(0,0,0,.10);
+  min-width: 240px;
+  max-width: 340px;
+  height: 42px;
+  padding: 10px 14px;
+}
+body.st-shell-on .st-shell-search .q{
+  color: color-mix(in srgb, var(--text) 86%, transparent);
+}
+
+/* Burger button: match pills */
+body.st-shell-on .st-shell-btn.ghost{
+  border-color: rgba(255,255,255,.10);
+  background: rgba(0,0,0,.10);
+  min-height: 42px;
+  border-radius: 999px;
+  padding: 10px 14px;
+}
+
+/* Light mode: rail/background shouldn't look "dirty" */
+:root[data-theme="light"] body.st-shell-on .st-shell-center{
+  border-color: rgba(0,0,0,.08);
+  background: color-mix(in srgb, var(--panel) 88%, rgba(255,255,255,.02));
+  box-shadow: 0 18px 56px rgba(0,0,0,.10);
+}
+:root[data-theme="light"] body.st-shell-on .st-shell-link,
+:root[data-theme="light"] body.st-shell-on .st-shell-search,
+:root[data-theme="light"] body.st-shell-on .st-shell-btn.ghost{
+  border-color: rgba(0,0,0,.10);
+  background: rgba(255,255,255,.40);
+}
+
+/* Small desktops: keep rail readable but avoid overflow */
+@media (max-width: 1180px){
+  :root{ --shell-pad: 14px; }
+  body.st-shell-on .st-shell-link{ padding: 10px 12px; }
+  body.st-shell-on .st-shell-search{ min-width: 220px; }
+}
+
