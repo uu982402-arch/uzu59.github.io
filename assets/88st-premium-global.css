@@ -1,0 +1,144 @@
+/* 88ST Premium Global Layer — page-wide luxe polish (dark/light safe)
+   Loaded after theme/unify/lux/polish. Keep changes additive and non-breaking. */
+
+:root{
+  /* Wider, more premium layout rail */
+  --shell-max: 1240px;
+  --shell-pad: 16px;
+  --st-container: var(--shell-max);
+
+  /* Slightly richer shadows (theme already sets; we nudge) */
+  --shadow-sm: 0 1px 0 rgba(255,255,255,.06), 0 12px 34px rgba(0,0,0,.50);
+  --shadow-md: 0 1px 0 rgba(255,255,255,.07), 0 22px 70px rgba(0,0,0,.62);
+  --shadow-lg: 0 1px 0 rgba(255,255,255,.08), 0 34px 110px rgba(0,0,0,.72);
+}
+
+:root[data-theme="light"]{
+  --shadow-sm: 0 1px 0 rgba(16,24,40,.04), 0 12px 32px rgba(16,24,40,.12);
+  --shadow-md: 0 1px 0 rgba(16,24,40,.05), 0 22px 64px rgba(16,24,40,.14);
+  --shadow-lg: 0 1px 0 rgba(16,24,40,.06), 0 34px 96px rgba(16,24,40,.16);
+}
+
+/* Premium background glaze (keeps existing bg token, adds depth) */
+body.st-premium{
+  background:
+    radial-gradient(1200px 700px at 12% -10%, rgba(var(--accent-rgb), .18), transparent 60%),
+    radial-gradient(1000px 650px at 92% 0%, rgba(90,160,255, .14), transparent 58%),
+    radial-gradient(900px 700px at 50% 110%, rgba(255,255,255, .06), transparent 60%),
+    var(--bg) !important;
+}
+
+body.st-premium::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  /* Subtle vignette + sheen */
+  background:
+    radial-gradient(900px 520px at 50% -8%, rgba(255,255,255,.06), transparent 55%),
+    radial-gradient(1100px 820px at 50% 110%, rgba(0,0,0,.38), transparent 58%),
+    linear-gradient(180deg, rgba(0,0,0,.16), transparent 26%, rgba(0,0,0,.22));
+  opacity:.85;
+  mix-blend-mode: normal;
+  z-index:0;
+}
+
+:root[data-theme="light"] body.st-premium::before{
+  background:
+    radial-gradient(900px 520px at 50% -8%, rgba(255,255,255,.55), transparent 60%),
+    radial-gradient(1100px 820px at 50% 110%, rgba(16,24,40,.10), transparent 62%),
+    linear-gradient(180deg, rgba(255,255,255,.40), transparent 28%, rgba(16,24,40,.06));
+  opacity:.55;
+}
+
+/* Ensure main content is above the background glaze */
+body.st-premium > *{ position:relative; z-index:1; }
+
+/* Numbers look more "tool-like" */
+body.st-premium{ font-variant-numeric: tabular-nums; }
+
+/* Badge + section title: crisp and premium */
+body.st-premium .badge{
+  border:1px solid rgba(var(--accent-rgb), .22);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), .22), color-mix(in srgb, var(--panel) 86%, transparent));
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
+}
+:root[data-theme="light"] body.st-premium .badge{
+  box-shadow: 0 10px 24px rgba(16,24,40,.08);
+}
+
+/* Card surface highlight (non-destructive) */
+body.st-premium :where(.card,.box,.panel,.tile,.section,.hero,.modal-box,.calc-card,.tool-card,.vendor-card,.odds-summary-card,.rel-links){
+  position:relative;
+  overflow:hidden;
+  box-shadow: var(--shadow-sm);
+}
+body.st-premium :where(.card,.box,.panel,.tile,.section,.hero,.modal-box,.calc-card,.tool-card,.vendor-card,.odds-summary-card,.rel-links)::after{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.10), transparent 42%),
+    radial-gradient(900px 320px at 12% 0%, rgba(var(--accent-rgb), .12), transparent 55%);
+  opacity:.55;
+}
+:root[data-theme="light"] body.st-premium :where(.card,.box,.panel,.tile,.section,.hero,.modal-box,.calc-card,.tool-card,.vendor-card,.odds-summary-card,.rel-links)::after{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.65), transparent 52%),
+    radial-gradient(900px 320px at 12% 0%, rgba(var(--accent-rgb), .08), transparent 60%);
+  opacity:.45;
+}
+
+/* Keep interactive elements above the highlight */
+body.st-premium :where(.card,.box,.panel,.tile,.section,.hero,.modal-box,.calc-card,.tool-card,.vendor-card,.odds-summary-card,.rel-links) > *{
+  position:relative;
+  z-index:1;
+}
+
+/* Button rhythm: slightly taller and more confident */
+body.st-premium :where(.btn,.btnx,.cta,.linkbtn,.copybtn,.insight-btn,.analyze-btn,.st-shell-link,.st-shell-btn):not(.chip):not(.toggle){
+  min-height: 42px;
+}
+
+/* Header rail refinement (mobile safe) */
+body.st-premium .st-shell-header{
+  background: color-mix(in srgb, var(--panel) 86%, rgba(0,0,0,.22));
+}
+body.st-premium .st-shell-inner{ padding: 12px var(--shell-pad); }
+
+/* Header controls: richer glass + tighter alignment */
+body.st-premium .st-shell-link{
+  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+  border-color: color-mix(in srgb, var(--panel-border-2) 80%, rgba(var(--accent-rgb), .18));
+  box-shadow: 0 10px 26px rgba(0,0,0,.22);
+}
+body.st-premium .st-shell-link:hover{
+  box-shadow: 0 14px 34px rgba(0,0,0,.26), 0 0 0 3px rgba(var(--accent-rgb), .10);
+}
+body.st-premium .st-shell-search{
+  border-color: color-mix(in srgb, var(--panel-border-2) 70%, rgba(var(--accent-rgb), .22));
+  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+  backdrop-filter: blur(16px) saturate(150%);
+}
+:root[data-theme="light"] body.st-premium .st-shell-link,
+:root[data-theme="light"] body.st-premium .st-shell-search{
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.72));
+  box-shadow: 0 12px 26px rgba(16,24,40,.10);
+}
+
+/* Mobile: reduce dead space, keep premium density */
+@media (max-width: 860px){
+  :root{ --shell-pad: 12px; }
+  body.st-premium .st-shell-inner{ padding: 10px var(--shell-pad); }
+  body.st-premium :where(main,.wrap,.container,.content,.page,.inner,.shell):not(.no-shell-pad){
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/* Safer focus ring (premium) */
+body.st-premium :focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .18);
+}

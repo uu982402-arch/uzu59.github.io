@@ -9,6 +9,8 @@
   // cache-bust for polish tweaks
   const MOBILE_POLISH_CSS = "/assets/mobile-polish.css?v=20260211_POL3";
   const POLISH_CSS        = "/assets/88st-polish.css?v=20260211_POL3";
+  // premium global layer (page-wide luxe)
+  const PREMIUM_GLOBAL_CSS = "/assets/88st-premium-global.css?v=20260211_PREM1";
 
   function ensureCss(href){
     try{
@@ -142,10 +144,19 @@
   function inject(){
     if(document.getElementById("_88stShellHeader")) return;
 
-    document.body.classList.add("st-shell-on", "st-lux2");
+    document.body.classList.add("st-shell-on", "st-lux2", "st-premium");
 
     const notice = document.querySelector(".notice-bar");
     const insertAfter = notice || null;
+
+    // global css layers (order matters)
+    ensureCss(SHELL_CSS);
+    ensureCss(UNIFY_CSS);
+    ensureCss(LUX2_CSS);
+    ensureCss(TOOL_HIS_CSS);
+    ensureCss(MOBILE_POLISH_CSS);
+    ensureCss(POLISH_CSS);
+    ensureCss(PREMIUM_GLOBAL_CSS);
 
     // ===== Header =====
     const header = document.createElement("header");
@@ -624,6 +635,8 @@
     // Screen-level polish (tap targets / contrast / brand accent)
     ensureCss(MOBILE_POLISH_CSS);
     ensureCss(POLISH_CSS);
+    // Premium global (background/card/typo)
+    ensureCss(PREMIUM_GLOBAL_CSS);
     addDrawerStyles();
     inject();
   }
