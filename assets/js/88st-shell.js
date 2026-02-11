@@ -2,15 +2,19 @@
 (function(){
   "use strict";
 
-  const SHELL_CSS    = "/assets/88st-shell.css?v=20260211_v22";
-  const UNIFY_CSS    = "/assets/88st-unify.css?v=20260210_LUX2";
-  const LUX2_CSS     = "/assets/88st-luxury-v2.css?v=20260210_LUX2";
-  const TOOL_HIS_CSS = "/assets/88st-tool-history.css?v=20260210_LUX2";
+  // Base theme tokens (vars) are required for consistent styling on ALL pages.
+  // NOTE: We intentionally do NOT load /assets/88st-theme.js (toggle).
+  const THEME_CSS    = "/assets/88st-theme.css?v=20260212_CASINO1";
+
+  const SHELL_CSS    = "/assets/88st-shell.css?v=20260212_CASINO1";
+  const UNIFY_CSS    = "/assets/88st-unify.css?v=20260212_CASINO1";
+  const LUX2_CSS     = "/assets/88st-luxury-v2.css?v=20260212_CASINO1";
+  const TOOL_HIS_CSS = "/assets/88st-tool-history.css?v=20260212_CASINO1";
   // cache-bust for polish tweaks
-  const MOBILE_POLISH_CSS = "/assets/mobile-polish.css?v=20260211_POL3";
-  const POLISH_CSS        = "/assets/88st-polish.css?v=20260211_POL3";
+  const MOBILE_POLISH_CSS = "/assets/mobile-polish.css?v=20260212_CASINO1";
+  const POLISH_CSS        = "/assets/88st-polish.css?v=20260212_CASINO1";
   // premium global layer (page-wide luxe)
-  const PREMIUM_GLOBAL_CSS = "/assets/88st-premium-global.css?v=20260211_PREM1";
+  const PREMIUM_GLOBAL_CSS = "/assets/88st-premium-global.css?v=20260212_CASINO1";
 
   function ensureCss(href){
     try{
@@ -144,12 +148,19 @@
   function inject(){
     if(document.getElementById("_88stShellHeader")) return;
 
-    document.body.classList.add("st-shell-on", "st-lux2", "st-premium");
+    // Lock the site to ONE theme (premium casino-style). No toggle UI/JS.
+    // Prefer HTML attribute if already set.
+    try{
+      document.documentElement.setAttribute('data-theme','dark');
+    }catch(e){}
+
+    document.body.classList.add("st-shell-on", "st-lux2", "st-premium", "st-app");
 
     const notice = document.querySelector(".notice-bar");
     const insertAfter = notice || null;
 
     // global css layers (order matters)
+    ensureCss(THEME_CSS);
     ensureCss(SHELL_CSS);
     ensureCss(UNIFY_CSS);
     ensureCss(LUX2_CSS);
@@ -628,6 +639,8 @@
   }
 
   function boot(){
+    // Base theme tokens first
+    ensureCss(THEME_CSS);
     ensureCss(SHELL_CSS);
     ensureCss(UNIFY_CSS);
     ensureCss(LUX2_CSS);

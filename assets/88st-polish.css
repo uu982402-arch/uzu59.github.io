@@ -140,18 +140,11 @@ body.st-shell-on .st-shell-logo{ width:36px; height:36px; border-radius:14px; }
 body.st-shell-on .st-shell-title{ font-size: 14px; }
 body.st-shell-on .st-shell-sub{ font-size: 11px; letter-spacing: .02em; }
 
-/* Brand wordmark: subtle luxe gradient (dark mode), plain in light mode */
-:root:not([data-theme="light"]) body.st-shell-on .st-shell-title{
-  background: linear-gradient(90deg, var(--gold2), rgba(255,255,255,.92));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 10px 28px rgba(0,0,0,.28);
-}
-:root[data-theme="light"] body.st-shell-on .st-shell-title{
-  background: none;
-  color: var(--text);
-  text-shadow: none;
+/* Brand wordmark: fixed premium color (no gradient) */
+body.st-shell-on .st-shell-title{
+  background: none !important;
+  color: var(--text) !important;
+  text-shadow: none !important;
 }
 
 /* Center rail: visually unify nav + search into one expensive glass pill */

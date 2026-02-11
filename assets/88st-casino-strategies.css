@@ -9,9 +9,9 @@ body{ margin:0; }
 
 .cs-wrap{ max-width: var(--cs-max); margin: 0 auto; padding: 18px 14px 44px; }
 
-/* Mobile: add safe bottom padding so fixed theme toggle doesn't cover last controls */
+/* Mobile: comfortable bottom padding (no floating theme toggle) */
 @media (max-width: 860px){
-  .cs-wrap{ padding-bottom: 96px; }
+  .cs-wrap{ padding-bottom: 44px; }
 }
 
 .cs-hero{
@@ -73,6 +73,21 @@ body{ margin:0; }
 
 .cs-tabs{ display:flex; flex-wrap:wrap; gap:8px; }
 .cs-tab{ padding: 9px 12px; }
+
+/* Mobile: make strategy tabs a horizontal swipe chip rail (denser + premium) */
+@media (max-width: 860px){
+  .cs-tabs{
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    margin-bottom: 2px;
+    scroll-snap-type: x mandatory;
+  }
+  .cs-tabs::-webkit-scrollbar{ height: 0; }
+  .cs-tabs{ scrollbar-width: none; }
+  .cs-tabs .cs-chip{ flex: 0 0 auto; scroll-snap-align: start; }
+}
 
 .cs-kpi{ display:grid; gap:10px; grid-template-columns: 1fr 1fr; }
 @media (max-width: 520px){ .cs-kpi{ grid-template-columns:1fr; } }

@@ -12,15 +12,16 @@
   --st-accent-2: var(--accent2, #a8dcff);
   --st-accent-text: var(--accentText, #00121a);
 
-  /* Brand-unify: keep one accent system across landing/guide/tools */
-  --accent1:#5fb2ff;
-  --accent2:#a8dcff;
-  --accentRGB:95,178,255;
-  --accentText:#00121a;
-  --accentOn:#00121a;
-  /* legacy tokens */
-  --gold: var(--accent1);
-  --gold2: var(--accent2);
+  /* Brand-unify: follow the global theme accent (premium gold by default) */
+  /* default gold (overridden by theme if present) */
+  --gold: #d4af37;
+  --gold2: #f5e27a;
+  --accent1: var(--gold);
+  --accent2: var(--gold2);
+  --accentRGB: var(--accent-rgb, 245,226,122);
+  --accentText: #00121a;
+  --accentOn: #00121a;
+  /* legacy tokens already provided above */
 }
 
 html, body{

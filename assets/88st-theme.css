@@ -21,12 +21,12 @@
   --muted:rgba(255,255,255,.62);
   --muted-2:rgba(255,255,255,.50);
 
-  --panel:rgba(255,255,255,.06);
-  --panel-2:rgba(255,255,255,.04);
+  --panel:rgba(16,18,28,.68);
+  --panel-2:rgba(10,12,20,.62);
   --panel-border:rgba(255,255,255,.10);
   --panel-border-2:rgba(255,255,255,.14);
 
-  --input-bg:rgba(0,0,0,.34);
+  --input-bg:rgba(16,18,28,.58);
   --input-border:rgba(255,255,255,.14);
 
   --radius-md:14px;
@@ -203,76 +203,6 @@ textarea, .bundle-ta, .share-ta, .promo-ta{
   background:rgba(255,255,255,.92) !important;
 }
 
-/* Theme toggle — fixed top-right (avoid FAB overlap) */
-#_88stThemeToggle{
-  position:fixed;
-  right:14px;
-  top:calc(12px + env(safe-area-inset-top, 0px) + var(--_88stToggleTopExtra, 0px));
-  bottom:auto !important; /* prevent legacy bottom-fixed overrides */
-  z-index:99999;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 14px;
-  border-radius:999px;
-  border:1px solid var(--panel-border);
-  background:rgba(0,0,0,.35);
-  background:color-mix(in srgb, var(--panel) 86%, transparent);
-  backdrop-filter: blur(12px);
-  box-shadow:var(--shadow-md);
-  cursor:pointer;
-  user-select:none;
-}
-
-/* Mobile: pin to bottom-right (prevents covering hero/cards at the top) */
-@media (max-width: 860px){
-  #_88stThemeToggle{
-    right:12px;
-    top:auto !important;
-    bottom:calc(14px + env(safe-area-inset-bottom, 0px));
-    padding:10px 12px;
-    gap:8px;
-  }
-  #_88stThemeToggle .label{ display:none; }
-  #_88stThemeToggle .mode{ font-size:11px; }
-}
-#_88stThemeToggle .icon{
-  width:26px; height:26px;
-  display:grid; place-items:center;
-  border-radius:10px;
-  background:rgba(0,0,0,.22);
-  background:color-mix(in srgb, var(--panel) 82%, transparent);
-  border:1px solid var(--panel-border);
-}
-#_88stThemeToggle .label{
-  font-weight:800;
-  font-size:13px;
-  letter-spacing:var(--tracking);
-}
-#_88stThemeToggle .mode{
-  font-size:12px;
-  color:var(--muted);
-  font-weight:700;
-}
-:root[data-theme="light"] #_88stThemeToggle{
-  background:rgba(255,255,255,.80);
-}
-
-/* Smooth transition when switching */
-html._themeTransition body,
-html._themeTransition .box,
-html._themeTransition .card,
-html._themeTransition .panel,
-html._themeTransition .tile,
-html._themeTransition .modal-box,
-html._themeTransition input,
-html._themeTransition textarea,
-html._themeTransition select,
-html._themeTransition button,
-html._themeTransition #_88stThemeToggle{
-  transition:background-color .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease;
-}
-
 
 /* Share/Bundles canvas wraps — match theme */
 .share-canvas-wrap, .bundle-canvas-wrap{
@@ -442,3 +372,7 @@ button:disabled:hover, .btn:disabled:hover, .btn.disabled:hover, [role="button"]
   box-shadow: var(--shadow-sm) !important;
 }
 
+
+
+/* Theme toggle removed (safety hide) */
+#_88stThemeToggle{ display:none !important; }

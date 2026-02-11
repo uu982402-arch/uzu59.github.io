@@ -52,7 +52,7 @@ body.st-premium::before{
 }
 
 /* Ensure main content is above the background glaze */
-body.st-premium > *{ position:relative; z-index:1; }
+body.st-premium > *:not(.st-shell-header):not(#_88stShellDrawer):not(#_88stShellModals){ position:relative; z-index:1; }
 
 /* Numbers look more "tool-like" */
 body.st-premium{ font-variant-numeric: tabular-nums; }
