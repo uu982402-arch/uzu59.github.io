@@ -418,7 +418,8 @@ select.insight-select{
   box-shadow:0 10px 24px rgba(0,0,0,.35);
 }
 .vendor-section[data-section="verified"] .vsh-chip{
-  color:#111;
+  color:#fff;
+  text-shadow:0 1px 2px rgba(0,0,0,.45);
   background:linear-gradient(135deg,#2d7dff,#6bdcff);
 }
 
@@ -497,7 +498,8 @@ select.insight-select{
   background:linear-gradient(135deg,var(--gold),var(--gold2));
 }
 .tag-badge.new{
-  color:#111;
+  color:#fff;
+  text-shadow:0 1px 10px rgba(0,0,0,.30);
   background:linear-gradient(135deg,#2d7dff,#6bdcff);
 }
 .tag-badge.ad{
@@ -1156,8 +1158,10 @@ body::after{
   box-shadow:none;
 }
 .vendor-section[data-section="verified"] .vsh-chip{
-  background: rgba(255,255,255,.05);
-  border-color:var(--muted-2);
+  background: rgba(45,125,255,.18);
+  border-color: rgba(107,220,255,.35);
+  color:#fff;
+  text-shadow:0 1px 2px rgba(0,0,0,.45);
 }
 
 /* notice bar: more subtle, premium line */
@@ -1305,6 +1309,7 @@ body::after{
   gap:10px;
   margin-top:10px;
 }
+.popup-aux #favBtn.is-on{ color: var(--gold); text-shadow:0 10px 24px rgba(0,0,0,.35); }
 .popup-aux .btn{ flex:1; }
 
 /* make hierarchy clearer without breaking existing classes */
@@ -2039,42 +2044,16 @@ const INSIGHTS_BY_SPORT = {
 <p id="pBenefit" style="color:#f5e27a;font-size:13px;margin:10px 0 0;"></p>
 <p id="pNotice" style="color:#ff6b6b;font-size:12px;margin:8px 0 0;"></p>
 <div aria-label="주요 액션" class="popup-cta">
+<div class="btn copy secondary" id="copyBtn" role="button" tabindex="0">가입코드 복사</div>
 <a class="btn go primary" data-no-auto-outbound="1" id="pLink" rel="noopener" target="_blank">사이트 이동</a>
-<a class="btn copy secondary" data-no-auto-outbound="1" id="pTelegram" rel="noopener" target="_blank">텔레그램 상담</a>
-<div class="btn copy tertiary" id="copyBtn" role="button" tabindex="0">가입코드 복사</div>
+<a class="btn copy ghost" data-no-auto-outbound="1" id="pTelegram" rel="noopener" target="_blank">문의 (텔레그램)</a>
 </div>
 <div aria-label="보조 액션" class="popup-aux">
-<div class="btn share ghost" id="shareBtn" role="button" tabindex="0">공유하기</div>
+<div class="btn copy ghost" id="favBtn" role="button" tabindex="0">☆ 즐겨찾기</div>
 <div class="btn copy ghost" id="closeBtn" role="button" tabindex="0">닫기</div>
 </div>
-<div class="reason-box" id="reasonBox" style="display:none;">
-<div class="reason-title" id="reasonTitle">안내</div>
-<div class="reason-line" id="reason1"></div>
-<div class="reason-line" id="reason2"></div>
-<div class="reason-line" id="reason3"></div>
 </div>
-<!-- closeBtn moved to .popup-aux -->
-</div>
-</div>
-<div aria-label="공유 카드" aria-modal="true" class="popup" id="sharePopup" role="dialog" style="display:none;">
-<div class="popup-box" role="document">
-<h2>공유하기</h2>
-<p class="share-sub">링크를 복사하거나, 이미지로 저장해서 공유할 수 있습니다.</p>
-<div class="share-preview">
-<canvas aria-label="공유 이미지 미리보기" height="1080" id="shareCanvas" width="1080"></canvas>
-</div>
-<div class="share-row">
-<input aria-label="공유 링크" class="v-input" id="shareLink" readonly=""/>
-<div class="btn copy" id="copyShareLinkBtn" style="min-width:120px;">링크 복사</div>
-</div>
-<div class="share-actions">
-<div class="btn go" id="downloadShareImgBtn">이미지 저장</div>
-<div class="btn copy" id="copyShareTextBtn">문구 복사</div>
-</div>
-<div class="btn copy" id="closeShareBtn">닫기</div>
-</div>
-</div>
-<div class="landing-seo">
+</div><div class="landing-seo">
 <h3>관련 정보</h3>
 <div class="links">
 <a data-cta="seo_margin" href="/tool-margin/">배당 마진 계산기</a>
@@ -3077,21 +3056,6 @@ function bindCardClicks() {
   document.querySelectorAll(".card[data-card]").forEach(el=>{
     el.onclick = ()=> openCard(el.dataset.card);
   });
-
-  // 공유 버튼(카드 내부) 클릭은 팝업 오픈 대신 공유 팝업을 엽니다.
-  document.querySelectorAll("[data-share]").forEach(btn=>{
-    const open = (e)=>{
-      e.preventDefault();
-      e.stopPropagation();
-      const id = btn.getAttribute("data-share");
-      openShare(id);
-    };
-    btn.addEventListener("click", open);
-    btn.addEventListener("keydown", (e)=>{
-      if(e.key==="Enter" || e.key===" "){ open(e); }
-    });
-  });
-
 }
 
 (function bindControlsAndSearch() {
@@ -3252,30 +3216,26 @@ bumpView(id);
     btnGo.href = d.link ? appendUtm(d.link) : "#";
   }
 
-  const tg = (d.telegram || "UZU59").replace("@","");
   const pTelegram = document.getElementById("pTelegram");
-  pTelegram.href = appendUtm("https://t.me/" + tg);
-  pTelegram.innerText = isRecruit ? ("광고 문의 @" + tg) : ("텔레그램 상담 @" + tg);
+  if(pTelegram){
+    pTelegram.href = "https://t.me/UZU59";
+    pTelegram.innerText = "문의 (텔레그램)";
+  }
 
-  // 안내 3줄
-  const rBox = document.getElementById("reasonBox");
-  const rTitle = document.getElementById("reasonTitle");
-  const r1 = document.getElementById("reason1");
-  const r2 = document.getElementById("reason2");
-  const r3 = document.getElementById("reason3");
+  // 최근/즐겨찾기(로컬) 업데이트
+  try{
+    const cardEl = document.querySelector(".card[data-card=\"" + id + "\"]");
+    const sec = cardEl ? cardEl.closest(".vendor-section") : null;
+    const secId = (sec && sec.id) ? sec.id : "vendorTop";
+    if(window.__88stAddRecentVendor) window.__88stAddRecentVendor({id:id, title:(d.title||id), href:"/?v=" + encodeURIComponent(id) + "#" + secId});
+    if(window.__88stRefreshUserMenu) window.__88stRefreshUserMenu();
+  }catch(e){}
 
-  rBox.style.display = "block";
-  if(isRecruit) {
-    rTitle.innerText = "광고 문의 안내";
-    r1.innerText = "• 광고/제휴 문의는 텔레그램으로만 진행합니다.";
-    r2.innerText = "• 배너/카드/문구 구성은 협의 후 반영합니다.";
-    r3.innerText = "• 문의: @" + tg;
-  } else {
-    const reasons = (d.reasons && d.reasons.length) ? d.reasons : ["안정성/이력 중심", "조건/안내가 비교적 명확", "문의 채널 고정"];
-    rTitle.innerText = "안내";
-    r1.innerText = "• " + (reasons[0] || "");
-    r2.innerText = "• " + (reasons[1] || "");
-    r3.innerText = "• " + (reasons[2] || "");
+  const favBtn = document.getElementById("favBtn");
+  if(favBtn && window.__88stIsFavVendor){
+    const on = window.__88stIsFavVendor(id);
+    favBtn.textContent = on ? "★ 즐겨찾기" : "☆ 즐겨찾기";
+    favBtn.classList.toggle("is-on", !!on);
   }
 
   lastFocusEl = document.activeElement;
@@ -3331,183 +3291,6 @@ function copyToClipboard(text, okMsg) {
   });
 }
 
-function buildDeepLink(id) {
-  try {
-    const u = new URL(window.location.href);
-    u.searchParams.set("v", id);
-    return u.toString();
-  } catch(e) {
-    return window.location.href;
-  }
-}
-
-function shareTextFor(id) {
-  const d = CARD_DATA[id];
-  if(!d) return "";
-  const title = d.title || "";
-  const benefit = cleanBenefit(d.benefit || "").replace(/\s+/g," ").trim();
-  const code = d.code ? `가입코드: ${d.code}` : "";
-  const link = buildDeepLink(id);
-  return [`88 인증 놀이터 - ${title}`, benefit, code, link].filter(Boolean).join("\n");
-}
-
-function openShare(id) {
-  const d = CARD_DATA[id];
-  if(!d) return;
-
-  currentCardId = id;
-const popup = document.getElementById("sharePopup");
-  const link = buildDeepLink(id);
-  const linkInput = document.getElementById("shareLink");
-  if(linkInput) linkInput.value = link;
-
-  drawShareCard(d, link);
-
-  lastFocusEl = document.activeElement;
-  if(popup) popup.style.display="flex";
-  const focusTarget = document.getElementById("closeShareBtn");
-  if(focusTarget) focusTarget.focus();
-
-  track("share_open", {"card_id": id, "title": d.title || ""});
-}
-
-function closeShare() {
-  const popup = document.getElementById("sharePopup");
-  if(popup) popup.style.display="none";
-  try { if(lastFocusEl) lastFocusEl.focus(); } catch(e) {}
-}
-
-function copyShareLink() {
-  const link = document.getElementById("shareLink")?.value || "";
-  copyToClipboard(link, "공유 링크가 복사되었습니다");
-  track("share_copy_link", {"card_id": currentCardId});
-}
-
-function copyShareText() {
-  const txt = shareTextFor(currentCardId);
-  copyToClipboard(txt, "공유 문구가 복사되었습니다");
-  track("share_copy_text", {"card_id": currentCardId});
-}
-
-function downloadShareImage() {
-  const c = document.getElementById("shareCanvas");
-  if(!c) return;
-  const a = document.createElement("a");
-  const safe = (CARD_DATA[currentCardId]?.title || "share").replace(/[^a-z0-9가-힣_-]+/gi, "_");
-  a.download = `88_${safe}.png`;
-  a.href = c.toDataURL("image/png");
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  track("share_download_image", {"card_id": currentCardId});
-}
-
-function roundRect(ctx, x, y, w, h, r){
-  const rr = Math.min(r, w/2, h/2);
-  ctx.beginPath();
-  ctx.moveTo(x+rr, y);
-  ctx.arcTo(x+w, y, x+w, y+h, rr);
-  ctx.arcTo(x+w, y+h, x, y+h, rr);
-  ctx.arcTo(x, y+h, x, y, rr);
-  ctx.arcTo(x, y, x+w, y, rr);
-  ctx.closePath();
-}
-
-function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines){
-  const words = (text||"").split(" ");
-  let line = "";
-  let lineCount = 0;
-  for(let n=0; n<words.length; n++){
-    const testLine = line + (line ? " " : "") + words[n];
-    const metrics = ctx.measureText(testLine);
-    if(metrics.width > maxWidth && line){
-      ctx.fillText(line, x, y + lineCount*lineHeight);
-      line = words[n];
-      lineCount++;
-      if(maxLines && lineCount >= maxLines) return;
-    } else {
-      line = testLine;
-    }
-  }
-  if(line && (!maxLines || lineCount < maxLines)){
-    ctx.fillText(line, x, y + lineCount*lineHeight);
-  }
-}
-
-function drawShareCard(d, link) {
-  const c = document.getElementById("shareCanvas");
-  if(!c) return;
-  const ctx = c.getContext("2d");
-  const W = c.width, H = c.height;
-
-  ctx.clearRect(0,0,W,H);
-
-  // 배경
-  const g = ctx.createLinearGradient(0,0,W,H);
-  g.addColorStop(0,"#0b0b0f");
-  g.addColorStop(1,"#12121a");
-  ctx.fillStyle = g;
-  ctx.fillRect(0,0,W,H);
-
-  // 글로우
-  ctx.fillStyle = "rgb(var(--accentRGB) / 0.12)";
-  ctx.beginPath();
-  ctx.ellipse(W*0.58, H*0.14, W*0.55, H*0.22, 0, 0, Math.PI*2);
-  ctx.fill();
-
-  ctx.fillStyle = "rgba(90,160,255,0.10)";
-  ctx.beginPath();
-  ctx.ellipse(W*0.32, H*0.22, W*0.46, H*0.18, 0, 0, Math.PI*2);
-  ctx.fill();
-
-  // 패널
-  const pad = 72;
-  const cardX = pad, cardY = pad, cardW = W - pad*2, cardH = H - pad*2;
-  roundRect(ctx, cardX, cardY, cardW, cardH, 42);
-  ctx.fillStyle = "rgba(255,255,255,0.06)";
-  ctx.fill();
-  ctx.strokeStyle = "rgba(255,255,255,0.10)";
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  // 헤더 pill
-  const pillH = 64, pillW = 260;
-  roundRect(ctx, cardX+44, cardY+44, pillW, pillH, 999);
-  ctx.fillStyle = "rgb(var(--accentRGB) / 0.95)";
-  ctx.fill();
-
-  ctx.fillStyle = "#111";
-  ctx.font = "900 34px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  ctx.fillText("88 인증 놀이터", cardX+44+26, cardY+44+44);
-
-  // 제목
-  ctx.fillStyle = "#fff";
-  ctx.font = "900 78px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  wrapText(ctx, (d.title||""), cardX+44, cardY+160, cardW-88, 88, 2);
-
-  // 혜택
-  const benefit = cleanBenefit(d.benefit||"").replace(/\s+/g," ").trim();
-  ctx.fillStyle = "rgba(255,255,255,0.86)";
-  ctx.font = "700 40px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  wrapText(ctx, benefit || "혜택 안내", cardX+44, cardY+360, cardW-88, 58, 3);
-
-  // 코드/링크
-  ctx.fillStyle = "rgba(255,255,255,0.75)";
-  ctx.font = "800 36px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  const code = d.code ? `가입코드: ${d.code}` : "가입코드: (없음)";
-  ctx.fillText(code, cardX+44, cardY+600);
-
-  ctx.font = "700 28px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  const linkShort = (link||"").replace(/^https?:\/\//,'');
-  wrapText(ctx, linkShort, cardX+44, cardY+655, cardW-88, 42, 2);
-
-  // 안내
-  ctx.fillStyle = "rgba(255,255,255,0.55)";
-  ctx.font = "700 24px system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif";
-  wrapText(ctx, "※ 정보 제공/참고용 · 과몰입 주의", cardX+44, cardY+cardH-88, cardW-88, 34, 2);
-}
-
-
 function jumpToRec() {
   closeCard();
   setFilter("rec");
@@ -3521,33 +3304,31 @@ function jumpToRec() {
   const box = popup?.querySelector(".popup-box");
   const closeBtn = document.getElementById("closeBtn");
   const copyBtn = document.getElementById("copyBtn");
-  const shareBtn = document.getElementById("shareBtn");
+  const favBtn = document.getElementById("favBtn");
   const moreBtn = document.getElementById("moreRecBtn");
   const goBtn = document.getElementById("pLink");
   const tgBtn = document.getElementById("pTelegram");
-
-  const sharePopup = document.getElementById("sharePopup");
-  const closeShareBtn = document.getElementById("closeShareBtn");
-  const copyShareLinkBtn = document.getElementById("copyShareLinkBtn");
-  const downloadShareImgBtn = document.getElementById("downloadShareImgBtn");
-  const copyShareTextBtn = document.getElementById("copyShareTextBtn");
-
   if(closeBtn) closeBtn.addEventListener("click", closeCard);
   if(copyBtn) copyBtn.addEventListener("click", copyCode);
-  if(shareBtn) shareBtn.addEventListener("click", ()=> openShare(currentCardId));
+  if(favBtn) favBtn.addEventListener("click", ()=>{
+    try{
+      const id = currentCardId;
+      const title = (CARD_DATA[id]?.title)||id;
+      const on = window.__88stToggleFavVendor ? window.__88stToggleFavVendor({id:id, title:title}) : false;
+      favBtn.textContent = on ? "★ 즐겨찾기" : "☆ 즐겨찾기";
+      favBtn.classList.toggle("is-on", !!on);
+      if(window.__88stRefreshUserMenu) window.__88stRefreshUserMenu();
+      track && track("fav_vendor_toggle", {"card_id": id, "state": on ? "on" : "off"});
+    }catch(e){}
+  });
   if(moreBtn) moreBtn.addEventListener("click", jumpToRec);
 
   // Normalize outbound type values across the site
   if(goBtn) goBtn.addEventListener("click", ()=> track("outbound_click", {"type":"external", "card_id": currentCardId, "title": (CARD_DATA[currentCardId]?.title)||"", "url": (document.getElementById("pLink")?.href)||"" }));
   if(tgBtn) tgBtn.addEventListener("click", ()=> track("outbound_click", {"type":"telegram", "card_id": currentCardId, "title": (CARD_DATA[currentCardId]?.title)||"", "url": (document.getElementById("pTelegram")?.href)||"" }));
 
-  if(closeShareBtn) closeShareBtn.addEventListener("click", closeShare);
-  if(copyShareLinkBtn) copyShareLinkBtn.addEventListener("click", copyShareLink);
-  if(downloadShareImgBtn) downloadShareImgBtn.addEventListener("click", downloadShareImage);
-  if(copyShareTextBtn) copyShareTextBtn.addEventListener("click", copyShareText);
-
   // (A11y) allow Enter/Space on div.btn role=button
-  [closeBtn, copyBtn, shareBtn].forEach(el=>{
+  [closeBtn, copyBtn, favBtn].forEach(el=>{
     if(!el) return;
     el.addEventListener("keydown", (e)=>{
       if(e.key==="Enter" || e.key===" "){ e.preventDefault(); el.click(); }
@@ -3558,9 +3339,6 @@ function jumpToRec() {
   // 바깥 클릭 닫기
   if(popup) popup.addEventListener("click", (e)=>{
     if(e.target === popup) closeCard();
-  });
-  if(sharePopup) sharePopup.addEventListener("click", (e)=>{
-    if(e.target === sharePopup) closeShare();
   });
 
   // ESC 닫기 + 포커스 트랩(최소)
