@@ -6,6 +6,8 @@
   const UNIFY_CSS    = "/assets/88st-unify.css?v=20260210_LUX2";
   const LUX2_CSS     = "/assets/88st-luxury-v2.css?v=20260210_LUX2";
   const TOOL_HIS_CSS = "/assets/88st-tool-history.css?v=20260210_LUX2";
+  const MOBILE_POLISH_CSS = "/assets/mobile-polish.css?v=20260211_POL2";
+  const POLISH_CSS        = "/assets/88st-polish.css?v=20260211_POL2";
 
   function ensureCss(href){
     try{
@@ -118,7 +120,7 @@
     {group:"계산기", title:"EV 계산기", href:"/tool-ev/", tag:"계산기"},
     {group:"계산기", title:"배당↔확률 변환", href:"/tool-odds/", tag:"계산기"},
     {group:"계산기", title:"Kelly 비중", href:"/tool/kelly/", tag:"계산기"},
-    {group:"카지노 계산기", title:"바카라 전략 계산기", href:"/tool-casino/", tag:"카지노"},
+    {group:"메뉴", title:"카지노분석기", href:"/tool-casino/", tag:"도구"},
     {group:"카지노 계산기", title:"마틴게일", href:"/casino-strategy/martingale/", tag:"전략"},
     {group:"카지노 계산기", title:"파롤리(역마틴게일)", href:"/casino-strategy/paroli/", tag:"전략"},
     {group:"카지노 계산기", title:"달랑베르", href:"/casino-strategy/dalembert/", tag:"전략"},
@@ -173,6 +175,7 @@
             </div>
 
             <a class="st-shell-link" href="/analysis/">분석기</a>
+            <a class="st-shell-link" href="/tool-casino/">카지노분석기</a>
 
             <div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">계산기</button>
@@ -187,7 +190,6 @@
                 <div class="st-shell-menu-sep" aria-hidden="true"></div>
                 <div class="st-shell-menu-group">
                   <div class="st-shell-menu-title">카지노 계산기</div>
-                  <a href="/tool-casino/" role="menuitem"><span>바카라 전략 계산기</span><span class="hint">스피드</span></a>
                   <a href="/casino-strategy/martingale/" role="menuitem"><span>마틴게일</span><span class="hint">손실회복</span></a>
                   <a href="/casino-strategy/paroli/" role="menuitem"><span>파롤리</span><span class="hint">연승</span></a>
                   <a href="/casino-strategy/dalembert/" role="menuitem"><span>달랑베르</span><span class="hint">완만</span></a>
@@ -251,6 +253,7 @@
             </details>
 
             <a class="st-shell-link" href="/analysis/">분석기</a>
+            <a class="st-shell-link" href="/tool-casino/">카지노분석기</a>
 
             <details class="st-shell-acc" open>
               <summary class="st-shell-link">계산기</summary>
@@ -262,7 +265,6 @@
                 <a class="st-shell-link" href="/tool/kelly/">Kelly 비중</a>
                 <div class="st-shell-acc-sep" aria-hidden="true"></div>
                 <div class="st-shell-acc-title">카지노 계산기</div>
-                <a class="st-shell-link" href="/tool-casino/">바카라 전략 계산기</a>
                 <a class="st-shell-link" href="/casino-strategy/martingale/">마틴게일</a>
                 <a class="st-shell-link" href="/casino-strategy/paroli/">파롤리</a>
                 <a class="st-shell-link" href="/casino-strategy/dalembert/">달랑베르</a>
@@ -649,6 +651,9 @@
     ensureCss(UNIFY_CSS);
     ensureCss(LUX2_CSS);
     ensureCss(TOOL_HIS_CSS);
+    // Screen-level polish (tap targets / contrast / brand accent)
+    ensureCss(MOBILE_POLISH_CSS);
+    ensureCss(POLISH_CSS);
     addDrawerStyles();
     inject();
   }

@@ -1841,7 +1841,7 @@ const INSIGHTS_BY_SPORT = {
 </meta><link href="/assets/88st-tool-history.css?v=20260210_B5" rel="stylesheet"/>
 <script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B5"></script>
 <link href="/assets/88st-shell.css?v=20260210_LUX2" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=20260210_LUX2"></script>
+<script defer="" src="/assets/js/88st-shell.js?v=20260211_POL2"></script>
 </head>
 <body>
 <div aria-hidden="true" id="loader">
@@ -2011,7 +2011,7 @@ const INSIGHTS_BY_SPORT = {
 <div class="memo-history">
 <div class="memo-history-title">
 <span>최근 메모</span>
-<span style="font-size:11px;color:rgba(255,255,255,.5);">클릭하면 불러오기</span>
+            <span style="font-size:11px;color:var(--muted);">클릭하면 불러오기</span>
 </div>
 <div id="memoHistoryList"></div>
 </div>
@@ -3782,7 +3782,7 @@ initInsights();
       if(!histList) return;
       const arr = loadHist();
       if(!arr.length){
-        histList.innerHTML = '<div class="text" style="color:rgba(255,255,255,.55);font-size:12px;">저장된 메모가 없습니다.</div>';
+        histList.innerHTML = '<div class="text" style="color:var(--muted);font-size:12px;">저장된 메모가 없습니다.</div>';
         return;
       }
       histList.innerHTML = arr.map((it, idx)=>{
