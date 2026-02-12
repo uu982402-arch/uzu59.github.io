@@ -143,6 +143,45 @@
           <button class="cs-btn ghost" id="csReset" type="button">RESET</button>
         </div>
 
+
+        <div class="cs-planner" aria-label="세션 플래너" style="margin-top:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+            <h2 style="margin:0; font-size:14px;">세션 플래너</h2>
+            <div class="cs-row" style="gap:8px; align-items:center; flex-wrap:wrap;">
+              <div class="cs-field" style="min-width:160px;">
+                <label>허용 MDD(손절, 원)</label>
+                <input id="csPlanMddLimit" inputmode="numeric" placeholder="예: 150000"/>
+              </div>
+              <div class="cs-field" style="min-width:120px;">
+                <label>최대 단계</label>
+                <input id="csPlanMaxSteps" inputmode="numeric" value="12"/>
+              </div>
+              <button class="cs-chip" id="csPlanGenerate" type="button">자동표 생성</button>
+            </div>
+          </div>
+          <div class="cs-adv small" style="border-top:none; padding-top:8px;">
+            <div>• 현재 선택한 <b>전략/기본베팅/배당/증가단위</b> 기준으로 <b>연속 패배</b> 시 단계별 베팅과 예상 손익/낙폭을 자동으로 표로 보여줍니다.</div>
+          </div>
+          <div class="cs-log" style="margin-top:10px;">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:70px;">단계</th>
+                  <th style="width:140px;">다음 베팅</th>
+                  <th style="width:160px;">누적 P/L(연패)</th>
+                  <th style="width:140px;">MDD</th>
+                  <th>판정</th>
+                </tr>
+              </thead>
+              <tbody id="csPlanBody">
+                <tr><td colspan="5" style="color:var(--muted, rgba(255,255,255,.62)); font-weight:900;">자동표 생성 버튼을 눌러주세요.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="csPlanSummary" class="cs-adv small" style="margin-top:10px;"></div>
+        </div>
+
+
         <div class="cs-log" aria-label="최근 라운드">
           <table>
             <thead>

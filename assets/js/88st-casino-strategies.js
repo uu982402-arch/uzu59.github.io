@@ -412,6 +412,8 @@
         settings.paroliMult = clamp(Number(numFromInput($("csParoliMult"))||2), 1.1, 10);
         saveSettings(settings);
         render();
+    // planner default render
+    if($("csPlanBody")) renderPlan();
       });
     }
     if($("csParoliCap")){
@@ -660,7 +662,97 @@
     render();
   }
 
-  function boot(){
+  
+  // ---------------------------
+  // Session Planner (step table)
+  // ---------------------------
+  function buildPlan(maxSteps, mddLimit){
+    maxSteps = clamp(parseInt(maxSteps||12,10)||12, 1, 50);
+    const lim = Number.isFinite(mddLimit) ? Math.max(0, mddLimit) : null;
+
+    const rows = [];
+    // We simulate consecutive losses. For each step i (1..maxSteps),
+    // bet_i is the bet BEFORE placing step i, and pl_i/mdd_i are after losing step i.
+    for(let i=1; i<=maxSteps; i++){
+      const s0 = { settings: Object.assign({}, settings), actions: Array(i-1).fill({outcome:"L"}) };
+      const r0 = replay(s0);
+      const bet = r0.tracker.bet;
+
+      const s1 = { settings: Object.assign({}, settings), actions: Array(i).fill({outcome:"L"}) };
+      const r1 = replay(s1);
+      const pl = r1.tracker.pl;      // negative under lose streak
+      const mdd = r1.tracker.mdd;    // equals -pl in pure lose streak but keep generic
+
+      const need = Math.max(0, -pl);
+      const bankroll = Math.max(0, settings.bankroll||0);
+
+      let verdict = "OK";
+      let cls = "ok";
+      const checks = [];
+      if(bankroll && need > bankroll){
+        verdict = "자금 부족";
+        cls = "bad";
+        checks.push("자금");
+      }
+      if(lim != null && mdd > lim){
+        verdict = verdict === "OK" ? "손절 초과" : verdict + " / 손절";
+        cls = "bad";
+        checks.push("손절");
+      }
+      if(r1.tracker.maxBet > bankroll && bankroll){
+        // conservative extra note: single bet exceeds bankroll
+        if(cls !== "bad"){
+          verdict = "단일 베팅 과다";
+          cls = "warn";
+        }
+      }
+
+      rows.push({ step:i, bet, pl, mdd, need, verdict, cls });
+    }
+    return { rows };
+  }
+
+  function renderPlan(){
+    const body = $("csPlanBody");
+    const summary = $("csPlanSummary");
+    if(!body) return;
+
+    const maxSteps = $("csPlanMaxSteps") ? $("csPlanMaxSteps").value : 12;
+    const mddLimit = $("csPlanMddLimit") ? toMoney($("csPlanMddLimit").value) : null;
+
+    const plan = buildPlan(maxSteps, mddLimit);
+
+    const bankroll = Math.max(0, settings.bankroll||0);
+    const lim = Number.isFinite(mddLimit) ? mddLimit : null;
+
+    body.innerHTML = plan.rows.map(r=>{
+      const v = r.cls === "bad" ? "cs-tag bad" : (r.cls === "warn" ? "cs-tag warn" : "cs-tag ok");
+      return `
+        <tr>
+          <td>${r.step}</td>
+          <td class="cs-right"><b>${fmtMoney(r.bet)}</b></td>
+          <td class="cs-right">${fmtMoney(r.pl)}</td>
+          <td class="cs-right">${fmtMoney(r.mdd)}</td>
+          <td><span class="${v}">${r.verdict}</span></td>
+        </tr>
+      `;
+    }).join("");
+
+    const worst = plan.rows.reduce((a,b)=> (a.need>b.need?a:b), plan.rows[0]);
+    const maxBet = plan.rows.reduce((a,b)=> (a.bet>b.bet?a:b), plan.rows[0]);
+    const msgs = [];
+    msgs.push(`<div>• 최대 단계 <b>${plan.rows.length}</b> 기준: 최악 연패 시 필요한 누적자금 <b>${fmtMoney(worst.need)}</b></div>`);
+    msgs.push(`<div>• 연패 구간 최대 단일 베팅: <b>${fmtMoney(maxBet.bet)}</b></div>`);
+    if(bankroll){
+      msgs.push(`<div>• 입력 자금: <b>${fmtMoney(bankroll)}</b> (${(worst.need<=bankroll) ? "OK" : "부족"})</div>`);
+    }
+    if(lim != null){
+      msgs.push(`<div>• 손절(MDD) 한도: <b>${fmtMoney(lim)}</b> (${(worst.mdd<=lim) ? "OK" : "초과"})</div>`);
+    }
+    summary.innerHTML = msgs.join("");
+  }
+
+function boot(){
     settings = loadSettings();
     session = initSession(settings);
 
@@ -700,6 +792,12 @@
     $("csUndo").addEventListener("click", ()=> undo());
     $("csReset").addEventListener("click", ()=> resetSession(true));
     $("csSaveSession").addEventListener("click", ()=>{ saveSession(); renderRecentSessions(); });
+
+    // planner
+    $("csPlanGenerate") && $("csPlanGenerate").addEventListener("click", ()=>{ renderPlan(); });
+    $("csPlanMaxSteps") && $("csPlanMaxSteps").addEventListener("input", debounce(()=>{ renderPlan(); }, 120));
+    $("csPlanMddLimit") && $("csPlanMddLimit").addEventListener("input", debounce(()=>{ renderPlan(); }, 120));
+
 
     // Ctrl+K search is handled by shell
 

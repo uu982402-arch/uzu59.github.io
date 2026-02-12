@@ -12,20 +12,6 @@
 
   const GAMES = [
     {
-      id: 'dong_pwb',
-      title: '동행 파워볼',
-      markets: [
-        { id: 'pwb_oe', title: '파워볼 홀/짝', outcomes: [
-          {id:'odd', label:'홀', synonyms:['홀','odd','o']},
-          {id:'even', label:'짝', synonyms:['짝','even','e']}
-        ]},
-        { id: 'pwb_ou', title: '파워볼 언더/오버', outcomes: [
-          {id:'under', label:'언더', synonyms:['언더','under','u']},
-          {id:'over', label:'오버', synonyms:['오버','over','o']}
-        ]},
-      ]
-    },
-    {
       id: 'dong_pwb_plus',
       title: '동행 파워볼+',
       markets: [
@@ -64,11 +50,9 @@
           {id:'line3', label:'3줄', synonyms:['3','3줄','3line','three']},
           {id:'line4', label:'4줄', synonyms:['4','4줄','4line','four']},
         ]},
-        { id: 'start', title: '시작점(1~4)', outcomes: [
-          {id:'s1', label:'1', synonyms:['1','1번','s1']},
-          {id:'s2', label:'2', synonyms:['2','2번','s2']},
-          {id:'s3', label:'3', synonyms:['3','3번','s3']},
-          {id:'s4', label:'4', synonyms:['4','4번','s4']},
+        { id: 'start', title: '시작점 홀/짝', outcomes: [
+          {id:'odd', label:'홀', synonyms:['홀','odd','o']},
+          {id:'even', label:'짝', synonyms:['짝','even','e']},
         ]},
       ]
     },
@@ -84,11 +68,9 @@
           {id:'line3', label:'3줄', synonyms:['3','3줄','3line','three']},
           {id:'line4', label:'4줄', synonyms:['4','4줄','4line','four']},
         ]},
-        { id: 'start2', title: '시작점(1~4)', outcomes: [
-          {id:'s1', label:'1', synonyms:['1','1번','s1']},
-          {id:'s2', label:'2', synonyms:['2','2번','s2']},
-          {id:'s3', label:'3', synonyms:['3','3번','s3']},
-          {id:'s4', label:'4', synonyms:['4','4번','s4']},
+        { id: 'start2', title: '시작점 홀/짝', outcomes: [
+          {id:'odd', label:'홀', synonyms:['홀','odd','o']},
+          {id:'even', label:'짝', synonyms:['짝','even','e']},
         ]},
       ]
     },
@@ -132,11 +114,13 @@
       stake: 10000,
       odds,
       probs,
+      recentN: 6,
       historyText: ''
     };
   }
 
   let state = loadState() || defaultState();
+  if(!state.recentN) state.recentN = 6;
 
   function getGame(id){ return GAMES.find(g=> g.id === id) || GAMES[0]; }
   function getMarket(game, marketId){ return game.markets.find(m=> m.id === marketId) || game.markets[0]; }
@@ -206,7 +190,7 @@
         <tr data-out="${o.id}">
           <td><span class="mg-pill">${o.label}</span></td>
           <td><input class="mg-in" inputmode="decimal" data-k="odds" value="${ov ?? ''}"/></td>
-          <td><input class="mg-in" inputmode="decimal" data-k="prob" placeholder="%" value="${pv ?? ''}"/></td>
+          <td><input class="mg-in" inputmode="decimal" data-k="prob" placeholder="자동" value="${pv ?? ''}" readonly/></td>
           <td class="mg-note">—</td>
         </tr>
       `;
@@ -289,7 +273,7 @@
     $('mgSumP') && ($('mgSumP').textContent = Number.isFinite(sumImp) ? fmt(sumImp, 4) : '—');
     $('mgMargin') && ($('mgMargin').textContent = Number.isFinite(margin) ? pct(margin, 2) : '—');
     $('mgN') && ($('mgN').textContent = state.historyText ? String(res.historyN||0) : '—');
-    $('mgMode') && ($('mgMode').textContent = '내 확률');
+    $('mgMode') && ($('mgMode').textContent = `최근 ${state.recentN||6}개`);
 
     // Output table
     const outBody = $('mgOutBody');
@@ -321,11 +305,7 @@
       renderAll();
     });
 
-    $('mgFillFair')?.addEventListener('click', ()=>{
-      const res = calc();
-      res.outs.forEach(x=>{
-        if(Number.isFinite(x.fairP)) state.probs[x.id] = String((x.fairP*100).toFixed(2));
-      });
+    $('mgFillFair')?.addEventListener('click', ()=>{ toast('이 버전은 내 확률 입력을 사용하지 않습니다. 최근 결과 기반으로 계산하세요.'); });
       saveState(state);
       renderOutcomes();
       calcAndRender();
@@ -401,12 +381,47 @@
     return { total, counts, probs };
   }
 
+
+  function computeFreqRecent(text, market, recentN){
+    const raw = String(text||"").trim();
+    if(!raw) return { total:0, counts:{}, probs:{} };
+    const toks = raw.split(/\s+|,|\|/).map(s=>s.trim()).filter(Boolean);
+    const mapped = [];
+    for(const t of toks){
+      const id = mapTokenToOutcome(t, market);
+      if(id) mapped.push(id);
+    }
+    if(!mapped.length) return { total:0, counts:{}, probs:{} };
+    const n = clamp(parseInt(recentN||6,10)||6, 1, 20);
+    const slice = mapped.slice(-n);
+    const counts = {};
+    slice.forEach(id=>{ counts[id] = (counts[id]||0)+1; });
+    const probs = {};
+    market.outcomes.forEach(o=>{
+      probs[o.id] = (counts[o.id]||0) / slice.length;
+    });
+    return { total: slice.length, counts, probs };
+  }
+
+
+
   function bindHistory(){
     const ta = $('mgHistory');
     const btn = $('mgApplyFreq');
     if(!ta || !btn) return;
 
     ta.value = state.historyText || '';
+
+    const selN = $('mgRecentN');
+    if(selN){
+      selN.value = String(state.recentN||6);
+      selN.addEventListener('change', ()=>{
+        state.recentN = parseInt(selN.value,10)||6;
+        saveState(state);
+        // auto re-apply if history exists
+        if(ta.value.trim()) btn.click();
+      });
+    }
 
     ta.addEventListener('input', debounce(()=>{
       state.historyText = ta.value;
@@ -416,7 +431,7 @@
     btn.addEventListener('click', ()=>{
       const game = getGame(state.game);
       const market = getMarket(game, state.market);
-      const r = computeFreqFromHistory(ta.value, market);
+      const r = computeFreqRecent(ta.value, market, state.recentN);
       if(!r.total){
         toast('매핑 가능한 결과가 없습니다. (예: 홀 짝 홀 / 좌 우 좌)');
         return;
@@ -430,7 +445,7 @@
       calcAndRender();
       // keep for KPI
       state._lastHistoryN = r.total;
-      toast(`히스토리 ${r.total}개 → 확률 입력 완료`);
+      toast(`최근 ${r.total}개 → 확률 반영 완료`);
     });
 
     $('mgClearHistory')?.addEventListener('click', ()=>{
