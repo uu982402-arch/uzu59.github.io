@@ -4,17 +4,22 @@
 
   // Base theme tokens (vars) are required for consistent styling on ALL pages.
   // NOTE: We intentionally do NOT load /assets/88st-theme.js (toggle).
-  const THEME_CSS    = "/assets/88st-theme.css?v=20260212_CASINO1";
+  // One-shot VIP build tag (cache bust)
+  const BUILD = "20260212_VIP1";
 
-  const SHELL_CSS    = "/assets/88st-shell.css?v=20260212_CASINO1";
-  const UNIFY_CSS    = "/assets/88st-unify.css?v=20260212_CASINO1";
-  const LUX2_CSS     = "/assets/88st-luxury-v2.css?v=20260212_CASINO1";
-  const TOOL_HIS_CSS = "/assets/88st-tool-history.css?v=20260212_CASINO1";
+  const THEME_CSS    = `/assets/88st-theme.css?v=${BUILD}`;
+
+  const SHELL_CSS    = `/assets/88st-shell.css?v=${BUILD}`;
+  const UNIFY_CSS    = `/assets/88st-unify.css?v=${BUILD}`;
+  const LUX2_CSS     = `/assets/88st-luxury-v2.css?v=${BUILD}`;
+  const TOOL_HIS_CSS = `/assets/88st-tool-history.css?v=${BUILD}`;
   // cache-bust for polish tweaks
-  const MOBILE_POLISH_CSS = "/assets/mobile-polish.css?v=20260212_CASINO1";
-  const POLISH_CSS        = "/assets/88st-polish.css?v=20260212_CASINO1";
+  const MOBILE_POLISH_CSS = `/assets/mobile-polish.css?v=${BUILD}`;
+  const POLISH_CSS        = `/assets/88st-polish.css?v=${BUILD}`;
   // premium global layer (page-wide luxe)
-  const PREMIUM_GLOBAL_CSS = "/assets/88st-premium-global.css?v=20260212_CASINO1";
+  const PREMIUM_GLOBAL_CSS = `/assets/88st-premium-global.css?v=${BUILD}`;
+  // final VIP layer (forces casino-light look everywhere)
+  const VIP_CSS = `/assets/88st-vvvvvip.css?v=${BUILD}`;
 
   function ensureCss(href){
     try{
@@ -127,7 +132,7 @@
     {group:"계산기", title:"EV 계산기", href:"/tool-ev/", tag:"계산기"},
     {group:"계산기", title:"배당↔확률 변환", href:"/tool-odds/", tag:"계산기"},
     {group:"계산기", title:"Kelly 비중", href:"/tool/kelly/", tag:"계산기"},
-    {group:"메뉴", title:"카지노분석기", href:"/tool-casino/", tag:"도구"},
+    {group:"메뉴", title:"카지노 전략 분석기", href:"/tool-casino/", tag:"도구"},
     {group:"카지노 계산기", title:"마틴게일", href:"/casino-strategy/martingale/", tag:"전략"},
     {group:"카지노 계산기", title:"파롤리(역마틴게일)", href:"/casino-strategy/paroli/", tag:"전략"},
     {group:"카지노 계산기", title:"달랑베르", href:"/casino-strategy/dalembert/", tag:"전략"},
@@ -148,11 +153,8 @@
   function inject(){
     if(document.getElementById("_88stShellHeader")) return;
 
-    // Lock the site to ONE theme (premium casino-style). No toggle UI/JS.
-    // Prefer HTML attribute if already set.
-    try{
-      document.documentElement.setAttribute('data-theme','dark');
-    }catch(e){}
+    // Lock the site to ONE theme (casino-light). No toggle UI/JS.
+    try{ document.documentElement.setAttribute('data-theme','light'); }catch(e){}
 
     document.body.classList.add("st-shell-on", "st-lux2", "st-premium", "st-app");
 
@@ -168,6 +170,7 @@
     ensureCss(MOBILE_POLISH_CSS);
     ensureCss(POLISH_CSS);
     ensureCss(PREMIUM_GLOBAL_CSS);
+    ensureCss(VIP_CSS);
 
     // ===== Header =====
     const header = document.createElement("header");
@@ -194,8 +197,10 @@
               </div>
             </div>
 
+            <a class="st-shell-link" href="/">홈</a>
+
             <a class="st-shell-link" href="/analysis/">분석기</a>
-            <a class="st-shell-link" href="/tool-casino/">카지노분석기</a>
+            <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
 
             <div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">계산기</button>
@@ -234,7 +239,7 @@
 
           <button class="st-shell-search" type="button" id="_88stSearchOpen" aria-label="통합검색 열기">
             <span class="g" aria-hidden="true"></span>
-            <span class="q">구글창처럼 <b>팔팔커뮤니티</b> 검색 →</span>
+            <span class="q"><b>통합검색</b> · 업체 · 분석기 · 계산기 · 가이드</span>
           </button>
         </div>
 
@@ -246,6 +251,20 @@
 
     if(insertAfter && insertAfter.parentNode) insertAfter.parentNode.insertBefore(header, insertAfter.nextSibling);
     else document.body.insertBefore(header, document.body.firstChild);
+
+    // Expose header height for fixed left-panel menus (prevents overlap)
+    (function bindHeaderHeight(){
+      const apply = ()=>{
+        try{
+          const h = header.getBoundingClientRect().height || 64;
+          document.documentElement.style.setProperty('--st-shell-head-h', `${Math.round(h)}px`);
+        }catch(e){}
+      };
+      apply();
+      window.addEventListener('resize', apply);
+      setTimeout(apply, 0);
+      setTimeout(apply, 250);
+    })();
 
     // ===== Drawer (mobile) =====
     const drawer = document.createElement('div');
@@ -267,8 +286,10 @@
               </div>
             </details>
 
+            <a class="st-shell-link" href="/">홈</a>
+
             <a class="st-shell-link" href="/analysis/">분석기</a>
-            <a class="st-shell-link" href="/tool-casino/">카지노분석기</a>
+            <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
 
             <details class="st-shell-acc" open>
               <summary class="st-shell-link">계산기</summary>

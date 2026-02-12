@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html data-theme="dark" lang="ko">
+<html data-theme="light" lang="ko">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
@@ -25,13 +25,13 @@
 *::after{ box-sizing:border-box; }
 
 :root{
-  --bg:#0b0b0b;
-  --panel:#121212;
+  --bg:#f5f6f8;
+  --panel:rgba(255,255,255,.92);
 
   /* (THEME) 로고 색상에 맞춰 자동으로 바뀌는 포인트 컬러 */
-  --accent:#5fb2ff;
-  --accent2:#a8dcff;
-  --accentRGB: 95 178 255;
+  --accent:#d4af37;
+  --accent2:#f5e27a;
+  --accentRGB: 212 175 55;
 
   /* 기존 변수명 호환(기능 유지) */
   --gold: var(--accent);
@@ -1845,7 +1845,7 @@ const INSIGHTS_BY_SPORT = {
 <link href="/assets/88st-tool-history.css?v=20260210_B5" rel="stylesheet"/>
 <script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B5"></script>
 </meta><link href="/assets/88st-shell.css?v=20260212_CASINO1" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=20260212_CASINO1"></script>
+<script defer="" src="/assets/js/88st-shell.js?v=20260212_VIP1"></script>
 </head>
 <body>
 <div aria-hidden="true" id="loader">
@@ -1904,74 +1904,47 @@ const INSIGHTS_BY_SPORT = {
 
 </div>
 <div class="section" id="whySection">
-<div class="title"><span class="badge">WHY</span>왜 88 배당 분석기인가?</div>
-<div class="text" style="margin-bottom:10px;">
-<b>3초 안에 결론</b>이 나오는 구조로 설계했습니다.
-  </div>
-<div class="text" style="color:#cfcfcf;line-height:1.65;">
-    • <b>마진(오버라운드)</b>로 “비용이 낮은 라인”을 빠르게 분류<br/>
-    • <b>공정배당·정규화 확률</b>로 시장이 말하는 확률을 한 번에 확인<br/>
-    • (고급) <b>내 예상 확률</b>을 넣으면 EV/비중까지 계산해 “PASS/주의/추천”을 바로 표시
-  </div>
-<div class="why-duo" aria-label="WHY 요약 카드" style="margin-top:12px;">
+<div class="title"><span class="badge">WHY</span>왜 88 분석기를 써야 하나요?</div>
 
-<div aria-label="예시" class="odds-summary-card">
-<div class="odds-summary-row">
-<div class="odds-metric">
-<div class="odds-metric-title">예시 (2-way)</div>
-<div class="odds-metric-value">1.90 / 1.90</div>
-<div class="odds-metric-sub">홈 / 원정</div>
-</div>
-<div class="odds-metric">
-<div class="odds-metric-title">오버라운드</div>
-<div class="odds-metric-value">1.0526</div>
-<div class="odds-metric-sub">마진 5.26%</div>
-</div>
-<div class="odds-metric">
-<div class="odds-metric-title">해석</div>
-<div class="odds-metric-value">보통·주의</div>
-<div class="odds-metric-sub">낮을수록 비용↓</div>
-</div>
-</div>
-<div class="odds-summary-note" style="margin:10px 0 0;">
-      같은 시장/종류라면 <b>마진이 낮을수록</b> 비용(수수료)이 낮은 편입니다. (참고용)
-    </div>
-<div class="odds-summary-cta">
-<a class="insight-btn secondary" data-cta="why_to_analysis" href="/analysis/" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; margin-top:12px;">
-        전체 분석기 열기 <span aria-hidden="true">→</span>
-</a>
-</div>
-</div>
+<div class="why-split" aria-label="WHY 섹션(스포츠/카지노)">
+  <div class="why-card" aria-label="스포츠 배당 분석기">
+    <div class="why-kicker">스포츠 배당 분석기</div>
+    <div class="why-head"><b>3초 안에 결론</b>이 나오는 구조로 설계했습니다.</div>
+    <ul class="why-list">
+      <li><b>마진(오버라운드)</b>로 “비용이 낮은 라인”을 빠르게 분류</li>
+      <li><b>공정배당·정규화 확률</b>로 시장이 말하는 확률을 한 번에 확인</li>
+      <li>(고급) <b>내 예상 확률</b> 입력 시 EV/비중까지 계산해 <b>PASS/주의/추천</b>을 즉시 표시</li>
+    </ul>
 
-<!-- Casino analyzer (added under WHY section) -->
-<div aria-label="카지노 전략 분석기" class="odds-summary-card">
-  <div class="odds-summary-row">
-    <div class="odds-metric">
-      <div class="odds-metric-title"><span class="badge" style="margin-right:8px;">CASINO</span>바카라 프리셋</div>
-      <div class="odds-metric-value">2.00 / 1.97</div>
-      <div class="odds-metric-sub">PLAYER / BANKER</div>
+    <div class="why-metrics">
+      <div class="why-metric"><div class="t">예시 (2-way)</div><div class="v">1.90 / 1.90</div><div class="s">홈 / 원정</div></div>
+      <div class="why-metric"><div class="t">오버라운드</div><div class="v">1.0526</div><div class="s">마진 5.26%</div></div>
+      <div class="why-metric"><div class="t">해석</div><div class="v">보통·주의</div><div class="s">낮을수록 비용↓</div></div>
     </div>
-    <div class="odds-metric">
-      <div class="odds-metric-title">전략</div>
-      <div class="odds-metric-value">마틴·파롤리</div>
-      <div class="odds-metric-sub">달랑·오스카·피보·라부</div>
-    </div>
-    <div class="odds-metric">
-      <div class="odds-metric-title">세션 운영</div>
-      <div class="odds-metric-value">WIN/LOSE</div>
-      <div class="odds-metric-sub">UNDO · MDD · 회복 1승</div>
-    </div>
-  </div>
-  <div class="odds-summary-note" style="margin:10px 0 0;">
-    턴이 빠른 바카라에서도 <b>다음 베팅</b>을 즉시 계산하고, 세션 기록으로 <b>리스크</b>를 함께 관리합니다.
-  </div>
-  <div class="odds-summary-cta">
-    <a class="insight-btn secondary" data-cta="why_to_casino" href="/tool-casino/" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:12px; margin-top:12px;">
-      카지노 분석기 열기 <span aria-hidden="true">→</span>
-    </a>
-  </div>
-</div>
 
+    <div class="why-note">같은 시장/종류라면 <b>마진이 낮을수록</b> 비용(수수료)이 낮은 편입니다. (참고용)</div>
+    <div class="why-cta"><a class="insight-btn primary" data-cta="why_to_analysis" href="/analysis/">스포츠 분석기 열기 <span aria-hidden="true">→</span></a></div>
+  </div>
+
+  <div class="why-card" aria-label="카지노 전략 분석기">
+    <div class="why-kicker">카지노 전략 분석기</div>
+    <div class="why-head"><b>턴이 빠른 게임</b>에서도 ‘다음 베팅’을 실수 없이 정리합니다.</div>
+    <ul class="why-list">
+      <li><b>전략 선택</b>: 마틴·파롤리·달랑·오스카·피보·라부셰르를 한 화면에서 비교</li>
+      <li><b>WIN/LOSE 1탭</b>으로 다음 스텝 자동 계산 (UNDO 포함)</li>
+      <li><b>세션 관리</b>: 누적손익 · 최대낙폭(MDD) · 회복까지 필요한 1승 베팅 표시</li>
+      <li><b>프리셋</b>: 바카라 PLAYER 2.00 / BANKER 1.97 + 단위/올림 규칙까지 실전 속도 대응</li>
+    </ul>
+
+    <div class="why-metrics">
+      <div class="why-metric"><div class="t">바카라 프리셋</div><div class="v">2.00 / 1.97</div><div class="s">PLAYER / BANKER</div></div>
+      <div class="why-metric"><div class="t">전략</div><div class="v">탭 선택</div><div class="s">마틴·파롤리·달랑·오스카·피보·라부</div></div>
+      <div class="why-metric"><div class="t">세션 운영</div><div class="v">WIN/LOSE</div><div class="s">Undo · MDD · 회복 1승</div></div>
+    </div>
+
+    <div class="why-note">단순 ‘계산기’가 아니라, <b>실전 세션 운영</b>에 필요한 숫자를 한 번에 보여줍니다.</div>
+    <div class="why-cta"><a class="insight-btn primary" data-cta="why_to_casino" href="/tool-casino/">카지노 전략 분석기 열기 <span aria-hidden="true">→</span></a></div>
+  </div>
 </div>
 
 </div>

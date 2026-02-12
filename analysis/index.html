@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html data-theme="dark" lang="ko">
+<html data-theme="light" lang="ko">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -1454,25 +1454,25 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 @media(max-width:560px){ .result-dock .btn{ min-width:0; } }
 
 <!-- ===== GA4 (공통) ===== -->
-<script src="../assets/theme-preset.js" defer></script>
+
 
 <style id="v13_1_theme_override">
 /* === v13.1 look unify (from main index) === */
 :root{
   /* unify accent (blue) */
-  --accent1:#5fb2ff;
-  --accent2:#a8dcff;
-  --accentRGB:95,178,255;  /* for rgba(var(--accentRGB), .xx) */
+  --accent1:#d4af37;
+  --accent2:#f5e27a;
+  --accentRGB:212,175,55;  /* for rgba(var(--accentRGB), .xx) */
   --accentText:#00121a;
   --accentOn:#00121a;
 
   /* unify tokens */
-  --bg:#05060b;
-  --panel:rgba(12,14,22,.62);
+  --bg:#f5f6f8;
+  --panel:rgba(255,255,255,.92);
   --glassA:.72;
   --glassStrongA:.86;
   --glassSoftA:.18;
-  --glassBorder:rgba(255,255,255,.10);
+  --glassBorder:rgba(18,20,28,.10);
 
   /* backward compat */
   --gold: var(--accent1);
@@ -1620,7 +1620,7 @@ a{ color:inherit; }
 <link href="/assets/88st-tool-history.css?v=20260210_B5" rel="stylesheet"/>
 <script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B5"></script>
 <link href="/assets/88st-shell.css?v=20260212_CASINO1" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=20260212_CASINO1"></script>
+<script defer="" src="/assets/js/88st-shell.js?v=20260212_VIP1"></script>
 </head>
 <body>
 <!-- ✅ 사칭주의 팝업 (1일 1회) -->
@@ -5254,18 +5254,6 @@ function closeBundleShare(){
   const modal = document.getElementById("bundleShareModal");
   if(modal) modal.style.display = "none";
 }
-
-
-// Theme change → redraw share cards (light/dark)
-window.addEventListener("88st:theme", ()=>{
-  try{ drawShareCard(); }catch(e){}
-  try{
-    const m = document.getElementById("bundleShareModal");
-    if(m && m.style && m.style.display === "flex"){
-      drawBundleCard(getBundleItems(10));
-    }
-  }catch(e){}
-});
 
 
 async function copyBundleText(){
