@@ -299,6 +299,7 @@
               <div class="st-shell-acc-body">
                 <a class="st-shell-link" href="/speed/">SPEED</a>
                 <a class="st-shell-link" href="/ok/">OK</a>
+                <a class="st-shell-link" href="/#vendors-verified">인증놀이터</a>
               </div>
             </details>
 
@@ -342,6 +343,9 @@
         </div>
       </div>
     `;
+
+    // Attach drawer to DOM (required for mobile menu)
+    document.body.appendChild(drawer);
 
     // ===== Behavior =====
     function openDrawer(){
