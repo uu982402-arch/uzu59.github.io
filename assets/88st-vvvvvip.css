@@ -90,7 +90,7 @@ body.st-premium::before{ display:none !important; }
 }
 
 /* WHY split cards (main index) */
-.why-split{ display:grid; gap:14px; grid-template-columns:1fr 1fr; }
+.why-split{ display:grid; gap:14px; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); }
 @media (max-width: 860px){ .why-split{ grid-template-columns:1fr; } }
 .why-card{
   border:1px solid var(--panel-border) !important;

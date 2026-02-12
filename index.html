@@ -102,25 +102,6 @@ body[data-logo-shadow="presence"]{ --logo-shadow: var(--logo-shadow-presence); }
 @keyframes pulse{ 0%{ transform:scale(1); opacity:.85; } 50%{ transform:scale(1.03); opacity:1; } 100%{ transform:scale(1); opacity:.85; } }
 #loader.hide{ opacity:0; pointer-events:none; transition: opacity .35s ease; }
 
-.scam-popup{
-  position:fixed; inset:0; background:rgba(0,0,0,.75);
-  display:none; align-items:center; justify-content:center;
-  z-index:3000; padding:18px;
-}
-.scam-box{
-  background:rgba(17,17,17,.95);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;
-  padding:22px;
-  width:100%;
-  max-width:380px;
-  text-align:center;
-  box-shadow:0 18px 60px rgba(0,0,0,.75);
-  backdrop-filter: blur(10px);
-}
-.scam-box h3{ color:#ff6b6b; margin:0 0 10px; font-weight:900; }
-.scam-box p{ font-size:13px; color:#ddd; line-height:1.55; margin:0; }
-.scam-box .btn{ margin-top:12px; padding:12px; border-radius:12px; background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#000; font-weight:900; cursor:pointer; user-select:none; }
 
 .header{ text-align:center; padding:18px 0 8px; }
 .header .logoLink{ display:inline-flex; align-items:center; justify-content:center; text-decoration:none; }
@@ -1855,17 +1836,6 @@ const INSIGHTS_BY_SPORT = {
 </div>
 <div class="text">Loading...</div>
 </div>
-<div aria-label="사칭 주의 안내" aria-modal="true" class="scam-popup" id="scamPopup" role="dialog">
-<div class="scam-box">
-<h3>⚠️ 사칭 주의 안내</h3>
-<p>
-      88 커뮤니티 공식 관리자 텔레그램은<br/>
-<b>@UZU59</b> 단 하나입니다.<br/><br/>
-      그 외 계정은 사칭일 수 있으니<br/>
-      반드시 주의해 주세요.
-    </p>
-<div class="btn" onclick="closeScam()">확인</div>
-</div>
 </div>
 <h1 style="position:absolute;left:-9999px;">스포츠 배당 분석기와 배당 마진 계산기 | 88</h1>
 <div class="header">
@@ -1967,6 +1937,26 @@ const INSIGHTS_BY_SPORT = {
     <div class="why-note">단순 ‘계산기’가 아니라, <b>실전 세션 운영</b>에 필요한 숫자를 한 번에 보여줍니다.</div>
     <div class="why-cta"><a class="insight-btn primary" data-cta="why_to_casino" href="/tool-casino/">카지노 전략 분석기 열기 <span aria-hidden="true">→</span></a></div>
   </div>
+
+  <div class="why-card" aria-label="미니게임 분석기">
+    <div class="why-kicker">미니게임 분석기</div>
+    <div class="why-head"><b>최근 결과를 한 번에 정리</b>해서 ‘흐름/편향’을 빠르게 확인합니다.</div>
+    <ul class="why-list">
+      <li><b>최근 N회</b> 입력/저장 → 홀·짝/언더·오버 등 <b>빈도·확률</b> 자동 집계</li>
+      <li><b>연속·전환</b> 지표로 단순 감(느낌) 대신 <b>숫자 기반 체크</b></li>
+      <li><b>히스토리</b>로 오늘 데이터만 깔끔하게 관리 (초기화/저장/불러오기)</li>
+    </ul>
+
+    <div class="why-metrics">
+      <div class="why-metric"><div class="t">예시</div><div class="v">최근 30회</div><div class="s">입력/저장</div></div>
+      <div class="why-metric"><div class="t">자동 집계</div><div class="v">빈도·확률</div><div class="s">홀/짝 · U/O</div></div>
+      <div class="why-metric"><div class="t">체크</div><div class="v">연속·전환</div><div class="s">흐름 확인</div></div>
+    </div>
+
+    <div class="why-note">결과를 “보기 좋게 정리”하는 도구입니다. 과몰입을 피하고, 기록은 짧게 가져가세요.</div>
+    <div class="why-cta"><a class="insight-btn primary" data-cta="why_to_minigame" href="/tool-minigame/">미니게임 분석기 열기 <span aria-hidden="true">→</span></a></div>
+  </div>
+
 </div>
 
 </div>
@@ -2026,48 +2016,6 @@ const INSIGHTS_BY_SPORT = {
 <div class="vendor-grid" id="vendorGridVerified"></div>
 </section>
 </div>
-<div class="section" id="faqSection">
-<div class="title"><span class="badge">FAQ</span>자주 묻는 질문</div>
-<div class="text" style="margin-bottom:10px;">필요한 것만 짧게 정리했습니다.</div>
-<details class="faq-item" open="">
-<summary class="faq-q">마진(오버라운드)이 뭐예요?</summary>
-<div class="text faq-a">배당 역수의 합(오버라운드)에서 1을 뺀 값이 마진(%)입니다. 같은 시장이라면 보통 <b>낮을수록</b> 비용이 낮은 편입니다.</div>
-</details>
-<details class="faq-item">
-<summary class="faq-q">공정배당/정규화 확률은 어떻게 보나요?</summary>
-<div class="text faq-a">입력한 배당을 확률로 바꾼 뒤 합이 100%가 되도록 정규화합니다. 그 확률의 역수가 공정배당(참고값)입니다.</div>
-</details>
-<details class="faq-item">
-<summary class="faq-q">EV는 언제 신뢰할 수 있어요?</summary>
-<div class="text faq-a">EV는 “내가 생각하는 승률”이 들어가야 의미가 있습니다. 고급 모드에서 <b>내 예상 확률</b>을 넣으면 +EV / -EV를 바로 표시합니다. (결과 보장 아님)</div>
-</details>
-<details class="faq-item">
-<summary class="faq-q">업체 카드는 어디서 보나요?</summary>
-<div class="text faq-a">메인에서 바로 보거나, 분석기에서 계산 후 <b>업체 카드</b> 버튼으로 이동할 수 있습니다.</div>
-</details>
-</div>
-<style>
-/* FAQ (index only) */
-#faqSection details{ background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:10px 12px; margin-top:10px; }
-#faqSection summary{ cursor:pointer; list-style:none; font-weight:900; color:var(--text); }
-#faqSection summary::-webkit-details-marker{ display:none; }
-#faqSection .faq-a{ margin-top:8px; }
-</style>
-<div aria-label="업체 상세" aria-modal="true" class="popup" id="cardPopup" role="dialog">
-<div class="popup-box" role="document">
-<h2 id="pTitle"></h2>
-<p id="codeRow">가입코드 : <b id="pCode"></b></p>
-<p id="pBenefit" style="color:#f5e27a;font-size:13px;margin:10px 0 0;"></p>
-<p id="pNotice" style="color:#ff6b6b;font-size:12px;margin:8px 0 0;"></p>
-<div aria-label="주요 액션" class="popup-cta">
-<div class="btn copy secondary" id="copyBtn" role="button" tabindex="0">가입코드 복사</div>
-<a class="btn go primary" data-no-auto-outbound="1" id="pLink" rel="noopener" target="_blank">사이트 이동</a>
-<a class="btn copy ghost" data-no-auto-outbound="1" id="pTelegram" rel="noopener" target="_blank">문의 (텔레그램)</a>
-</div>
-<div aria-label="보조 액션" class="popup-aux">
-<div class="btn copy ghost" id="favBtn" role="button" tabindex="0">☆ 즐겨찾기</div>
-<div class="btn copy ghost" id="closeBtn" role="button" tabindex="0">닫기</div>
-</div>
 </div>
 </div><div class="landing-seo">
 <h3>관련 정보</h3>
@@ -2110,24 +2058,6 @@ function dateKeyLocal() {
   const m = String(d.getMonth()+1).padStart(2,"0");
   const day = String(d.getDate()).padStart(2,"0");
   return `${y}-${m}-${day}`;
-}
-
-/* ===== 사칭주의 팝업 (1일 1회) ===== */
-(function() {
-  const key="scam_popup_date";
-  const today=dateKeyLocal();
-  const el = document.getElementById("scamPopup");
-  if(!el) return;
-  if(localStorage.getItem(key)!==today) {
-    el.style.display="flex";
-  }
-})();
-function closeScam() {
-  const today=dateKeyLocal();
-  localStorage.setItem("scam_popup_date", today);
-  const el = document.getElementById("scamPopup");
-  if(el) el.style.display="none";
-  track("scam_popup_close", {"page":"index"});
 }
 
 
