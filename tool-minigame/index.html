@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html data-theme='light' lang='ko'>
+<head>
+  <meta charset='utf-8'/>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+
+  <title>미니게임 분석기 | 동행 파워볼·파워볼+·키노사다리 EV·마진·공정배당</title>
+  <meta name='description' content='동행 파워볼/파워볼+ · 동행 키노사다리 · 동행 스피드키노사다리의 배당(사용자 입력) 기준으로 암시확률, 오버라운드(마진), 공정확률/공정배당, EV(기대값)를 한 번에 계산합니다. 최근 결과 붙여넣기로 빈도 기반 확률도 계산할 수 있습니다.'/>
+  <meta name='keywords' content='미니게임 분석기, 동행 파워볼 분석기, 동행 파워볼+ 분석기, 키노사다리 분석기, 스피드키노사다리 분석기, 파워볼 홀짝, 파워볼 언더오버, 대중소, 오버라운드, 마진 계산기, 공정배당, EV 계산기'/>
+  <meta name='robots' content='index,follow'/>
+  <link rel='canonical' href='https://88st.cloud/tool-minigame/'/>
+
+  <meta property='og:type' content='website'/>
+  <meta property='og:site_name' content='88 (팔팔커뮤니티)'/>
+  <meta property='og:title' content='미니게임 분석기'/>
+  <meta property='og:description' content='배당 입력 → 마진/공정배당/EV 계산 + 최근 결과 빈도 확률'/>
+  <meta property='og:url' content='https://88st.cloud/tool-minigame/'/>
+
+  <link rel='icon' href='/favicon.ico' type='image/x-icon'/>
+  <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/>
+
+  <link rel='stylesheet' href='/assets/88st-theme.css?v=20260212_VIP3'/>
+  <link rel='stylesheet' href='/assets/88st-minigame-analyzer.css?v=20260212_VIP3_mg1'/>
+  <link rel='stylesheet' href='/assets/88st-shell.css?v=20260212_VIP3'/>
+  <script defer src='/assets/js/88st-shell.js?v=20260212_VIP3'></script>
+  <script defer src='/assets/js/88st-minigame-analyzer.js?v=20260212_VIP3_mg1'></script>
+
+  <!-- GA4 (main stream) -->
+  <script>
+    window.SITE_CONFIG = window.SITE_CONFIG || {};
+    window.SITE_CONFIG.GA4_ID = 'G-22QKSP9VGB';
+  </script>
+  <script defer src='/assets/js/88st-analytics.js'></script>
+
+  <script type='application/ld+json'>
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"홈","item":"https://88st.cloud/"},
+      {"@type":"ListItem","position":2,"name":"미니게임 분석기","item":"https://88st.cloud/tool-minigame/"}
+    ]
+  }
+  </script>
+</head>
+<body class='st-app'>
+  <main class='mg-wrap'>
+    <section class='mg-hero'>
+      <h1>미니게임 분석기</h1>
+      <p>
+        배당을 입력하면 <b>암시확률·마진(오버라운드)·공정확률/공정배당·EV</b>를 즉시 계산합니다.
+        결과 히스토리를 붙여넣으면 <b>빈도 기반 확률</b>도 자동으로 산출합니다.
+      </p>
+    </section>
+
+    <div class='mg-grid'>
+      <section class='mg-card' aria-label='입력'>
+        <h2>게임 · 마켓 · 배당 입력</h2>
+
+        <div class='mg-tabs' id='mgGameTabs' aria-label='게임 선택'></div>
+
+        <div class='mg-row' style='margin-top:10px;'>
+          <div class='mg-field' style='flex:1.1; min-width:240px;'>
+            <label for='mgMarket'>마켓</label>
+            <select id='mgMarket'></select>
+          </div>
+          <div class='mg-field' style='flex:.9; min-width:200px;'>
+            <label for='mgStake'>기본 베팅금(원)</label>
+            <input id='mgStake' inputmode='numeric' value='10000'/>
+          </div>
+        </div>
+
+        <div class='mg-note' style='margin-top:10px;'>
+          <b>배당</b>은 사이트에서 제공되는 값을 그대로 입력하세요. <b>내 확률(%)</b>은 선택(빈칸 가능)입니다.
+        </div>
+
+        <div style='margin-top:10px; overflow:auto;'>
+          <table class='mg-table' aria-label='배당 입력 테이블'>
+            <thead>
+              <tr>
+                <th style='width:120px;'>선택</th>
+                <th style='width:120px;'>배당</th>
+                <th style='width:150px;'>내 확률(%)</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody id='mgInputBody'></tbody>
+          </table>
+        </div>
+
+        <div class='mg-row' style='margin-top:12px;'>
+          <div class='mg-field' style='min-width:280px; flex:1.2;'>
+            <label for='mgHistory'>최근 결과 붙여넣기 (선택)</label>
+            <textarea id='mgHistory' placeholder='예: 홀 짝 홀 홀 짝\n또는: 좌 우 좌 우\n(공백/줄바꿈/쉼표 구분)'></textarea>
+          </div>
+          <div class='mg-field' style='min-width:200px; flex:.8;'>
+            <label>히스토리 도구</label>
+            <div class='mg-btnrow' style='margin-top:0;'>
+              <button class='mg-btn primary' id='mgApplyFreq' type='button'>빈도 → 확률 적용</button>
+              <button class='mg-btn' id='mgClearHistory' type='button'>히스토리 비우기</button>
+            </div>
+            <div class='mg-note' style='margin-top:10px;'>
+              히스토리는 <b>현재 마켓의 선택값</b>만 인식합니다.
+            </div>
+          </div>
+        </div>
+
+        <div class='mg-divider'></div>
+
+        <div class='mg-btnrow'>
+          <button class='mg-btn primary' id='mgReset' type='button'>초기화</button>
+          <button class='mg-btn' id='mgFillFair' type='button'>공정확률로 채우기</button>
+          <button class='mg-btn' id='mgSave' type='button'>저장</button>
+        </div>
+      </section>
+
+      <section class='mg-card' aria-label='결과'>
+        <h2>계산 결과</h2>
+
+        <div class='mg-kpi' aria-label='요약 KPI'>
+          <div class='mg-k'><div class='t'>암시확률 합</div><div class='v' id='mgSumP'>—</div><div class='s'>Σ(1/배당)</div></div>
+          <div class='mg-k'><div class='t'>마진(오버라운드)</div><div class='v' id='mgMargin'>—</div><div class='s'>Σ-1</div></div>
+          <div class='mg-k'><div class='t'>입력 표본</div><div class='v' id='mgN'>—</div><div class='s'>히스토리 건수</div></div>
+          <div class='mg-k'><div class='t'>EV 기준</div><div class='v' id='mgMode'>—</div><div class='s'>내 확률</div></div>
+        </div>
+
+        <div class='mg-divider'></div>
+
+        <div style='overflow:auto;'>
+          <table class='mg-table' aria-label='결과 테이블'>
+            <thead>
+              <tr>
+                <th style='width:120px;'>선택</th>
+                <th style='width:120px;'>BE%</th>
+                <th style='width:120px;'>공정확률</th>
+                <th style='width:120px;'>공정배당</th>
+                <th style='width:120px;'>EV%</th>
+                <th>판정</th>
+              </tr>
+            </thead>
+            <tbody id='mgOutBody'></tbody>
+          </table>
+        </div>
+
+        <div class='mg-note' style='margin-top:12px;'>
+          • EV% = (<b>내 확률 × 배당</b> − 1). 베팅금은 EV 금액 계산에만 사용됩니다.
+          <br/>
+          • 이 도구는 계산을 돕기 위한 용도이며, 실제 결과는 변동성이 큽니다.
+        </div>
+
+        <div class='mg-divider'></div>
+
+        <section class='mg-foot' aria-label='안내'>
+          <h3>SEO / 안내</h3>
+          <div class='mg-note'>
+            동행파워볼 분석기 · 동행파워볼+ 분석기 · 키노사다리 분석기 · 스피드키노사다리 분석기 · 미니게임 EV 계산기 · 마진 계산기
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

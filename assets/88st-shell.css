@@ -219,9 +219,35 @@ body.st-shell-on > .topbar{ display:none !important; }
 .st-shell-dd.open{ z-index: 9200; }
 .st-shell-menu{ z-index: 9100; }
 .st-shell-dd.open .st-shell-menu{ display:block; }
-@media (hover:hover) and (pointer:fine){
-  .st-shell-dd:hover{ z-index: 9200; }
-  .st-shell-dd:hover .st-shell-menu{ display:block; }
+
+/* VIP3: 드롭다운은 "클릭"으로만 열리게 고정 (hover-open 제거) */
+
+/* menu close */
+.st-shell-menu-close{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.10);
+  color: var(--text);
+  font-weight: 1000;
+  cursor:pointer;
+}
+.st-shell-menu-close:hover{ border-color: rgba(var(--accent-rgb), .22); filter:brightness(1.05); }
+.st-shell-menu-close:active{ transform: scale(.99); }
+.st-shell-menu-close .x{ opacity:.75; font-weight:1000; }
+
+/* close button in mega grid occupies full row */
+body.st-shell-on .st-shell-mega-grid .st-shell-menu-close{ grid-column:1 / -1; }
+
+/* Performance (low) : reduce blur/glass cost */
+:root[data-perf="low"] .st-shell-header{
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 

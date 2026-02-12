@@ -5,7 +5,7 @@
   // Base theme tokens (vars) are required for consistent styling on ALL pages.
   // NOTE: We intentionally do NOT load /assets/88st-theme.js (toggle).
   // One-shot VIP build tag (cache bust)
-  const BUILD = "20260212_VIP2";
+  const BUILD = "20260212_VIP3";
 
   const THEME_CSS    = `/assets/88st-theme.css?v=${BUILD}`;
 
@@ -132,12 +132,13 @@
   const SEARCH_ITEMS = [
     {group:"섹션", title:"보증업체", href:"/#vendors-guarantee", tag:"업체"},
     {group:"섹션", title:"인증업체", href:"/#vendors-verified", tag:"업체"},
-    {group:"메뉴", title:"분석기", href:"/analysis/", tag:"도구"},
+    {group:"메뉴", title:"스포츠 분석기", href:"/analysis/", tag:"도구"},
     {group:"계산기", title:"마진 계산기", href:"/tool-margin/", tag:"계산기"},
     {group:"계산기", title:"EV 계산기", href:"/tool-ev/", tag:"계산기"},
     {group:"계산기", title:"배당↔확률 변환", href:"/tool-odds/", tag:"계산기"},
     {group:"계산기", title:"Kelly 비중", href:"/tool/kelly/", tag:"계산기"},
     {group:"메뉴", title:"카지노 전략 분석기", href:"/tool-casino/", tag:"도구"},
+    {group:"메뉴", title:"미니게임 분석기", href:"/tool-minigame/", tag:"도구"},
     {group:"카지노 계산기", title:"마틴게일", href:"/casino-strategy/martingale/", tag:"전략"},
     {group:"카지노 계산기", title:"파롤리(역마틴게일)", href:"/casino-strategy/paroli/", tag:"전략"},
     {group:"카지노 계산기", title:"달랑베르", href:"/casino-strategy/dalembert/", tag:"전략"},
@@ -153,7 +154,18 @@
     {group:"보증사이트", title:"OK", href:"/ok/", tag:"보증"},
   ];
 
-  const RECOMMENDED = ["보증업체", "인증업체", "분석기", "마진", "EV", "SPEED", "OK", "카지노", "슬롯", "IPL"];
+  const RECOMMENDED = ["보증업체", "인증업체", "스포츠", "카지노", "미니게임", "마진", "EV", "SPEED", "OK", "슬롯", "IPL"];
+
+  // VIP3: performance low-mode (reduce blur/shadow cost on slower PCs)
+  (function setPerfMode(){
+    try{
+      const mem = Number(navigator.deviceMemory || 0);
+      const hc = Number(navigator.hardwareConcurrency || 0);
+      const reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      const low = reduceMotion || (mem && mem <= 4) || (hc && hc <= 4);
+      if(low) document.documentElement.setAttribute('data-perf','low');
+    }catch(e){}
+  })();
 
   function inject(){
     if(document.getElementById("_88stShellHeader")) return;
@@ -197,6 +209,7 @@
             <div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">보증사이트</button>
               <div class="st-shell-menu mega" role="menu" aria-label="보증사이트">
+                <button class="st-shell-menu-close" type="button" data-dd-close="1"><span>닫기</span><span class="x">✕</span></button>
                 <a href="/speed/" role="menuitem"><span>SPEED</span></a>
                 <a href="/ok/" role="menuitem"><span>OK</span></a>
               </div>
@@ -204,12 +217,14 @@
 
             <a class="st-shell-link" href="/">홈</a>
 
-            <a class="st-shell-link" href="/analysis/">분석기</a>
+            <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
             <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
-
-            <div class="st-shell-dd">
+            <a class="st-shell-link" href="/tool-minigame/">미니게임 분석기</a>
+            <a class="st-shell-link" href="/#vendors-verified">인증 사이트</a>
+<div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">계산기</button>
               <div class="st-shell-menu mega st-shell-mega-grid" role="menu" aria-label="계산기 목록">
+                <button class="st-shell-menu-close" type="button" data-dd-close="1"><span>닫기</span><span class="x">✕</span></button>
                 <div class="st-shell-menu-group">
                   <div class="st-shell-menu-title">스포츠 계산기</div>
                   <a href="/tool-margin/" role="menuitem"><span>마진 계산기</span><span class="hint">오버라운드</span></a>
@@ -233,6 +248,7 @@
             <div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">가이드</button>
               <div class="st-shell-menu mega" role="menu" aria-label="가이드 목록">
+                <button class="st-shell-menu-close" type="button" data-dd-close="1"><span>닫기</span><span class="x">✕</span></button>
                 <a href="/bonus-checklist/" role="menuitem"><span>입플 체크</span><span class="hint">필수</span></a>
                 <a href="/casino/" role="menuitem"><span>카지노</span><span class="hint">기초</span></a>
                 <a href="/slot/" role="menuitem"><span>슬롯</span><span class="hint">기초</span></a>
@@ -288,10 +304,11 @@
 
             <a class="st-shell-link" href="/">홈</a>
 
-            <a class="st-shell-link" href="/analysis/">분석기</a>
+            <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
             <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
-
-            <details class="st-shell-acc" open>
+            <a class="st-shell-link" href="/tool-minigame/">미니게임 분석기</a>
+            <a class="st-shell-link" href="/#vendors-verified">인증 사이트</a>
+<details class="st-shell-acc" open>
               <summary class="st-shell-link">계산기</summary>
               <div class="st-shell-acc-body">
                 <div class="st-shell-acc-title">스포츠 계산기</div>
@@ -385,6 +402,7 @@
           }
         });
         menu.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> closeAll()));
+        menu.querySelectorAll('[data-dd-close="1"]').forEach(x=> x.addEventListener('click', (ev)=>{ ev.preventDefault(); ev.stopPropagation(); closeAll(); }));
       });
       document.addEventListener('click', (e)=>{
         const t = e.target;

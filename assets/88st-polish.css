@@ -160,6 +160,22 @@ body.st-shell-on .st-shell-center{
   -webkit-backdrop-filter: blur(18px);
 }
 
+/* VIP3: 성능 저하 환경(PC 버벅임/저사양)에서는 블러/그림자 비용을 자동 완화 */
+:root[data-perf="low"] body.st-shell-on .st-shell-center,
+:root[data-perf="low"] body.st-shell-on .st-shell-header,
+:root[data-perf="low"] body .section,
+:root[data-perf="low"] body .panel,
+:root[data-perf="low"] body .card,
+:root[data-perf="low"] body .scam-box{
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+:root[data-perf="low"] body .section,
+:root[data-perf="low"] body .panel,
+:root[data-perf="low"] body .card{
+  box-shadow: 0 10px 26px rgba(0,0,0,.22) !important;
+}
+
 /* Nav group centered in the rail */
 body.st-shell-on .st-shell-nav{
   flex: 1 1 auto;
