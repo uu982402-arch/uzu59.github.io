@@ -5,7 +5,7 @@
   // Base theme tokens (vars) are required for consistent styling on ALL pages.
   // NOTE: We intentionally do NOT load /assets/88st-theme.js (toggle).
   // One-shot VIP build tag (cache bust)
-  const BUILD = "20260212_VIP3";
+  const BUILD = "20260213_VIP4";
 
   const THEME_CSS    = `/assets/88st-theme.css?v=${BUILD}`;
 
@@ -131,7 +131,7 @@
   // ===== Search items =====
   const SEARCH_ITEMS = [
     {group:"섹션", title:"보증업체", href:"/#vendors-guarantee", tag:"업체"},
-    {group:"섹션", title:"인증업체", href:"/#vendors-verified", tag:"업체"},
+    {group:"섹션", title:"인증업체", href:"/#vendorTop", tag:"업체"},
     {group:"메뉴", title:"스포츠 분석기", href:"/analysis/", tag:"도구"},
     {group:"계산기", title:"마진 계산기", href:"/tool-margin/", tag:"계산기"},
     {group:"계산기", title:"EV 계산기", href:"/tool-ev/", tag:"계산기"},
@@ -152,6 +152,7 @@
     {group:"가이드", title:"IPL", href:"/ipl/", tag:"가이드"},
     {group:"보증사이트", title:"SPEED", href:"/speed/", tag:"보증"},
     {group:"보증사이트", title:"OK", href:"/ok/", tag:"보증"},
+    {group:"보증사이트", title:"인증놀이터", href:"/#vendorTop", tag:"바로가기"},
   ];
 
   const RECOMMENDED = ["보증업체", "인증업체", "스포츠", "카지노", "미니게임", "마진", "EV", "SPEED", "OK", "슬롯", "IPL"];
@@ -209,9 +210,9 @@
             <div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">보증사이트</button>
               <div class="st-shell-menu mega" role="menu" aria-label="보증사이트">
-                <button class="st-shell-menu-close" type="button" data-dd-close="1"><span>닫기</span><span class="x">✕</span></button>
-                <a href="/speed/" role="menuitem"><span>SPEED</span></a>
+<a href="/speed/" role="menuitem"><span>SPEED</span></a>
                 <a href="/ok/" role="menuitem"><span>OK</span></a>
+                <a href="/#vendorTop" role="menuitem"><span>인증놀이터</span></a>
               </div>
             </div>
 
@@ -220,12 +221,11 @@
             <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
             <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
             <a class="st-shell-link" href="/tool-minigame/">미니게임 분석기</a>
-            <a class="st-shell-link" href="/#vendors-verified">인증 사이트</a>
+            <a class="st-shell-link" href="/#vendorTop">인증 사이트</a>
 <div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">계산기</button>
               <div class="st-shell-menu mega st-shell-mega-grid" role="menu" aria-label="계산기 목록">
-                <button class="st-shell-menu-close" type="button" data-dd-close="1"><span>닫기</span><span class="x">✕</span></button>
-                <div class="st-shell-menu-group">
+<div class="st-shell-menu-group">
                   <div class="st-shell-menu-title">스포츠 계산기</div>
                   <a href="/tool-margin/" role="menuitem"><span>마진 계산기</span><span class="hint">오버라운드</span></a>
                   <a href="/tool-ev/" role="menuitem"><span>EV 계산기</span><span class="hint">기대값</span></a>
@@ -248,8 +248,7 @@
             <div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">가이드</button>
               <div class="st-shell-menu mega" role="menu" aria-label="가이드 목록">
-                <button class="st-shell-menu-close" type="button" data-dd-close="1"><span>닫기</span><span class="x">✕</span></button>
-                <a href="/bonus-checklist/" role="menuitem"><span>입플 체크</span><span class="hint">필수</span></a>
+<a href="/bonus-checklist/" role="menuitem"><span>입플 체크</span><span class="hint">필수</span></a>
                 <a href="/casino/" role="menuitem"><span>카지노</span><span class="hint">기초</span></a>
                 <a href="/slot/" role="menuitem"><span>슬롯</span><span class="hint">기초</span></a>
                 <a href="/minigame/" role="menuitem"><span>미니게임</span><span class="hint">기초</span></a>
@@ -299,7 +298,7 @@
               <div class="st-shell-acc-body">
                 <a class="st-shell-link" href="/speed/">SPEED</a>
                 <a class="st-shell-link" href="/ok/">OK</a>
-                <a class="st-shell-link" href="/#vendors-verified">인증놀이터</a>
+                <a class="st-shell-link" href="/#vendorTop">인증놀이터</a>
               </div>
             </details>
 
@@ -308,7 +307,7 @@
             <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
             <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
             <a class="st-shell-link" href="/tool-minigame/">미니게임 분석기</a>
-            <a class="st-shell-link" href="/#vendors-verified">인증 사이트</a>
+            <a class="st-shell-link" href="/#vendorTop">인증 사이트</a>
 <details class="st-shell-acc" open>
               <summary class="st-shell-link">계산기</summary>
               <div class="st-shell-acc-body">

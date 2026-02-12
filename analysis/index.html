@@ -6,7 +6,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>스포츠 배당 분석기 | 88 커뮤니티</title>
 <meta content="종목(축구/농구/야구/배구/e스포츠/하키)별 배당 입력으로 승리 확률(배당 기반·추정), 오버라운드, 마진, 밸류(EV), 권장 비중(보수적 Kelly), 메인/오버언더/핸디 마진을 통합 계산하고 히스토리/비교까지 지원하는 분석기입니다. (판단 보조용)" name="description"/>
-<meta name="keywords" content="스포츠 분석기, 스포츠 배당 분석기, 배당 마진, 오버라운드, 공정확률, 공정배당, EV, 핸디캡, 언더오버"/>
+<meta content="스포츠 분석기, 스포츠 배당 분석기, 배당 마진, 오버라운드, 공정확률, 공정배당, EV, 핸디캡, 언더오버" name="keywords"/>
 <link href="https://88st.cloud/analysis/" rel="canonical"/>
 <meta content="index,follow" name="robots"/>
 <style>
@@ -1595,6 +1595,50 @@ a{ color:inherit; }
 .paste-stat{font-size:12px;color:var(--muted);line-height:1.35;text-align:right}
 .paste-stat b{color:var(--text)}
 
+
+/* KPI HERO */
+.kpiHero{padding:14px 14px 12px;border-radius:16px;background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);margin:8px 0 4px}
+html[data-theme="dark"] .kpiHero{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.10)}
+.kpiGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(min-width:780px){.kpiGrid{grid-template-columns:repeat(4,minmax(0,1fr));}}
+.kpiItem{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.06)}
+html[data-theme="dark"] .kpiItem{background:rgba(0,0,0,.18);border-color:rgba(255,255,255,.10)}
+.kpiLabel{font-size:11px;opacity:.7;font-weight:800;letter-spacing:-.2px}
+.kpiValue{font-size:16px;font-weight:1000;margin-top:2px;letter-spacing:-.3px}
+.kpiNote{margin-top:10px;font-size:12px;opacity:.78;line-height:1.4}
+
+
+/* Meta toggle */
+#metaToggleBtn{margin-top:6px;padding:10px 12px;border-radius:14px}
+#metaFields{margin-top:8px}
+.simple #metaFields{display:none}
+.simple #metaToggleBtn{display:inline-flex}
+body:not(.simple) #metaToggleBtn{display:none}
+
+.simple .kpiHero{position:sticky;top:72px;z-index:30}
+
+/* ===== 데스크탑 2패널(중급/고급) ===== */
+.app-layout{display:block;}
+.app-left{min-width:0;}
+.app-right{min-width:0;}
+@media (min-width:1024px){
+  body.mid .app-layout.is-two,
+  body.adv .app-layout.is-two{display:flex;gap:16px;align-items:flex-start;}
+  body.mid .app-left,
+  body.adv .app-left{flex:1;min-width:620px;}
+  body.mid .app-right,
+  body.adv .app-right{width:380px;position:sticky;top:88px;}
+  body.mid .app-right .result,
+  body.adv .app-right .result{max-height:calc(100vh - 120px);overflow:auto;}
+}
+
+/* ===== 붙여넣기: 간단 레벨에서 원터치 중심 ===== */
+body.simple #pasteBox{border-width:2px;}
+body.simple #pasteBox .box-title{font-size:16px;font-weight:1000;}
+body.simple .paste-actions .paste-adv{display:none !important;}
+body.simple .paste-inline .chk:not(.simple-only){display:none !important;}
+
+
 </style>
 <script type="application/ld+json">
 {
@@ -1617,11 +1661,11 @@ a{ color:inherit; }
 }
 </script>
 <script src="/assets/js/88st-analytics.js"></script>
-<link href="/assets/88st-theme.css?v=20260212_VIP3" rel="stylesheet"/>
+<link href="/assets/88st-theme.css?v=20260213_VIP4" rel="stylesheet"/>
 <link href="/assets/88st-tool-history.css?v=20260210_B5" rel="stylesheet"/>
 <script defer="" src="/assets/js/88st-history-hub.js?v=20260210_B5"></script>
-<link href="/assets/88st-shell.css?v=20260212_VIP3" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=20260212_VIP3"></script>
+<link href="/assets/88st-shell.css?v=20260213_VIP4" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=20260213_VIP4"></script>
 </head>
 <body>
 <!-- ✅ 사칭주의 팝업 (1일 1회) -->
@@ -1671,7 +1715,6 @@ a{ color:inherit; }
 <span class="tag">히스토리·비교</span>
 <span class="tag">공유·공유카드</span>
 </div>
-
 </div>
 <div class="calc-hero-right">
 <div aria-label="자동 저장 상태" class="autosave">
@@ -1705,7 +1748,7 @@ a{ color:inherit; }
 </div>
 <div class="settingsHint">👇 먼저 <b>종목</b>과 <b>레벨</b>을 선택하면, 아래 입력 폼(메인/오버·언더/핸디)이 자동으로 최적화됩니다.</div>
 <!-- ✅ 팀/리그 입력(선택) -->
-<div class="row2">
+<button class="btn ghost" id="metaToggleBtn" onclick="toggleMeta()" type="button">추가 정보 입력(선택) ▾</button><div id="metaFields"><div class="row2">
 <div>
 <input class="textinput" id="league" placeholder="리그/대회명 (선택)"/>
 <div class="small-hint">※ 입력하지 않아도 분석 가능 / 공유 시 입력한 내용만 포함됩니다.</div>
@@ -1714,19 +1757,19 @@ a{ color:inherit; }
 <input class="textinput" id="teams" placeholder="팀명 (선택) 예: 맨시티 vs 리버풀"/>
 <div class="small-hint">※ 팀/리그는 선택사항입니다.</div>
 </div>
-</div>
+</div></div>
 <div class="small-hint" id="sportHint" style="margin-top:10px;"></div>
 <nav aria-label="분석기 섹션" class="st-tabbar" id="appTabbar" role="tablist">
-  <button aria-selected="true" class="st-tab on" data-jump="main" role="tab" type="button">메인</button>
-  <button aria-selected="false" class="st-tab" data-jump="total" role="tab" type="button">오버·언더</button>
-  <button aria-selected="false" class="st-tab" data-jump="handicap" role="tab" type="button">핸디캡</button>
-  <button aria-selected="false" class="st-tab" data-jump="result" role="tab" type="button">결과</button>
-  <button aria-selected="false" class="st-tab" data-jump="history" role="tab" type="button">히스토리</button>
+<button aria-selected="true" class="st-tab on" data-jump="main" role="tab" type="button">메인</button>
+<button aria-selected="false" class="st-tab" data-jump="total" role="tab" type="button">오버·언더</button>
+<button aria-selected="false" class="st-tab" data-jump="handicap" role="tab" type="button">핸디캡</button>
+<button aria-selected="false" class="st-tab" data-jump="result" role="tab" type="button">결과</button>
+<button aria-selected="false" class="st-tab" data-jump="history" role="tab" type="button">히스토리</button>
 </nav>
 <div class="mini-guide" id="miniGuide">
 <div class="head" onclick="toggleMiniGuide()">
 <div>💡 처음이면 <b>10초 가이드</b></div>
-<button type="button" class="pill" id="miniGuidePill" aria-expanded="false">열기</button>
+<button aria-expanded="false" class="pill" id="miniGuidePill" type="button">열기</button>
 </div>
 <div class="body" id="miniGuideBody">
           1) <b>종목/모드</b> 선택 → 2) <b>메인 배당</b> 입력(필수) → 3) 오버·언더/핸디(선택) → 4) <b>중급/고급</b>이면 <b>내 예상 확률</b> 입력 시 EV/켈리까지 계산됩니다.<br/>
@@ -1746,7 +1789,7 @@ a{ color:inherit; }
 <div class="box" id="pasteBox">
 <div class="box-head">
 <div class="box-title" style="margin:0;">텍스트 붙여넣기 (자동 입력)</div>
-<button type="button" class="toggle" data-target="pasteBody" onclick="toggleBox('pasteBody')">접기</button>
+<button class="toggle" data-target="pasteBody" onclick="toggleBox('pasteBody')" type="button">접기</button>
 </div>
 <div id="pasteBody">
 <div class="small-hint" style="margin-top:4px;">
@@ -1755,15 +1798,18 @@ a{ color:inherit; }
 <div class="paste-area" style="margin-top:10px;">
 <textarea class="paste-ta" id="pasteInput" placeholder="예) 맨시티 vs 리버풀  승 1.85 무 3.40 패 4.20 / 오버 2.5 1.95 언더 1.85 / 핸디 -1.5 1.90 1.95"></textarea>
 <div class="paste-actions">
-<button class="btn primary" onclick="applyPaste(true)" type="button">자동 입력</button>
-<button class="btn secondary" onclick="applyPaste(false)" type="button">입력만</button>
-<button class="btn secondary" onclick="parsePasteMulti()" type="button">여러 경기 만들기</button>
+
+<button class="btn primary" id="btnPasteOneTap" onclick="applyPaste(true)" type="button">원터치 자동 입력+결과</button>
+<button class="btn primary paste-adv" onclick="applyPaste(true)" type="button">자동 입력</button>
+<button class="btn secondary paste-adv" onclick="applyPaste(false)" type="button">입력만</button>
+<button class="btn secondary paste-adv" onclick="parsePasteMulti()" type="button">여러 경기 만들기</button>
 <button class="btn ghost" onclick="fillPasteExample()" type="button">예시</button>
 <button class="btn ghost" onclick="clearPaste()" type="button">지우기</button>
-<button class="btn ghost" onclick="clearPasteList()" type="button">리스트 지우기</button>
+<button class="btn ghost paste-adv" onclick="clearPasteList()" type="button">리스트 지우기</button>
 <span class="paste-badge good" id="pasteBadgeOk" style="display:none;"></span>
 <span class="paste-badge warn" id="pasteBadgeWarn" style="display:none;"></span>
 <div class="paste-inline" style="margin-left:auto;">
+<label class="chk simple-only"><input checked="" id="pasteAutoRun" type="checkbox"/> 붙여넣자마자 계산</label>
 <label class="chk">메인 타입
                   <select class="paste-select" id="pasteMainMode" title="메인 배당 타입">
 <option value="auto">자동</option>
@@ -1856,7 +1902,7 @@ a{ color:inherit; }
 <div class="box" id="lineCompareBox">
 <div class="box-head">
 <div class="box-title" style="margin:0;">라인 비교 (A vs B)</div>
-<button type="button" class="toggle" data-target="lineCompareBody" onclick="toggleBox('lineCompareBody')">펼치기</button>
+<button class="toggle" data-target="lineCompareBody" onclick="toggleBox('lineCompareBody')" type="button">펼치기</button>
 </div>
 <div id="lineCompareBody" style="display:none;">
 <div class="small-hint" style="margin-top:4px;">
@@ -1939,7 +1985,7 @@ a{ color:inherit; }
 <div class="box" id="handicapBox" style="display:none;">
 <div class="box-head">
 <div class="box-title" style="margin:0;">핸디캡 (선택 · 정밀 마진)</div>
-<button type="button" class="toggle" data-target="handicapBody" onclick="toggleBox('handicapBody')">접기</button>
+<button class="toggle" data-target="handicapBody" onclick="toggleBox('handicapBody')" type="button">접기</button>
 </div>
 <div id="handicapBody">
 <div class="grid">
@@ -1969,7 +2015,7 @@ a{ color:inherit; }
 <div class="box" id="totalBox" style="display:none;">
 <div class="box-head">
 <div class="box-title" style="margin:0;">오버/언더 (선택 · 아시안 근사 지원)</div>
-<button type="button" class="toggle" data-target="totalBody" onclick="toggleBox('totalBody')">접기</button>
+<button class="toggle" data-target="totalBody" onclick="toggleBox('totalBody')" type="button">접기</button>
 </div>
 <div id="totalBody">
 <div class="grid">
@@ -2237,65 +2283,59 @@ a{ color:inherit; }
 <a class="dock-btn" data-cta="analysis_dock_vendors" data-no-auto-outbound="1" href="/#vendorTop">업체</a>
 </div>
 <div id="toast88"></div>
-
 <!-- v2.1: HTML 구조까지 컴포넌트화(템플릿) -->
 <template id="tplResultCard">
-  <section aria-label="분석 결과" class="st-result" data-role="result">
-    <div aria-label="결과 탭" class="st-r-tabs" role="tablist">
-      <button aria-selected="true" class="st-r-tab on" data-r-tab="summary" role="tab" type="button">요약</button>
-      <button aria-selected="false" class="st-r-tab" data-r-tab="detail" role="tab" type="button">상세</button>
-      <div class="st-r-meta" id="resultMeta" aria-live="polite"></div>
-    </div>
-    <div class="st-r-panel" data-r-panel="summary"></div>
-    <div class="st-r-panel" data-r-panel="detail" hidden></div>
-  </section>
+<section aria-label="분석 결과" class="st-result" data-role="result">
+<div aria-label="결과 탭" class="st-r-tabs" role="tablist">
+<button aria-selected="true" class="st-r-tab on" data-r-tab="summary" role="tab" type="button">요약</button>
+<button aria-selected="false" class="st-r-tab" data-r-tab="detail" role="tab" type="button">상세</button>
+<div aria-live="polite" class="st-r-meta" id="resultMeta"></div>
+</div>
+<div class="st-r-panel" data-r-panel="summary"></div>
+<div class="st-r-panel" data-r-panel="detail" hidden=""></div>
+</section>
 </template>
-
 <template id="tplHistoryEmpty">
-  <div class="demo-empty" data-role="history-empty">
-    <div class="demo-title" data-slot="title"></div>
-    <div class="demo-desc" data-slot="desc"></div>
-    <div class="demo-btns">
-      <button class="btn primary2" data-demo="soccer" type="button">⚽ 축구 예시로 계산</button>
-      <button class="btn primary2" data-demo="basketball" type="button">🏀 농구 예시로 계산</button>
-    </div>
-    <div class="demo-note">※ 예시는 샘플 데이터이며, 실제 결과/승률을 보장하지 않습니다.</div>
-  </div>
+<div class="demo-empty" data-role="history-empty">
+<div class="demo-title" data-slot="title"></div>
+<div class="demo-desc" data-slot="desc"></div>
+<div class="demo-btns">
+<button class="btn primary2" data-demo="soccer" type="button">⚽ 축구 예시로 계산</button>
+<button class="btn primary2" data-demo="basketball" type="button">🏀 농구 예시로 계산</button>
+</div>
+<div class="demo-note">※ 예시는 샘플 데이터이며, 실제 결과/승률을 보장하지 않습니다.</div>
+</div>
 </template>
-
 <template id="tplHistoryItem">
-  <article class="h-item" data-role="history-item" role="button" tabindex="0">
-    <div class="h-top">
-      <div class="h-left">
-        <div class="h-title" data-slot="title"></div>
-        <div class="h-sub" data-slot="sub"></div>
-
-        <div class="h-outcome" data-role="outcome">
-          <div class="row">
-            <div class="label">결과 기록</div>
-            <span class="outTag" data-slot="outTag">미기록</span>
-          </div>
-          <div class="outBtns">
-            <button class="oBtn" data-h-action="outcome" data-outcome="W" type="button">✅ 적중</button>
-            <button class="oBtn" data-h-action="outcome" data-outcome="L" type="button">❌ 미적중</button>
-            <button class="oBtn" data-h-action="outcome" data-outcome="V" type="button">⚪ 취소</button>
-            <button class="oBtn" data-h-action="outcome" data-outcome="" type="button">↩︎ 미기록</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="h-actions" data-role="actions">
-        <button class="primary2" data-h-action="restoreCalc" type="button">복원+재계산</button>
-        <button data-h-action="restoreOnly" type="button">복원만</button>
-        <label class="pick">
-          <input data-h-action="pick" type="checkbox"/>
+<article class="h-item" data-role="history-item" role="button" tabindex="0">
+<div class="h-top">
+<div class="h-left">
+<div class="h-title" data-slot="title"></div>
+<div class="h-sub" data-slot="sub"></div>
+<div class="h-outcome" data-role="outcome">
+<div class="row">
+<div class="label">결과 기록</div>
+<span class="outTag" data-slot="outTag">미기록</span>
+</div>
+<div class="outBtns">
+<button class="oBtn" data-h-action="outcome" data-outcome="W" type="button">✅ 적중</button>
+<button class="oBtn" data-h-action="outcome" data-outcome="L" type="button">❌ 미적중</button>
+<button class="oBtn" data-h-action="outcome" data-outcome="V" type="button">⚪ 취소</button>
+<button class="oBtn" data-h-action="outcome" data-outcome="" type="button">↩︎ 미기록</button>
+</div>
+</div>
+</div>
+<div class="h-actions" data-role="actions">
+<button class="primary2" data-h-action="restoreCalc" type="button">복원+재계산</button>
+<button data-h-action="restoreOnly" type="button">복원만</button>
+<label class="pick">
+<input data-h-action="pick" type="checkbox"/>
           비교
         </label>
-      </div>
-    </div>
-  </article>
+</div>
+</div>
+</article>
 </template>
-
 <script>
 /* 사칭주의 (1일 1회) */
 (function(){
@@ -2850,6 +2890,29 @@ function onLevelChange(silent){
   const isSimple = (level === "simple");
   const isAdv = (level === "adv");
 
+  // Body hooks
+  document.body.classList.toggle("simple", isSimple);
+  document.body.dataset.level = level;
+
+
+  // HIDE_HINTS_SIMPLE
+  document.querySelectorAll(".settingsHint, .small-hint").forEach(el=>{ el.style.display = isSimple ? "none" : ""; });
+
+  // Meta fields (리그/팀) : 간단은 접기(버튼으로 열기)
+  const metaBtn = document.getElementById("metaToggleBtn");
+  const metaFields = document.getElementById("metaFields");
+  if(metaBtn && metaFields){
+    if(isSimple){
+      metaBtn.style.display = "inline-flex";
+      // keep collapsed by default
+      metaFields.style.display = "none";
+    }else{
+      metaBtn.style.display = "none";
+      metaFields.style.display = "block";
+    }
+  }
+
+
   // Core visibility
   $("valueInputs").style.display = isSimple ? "none" : "block";
   $("totalBox").style.display = isSimple ? "none" : "block";
@@ -2960,6 +3023,16 @@ function syncToggleLabels(){
     const tid = btn.getAttribute('data-target');
     btn.textContent = isCollapsed(tid) ? "펼치기" : "접기";
   });
+}
+
+
+function toggleMeta(){
+  const metaFields = document.getElementById("metaFields");
+  const metaBtn = document.getElementById("metaToggleBtn");
+  if(!metaFields || !metaBtn) return;
+  const open = metaFields.style.display !== "none";
+  metaFields.style.display = open ? "none" : "block";
+  metaBtn.textContent = open ? "추가 정보 입력(선택) ▾" : "추가 정보 닫기 ▴";
 }
 function isCollapsed(id){
   const el = $(id);
@@ -4401,6 +4474,22 @@ function renderResult(sportName, level, rows, copyLines){
 
   // 시장 최고 확률(메인) 추출
   const probRows = rows.filter(([k])=>String(k).includes("승리 확률(배당 기반·추정"));
+  // FAIR_ODDS_KPI
+  let maxProb = null;
+  try{
+    const pr = probRows.map(r=>({k:clean(r[0]), v:num(r[1])})).filter(x=>x.v!=null);
+    if(pr.length) maxProb = pr.reduce((a,b)=> (a.v>b.v?a:b)).v;
+  }catch(e){}
+  let fairOdds = null;
+  try{
+    const fr = rows.find(([k])=>String(k).includes("공정배당"));
+    if(fr){
+      const s = clean(fr[1]);
+      const mm = s.match(/([0-9]+\.[0-9]+)/);
+      if(mm) fairOdds = mm[1];
+    }
+  }catch(e){}
+
   let topProb = null;
   probRows.forEach(([k,v])=>{
     const p = num(v);
@@ -4470,7 +4559,31 @@ function renderResult(sportName, level, rows, copyLines){
   })();
 
 
-  const hero = `
+    const simpleHero = `
+    <div class="kpiHero">
+      <div class="kpiGrid">
+        <div class="kpiItem">
+          <div class="kpiLabel">마진</div>
+          <div class="kpiValue">${marginPct!=null ? marginPct.toFixed(1)+"%" : "-"}</div>
+        </div>
+        <div class="kpiItem">
+          <div class="kpiLabel">EV</div>
+          <div class="kpiValue">${evPct!=null ? ((evPct>=0?"+":"-")+Math.abs(evPct).toFixed(2)+"%") : "-"}</div>
+        </div>
+        <div class="kpiItem">
+          <div class="kpiLabel">최고확률</div>
+          <div class="kpiValue">${maxProb!=null ? maxProb.toFixed(1)+"%" : "-"}</div>
+        </div>
+        <div class="kpiItem">
+          <div class="kpiLabel">공정배당</div>
+          <div class="kpiValue">${fairOdds!=null ? fairOdds : "-"}</div>
+        </div>
+      </div>
+      <div class="kpiNote">간단 레벨은 <b>메인</b>만 기준으로 빠르게 요약합니다. OU/핸디는 중급부터 확인하세요.</div>
+    </div>
+  `;
+  const hero = (level === "simple") ? simpleHero : `
+
     <div class="resultHero">
       <div class="heroTop">
         <div class="heroText">
@@ -4517,7 +4630,8 @@ function renderResult(sportName, level, rows, copyLines){
         </div>
       </div>
     </div>
-  `;
+  
+`;
 
   const html = rows.map(([k,v])=>{
     // v가 HTML 포함할 수 있으니 그대로
@@ -7421,6 +7535,92 @@ function boot(){
 
 }
 boot();
+
+/* ===== UX v3: 원터치 붙여넣기 + 데스크탑 2패널 ===== */
+(function(){
+  function ready(fn){
+    if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  ready(function(){
+    // 1) 붙여넣기 박스를 탭바 위로(더 전면) 이동
+    try{
+      const pasteBox = document.getElementById("pasteBox");
+      const tabbar = document.getElementById("appTabbar");
+      if(pasteBox && tabbar && tabbar.parentNode){
+        tabbar.parentNode.insertBefore(pasteBox, tabbar);
+      }
+    }catch(e){}
+
+    // 2) 간단 레벨: "붙여넣자마자 계산" 원터치
+    try{
+      const ta = document.getElementById("pasteInput");
+      if(ta && !ta.dataset.autoRunBound){
+        ta.dataset.autoRunBound = "1";
+        ta.addEventListener("paste", function(){
+          setTimeout(function(){
+            const lvl = (typeof val==="function") ? val("level") : (document.getElementById("level")||{}).value;
+            const auto = document.getElementById("pasteAutoRun");
+            if(lvl === "simple" && auto && auto.checked){
+              try{ applyPaste(true); }catch(e){}
+            }
+          }, 60);
+        });
+      }
+    }catch(e){}
+
+    // 3) 데스크탑: 중급/고급 결과를 우측 sticky 패널로 분리
+    try{
+      const card = document.getElementById("calcCard");
+      if(card && !card.querySelector(".app-layout")){
+        const divider = card.querySelector(".calc-divider");
+        const controls = card.querySelector(".controls-settings");
+        if(divider && controls){
+          const layout = document.createElement("div");
+          layout.className = "app-layout is-two";
+          layout.id = "appLayout";
+
+          const left = document.createElement("div");
+          left.className = "app-left";
+          left.id = "appLeft";
+
+          const right = document.createElement("div");
+          right.className = "app-right";
+          right.id = "appRight";
+
+          layout.appendChild(left);
+          layout.appendChild(right);
+
+          divider.insertAdjacentElement("afterend", layout);
+
+          // 이동 대상: controls부터 footer-links까지(단, result/resultDock는 우측으로)
+          let node = controls;
+          const stopEl = card.querySelector(".footer-links");
+          const resultEl = document.getElementById("result");
+          const dockEl = document.getElementById("resultDock");
+
+          while(node){
+            const next = node.nextSibling;
+
+            if(node === layout) break;
+            if(node === resultEl || node === dockEl){
+              // 우측으로 나중에 이동
+            }else{
+              left.appendChild(node);
+            }
+
+            if(node === stopEl) break;
+            node = next;
+          }
+
+          if(resultEl) right.appendChild(resultEl);
+          if(dockEl) right.appendChild(dockEl);
+        }
+      }
+    }catch(e){}
+  });
+})();
+
 </script>
 <!-- First-Visit Onboarding Popover -->
 <div aria-label="처음 이용 가이드" aria-modal="true" id="onbPopover" role="dialog">
