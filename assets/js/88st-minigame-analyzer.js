@@ -180,22 +180,23 @@
       `<option value="${m.id}">${m.title}</option>`
     ).join('');
     sel.value = state.market;
-    sel.addEventListener('change', ()=>{
+    sel.onchange = ()=>{
       state.market = sel.value;
       const market = getMarket(game, state.market);
       ensureMarketState(market);
       saveState(state);
       renderOutcomes();
       calcAndRender();
-    }, {once:true});
+    };
   }
 
+  // Render input table (odds + user probability)
   function renderOutcomes(){
     const game = getGame(state.game);
     const market = getMarket(game, state.market);
     ensureMarketState(market);
 
-    const tbody = $('mgTbody');
+    const tbody = $('mgInputBody');
     if(!tbody) return;
 
     tbody.innerHTML = market.outcomes.map(o=>{
@@ -203,14 +204,10 @@
       const pv = state.probs[o.id];
       return `
         <tr data-out="${o.id}">
-          <td class="mg-pill">${o.label}</td>
+          <td><span class="mg-pill">${o.label}</span></td>
           <td><input class="mg-in" inputmode="decimal" data-k="odds" value="${ov ?? ''}"/></td>
           <td><input class="mg-in" inputmode="decimal" data-k="prob" placeholder="%" value="${pv ?? ''}"/></td>
-          <td class="mg-right" data-k="be">—</td>
-          <td class="mg-right" data-k="imp">—</td>
-          <td class="mg-right" data-k="fair">—</td>
-          <td class="mg-right" data-k="ev">—</td>
-          <td data-k="tag"><span class="mg-tag">—</span></td>
+          <td class="mg-note">—</td>
         </tr>
       `;
     }).join('');
@@ -245,6 +242,14 @@
     const game = getGame(state.game);
     const market = getMarket(game, state.market);
 
+    // history sample count (best-effort)
+    let historyN = 0;
+    try{
+      if(state.historyText){
+        historyN = computeFreqFromHistory(state.historyText, market).total || 0;
+      }
+    }catch(e){ historyN = 0; }
+
     const outs = market.outcomes.map(o=>{
       const odds = toNum(state.odds[o.id]);
       const be = Number.isFinite(odds) && odds>0 ? 1/odds : NaN;
@@ -265,7 +270,7 @@
       x.evMoney = Number.isFinite(x.evPct) ? (toNum(state.stake) * x.evPct) : NaN;
     });
 
-    return { outs, sumImp, margin };
+    return { outs, sumImp, margin, historyN };
   }
 
   function verdict(evPct){
@@ -278,36 +283,63 @@
   function calcAndRender(){
     const res = calc();
 
-    // header KPIs
-    $('mgKpiOver') && ($('mgKpiOver').textContent = fmt(res.sumImp, 4));
-    $('mgKpiMargin') && ($('mgKpiMargin').textContent = Number.isFinite(res.margin) ? pct(res.margin, 2) : '—');
+    // KPI
+    const sumImp = res.sumImp;
+    const margin = res.margin;
+    $('mgSumP') && ($('mgSumP').textContent = Number.isFinite(sumImp) ? fmt(sumImp, 4) : '—');
+    $('mgMargin') && ($('mgMargin').textContent = Number.isFinite(margin) ? pct(margin, 2) : '—');
+    $('mgN') && ($('mgN').textContent = state.historyText ? String(res.historyN||0) : '—');
+    $('mgMode') && ($('mgMode').textContent = '내 확률');
 
-    // table
-    const tbody = $('mgTbody');
-    if(tbody){
-      res.outs.forEach(x=>{
-        const tr = tbody.querySelector(`tr[data-out="${cssEscape(x.id)}"]`);
-        if(!tr) return;
-        setText(tr, 'be', pct(x.be, 2));
-        setText(tr, 'imp', pct(x.imp, 2));
-        setText(tr, 'fair', Number.isFinite(x.fairOdds) ? fmt(x.fairOdds, 3) : '—');
-        setText(tr, 'ev', Number.isFinite(x.evMoney) ? `${fmt(x.evMoney,0)}원 (${pct(x.evPct,2)})` : '—');
+    // Output table
+    const outBody = $('mgOutBody');
+    if(outBody){
+      outBody.innerHTML = res.outs.map(x=>{
         const v = verdict(x.evPct);
-        const tag = tr.querySelector('[data-k="tag"] .mg-tag');
-        if(tag){
-          tag.textContent = v.t;
-          tag.className = `mg-tag ${v.cls}`;
-        }
-      });
+        const bePct = Number.isFinite(x.be) ? pct(x.be, 2) : '—';
+        const fairP = Number.isFinite(x.fairP) ? pct(x.fairP, 2) : '—';
+        const fairOdds = Number.isFinite(x.fairOdds) ? fmt(x.fairOdds, 3) : '—';
+        const evPct = Number.isFinite(x.evPct) ? pct(x.evPct, 2) : '—';
+        return `
+          <tr>
+            <td><span class="mg-pill">${x.label}</span></td>
+            <td class="mg-right">${bePct}</td>
+            <td class="mg-right">${fairP}</td>
+            <td class="mg-right">${fairOdds}</td>
+            <td class="mg-right">${evPct}</td>
+            <td><span class="mg-tag ${v.cls}">${v.t}</span></td>
+          </tr>
+        `;
+      }).join('');
     }
+  }
 
-    // summary
-    const top = bestPick(res.outs);
-    if($('mgSummary')){
-      $('mgSummary').innerHTML = top ?
-        `<div class="mg-sumline"><b>최고 EV</b>: <span class="mg-pill">${top.label}</span> (EV ${pct(top.evPct,2)})</div>`
-        : `<div class="mg-sumline">배당/확률을 입력하면 EV가 계산됩니다.</div>`;
-    }
+  function bindActions(){
+    $('mgReset')?.addEventListener('click', ()=>{
+      state = defaultState();
+      saveState(state);
+      renderAll();
+    });
+
+    $('mgFillFair')?.addEventListener('click', ()=>{
+      const res = calc();
+      res.outs.forEach(x=>{
+        if(Number.isFinite(x.fairP)) state.probs[x.id] = String((x.fairP*100).toFixed(2));
+      });
+      saveState(state);
+      renderOutcomes();
+      calcAndRender();
+    });
+
+    $('mgSave')?.addEventListener('click', ()=>{
+      saveState(state);
+    });
+
+    $('mgAnalyze')?.addEventListener('click', ()=>{
+      calcAndRender();
+      // Smoothly bring results into view on mobile
+      document.querySelector('[aria-label="결과"]')?.scrollIntoView({behavior:'smooth', block:'start'});
+    });
   }
 
   function bestPick(outs){
@@ -371,7 +403,7 @@
 
   function bindHistory(){
     const ta = $('mgHistory');
-    const btn = $('mgApplyHistory');
+    const btn = $('mgApplyFreq');
     if(!ta || !btn) return;
 
     ta.value = state.historyText || '';
@@ -396,10 +428,12 @@
       saveState(state);
       renderOutcomes();
       calcAndRender();
+      // keep for KPI
+      state._lastHistoryN = r.total;
       toast(`히스토리 ${r.total}개 → 확률 입력 완료`);
     });
 
-    $('mgClear')?.addEventListener('click', ()=>{
+    $('mgClearHistory')?.addEventListener('click', ()=>{
       state.historyText = '';
       ta.value = '';
       saveState(state);
@@ -433,6 +467,7 @@
     renderOutcomes();
     bindStake();
     bindHistory();
+    bindActions();
     calcAndRender();
   }
 
