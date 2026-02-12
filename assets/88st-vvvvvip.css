@@ -24,7 +24,7 @@
   --muted-2:rgba(18,20,28,.52);
 
   /* Accent (subtle gold) */
-  --accent:#d4af37;
+  --accent: rgb(var(--blue-rgb));
   --accent-rgb:212,175,55;
   --st-accent-rgb:212,175,55;
   /* Legacy bridge for pages using rgba(var(--accentRGB), .xx) */
@@ -34,7 +34,7 @@
   --accentText:#1b1d23;
   --accentOn:#1b1d23;
   --gold:#d4af37;
-  --gold2:#f5e27a;
+  --gold2: rgba(18,20,28,.92);
 
   /* Shadows: crisp, expensive, not heavy */
   --shadow-sm:0 1px 0 rgba(16,24,40,.04), 0 10px 26px rgba(16,24,40,.10);
@@ -155,19 +155,8 @@ input,select,textarea{
 .st-shell-title{ color:var(--text) !important; background:none !important; -webkit-text-fill-color:unset !important; }
 .st-shell-sub{ color:var(--muted) !important; }
 
-/* Dropdown (calculator mega) as LEFT panel like your screenshot */
+/* Dropdown: hover-open like Guide; keep standard positioning under trigger */
 .st-shell-dd.open{ z-index: 99999 !important; }
-.st-shell-menu.mega.st-shell-mega-grid{
-  position:fixed !important;
-  left:16px !important;
-  top: calc(var(--st-shell-head-h, 64px) + 12px) !important;
-  width: min(720px, calc(100vw - 32px)) !important;
-  max-height: min(72vh, 620px) !important;
-  overflow:auto !important;
-  border-radius: 18px !important;
-  border:1px solid var(--panel-border-2) !important;
-  box-shadow: var(--shadow-lg) !important;
-}
 
 /* Ensure header doesn't clip dropdown */
 .st-shell-header, .st-shell-inner, .st-shell-center{ overflow: visible !important; }
@@ -241,4 +230,29 @@ input,select,textarea{
 /* Touch targets (mobile) */
 @media (max-width: 860px){
   a,button,.st-shell-link,.cs-chip,.cs-btn{ min-height:44px; }
+}
+
+/* ===== Readability fixes (VVVVVIP) ===== */
+
+/* Low-contrast yellow headings → readable dark */
+:where(.title,.box-title,.modal-head .t,.h-title,.s-title,.st-land-title,.st-land-kicker,.rel-links h2){
+  color: var(--text) !important;
+}
+:where(.calc-headline .accent,.accent){
+  color: rgb(var(--blue-rgb)) !important;
+}
+:where([style*="#f5e27a"],[style*="#d4af37"],[style*="color:#f5e27a"],[style*="color:#d4af37"]){
+  color: var(--text) !important;
+}
+
+/* Analysis mini-guide: prevent title/pill overlap on first visit */
+.mini-guide{
+  background: var(--panel) !important;
+  border-color: var(--panel-border) !important;
+}
+.mini-guide .body{ color: var(--text-2) !important; }
+@media (max-width: 480px){
+  .mini-guide .head{ flex-wrap: wrap !important; align-items:flex-start !important; }
+  .mini-guide .head > div{ flex: 1 1 220px !important; min-width: 200px !important; }
+  .mini-guide .head .pill{ margin-left:auto !important; }
 }

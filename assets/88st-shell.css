@@ -91,7 +91,7 @@
   box-shadow:var(--shadow-lg);
   display:none;
 }
-/* hover-open disabled: use click-open only */
+
 
 .st-shell-menu a{
   display:flex;
@@ -214,12 +214,16 @@ body.st-shell-on > .topbar{ display:none !important; }
   border-radius:999px;
 }
 
-/* Dropdown: allow click-open + ensure pointer/click works on desktop */
+/* Dropdown: hover-open (desktop) + click-open fallback (mobile) */
 .st-shell-dd{ position:relative; }
 .st-shell-dd.open{ z-index: 9200; }
 .st-shell-menu{ z-index: 9100; }
 .st-shell-dd.open .st-shell-menu{ display:block; }
-/* hover-open disabled: use click-open only */
+@media (hover:hover) and (pointer:fine){
+  .st-shell-dd:hover{ z-index: 9200; }
+  .st-shell-dd:hover .st-shell-menu{ display:block; }
+}
+
 
 /* hover bridge */
 .st-shell-dd::after{ content:""; position:absolute; left:0; right:0; top:100%; height:8px; }

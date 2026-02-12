@@ -5,7 +5,7 @@
   // Base theme tokens (vars) are required for consistent styling on ALL pages.
   // NOTE: We intentionally do NOT load /assets/88st-theme.js (toggle).
   // One-shot VIP build tag (cache bust)
-  const BUILD = "20260212_VIP1";
+  const BUILD = "20260212_VIP2";
 
   const THEME_CSS    = `/assets/88st-theme.css?v=${BUILD}`;
 
@@ -24,9 +24,14 @@
   function ensureCss(href){
     try{
       const base = String(href).split("?")[0];
-      const existing = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-        .map(l=> (l.getAttribute('href')||"").split("?")[0]);
-      if(existing.includes(base)) return;
+      const links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+      const found = links.find(l=> ((l.getAttribute('href')||"").split("?")[0]) === base);
+      if(found){
+        if((found.getAttribute('href')||"") !== href){
+          found.setAttribute('href', href);
+        }
+        return;
+      }
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.href = href;
@@ -236,11 +241,6 @@
               </div>
             </div>
           </nav>
-
-          <button class="st-shell-search" type="button" id="_88stSearchOpen" aria-label="통합검색 열기">
-            <span class="g" aria-hidden="true"></span>
-            <span class="q"><b>통합검색</b> · 업체 · 분석기 · 계산기 · 가이드</span>
-          </button>
         </div>
 
         <div class="st-shell-actions">
@@ -321,35 +321,10 @@
               </div>
             </details>
           </div>
-          <div class="st-shell-drawer-foot">
-            <button class="st-shell-btn ghost" type="button" id="_88stDrawerSearch">검색</button>
           </div>
         </div>
       </div>
     `;
-    document.body.appendChild(drawer);
-
-    // ===== Modals =====
-    const modalWrap = document.createElement('div');
-    modalWrap.id = '_88stShellModals';
-    modalWrap.innerHTML = `
-      <div class="st-shell-modal" id="_88stSearchModal" aria-hidden="true">
-        <div class="st-shell-modal-backdrop" data-close="1"></div>
-        <div class="st-shell-modal-box" role="dialog" aria-modal="true" aria-label="통합검색">
-          <div class="st-shell-modal-head">
-            <div class="st-shell-modal-title">통합검색</div>
-            <button class="st-shell-icon" type="button" data-close="1" aria-label="닫기">✕</button>
-          </div>
-          <div class="st-shell-modal-body">
-            <input class="st-shell-input" id="_88stSearchInput" placeholder="검색어 입력 (예: 마진, 인증, SPEED, 카지노)" />
-            <div class="st-shell-chips" id="_88stSearchChips"></div>
-            <div class="st-shell-results" id="_88stSearchResults"></div>
-          </div>
-        </div>
-      </div>
-
-    `;
-    document.body.appendChild(modalWrap);
 
     // ===== Behavior =====
     function openDrawer(){
@@ -465,6 +440,7 @@
     }
 
     function openSearch(){
+      if(!searchModal || !searchResults) return;
       openModal('_88stSearchModal');
       setTimeout(()=>{ try{ searchInput?.focus(); }catch(e){} }, 0);
       renderSearch(searchInput?.value||'');
@@ -612,10 +588,6 @@
     document.addEventListener('keydown', (e)=>{
       const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
       const mod = isMac ? e.metaKey : e.ctrlKey;
-      if(mod && (e.key==='k' || e.key==='K')){
-        e.preventDefault();
-        openSearch();
-      }
       if(e.key==='Escape'){
         // close modals first
         const openM = document.querySelector('.st-shell-modal.open');
