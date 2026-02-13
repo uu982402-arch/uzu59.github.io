@@ -130,7 +130,7 @@
 
   // ===== Search items =====
   const SEARCH_ITEMS = [
-    {group:"메뉴", title:"인증사이트", href:"/cert/", tag:"보증·인증"},
+    {group:"메뉴", title:"인증사이트", href:"/cert/", tag:"업체"},
     {group:"메뉴", title:"스포츠 분석기", href:"/analysis/", tag:"도구"},
     {group:"계산기", title:"마진 계산기", href:"/tool-margin/", tag:"계산기"},
     {group:"계산기", title:"EV 계산기", href:"/tool-ev/", tag:"계산기"},
@@ -150,9 +150,10 @@
     {group:"가이드", title:"슬롯", href:"/slot/", tag:"가이드"},
     {group:"가이드", title:"미니게임", href:"/minigame/", tag:"가이드"},
     {group:"가이드", title:"IPL", href:"/ipl/", tag:"가이드"},
-    {group:"사이트", title:"SPEED", href:"/speed/", tag:"보증"},
-    {group:"사이트", title:"OK", href:"/ok/", tag:"보증"},
-];
+    {group:"인증사이트", title:"SPEED", href:"/speed/", tag:"바로가기"},
+    {group:"인증사이트", title:"OK", href:"/ok/", tag:"바로가기"},
+    {group:"인증사이트", title:"인증사이트", href:"/cert/", tag:"목록"},
+  ];
 
   const RECOMMENDED = ["인증사이트", "스포츠", "카지노", "미니게임", "마진", "EV", "슬롯 환수율(RTP) 분석기", "SPEED", "OK", "슬롯", "IPL"];
 
@@ -206,8 +207,9 @@
 
         <div class="st-shell-center">
           <nav class="st-shell-nav" aria-label="주요 메뉴">
-            <a class="st-shell-link" href="/cert/" data-cta="nav_cert">인증사이트</a>
-<a class="st-shell-link" href="/">홈</a>
+            <a class="st-shell-link" href="/cert/">인증사이트</a>
+
+            <a class="st-shell-link" href="/">홈</a>
 
             <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
             <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
@@ -285,8 +287,9 @@
             <button class="st-shell-btn ghost" type="button" data-close="1" aria-label="닫기">✕</button>
           </div>
           <div class="st-shell-drawer-body">
-            <a class="st-shell-link" href="/cert/" data-cta="nav_cert_mobile">인증사이트</a>
-<a class="st-shell-link" href="/">홈</a>
+            <a class="st-shell-link" href="/cert/">인증사이트</a>
+
+            <a class="st-shell-link" href="/">홈</a>
 
             <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
             <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
@@ -523,7 +526,7 @@
       });
 
       const recVendorRows = (Array.isArray(recV)?recV:[]).slice(0,20).map(x=>{
-        const href = x.href || `/cert/?v=${encodeURIComponent(x.id)}`;
+        const href = x.href || `/?v=${encodeURIComponent(x.id)}`;
         return rowLink(x.title||x.id, href, fmtTime(x.ts), 'rv', x.id);
       });
 

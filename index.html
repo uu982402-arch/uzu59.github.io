@@ -346,31 +346,6 @@ select.insight-select{
 
 .vendor-grid{ position:relative; display:grid; gap:14px; padding:0 14px 10px; max-width:1100px; margin:0 auto; }
 
-
-/* ===== 인증사이트 CTA (메인 인덱스) ===== */
-.cert-hero{
-  max-width:1100px;
-  margin: 6px auto 2px;
-  padding: 14px 14px 18px;
-}
-.cert-sub{
-  margin-top:8px;
-  font-size:13px;
-  line-height:1.55;
-  color: var(--muted);
-}
-.cert-actions{
-  margin-top:12px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-.cert-note{
-  margin-top:10px;
-  font-size:12px;
-  color:#a7a7a7;
-}
-
 /* ===== 섹션(보증/인증) ===== */
 .vendor-sections{ display:flex; flex-direction:column; gap:18px; }
 .vendor-section{ position:relative; }
@@ -1869,13 +1844,13 @@ const INSIGHTS_BY_SPORT = {
   <span class="label">슬롯 환수율(RTP) 분석기<span class="sub">RTP·변동성·세션 비용·뱅크롤</span></span>
 </a>
 
-<a class="analyze-btn secondary" data-cta="go_verified_vendors" href="/cert/">
+<a class="analyze-btn secondary" data-cta="go_cert" href="/cert/">
 <span aria-hidden="true" class="icon">
 <svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22">
 <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"></path>
 </svg>
 </span>
-<span class="label">보증 · 인증 사이트 이동<span class="sub">인증 카드 섹션으로</span></span>
+<span class="label">인증사이트 이동<span class="sub">/cert 페이지</span></span>
 </a>
 </div>
 
@@ -1969,17 +1944,18 @@ const INSIGHTS_BY_SPORT = {
 </div>
 
 </div>
+<section class="whySection" id="certMove" style="margin-top:18px;">
+      <div class="whyTitle">인증사이트 모음</div>
+      <div class="whyText">
+        보증/인증 카드는 이제 <b>/cert</b>에서 한 번에 확인할 수 있습니다.
+        카드 클릭 → 가입코드/혜택/주의사항 확인 → 코드 복사 → 사이트 이동 순서로 이용하세요.
+      </div>
+      <div class="cta-row">
+        <a class="ctaBtn primary" href="/cert/">인증사이트 전체보기</a>
+      </div>
+    </section>
 
-<div class="cert-hero" id="certEntry" aria-label="인증사이트 안내">
-  <div class="title"><span class="badge">CERT</span>인증사이트</div>
-  <div class="cert-sub">보증·인증 카드(혜택/가입코드/주의사항/문의)를 <b>한 곳에 모아</b>, 사용자 입장에서 <b>안전하게 비교</b>할 수 있도록 정리했습니다.</div>
-  <div class="cert-actions">
-    <a class="insight-btn primary" data-cta="home_to_cert" href="/cert/">인증사이트 열기 <span aria-hidden="true">→</span></a>
-    <a class="insight-btn" data-cta="home_to_bonus" href="/bonus-checklist/">입플 체크리스트</a>
-  </div>
-  <div class="cert-note">※ 카드 내용은 참고용이며, 조건/혜택은 수시로 변동될 수 있습니다. 가입 전 공지/문의로 재확인하세요.</div>
-</div>
-
+    <div id="vendorTop" style="display:none"></div>
 <div class="landing-seo">
 <h3>관련 정보</h3>
 <div class="links">
@@ -1999,6 +1975,23 @@ const INSIGHTS_BY_SPORT = {
 <a data-cta="seo_analysis" href="/analysis/">분석기 메인</a></div>
 </div>
 <script>
+/* ===== 인증사이트 이동(호환) ===== */
+(function(){
+  try{
+    const u = new URL(window.location.href);
+    const v = u.searchParams.get("v");
+    const h = window.location.hash || "";
+    if(v && /^card\d+$/.test(v)){
+      window.location.replace("/cert/?v=" + encodeURIComponent(v));
+      return;
+    }
+    if(h === "#vendorTop" || h === "#vendors-guarantee" || h === "#vendors-verified"){
+      window.location.replace("/cert/");
+      return;
+    }
+  }catch(e){}
+})();
+
 /* ===== 로딩 화면 닫기(안전장치 포함) ===== */
 function hideLoader() {
   const l = document.getElementById("loader");
@@ -3133,7 +3126,7 @@ bumpView(id);
     const cardEl = document.querySelector(".card[data-card=\"" + id + "\"]");
     const sec = cardEl ? cardEl.closest(".vendor-section") : null;
     const secId = (sec && sec.id) ? sec.id : "vendorTop";
-    if(window.__88stAddRecentVendor) window.__88stAddRecentVendor({id:id, title:(d.title||id), href:"/cert/?v=" + encodeURIComponent(id)});
+    if(window.__88stAddRecentVendor) window.__88stAddRecentVendor({id:id, title:(d.title||id), href:"/?v=" + encodeURIComponent(id) + "#" + secId});
     if(window.__88stRefreshUserMenu) window.__88stRefreshUserMenu();
   }catch(e){}
 

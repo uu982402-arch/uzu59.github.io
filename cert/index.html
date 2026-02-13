@@ -1,683 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko" data-theme="light">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>안전한 토토사이트 | 88 인증사이트 (보증·인증 카드)</title>
-  <meta name="description" content="88 인증사이트(/cert)에서 보증·인증 카드(혜택/가입코드/주의사항/문의)를 한 곳에 모아 비교합니다. 안전한 토토사이트 선택을 위한 참고용 안내 페이지입니다."/>
-  <meta name="keywords" content="안전한토토사이트, 토토사이트 추천, 먹튀검증, 안전놀이터, 보증업체, 인증업체, 스포츠토토, 카지노, 슬롯, 입플, 88st, 팔팔커뮤니티"/>
-  <link rel="canonical" href="https://88st.cloud/cert/"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>인증사이트 | 안전한 토토사이트 안내 · 88ST</title>
+  <meta name="description" content="안전한 토토사이트 선택을 돕는 인증사이트 모음. 가입코드/혜택/주의사항을 한 화면에서 확인하고, 즐겨찾기와 최근 기록으로 빠르게 재방문하세요."/>
+  <meta name="keywords" content="안전한토토사이트, 안전 토토사이트, 인증사이트, 보증사이트, 먹튀검증, 가입코드, 입플, 페이백, 스포츠분석기, 미니게임분석기, 카지노전략분석기, 슬롯환수율"/>
   <meta name="robots" content="index,follow"/>
-
+  <meta property="og:title" content="인증사이트 | 안전한 토토사이트 안내 · 88ST"/>
+  <meta property="og:description" content="안전한 토토사이트 선택을 돕는 인증사이트 모음. 가입코드/혜택/주의사항을 한 화면에서 확인하세요."/>
   <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="88st.cloud"/>
-  <meta property="og:title" content="안전한 토토사이트 | 88 인증사이트"/>
-  <meta property="og:description" content="보증·인증 카드(혜택/코드/주의사항/문의) 모음 — 비교하고 안전하게 선택하세요."/>
-  <meta property="og:url" content="https://88st.cloud/cert/"/>
+  <meta property="og:image" content="/img/logo.png"/>
+  <link rel="icon" type="image/png" href="/img/favicon.png"/>
+  <link rel="canonical" href="https://88st.cloud/cert/"/>
 
-  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href="/assets/88st-cert.css?v=VIP4_20260213_14"/>
 
-  <link href="/assets/88st-theme.css?v=VIP4_20260213_14" rel="stylesheet"/>
-  <link href="/assets/88st-shell.css?v=VIP4_20260213_14" rel="stylesheet"/>
+  <!-- common shell + analytics -->
   <script defer src="/assets/js/88st-shell.js?v=VIP4_20260213_14"></script>
-  <script src="/assets/js/88st-analytics.js?v=VIP4_20260213_14"></script>
-
-  <style>
-    *{ box-sizing:border-box; }
-    body{ margin:0; font-family: var(--font-sans); background: var(--bg); color: var(--text); }
-    .page{ max-width:1100px; margin:0 auto; padding: calc(var(--st-shell-head-h, 76px) + 14px) 14px 28px; }
-    .hero{
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 18px;
-      box-shadow: var(--shadow-md);
-      padding: 18px 16px;
-      position:relative;
-      overflow:hidden;
-    }
-    .hero::before{
-      content:"";
-      position:absolute; inset:-40px;
-      background:
-        radial-gradient(800px 260px at 50% 0%, rgb(var(--accentRGB) / .16), transparent 60%),
-        radial-gradient(700px 260px at 10% 20%, rgba(90,160,255,.10), transparent 60%);
-      pointer-events:none;
-    }
-    .hero > *{ position:relative; z-index:1; }
-    .hero-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-    .h-title{ font-size:18px; font-weight:1000; letter-spacing: var(--tracking-h); margin:0; }
-    .h-sub{ margin-top:8px; color: var(--muted); font-size:13px; line-height:1.55; }
-    .hero-actions{ margin-top:12px; display:flex; flex-wrap:wrap; gap:10px; }
-    .btnx{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:10px 12px; border-radius:14px; text-decoration:none;
-      border:1px solid var(--panel-border);
-      background: var(--panel-2);
-      color: var(--text);
-      font-weight:900;
-      box-shadow: var(--shadow-sm);
-      transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, filter .16s ease;
-    }
-    .btnx:hover{ transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--gold) 38%, var(--panel-border)); }
-    .btnx.primary{ background: linear-gradient(135deg,var(--gold),var(--gold2)); color:#0b0b0b; border-color: rgba(0,0,0,.10); }
-    .btnx.ghost{ background: transparent; }
-
-    /* Tools */
-    .vendor-tools{
-      margin-top:14px;
-      background: var(--panel);
-      border:1px solid var(--panel-border);
-      border-radius:18px;
-      padding: 14px;
-      box-shadow: var(--shadow-sm);
-    }
-    .v-input{
-      width:100%;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border:1px solid var(--input-border);
-      background: var(--input-bg);
-      color: var(--text);
-      outline:none;
-      font-weight:900;
-      letter-spacing: var(--tracking);
-    }
-    .v-input::placeholder{ color: var(--muted-2); font-weight:800; }
-    .v-controls{ margin-top:12px; display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end; }
-    .v-control{ display:flex; flex-direction:column; gap:6px; min-width: 160px; flex: 1 1 160px; }
-    .v-control label{ font-size:12px; color: var(--muted); font-weight:900; }
-    .v-select{
-      width:100%;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border:1px solid var(--input-border);
-      background: var(--input-bg);
-      color: var(--text);
-      font-weight:900;
-      outline:none;
-    }
-    .v-toggle{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--panel-border);
-      background: color-mix(in srgb, var(--panel-2) 88%, transparent);
-      cursor:pointer;
-      user-select:none;
-      flex: 0 0 auto;
-    }
-    .v-toggle input{ display:none; }
-    .v-switch{
-      width:46px; height:26px; border-radius:999px;
-      background: color-mix(in srgb, var(--text) 16%, transparent);
-      position:relative;
-      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 14%, transparent);
-      transition: background .15s ease;
-    }
-    .v-switch::after{
-      content:"";
-      width:22px; height:22px; border-radius:50%;
-      background: color-mix(in srgb, var(--text) 92%, transparent);
-      position:absolute; top:2px; left:2px;
-      transition: transform .15s ease;
-    }
-    .v-toggle input:checked + .v-switch{ background: linear-gradient(135deg,var(--gold),var(--gold2)); }
-    .v-toggle input:checked + .v-switch::after{ transform: translateX(20px); }
-    .v-toggle-text{ font-weight:1000; font-size:12px; color: var(--text); }
-    .v-small{ margin-top:10px; font-size:12px; color: var(--muted); line-height:1.5; }
-
-    /* Grid & cards */
-    .vendor-grid{ position:relative; display:grid; gap:14px; padding: 14px 0 0; }
-    .vendor-grid::before{
-      content:"";
-      position:absolute;
-      inset:-18px;
-      background:
-        radial-gradient(900px 320px at 50% 0%, rgb(var(--accentRGB) / .12), transparent 60%),
-        radial-gradient(700px 320px at 10% 20%, rgba(90,160,255,.10), transparent 60%);
-      pointer-events:none;
-      z-index:0;
-    }
-    .vendor-grid > .card{ position:relative; z-index:1; }
-
-    @media(max-width:767px){ .vendor-grid{ grid-template-columns:repeat(2, 1fr); } }
-    @media(min-width:768px) and (max-width:1023px){ .vendor-grid{ grid-template-columns:repeat(3, 1fr); } }
-    @media(min-width:1024px){ .vendor-grid{ grid-template-columns:repeat(4, 1fr); } }
-
-    .card{
-      background: var(--panel);
-      border:1px solid var(--panel-border);
-      border-radius:18px;
-      box-shadow: var(--shadow-sm);
-      overflow:hidden;
-      cursor:pointer;
-      transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, filter .16s ease;
-      min-height: 250px;
-    }
-    .card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--gold) 30%, var(--panel-border)); filter: brightness(1.02); }
-    .card:focus-within{ outline: none; box-shadow: 0 0 0 3px rgb(var(--accentRGB) / .16), var(--shadow-md); }
-
-    .card.featured{
-      border-color: color-mix(in srgb, var(--gold) 46%, var(--panel-border));
-      box-shadow: 0 0 0 1px rgb(var(--accentRGB) / .22), 0 22px 70px rgba(0,0,0,.35);
-      animation: certPulse 3.6s ease-in-out infinite;
-    }
-    @keyframes certPulse{
-      0%,100%{ filter: brightness(1.00); }
-      50%{ filter: brightness(1.06); }
-    }
-
-    .img-box{
-      position:relative;
-      width:100%;
-      aspect-ratio: 4 / 5;
-      background: #000;
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .img-box::before{
-      content:"";
-      position:absolute;
-      inset:-18px;
-      background-image: var(--bgimg);
-      background-size:cover;
-      background-position:center;
-      filter: blur(20px);
-      opacity: .42;
-    }
-    .img-box::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.62));
-    }
-    .img-box img{
-      position:relative;
-      z-index:1;
-      width:100%;
-      height:100%;
-      object-fit:contain;
-    }
-
-    .content{ padding: 10px 10px 12px; }
-    .site{ font-size:14px; font-weight:1000; letter-spacing: var(--tracking-h); }
-    .desc{ margin-top:6px; font-size:12px; color: var(--muted); line-height:1.35; min-height:32px; }
-    .code{ margin-top:8px; font-size:12px; color: color-mix(in srgb, var(--gold2) 88%, var(--text)); font-weight:1000; }
-
-    /* Popup */
-    .popup{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.75);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index: 3000;
-      padding: 18px;
-    }
-    .popup-box{
-      background: color-mix(in srgb, var(--panel) 94%, transparent);
-      border:1px solid var(--panel-border);
-      border-radius: 18px;
-      padding: 22px;
-      width: 100%;
-      max-width: 420px;
-      text-align:center;
-      box-shadow: var(--shadow-lg);
-      backdrop-filter: blur(10px);
-    }
-    .popup-box h2{ margin: 0 0 8px; font-weight:1000; letter-spacing: var(--tracking-h); }
-    .popup-box p{ margin: 0; }
-    .popup-cta{ display:flex; flex-direction:column; gap:10px; margin-top: 14px; }
-    .popup-aux{ display:flex; gap:10px; justify-content:center; margin-top: 10px; flex-wrap:wrap; }
-    .btn{ user-select:none; border-radius: 14px; padding: 12px; font-weight:1000; border:1px solid var(--panel-border); text-decoration:none; color: var(--text); background: var(--panel-2); cursor:pointer; }
-    .btn.primary{ background: linear-gradient(135deg,var(--gold),var(--gold2)); color:#0b0b0b; border-color: rgba(0,0,0,.10); }
-    .btn.ghost{ background: transparent; }
-    .btn.secondary{ background: var(--panel-2); }
-
-    /* SEO helper: visually hidden (accessible) */
-    .sr-only{
-      position:absolute !important;
-      width:1px; height:1px;
-      padding:0; margin:-1px;
-      overflow:hidden; clip:rect(0,0,0,0);
-      white-space:nowrap; border:0;
-    }
-  </style>
+  <script defer src="/assets/js/88st-analytics.js?v=VIP4_20260213_14"></script>
 </head>
 <body>
-  <main class="page">
-    <section class="hero" aria-label="인증사이트 소개">
-      <div class="hero-top">
-        <div>
-          <h1 class="h-title">인증사이트 (보증·인증 카드)</h1>
-          <div class="h-sub">
-            안전한 토토사이트 선택을 돕기 위해, <b>혜택/가입코드/주의사항/문의</b> 정보를 카드로 정리했습니다.
-            <br/>카드를 클릭하면 상세와 함께 <b>코드 복사/사이트 이동/문의</b>를 바로 할 수 있어요.
-          </div>
-        </div>
-      </div>
-      <div class="hero-actions">
-        <a class="btnx primary" href="/analysis/" data-cta="cert_to_analysis">스포츠 분석기</a>
-        <a class="btnx" href="/bonus-checklist/" data-cta="cert_to_bonus">입플 체크리스트</a>
-        <a class="btnx ghost" href="/" data-cta="cert_to_home">홈</a>
-      </div>
-      <div class="sr-only" aria-label="SEO 키워드">
-        안전한토토사이트 먹튀검증 토토사이트추천 안전놀이터 보증업체 인증업체 스포츠토토 카지노 슬롯 입플 커뮤니티
+  <main class="cert-wrap">
+    <section class="cert-hero">
+      <h1>인증사이트</h1>
+      <p>
+        카드 하나씩 눌러서 <span class="cert-em">가입코드</span>, <span class="cert-em">혜택</span>, <span class="cert-em">주의사항</span>을 빠르게 확인하세요.
+        <br/>
+        즐겨찾기/최근 기록으로 재방문이 쉬워지고, 검색/정렬로 필요한 카드만 골라볼 수 있어요.
+      </p>
+      <div class="cert-actions">
+        <a class="cert-btn primary" href="#certList">카드 목록 보기</a>
+        <a class="cert-btn" href="/">메인으로</a>
+        <a class="cert-btn" href="https://t.me/UZU59" target="_blank" rel="noopener">문의 (텔레그램)</a>
       </div>
     </section>
 
-    <section class="vendor-tools" aria-label="카드 검색 및 정렬">
-      <input id="searchInput" class="v-input" autocomplete="off" placeholder="업체 검색 (예: SPEED OK 어느날  )" />
-      <div class="v-controls" aria-label="정렬 및 옵션">
-        <div class="v-control">
-          <label for="sortSelect">정렬</label>
-          <select id="sortSelect" class="v-select">
-            <option value="default">기본</option>
+    <section class="cert-grid-panel" id="certList" aria-label="인증사이트 카드 목록">
+      <div class="vendor-tools">
+        <div class="v-left">
+          <input id="searchInput" class="v-input" type="search" placeholder="검색 (업체명/코드/혜택/주의)" autocomplete="off" />
+        </div>
+        <div class="v-right">
+          <select id="filterSelect" class="v-select" aria-label="필터">
+            <option value="all">전체</option>
+            <option value="guarantee">상단 추천</option>
+            <option value="verified">그 외</option>
+            <option value="rec">추천</option>
+            <option value="new">신규</option>
+          </select>
+          <select id="sortSelect" class="v-select" aria-label="정렬">
+            <option value="default">기본 정렬</option>
             <option value="pop">인기순</option>
           </select>
+          <label class="v-toggle" title="혜택 텍스트 정리">
+            <input id="toggleClean" type="checkbox"/>
+            텍스트 정리
+          </label>
         </div>
-
-        <label class="v-toggle" for="cleanToggle" aria-label="정제된 문구 토글">
-          <input id="cleanToggle" type="checkbox"/>
-          <span class="v-switch" aria-hidden="true"></span>
-          <span class="v-toggle-text">정제된 문구</span>
-        </label>
       </div>
-      <div class="v-small" id="cleanHint">정제된 문구: 카드 혜택 문구를 짧고 깔끔하게 보여줍니다.</div>
 
-      <div class="vendor-grid" id="vendorGridAll" aria-label="인증사이트 카드 목록"></div>
+      <div id="emptyHint" class="cert-empty" style="display:none;">검색 결과가 없습니다. 다른 키워드로 다시 검색해보세요.</div>
+      <div class="vendor-grid" id="vendorGrid"></div>
+    </section>
 
-      <div class="v-small" style="margin-top:12px;">
-        ※ 카드 내용은 참고용이며, 조건/혜택은 수시로 변동될 수 있습니다. 가입 전 공지/문의로 재확인하세요.
+    <section class="cert-howto" aria-label="이용 안내">
+      <div class="cert-card">
+        <h2>이용 방법</h2>
+        <ul>
+          <li><span class="cert-em">카드를 클릭</span>하면 상세 팝업이 열립니다.</li>
+          <li>팝업에서 <span class="cert-em">가입코드 복사</span> → 사이트 이동 순으로 진행하세요.</li>
+          <li>자주 쓰는 카드는 <span class="cert-em">즐겨찾기</span>로 저장해두면 더 빠릅니다.</li>
+        </ul>
+      </div>
+      <div class="cert-card">
+        <h2>안전한 토토사이트 체크</h2>
+        <p>
+          “좋아 보이는 문구”보다 <span class="cert-em">조건/롤링/제외게임/최대지급/출금</span> 같은 항목을 먼저 확인하는 게 핵심입니다.
+          입플·페이백 조건은 수시로 바뀔 수 있으니, 팝업의 <span class="cert-em">주의사항</span>도 꼭 확인하세요.
+        </p>
       </div>
     </section>
 
-    <section class="sr-only" aria-label="히든 SEO 텍스트">
-      안전한 토토사이트, 안전한토토사이트 추천, 먹튀 검증, 안전 놀이터, 토토사이트 추천, 스포츠 토토, 카지노 사이트, 슬롯 입플, 보너스 조건, 롤링, 최대 지급, 가입 코드, 텔레그램 문의
-    </section>
+    <details class="seo-details">
+      <summary>SEO / 안내</summary>
+      <div class="seo-text">
+        <p>
+          안전한토토사이트, 안전 토토사이트, 인증사이트, 보증사이트, 먹튀검증, 입금플러스, 페이백, 가입코드, 스포츠배당분석기, 미니게임분석기, 카지노전략분석기, 슬롯환수율 분석기.
+        </p>
+        <p>
+          본 페이지는 “선택을 돕는 안내” 목적이며, 최종 이용 조건은 각 사이트 공지/규정에 따릅니다.
+        </p>
+      </div>
+    </details>
   </main>
 
-  <!-- Card Popup -->
-  <div class="popup" id="cardPopup" role="dialog" aria-modal="true" aria-label="업체 상세">
-    <div class="popup-box" role="document">
-      <h2 id="pTitle"></h2>
-      <p id="codeRow">가입코드 : <b id="pCode"></b></p>
-      <p id="pBenefit" style="color: var(--gold2); font-size:13px; margin:10px 0 0;"></p>
-      <p id="pNotice" style="color:#ff6b6b; font-size:12px; margin:8px 0 0;"></p>
+  <!-- copy toast -->
+  <div id="copyToast" aria-live="polite">가입코드가 복사되었습니다</div>
 
-      <div class="popup-cta" aria-label="주요 액션">
-        <div class="btn secondary" id="copyBtn" role="button" tabindex="0">가입코드 복사</div>
-        <a class="btn primary" id="pLink" data-no-auto-outbound="1" rel="noopener" target="_blank">사이트 이동</a>
-        <a class="btn ghost" id="pTelegram" data-no-auto-outbound="1" rel="noopener" target="_blank">문의 (텔레그램)</a>
+  <!-- popup -->
+  <div class="popup" id="cardPopup" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="popup-box" role="document">
+      <button class="popup-close" id="closeBtn" aria-label="닫기">✕</button>
+      <h3 class="popup-title" id="pTitle">업체명</h3>
+      <p class="popup-sub">가입코드: <span id="pCode"></span></p>
+
+      <div class="popup-meta">
+        <div class="line" id="pBenefit" style="display:none;"></div>
+        <div class="line" id="pNotice" style="display:none;"></div>
       </div>
 
-      <div class="popup-aux" aria-label="보조 액션">
-        <div class="btn ghost" id="favBtn" role="button" tabindex="0">☆ 즐겨찾기</div>
-        <div class="btn ghost" id="closeBtn" role="button" tabindex="0">닫기</div>
+      <div class="popup-actions">
+        <button class="btn" id="copyBtn">코드 복사</button>
+        <a class="btn primary" id="pLink" href="#" target="_blank" rel="noopener">사이트 이동</a>
+        <a class="btn" id="pTelegram" href="https://t.me/UZU59" target="_blank" rel="noopener">문의 (텔레그램)</a>
+        <button class="btn" id="favBtn">☆ 즐겨찾기</button>
       </div>
     </div>
   </div>
 
-  <script>
-  (function(){
-    const track = window.track || function(){};
-
-    // ===== 카드 데이터 (메인 인덱스와 동일) =====
-    const CARD_DATA = {
-  card1:{ title:"어느날", code:"ST95", link:"http://oday-147.com", telegram:"UZU59",
-    benefit:"고액전용 전용 무제제 삼치기OK / 입금플러스5+2 10+3 20+4 외 첫충 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card2:{ title:"OK Bet", code:"88ST", link:"/ok/", telegram:"UZU59",
-    benefit:"신규가입 77만원 쿠폰지급, 코인 입/출금 가능, 롤 세트별 베팅, 벤픽 후 마감, BJ, 스타리그 업데이트",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card3:{ title:"SPEED Bet", code:"88ST", link:"/speed/", telegram:"UZU59",
-    benefit:"신규가입 77만원 쿠폰지급, 코인 입/출금 가능, 롤 세트별 베팅, 벤픽 후 마감, BJ, 스타리그 업데이트",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card4:{ title:"VEGAS", code:"6789", link:"https://las403.com", telegram:"UZU59",
-    benefit:"스포츠·고액전용 입플 최대 30% 페이백 / 카지노 입플",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card5:{ title:"LULA BET", code:"ZZ99", link:"https://lula.ws", telegram:"PSC991",
-    benefit:"원화·USDT 무기명가입 / 페이백 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card6:{ title:"CHOY BET", code:"TAN", link:"https://cy-40.com", telegram:"DY0302",
-    benefit:"신규 30% / 매충 10% / 페이백 10 / 입플 %",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-
-  card7:{ title:"CAPS", code:"RUST", link:"https://caps-22.com/", telegram:"UZU59",
-    benefit:"미겜 첫충 5% / 페이백 5% / 출석 30만원",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-
-  card8:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com", telegram:"UZU59",
-    benefit:"스포츠 첫충 10% / 미겜 첫충 5% / 페이백 5% / 출석 30만원",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-
-  card9:{ title:"RIO", code:"opop", link:"https://rio2.casino/?b=OPOP", telegram:"Aven47",
-    benefit:"고액전용 카지노 입플/페이백 중심 · 고액 유저 기준 혜택 안내",
-    notice:"가입코드 미입력 시 혜택 적용이 어려울 수 있습니다." },
-  card10:{ title:"RED HULK", code:"HERO", link:"https://rhk-777.com", telegram:"SDTR8",
-    benefit:"입금플러스 신규 30% / 매충 10% / 페이백5% 콤프(1%/3%)%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-   card11:{ title:"TOP GUN", code:"GAS7", link:"https://topgun-88.com", telegram:"SDTR8",
-    benefit:"입금플러스 신규 30% / 매충 10% / 페이백5% 콤프(1%/3%)%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-};
-
-    function norm(s){ return String(s||"").toLowerCase().replace(/\s+/g,""); }
-
-    const CLICK_KEY_PREFIX = "88_card_click_";
-    function getClickCount(id){ return Number(localStorage.getItem(CLICK_KEY_PREFIX + id) || 0); }
-    function incCardClick(id){ localStorage.setItem(CLICK_KEY_PREFIX + id, String(getClickCount(id) + 1)); }
-
-    function cleanBenefit(s){
-      const t = String(s||"")
-        .replace(/[•]/g,"·")
-        .replace(/\s*\/\s*/g," / ")
-        .replace(/\s+/g," ")
-        .trim();
-      const max = 56;
-      return t.length > max ? (t.slice(0, max-1) + "…") : t;
-    }
-
-    function cardSourcesById(id) {
-      const n = String(id).replace("card","");
-      const GIF_OVERRIDES = {
-        card2: ["/img/img2.gif", "/img/imj2.gif"],
-        card3: ["/img/img3.gif"]
-      };
-      const g = GIF_OVERRIDES[id];
-      const gif  = Array.isArray(g) ? (g[0] || "") : (g || "");
-      const gif2 = Array.isArray(g) ? (g[1] || "") : "";
-      return {
-        gif, gif2,
-        webp: `/img/img${n}.webp`,
-        jpg: `/img/img${n}.jpg`
-      };
-    }
-
-    function appendUtm(url) {
-      try {
-        const u = new URL(url, location.origin);
-        const cur = new URL(location.href);
-        ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(k=>{
-          const v = cur.searchParams.get(k);
-          if(v && !u.searchParams.get(k)) u.searchParams.set(k, v);
-        });
-        return u.toString();
-      } catch(e) {
-        return url;
-      }
-    }
-
-    let currentSort = "default";
-    let isCleanText = false;
-
-    function renderGrid() {
-      const grid = document.getElementById("vendorGridAll");
-      if(!grid) return;
-
-      const q = norm(document.getElementById("searchInput")?.value || "");
-
-      const GUARANTEE_ORDER = ["card1","card2","card3"];
-      const ids = Object.keys(CARD_DATA);
-
-      const rest = ids.filter(id => !GUARANTEE_ORDER.includes(id));
-
-      const groupRank = (id)=> {
-        const p = (CARD_DATA[id]||{}).priority || "normal";
-        if(p === "high") return 0;
-        if(p === "normal") return 1;
-        return 2;
-      };
-      const num = (id)=> Number(String(id).replace("card","")) || 9999;
-
-      rest.sort((a,b)=> {
-        const ra = groupRank(a), rb = groupRank(b);
-        if(ra !== rb) return ra - rb;
-        return num(a) - num(b);
-      });
-
-      let list = [...GUARANTEE_ORDER.filter(id=>ids.includes(id)), ...rest];
-
-      if(currentSort === "pop") {
-        list.sort((a,b)=> getClickCount(b) - getClickCount(a));
-      }
-
-      const match = (id)=> {
-        if(!q) return true;
-        const d = CARD_DATA[id] || {};
-        const hay = norm(`${d.title||""} ${d.code||""} ${d.benefit||""} ${d.notice||""} ${d.recruitText||""}`);
-        return hay.includes(q);
-      };
-      list = list.filter(match);
-
-      const cardHTML = (id)=> {
-        const d = CARD_DATA[id] || {};
-        const src = cardSourcesById(id);
-        const firstSrc = src.gif || src.webp || src.jpg || "";
-        const isRecruit = !!d.recruit;
-        const benefit = isRecruit ? (d.recruitText || "문의 후 등록 가능") : (d.benefit || "");
-        const show = (isCleanText ? cleanBenefit(benefit) : benefit);
-        const cls = ["card"];
-        if(["card1","card2","card3"].includes(id)) cls.push("featured");
-        return `
-          <div class="${cls.join(" ")}" data-card="${id}" role="button" tabindex="0"
-               aria-label="${String(d.title||"카드").replace(/"/g,'&quot;')} 열기">
-            <div class="img-box">
-              <img class="cardThumb"
-                   src="${firstSrc}"
-                   data-gif="${src.gif}"
-                   data-gif2="${src.gif2||""}"
-                   data-webp="${src.webp}"
-                   data-jpg="${src.jpg}"
-                   loading="lazy" decoding="async"
-                   alt="${String(d.title||"").replace(/"/g,'&quot;')}"/>
-            </div>
-            <div class="content">
-              <div class="site">${d.title || ""}</div>
-              <div class="desc">${show || ""}</div>
-              <div class="code">${isRecruit ? "문의 등록" : ("코드: " + (d.code||""))}</div>
-            </div>
-          </div>
-        `;
-      };
-
-      grid.innerHTML = list.map(cardHTML).join("");
-
-      grid.querySelectorAll(".img-box").forEach(box=>{
-        const img = box.querySelector("img");
-        if(!img) return;
-
-        const chain = [img.dataset.gif, img.dataset.gif2, img.dataset.webp, img.dataset.jpg].filter(Boolean);
-        let step = 0;
-
-        const applyBg = ()=>{
-          let bg = img.currentSrc || img.src || "";
-          if(bg.endsWith(".gif")) bg = img.dataset.webp || img.dataset.jpg || bg;
-          box.style.setProperty("--bgimg", bg ? `url('${bg}')` : "none");
-        };
-        img.addEventListener("load", applyBg, { passive:true });
-        img.onerror = ()=>{
-          step += 1;
-          if(chain[step]) { img.src = chain[step]; return; }
-          img.style.display = "none";
-          box.style.minHeight = "130px";
-        };
-        applyBg();
-      });
-
-      bindCardClicks();
-    }
-
-    function bindCardClicks() {
-      document.querySelectorAll(".card[data-card]").forEach(el=>{
-        el.onclick = ()=> openCard(el.dataset.card);
-        el.onkeydown = (e)=>{ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openCard(el.dataset.card); } };
-      });
-    }
-
-    let currentCode="";
-    let currentCardId="";
-    let lastFocusEl=null;
-
-    function openCard(id) {
-      const d = CARD_DATA[id];
-      if(!d) return;
-
-      currentCardId = id;
-      incCardClick(id);
-
-      const isRecruit = !!d.recruit;
-      currentCode = (isRecruit ? "" : (d.code || ""));
-
-      const pTitle = document.getElementById("pTitle");
-      const pCode  = document.getElementById("pCode");
-      const codeRow = document.getElementById("codeRow");
-      const copyBtn = document.getElementById("copyBtn");
-      const pLink   = document.getElementById("pLink");
-      const pBenefit= document.getElementById("pBenefit");
-      const pNotice = document.getElementById("pNotice");
-      const pTelegram = document.getElementById("pTelegram");
-      const favBtn = document.getElementById("favBtn");
-
-      if(pTitle) pTitle.innerText = d.title || "";
-      if(pCode)  pCode.innerText  = (d.code || "");
-
-      if(codeRow) codeRow.style.display = isRecruit ? "none" : "block";
-      if(copyBtn) copyBtn.style.display = isRecruit ? "none" : "block";
-      if(pLink)   pLink.style.display   = isRecruit ? "none" : "inline-flex";
-
-      if(pBenefit){
-        const ok = !!(d.benefit && !isRecruit);
-        pBenefit.style.display = ok ? "block" : "none";
-        pBenefit.innerText = ok ? ("혜택 : " + d.benefit) : "";
-      }
-      if(pNotice){
-        const ok = !!d.notice;
-        pNotice.style.display = ok ? "block" : "none";
-        pNotice.innerText = ok ? ("주의 : " + d.notice) : "";
-      }
-
-      if(pLink) pLink.href = d.link ? appendUtm(d.link) : "#";
-      if(pTelegram){ const tg = (d.telegram || "UZU59").replace(/^@/,""); pTelegram.href = "https://t.me/" + tg; pTelegram.innerText = "문의 (텔레그램)"; }
-
-      if(favBtn && window.__88stIsFavVendor){
-        const on = window.__88stIsFavVendor(id);
-        favBtn.textContent = on ? "★ 즐겨찾기" : "☆ 즐겨찾기";
-        favBtn.classList.toggle("is-on", !!on);
-      }
-
-      try{
-        if(window.__88stAddRecentVendor){
-          window.__88stAddRecentVendor({id:id, title:(d.title||id), href:"/cert/?v=" + encodeURIComponent(id)});
-        }
-        if(window.__88stRefreshUserMenu) window.__88stRefreshUserMenu();
-      }catch(e){}
-
-      lastFocusEl = document.activeElement;
-      const popup = document.getElementById("cardPopup");
-      if(popup) popup.style.display = "flex";
-      document.getElementById("closeBtn")?.focus();
-
-      try{
-        const u = new URL(location.href);
-        u.searchParams.set("v", id);
-        history.replaceState(null, "", u.toString());
-      }catch(e){}
-
-      track("card_open", {card_id:id, title:d.title||""});
-    }
-
-    function closeCard() {
-      const popup = document.getElementById("cardPopup");
-      if(popup) popup.style.display = "none";
-      if(lastFocusEl && lastFocusEl.focus) lastFocusEl.focus();
-      try{
-        const u = new URL(location.href);
-        u.searchParams.delete("v");
-        history.replaceState(null, "", u.toString());
-      }catch(e){}
-    }
-
-    function copyCode() {
-      if(!currentCode) return;
-      const ok = ()=>{ alert("가입코드가 복사되었습니다"); track("copy_code", {card_id:currentCardId}); };
-      navigator.clipboard.writeText(currentCode).then(ok).catch(()=>{
-        try {
-          const t=document.createElement("textarea");
-          t.value=currentCode;
-          document.body.appendChild(t);
-          t.select();
-          document.execCommand("copy");
-          t.remove();
-          ok();
-        } catch(e) {}
-      });
-    }
-
-    (function initControls(){
-      const sortSel = document.getElementById("sortSelect");
-      const cleanTgl = document.getElementById("cleanToggle");
-      const input = document.getElementById("searchInput");
-
-      const savedSort = sessionStorage.getItem("88_cert_sort");
-      const savedClean = sessionStorage.getItem("88_cert_clean");
-      if(savedSort) currentSort = savedSort;
-      if(savedClean === "1") isCleanText = true;
-
-      if(sortSel){ sortSel.value = currentSort; sortSel.addEventListener("change", ()=>{ currentSort = sortSel.value; sessionStorage.setItem("88_cert_sort", currentSort); renderGrid(); }); }
-      if(cleanTgl){ cleanTgl.checked = isCleanText; cleanTgl.addEventListener("change", ()=>{ isCleanText = !!cleanTgl.checked; sessionStorage.setItem("88_cert_clean", isCleanText ? "1":"0"); renderGrid(); }); }
-
-      if(input) {
-        let timer=null;
-        input.addEventListener("input", ()=>{
-          renderGrid();
-          clearTimeout(timer);
-          timer=setTimeout(()=> track("cert_search", {q: (input.value||"").slice(0,60)}), 900);
-        });
-      }
-    })();
-
-    (function initPopup(){
-      const popup = document.getElementById("cardPopup");
-      const closeBtn = document.getElementById("closeBtn");
-      const copyBtn = document.getElementById("copyBtn");
-      const favBtn = document.getElementById("favBtn");
-
-      if(closeBtn){
-        closeBtn.onclick = closeCard;
-        closeBtn.onkeydown = (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); closeCard(); } };
-      }
-      if(copyBtn){
-        copyBtn.onclick = copyCode;
-        copyBtn.onkeydown = (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); copyCode(); } };
-      }
-      if(favBtn) {
-        favBtn.onclick = ()=> {
-          if(window.__88stToggleFavVendor && currentCardId) {
-            window.__88stToggleFavVendor(currentCardId);
-            const on = window.__88stIsFavVendor ? window.__88stIsFavVendor(currentCardId) : false;
-            favBtn.textContent = on ? "★ 즐겨찾기" : "☆ 즐겨찾기";
-            favBtn.classList.toggle("is-on", !!on);
-          }
-        };
-      }
-      popup?.addEventListener("click", (e)=>{ if(e.target === popup) closeCard(); });
-      document.addEventListener("keydown", (e)=>{ if(e.key === "Escape" && popup && popup.style.display==="flex") closeCard(); });
-    })();
-
-    renderGrid();
-    try {
-      const u = new URL(location.href);
-      const v = u.searchParams.get("v");
-      if(v && CARD_DATA[v]) openCard(v);
-    } catch(e) {}
-
-  })();
+  <script defer src="/assets/js/88st-cert.js?v=VIP4_20260213_14"></script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"인증사이트 | 안전한 토토사이트 안내 · 88ST",
+    "url":"https://88st.cloud/cert/",
+    "description":"안전한 토토사이트 선택을 돕는 인증사이트 모음. 가입코드/혜택/주의사항을 한 화면에서 확인하고, 즐겨찾기와 최근 기록으로 빠르게 재방문하세요."
+  }
   </script>
 </body>
 </html>
