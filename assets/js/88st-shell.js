@@ -5,7 +5,25 @@
   // Base theme tokens (vars) are required for consistent styling on ALL pages.
   // NOTE: We intentionally do NOT load /assets/88st-theme.js (toggle).
   // One-shot VIP build tag (cache bust)
-  const BUILD = "20260213_VIP4";  const THEME_CSS    = `/assets/88st-theme.css?v=VIP4_20260213_04"?")[0];
+  const BUILD = "20260213_VIP4";
+
+  const THEME_CSS    = `/assets/88st-theme.css?v=${BUILD}`;
+
+  const SHELL_CSS    = `/assets/88st-shell.css?v=${BUILD}`;
+  const UNIFY_CSS    = `/assets/88st-unify.css?v=${BUILD}`;
+  const LUX2_CSS     = `/assets/88st-luxury-v2.css?v=${BUILD}`;
+  const TOOL_HIS_CSS = `/assets/88st-tool-history.css?v=${BUILD}`;
+  // cache-bust for polish tweaks
+  const MOBILE_POLISH_CSS = `/assets/mobile-polish.css?v=${BUILD}`;
+  const POLISH_CSS        = `/assets/88st-polish.css?v=${BUILD}`;
+  // premium global layer (page-wide luxe)
+  const PREMIUM_GLOBAL_CSS = `/assets/88st-premium-global.css?v=${BUILD}`;
+  // final VIP layer (forces casino-light look everywhere)
+  const VIP_CSS = `/assets/88st-vvvvvip.css?v=${BUILD}`;
+
+  function ensureCss(href){
+    try{
+      const base = String(href).split("?")[0];
       const links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
       const found = links.find(l=> ((l.getAttribute('href')||"").split("?")[0]) === base);
       if(found){
@@ -203,7 +221,8 @@
             <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
             <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
             <a class="st-shell-link" href="/tool-minigame/">미니게임 분석기</a>
-            <div class="st-shell-dd">
+            <a class="st-shell-link" href="/#vendorTop">인증 사이트</a>
+<div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">계산기</button>
               <div class="st-shell-menu mega st-shell-mega-grid" role="menu" aria-label="계산기 목록">
 <div class="st-shell-menu-group">
@@ -288,7 +307,8 @@
             <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
             <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
             <a class="st-shell-link" href="/tool-minigame/">미니게임 분석기</a>
-            <details class="st-shell-acc" open>
+            <a class="st-shell-link" href="/#vendorTop">인증 사이트</a>
+<details class="st-shell-acc" open>
               <summary class="st-shell-link">계산기</summary>
               <div class="st-shell-acc-body">
                 <div class="st-shell-acc-title">스포츠 계산기</div>
