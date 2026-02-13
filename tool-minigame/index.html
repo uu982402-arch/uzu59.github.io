@@ -19,18 +19,18 @@
   <link rel='icon' href='/favicon.ico' type='image/x-icon'/>
   <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon'/>
 
-  <link rel='stylesheet' href='/assets/88st-theme.css?v=20260213_VIP4'/>
-  <link rel='stylesheet' href='/assets/88st-minigame-analyzer.css?v=20260213_VIP4_mg2'/>
-  <link rel='stylesheet' href='/assets/88st-shell.css?v=20260213_VIP4'/>
-  <script defer src='/assets/js/88st-shell.js?v=20260213_VIP4'></script>
-  <script defer src='/assets/js/88st-minigame-analyzer.js?v=20260213_VIP4_mg2'></script>
+  <link rel='stylesheet' href='/assets/88st-theme.css?v=VIP4_20260213_02'/>
+  <link rel='stylesheet' href='/assets/88st-minigame-analyzer.css?v=VIP4_20260213_02'/>
+  <link rel='stylesheet' href='/assets/88st-shell.css?v=VIP4_20260213_02'/>
+  <script defer src='/assets/js/88st-shell.js?v=VIP4_20260213_02'></script>
+  <script defer src='/assets/js/88st-minigame-analyzer.js?v=VIP4_20260213_02'></script>
 
   <!-- GA4 (main stream) -->
   <script>
     window.SITE_CONFIG = window.SITE_CONFIG || {};
     window.SITE_CONFIG.GA4_ID = 'G-22QKSP9VGB';
   </script>
-  <script defer src='/assets/js/88st-analytics.js'></script>
+  <script defer src='/assets/js/88st-analytics.js?v=VIP4_20260213_02'></script>
 
   <script type='application/ld+json'>
   {
@@ -70,6 +70,18 @@
           </div>
         </div>
 
+        <div class='mg-row' style='margin-top:10px;'>
+          <div class='mg-field' style='flex:1; min-width:220px;'>
+            <label for='mgRecentN'>최근 구간(N)</label>
+            <select id='mgRecentN'>
+              <option value='3'>최근 3회</option>
+              <option value='4'>최근 4회</option>
+              <option value='5'>최근 5회</option>
+              <option value='6' selected>최근 6회</option>
+            </select>
+          </div>
+        </div>
+
         <div class='mg-note' style='margin-top:10px;'>
           <b>배당</b>은 사이트에서 제공되는 값을 그대로 입력하세요. <b>최근 확률(%)</b>은 선택(빈칸 가능)입니다.
         </div>
@@ -99,7 +111,19 @@
               <button class='mg-btn primary' id='mgApplyFreq' type='button'>빈도 → 확률 적용</button>
               <button class='mg-btn' id='mgClearHistory' type='button'>히스토리 비우기</button>
             </div>
-            <div class='mg-note' style='margin-top:10px;'>
+            <div class='mg-row' style='margin-top:10px;'>
+          <div class='mg-field' style='flex:1; min-width:220px;'>
+            <label for='mgRecentN'>최근 구간(N)</label>
+            <select id='mgRecentN'>
+              <option value='3'>최근 3회</option>
+              <option value='4'>최근 4회</option>
+              <option value='5'>최근 5회</option>
+              <option value='6' selected>최근 6회</option>
+            </select>
+          </div>
+        </div>
+
+        <div class='mg-note' style='margin-top:10px;'>
               히스토리는 <b>현재 마켓의 선택값</b>만 인식합니다.
             </div>
           </div>
@@ -143,6 +167,13 @@
           </table>
         </div>
 
+        <div class='mg-divider'></div>
+        <section class='mg-pro' aria-label='Pro 인사이트'>
+          <h3 style="margin:0 0 10px;">Pro 인사이트</h3>
+          <div class='mg-note' style='margin:-2px 0 12px;'>최근 결과(붙여넣기) 기반으로 <b>편향·연속·변동성</b>을 요약합니다. (예측 보장 아님)</div>
+          <div class='mg-pro-grid' id='mgProInsights'></div>
+        </section>
+
         <div class='mg-note' style='margin-top:12px;'>
           • EV% = (<b>내 확률 × 배당</b> − 1). 베팅금은 EV 금액 계산에만 사용됩니다.
           <br/>
@@ -161,6 +192,7 @@
     </div>
   </main>
 
+<script src="/assets/js/88st-minigame-analyzer.js?v=VIP4_20260213_02" defer></script>
 <script>
   // mgFallbackReload: if analyzer didn't render tabs (cache/script race), reload analyzer once.
   document.addEventListener('DOMContentLoaded', function(){
@@ -169,7 +201,7 @@
         var host = document.getElementById('mgGameTabs');
         if(host && host.children && host.children.length === 0){
           var s = document.createElement('script');
-          s.src = '/assets/js/88st-minigame-analyzer.js?v=20260213_VIP4_mg2';
+          s.src = '/assets/js/88st-minigame-analyzer.js?v=VIP4_20260213_02';
           s.defer = true;
           document.body.appendChild(s);
         }
