@@ -7,7 +7,7 @@
 (function(){
   'use strict';
 
-  const BUILD = '20260212_VIP3_mg1';
+  const BUILD = '20260213_VIP4_mg3_proplus';
   const KEY = '88st_minigame_state_v1';
 
   const GAMES = [
@@ -412,13 +412,23 @@
     return o ? o.label : String(id||'');
   }
 
+  
   function renderProInsights(market, freqResult){
     const host = $('mgProInsights');
     if(!host) return;
+
     const seq = (freqResult && Array.isArray(freqResult.seq)) ? freqResult.seq : [];
     const nAll = seq.length;
-    const nRecent = Math.min(state.recentN||6, nAll);
-    const recent = nRecent ? seq.slice(-nRecent) : [];
+
+    const n3  = Math.min(3,  nAll);
+    const n10 = Math.min(10, nAll);
+    const nN  = Math.min(state.recentN||6, nAll);
+
+    const win = (n)=> (n? seq.slice(-n) : []);
+
+    const w3  = win(n3);
+    const w10 = win(n10);
+    const wN  = win(nN);
 
     function pct(x){ return (x*100).toFixed(1)+'%'; }
 
@@ -429,15 +439,28 @@
       return max ? (h/max) : 0;
     }
 
-    const allCounts = {}; const recCounts = {};
-    market.outcomes.forEach(o=>{ allCounts[o.id]=0; recCounts[o.id]=0; });
-    for(const x of seq){ if(allCounts[x]!=null) allCounts[x]++; }
-    for(const x of recent){ if(recCounts[x]!=null) recCounts[x]++; }
+    function countsOf(arr){
+      const c = {};
+      market.outcomes.forEach(o=>{ c[o.id]=0; });
+      for(const x of arr){ if(c[x]!=null) c[x]++; }
+      return c;
+    }
 
-    const allProbs = market.outcomes.map(o=> nAll? (allCounts[o.id]/nAll):0);
-    const recProbs = market.outcomes.map(o=> nRecent? (recCounts[o.id]/nRecent):0);
+    function probsFromCounts(c, n){
+      return market.outcomes.map(o=> (n? (c[o.id]/n) : 0));
+    }
 
-    // streak & switch rate
+    const cAll = countsOf(seq);
+    const c3   = countsOf(w3);
+    const c10  = countsOf(w10);
+    const cN   = countsOf(wN);
+
+    const pAll = probsFromCounts(cAll, nAll);
+    const p3   = probsFromCounts(c3,  n3);
+    const p10  = probsFromCounts(c10, n10);
+    const pN   = probsFromCounts(cN,  nN);
+
+    // streak & switch rate (overall)
     let streakSide = null, streakLen = 0, switches = 0;
     if(nAll>=2){
       for(let i=1;i<nAll;i++){ if(seq[i]!==seq[i-1]) switches++; }
@@ -449,53 +472,103 @@
     }
     const switchRate = (nAll>=2) ? (switches/(nAll-1)) : 0;
 
-    // deviation
-    let maxDelta = 0;
-    for(let i=0;i<market.outcomes.length;i++){
-      maxDelta = Math.max(maxDelta, Math.abs(recProbs[i]-allProbs[i]));
+    // deviation helpers
+    function maxDelta(pA, pB){
+      let m=0;
+      for(let i=0;i<market.outcomes.length;i++){
+        m = Math.max(m, Math.abs(pA[i]-pB[i]));
+      }
+      return m;
     }
 
-    const biasBadge = (nAll>=6 && maxDelta>=0.25) ? '강한 편향' : (nAll>=4 && maxDelta>=0.15 ? '편향' : '보통');
+    const deltaN  = maxDelta(pN,  pAll);
+    const delta3  = maxDelta(p3,  pAll);
+    const delta10 = maxDelta(p10, pAll);
+
+    // Dynamic bias score (two-proportion z approx vs overall baseline)
+    function maxZ(pRecent, nRecent){
+      if(!nAll || !nRecent) return 0;
+      let mz = 0;
+      for(let i=0;i<market.outcomes.length;i++){
+        const p0 = pAll[i];
+        const p1 = pRecent[i];
+        if(p0<=0 || p0>=1) continue;
+        const se = Math.sqrt((p0*(1-p0))/Math.max(nRecent,1));
+        if(se<=0) continue;
+        const z = Math.abs((p1 - p0)/se);
+        if(z>mz) mz=z;
+      }
+      return mz;
+    }
+
+    const z3  = maxZ(p3,  n3);
+    const z10 = maxZ(p10, n10);
+    const zN  = maxZ(pN,  nN);
+    const zMax = Math.max(z3, z10, zN);
+
+    // Bias level: thresholds auto-adjust with sample size
+    function biasLevel(n){
+      // stricter when sample is small
+      const zStrong = (n>=10) ? 2.0 : (n>=6 ? 2.2 : 2.6);
+      const zMid    = (n>=10) ? 1.5 : (n>=6 ? 1.7 : 2.0);
+      return { zStrong, zMid };
+    }
+    const th = biasLevel(Math.max(n10, nN));
+    const strong = (Math.max(delta10, deltaN) >= 0.25 && zMax >= th.zStrong && nAll>=10);
+    const mid    = (!strong && Math.max(delta10, deltaN) >= 0.15 && zMax >= th.zMid && nAll>=6);
+
+    const biasBadge = strong ? '강한 편향' : (mid ? '편향' : '보통');
 
     const volScore = market.outcomes.length===2
       ? Math.round(switchRate*100)
-      : Math.round(entropy(recProbs)*100);
+      : Math.round(entropy(pN.length? pN : pAll)*100);
 
     const volLabel = volScore>=70 ? '변동 큼' : (volScore>=40 ? '보통' : '안정');
 
+    // top outcome in recent-N
     let topIdx = 0;
-    for(let i=1;i<recProbs.length;i++){ if(recProbs[i]>recProbs[topIdx]) topIdx=i; }
+    for(let i=1;i<pN.length;i++){ if(pN[i]>pN[topIdx]) topIdx=i; }
     const topOutcome = market.outcomes[topIdx];
-    const topVal = recProbs[topIdx];
+    const topVal = pN[topIdx];
 
+    // Mean reversion caution (NOT prediction)
+    const meanRevertWarn = (strong && nAll>=10 && (
+      // stronger evidence when sample is small
+      (streakLen>=3 && zMax>=Math.max(th.zStrong,2.2)) ||
+      (Math.max(delta10,deltaN)>= (nAll>=20 ? 0.28 : 0.33) && zMax>=th.zStrong)
+    ));
+
+    // Render cards + compare table + warning
     host.innerHTML = '';
     const cards = [
       {
-        k: `최근 ${nRecent||0}회 최다`,
-        v: topOutcome ? `${topOutcome.label} · ${pct(topVal)}` : '데이터 없음',
-        s: nAll? `전체 ${nAll}개 기준과 비교 가능` : '최근 결과를 붙여넣어주세요',
+        k: `최근 ${nN||0}회 최다`,
+        v: (topOutcome ? `${topOutcome.label} · ${pct(topVal)}` : '데이터 없음'),
+        s: (nAll? `최근 ${n3||0}/${n10||0}/${nAll} 비교 가능` : '최근 결과를 붙여넣어주세요'),
         badge: biasBadge
       },
       {
         k: '연속(스트릭)',
         v: (streakSide ? `${labelOf(streakSide, market)} ${streakLen}연속` : '데이터 없음'),
-        s: (nAll>=2 ? `전환율 ${Math.round(switchRate*100)}% (전환 많을수록 난이도↑)` : '표본이 부족합니다'),
+        s: (nAll>=2 ? `전환율 ${Math.round(switchRate*100)}% (전환↑ = 패턴 난이도↑)` : '표본이 부족합니다'),
         badge: volLabel
       },
       {
-        k: '편향(최근 vs 전체)',
-        v: (nAll && nRecent ? `최대 Δ ${pct(maxDelta)}` : '데이터 없음'),
-        s: '최근 구간이 전체 평균과 얼마나 다른지',
+        k: '편향 점수',
+        v: (nAll ? `Δ ${pct(Math.max(delta10,deltaN))} · z ${zMax.toFixed(2)}` : '데이터 없음'),
+        s: '최근 구간이 전체 평균과 얼마나 다른지(표본수에 따라 자동 보정)',
         badge: biasBadge
       },
       {
         k: '변동성 점수',
         v: `${volScore}/100`,
-        s: market.outcomes.length===2 ? '전환율 기반' : '엔트로피 기반',
+        s: (market.outcomes.length===2 ? '전환율 기반' : '엔트로피 기반'),
         badge: volLabel
       }
     ];
 
+    const grid = document.createElement('div');
+    grid.className = 'mg-pro-grid';
     cards.forEach(c=>{
       const div = document.createElement('div');
       div.className = 'mg-pro-card';
@@ -504,9 +577,206 @@
         <div class="mg-pro-v">${escapeHtml(c.v)}</div>
         <div class="mg-pro-s"><span class="mg-pro-badge">${escapeHtml(c.badge)}</span> ${escapeHtml(c.s)}</div>
       `;
-      host.appendChild(div);
+      grid.appendChild(div);
     });
+    host.appendChild(grid);
+
+    // comparison table (recent3 vs recent10 vs overall)
+    const wrap = document.createElement('div');
+    wrap.className = 'mg-pro-compare';
+    const rows = market.outcomes.map((o, i)=>{
+      const d3  = (n3 ? (p3[i]-pAll[i]) : 0);
+      const d10 = (n10? (p10[i]-pAll[i]) : 0);
+      return `
+        <tr>
+          <td class="mg-pro-td-out">${escapeHtml(o.label)}</td>
+          <td>${n3? pct(p3[i]) : '-'}</td>
+          <td>${n10? pct(p10[i]) : '-'}</td>
+          <td>${nAll? pct(pAll[i]) : '-'}</td>
+          <td class="${d3>=0?'mg-pro-pos':'mg-pro-neg'}">${n3? ((d3>=0?'+':'')+pct(Math.abs(d3))) : '-'}</td>
+          <td class="${d10>=0?'mg-pro-pos':'mg-pro-neg'}">${n10? ((d10>=0?'+':'')+pct(Math.abs(d10))) : '-'}</td>
+        </tr>
+      `;
+    }).join('');
+
+    wrap.innerHTML = `
+      <div class="mg-pro-compare-head">
+        <div class="mg-pro-compare-title">최근 3 vs 최근 10 vs 전체 비교</div>
+        <div class="mg-pro-compare-sub">표본: 최근3(${n3}) · 최근10(${n10}) · 전체(${nAll})</div>
+      </div>
+      <div class="mg-pro-table-wrap">
+        <table class="mg-pro-table">
+          <thead>
+            <tr>
+              <th>결과</th>
+              <th>최근3</th>
+              <th>최근10</th>
+              <th>전체</th>
+              <th>Δ3-전체</th>
+              <th>Δ10-전체</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows || `<tr><td colspan="6" style="text-align:center;opacity:.7;">최근 결과를 붙여넣어 주세요</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+      <div class="mg-pro-foot">Δ는 “최근 구간 − 전체 평균”의 차이입니다. (의미 해석은 표본수에 크게 좌우됨)</div>
+    `;
+    
+    // trend chips (arrow) — quick visual
+    const trend = document.createElement('div');
+    trend.className = 'mg-pro-trend';
+    const chips = market.outcomes.map((o,i)=>{
+      const d3  = n3  ? (p3[i]-pAll[i])  : 0;
+      const d10 = n10 ? (p10[i]-pAll[i]) : 0;
+      const sign3  = d3===0 ? 0 : (d3>0?1:-1);
+      const sign10 = d10===0? 0 : (d10>0?1:-1);
+      let arrow = '→';
+      if(sign3===1 && sign10===1) arrow='↑';
+      else if(sign3===-1 && sign10===-1) arrow='↓';
+      else if(sign3===0 && sign10!==0) arrow = sign10>0?'↑':'↓';
+      else if(sign10===0 && sign3!==0) arrow = sign3>0?'↑':'↓';
+      else if(sign3!==0 && sign10!==0 && sign3!==sign10) arrow='↕';
+      const mag = Math.max(Math.abs(d3), Math.abs(d10));
+      const cls = (arrow==='↑') ? 'mg-pro-chip-up' : (arrow==='↓' ? 'mg-pro-chip-down' : 'mg-pro-chip-flat');
+      const sub = (nAll? `Δmax ${pct(mag)}` : '');
+      return `<div class="mg-pro-chip ${cls}"><span class="mg-pro-chip-a">${arrow}</span><span class="mg-pro-chip-l">${escapeHtml(o.label)}</span><span class="mg-pro-chip-s">${escapeHtml(sub)}</span></div>`;
+    }).join('');
+    trend.innerHTML = `
+      <div class="mg-pro-sec-head">
+        <div class="mg-pro-sec-title">추세 한눈에</div>
+        <div class="mg-pro-sec-sub">최근3/최근10이 전체 대비 같은 방향이면 ↑/↓, 엇갈리면 ↕</div>
+      </div>
+      <div class="mg-pro-chip-row">${chips || ''}</div>
+    `;
+    host.appendChild(trend);
+
+    // transition table (streak -> next) — what usually follows?
+    const trans = document.createElement('div');
+    trans.className = 'mg-pro-trans';
+    const maxK = 4;
+    function buildTrans(windowArr){
+      const n = windowArr.length;
+      const rows = [];
+      if(n < 3) return rows;
+      // for each position i as "next", measure streak length ending at i-1
+      for(let i=1;i<n;i++){
+        const prev = windowArr[i-1];
+        // streak length back from i-1
+        let k=1;
+        for(let j=i-2;j>=0 && windowArr[j]===prev && k<maxK;j--) k++;
+        const next = windowArr[i];
+        rows.push({k, prev, next});
+      }
+      // aggregate
+      const agg = {};
+      for(const r of rows){
+        const key = `${r.k}|${r.prev}`;
+        agg[key] = agg[key] || {k:r.k, prev:r.prev, total:0, nextCounts:{}};
+        agg[key].total++;
+        agg[key].nextCounts[r.next] = (agg[key].nextCounts[r.next]||0)+1;
+      }
+      return Object.values(agg).sort((a,b)=> (a.k-b.k));
+    }
+    function renderTransBlock(title, arr){
+      const list = buildTrans(arr);
+      if(!list.length) return `<div class="mg-pro-trans-empty">표본이 부족합니다</div>`;
+      const isBinary = market.outcomes.length===2;
+      const rowsHtml = list.map(item=>{
+        const prevLabel = labelOf(item.prev, market);
+        const kLabel = `${prevLabel} ${item.k}연속 후`;
+        if(isBinary){
+          const same = item.nextCounts[item.prev]||0;
+          const sw = item.total - same;
+          const pSame = same/item.total;
+          const pSw = sw/item.total;
+          return `
+            <tr>
+              <td>${escapeHtml(kLabel)}</td>
+              <td>${pct(pSame)}</td>
+              <td>${pct(pSw)}</td>
+              <td class="mg-pro-td-n">${item.total}</td>
+            </tr>
+          `;
+        }else{
+          // show top-next 2
+          const entries = Object.entries(item.nextCounts).sort((a,b)=>b[1]-a[1]);
+          const top = entries.slice(0,2).map(([id,c])=>`${labelOf(id,market)} ${pct(c/item.total)}`).join(' · ');
+          return `
+            <tr>
+              <td>${escapeHtml(kLabel)}</td>
+              <td colspan="2">${escapeHtml(top||'-')}</td>
+              <td class="mg-pro-td-n">${item.total}</td>
+            </tr>
+          `;
+        }
+      }).join('');
+      const headCols = (market.outcomes.length===2)
+        ? `<tr><th>조건</th><th>다음이 동일</th><th>다음이 전환</th><th>표본</th></tr>`
+        : `<tr><th>조건</th><th colspan="2">다음 결과 상위</th><th>표본</th></tr>`;
+      return `
+        <div class="mg-pro-trans-block">
+          <div class="mg-pro-trans-title">${escapeHtml(title)}</div>
+          <div class="mg-pro-table-wrap">
+            <table class="mg-pro-table mg-pro-table-sm">
+              <thead>${headCols}</thead>
+              <tbody>${rowsHtml}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+    trans.innerHTML = `
+      <div class="mg-pro-sec-head">
+        <div class="mg-pro-sec-title">연속 후 전환율</div>
+        <div class="mg-pro-sec-sub">베픽에서 많이 보는 “몇 연속 뒤 바뀜/유지 비율” (예측 아님)</div>
+      </div>
+      <div class="mg-pro-trans-grid">
+        ${renderTransBlock('최근10 기준', w10)}
+        ${renderTransBlock('전체 기준', seq)}
+      </div>
+    `;
+    host.appendChild(trans);
+
+    // confidence meter — how reliable is the pasted sample?
+    const conf = document.createElement('div');
+    conf.className = 'mg-pro-confidence';
+    const oc = Math.max(2, market.outcomes.length);
+    const effN = nAll / (oc/2); // more outcomes -> need more samples
+    let score = Math.round(clamp((effN/30)*100, 0, 100));
+    if(nAll < 6) score = Math.min(score, 25);
+    else if(nAll < 10) score = Math.min(score, 40);
+    const cLabel = score>=75 ? '높음' : (score>=45 ? '보통' : '낮음');
+    conf.innerHTML = `
+      <div class="mg-pro-sec-head">
+        <div class="mg-pro-sec-title">표본 신뢰도</div>
+        <div class="mg-pro-sec-sub">붙여넣은 결과(표본수)에 따른 해석 신뢰도(0~100)</div>
+      </div>
+      <div class="mg-pro-conf-row">
+        <div class="mg-pro-conf-bar" aria-label="confidence">
+          <div class="mg-pro-conf-fill" style="width:${score}%;"></div>
+        </div>
+        <div class="mg-pro-conf-meta">
+          <div class="mg-pro-conf-score">${score}/100</div>
+          <div class="mg-pro-conf-label"><span class="mg-pro-badge">${escapeHtml(cLabel)}</span> 전체 ${nAll}개 · 결과 ${oc}개</div>
+        </div>
+      </div>
+    `;
+    host.appendChild(conf);
+
+    // refined mean reversion warning (NOT prediction)
+
+    // mean reversion warning (caution)
+    const warn = document.createElement('div');
+    warn.className = 'mg-pro-warn';
+    warn.setAttribute('role','note');
+    warn.innerHTML = meanRevertWarn
+      ? `<b>평균회귀 주의</b> 최근 구간 편향이 강합니다(Δ/ z 기준). 이런 구간에서는 ‘평균에 가까워지는 움직임’이 자주 관찰되지만, <b>예측/보장은 아닙니다.</b> 표본을 늘려 확인하세요.`
+      : `<b>해석 팁</b> Δ가 크더라도 표본이 적으면 우연일 수 있습니다. 최근10/전체를 함께 보고 “지속되는 편향인지” 먼저 확인하세요.`;
+    host.appendChild(warn);
   }
+
 
 function bindHistory(){
     const ta = $('mgHistory');
