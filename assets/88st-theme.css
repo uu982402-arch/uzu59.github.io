@@ -72,6 +72,16 @@
 
 html{ font-size: clamp(15px, 0.35vw + 14px, 16px); }
 
+/* Mobile pinch-zoom / viewport rounding can reveal horizontal whitespace on some pages.
+   Keep the site strictly within the viewport without breaking layouts. */
+html, body{
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+img, svg, video, canvas{ max-width: 100%; }
+
 h1{ font-size: clamp(28px, 2.2vw + 18px, 44px); line-height:1.15; }
 
 h2{ font-size: clamp(20px, 1.2vw + 16px, 30px); line-height:1.18; }

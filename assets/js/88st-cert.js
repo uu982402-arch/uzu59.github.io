@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const BUILD = 'VIP4_20260213_14';
+  const BUILD = 'VIP4_20260214_15';
 
   const CARD_DATA = {
   card1:{ title:"어느날", code:"ST95", link:"http://oday-147.com", telegram:"UZU59",

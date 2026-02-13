@@ -5,7 +5,7 @@
   // Base theme tokens (vars) are required for consistent styling on ALL pages.
   // NOTE: We intentionally do NOT load /assets/88st-theme.js (toggle).
   // One-shot VIP build tag (cache bust)
-  const BUILD = "VIP4_20260213_14";
+  const BUILD = "VIP4_20260214_15";
 
   const THEME_CSS    = `/assets/88st-theme.css?v=${BUILD}`;
 
@@ -260,6 +260,9 @@
 
     if(insertAfter && insertAfter.parentNode) insertAfter.parentNode.insertBefore(header, insertAfter.nextSibling);
     else document.body.insertBefore(header, document.body.firstChild);
+
+    // ===== Cert strip (bottom promo) =====
+    injectCertStrip();
 
     // Expose header height for fixed left-panel menus (prevents overlap)
     (function bindHeaderHeight(){
@@ -623,6 +626,56 @@
         renderUser(userModal.getAttribute('data-tab')||'fav');
       }
     };
+  }
+
+  function injectCertStrip(){
+    try{
+      const path = String(location.pathname||"/");
+      if(path.startsWith('/cert')) return;
+      if(document.querySelector('.st-cert-strip')) return;
+
+      const html = `
+        <section class="st-cert-strip" aria-label="인증사이트">
+          <div class="st-cert-card">
+            <div class="st-cert-inner">
+              <div>
+                <div class="st-cert-title">인증사이트</div>
+                <p class="st-cert-desc">
+                  보증·인증 카드(혜택/가입코드/주의사항/문의)를 한 곳에 모아,
+                  사용자 입장에서 <b>안전하게 비교</b>할 수 있도록 정리했습니다.
+                </p>
+              </div>
+              <div class="st-cert-actions">
+                <a class="st-cert-btn primary" data-cta="cert_strip_open" href="/cert/">인증사이트 열기 <span aria-hidden="true">→</span></a>
+                <a class="st-cert-btn" data-cta="cert_strip_bonus" href="/bonus-checklist/">입플 체크리스트</a>
+              </div>
+            </div>
+            <p class="st-cert-note">※ 카드 내용은 참고용이며, 조건/혜택은 수시로 변경될 수 있습니다. 가입 전 공지/문의로 재확인하세요.</p>
+          </div>
+        </section>
+      `;
+
+      const node = document.createElement('div');
+      node.innerHTML = html.trim();
+      const strip = node.firstElementChild;
+      if(!strip) return;
+
+      // Prefer: before per-page SEO block (if exists)
+      const seo = document.querySelector('.landing-seo');
+      if(seo && seo.parentElement){
+        seo.parentElement.insertBefore(strip, seo);
+        return;
+      }
+
+      // Otherwise: after main
+      const main = document.querySelector('main');
+      if(main && main.parentElement){
+        main.parentElement.insertBefore(strip, main.nextSibling);
+        return;
+      }
+
+      document.body.appendChild(strip);
+    }catch(e){}
   }
 
   function addDrawerStyles(){
