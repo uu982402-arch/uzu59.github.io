@@ -260,14 +260,15 @@ body{
   position:relative;
   aspect-ratio: 16 / 9;
   overflow:hidden;
+  background: rgba(8,10,14,.92);
 }
 
 .cardThumb{
   width:100%;
   height:100%;
-  object-fit: cover;
+  object-fit: contain;
   display:block;
-  transform: scale(1.005);
+  transform: scale(1);
   filter: contrast(1.02) saturate(1.02);
 }
 
