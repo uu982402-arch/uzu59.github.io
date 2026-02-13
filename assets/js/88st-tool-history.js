@@ -204,20 +204,6 @@
       const kFinal = outputs.kFinal || "";
       return `배당 ${o} · 확률 ${p}% · ${frac}x · cap ${cap}% · 최종 ${kFinal || "-"}`;
     }
-
-    if(tool === "slot"){
-      const name = (inputs.slotName || "").trim();
-      const rtp = inputs.rtp || "-";
-      const volMap = {low:"저", mid:"중", high:"고", vhigh:"초고"};
-      const vol = volMap[inputs.vol] || (inputs.vol || "");
-      const bet = inputs.bet || "-";
-      const spins = inputs.spins || "-";
-      const loss = outputs.loss || "-";
-      const total = outputs.total || "";
-      const head = name ? `슬롯 ${name}` : "슬롯";
-      const totPart = total ? ` · 총베팅 ${total}` : "";
-      return `${head} · RTP ${rtp}% · ${vol}변동 · ${bet}×${spins}${totPart} · 기대손실 ${loss}`;
-    }
     return `${cfg.title}`;
   }
 
