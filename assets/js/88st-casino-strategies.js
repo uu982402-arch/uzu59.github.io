@@ -32,7 +32,14 @@
   }
 
   function numFromInput(el){
-    const raw = String(el.value||"").replace(/[ ,]/g, "").trim();
+    // Accept: "10,000", "10000원", "2.00", etc.
+    const raw0 = String(el.value||"").trim();
+    if(!raw0) return 0;
+    const raw = raw0
+      .replace(/,/g,"")
+      .replace(/%/g,"")
+      .replace(/원/g,"")
+      .replace(/[^0-9.\-]/g,"");
     if(!raw) return 0;
     const n = Number(raw);
     return Number.isFinite(n) ? n : 0;
@@ -496,6 +503,17 @@
     $("csPL").textContent = fmtMoney(t.pl);
     $("csMDD").textContent = fmtMoney(t.mdd);
     $("csRecoverBet").textContent = r.recoverBet ? fmtMoney(r.recoverBet) : "—";
+    // bankroll left (optional)
+    const bl = document.getElementById("csBankrollLeft");
+    if(bl){
+      if(Number(settings.bankroll) > 0 && Number.isFinite(r.bankrollLeft)){
+        bl.textContent = fmtMoney(r.bankrollLeft);
+        bl.classList.toggle("neg", r.bankrollLeft < 0);
+      }else{
+        bl.textContent = "—";
+        bl.classList.remove("neg");
+      }
+    }
 
     // recent log
     const body = $("csLogBody");
@@ -753,6 +771,18 @@
   }
 
 function boot(){
+    function formatMoneyInput(el, allowDecimal){
+      if(!el) return;
+      const v = numFromInput(el);
+      if(!v){ el.value = ""; return; }
+      if(allowDecimal){
+        // keep up to 2 decimals for odds
+        const n = Math.round(v*100)/100;
+        el.value = String(n);
+      }else{
+        el.value = fmtMoney(Math.floor(v));
+      }
+    }
     settings = loadSettings();
     session = initSession(settings);
 
@@ -765,6 +795,12 @@ function boot(){
     $("csPresetBanker").addEventListener("click", ()=> setPreset("BANKER"));
 
     $("csOdds").addEventListener("input", ()=>{ updateSettingsFromCommonInputs(); buildStrategyOptions(settings); render(); });
+    $("csOdds").addEventListener("blur", ()=>{ formatMoneyInput($("csOdds"), true); updateSettingsFromCommonInputs(); buildStrategyOptions(settings); render(); });
+
+    $("csBaseBet").addEventListener("blur", ()=>{ formatMoneyInput($("csBaseBet"), false); updateSettingsFromCommonInputs(); buildStrategyOptions(settings); render(); });
+    $("csBankroll").addEventListener("blur", ()=>{ formatMoneyInput($("csBankroll"), false); updateSettingsFromCommonInputs(); render(); });
+    $("csIncrement").addEventListener("blur", ()=>{ formatMoneyInput($("csIncrement"), false); updateSettingsFromCommonInputs(); buildStrategyOptions(settings); render(); });
+
     $("csBaseBet").addEventListener("input", ()=>{ updateSettingsFromCommonInputs(); buildStrategyOptions(settings); render(); });
     $("csBankroll").addEventListener("input", ()=>{ updateSettingsFromCommonInputs(); render(); });
     $("csIncrement").addEventListener("input", ()=>{ updateSettingsFromCommonInputs(); buildStrategyOptions(settings); render(); });
@@ -778,6 +814,8 @@ function boot(){
       render();
     });
     $("csTargetProfit").addEventListener("input", ()=>{ updateSettingsFromCommonInputs(); buildStrategyOptions(settings); render(); });
+    $("csTargetProfit").addEventListener("blur", ()=>{ formatMoneyInput($("csTargetProfit"), false); updateSettingsFromCommonInputs(); buildStrategyOptions(settings); render(); });
+
 
     $("csTabs").addEventListener("click", (e)=>{
       const btn = e.target && e.target.closest("button[data-strategy]");

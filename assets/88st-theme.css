@@ -376,3 +376,7 @@ button:disabled:hover, .btn:disabled:hover, .btn.disabled:hover, [role="button"]
 
 /* Theme toggle removed (safety hide) */
 #_88stThemeToggle{ display:none !important; }
+
+
+/* Typography safety: keep buttons consistent across pages */
+button{ font-family: var(--font-sans); }

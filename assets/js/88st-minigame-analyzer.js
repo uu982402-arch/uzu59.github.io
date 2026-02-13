@@ -7,8 +7,9 @@
 (function(){
   'use strict';
 
-  const BUILD = 'VIP4_20260213_09_mg3_proplus';
+  const BUILD = 'VIP4_20260213_13_mg4_quickinput_picks';
   const KEY = '88st_minigame_state_v1';
+  const PICK_KEY = '88st_minigame_picks_v1';
 
   const GAMES = [
     {
@@ -109,6 +110,18 @@
     try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){}
   }
 
+  function loadPicks(){
+    try{
+      const raw = localStorage.getItem(PICK_KEY);
+      if(!raw) return [];
+      const v = JSON.parse(raw);
+      return Array.isArray(v) ? v : [];
+    }catch(e){ return []; }
+  }
+  function savePicks(list){
+    try{ localStorage.setItem(PICK_KEY, JSON.stringify(list||[])); }catch(e){}
+  }
+
   function defaultState(){
     const g = GAMES[0];
     const m = g.markets[0];
@@ -119,6 +132,8 @@
       game: g.id,
       market: m.id,
       stake: 10000,
+      stopLoss: 0,
+      streakWarn: 7,
       odds,
       probs,
       recentN: 6,
@@ -128,6 +143,8 @@
 
   let state = loadState() || defaultState();
   if(!state.recentN) state.recentN = 6;
+  if(state.stopLoss == null) state.stopLoss = 0;
+  if(state.streakWarn == null) state.streakWarn = 7;
 
   function getGame(id){ return GAMES.find(g=> g.id === id) || GAMES[0]; }
   function getMarket(game, marketId){ return game.markets.find(m=> m.id === marketId) || game.markets[0]; }
@@ -177,7 +194,11 @@
       ensureMarketState(market);
       saveState(state);
       renderOutcomes();
+      renderQuickPanel();
+      // best-effort: if history exists, re-apply mapping for the new market (unmatched tokens are ignored)
+      if(String(state.historyText||'').trim()) applyFreqNow(true);
       calcAndRender();
+      updateRiskBox();
   };
   }
 
@@ -216,6 +237,180 @@
         calcAndRender();
       }, 80));
     });
+  }
+
+  // --- Quick input / session helpers ---
+  let _quickUndo = [];
+
+  function setHistoryText(next, pushUndo=true){
+    const ta = $('mgHistory');
+    const cur = String(state.historyText||'');
+    const val = String(next||'');
+    if(pushUndo) _quickUndo.push(cur);
+    state.historyText = val;
+    if(ta) ta.value = val;
+    saveState(state);
+  }
+
+  function tokensFromHistory(text){
+    return String(text||'').trim().split(/[\s,|]+/).map(s=>s.trim()).filter(Boolean);
+  }
+
+  function renderQuickPanel(){
+    const host = $('mgQuickChips');
+    if(!host) return;
+    const game = getGame(state.game);
+    const market = getMarket(game, state.market);
+    host.innerHTML = market.outcomes.map(o=>
+      `<button class="mg-chip" type="button" data-out="${o.id}">${o.label}</button>`
+    ).join('');
+
+    host.querySelectorAll('button[data-out]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = btn.getAttribute('data-out');
+        const o = market.outcomes.find(x=> x.id===id);
+        if(!o) return;
+        const toks = tokensFromHistory(state.historyText);
+        const next = toks.concat([o.label]).join(' ');
+        setHistoryText(next, true);
+        if($('mgAutoApply')?.checked) applyFreqNow(true);
+      });
+    });
+
+    // tools
+    const btnUndo = $('mgUndo');
+    if(btnUndo) btnUndo.onclick = ()=>{
+      const prev = _quickUndo.pop();
+      if(prev == null) return toast('되돌릴 내용이 없습니다');
+      setHistoryText(prev, false);
+      if($('mgAutoApply')?.checked && String(state.historyText||'').trim()) applyFreqNow(true);
+    };
+    const btnBack = $('mgBackspace');
+    if(btnBack) btnBack.onclick = ()=>{
+      const toks = tokensFromHistory(state.historyText);
+      if(!toks.length) return toast('삭제할 결과가 없습니다');
+      _quickUndo.push(String(state.historyText||''));
+      toks.pop();
+      setHistoryText(toks.join(' '), false);
+      if(!toks.length){
+        const game = getGame(state.game);
+        const market = getMarket(game, state.market);
+        market.outcomes.forEach(o=> state.probs[o.id] = '');
+        state._lastSeq = [];
+        state._lastHistoryN = 0;
+        saveState(state);
+        renderOutcomes();
+        calcAndRender();
+        updateRiskBox();
+        return;
+      }
+      if($('mgAutoApply')?.checked) applyFreqNow(true);
+      else updateRiskBox();
+    };
+    const btnClear = $('mgQuickClear');
+    if(btnClear) btnClear.onclick = ()=>{
+      _quickUndo.push(String(state.historyText||''));
+      setHistoryText('', false);
+      const game = getGame(state.game);
+      const market = getMarket(game, state.market);
+      market.outcomes.forEach(o=> state.probs[o.id] = '');
+      state._lastSeq = [];
+      state._lastHistoryN = 0;
+      saveState(state);
+      renderOutcomes();
+      calcAndRender();
+      updateRiskBox();
+      toast('빠른 입력 초기화');
+    };
+  }
+
+  function bindSessionControls(){
+    const sl = $('mgStopLoss');
+    const sw = $('mgStreakWarn');
+    if(sl){
+      sl.value = (state.stopLoss||0) ? String(state.stopLoss) : '';
+      sl.oninput = debounce(()=>{
+        state.stopLoss = Math.max(0, toNum(sl.value) || 0);
+        saveState(state);
+        updateRiskBox();
+      }, 120);
+    }
+    if(sw){
+      sw.value = (state.streakWarn||0) ? String(state.streakWarn) : '';
+      sw.oninput = debounce(()=>{
+        state.streakWarn = Math.max(0, parseInt(sw.value,10) || 0);
+        saveState(state);
+        updateRiskBox();
+      }, 120);
+    }
+  }
+
+  function applyFreqNow(silent=false){
+    const ta = $('mgHistory');
+    const text = (ta ? ta.value : state.historyText) || '';
+    const game = getGame(state.game);
+    const market = getMarket(game, state.market);
+    const r = computeFreqRecent(text, market, state.recentN);
+    if(!r.total){
+      if(!silent) toast('매핑 가능한 결과가 없습니다. (예: 홀 짝 홀 / 좌 우 좌)');
+      updateRiskBox();
+      return null;
+    }
+    market.outcomes.forEach(o=>{
+      const p = r.probs[o.id];
+      if(Number.isFinite(p)) state.probs[o.id] = String((p*100).toFixed(2));
+    });
+    state.historyText = text;
+    state._lastSeq = r.seq;
+    state._lastHistoryN = r.total;
+    saveState(state);
+    renderOutcomes();
+    calcAndRender();
+    renderProInsights(market, r);
+    updateRiskBox();
+    if(!silent) toast(`최근 ${r.total}개 → 확률 반영 완료`);
+    return r;
+  }
+
+  function updateRiskBox(){
+    const box = $('mgRiskBox');
+    if(!box) return;
+
+    const stake = toNum(state.stake);
+    const stopLoss = Math.max(0, toNum(state.stopLoss)||0);
+    const streakWarn = Math.max(0, parseInt(state.streakWarn,10)||0);
+
+    const seq = Array.isArray(state._lastSeq) ? state._lastSeq : [];
+    let streakSide = null, streakLen = 0;
+    if(seq.length){
+      streakSide = seq[seq.length-1];
+      streakLen = 1;
+      for(let i=seq.length-2;i>=0;i--){ if(seq[i]===streakSide) streakLen++; else break; }
+    }
+
+    const maxLosses = (stopLoss>0 && Number.isFinite(stake) && stake>0)
+      ? Math.max(1, Math.floor(stopLoss / stake))
+      : null;
+
+    const hot = (streakWarn>0 && streakLen>=streakWarn);
+    box.className = hot ? 'mg-risk mg-risk-bad' : 'mg-risk';
+
+    const left = `손실 한도 ${stopLoss? stopLoss.toLocaleString()+'원' : '끔'}${(maxLosses!=null? ` · 베팅 ${stake.toLocaleString()}원 기준 약 ${maxLosses}연패면 도달` : '')}`;
+    const right = `연속 경고 ${streakWarn? streakWarn+'+' : '끔'}${(seq.length? ` · 현재 ${labelOf(streakSide, getMarket(getGame(state.game), state.market))} ${streakLen}연속` : '')}`;
+
+    box.innerHTML = `
+      <div class="mg-risk-row">
+        <div>
+          <div class="mg-risk-k">세션 관리</div>
+          <div class="mg-risk-v">${escapeHtml(left)}</div>
+        </div>
+        <div>
+          <div class="mg-risk-k">과열 체크</div>
+          <div class="mg-risk-v">${escapeHtml(right)}</div>
+        </div>
+      </div>
+      ${hot ? `<div class="mg-note" style="margin-top:8px;"><b class="mg-em">경고:</b> 연속 기준을 넘었습니다. 표본/전환율을 재확인하고, 무리한 추격을 피하세요.</div>` : `<div class="mg-note" style="margin-top:8px;">최근 결과를 붙여넣거나 빠른 입력을 쓰면, 여기서 <b>연속/손실 한도</b> 기준을 함께 확인할 수 있습니다.</div>`}
+    `;
   }
 
   function toNum(v){
@@ -279,7 +474,8 @@
     const margin = res.margin;
     $('mgSumP') && ($('mgSumP').textContent = Number.isFinite(sumImp) ? fmt(sumImp, 4) : '—');
     $('mgMargin') && ($('mgMargin').textContent = Number.isFinite(margin) ? pct(margin, 2) : '—');
-    $('mgN') && ($('mgN').textContent = state.historyText ? String(res.historyN||0) : '—');
+    const nUsed = (state._lastHistoryN != null) ? state._lastHistoryN : res.historyN;
+    $('mgN') && ($('mgN').textContent = state.historyText ? String(nUsed||0) : '—');
     $('mgMode') && ($('mgMode').textContent = `최근 ${state.recentN||6}개`);
 
     // Output table
@@ -321,28 +517,13 @@
 
     const btnAnalyze = $('mgAnalyze');
     if(btnAnalyze) btnAnalyze.onclick = ()=>{
-      const game = getGame(state.game);
-      const market = getMarket(game, state.market);
-      let r = null;
-      if(state.historyText && String(state.historyText).trim()){
-        r = computeFreqRecent(state.historyText, market, state.recentN);
-        if(r && r.total){
-          // Apply recent frequency to probs (readonly inputs)
-          market.outcomes.forEach(o=>{
-            const p = r.probs[o.id];
-            if(Number.isFinite(p)) state.probs[o.id] = String((p*100).toFixed(2));
-          });
-          saveState(state);
-          renderOutcomes();
-        }
-      }
+      const r = (state.historyText && String(state.historyText).trim()) ? applyFreqNow(true) : null;
       calcAndRender();
       const host = $('mgProInsights');
-      if(r && r.total){
-        renderProInsights(market, r);
-      }else if(host){
-        host.innerHTML = '<div class="mg-note">최근 결과를 붙여넣으면 Pro+ 인사이트가 활성화됩니다.</div>';
+      if(!(r && r.total) && host){
+        host.innerHTML = '<div class="mg-note">최근 결과를 붙여넣거나 “빠른 입력”을 사용하면 Pro 인사이트가 활성화됩니다.</div>';
       }
+      updateRiskBox();
       document.querySelector('[aria-label="결과"]')?.scrollIntoView({behavior:'smooth', block:'start'});
     };
 
@@ -354,6 +535,88 @@
   function bestPick(outs){
     const list = outs.filter(x=> Number.isFinite(x.evPct)).sort((a,b)=> b.evPct - a.evPct);
     return list[0] || null;
+  }
+
+  function renderPickList(){
+    const host = $('mgPickList');
+    if(!host) return;
+    const list = loadPicks();
+    if(!list.length){
+      host.innerHTML = '<div class="mg-note">저장된 픽이 없습니다. 분석 후 “현재 분석 저장”을 눌러보세요.</div>';
+      return;
+    }
+    host.innerHTML = list.slice(0, 12).map(item=>{
+      const d = new Date(item.ts||Date.now());
+      const dt = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+      const ev = Number.isFinite(item.evPct) ? pct(item.evPct, 2) : '—';
+      const margin = Number.isFinite(item.margin) ? pct(item.margin, 2) : '—';
+      const sample = item.sample ? String(item.sample) : '—';
+      const memo = item.memo ? escapeHtml(item.memo) : '';
+      const pickLine = item.pickLabel ? `${escapeHtml(item.pickLabel)} · EV ${escapeHtml(ev)}` : '픽 정보 없음';
+      return `
+        <div class="mg-pick-item" data-pick-id="${escapeHtml(item.id||'')}">
+          <div class="mg-pick-top">
+            <div>
+              <div class="mg-pick-title">${escapeHtml(item.gameTitle||'')} · ${escapeHtml(item.marketTitle||'')}</div>
+              <div class="mg-pick-meta">${escapeHtml(dt)} · 표본 ${escapeHtml(sample)} · 마진 ${escapeHtml(margin)}</div>
+            </div>
+            <div class="mg-pick-actions">
+              <button class="mg-btn" type="button" data-act="del">삭제</button>
+            </div>
+          </div>
+          <div class="mg-pick-tags">
+            <span class="mg-pick-tag">${pickLine}</span>
+            ${memo ? `<span class="mg-pick-tag">메모: ${memo}</span>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    host.querySelectorAll('[data-act="del"]').forEach(btn=>{
+      btn.onclick = ()=>{
+        const card = btn.closest('.mg-pick-item');
+        const id = card?.getAttribute('data-pick-id') || '';
+        const next = loadPicks().filter(x=> String(x.id||'') !== String(id));
+        savePicks(next);
+        renderPickList();
+        toast('삭제 완료');
+      };
+    });
+  }
+
+  function bindPicks(){
+    const btn = $('mgPickSave');
+    if(!btn) return;
+    btn.onclick = ()=>{
+      // ensure latest analysis is reflected
+      if(state.historyText && String(state.historyText).trim()) applyFreqNow(true);
+      const res = calc();
+      const pick = bestPick(res.outs);
+      const game = getGame(state.game);
+      const market = getMarket(game, state.market);
+      const memo = String($('mgPickMemo')?.value || '').trim();
+      const entry = {
+        id: `p_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+        ts: Date.now(),
+        gameId: state.game,
+        gameTitle: game.title,
+        marketId: state.market,
+        marketTitle: market.title,
+        pickId: pick ? pick.id : null,
+        pickLabel: pick ? pick.label : null,
+        evPct: pick ? pick.evPct : NaN,
+        margin: res.margin,
+        sample: state._lastHistoryN || 0,
+        recentN: state.recentN || 6,
+        memo
+      };
+      const list = loadPicks();
+      list.unshift(entry);
+      savePicks(list.slice(0, 30));
+      if($('mgPickMemo')) $('mgPickMemo').value = '';
+      renderPickList();
+      toast('픽 저장 완료');
+    };
   }
 
   function setText(tr, key, text){
@@ -839,57 +1102,49 @@ function bindHistory(){
     const selN = $('mgRecentN');
     if(selN){
       selN.value = String(state.recentN||6);
-      selN.addEventListener('change', ()=>{
+      selN.onchange = ()=>{
         state.recentN = parseInt(selN.value,10)||6;
         saveState(state);
         // auto re-apply if history exists
-        if(ta.value.trim()) btn.click();
-      });
+        if(ta.value.trim()) applyFreqNow(true);
+      };
     }
 
-    ta.addEventListener('input', debounce(()=>{
+    ta.oninput = debounce(()=>{
       state.historyText = ta.value;
       saveState(state);
-    }, 150));
+      updateRiskBox();
+    }, 150);
 
-    btn.addEventListener('click', ()=>{
+    btn.onclick = ()=>{ applyFreqNow(false); };
+
+    const btnClear = $('mgClearHistory');
+    if(btnClear) btnClear.onclick = ()=>{
+      state.historyText = '';
+      ta.value = '';
       const game = getGame(state.game);
       const market = getMarket(game, state.market);
-      const r = computeFreqRecent(ta.value, market, state.recentN);
-      if(!r.total){
-        toast('매핑 가능한 결과가 없습니다. (예: 홀 짝 홀 / 좌 우 좌)');
-        return;
-      }
-      market.outcomes.forEach(o=>{
-        const p = r.probs[o.id];
-        if(Number.isFinite(p)) state.probs[o.id] = String((p*100).toFixed(2));
-      });
+      market.outcomes.forEach(o=> state.probs[o.id] = '');
+      state._lastSeq = [];
+      state._lastHistoryN = 0;
       saveState(state);
       renderOutcomes();
       calcAndRender();
-      renderProInsights(market, r);
-      // keep for KPI
-      state._lastHistoryN = r.total;
-      toast(`최근 ${r.total}개 → 확률 반영 완료`);
-    });
-
-    $('mgClearHistory')?.addEventListener('click', ()=>{
-      state.historyText = '';
-      ta.value = '';
-      saveState(state);
+      updateRiskBox();
       toast('히스토리 초기화');
-    });
+    };
   }
 
   function bindStake(){
     const inp = $('mgStake');
     if(!inp) return;
     inp.value = state.stake ?? 10000;
-    inp.addEventListener('input', debounce(()=>{
+    inp.oninput = debounce(()=>{
       state.stake = toNum(inp.value);
       saveState(state);
       calcAndRender();
-    }, 80));
+      updateRiskBox();
+    }, 80);
   }
 
   function toast(msg){
@@ -905,10 +1160,15 @@ function bindHistory(){
     renderGameTabs();
     renderMarketSelect();
     renderOutcomes();
+    renderQuickPanel();
     bindStake();
+    bindSessionControls();
     bindHistory();
     bindActions();
     calcAndRender();
+    bindPicks();
+    renderPickList();
+    updateRiskBox();
     window.__MG_INIT_DONE = true;
   }
 

@@ -4,15 +4,15 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>슬롯 분석기 | RTP·변동성·세션 비용 계산</title>
-<meta content="슬롯 플레이 전, RTP·변동성·베팅·스핀수로 총베팅/기대손실/권장 뱅크롤을 한 번에 계산합니다." name="description"/>
-<meta name="keywords" content="슬롯 분석기, 슬롯 RTP, 슬롯 변동성, 슬롯 기대손실, 뱅크롤 계산, 슬롯 세션 관리"/>
+<title>슬롯 환수율(RTP) 분석기 | RTP·변동성·세션 비용 계산</title>
+<meta content="슬롯 플레이 전, 환수율(RTP)·변동성·베팅·스핀수로 총베팅/기대손실/권장 뱅크롤을 한 번에 계산합니다." name="description"/>
+<meta name="keywords" content="슬롯 환수율(RTP) 분석기, 슬롯 분석기, 슬롯 RTP, 슬롯 변동성, 슬롯 기대손실, 뱅크롤 계산, 슬롯 세션 관리"/>
 <link href="https://88st.cloud/tool-slot/" rel="canonical"/>
 <meta content="index,follow" name="robots"/>
 <meta content="website" property="og:type"/>
 <meta content="88 (팔팔커뮤니티)" property="og:site_name"/>
-<meta content="슬롯 분석기 | RTP·변동성·세션 비용" property="og:title"/>
-<meta content="RTP·변동성·베팅·스핀수로 총베팅/기대손실/권장 뱅크롤을 빠르게 계산합니다." property="og:description"/>
+<meta content="슬롯 환수율(RTP) 분석기 | RTP·변동성·세션 비용" property="og:title"/>
+<meta content="환수율(RTP)·변동성·베팅·스핀수로 총베팅/기대손실/권장 뱅크롤을 빠르게 계산합니다." property="og:description"/>
 <meta content="https://88st.cloud/tool-slot/" property="og:url"/>
 <style>
 :root{
@@ -248,7 +248,7 @@ a{ color:inherit; }
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "슬롯 분석기",
+      "name": "슬롯 환수율(RTP) 분석기",
       "item": "https://88st.cloud/tool-slot/"
     }
   ]
@@ -258,24 +258,24 @@ a{ color:inherit; }
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "슬롯 분석기",
+  "name": "슬롯 환수율(RTP) 분석기",
   "applicationCategory": "CalculatorApplication",
   "operatingSystem": "Web",
   "url": "https://88st.cloud/tool-slot/",
   "description": "RTP·변동성·베팅·스핀수로 총베팅/기대손실/권장 뱅크롤을 계산하는 웹 도구"
 }</script>
-<script src="/assets/js/88st-analytics.js?v=VIP4_20260213_09"></script>
-<link href="/assets/88st-theme.css?v=VIP4_20260213_09" rel="stylesheet"/>
-<link href="/assets/88st-tool-history.css?v=VIP4_20260213_09" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-tool-history.js?v=VIP4_20260213_09"></script>
-<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260213_09"></script>
-<link href="/assets/88st-shell.css?v=VIP4_20260213_09" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260213_09"></script>
+<script src="/assets/js/88st-analytics.js?v=VIP4_20260213_13"></script>
+<link href="/assets/88st-theme.css?v=VIP4_20260213_13" rel="stylesheet"/>
+<link href="/assets/88st-tool-history.css?v=VIP4_20260213_13" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-tool-history.js?v=VIP4_20260213_13"></script>
+<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260213_13"></script>
+<link href="/assets/88st-shell.css?v=VIP4_20260213_13" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260213_13"></script>
 </head>
 <body>
 <div class="wrap">
 <div class="hero">
-<h1>슬롯 분석기</h1>
+<h1>슬롯 환수율(RTP) 분석기</h1>
 <p>RTP·변동성·베팅·스핀수로 <b>총베팅</b>, <b>기대 손실(이론)</b>, <b>권장 뱅크롤</b>을 한 번에 계산합니다.<br/><span class="small">※ 정보 제공/참고용 · 실제 결과는 변동성이 매우 큽니다.</span></p>
 </div>
 <div class="grid">
@@ -346,18 +346,21 @@ a{ color:inherit; }
   function calc(silent){
     const name = (document.getElementById('slotName').value||'').trim();
     const rtp = num(document.getElementById('rtp').value);
+    let rtpPct = rtp;
+    // If user enters 0.96 형태면 96%로 자동 해석
+    if(isFinite(rtpPct) && rtpPct>0 && rtpPct<=1) rtpPct = rtpPct*100;
     const vol = document.getElementById('vol').value;
     const bet = num(document.getElementById('bet').value);
     const spins = num(document.getElementById('spins').value);
 
-    if(!isFinite(rtp) || rtp<=0 || rtp>100){ if(!silent) alert('RTP(%)를 0~100 사이로 입력해 주세요.'); return; }
+    if(!isFinite(rtpPct) || rtpPct<=0 || rtpPct>100){ if(!silent) alert('RTP(%)를 0~100 사이로 입력해 주세요. (예: 96 또는 0.96)'); return; }
     if(!isFinite(bet) || bet<=0){ if(!silent) alert('스핀당 베팅(원)을 올바르게 입력해 주세요.'); return; }
     if(!isFinite(spins) || spins<=0){ if(!silent) alert('스핀 수를 올바르게 입력해 주세요.'); return; }
 
     const total = bet * spins;
-    const expectedReturn = total * (rtp/100);
+    const expectedReturn = total * (rtpPct/100);
     const expectedLoss = total - expectedReturn;
-    const lossRate = (100 - rtp);
+    const lossRate = (100 - rtpPct);
 
     const mult = VOL_MULT[vol] || VOL_MULT.mid;
     const bankroll = bet * mult;
@@ -378,7 +381,7 @@ a{ color:inherit; }
     document.getElementById('explain').textContent =
       `요약: ${fmtWon(bet)} × ${spins.toLocaleString('ko-KR')}회 = 총 ${fmtWon(total)}
 ` +
-      `RTP ${rtp.toFixed(2)}% 기준, 이론 손실률은 약 ${lossRate.toFixed(2)}% 입니다.
+      `RTP ${rtpPct.toFixed(2)}% 기준, 이론 손실률은 약 ${lossRate.toFixed(2)}% 입니다.
 ` +
       `${volLabel} 기준 권장 뱅크롤은 “약 ${m}배 베팅단위” 수준으로 표시했습니다. (참고용)` +
       namePart;
@@ -411,7 +414,7 @@ a{ color:inherit; }
 <script type="application/json" id="__88stToolConfig">
 {
   "tool": "slot",
-  "title": "슬롯 분석기",
+  "title": "슬롯 환수율(RTP) 분석기",
   "inputs": ["slotName", "rtp", "vol", "bet", "spins"],
   "outputs": {
     "total": "#outTotal",
@@ -468,7 +471,7 @@ a{ color:inherit; }
 <div class="rel-grid">
 <a data-cta="rel_home" href="/">메인</a>
 <a data-cta="rel_odds" href="/tool-odds/">배당 구조 분석기</a>
-<a data-cta="rel_slot" href="/tool-slot/">슬롯 분석기</a>
+<a data-cta="rel_slot" href="/tool-slot/">슬롯 환수율(RTP) 분석기</a>
 <a data-cta="rel_margin2" href="/tool-margin/">마진 계산기</a>
 <a data-cta="rel_ev" href="/tool-ev/">EV 계산기</a>
 <a data-cta="rel_odds2" href="/tool-odds/">배당↔확률 변환</a>

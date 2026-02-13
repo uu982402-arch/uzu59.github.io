@@ -1660,12 +1660,12 @@ body.simple .paste-inline .chk:not(.simple-only){display:none !important;}
   ]
 }
 </script>
-<script src="/assets/js/88st-analytics.js?v=VIP4_20260213_09"></script>
-<link href="/assets/88st-theme.css?v=VIP4_20260213_09" rel="stylesheet"/>
-<link href="/assets/88st-tool-history.css?v=VIP4_20260213_09" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260213_09"></script>
-<link href="/assets/88st-shell.css?v=VIP4_20260213_09" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260213_09"></script>
+<script src="/assets/js/88st-analytics.js?v=VIP4_20260213_13"></script>
+<link href="/assets/88st-theme.css?v=VIP4_20260213_13" rel="stylesheet"/>
+<link href="/assets/88st-tool-history.css?v=VIP4_20260213_13" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260213_13"></script>
+<link href="/assets/88st-shell.css?v=VIP4_20260213_13" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260213_13"></script>
 </head>
 <body>
 <!-- ✅ 사칭주의 팝업 (1일 1회) -->
@@ -2995,7 +2995,7 @@ function updateMyProbHints(cfg, level){
   }
   if(is3){
     $("myProbLabel").innerText = `내 예상 확률(${cfg.labels.H}/${cfg.labels.D}/${cfg.labels.A}) % (선택)`;
-    $("myProbHint").innerText = `쉼표로 3개 입력 (예: 45,28,27) · 합 100 권장`;
+    $("myProbHint").innerText = `쉼표/공백/슬래시로 3개 입력 (예: 45,28,27) · 합 100 아니면 자동 정규화`;
   }else{
     $("myProbLabel").innerText = `내 예상 확률(${cfg.labels.A}) % (선택)`;
     $("myProbHint").innerText = `예: 55 (단일 값) · EV/권장비중 계산용`;
@@ -3059,13 +3059,23 @@ function parsePct(v){
   if(!isFinite(x) || x<0 || x>100) return null;
   return x/100;
 }
+let LAST_MYPROB_SUM = null;
+let LAST_MYPROB_RAW = null;
 function parsePctList(str){
+  // Accept: "45,28,27" or "45 28 27" or "45/28/27"
+  LAST_MYPROB_SUM = null;
+  LAST_MYPROB_RAW = null;
   if(!str) return null;
-  const parts = str.split(",").map(s=>s.trim()).filter(Boolean);
+  const parts = String(str).trim().split(/[\s,\/|]+/).map(s=>s.trim()).filter(Boolean);
   if(parts.length !== 3) return null;
   const p1=parsePct(parts[0]), p2=parsePct(parts[1]), p3=parsePct(parts[2]);
   if(p1==null || p2==null || p3==null) return null;
-  return [p1,p2,p3];
+  const sum = p1+p2+p3;
+  if(!isFinite(sum) || sum<=0) return null;
+  LAST_MYPROB_SUM = sum;
+  LAST_MYPROB_RAW = [p1,p2,p3];
+  // Normalize to 100% even if user input doesn't sum to 100
+  return [p1/sum, p2/sum, p3/sum];
 }
 function parseMoney(v){
   if(!v) return null;
@@ -4254,6 +4264,11 @@ function calc(){
 
         rows.push([`내 예상 확률(${cfg.labels.H}/${cfg.labels.D}/${cfg.labels.A})`,
           `${pct(my[0])} / ${pct(my[1])} / ${pct(my[2])}`]);
+
+        if(LAST_MYPROB_SUM && Math.abs(LAST_MYPROB_SUM-1) > 0.005){
+          rows.push(["내 확률 합계", `${(LAST_MYPROB_SUM*100).toFixed(1)}% → 100%로 자동 정규화`]);
+        }
+
 
         rows.push(["EV(홈/무/원정, 1원당)", `${(evH*100).toFixed(2)}% / ${(evD*100).toFixed(2)}% / ${(evA*100).toFixed(2)}%`]);
 
@@ -6652,29 +6667,72 @@ function restoreSnapshot(id){
 let _vTimer = null;
 function setupValidation(){
   const oddsIds = ["main2OddsA","main2OddsB","main3OddsH","main3OddsD","main3OddsA","overOdds","underOdds","handicapOddsA","handicapOddsB"];
-  const probIds = ["myProb","myOverProb"];
-  const allIds = oddsIds.concat(probIds).concat(["totalLine","handicapLine","ouPush","handicapPush","stake"]);
+  const lineIds = ["totalLine","handicapLine"];
+  const pushIds = ["ouPush","handicapPush"];
+  const stakeIds = ["stake"];
+  const probSingleIds = ["myOverProb"]; // single % (0~100)
+  const probMultiId = "myProb"; // 2-way: single %, 3-way: "45,28,27" etc
+
+  const allIds = oddsIds
+    .concat(lineIds)
+    .concat(pushIds)
+    .concat(stakeIds)
+    .concat([probMultiId])
+    .concat(probSingleIds);
 
   const onAnyInput = ()=>{
     if(_vTimer) clearTimeout(_vTimer);
     _vTimer = setTimeout(()=>{ validateInputs(); }, 80);
   };
 
+  function keepOneDot(s){
+    const parts = s.split(".");
+    if(parts.length<=2) return s;
+    return parts[0] + "." + parts.slice(1).join("");
+  }
+  function keepMinusAtStart(s){
+    // remove '-' not at start; keep at most one leading '-'
+    s = s.replace(/(?!^)-/g,"");
+    if(s.startsWith("--")) s = "-" + s.slice(2).replace(/-/g,"");
+    return s;
+  }
+
   allIds.forEach(id=>{
     const el = document.getElementById(id);
     if(!el) return;
+
     el.addEventListener("input", (e)=>{
       const t = String(e.target.value || "");
-      // 숫자 입력 정리: 쉼표 -> 점, 허용문자만
-      let s = t.replace(/,/g,".").replace(/[^\d.]/g,"");
-      // 점 2개 이상 방지
-      const parts = s.split(".");
-      if(parts.length>2){
-        s = parts[0] + "." + parts.slice(1).join("");
+      let s = t;
+
+      if(oddsIds.includes(id) || pushIds.includes(id)){
+        // decimal number (odds, push%) — allow digits + dot
+        s = s.replace(/,/g,".").replace(/[^\d.]/g,"");
+        s = keepOneDot(s);
+      }else if(lineIds.includes(id)){
+        // line can be negative (e.g. -1.5)
+        s = s.replace(/,/g,".").replace(/[^\d.\-]/g,"");
+        s = keepMinusAtStart(s);
+        s = keepOneDot(s);
+      }else if(stakeIds.includes(id)){
+        // integer money
+        s = s.replace(/[^\d]/g,"");
+      }else if(id === probMultiId){
+        // allow "45,28,27" / "45 28 27" / "45/28/27" / "55"
+        s = s.replace(/[^\d.,\/\s%]/g,"");
+        s = s.replace(/%/g,"");
+        s = s.replace(/，/g,",");
+        s = s.replace(/\s+/g," ");
+        // keep as-is to preserve separators
+      }else if(probSingleIds.includes(id)){
+        s = s.replace(/,/g,".").replace(/[^\d.]/g,"");
+        s = keepOneDot(s);
       }
+
       e.target.value = s;
       onAnyInput();
     });
+
     el.addEventListener("blur", ()=>{ onAnyInput(); });
   });
 
@@ -6750,16 +6808,38 @@ function validateInputs(){
 
   // 확률 입력(중급/고급에서만 의미)
   const level = val("level");
-  const probOk = (id)=>{
-    const t = String(val(id) || "").trim();
+
+  const probOkMyProb = ()=>{
+    const t = String(val("myProb") || "").trim();
     if(!t) return true;
-    const n = Number(t);
-    return isFinite(n) && n>=0 && n<=100;
+
+    // 3-way 종목: "45,28,27" 같은 3개 입력을 권장(합 100 아니면 자동 정규화)
+    if(mainType !== "2way"){
+      return !!parsePctList(t);
+    }
+
+    // 2-way: 단일 값(0~100)
+    return (parsePct(t) != null);
   };
+
+  const probOkMyOver = ()=>{
+    const t = String(val("myOverProb") || "").trim();
+    if(!t) return true;
+    return (parsePct(t) != null);
+  };
+
   let probWarn = "";
   if(level!=="simple"){
-    if(!probOk("myProb")){ setInvalid("myProb", true); probWarn = "내 예상 확률은 <b>0~100</b> 사이 숫자로 입력하세요."; }
-    if(!probOk("myOverProb")){ setInvalid("myOverProb", true); probWarn = "오버 예상 확률은 <b>0~100</b> 사이 숫자로 입력하세요."; }
+    if(!probOkMyProb()){
+      setInvalid("myProb", true);
+      probWarn = (mainType !== "2way")
+        ? "내 예상 확률은 <b>쉼표/공백/슬래시</b>로 3개 입력하세요. 예: <b>45,28,27</b>"
+        : "내 예상 확률은 <b>0~100</b> 사이 숫자로 입력하세요.";
+    }
+    if(!probOkMyOver()){
+      setInvalid("myOverProb", true);
+      if(!probWarn) probWarn = "오버 예상 확률은 <b>0~100</b> 사이 숫자로 입력하세요.";
+    }
   }
 
   // 버튼 활성화/안내

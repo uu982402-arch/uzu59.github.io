@@ -5,7 +5,7 @@
   // Base theme tokens (vars) are required for consistent styling on ALL pages.
   // NOTE: We intentionally do NOT load /assets/88st-theme.js (toggle).
   // One-shot VIP build tag (cache bust)
-  const BUILD = "VIP4_20260213_09";
+  const BUILD = "VIP4_20260213_13";
 
   const THEME_CSS    = `/assets/88st-theme.css?v=${BUILD}`;
 
@@ -137,7 +137,7 @@
     {group:"계산기", title:"EV 계산기", href:"/tool-ev/", tag:"계산기"},
     {group:"계산기", title:"배당↔확률 변환", href:"/tool-odds/", tag:"계산기"},
     {group:"계산기", title:"Kelly 비중", href:"/tool/kelly/", tag:"계산기"},
-    {group:"계산기", title:"슬롯 분석기", href:"/tool-slot/", tag:"RTP·변동성"},
+    {group:"계산기", title:"슬롯 환수율(RTP) 분석기", href:"/tool-slot/", tag:"RTP·변동성"},
     {group:"메뉴", title:"카지노 전략 분석기", href:"/tool-casino/", tag:"도구"},
     {group:"메뉴", title:"미니게임 분석기", href:"/tool-minigame/", tag:"도구"},
     {group:"카지노 계산기", title:"마틴게일", href:"/casino-strategy/martingale/", tag:"전략"},
@@ -156,7 +156,7 @@
     {group:"보증사이트", title:"인증놀이터", href:"/#vendorTop", tag:"바로가기"},
   ];
 
-  const RECOMMENDED = ["보증업체", "인증업체", "스포츠", "카지노", "미니게임", "마진", "EV", "슬롯 분석기", "SPEED", "OK", "슬롯", "IPL"];
+  const RECOMMENDED = ["보증업체", "인증업체", "스포츠", "카지노", "미니게임", "마진", "EV", "슬롯 환수율(RTP) 분석기", "SPEED", "OK", "슬롯", "IPL"];
 
   // VIP3: performance low-mode (reduce blur/shadow cost on slower PCs)
   (function setPerfMode(){
@@ -220,9 +220,9 @@
             <a class="st-shell-link" href="/">홈</a>
 
             <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
-            <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
             <a class="st-shell-link" href="/tool-minigame/">미니게임 분석기</a>
-            <a class="st-shell-link" href="/tool-slot/">슬롯 분석기</a>
+            <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
+            <a class="st-shell-link" href="/tool-slot/" title="슬롯 환수율(RTP) 분석기">슬롯 환수율</a>
             <div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">계산기</button>
               <div class="st-shell-menu mega st-shell-mega-grid" role="menu" aria-label="계산기 목록">
@@ -236,7 +236,7 @@
                 <div class="st-shell-menu-sep" aria-hidden="true"></div>
                 <div class="st-shell-menu-group">
                   <div class="st-shell-menu-title">카지노 계산기</div>
-                  <a href="/tool-slot/" role="menuitem"><span>슬롯 분석기</span><span class="hint">RTP</span></a>
+                  <a href="/tool-slot/" role="menuitem"><span>슬롯 환수율</span><span class="hint">RTP</span></a>
                   <a href="/casino-strategy/martingale/" role="menuitem"><span>마틴게일</span><span class="hint">손실회복</span></a>
                   <a href="/casino-strategy/paroli/" role="menuitem"><span>파롤리</span><span class="hint">연승</span></a>
                   <a href="/casino-strategy/dalembert/" role="menuitem"><span>달랑베르</span><span class="hint">완만</span></a>
@@ -307,9 +307,9 @@
             <a class="st-shell-link" href="/">홈</a>
 
             <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
-            <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
             <a class="st-shell-link" href="/tool-minigame/">미니게임 분석기</a>
-            <a class="st-shell-link" href="/tool-slot/">슬롯 분석기</a>
+            <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
+            <a class="st-shell-link" href="/tool-slot/" title="슬롯 환수율(RTP) 분석기">슬롯 환수율</a>
 
             <details class="st-shell-acc">
               <summary class="st-shell-link">계산기</summary>
@@ -321,7 +321,7 @@
                 <a class="st-shell-link" href="/tool/kelly/">Kelly 비중</a>
                 <div class="st-shell-acc-sep" aria-hidden="true"></div>
                 <div class="st-shell-acc-title">카지노 계산기</div>
-                <a class="st-shell-link" href="/tool-slot/">슬롯 분석기</a>
+                <a class="st-shell-link" href="/tool-slot/" title="슬롯 환수율(RTP) 분석기">슬롯 환수율</a>
                 <a class="st-shell-link" href="/casino-strategy/martingale/">마틴게일</a>
                 <a class="st-shell-link" href="/casino-strategy/paroli/">파롤리</a>
                 <a class="st-shell-link" href="/casino-strategy/dalembert/">달랑베르</a>
@@ -417,6 +417,13 @@
         if(!header.contains(t)) closeAll();
       });
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeAll(); });
+      // Close dropdowns on scroll (prevents accidental 'stuck open' overlays)
+      let _scrollTick = false;
+      window.addEventListener('scroll', ()=>{
+        if(_scrollTick) return;
+        _scrollTick = true;
+        requestAnimationFrame(()=>{ _scrollTick=false; closeAll(); });
+      }, { passive:true });
     })();
 
     // Drawer events
