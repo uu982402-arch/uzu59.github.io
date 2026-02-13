@@ -221,7 +221,8 @@
             <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
             <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
             <a class="st-shell-link" href="/tool-minigame/">미니게임 분석기</a>
-            <div class="st-shell-dd">
+            <a class="st-shell-link" href="/#vendorTop">인증 사이트</a>
+<div class="st-shell-dd">
               <button class="st-shell-link" type="button" aria-haspopup="menu" aria-expanded="false">계산기</button>
               <div class="st-shell-menu mega st-shell-mega-grid" role="menu" aria-label="계산기 목록">
 <div class="st-shell-menu-group">
@@ -306,7 +307,8 @@
             <a class="st-shell-link" href="/analysis/">스포츠 분석기</a>
             <a class="st-shell-link" href="/tool-casino/">카지노 전략 분석기</a>
             <a class="st-shell-link" href="/tool-minigame/">미니게임 분석기</a>
-            <details class="st-shell-acc" open>
+            <a class="st-shell-link" href="/#vendorTop">인증 사이트</a>
+<details class="st-shell-acc" open>
               <summary class="st-shell-link">계산기</summary>
               <div class="st-shell-acc-body">
                 <div class="st-shell-acc-title">스포츠 계산기</div>

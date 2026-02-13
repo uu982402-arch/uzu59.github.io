@@ -317,7 +317,6 @@
 
     $('mgAnalyze')?.addEventListener('click', ()=>{
       calcAndRender();
-      renderProInsights(market, r);
       // Smoothly bring results into view on mobile
       document.querySelector('[aria-label="결과"]')?.scrollIntoView({behavior:'smooth', block:'start'});
     });
@@ -401,114 +400,12 @@
     market.outcomes.forEach(o=>{
       probs[o.id] = (counts[o.id]||0) / slice.length;
     });
-    return { total: slice.length, counts, probs, seq: slice };
+    return { total: slice.length, counts, probs };
   }
 
 
 
-  
-  function labelOf(id, market){
-    const o = market.outcomes.find(x=> x.id===id);
-    return o ? o.label : String(id||'');
-  }
-
-  function renderProInsights(market, freqResult){
-    const host = $('mgProInsights');
-    if(!host) return;
-    const seq = (freqResult && Array.isArray(freqResult.seq)) ? freqResult.seq : [];
-    const nAll = seq.length;
-    const nRecent = Math.min(state.recentN||6, nAll);
-    const recent = nRecent ? seq.slice(-nRecent) : [];
-
-    function pct(x){ return (x*100).toFixed(1)+'%'; }
-
-    function entropy(probs){
-      let h=0; let k=0;
-      for(const p of probs){ if(p>0){ h += -p*Math.log(p); k++; } }
-      const max = k>1 ? Math.log(k) : 1;
-      return max ? (h/max) : 0;
-    }
-
-    const allCounts = {}; const recCounts = {};
-    market.outcomes.forEach(o=>{ allCounts[o.id]=0; recCounts[o.id]=0; });
-    for(const x of seq){ if(allCounts[x]!=null) allCounts[x]++; }
-    for(const x of recent){ if(recCounts[x]!=null) recCounts[x]++; }
-
-    const allProbs = market.outcomes.map(o=> nAll? (allCounts[o.id]/nAll):0);
-    const recProbs = market.outcomes.map(o=> nRecent? (recCounts[o.id]/nRecent):0);
-
-    // streak & switch rate
-    let streakSide = null, streakLen = 0, switches = 0;
-    if(nAll>=2){
-      for(let i=1;i<nAll;i++){ if(seq[i]!==seq[i-1]) switches++; }
-    }
-    if(nAll>=1){
-      streakSide = seq[nAll-1];
-      streakLen = 1;
-      for(let i=nAll-2;i>=0;i--){ if(seq[i]===streakSide) streakLen++; else break; }
-    }
-    const switchRate = (nAll>=2) ? (switches/(nAll-1)) : 0;
-
-    // deviation
-    let maxDelta = 0;
-    for(let i=0;i<market.outcomes.length;i++){
-      maxDelta = Math.max(maxDelta, Math.abs(recProbs[i]-allProbs[i]));
-    }
-
-    const biasBadge = (nAll>=6 && maxDelta>=0.25) ? '강한 편향' : (nAll>=4 && maxDelta>=0.15 ? '편향' : '보통');
-
-    const volScore = market.outcomes.length===2
-      ? Math.round(switchRate*100)
-      : Math.round(entropy(recProbs)*100);
-
-    const volLabel = volScore>=70 ? '변동 큼' : (volScore>=40 ? '보통' : '안정');
-
-    let topIdx = 0;
-    for(let i=1;i<recProbs.length;i++){ if(recProbs[i]>recProbs[topIdx]) topIdx=i; }
-    const topOutcome = market.outcomes[topIdx];
-    const topVal = recProbs[topIdx];
-
-    host.innerHTML = '';
-    const cards = [
-      {
-        k: `최근 ${nRecent||0}회 최다`,
-        v: topOutcome ? `${topOutcome.label} · ${pct(topVal)}` : '데이터 없음',
-        s: nAll? `전체 ${nAll}개 기준과 비교 가능` : '최근 결과를 붙여넣어주세요',
-        badge: biasBadge
-      },
-      {
-        k: '연속(스트릭)',
-        v: (streakSide ? `${labelOf(streakSide, market)} ${streakLen}연속` : '데이터 없음'),
-        s: (nAll>=2 ? `전환율 ${Math.round(switchRate*100)}% (전환 많을수록 난이도↑)` : '표본이 부족합니다'),
-        badge: volLabel
-      },
-      {
-        k: '편향(최근 vs 전체)',
-        v: (nAll && nRecent ? `최대 Δ ${pct(maxDelta)}` : '데이터 없음'),
-        s: '최근 구간이 전체 평균과 얼마나 다른지',
-        badge: biasBadge
-      },
-      {
-        k: '변동성 점수',
-        v: `${volScore}/100`,
-        s: market.outcomes.length===2 ? '전환율 기반' : '엔트로피 기반',
-        badge: volLabel
-      }
-    ];
-
-    cards.forEach(c=>{
-      const div = document.createElement('div');
-      div.className = 'mg-pro-card';
-      div.innerHTML = `
-        <div class="mg-pro-k">${escapeHtml(c.k)}</div>
-        <div class="mg-pro-v">${escapeHtml(c.v)}</div>
-        <div class="mg-pro-s"><span class="mg-pro-badge">${escapeHtml(c.badge)}</span> ${escapeHtml(c.s)}</div>
-      `;
-      host.appendChild(div);
-    });
-  }
-
-function bindHistory(){
+  function bindHistory(){
     const ta = $('mgHistory');
     const btn = $('mgApplyFreq');
     if(!ta || !btn) return;
@@ -546,7 +443,6 @@ function bindHistory(){
       saveState(state);
       renderOutcomes();
       calcAndRender();
-      renderProInsights(market, r);
       // keep for KPI
       state._lastHistoryN = r.total;
       toast(`최근 ${r.total}개 → 확률 반영 완료`);
