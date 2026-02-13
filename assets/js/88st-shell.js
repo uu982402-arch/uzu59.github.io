@@ -5,25 +5,7 @@
   // Base theme tokens (vars) are required for consistent styling on ALL pages.
   // NOTE: We intentionally do NOT load /assets/88st-theme.js (toggle).
   // One-shot VIP build tag (cache bust)
-  const BUILD = "20260213_VIP4";
-
-  const THEME_CSS    = `/assets/88st-theme.css?v=${BUILD}`;
-
-  const SHELL_CSS    = `/assets/88st-shell.css?v=${BUILD}`;
-  const UNIFY_CSS    = `/assets/88st-unify.css?v=${BUILD}`;
-  const LUX2_CSS     = `/assets/88st-luxury-v2.css?v=${BUILD}`;
-  const TOOL_HIS_CSS = `/assets/88st-tool-history.css?v=${BUILD}`;
-  // cache-bust for polish tweaks
-  const MOBILE_POLISH_CSS = `/assets/mobile-polish.css?v=${BUILD}`;
-  const POLISH_CSS        = `/assets/88st-polish.css?v=${BUILD}`;
-  // premium global layer (page-wide luxe)
-  const PREMIUM_GLOBAL_CSS = `/assets/88st-premium-global.css?v=${BUILD}`;
-  // final VIP layer (forces casino-light look everywhere)
-  const VIP_CSS = `/assets/88st-vvvvvip.css?v=${BUILD}`;
-
-  function ensureCss(href){
-    try{
-      const base = String(href).split("?")[0];
+  const BUILD = "20260213_VIP4";  const THEME_CSS    = `/assets/88st-theme.css?v=VIP4_20260213_02"?")[0];
       const links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
       const found = links.find(l=> ((l.getAttribute('href')||"").split("?")[0]) === base);
       if(found){
