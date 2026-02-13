@@ -1660,12 +1660,12 @@ body.simple .paste-inline .chk:not(.simple-only){display:none !important;}
   ]
 }
 </script>
-<script src="/assets/js/88st-analytics.js?v=VIP4_20260213_13"></script>
-<link href="/assets/88st-theme.css?v=VIP4_20260213_13" rel="stylesheet"/>
-<link href="/assets/88st-tool-history.css?v=VIP4_20260213_13" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260213_13"></script>
-<link href="/assets/88st-shell.css?v=VIP4_20260213_13" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260213_13"></script>
+<script src="/assets/js/88st-analytics.js?v=VIP4_20260213_14"></script>
+<link href="/assets/88st-theme.css?v=VIP4_20260213_14" rel="stylesheet"/>
+<link href="/assets/88st-tool-history.css?v=VIP4_20260213_14" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260213_14"></script>
+<link href="/assets/88st-shell.css?v=VIP4_20260213_14" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260213_14"></script>
 </head>
 <body>
 <!-- ✅ 사칭주의 팝업 (1일 1회) -->
@@ -1690,7 +1690,7 @@ body.simple .paste-inline .chk:not(.simple-only){display:none !important;}
 </div>
 <div class="ad-grid" id="adGrid"></div>
 <div class="ad-actions">
-<a aria-label="인증 놀이터 보기" class="btnx primary" href="/#vendorTop">인증 놀이터 보기</a>
+<a aria-label="인증 놀이터 보기" class="btnx primary" href="/cert/">인증 놀이터 보기</a>
 <a class="btnx" href="https://t.me/UZU59" rel="noopener" target="_blank">문의</a>
 </div>
 <div class="ad-note">※ 팝업은 1일 1회만 표시됩니다. (원치 않으면 닫기)</div>
@@ -2069,7 +2069,7 @@ body.simple .paste-inline .chk:not(.simple-only){display:none !important;}
 <div aria-label="저장/공유/업체 바로가기" class="result-dock" id="resultDock" style="display:none;">
 <button class="btn secondary" onclick="quickJump('history')" type="button">저장됨 · 히스토리</button>
 <button class="btn gold" onclick="openShareCard()" type="button">공유</button>
-<a class="btn secondary" data-cta="analysis_to_vendors" data-no-auto-outbound="1" href="/#vendorTop">업체 카드</a>
+<a class="btn secondary" data-cta="analysis_to_vendors" data-no-auto-outbound="1" href="/cert/">업체 카드</a>
 </div>
 <div class="footer-links">
 <a class="linkbtn" href="/">홈으로</a>
@@ -2280,7 +2280,7 @@ body.simple .paste-inline .chk:not(.simple-only){display:none !important;}
 <button class="dock-btn primary" onclick="calc()" type="button">계산</button>
 <button class="dock-btn" onclick="quickJump('history')" type="button">저장</button>
 <button class="dock-btn" onclick="openShareCard()" type="button">공유</button>
-<a class="dock-btn" data-cta="analysis_dock_vendors" data-no-auto-outbound="1" href="/#vendorTop">업체</a>
+<a class="dock-btn" data-cta="analysis_dock_vendors" data-no-auto-outbound="1" href="/cert/">업체</a>
 </div>
 <div id="toast88"></div>
 <!-- v2.1: HTML 구조까지 컴포넌트화(템플릿) -->
@@ -5806,7 +5806,7 @@ function pickVendorId(channelKey){
 function vendorLine(utm, shortUrl, withLink, vendorId){
   const v = PROMO_VENDOR_DATA[vendorId] || PROMO_VENDOR_DATA.card2;
   const origin = (location && location.origin) ? location.origin : "https://88st.cloud";
-  const url = applyUtmToUrl(origin.replace(/\/$/,"") + `/?v=${vendorId}#vendorTop`, utm);
+  const url = applyUtmToUrl(origin.replace(/\/$/,"") + `/cert/?v=${vendorId}`, utm);
   const link = withLink ? fmtUrlForBoard(url, shortUrl) : "";
   const benefit = v.benefit ? v.benefit : "";
   if(link){
@@ -7291,9 +7291,9 @@ function prepareAdPopup(){
   const ads = [
     {key:"card1", title:"SPEED Bet", sub:"고액전용 · 입금플러스 지원", href:"/speed/", badge:"추천"},
     {key:"card2", title:"OK Bet", sub:"고액전용 · 페이백/출석", href:"/ok/", badge:"추천"},
-    {key:"card3", title:"어느날", sub:"고액전용· 미니게임 · 무제제 ", href:"/#vendorTop", badge:"추천"},
-    {key:"card7", title:"광고 모집", sub:"여기에 광고가 노출됩니다", href:"/#vendorTop", badge:"AD"},
-    {key:"card8", title:"광고 모집", sub:"문의 후 등록 가능", href:"/#vendorTop", badge:"AD"}
+    {key:"card3", title:"어느날", sub:"고액전용· 미니게임 · 무제제 ", href:"/cert/", badge:"추천"},
+    {key:"card7", title:"광고 모집", sub:"여기에 광고가 노출됩니다", href:"/cert/", badge:"AD"},
+    {key:"card8", title:"광고 모집", sub:"문의 후 등록 가능", href:"/cert/", badge:"AD"}
   ];
 
   const ranked = [...ads].sort((a,b)=> Number(clickMap[b.key]||0) - Number(clickMap[a.key]||0));
@@ -7723,7 +7723,7 @@ boot();
 <a data-cta="rel_margin" href="/tool-margin/">마진 계산기</a>
 <a data-cta="rel_ev" href="/tool-ev/">EV 계산기</a>
 <a data-cta="rel_odds2" href="/tool-odds/">배당↔확률 변환</a>
-<a data-cta="rel_vendors" href="/#vendorTop">보증·인증 업체</a>
+<a data-cta="rel_vendors" href="/cert/">보증·인증 업체</a>
 <a data-cta="rel_bonus" href="/bonus-checklist/">입플 체크리스트</a>
 <a data-cta="rel_landing_a" href="/landing-a/">입플·보너스 안내</a>
 </div>

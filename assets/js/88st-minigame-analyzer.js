@@ -7,7 +7,7 @@
 (function(){
   'use strict';
 
-  const BUILD = 'VIP4_20260213_13_mg4_quickinput_picks';
+  const BUILD = 'VIP4_20260213_14_mg4_quickinput_picks';
   const KEY = '88st_minigame_state_v1';
   const PICK_KEY = '88st_minigame_picks_v1';
 

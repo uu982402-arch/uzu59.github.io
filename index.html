@@ -346,6 +346,31 @@ select.insight-select{
 
 .vendor-grid{ position:relative; display:grid; gap:14px; padding:0 14px 10px; max-width:1100px; margin:0 auto; }
 
+
+/* ===== 인증사이트 CTA (메인 인덱스) ===== */
+.cert-hero{
+  max-width:1100px;
+  margin: 6px auto 2px;
+  padding: 14px 14px 18px;
+}
+.cert-sub{
+  margin-top:8px;
+  font-size:13px;
+  line-height:1.55;
+  color: var(--muted);
+}
+.cert-actions{
+  margin-top:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.cert-note{
+  margin-top:10px;
+  font-size:12px;
+  color:#a7a7a7;
+}
+
 /* ===== 섹션(보증/인증) ===== */
 .vendor-sections{ display:flex; flex-direction:column; gap:18px; }
 .vendor-section{ position:relative; }
@@ -1751,7 +1776,7 @@ const INSIGHTS_BY_SPORT = {
       "@type": "ListItem",
       "position": 2,
       "name": "보증·인증 업체",
-      "url": "https://88st.cloud/#vendorTop"
+      "url": "https://88st.cloud/cert/"
     },
     {
       "@type": "ListItem",
@@ -1774,13 +1799,13 @@ const INSIGHTS_BY_SPORT = {
   ]
 }
 </script>
-<link href="assets/mobile-polish.css?v=VIP4_20260213_13" rel="stylesheet"/>
-<script src="/assets/js/88st-analytics.js?v=VIP4_20260213_13"></script>
-<link href="/assets/88st-theme.css?v=VIP4_20260213_13" rel="stylesheet"/>
-<link href="/assets/88st-tool-history.css?v=VIP4_20260213_13" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260213_13"></script>
-</meta><link href="/assets/88st-shell.css?v=VIP4_20260213_13" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260213_13"></script>
+<link href="assets/mobile-polish.css?v=VIP4_20260213_14" rel="stylesheet"/>
+<script src="/assets/js/88st-analytics.js?v=VIP4_20260213_14"></script>
+<link href="/assets/88st-theme.css?v=VIP4_20260213_14" rel="stylesheet"/>
+<link href="/assets/88st-tool-history.css?v=VIP4_20260213_14" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260213_14"></script>
+</meta><link href="/assets/88st-shell.css?v=VIP4_20260213_14" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260213_14"></script>
 </head>
 <body>
 <h1 style="position:absolute;left:-9999px;">스포츠 배당 분석기와 배당 마진 계산기 | 88</h1>
@@ -1844,7 +1869,7 @@ const INSIGHTS_BY_SPORT = {
   <span class="label">슬롯 환수율(RTP) 분석기<span class="sub">RTP·변동성·세션 비용·뱅크롤</span></span>
 </a>
 
-<a class="analyze-btn secondary" data-cta="go_verified_vendors" href="#vendors-verified">
+<a class="analyze-btn secondary" data-cta="go_verified_vendors" href="/cert/">
 <span aria-hidden="true" class="icon">
 <svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22">
 <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"></path>
@@ -1944,64 +1969,18 @@ const INSIGHTS_BY_SPORT = {
 </div>
 
 </div>
-<div aria-label="카드 검색 및 필터" class="vendor-tools">
-<input autocomplete="off" class="v-input" id="searchInput" placeholder="업체 검색 (예: SPEED OK 어느날 )"/>
-<div aria-label="필터 및 정렬" class="v-controls">
-<div class="v-control">
-<label for="filterSelect">카테고리</label>
-<select class="v-select" id="filterSelect">
-<option value="all">전체</option>
-<option value="guarantee">보증</option>
-<option value="verified">인증</option>
-<option value="rec">추천</option>
-<option value="new">신규</option>
-<option value="ad">광고/제휴</option>
-</select>
+
+<div class="cert-hero" id="certEntry" aria-label="인증사이트 안내">
+  <div class="title"><span class="badge">CERT</span>인증사이트</div>
+  <div class="cert-sub">보증·인증 카드(혜택/가입코드/주의사항/문의)를 <b>한 곳에 모아</b>, 사용자 입장에서 <b>안전하게 비교</b>할 수 있도록 정리했습니다.</div>
+  <div class="cert-actions">
+    <a class="insight-btn primary" data-cta="home_to_cert" href="/cert/">인증사이트 열기 <span aria-hidden="true">→</span></a>
+    <a class="insight-btn" data-cta="home_to_bonus" href="/bonus-checklist/">입플 체크리스트</a>
+  </div>
+  <div class="cert-note">※ 카드 내용은 참고용이며, 조건/혜택은 수시로 변동될 수 있습니다. 가입 전 공지/문의로 재확인하세요.</div>
 </div>
-<div class="v-control">
-<label for="sortSelect">정렬</label>
-<select class="v-select" id="sortSelect">
-<option value="default">기본</option>
-<option value="pop">인기순</option>
-</select>
-</div>
-<label aria-label="정제된 문구 토글" class="v-toggle" for="cleanToggle">
-<input id="cleanToggle" type="checkbox"/>
-<span aria-hidden="true" class="v-switch"></span>
-<span class="v-toggle-text">정제된 문구</span>
-</label>
-</div>
-<div class="v-small" id="evAutoHint"></div>
-<div class="v-small" id="cleanHint">정제된 문구: 카드 혜택 문구를 짧고 깔끔하게 보여줍니다.</div>
-</div>
-<div class="vendor-sections" id="vendorTop">
-<section class="vendor-section" id="vendors-guarantee" data-section="guarantee">
-<div class="vendor-section-head">
-<div class="vsh-left">
-<span class="vsh-title">보증 </span>
-<span class="vsh-meta"> </span>
-</div>
-<div class="vsh-right">
-<span class="vsh-chip">보증</span>
-</div>
-</div>
-<div class="vendor-grid" id="vendorGridGuarantee"></div>
-</section>
-<section class="vendor-section" id="vendors-verified" data-section="verified">
-<div class="vendor-section-head">
-<div class="vsh-left">
-<span class="vsh-title">인증 </span>
-<span class="vsh-meta"> </span>
-</div>
-<div class="vsh-right">
-<span class="vsh-chip">인증</span>
-</div>
-</div>
-<div class="vendor-grid" id="vendorGridVerified"></div>
-</section>
-</div>
-</div>
-</div><div class="landing-seo">
+
+<div class="landing-seo">
 <h3>관련 정보</h3>
 <div class="links">
 <a data-cta="seo_margin" href="/tool-margin/">배당 마진 계산기</a>
@@ -3154,7 +3133,7 @@ bumpView(id);
     const cardEl = document.querySelector(".card[data-card=\"" + id + "\"]");
     const sec = cardEl ? cardEl.closest(".vendor-section") : null;
     const secId = (sec && sec.id) ? sec.id : "vendorTop";
-    if(window.__88stAddRecentVendor) window.__88stAddRecentVendor({id:id, title:(d.title||id), href:"/?v=" + encodeURIComponent(id) + "#" + secId});
+    if(window.__88stAddRecentVendor) window.__88stAddRecentVendor({id:id, title:(d.title||id), href:"/cert/?v=" + encodeURIComponent(id)});
     if(window.__88stRefreshUserMenu) window.__88stRefreshUserMenu();
   }catch(e){}
 

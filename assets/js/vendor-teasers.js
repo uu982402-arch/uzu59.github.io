@@ -96,7 +96,7 @@
     const meta = CARD[key] || { title: `CARD ${id}`, code: '88ST', benefit: '' };
     const a = document.createElement('a');
     a.className = 'vendor-item';
-    a.href = appendUtm(`/?v=${key}#vendorTop`);
+    a.href = appendUtm(`/cert/?v=${key}`);
     a.setAttribute('data-cta', `vendor_teaser_${key}`);
     // Keep UTM propagation for pages that use data-utm attribute
     a.setAttribute('data-utm', '1');

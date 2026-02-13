@@ -1,4 +1,5 @@
 https://88st.cloud/
+https://88st.cloud/cert/
 https://88st.cloud/analysis/
 https://88st.cloud/tool-margin/
 https://88st.cloud/tool-ev/
