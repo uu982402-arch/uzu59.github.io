@@ -125,6 +125,17 @@ body.st-app :where(.seg.on){
     transform: translateY(8px) scale(.985);
     transition: opacity var(--st-dur-2) ease, transform var(--st-dur-2) var(--st-ease-soft), visibility 0s linear var(--st-dur-2);
   }
+  /* click/tap open (prevents iOS sticky :hover) */
+  .st-shell-dd.open .st-shell-menu{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform: translateY(0) scale(1);
+    transition-delay: 0s;
+  }
+}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion: no-preference){
+  /* desktop hover convenience */
   .st-shell-dd:hover .st-shell-menu{
     opacity:1;
     visibility:visible;

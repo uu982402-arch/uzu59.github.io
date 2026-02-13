@@ -7,7 +7,7 @@
 (function(){
   'use strict';
 
-  const BUILD = '20260213_VIP4_mg3_proplus';
+  const BUILD = 'VIP4_20260213_09_mg3_proplus';
   const KEY = '88st_minigame_state_v1';
 
   const GAMES = [

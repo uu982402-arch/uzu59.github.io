@@ -327,85 +327,6 @@
 
 </style>
 
-<style id="v13_1_theme_override">
-/* === v13.1 look unify (from main index) === */
-:root{
-  /* unify accent (blue) */
-  --accent1:#d4af37;
-  --accent2:#f5e27a;
-  --accentRGB:212,175,55;  /* for rgba(var(--accentRGB), .xx) */
-  --accentText:#00121a;
-  --accentOn:#00121a;
-
-  /* unify tokens */
-  --bg:#f5f6f8;
-  --panel:rgba(255,255,255,.92);
-  --glassA:.72;
-  --glassStrongA:.86;
-  --glassSoftA:.18;
-  --glassBorder:rgba(18,20,28,.10);
-
-  /* backward compat */
-  --gold: var(--accent1);
-  --gold2: var(--accent2);
-}
-
-/* premium midnight background */
-body{
-  background:
-    radial-gradient(1200px 620px at 50% -10%, rgba(var(--accentRGB),.18), transparent 58%),
-    radial-gradient(900px 540px at 15% 25%, rgba(120,170,255,.10), transparent 55%),
-    radial-gradient(900px 640px at 85% 35%, rgba(80,140,255,.08), transparent 55%),
-    linear-gradient(180deg, #05060b 0%, #060612 60%, #040408 100%) !important;
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
-}
-
-/* remove small label badges (TODAY/MAIN/NEW...) */
-.title .badge,
-.section-title .badge,
-h1 .badge,
-h2 .badge,
-h3 .badge{ display:none !important; }
-
-/* panel unification (safe selectors) */
-.section, .panel, .box, .card, .wrap, .container, .hero, header{
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-/* inputs */
-input, select, textarea{
-  background: rgba(0,0,0,.28) !important;
-  border:1px solid rgba(255,255,255,.14) !important;
-  color:var(--text) !important;
-  border-radius:14px !important;
-  outline:none;
-}
-input:focus, select:focus, textarea:focus{
-  border-color: rgba(var(--accentRGB), .38) !important;
-  box-shadow: 0 0 0 3px rgba(var(--accentRGB), .12) !important;
-}
-
-/* buttons: less-blue, premium glass */
-.btn, button, a.btn{
-  background: rgba(255,255,255,.06) !important;
-  border:1px solid rgba(255,255,255,.14) !important;
-  color:var(--text) !important;
-  box-shadow: 0 12px 34px rgba(0,0,0,.38) !important;
-}
-.btn:hover, button:hover, a.btn:hover{ filter: brightness(1.06); }
-.btn.primary, .btn.go{
-  border-color: rgba(var(--accentRGB), .22) !important;
-  background: rgba(255,255,255,.08) !important;
-}
-.btn.secondary, .btn.ghost{
-  background: rgba(0,0,0,.18) !important;
-}
-
-/* links */
-a{ color:inherit; }
-</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -426,39 +347,15 @@ a{ color:inherit; }
   ]
 }
 </script>
-<script src="/assets/js/88st-analytics.js?v=VIP4_20260213_06"></script>
-<link href="/assets/88st-theme.css?v=VIP4_20260213_06" rel="stylesheet"/>
-<link href="/assets/88st-tool-history.css?v=VIP4_20260213_06" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260213_06"></script>
-<link href="/assets/88st-shell.css?v=VIP4_20260213_06" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260213_06"></script>
+<script src="/assets/js/88st-analytics.js?v=VIP4_20260213_09"></script>
+<link href="/assets/88st-theme.css?v=VIP4_20260213_09" rel="stylesheet"/>
+<link href="/assets/88st-tool-history.css?v=VIP4_20260213_09" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260213_09"></script>
+<link href="/assets/88st-shell.css?v=VIP4_20260213_09" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260213_09"></script>
 </head>
 <body>
-<section aria-label="랜딩 바로가기" class="rel-links" style="margin-top:16px;">
-<h2>랜딩 바로가기</h2>
-<div class="rel-grid">
-<a data-cta="bc_landing_a" href="/landing-a/">입플·보너스 안내</a>
-<a data-cta="bc_landing_b" href="/landing-b/">고액 유저 안내</a>
-<a data-cta="bc_landing_c" href="/landing-c/">마진·EV 계산 가이드</a>
-<a data-cta="bc_landing_d" href="/landing-d/">배당 흐름 분석</a>
-<a data-cta="bc_casino" href="/casino/">카지노</a>
-<a data-cta="bc_slot" href="/slot/">슬롯</a>
-<a data-cta="bc_minigame" href="/minigame/">미니게임</a>
-<a data-cta="bc_ipl" href="/ipl/">IPL</a>
-</div>
-</section>
 <div class="wrap">
-<div class="top">
-<a class="brand" href="/?from=bonus_top">
-<img alt="88" class="logoImg" src="/img/logo.png"/>
-<div class="name">88</div>
-</a>
-<div class="links">
-<a class="linkbtn" href="/tool-margin/?from=bonus_nav">마진 계산기</a>
-<a class="linkbtn" href="/tool-ev/?from=bonus_nav">EV 계산기</a>
-<a class="linkbtn" href="/analysis/?from=bonus_nav">분석기</a>
-</div>
-</div>
 <div class="hero">
 <h1>입플사이트 체크리스트: 카지노입플·슬롯입플 조건 10초 점검</h1>
 <p>보너스는 “있어 보이는 문구”보다 <b>조건</b>이 전부입니다. 롤링/제외게임/최대지급/기간/출금 규정을 한 번에 체크하고, 불필요한 실수를 줄이세요.</p>

@@ -256,3 +256,37 @@ input,select,textarea{
   .mini-guide .head > div{ flex: 1 1 220px !important; min-width: 200px !important; }
   .mini-guide .head .pill{ margin-left:auto !important; }
 }
+
+/* ===== Typography + contrast normalization (site-wide) ===== */
+
+/* Ensure KR/EN glyph consistency across all form controls */
+:where(button,input,select,textarea){
+  font-family: var(--font-sans) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent washed-out “key” labels on guide cards */
+.st-guide :where(.k,.kv .k){
+  color: var(--muted) !important;
+}
+.st-guide :where(.text,.a,.small,li,p){
+  color: var(--text-2) !important;
+}
+
+/* Guide nav pills: match premium chips */
+.st-guide .nav a{
+  color: var(--text) !important;
+  background: var(--panel-2) !important;
+  border-color: var(--panel-border) !important;
+  box-shadow: var(--shadow-xs) !important;
+}
+.st-guide .nav a.active{
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), .18), rgba(var(--accent-rgb), .08)) !important;
+  border-color: rgba(var(--accent-rgb), .34) !important;
+}
+
+/* Long pages: keep text readable on ultra-light monitors */
+:root[data-theme="light"] :where(.muted,[style*="color:#cfcfcf"],[style*="color:#ddd"],[style*="color:#9a9a9a"]){
+  color: var(--muted) !important;
+}

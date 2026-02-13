@@ -50,6 +50,11 @@ body{ margin:0; }
   font-weight: 950;
 }
 
+/* UX: when 목표 이익이 자동 모드일 때는 입력 박스 숨김(공간 낭비/겹침 방지) */
+#csTargetProfit[disabled]{
+  display:none;
+}
+
 .cs-preset{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
 .cs-chip{
   appearance:none;
