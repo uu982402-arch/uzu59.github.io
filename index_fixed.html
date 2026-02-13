@@ -1755,10 +1755,7 @@ body::after{
       if(!histList) return;
       const arr = loadHist();
       if(!arr.length){
-        histList.innerHTML = '
-</head>
-<body>
-<div class="text" style="color:var(--muted);font-size:12px;">저장된 메모가 없습니다.</div>';
+        histList.innerHTML = '<div class="text" style="color:var(--muted);font-size:12px;">저장된 메모가 없습니다.</div>';
         return;
       }
       histList.innerHTML = arr.map((it, idx)=>{
