@@ -355,7 +355,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 .chip.ok{ color:var(--ok); }
 .chip.mid{ color:var(--warn); }
 .chip.bad{ color:var(--bad); }
-.m-lines{ margin-top:10px; font-size:12px; color:#cfcfcf; line-height:1.45; }
+.m-lines{ margin-top:10px; font-size:12px; color:rgba(255,255,255,.86); line-height:1.45; }
 .m-lines b{ color:var(--text); }
 
 /* 히스토리 */
@@ -2057,7 +2057,6 @@ body.simple .paste-inline .chk:not(.simple-only){display:none !important;}
       </div>
 <!-- ✅ 통합 마진 대시보드 -->
 <div class="box" style="margin-top:12px;">
-<div class="box-title">통합 마진 대시보드 (메인/OU/핸디)</div>
 <div class="m-grid" id="marginDash">
 <!-- JS 렌더 -->
 </div>
@@ -2070,10 +2069,6 @@ body.simple .paste-inline .chk:not(.simple-only){display:none !important;}
 <button class="btn secondary" onclick="quickJump('history')" type="button">저장됨 · 히스토리</button>
 <button class="btn gold" onclick="openShareCard()" type="button">공유</button>
 <a class="btn secondary" data-cta="analysis_to_vendors" data-no-auto-outbound="1" href="/cert/">업체 카드</a>
-</div>
-<div class="footer-links">
-<a class="linkbtn" href="/">홈으로</a>
-<a class="linkbtn" href="https://t.me/UZU59" rel="noopener" target="_blank">문의 (텔레그램)</a>
 </div>
 </div>
 <!-- ✅ TOP3 + 기준/예시 (반반) -->
@@ -7714,21 +7709,7 @@ boot();
 <button class="btn secondary" onclick="onbPrev()" type="button">이전</button>
 <button class="btn primary" onclick="onbNext()" type="button">다음</button>
 </div>
-</div>
-<section aria-label="관련 링크" class="rel-links">
-<h2>관련 링크</h2>
-<div class="rel-grid">
-<a data-cta="rel_home" href="/">메인</a>
-<a data-cta="rel_odds" href="/#oddsAnalyzerSection">배당 구조 분석기</a>
-<a data-cta="rel_margin" href="/tool-margin/">마진 계산기</a>
-<a data-cta="rel_ev" href="/tool-ev/">EV 계산기</a>
-<a data-cta="rel_odds2" href="/tool-odds/">배당↔확률 변환</a>
-<a data-cta="rel_vendors" href="/cert/">보증·인증 업체</a>
-<a data-cta="rel_bonus" href="/bonus-checklist/">입플 체크리스트</a>
-<a data-cta="rel_landing_a" href="/landing-a/">입플·보너스 안내</a>
-</div>
-</section>
-<style>
+</div><style>
   .rel-links{max-width:1080px;margin:26px auto 34px;padding:14px 14px 16px;border-radius:18px;
     border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
     box-shadow:0 14px 40px rgba(0,0,0,.35);}

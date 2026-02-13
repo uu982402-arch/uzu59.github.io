@@ -69,8 +69,10 @@
   function cardSourcesById(id){
     const n = String(id).replace("card","");
     const GIF_OVERRIDES = {
-      card2: ["img/img2.gif", "img/imj2.gif"],
-      card3: ["img/img3.gif"],
+      // NOTE: cert 페이지는 /cert/ 경로이므로, 상대경로(img/...)를 쓰면 /cert/img/ 로 해석되어 이미지가 깨집니다.
+      // 루트(/img) 기준으로 고정합니다.
+      card2: ["/img/img2.gif"],
+      card3: ["/img/img3.gif"],
     };
     const g = GIF_OVERRIDES[id];
     const gif  = Array.isArray(g) ? (g[0] || "") : (g || "");
@@ -78,8 +80,8 @@
     return {
       gif,
       gif2,
-      webp: `img/img${n}.webp`,
-      jpg:  `img/img${n}.jpg`,
+      webp: `/img/img${n}.webp`,
+      jpg:  `/img/img${n}.jpg`,
     };
   }
 
