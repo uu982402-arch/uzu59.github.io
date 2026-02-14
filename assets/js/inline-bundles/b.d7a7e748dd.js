@@ -10,7 +10,7 @@ window.SITE_CONFIG = window.SITE_CONFIG || {};
         var host = document.getElementById('mgGameTabs');
         if((!window.__MG_INIT_DONE) && host && host.children && host.children.length === 0){
           var s = document.createElement('script');
-          s.src = '/assets/js/88st-minigame-analyzer.js?v=VIP4_20260214_17';
+          s.src = '/assets/js/j.0a9ef6920d9e.js';
           s.defer = true;
           document.body.appendChild(s);
         }
