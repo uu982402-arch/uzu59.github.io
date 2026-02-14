@@ -3,7 +3,7 @@
 이번 버전은 **기능 저하 없이**(UI/UX 동일) 아래 3가지를 추가 적용했습니다.
 
 ## 1) Action ID 재생성(버전별 랜덤)
-- 모든 `data-ev-click`, `data-ev-change` 값(Action ID)을 **랜덤 재생성**했습니다.
+- 모든 `data-x`, `data-y`(v22부터) 값(Action ID)을 **랜덤 재생성**했습니다.
 - HTML에 의미 있는 함수/코드/식별자 노출을 최소화합니다.
 
 ## 2) Action Map 난독화(무-eval, CSP 친화)
