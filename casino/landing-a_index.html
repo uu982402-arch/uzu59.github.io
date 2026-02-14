@@ -7,7 +7,7 @@
 <title>입플·보너스·페이백 분석기 | 88 커뮤니티</title>
 <meta content="입플/보너스/페이백 혜택 + 배당 마진·EV 분석기로 빠르게 비교하세요." name="description"/>
 <link href="https://88st.cloud/landing-a/" rel="canonical"/>
-<meta content="noindex,follow" name="robots">
+<meta content="noindex,follow" name="robots"/>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;background:#0b0b0b;color:var(--text)}
@@ -131,7 +131,7 @@ a{ color:inherit; }
 </script>
 <script src="/assets/js/88st-analytics.js?v=VIP4_20260214_17"></script>
 <link href="/assets/88st-theme.css?v=VIP4_20260214_17" rel="stylesheet"/>
-</meta><link href="/assets/88st-tool-history.css?v=VIP4_20260214_17" rel="stylesheet"/>
+<link href="/assets/88st-tool-history.css?v=VIP4_20260214_17" rel="stylesheet"/>
 <script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260214_17"></script>
 <link href="/assets/88st-shell.css?v=VIP4_20260214_17" rel="stylesheet"/>
 <script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260214_17"></script>
@@ -155,72 +155,7 @@ a{ color:inherit; }
     문의: <a href="https://t.me/UZU59" rel="noopener" style="color:#45b3ff;text-decoration:none;font-weight:900" target="_blank">@UZU59</a>
 </div>
 </div>
-<script>
-const CARD_DATA = {
-  card1:{ title:"B WIN", code:"AS88", link:"https://bwk999.com", telegram:"UZU59",
-    benefit:"고액전용 USDT 무기명가입 수수료지원 / 모든게임 입금플러스",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card2:{ title:"CAPS", code:"RUST", link:"https://caps-22.com", telegram:"UZU59",
-    benefit:"고액전용 미겜 첫충 5% / 페이백 5% / 출석 30만원",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card3:{ title:"BETZY", code:"BANGU", link:"https://b88-et.com", telegram:"UZU59",
-    benefit:"스포츠 첫 10% / 미겜 첫 5% / 페이백 5%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card4:{ title:"VEGAS", code:"6789", link:"https://las403.com", telegram:"UZU59",
-    benefit:"스포츠·미겜 입플 최대 30% / 카지노 입플",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card5:{ title:"LULA BET", code:"ZZ99", link:"https://lula.ws", telegram:"PSC991",
-    benefit:"원화·USDT 무기명가입 / 페이백 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-  card6:{ title:"CHOY BET", code:"TAN", link:"https://cy-40.com", telegram:"DY0302",
-    benefit:"신규 30% / 매충 10% / 페이백 10%",
-    notice:"가입코드 미입력 시 혜택 적용 불가" },
-
-  /* ✅ 광고 모집 카드 */
-  card7:{ title:"광고/제휴 모집", code:"", link:"", telegram:"UZU59",
-    benefit:"88 커뮤니티에 광고/제휴를 원하시면 문의 주세요.",
-    notice:"광고 문의는 텔레그램 @UZU59 로만 진행합니다." },
-
-  card8:{ title:"광고 자리 오픈", code:"", link:"", telegram:"UZU59",
-    benefit:"배너/카드 광고 자리 오픈 · 합리적 조건",
-    notice:"사칭 주의: 공식 관리자 @UZU59 단 하나" }
-};
-
-function escapeHtml(s){
-  return String(s||"").replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
-}
-function getClick(id){
-  return Number(localStorage.getItem("88_click_"+id) || 0);
-}
-function badgeText(d, id){
-  if(d.recruit) return { text:"광고모집", cls:"ad" };
-  if(d.tag==="rec") return { text:"추천", cls:"" };
-  if(d.tag==="new") return { text:"신규", cls:"" };
-  if(d.tag==="ad") return { text:"광고", cls:"ad" };
-  return { text:"일반", cls:"ad" };
-}
-(function renderRecTop3(){
-  const row = document.getElementById("recRow");
-  const recIds = Object.keys(CARD_DATA).filter(id=> CARD_DATA[id] && CARD_DATA[id].tag==="rec" && !CARD_DATA[id].recruit);
-  const sorted = recIds.slice().sort((a,b)=> getClick(b)-getClick(a));
-  const top = (sorted.length?sorted:recIds).slice(0,3);
-  row.innerHTML = top.map(id=>{
-    const d=CARD_DATA[id];
-    const b=badgeText(d,id);
-    const href="/?open="+encodeURIComponent(id);
-    return `
-      <div class="mini-card" data-href="${href}">
-        <div class="mini-badge ${b.cls}">${escapeHtml(b.text)}</div>
-        <div class="mini-name">${escapeHtml(d.title)}</div>
-        <div class="mini-sub">${escapeHtml((d.benefit||"").slice(0,64))}${(d.benefit && d.benefit.length>64)?"…":""}</div>
-      </div>
-    `;
-  }).join("");
-  row.querySelectorAll(".mini-card").forEach(el=>{
-    el.addEventListener("click", ()=> location.href = el.dataset.href);
-  });
-})();
-</script><style>
+<script src="../assets/js/inline-bundles/b.dff6980afd.js"></script><style>
   .rel-links{max-width:1080px;margin:26px auto 34px;padding:14px 14px 16px;border-radius:18px;
     border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
     box-shadow:0 14px 40px rgba(0,0,0,.35);}
@@ -230,5 +165,6 @@ function badgeText(d, id){
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
   .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
 </style>
+<script src="/assets/js/ie.4ecfc30ca8.js" defer></script>
 </body>
 </html>

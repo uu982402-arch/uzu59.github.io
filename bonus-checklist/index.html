@@ -326,7 +326,6 @@
 }
 
 </style>
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -454,69 +453,7 @@
       © 88 · 가이드/도구 제공 페이지
     </div>
 </div>
-<script>
-// ===== Page-specific UI + events =====
-(function(){
-  // copy checklist template
-  const btn = document.getElementById('copyChecklist');
-  const note = document.getElementById('copyNote');
-
-  const template = [
-    "[입플 10초 점검]",
-    "1) 롤링(요구 배팅): ____배 / 적용 게임: ____",
-    "2) 제외/제한 게임: ____",
-    "3) 최대 지급/상한: ____ / 환수 조건: ____",
-    "4) 유효기간/소멸: ____",
-    "5) 출금/검수 조건: ____"
-  ].join("\n");
-
-  const toast = (msg) => {
-    if(!note) return;
-    note.textContent = msg;
-    clearTimeout(toast._t);
-    toast._t = setTimeout(()=>{ note.textContent = "클릭하면 텍스트가 복사됩니다."; }, 2200);
-  };
-
-  async function doCopy(){
-    try{
-      await navigator.clipboard.writeText(template);
-      toast("복사 완료! 원하는 곳에 붙여넣기 하세요.");
-      try{ track("copy_checklist", {page_group:"bonus_checklist"}); }catch(e){}
-    }catch(e){
-      const ta = document.createElement('textarea');
-      ta.value = template;
-      ta.setAttribute('readonly','');
-      ta.style.position='fixed';
-      ta.style.left='-9999px';
-      document.body.appendChild(ta);
-      ta.select();
-      try{
-        document.execCommand('copy');
-        toast("복사 완료! 원하는 곳에 붙여넣기 하세요.");
-        try{ track("copy_checklist", {page_group:"bonus_checklist"}); }catch(e){}
-      }catch(err){
-        toast("복사 실패: 브라우저 권한을 확인하세요.");
-      }
-      document.body.removeChild(ta);
-    }
-  }
-
-  if(btn) btn.addEventListener('click', doCopy);
-
-  // CTA click tracking (UI-only, no behavior changes)
-  document.querySelectorAll('a.cta, a.tool, a.linkbtn').forEach(a=>{
-    a.addEventListener('click', ()=>{
-      try{
-        track("cta_click", {
-          page_group: "bonus_checklist",
-          cta_text: (a.textContent || "").trim().slice(0,40),
-          dest: a.getAttribute("href") || ""
-        });
-      }catch(e){}
-    }, {passive:true});
-  });
-})();
-</script>
+<script src="../assets/js/inline-bundles/b.d8a48ddb3c.js"></script>
 <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -539,5 +476,6 @@
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
   .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
 </style>
+<script src="/assets/js/ie.4ecfc30ca8.js" defer></script>
 </body>
 </html>

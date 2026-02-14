@@ -205,7 +205,6 @@ input{
 }
 
 </style>
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -243,19 +242,19 @@ input{
       그 외 계정은 사칭일 수 있으니<br/>
       반드시 주의해 주세요.
     </p>
-<div class="btn" onclick="closeScam()">확인</div>
+<div class="btn" data-ev-click="xYNKds7BgUb4">확인</div>
 </div>
 </div>
 <div class="wrap st-guide" role="main">
 <div class="card st-guide-hero">
-  <div class="st-guide-kicker">88ST.CLOUD · 가이드</div>
-  <h1 class="st-guide-title">입플/보너스 가이드</h1>
-  <p class="st-guide-desc">입금플러스(입플)·보너스·페이백 조건을 “롤링/제한/환전” 중심으로 깔끔하게 정리했습니다.</p>
-  <div class="st-guide-actions">
-    <a class="btn primary" href="/analysis/">분석기</a>
-    <a class="btn secondary" href="/bonus-checklist/">입플 체크리스트</a>
-    <a class="btn ghost" href="https://t.me/UZU59" target="_blank" rel="noopener">문의</a>
-  </div>
+<div class="st-guide-kicker">88ST.CLOUD · 가이드</div>
+<h1 class="st-guide-title">입플/보너스 가이드</h1>
+<p class="st-guide-desc">입금플러스(입플)·보너스·페이백 조건을 “롤링/제한/환전” 중심으로 깔끔하게 정리했습니다.</p>
+<div class="st-guide-actions">
+<a class="btn primary" href="/analysis/">분석기</a>
+<a class="btn secondary" href="/bonus-checklist/">입플 체크리스트</a>
+<a class="btn ghost" href="https://t.me/UZU59" rel="noopener" target="_blank">문의</a>
+</div>
 </div>
 <div class="grid2">
 <div class="card">
@@ -322,34 +321,7 @@ input{
     © 88 Community · 안내/검증 정보는 운영 상황에 따라 변경될 수 있습니다.
   </div>
 </div>
-<script>
-/* 로더 닫기 */
-function hideLoader(){
-  const l = document.getElementById("loader");
-  if(!l) return;
-  l.classList.add("hide");
-  setTimeout(()=> l.remove(), 450);
-}
-window.addEventListener("load", hideLoader);
-setTimeout(hideLoader, 2500);
-
-/* 사칭주의 팝업(1일 1회) */
-(function(){
-  const key="scam_popup_date";
-  const today=new Date().toISOString().slice(0,10);
-  if(localStorage.getItem(key)!==today){
-    const el=document.getElementById("scamPopup");
-    if(el) el.style.display="flex";
-  }
-})();
-function closeScam(){
-  const today=new Date().toISOString().slice(0,10);
-  localStorage.setItem("scam_popup_date",today);
-  const el=document.getElementById("scamPopup");
-  if(el) el.style.display="none";
-}
-
-</script><style>
+<script src="../assets/js/inline-bundles/b.eaed75994b05.js"></script><style>
   .rel-links{max-width:1080px;margin:26px auto 34px;padding:14px 14px 16px;border-radius:18px;
     border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
     box-shadow:0 14px 40px rgba(0,0,0,.35);}
@@ -359,5 +331,6 @@ function closeScam(){
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
   .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
 </style>
+<script src="/assets/js/ie.4ecfc30ca8.js" defer></script>
 </body>
 </html>
