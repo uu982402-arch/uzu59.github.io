@@ -20,6 +20,7 @@
   if (window.SITE_CONFIG.POPULAR_API === undefined) window.SITE_CONFIG.POPULAR_API = DEFAULT_CONFIG.POPULAR_API;
 
   var GA4_ID = window.SITE_CONFIG.GA4_ID;
+  var SCHEMA_VER = "88st_ga4_v1";
 
   // ===== Debug toggle =====
   function isDebug() {
@@ -184,6 +185,14 @@
 
       var p = Object.assign({}, (params || {}));
 
+      // schema version (helps keep reporting stable)
+      if (p.schema_ver === undefined) p.schema_ver = SCHEMA_VER;
+
+      // normalize legacy param names
+      if (p.vendor_id === undefined && p.card_id !== undefined) p.vendor_id = p.card_id;
+      if (p.vendor_name === undefined && p.title !== undefined) p.vendor_name = p.title;
+
+
       if (isDebug() && p.debug_mode === undefined) p.debug_mode = true;
 
       // common params
@@ -229,11 +238,27 @@
       var explicit = el.getAttribute("data-cta-location");
       if (explicit) return explicit;
 
+      // common layout anchors
+      if (el.closest && el.closest(".dock")) return "dock";
+      if (el.closest && el.closest(".header")) return "header";
+      if (el.closest && el.closest("nav")) return "nav";
+
+      // home sections
+      if (el.closest && el.closest("#analyzerSection")) return "home_analyzer";
+      if (el.closest && el.closest("#whySection")) return "home_why";
+
+      // tool / vendor areas
       if (el.closest && el.closest(".fab")) return "fab";
-      if (el.closest && el.closest("#analyzerSection")) return "hero";
       if (el.closest && el.closest(".vendor-header")) return "vendor_header";
       if (el.closest && el.closest(".vendor-tools")) return "vendor_tools";
+
+      // page footer / seo blocks
       if (el.closest && el.closest(".landing-seo")) return "footer_links";
+
+      // generic section id
+      var sec = (el.closest && el.closest(".section")) ? el.closest(".section") : null;
+      if (sec && sec.id) return sec.id;
+
       return "unknown";
     } catch (e) { return "unknown"; }
   }
@@ -247,7 +272,9 @@
       if (ctaEl) {
         var cta = ctaEl.getAttribute("data-cta") || "";
         var txt = ((ctaEl.textContent || "").replace(/\s+/g, " ").trim()).slice(0, 60);
-        track("cta_click", { cta: cta, cta_location: detectCtaLocation(ctaEl), cta_text: txt });
+        var href = "";
+        try { if (ctaEl.tagName && ctaEl.tagName.toLowerCase() === "a") href = (ctaEl.getAttribute("href") || "").slice(0, 140); } catch(e) {}
+        track("cta_click", { cta: cta, cta_location: detectCtaLocation(ctaEl), cta_text: txt, cta_href: href });
       }
 
       // Outbound links

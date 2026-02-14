@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const BUILD = 'VIP4_20260214_15';
+  const BUILD = 'VIP4_20260214_17';
 
   const CARD_DATA = {
   card1:{ title:"어느날", code:"ST95", link:"http://oday-147.com", telegram:"UZU59",
@@ -51,6 +51,8 @@
   let currentFilter = "all";      // all | guarantee | verified | rec | new
   let currentSort   = "default";  // default | pop
   let isCleanText   = false;
+
+  let __searchTimer = null;
 
   function norm(s){ return String(s||"").toLowerCase().replace(/\s+/g,""); }
   function getClickCount(id){ return Number(localStorage.getItem(CLICK_KEY_PREFIX + id) || 0); }
@@ -101,6 +103,7 @@
     const sel = document.getElementById('filterSelect');
     if(sel) sel.value = v;
     renderGrid();
+    try{ trackSafe('cert_filter_change', { filter: currentFilter }); }catch(e){}
   }
 
   function setSort(v){
@@ -108,6 +111,7 @@
     const sel = document.getElementById('sortSelect');
     if(sel) sel.value = v;
     renderGrid();
+    try{ trackSafe('cert_sort_change', { sort: currentSort }); }catch(e){}
   }
 
   function renderGrid(){
@@ -237,7 +241,14 @@
 
     currentCardId = id;
     incCardClick(id);
-    trackSafe('card_open', { card_id: id, title: d.title || '' });
+    const vendorGroup = GUARANTEE_SET.has(id) ? 'guarantee' : 'verified';
+    let vendorPos = undefined;
+    try{
+      const cards = Array.from(document.querySelectorAll('#vendorGrid .card[data-card]'));
+      vendorPos = cards.findIndex(x=> x.getAttribute('data-card')===id) + 1;
+      if(vendorPos<=0) vendorPos = undefined;
+    }catch(e){}
+    trackSafe('card_open', { vendor_id: id, vendor_name: d.title || '', vendor_group: vendorGroup, vendor_pos: vendorPos, filter: currentFilter, sort: currentSort });
 
     currentCode = (d.code || '');
 
@@ -285,12 +296,29 @@
     lastFocusEl = document.activeElement;
     const popup = document.getElementById('cardPopup');
     if(popup){
+      // Force overlay-style modal even if some global CSS overrides exist (prevents "아래쪽에 뜸" 체감)
+      try{
+        popup.style.display = 'flex';
+        popup.style.position = 'fixed';
+        popup.style.inset = '0';
+        popup.style.zIndex = '99999';
+      }catch(e){}
+
       popup.classList.add('open');
       popup.setAttribute('aria-hidden','false');
+
+      // Lock background scroll
+      try{
+        document.documentElement.classList.add('modal-open');
+        document.body.classList.add('modal-open');
+      }catch(e){}
     }
 
     const focusTarget = document.getElementById('closeBtn');
-    if(focusTarget) focusTarget.focus();
+    if(focusTarget){
+      try{ focusTarget.focus({preventScroll:true}); }
+      catch(e){ try{ focusTarget.focus(); }catch(e2){} }
+    }
   }
 
   function closeCard(){
@@ -298,14 +326,22 @@
     if(popup){
       popup.classList.remove('open');
       popup.setAttribute('aria-hidden','true');
+      try{ popup.style.display = ''; }catch(e){}
     }
+    try{
+      document.documentElement.classList.remove('modal-open');
+      document.body.classList.remove('modal-open');
+    }catch(e){}
     if(lastFocusEl && lastFocusEl.focus) lastFocusEl.focus();
   }
 
   function copyCode(){
     if(!currentCode) return;
     const ok = ()=>{
-      trackSafe('copy_code', { card_id: currentCardId, code: currentCode });
+      try{
+        const d = CARD_DATA[currentCardId] || {};
+        trackSafe('copy_code', { vendor_id: currentCardId, vendor_name: d.title || '', code_present: !!currentCode });
+      }catch(e){}
       const t = document.getElementById('copyToast');
       if(t){ t.classList.add('on'); setTimeout(()=>t.classList.remove('on'), 900); }
       else alert('가입코드가 복사되었습니다');
@@ -343,12 +379,29 @@
         favBtn.textContent = on ? '★ 즐겨찾기' : '☆ 즐겨찾기';
         favBtn.classList.toggle('is-on', !!on);
         if(window.__88stRefreshUserMenu) window.__88stRefreshUserMenu();
-        trackSafe('fav_vendor_toggle', { card_id: id, state: on ? 'on' : 'off' });
+        trackSafe('fav_vendor_toggle', { vendor_id: id, vendor_name: title, state: on ? 'on' : 'off' });
       }catch(e){}
     });
 
-    if(goBtn) goBtn.addEventListener('click', ()=> trackSafe('outbound_click', { type:'external', card_id: currentCardId, url: goBtn.href }));
-    if(tgBtn) tgBtn.addEventListener('click', ()=> trackSafe('outbound_click', { type:'telegram', card_id: currentCardId, url: tgBtn.href }));
+    if(goBtn) {
+      // prevent auto outbound duplication; we send richer params manually
+      try{ goBtn.setAttribute('data-no-auto-outbound','1'); goBtn.setAttribute('data-outbound-manual','1'); }catch(e){}
+      goBtn.addEventListener('click', ()=>{
+        try{
+          const d = CARD_DATA[currentCardId] || {};
+          trackSafe('outbound_click', { outbound_type:'vendor_site', vendor_id: currentCardId, vendor_name: d.title || '', url: goBtn.href });
+        }catch(e){}
+      });
+    }
+    if(tgBtn) {
+      try{ tgBtn.setAttribute('data-no-auto-outbound','1'); tgBtn.setAttribute('data-outbound-manual','1'); }catch(e){}
+      tgBtn.addEventListener('click', ()=>{
+        try{
+          const d = CARD_DATA[currentCardId] || {};
+          trackSafe('outbound_click', { outbound_type:'telegram', vendor_id: currentCardId, vendor_name: d.title || '', url: tgBtn.href });
+        }catch(e){}
+      });
+    }
 
     if(popup) popup.addEventListener('click', (e)=>{ if(e.target === popup) closeCard(); });
 
@@ -375,7 +428,15 @@
     if(filterSel) filterSel.addEventListener('change', ()=>{ currentFilter = filterSel.value; renderGrid(); });
     if(sortSel) sortSel.addEventListener('change', ()=>{ currentSort = sortSel.value; renderGrid(); });
     if(cleanTgl) cleanTgl.addEventListener('change', ()=>{ isCleanText = !!cleanTgl.checked; renderGrid(); });
-    if(input) input.addEventListener('input', ()=> renderGrid());
+    if(input) input.addEventListener('input', ()=>{
+      renderGrid();
+      try{
+        clearTimeout(__searchTimer);
+        __searchTimer = setTimeout(()=>{
+          trackSafe('cert_search', { q_len: String(input.value||'').trim().length, filter: currentFilter, sort: currentSort });
+        }, 450);
+      }catch(e){}
+    });
   }
 
   // init

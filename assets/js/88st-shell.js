@@ -5,7 +5,7 @@
   // Base theme tokens (vars) are required for consistent styling on ALL pages.
   // NOTE: We intentionally do NOT load /assets/88st-theme.js (toggle).
   // One-shot VIP build tag (cache bust)
-  const BUILD = "VIP4_20260214_15";
+  const BUILD = "VIP4_20260214_17";
 
   const THEME_CSS    = `/assets/88st-theme.css?v=${BUILD}`;
 

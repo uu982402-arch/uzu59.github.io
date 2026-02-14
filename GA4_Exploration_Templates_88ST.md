@@ -8,7 +8,7 @@
 ## Exploration 1: Funnel (Session, Open)
 목적: 메인(index) → /analysis 사용 → 전환 병목 찾기
 Steps:
-1) cta_click  (조건: cta 또는 cta_id = analysis)
+1) cta_click  (조건: cta_id = open_tool_sports (또는 open_tool_*))
 2) analysis_start
 3) analysis_complete
 4) save_history OR outbound_click

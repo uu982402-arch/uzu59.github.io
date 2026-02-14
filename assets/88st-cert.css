@@ -397,14 +397,19 @@ body{
 .cert-em{ color: rgba(12,14,22,.92); font-weight: 950; }
 
 /* Modal */
+html.modal-open,
+body.modal-open{
+  overflow: hidden;
+}
+
 .popup{
-  position: fixed;
-  inset: 0;
+  position: fixed !important;
+  inset: 0 !important;
   display: none;
   align-items: center;
   justify-content: center;
   padding: 18px 14px;
-  z-index: 5000;
+  z-index: 99999;
   background: rgba(0,0,0,.38);
 }
 
