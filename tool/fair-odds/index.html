@@ -114,7 +114,6 @@ footer{ margin-top:16px; color:var(--muted-2); font-size:12px; line-height:1.6; 
 
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "오버라운드(마진)가 몇 %면 높은 편인가요?", "acceptedAnswer": {"@type": "Answer", "text": "종목/리그/시장에 따라 다르지만, 일반적으로 마진이 낮을수록 유리합니다. 같은 조건이면 2~4%대가 6~10%대보다 장기 기대값이 좋습니다."}}, {"@type": "Question", "name": "공정확률/공정배당은 무엇인가요?", "acceptedAnswer": {"@type": "Answer", "text": "암시확률을 100%로 정규화해 마진을 제거한 값입니다. ‘마진이 없는 시장’이라고 가정한 공정 기준으로 비교할 때 사용합니다."}}, {"@type": "Question", "name": "2-way와 3-way는 언제 쓰나요?", "acceptedAnswer": {"@type": "Answer", "text": "승/패만 있는 시장은 2-way, 승/무/패가 있는 시장은 3-way로 계산합니다."}}, {"@type": "Question", "name": "마진이 낮으면 무조건 좋은 배팅인가요?", "acceptedAnswer": {"@type": "Answer", "text": "아닙니다. 마진은 ‘수수료’에 가깝고, 실제 수익 여부는 추정 승률(엣지)과 배당의 균형(EV)에 달려 있습니다."}}, {"@type": "Question", "name": "이 계산기는 정답인가요?", "acceptedAnswer": {"@type": "Answer", "text": "계산 자체는 산술이지만, 실제 결과는 변동성이 큽니다. 참고용으로만 활용해 주세요."}}]}</script>
-
 <style id="v13_1_theme_override">
 /* === v13.1 look unify (from main index) === */
 :root{
@@ -282,78 +281,8 @@ a{ color:inherit; }
 <div class="small" id="explain"></div>
 </div>
 </div>
-<script>
-function num(v){ const x=parseFloat(v); return (isFinite(x) && x>1e-9) ? x : NaN; }
-function pct(x){ return (x*100).toFixed(2) + "%"; }
-function fmt(x){ return isFinite(x) ? x.toFixed(3) : "-"; }
-
-function calc(){
-  const mode = document.getElementById("mode").value;
-  const o1=num(document.getElementById("o1").value);
-  const o2=num(document.getElementById("o2").value);
-  const o3=num(document.getElementById("o3").value);
-
-  const odds = (mode==="2") ? [o1,o2] : [o1,o2,o3];
-  if(odds.some(x=>!isFinite(x) || x<=1)) { alert("배당을 올바르게 입력해 주세요 (1.01 이상)."); return; }
-
-  const imps = odds.map(o=>1/o);
-  const sum = imps.reduce((a,b)=>a+b,0);
-  const over = sum - 1;
-
-  const fairP = imps.map(p=>p/sum);
-  const fairO = fairP.map(p=>1/p);
-
-  document.getElementById("sumImp").textContent = pct(sum);
-  document.getElementById("margin").textContent = (over>=0? "+" : "") + pct(over);
-
-  document.getElementById("fairProb").textContent = fairP.map(p=>pct(p)).join(" · ");
-  document.getElementById("fairOdds").textContent = fairO.map(o=>fmt(o)).join(" · ");
-
-  document.getElementById("explain").textContent =
-    "암시확률 합이 100%를 넘는 만큼(오버라운드)이 북메이커 마진입니다. 동일한 추정 실력이라면 마진이 낮은 시장이 장기적으로 유리합니다.";
-}
-
-function sync(){
-  const mode = document.getElementById("mode").value;
-  document.getElementById("o3wrap").style.display = (mode==="2") ? "none" : "flex";
-}
-
-document.getElementById("mode").addEventListener("change", ()=>{ sync(); calc(); });
-document.getElementById("calcBtn").addEventListener("click", calc);
-document.getElementById("resetBtn").addEventListener("click", ()=>{
-  document.getElementById("mode").value="3";
-  document.getElementById("o1").value="1.85";
-  document.getElementById("o2").value="3.40";
-  document.getElementById("o3").value="4.20";
-  sync(); calc();
-});
-["o1","o2","o3"].forEach(id=> document.getElementById(id).addEventListener("input", ()=> calc()));
-sync(); calc();
-</script>
-<script type="application/json" id="__88stToolConfig">
-{
-  "tool": "margin",
-  "title": "마진 계산기",
-  "inputs": ["mode", "o1", "o2", "o3"],
-  "outputs": {
-    "sumImp": "#sumImp",
-    "margin": "#margin",
-    "fairProb": "#fairProb",
-    "fairOdds": "#fairOdds"
-  },
-  "shareParams": {
-    "mode": "m",
-    "o1": "a",
-    "o2": "b",
-    "o3": "c"
-  },
-  "examples": [
-    {"label": "2-way 예시", "values": {"mode": "2", "o1": "1.95", "o2": "1.95"}},
-    {"label": "3-way 예시", "values": {"mode": "3", "o1": "2.10", "o2": "3.40", "o3": "3.60"}}
-  ]
-}
-</script>
-
+<script src="../../assets/js/inline-bundles/b.b96b8d09fc.js"></script>
+<script data-src="../../assets/config/toolconfig/c.8ad1622c66.json" id="__88stToolConfig" type="application/json"></script>
 <div aria-label="인증 업체 빠른보기" class="vendor-teaser" data-vt-fixed="1,2,3,4" data-vt-pick="2" data-vt-pool="10,11,8,7" id="vendorTeaser">
 <div class="vt-head">
 <div>
@@ -409,5 +338,6 @@ sync(); calc();
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
   .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
 </style>
+<script src="/assets/js/ie.f6f4d0c6f1.js" defer></script>
 </body>
 </html>

@@ -1,36 +1,30 @@
 <!DOCTYPE html>
+
 <html data-theme="light" lang="ko">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>바카라 전략 계산기 | 마틴게일·파롤리·달랑베르·오스카·피보나치·라부셰르</title>
-  <meta name="description" content="바카라(PLAYER 2.00 / BANKER 1.97) 기준으로 마틴게일·파롤리·달랑베르·오스카 그라인드·피보나치·라부셰르를 스피드 버튼(WIN/LOSE)으로 즉시 계산합니다. 세션/자금관리 트래커 + 최근 5개 저장."/>
-<meta name="keywords" content="카지노 전략 분석기, 바카라 전략, 마틴게일, 파롤리, 달랑베르, 오스카 그라인드, 피보나치, 라부셰르, 세션 트래커, 배팅 계산기"/>
-  <meta name="robots" content="index,follow"/>
-  <link rel="canonical" href="https://88st.cloud/tool-casino/"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="88 (팔팔커뮤니티)"/>
-  <meta property="og:title" content="바카라 전략 계산기"/>
-  <meta property="og:description" content="스피드 조작형(WIN/LOSE) 바카라 전략 계산기 + 세션 트래커"/>
-  <meta property="og:url" content="https://88st.cloud/tool-casino/"/>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-
-
-  <link rel="stylesheet" href="/assets/88st-theme.css?v=VIP4_20260214_17"/>
-  <link rel="stylesheet" href="/assets/88st-casino-strategies.css?v=VIP4_20260214_17"/>
-  <link rel="stylesheet" href="/assets/88st-shell.css?v=VIP4_20260214_17"/>
-  <script defer src="/assets/js/88st-shell.js?v=VIP4_20260214_17"></script>
-  <script defer src="/assets/js/88st-casino-strategies.js?v=VIP4_20260214_17"></script>
-  <!-- GA4 (Casino Stream) -->
-  <script>
-    window.SITE_CONFIG = window.SITE_CONFIG || {};
-    window.SITE_CONFIG.GA4_ID = 'G-KWT87FBY6S';
-  </script>
-  <script defer src='/assets/js/88st-analytics.js?v=VIP4_20260214_17'></script>
-
-
-  <script type="application/ld+json">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>바카라 전략 계산기 | 마틴게일·파롤리·달랑베르·오스카·피보나치·라부셰르</title>
+<meta content="바카라(PLAYER 2.00 / BANKER 1.97) 기준으로 마틴게일·파롤리·달랑베르·오스카 그라인드·피보나치·라부셰르를 스피드 버튼(WIN/LOSE)으로 즉시 계산합니다. 세션/자금관리 트래커 + 최근 5개 저장." name="description"/>
+<meta content="카지노 전략 분석기, 바카라 전략, 마틴게일, 파롤리, 달랑베르, 오스카 그라인드, 피보나치, 라부셰르, 세션 트래커, 배팅 계산기" name="keywords"/>
+<meta content="index,follow" name="robots"/>
+<link href="https://88st.cloud/tool-casino/" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="88 (팔팔커뮤니티)" property="og:site_name"/>
+<meta content="바카라 전략 계산기" property="og:title"/>
+<meta content="스피드 조작형(WIN/LOSE) 바카라 전략 계산기 + 세션 트래커" property="og:description"/>
+<meta content="https://88st.cloud/tool-casino/" property="og:url"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<link href="/assets/88st-theme.css?v=VIP4_20260214_17" rel="stylesheet"/>
+<link href="/assets/88st-casino-strategies.css?v=VIP4_20260214_17" rel="stylesheet"/>
+<link href="/assets/88st-shell.css?v=VIP4_20260214_17" rel="stylesheet"/>
+<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260214_17"></script>
+<script defer="" src="/assets/js/88st-casino-strategies.js?v=VIP4_20260214_17"></script>
+<!-- GA4 (Casino Stream) -->
+<script src="../assets/js/inline-bundles/b.cba5ff41a7.js"></script>
+<script defer="" src="/assets/js/88st-analytics.js?v=VIP4_20260214_17"></script>
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -42,184 +36,170 @@
   </script>
 </head>
 <body class="st-app">
-  <main class="cs-wrap">
-    <section class="cs-hero">
-      <h1>바카라 전략 계산기</h1>
-      <p>턴이 빠른 바카라 환경에 맞춘 <b>스피드 조작형(WIN/LOSE)</b> 계산기입니다. PLAYER 2.00 / BANKER 1.97 프리셋을 지원하고, 세션/자금관리 트래커와 최근 5개 세션 저장을 제공합니다.</p>
-    </section>
-
-    <div class="cs-grid">
-      <section class="cs-card" aria-label="설정">
-        <h2>설정</h2>
-
-        <div class="cs-row" style="margin-bottom:10px;">
-          <div class="cs-field" style="min-width:220px; flex: 1.2;">
-            <label>바카라 프리셋</label>
-            <div class="cs-preset" role="group" aria-label="바카라 프리셋">
-              <button class="cs-chip on" id="csPresetPlayer" type="button">PLAYER 2.00</button>
-              <button class="cs-chip" id="csPresetBanker" type="button">BANKER 1.97</button>
-              <span style="margin-left:auto; display:flex; gap:8px; align-items:center;">
-                <span style="font-size:12px; color:var(--muted, rgba(255,255,255,.62)); font-weight:900;">배당</span>
-                <input id="csOdds" inputmode="decimal" style="width:100px;" value="2.00"/>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="cs-row">
-          <div class="cs-field">
-            <label>기본 베팅 (원)</label>
-            <input id="csBaseBet" inputmode="numeric" value="10000"/>
-          </div>
-          <div class="cs-field">
-            <label>자금 (선택)</label>
-            <input id="csBankroll" inputmode="numeric" placeholder="예: 500000" value=""/>
-          </div>
-          <div class="cs-field">
-            <label>베팅 단위 올림 (원)</label>
-            <input id="csIncrement" inputmode="numeric" value="1000"/>
-          </div>
-        </div>
-
-        <div class="cs-row" style="margin-top:10px;">
-          <div class="cs-field" style="min-width:220px;">
-            <label>목표 이익(마틴게일/오스카 기준)</label>
-            <div class="cs-row" style="gap:8px; align-items:center;">
-              <select id="csTargetMode" style="min-width:140px;">
-                <option value="auto">자동(기본 1승 수익)</option>
-                <option value="manual">직접 입력</option>
-              </select>
-              <input id="csTargetProfit" inputmode="numeric" placeholder="예: 9700" style="flex:1;" disabled/>
-            </div>
-            <div class="cs-adv small" style="border-top:none; padding-top:8px;">자동은 <b>기본베팅×(배당-1)</b> 기준입니다. (BANKER 1.97이면 0.97배)</div>
-          </div>
-        </div>
-
-        <div class="cs-adv" id="csStrategyOptions" aria-label="전략 옵션">
-          <!-- strategy-specific options injected here -->
-        </div>
-      </section>
-
-      <section class="cs-card" aria-label="전략 & 실행">
-        <h2>전략</h2>
-        <div class="cs-tabs" id="csTabs" role="tablist" aria-label="전략 선택">
-          <button class="cs-chip cs-tab on" type="button" data-strategy="martingale">마틴게일</button>
-          <button class="cs-chip cs-tab" type="button" data-strategy="paroli">파롤리</button>
-          <button class="cs-chip cs-tab" type="button" data-strategy="dalembert">달랑베르</button>
-          <button class="cs-chip cs-tab" type="button" data-strategy="oscar">오스카</button>
-          <button class="cs-chip cs-tab" type="button" data-strategy="fibonacci">피보나치</button>
-          <button class="cs-chip cs-tab" type="button" data-strategy="labouchere">라부셰르</button>
-        </div>
-
-        <div class="cs-next" aria-label="다음 베팅">
-          <div class="label">NEXT BET</div>
-          <div class="value" id="csNextBet">10,000</div>
-          <div class="cs-row" style="margin-top:10px;">
-            <div class="cs-kpi" style="width:100%;">
-              <div class="k">
-                <div class="t">현재 단계</div>
-                <div class="v" id="csStep">0</div>
-              </div>
-              <div class="k">
-                <div class="t">세션 손익(P/L)</div>
-                <div class="v" id="csPL">0</div>
-              </div>
-              <div class="k">
-                <div class="t">잔여 자금</div>
-                <div class="v" id="csBankrollLeft">—</div>
-              </div>
-              <div class="k">
-                <div class="t">최대 낙폭(MDD)</div>
-                <div class="v" id="csMDD">0</div>
-              </div>
-              <div class="k">
-                <div class="t">회복 1승 베팅</div>
-                <div class="v" id="csRecoverBet">—</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cs-actions" aria-label="실행 버튼">
-          <button class="cs-btn win" id="csWin" type="button">WIN</button>
-          <button class="cs-btn lose" id="csLose" type="button">LOSE</button>
-          <button class="cs-btn ghost" id="csUndo" type="button">UNDO</button>
-          <button class="cs-btn ghost" id="csReset" type="button">RESET</button>
-        </div>
-
-
-        <div class="cs-planner" aria-label="세션 플래너" style="margin-top:12px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
-            <h2 style="margin:0; font-size:14px;">세션 플래너</h2>
-            <div class="cs-row" style="gap:8px; align-items:center; flex-wrap:wrap;">
-              <div class="cs-field" style="min-width:160px;">
-                <label>허용 MDD(손절, 원)</label>
-                <input id="csPlanMddLimit" inputmode="numeric" placeholder="예: 150000"/>
-              </div>
-              <div class="cs-field" style="min-width:120px;">
-                <label>최대 단계</label>
-                <input id="csPlanMaxSteps" inputmode="numeric" value="12"/>
-              </div>
-              <button class="cs-chip" id="csPlanGenerate" type="button">자동표 생성</button>
-            </div>
-          </div>
-          <div class="cs-adv small" style="border-top:none; padding-top:8px;">
-            <div>• 현재 선택한 <b>전략/기본베팅/배당/증가단위</b> 기준으로 <b>연속 패배</b> 시 단계별 베팅과 예상 손익/낙폭을 자동으로 표로 보여줍니다.</div>
-          </div>
-          <div class="cs-log" style="margin-top:10px;">
-            <table>
-              <thead>
-                <tr>
-                  <th style="width:70px;">단계</th>
-                  <th style="width:140px;">다음 베팅</th>
-                  <th style="width:160px;">누적 P/L(연패)</th>
-                  <th style="width:140px;">MDD</th>
-                  <th>판정</th>
-                </tr>
-              </thead>
-              <tbody id="csPlanBody">
-                <tr><td colspan="5" style="color:var(--muted, rgba(255,255,255,.62)); font-weight:900;">자동표 생성 버튼을 눌러주세요.</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div id="csPlanSummary" class="cs-adv small" style="margin-top:10px;"></div>
-        </div>
-
-
-        <div class="cs-log" aria-label="최근 라운드">
-          <table>
-            <thead>
-              <tr>
-                <th style="width:60px;">#</th>
-                <th style="width:80px;">결과</th>
-                <th>베팅</th>
-                <th>P/L</th>
-              </tr>
-            </thead>
-            <tbody id="csLogBody">
-              <tr><td colspan="4" style="color:var(--muted, rgba(255,255,255,.62)); font-weight:900;">아직 기록이 없습니다. WIN/LOSE로 시작하세요.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="cs-recent" aria-label="최근 세션">
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
-            <h2 style="margin:0; font-size:14px;">최근 5개 세션</h2>
-            <button class="cs-chip" id="csSaveSession" type="button">세션 저장</button>
-          </div>
-          <div id="csRecentList" class="cs-recent"></div>
-        </div>
-
-      </section>
-    </div>
-
-    <section class="cs-card" aria-label="안내" style="margin-top:12px;">
-      <h2>안내</h2>
-      <div class="cs-adv small" style="padding-top:0; border-top:none;">
-        <div>• 이 페이지는 전략의 계산을 도와주는 도구입니다. 실제 결과는 변동성이 매우 크며, 과몰입을 피하고 리스크 관리를 최우선으로 해주세요.</div>
-        <div>• BANKER(1.97)은 배당-1이 0.97이라, 같은 손실을 회복하려면 PLAYER(2.00)보다 필요한 베팅이 커질 수 있습니다.</div>
-      </div>
-    </section>
-  </main>
+<main class="cs-wrap">
+<section class="cs-hero">
+<h1>바카라 전략 계산기</h1>
+<p>턴이 빠른 바카라 환경에 맞춘 <b>스피드 조작형(WIN/LOSE)</b> 계산기입니다. PLAYER 2.00 / BANKER 1.97 프리셋을 지원하고, 세션/자금관리 트래커와 최근 5개 세션 저장을 제공합니다.</p>
+</section>
+<div class="cs-grid">
+<section aria-label="설정" class="cs-card">
+<h2>설정</h2>
+<div class="cs-row" style="margin-bottom:10px;">
+<div class="cs-field" style="min-width:220px; flex: 1.2;">
+<label>바카라 프리셋</label>
+<div aria-label="바카라 프리셋" class="cs-preset" role="group">
+<button class="cs-chip on" id="csPresetPlayer" type="button">PLAYER 2.00</button>
+<button class="cs-chip" id="csPresetBanker" type="button">BANKER 1.97</button>
+<span style="margin-left:auto; display:flex; gap:8px; align-items:center;">
+<span style="font-size:12px; color:var(--muted, rgba(255,255,255,.62)); font-weight:900;">배당</span>
+<input id="csOdds" inputmode="decimal" style="width:100px;" value="2.00"/>
+</span>
+</div>
+</div>
+</div>
+<div class="cs-row">
+<div class="cs-field">
+<label>기본 베팅 (원)</label>
+<input id="csBaseBet" inputmode="numeric" value="10000"/>
+</div>
+<div class="cs-field">
+<label>자금 (선택)</label>
+<input id="csBankroll" inputmode="numeric" placeholder="예: 500000" value=""/>
+</div>
+<div class="cs-field">
+<label>베팅 단위 올림 (원)</label>
+<input id="csIncrement" inputmode="numeric" value="1000"/>
+</div>
+</div>
+<div class="cs-row" style="margin-top:10px;">
+<div class="cs-field" style="min-width:220px;">
+<label>목표 이익(마틴게일/오스카 기준)</label>
+<div class="cs-row" style="gap:8px; align-items:center;">
+<select id="csTargetMode" style="min-width:140px;">
+<option value="auto">자동(기본 1승 수익)</option>
+<option value="manual">직접 입력</option>
+</select>
+<input disabled="" id="csTargetProfit" inputmode="numeric" placeholder="예: 9700" style="flex:1;"/>
+</div>
+<div class="cs-adv small" style="border-top:none; padding-top:8px;">자동은 <b>기본베팅×(배당-1)</b> 기준입니다. (BANKER 1.97이면 0.97배)</div>
+</div>
+</div>
+<div aria-label="전략 옵션" class="cs-adv" id="csStrategyOptions">
+<!-- strategy-specific options injected here -->
+</div>
+</section>
+<section aria-label="전략 &amp; 실행" class="cs-card">
+<h2>전략</h2>
+<div aria-label="전략 선택" class="cs-tabs" id="csTabs" role="tablist">
+<button class="cs-chip cs-tab on" data-strategy="martingale" type="button">마틴게일</button>
+<button class="cs-chip cs-tab" data-strategy="paroli" type="button">파롤리</button>
+<button class="cs-chip cs-tab" data-strategy="dalembert" type="button">달랑베르</button>
+<button class="cs-chip cs-tab" data-strategy="oscar" type="button">오스카</button>
+<button class="cs-chip cs-tab" data-strategy="fibonacci" type="button">피보나치</button>
+<button class="cs-chip cs-tab" data-strategy="labouchere" type="button">라부셰르</button>
+</div>
+<div aria-label="다음 베팅" class="cs-next">
+<div class="label">NEXT BET</div>
+<div class="value" id="csNextBet">10,000</div>
+<div class="cs-row" style="margin-top:10px;">
+<div class="cs-kpi" style="width:100%;">
+<div class="k">
+<div class="t">현재 단계</div>
+<div class="v" id="csStep">0</div>
+</div>
+<div class="k">
+<div class="t">세션 손익(P/L)</div>
+<div class="v" id="csPL">0</div>
+</div>
+<div class="k">
+<div class="t">잔여 자금</div>
+<div class="v" id="csBankrollLeft">—</div>
+</div>
+<div class="k">
+<div class="t">최대 낙폭(MDD)</div>
+<div class="v" id="csMDD">0</div>
+</div>
+<div class="k">
+<div class="t">회복 1승 베팅</div>
+<div class="v" id="csRecoverBet">—</div>
+</div>
+</div>
+</div>
+</div>
+<div aria-label="실행 버튼" class="cs-actions">
+<button class="cs-btn win" id="csWin" type="button">WIN</button>
+<button class="cs-btn lose" id="csLose" type="button">LOSE</button>
+<button class="cs-btn ghost" id="csUndo" type="button">UNDO</button>
+<button class="cs-btn ghost" id="csReset" type="button">RESET</button>
+</div>
+<div aria-label="세션 플래너" class="cs-planner" style="margin-top:12px;">
+<div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+<h2 style="margin:0; font-size:14px;">세션 플래너</h2>
+<div class="cs-row" style="gap:8px; align-items:center; flex-wrap:wrap;">
+<div class="cs-field" style="min-width:160px;">
+<label>허용 MDD(손절, 원)</label>
+<input id="csPlanMddLimit" inputmode="numeric" placeholder="예: 150000"/>
+</div>
+<div class="cs-field" style="min-width:120px;">
+<label>최대 단계</label>
+<input id="csPlanMaxSteps" inputmode="numeric" value="12"/>
+</div>
+<button class="cs-chip" id="csPlanGenerate" type="button">자동표 생성</button>
+</div>
+</div>
+<div class="cs-adv small" style="border-top:none; padding-top:8px;">
+<div>• 현재 선택한 <b>전략/기본베팅/배당/증가단위</b> 기준으로 <b>연속 패배</b> 시 단계별 베팅과 예상 손익/낙폭을 자동으로 표로 보여줍니다.</div>
+</div>
+<div class="cs-log" style="margin-top:10px;">
+<table>
+<thead>
+<tr>
+<th style="width:70px;">단계</th>
+<th style="width:140px;">다음 베팅</th>
+<th style="width:160px;">누적 P/L(연패)</th>
+<th style="width:140px;">MDD</th>
+<th>판정</th>
+</tr>
+</thead>
+<tbody id="csPlanBody">
+<tr><td colspan="5" style="color:var(--muted, rgba(255,255,255,.62)); font-weight:900;">자동표 생성 버튼을 눌러주세요.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cs-adv small" id="csPlanSummary" style="margin-top:10px;"></div>
+</div>
+<div aria-label="최근 라운드" class="cs-log">
+<table>
+<thead>
+<tr>
+<th style="width:60px;">#</th>
+<th style="width:80px;">결과</th>
+<th>베팅</th>
+<th>P/L</th>
+</tr>
+</thead>
+<tbody id="csLogBody">
+<tr><td colspan="4" style="color:var(--muted, rgba(255,255,255,.62)); font-weight:900;">아직 기록이 없습니다. WIN/LOSE로 시작하세요.</td></tr>
+</tbody>
+</table>
+</div>
+<div aria-label="최근 세션" class="cs-recent">
+<div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+<h2 style="margin:0; font-size:14px;">최근 5개 세션</h2>
+<button class="cs-chip" id="csSaveSession" type="button">세션 저장</button>
+</div>
+<div class="cs-recent" id="csRecentList"></div>
+</div>
+</section>
+</div>
+<section aria-label="안내" class="cs-card" style="margin-top:12px;">
+<h2>안내</h2>
+<div class="cs-adv small" style="padding-top:0; border-top:none;">
+<div>• 이 페이지는 전략의 계산을 도와주는 도구입니다. 실제 결과는 변동성이 매우 크며, 과몰입을 피하고 리스크 관리를 최우선으로 해주세요.</div>
+<div>• BANKER(1.97)은 배당-1이 0.97이라, 같은 손실을 회복하려면 PLAYER(2.00)보다 필요한 베팅이 커질 수 있습니다.</div>
+</div>
+</section>
+</main>
+<script src="/assets/js/ie.f6f4d0c6f1.js" defer></script>
 </body>
 </html>

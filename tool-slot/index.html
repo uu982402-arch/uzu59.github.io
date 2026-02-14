@@ -6,7 +6,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>슬롯 환수율(RTP) 분석기 | RTP·변동성·세션 비용 계산</title>
 <meta content="슬롯 플레이 전, 환수율(RTP)·변동성·베팅·스핀수로 총베팅/기대손실/권장 뱅크롤을 한 번에 계산합니다." name="description"/>
-<meta name="keywords" content="슬롯 환수율(RTP) 분석기, 슬롯 분석기, 슬롯 RTP, 슬롯 변동성, 슬롯 기대손실, 뱅크롤 계산, 슬롯 세션 관리"/>
+<meta content="슬롯 환수율(RTP) 분석기, 슬롯 분석기, 슬롯 RTP, 슬롯 변동성, 슬롯 기대손실, 뱅크롤 계산, 슬롯 세션 관리" name="keywords"/>
 <link href="https://88st.cloud/tool-slot/" rel="canonical"/>
 <meta content="index,follow" name="robots"/>
 <meta content="website" property="og:type"/>
@@ -154,7 +154,6 @@ footer{ margin-top:16px; color:var(--muted-2); font-size:12px; line-height:1.6; 
   ]
 }
 </script>
-
 <style id="v13_1_theme_override">
 /* === v13.1 look unify (from main index) === */
 :root{
@@ -254,7 +253,6 @@ a{ color:inherit; }
   ]
 }
 </script>
-
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -294,7 +292,7 @@ a{ color:inherit; }
 <label for="vol">변동성</label>
 <select id="vol">
 <option value="low">저변동</option>
-<option value="mid" selected>중변동</option>
+<option selected="" value="mid">중변동</option>
 <option value="high">고변동</option>
 <option value="vhigh">초고변동</option>
 </select>
@@ -328,114 +326,9 @@ a{ color:inherit; }
 <div class="small" id="explain"></div>
 </div>
 </div>
-<script>
-(function(){
-  function num(v){
-    const x = parseFloat(String(v||'').replace(/,/g,''));
-    return (isFinite(x) && x>=0) ? x : NaN;
-  }
-  function fmtWon(x){
-    if(!isFinite(x)) return "-";
-    const v = Math.round(x);
-    return v.toLocaleString('ko-KR') + "원";
-  }
-  function clamp(x, a, b){ return Math.max(a, Math.min(b, x)); }
-
-  const VOL_MULT = { low:120, mid:220, high:380, vhigh:550 };
-
-  function calc(silent){
-    const name = (document.getElementById('slotName').value||'').trim();
-    const rtp = num(document.getElementById('rtp').value);
-    let rtpPct = rtp;
-    // If user enters 0.96 형태면 96%로 자동 해석
-    if(isFinite(rtpPct) && rtpPct>0 && rtpPct<=1) rtpPct = rtpPct*100;
-    const vol = document.getElementById('vol').value;
-    const bet = num(document.getElementById('bet').value);
-    const spins = num(document.getElementById('spins').value);
-
-    if(!isFinite(rtpPct) || rtpPct<=0 || rtpPct>100){ if(!silent) alert('RTP(%)를 0~100 사이로 입력해 주세요. (예: 96 또는 0.96)'); return; }
-    if(!isFinite(bet) || bet<=0){ if(!silent) alert('스핀당 베팅(원)을 올바르게 입력해 주세요.'); return; }
-    if(!isFinite(spins) || spins<=0){ if(!silent) alert('스핀 수를 올바르게 입력해 주세요.'); return; }
-
-    const total = bet * spins;
-    const expectedReturn = total * (rtpPct/100);
-    const expectedLoss = total - expectedReturn;
-    const lossRate = (100 - rtpPct);
-
-    const mult = VOL_MULT[vol] || VOL_MULT.mid;
-    const bankroll = bet * mult;
-    const stop = bankroll * 0.30;
-
-    document.getElementById('outTotal').textContent = fmtWon(total);
-    document.getElementById('outReturn').textContent = fmtWon(expectedReturn);
-    document.getElementById('outLoss').textContent = fmtWon(expectedLoss);
-    document.getElementById('outLossRate').textContent = lossRate.toFixed(2) + '%';
-    document.getElementById('outBankroll').textContent = fmtWon(bankroll);
-    document.getElementById('outStop').textContent = fmtWon(stop);
-
-    const volLabel = ({low:'저변동', mid:'중변동', high:'고변동', vhigh:'초고변동'})[vol] || '중변동';
-    const namePart = name ? `
-· 게임: ${name}` : '';
-
-    const m = clamp(Math.round(mult/10)*10, 100, 700);
-    document.getElementById('explain').textContent =
-      `요약: ${fmtWon(bet)} × ${spins.toLocaleString('ko-KR')}회 = 총 ${fmtWon(total)}
-` +
-      `RTP ${rtpPct.toFixed(2)}% 기준, 이론 손실률은 약 ${lossRate.toFixed(2)}% 입니다.
-` +
-      `${volLabel} 기준 권장 뱅크롤은 “약 ${m}배 베팅단위” 수준으로 표시했습니다. (참고용)` +
-      namePart;
-  }
-
-  function reset(){
-    document.getElementById('slotName').value = '';
-    document.getElementById('rtp').value = '96';
-    document.getElementById('vol').value = 'mid';
-    document.getElementById('bet').value = '1000';
-    document.getElementById('spins').value = '300';
-    calc(true);
-  }
-
-  document.getElementById('calcBtn').addEventListener('click', ()=> calc(false));
-  document.getElementById('resetBtn').addEventListener('click', reset);
-
-  ['slotName','rtp','vol','bet','spins'].forEach(id=>{
-    const el = document.getElementById(id);
-    if(!el) return;
-    el.addEventListener('input', ()=> calc(true));
-    el.addEventListener('change', ()=> calc(true));
-  });
-
-  calc(true);
-})();
-</script>
-
+<script src="../assets/js/inline-bundles/b.e333b1edf1.js"></script>
 <!-- Tool share/history config (auto UI injection) -->
-<script type="application/json" id="__88stToolConfig">
-{
-  "tool": "slot",
-  "title": "슬롯 환수율(RTP) 분석기",
-  "inputs": ["slotName", "rtp", "vol", "bet", "spins"],
-  "outputs": {
-    "total": "#outTotal",
-    "loss": "#outLoss",
-    "bankroll": "#outBankroll"
-  },
-  "shareParams": {
-    "slotName": "g",
-    "rtp": "r",
-    "vol": "v",
-    "bet": "b",
-    "spins": "n"
-  },
-  "examples": [
-    {"label": "96% / 고변동", "values": {"rtp": "96", "vol": "high", "bet": "1000", "spins": "300"}},
-    {"label": "94% / 중변동", "values": {"rtp": "94", "vol": "mid", "bet": "2000", "spins": "200"}},
-    {"label": "97% / 저변동", "values": {"rtp": "97", "vol": "low", "bet": "500", "spins": "500"}}
-  ]
-}
-</script>
-
+<script data-src="../assets/config/toolconfig/c.9344802715.json" id="__88stToolConfig" type="application/json"></script>
 <div class="card" style="margin-top:12px;">
 <h2>자주 묻는 질문(FAQ)</h2>
 <div class="faq">
@@ -475,5 +368,6 @@ a{ color:inherit; }
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
   .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
 </style>
+<script src="/assets/js/ie.f6f4d0c6f1.js" defer></script>
 </body>
 </html>

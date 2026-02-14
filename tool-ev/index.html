@@ -114,7 +114,6 @@ footer{ margin-top:16px; color:var(--muted-2); font-size:12px; line-height:1.6; 
 
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "손익분기점 승률은 왜 1/배당인가요?", "acceptedAnswer": {"@type": "Answer", "text": "배당이 o일 때, 기대수익이 0이 되는 확률이 1/o 입니다(수수료·마진 단순화 가정)."}}, {"@type": "Question", "name": "+EV이면 무조건 이기나요?", "acceptedAnswer": {"@type": "Answer", "text": "아닙니다. +EV는 장기 평균 관점에서 유리할 ‘가능성’을 뜻합니다. 단기 변동성은 매우 큽니다."}}, {"@type": "Question", "name": "추정 승률은 어떻게 잡나요?", "acceptedAnswer": {"@type": "Answer", "text": "최근 폼, 라인업, 일정, 상대 전적, 시장 변동 등 여러 요소를 참고해 ‘내 기준’으로 추정합니다."}}, {"@type": "Question", "name": "마진(오버라운드)을 제거한 EV도 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "가능합니다. 마진 계산기로 공정확률을 만든 뒤, 그 기준으로 승률/배당을 비교하면 더 보수적인 평가가 됩니다."}}, {"@type": "Question", "name": "추천 배팅 금액도 계산되나요?", "acceptedAnswer": {"@type": "Answer", "text": "현재 페이지는 EV만 계산합니다. 향후 켈리/유닛 사이징 도구로 확장할 수 있습니다."}}]}</script>
-
 <style id="v13_1_theme_override">
 /* === v13.1 look unify (from main index) === */
 :root{
@@ -275,71 +274,9 @@ a{ color:inherit; }
 <div class="small" id="explain"></div>
 </div>
 </div>
-<script>
-function num(v){ const x=parseFloat(v); return (isFinite(x)) ? x : NaN; }
-function pct(x){ return (x*100).toFixed(2) + "%"; }
-function won(x){ 
-  if(!isFinite(x)) return "-";
-  const s = (x>=0? "" : "-");
-  const n = Math.abs(x);
-  return s + Math.round(n).toLocaleString() + "원";
-}
-function calc(){
-  const odds=num(document.getElementById("odds").value);
-  const p=num(document.getElementById("p").value)/100;
-  const stake=num(document.getElementById("stake").value);
-  if(!isFinite(odds) || odds<=1){ alert("배당을 올바르게 입력해 주세요 (1.01 이상)."); return; }
-  if(!isFinite(p) || p<=0 || p>=1){ alert("승률(%)을 1~99 사이로 입력해 주세요."); return; }
-  if(!isFinite(stake) || stake<=0){ alert("베팅 금액을 입력해 주세요."); return; }
-
-  const be = 1/odds;
-  const winProfit = (odds-1)*stake;
-  const ev = p*winProfit - (1-p)*stake;
-  const evRate = ev / stake;
-
-  document.getElementById("be").textContent = pct(be);
-  document.getElementById("evAmt").textContent = won(ev);
-  document.getElementById("evPct").textContent = pct(evRate);
-  document.getElementById("judge").textContent = (ev>0? "+EV" : (ev<0? "-EV" : "0"));
-
-  document.getElementById("explain").textContent =
-    `손익분기점은 ${pct(be)} 입니다. 내 추정 승률이 이보다 높으면 +EV 가능성이 있습니다(장기 평균 관점).`;
-}
-document.getElementById("calcBtn").addEventListener("click", calc);
-document.getElementById("resetBtn").addEventListener("click", ()=>{
-  document.getElementById("odds").value="1.90";
-  document.getElementById("p").value="55";
-  document.getElementById("stake").value="10000";
-  calc();
-});
-["odds","p","stake"].forEach(id=> document.getElementById(id).addEventListener("input", ()=> calc()));
-calc();
-</script>
-
+<script src="../assets/js/inline-bundles/b.f09977ad6a.js"></script>
 <!-- Tool share/history config (auto UI injection) -->
-<script type="application/json" id="__88stToolConfig">
-{
-  "tool": "ev",
-  "title": "EV 계산기",
-  "inputs": ["odds", "p", "stake"],
-  "outputs": {
-    "be": "#be",
-    "evAmt": "#evAmt",
-    "evPct": "#evPct",
-    "judge": "#judge"
-  },
-  "shareParams": {
-    "odds": "o",
-    "p": "p",
-    "stake": "s"
-  },
-  "examples": [
-    {"label": "안전 예시", "values": {"odds": "1.85", "p": "56", "stake": "10000"}},
-    {"label": "공격 예시", "values": {"odds": "2.40", "p": "45", "stake": "15000"}}
-  ]
-}
-</script>
-
+<script data-src="../assets/config/toolconfig/c.276ed47ade.json" id="__88stToolConfig" type="application/json"></script>
 <div aria-label="인증 업체 빠른보기" class="vendor-teaser" data-vt-fixed="1,2,3,4" data-vt-pick="2" data-vt-pool="10,11,8,7" id="vendorTeaser">
 <div class="vt-head">
 <div>
@@ -395,5 +332,6 @@ calc();
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
   .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
 </style>
+<script src="/assets/js/ie.f6f4d0c6f1.js" defer></script>
 </body>
 </html>
