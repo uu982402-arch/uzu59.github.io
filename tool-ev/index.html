@@ -13,185 +13,10 @@
 <meta content="EV(기대값) 계산기" property="og:title"/>
 <meta content="배당과 내 추정 승률을 넣으면 손익분기점 대비 +EV / -EV 여부와 기대수익을 계산합니다." property="og:description"/>
 <meta content="https://88st.cloud/tool-ev/" property="og:url"/>
-<style>
-:root{
-  /* Theme (auto/preset) */
-  --accent1:#d4af37;
-  --accent2:#f5e27a;
-  --accentRGB:212,175,55;
-  --accentText:#000;
-  --accentOn:#00121a;
 
-  /* Glass intensity */
-  --glassA:.84;
-  --glassStrongA:.94;
-  --glassSoftA:.26;
-  --glassBorder:rgba(255,255,255,.06);
-
-  /* Backward-compat */
-  --gold: var(--accent1);
-  --gold2: var(--accent2);
-
-  --bg:#f5f6f8;
-  --panel:rgba(255,255,255,.05);
-  --border:rgba(255,255,255,.10);
-  --text:rgba(255,255,255,.90);
-  --muted:rgba(255,255,255,.62);
-}
-*{ box-sizing:border-box; }
-html,body{ margin:0; padding:0; background: radial-gradient(900px 420px at 50% 0%, rgba(var(--accentRGB),.12), transparent 60%), var(--bg); color:var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Apple SD Gothic Neo, Malgun Gothic, sans-serif; }
-a{ color:inherit; text-decoration:none; }
-.wrap{ max-width:980px; margin:0 auto; padding:18px 14px 42px; }
-.topbar{ display:flex; gap:10px; align-items:center; justify-content:space-between; padding:10px 0 6px; }
-.brand{ display:flex; gap:10px; align-items:center; font-weight:1000; letter-spacing:-.3px; }
-.badge{ display:inline-flex; align-items:center; justify-content:center; padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px; background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#111; }
-.navlinks{ display:flex; gap:10px; flex-wrap:wrap; }
-.navlinks a{ padding:9px 12px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.04); font-weight:900; font-size:12px; }
-.hero{ margin-top:10px; border:1px solid var(--border); background:rgba(255,255,255,.03); border-radius:22px; padding:16px 14px; box-shadow:0 18px 60px rgba(0,0,0,.55); }
-.hero h1{ margin:0; font-size:22px; letter-spacing:-.4px; }
-.hero p{ margin:8px 0 0; color:var(--muted); font-size:13px; line-height:1.55; }
-.grid{ margin-top:12px; display:grid; gap:12px; grid-template-columns: 1fr 1fr; }
-@media(max-width:720px){ .grid{ grid-template-columns:1fr; } }
-.card{ border:1px solid var(--border); background:var(--panel); border-radius:22px; padding:14px; }
-.card h2{ margin:0 0 10px; font-size:16px; letter-spacing:-.2px; }
-.row{ display:flex; gap:10px; flex-wrap:wrap; }
-.field{ flex:1; min-width:160px; display:flex; flex-direction:column; gap:6px; }
-label{ font-size:12px; color:var(--muted); font-weight:900; }
-input, select{
-  width:100%;
-  padding:11px 12px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:rgba(0,0,0,.25);
-  color:var(--text);
-  outline:none;
-  font-weight:900;
-}
-.btnrow{ margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; }
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:12px 14px;
-  border-radius:16px;
-  border:1px solid rgba(0,0,0,.12);
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#111;
-  font-weight:1000;
-  cursor:pointer;
-  user-select:none;
-}
-.btn.secondary{ background:rgba(255,255,255,.05); border:1px solid var(--border); color:var(--text); }
-.out{ margin-top:10px; color:var(--text-2); font-size:13px; line-height:1.6; }
-.kv{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px; }
-@media(max-width:720px){ .kv{ grid-template-columns:1fr; } }
-.kv .item{ border:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.18); border-radius:18px; padding:12px; }
-.kv .k{ color:var(--muted); font-weight:900; font-size:12px; }
-.kv .v{ margin-top:6px; font-weight:1000; font-size:16px; }
-.sep{ height:1px; background:rgba(255,255,255,.10); margin:14px 0; }
-.faq details{ border-top:1px solid rgba(255,255,255,.08); padding:10px 0; }
-.faq details:first-child{ border-top:none; }
-.faq summary{ cursor:pointer; list-style:none; font-weight:1000; }
-.faq summary::-webkit-details-marker{ display:none; }
-footer{ margin-top:16px; color:var(--muted-2); font-size:12px; line-height:1.6; }
-.small{ font-size:12px; color:var(--muted-2); }
-
-/* 88 logo spotlight */
-.logoImg, .logo-img{
-  width:min(170px,52vw) !important;
-  height:auto;
-  display:block;
-  padding:10px;
-  border-radius:20px;
-  background:rgba(20,20,24,var(--glassSoftA));
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 14px 40px rgba(0,0,0,.42), 0 0 26px rgba(var(--accentRGB), .22);
-}
-@media(max-width:480px){
-  .logoImg, .logo-img{ width:min(150px,72vw) !important; padding:9px; }
-}
-
-</style>
+<link rel="stylesheet" href="/assets/css/x.11d0a10f603d.css"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "손익분기점 승률은 왜 1/배당인가요?", "acceptedAnswer": {"@type": "Answer", "text": "배당이 o일 때, 기대수익이 0이 되는 확률이 1/o 입니다(수수료·마진 단순화 가정)."}}, {"@type": "Question", "name": "+EV이면 무조건 이기나요?", "acceptedAnswer": {"@type": "Answer", "text": "아닙니다. +EV는 장기 평균 관점에서 유리할 ‘가능성’을 뜻합니다. 단기 변동성은 매우 큽니다."}}, {"@type": "Question", "name": "추정 승률은 어떻게 잡나요?", "acceptedAnswer": {"@type": "Answer", "text": "최근 폼, 라인업, 일정, 상대 전적, 시장 변동 등 여러 요소를 참고해 ‘내 기준’으로 추정합니다."}}, {"@type": "Question", "name": "마진(오버라운드)을 제거한 EV도 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "가능합니다. 마진 계산기로 공정확률을 만든 뒤, 그 기준으로 승률/배당을 비교하면 더 보수적인 평가가 됩니다."}}, {"@type": "Question", "name": "추천 배팅 금액도 계산되나요?", "acceptedAnswer": {"@type": "Answer", "text": "현재 페이지는 EV만 계산합니다. 향후 켈리/유닛 사이징 도구로 확장할 수 있습니다."}}]}</script>
-<style id="v13_1_theme_override">
-/* === v13.1 look unify (from main index) === */
-:root{
-  /* unify accent (blue) */
-  --accent1:#d4af37;
-  --accent2:#f5e27a;
-  --accentRGB:212,175,55;  /* for rgba(var(--accentRGB), .xx) */
-  --accentText:#00121a;
-  --accentOn:#00121a;
 
-  /* unify tokens */
-  --bg:#f5f6f8;
-  --panel:rgba(255,255,255,.92);
-  --glassA:.72;
-  --glassStrongA:.86;
-  --glassSoftA:.18;
-  --glassBorder:rgba(18,20,28,.10);
-
-  /* backward compat */
-  --gold: var(--accent1);
-  --gold2: var(--accent2);
-}
-
-/* premium midnight background */
-body{
-  background:
-    radial-gradient(1200px 620px at 50% -10%, rgba(var(--accentRGB),.18), transparent 58%),
-    radial-gradient(900px 540px at 15% 25%, rgba(120,170,255,.10), transparent 55%),
-    radial-gradient(900px 640px at 85% 35%, rgba(80,140,255,.08), transparent 55%),
-    linear-gradient(180deg, #05060b 0%, #060612 60%, #040408 100%) !important;
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;
-}
-
-/* remove small label badges (TODAY/MAIN/NEW...) */
-.title .badge,
-.section-title .badge,
-h1 .badge,
-h2 .badge,
-h3 .badge{ display:none !important; }
-
-/* panel unification (safe selectors) */
-.section, .panel, .box, .card, .wrap, .container, .hero, header{
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-/* inputs */
-input, select, textarea{
-  background: rgba(0,0,0,.28) !important;
-  border:1px solid rgba(255,255,255,.14) !important;
-  color:var(--text) !important;
-  border-radius:14px !important;
-  outline:none;
-}
-input:focus, select:focus, textarea:focus{
-  border-color: rgba(var(--accentRGB), .38) !important;
-  box-shadow: 0 0 0 3px rgba(var(--accentRGB), .12) !important;
-}
-
-/* buttons: less-blue, premium glass */
-.btn, button, a.btn{
-  background: rgba(255,255,255,.06) !important;
-  border:1px solid rgba(255,255,255,.14) !important;
-  color:var(--text) !important;
-  box-shadow: 0 12px 34px rgba(0,0,0,.38) !important;
-}
-.btn:hover, button:hover, a.btn:hover{ filter: brightness(1.06); }
-.btn.primary, .btn.go{
-  border-color: rgba(var(--accentRGB), .22) !important;
-  background: rgba(255,255,255,.08) !important;
-}
-.btn.secondary, .btn.ghost{
-  background: rgba(0,0,0,.18) !important;
-}
-
-/* links */
-a{ color:inherit; }
-</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -212,15 +37,15 @@ a{ color:inherit; }
   ]
 }
 </script>
-<script src="/assets/js/88st-analytics.js?v=VIP4_20260214_17"></script>
-<script defer="" src="/assets/js/vendor-teasers.js?v=VIP4_20260214_17"></script>
-<link href="/assets/vendor-teasers.css?v=VIP4_20260214_17" rel="stylesheet"/>
-<link href="/assets/88st-theme.css?v=VIP4_20260214_17" rel="stylesheet"/>
-<link href="/assets/88st-tool-history.css?v=VIP4_20260214_17" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-tool-history.js?v=VIP4_20260214_17"></script>
-<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260214_17"></script>
-<link href="/assets/88st-shell.css?v=VIP4_20260214_17" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260214_17"></script>
+<script src="/assets/js/j.9179477b9417.js"></script>
+<script defer="" src="/assets/js/j.71bbe4a35d81.js"></script>
+<link href="/assets/c.d0474bb4988d.css" rel="stylesheet"/>
+<link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
+<link href="/assets/c.0b3d8a45f8c9.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/j.d2cf652ff950.js"></script>
+<script defer="" src="/assets/js/j.efba3509e62c.js"></script>
+<link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -321,16 +146,7 @@ a{ color:inherit; }
 <div>© 88 — Tools</div>
 <div class="small">책임감 있게 이용해 주세요. 과몰입 방지/리스크 관리가 우선입니다.</div>
 </footer>
-</div><style>
-  .rel-links{max-width:1080px;margin:26px auto 34px;padding:14px 14px 16px;border-radius:18px;
-    border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
-    box-shadow:0 14px 40px rgba(0,0,0,.35);}
-  .rel-links h2{margin:0 0 10px;font-size:13px;letter-spacing:.02em;color:rgba(245,226,122,.92);font-weight:900;}
-  .rel-grid{display:flex;flex-wrap:wrap;gap:8px;}
-  .rel-grid a{text-decoration:none;color:var(--text-2);font-size:12px;padding:8px 10px;border-radius:999px;
-    border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
-  .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
-</style>
-<script src="/assets/js/p.025d649c8b.js" defer></script>
+</div>
+<script src="/assets/js/j.025d649c8b11.js" defer></script>
 </body>
 </html>

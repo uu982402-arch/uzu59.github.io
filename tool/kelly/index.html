@@ -13,56 +13,18 @@
 <meta content="켈리(Kelly) 비중 계산기" property="og:title"/>
 <meta content="배당+확률로 Kelly 비중을 계산(보수적 옵션/캡 지원)." property="og:description"/>
 <meta content="https://88st.cloud/tool/kelly/" property="og:url"/>
-<link href="/assets/vendor-teasers.css?v=VIP4_20260214_17" rel="stylesheet"/>
-<style>
-:root{
-  --accent1:#d4af37; --accent2:#f5e27a; --accentRGB:212,175,55;
-  --gold:var(--accent1); --gold2:var(--accent2);
-  --bg:#f5f6f8; --panel:rgba(255,255,255,.92);
-  --border:rgba(255,255,255,.12); --text:rgba(255,255,255,.92); --muted:rgba(255,255,255,.62);
-}
-*{box-sizing:border-box;}
-html,body{margin:0;padding:0;background:
-  radial-gradient(1200px 620px at 50% -10%, rgba(var(--accentRGB),.18), transparent 58%),
-  radial-gradient(900px 540px at 15% 25%, rgba(120,170,255,.10), transparent 55%),
-  linear-gradient(180deg, #05060b 0%, #060612 60%, #040408 100%);
-  color:var(--text);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,system-ui;}
-a{color:inherit;text-decoration:none;}
-.wrap{max-width:980px;margin:0 auto;padding:18px 14px 42px;}
-.topbar{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 0 6px;}
-.brand{display:flex;gap:10px;align-items:center;font-weight:1000;}
-.badge{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;font-weight:900;font-size:12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;}
-.navlinks{display:flex;gap:10px;flex-wrap:wrap;}
-.navlinks a{padding:9px 12px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04);font-weight:900;font-size:12px;}
-.hero{margin-top:10px;border:1px solid var(--border);background:rgba(255,255,255,.03);border-radius:22px;padding:16px 14px;box-shadow:0 18px 60px rgba(0,0,0,.55);}
-.hero h1{margin:0;font-size:22px;letter-spacing:-.4px;}
-.hero p{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.55;}
-.grid{margin-top:12px;display:grid;gap:12px;grid-template-columns:1fr 1fr;}
-@media(max-width:720px){.grid{grid-template-columns:1fr;}}
-.card{border:1px solid var(--border);background:var(--panel);border-radius:22px;padding:14px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
-.row{display:flex;gap:10px;flex-wrap:wrap;}
-.field{flex:1;min-width:180px;display:flex;flex-direction:column;gap:6px;}
-label{font-size:12px;color:var(--muted);font-weight:900;}
-input,select{width:100%;padding:11px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.28);color:var(--text);outline:none;font-weight:900;}
-.btnrow{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:var(--text);font-weight:1000;cursor:pointer;user-select:none;box-shadow:0 12px 34px rgba(0,0,0,.38);}
-.btn.primary{border-color:rgba(var(--accentRGB),.22);background:rgba(255,255,255,.08);}
-.kv{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-@media(max-width:720px){.kv{grid-template-columns:1fr;}}
-.kv .item{border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);border-radius:18px;padding:12px;}
-.kv .k{color:var(--muted);font-weight:900;font-size:12px;}
-.kv .v{margin-top:6px;font-weight:1000;font-size:16px;}
-.small{font-size:12px;color:var(--muted);line-height:1.6;}
-</style>
+<link href="/assets/c.d0474bb4988d.css" rel="stylesheet"/>
+
+<link rel="stylesheet" href="/assets/css/x.47ddb177636d.css"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"켈리 기준은 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"켈리 기준은 장기 로그성장률을 최대화하는 베팅 비중을 산출하는 방법입니다. 변동성이 커서 보수적(1/2, 1/4 Kelly)으로 쓰는 경우가 많습니다."}},{"@type":"Question","name":"확률이 정확하지 않으면 어떻게 되나요?","acceptedAnswer":{"@type":"Answer","text":"내 예상 확률이 과대평가되면 권장 비중이 과도해질 수 있습니다. 보수 계수(예: 1/4 Kelly)와 최대 비중 캡을 함께 사용하는 것을 권장합니다."}},{"@type":"Question","name":"켈리가 0% 이하로 나오면?","acceptedAnswer":{"@type":"Answer","text":"해당 입력 조건에서는 기대값이 음수로 해석될 수 있어 비중 0%가 권장됩니다."}},{"@type":"Question","name":"이 도구는 투자/배팅 조언인가요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 본 도구는 판단 보조용 계산기이며, 결과/수익을 보장하지 않습니다."}}]}</script>
-<script src="/assets/js/88st-analytics.js?v=VIP4_20260214_17"></script>
-<script defer="" src="/assets/js/vendor-teasers.js?v=VIP4_20260214_17"></script>
-<link href="/assets/88st-theme.css?v=VIP4_20260214_17" rel="stylesheet"/>
-<link href="/assets/88st-tool-history.css?v=VIP4_20260214_17" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-tool-history.js?v=VIP4_20260214_17"></script>
-<script defer="" src="/assets/js/88st-history-hub.js?v=VIP4_20260214_17"></script>
-<link href="/assets/88st-shell.css?v=VIP4_20260214_17" rel="stylesheet"/>
-<script defer="" src="/assets/js/88st-shell.js?v=VIP4_20260214_17"></script>
+<script src="/assets/js/j.9179477b9417.js"></script>
+<script defer="" src="/assets/js/j.71bbe4a35d81.js"></script>
+<link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
+<link href="/assets/c.0b3d8a45f8c9.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/j.d2cf652ff950.js"></script>
+<script defer="" src="/assets/js/j.efba3509e62c.js"></script>
+<link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -154,6 +116,6 @@ input,select{width:100%;padding:11px 12px;border-radius:14px;border:1px solid rg
 <div class="small" style="margin-top:14px;opacity:.75;">※ 본 도구는 판단 보조용이며 결과/수익을 보장하지 않습니다.</div>
 </div>
 <script src="../../assets/js/inline-bundles/b.c66a197be4.js"></script>
-<script src="/assets/js/p.025d649c8b.js" defer></script>
+<script src="/assets/js/j.025d649c8b11.js" defer></script>
 </body>
 </html>
