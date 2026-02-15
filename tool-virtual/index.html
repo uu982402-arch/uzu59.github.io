@@ -51,13 +51,7 @@
     .select:focus,.in:focus{border-color: rgba(255,255,255,.28);}
     [data-theme="light"] .select:focus,[data-theme="light"] .in:focus{border-color: rgba(0,0,0,.22);}
 
-    .presetbar{display:flex; flex-wrap:wrap; gap:8px; margin: 8px 0 12px;}
-    .preset{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); cursor:pointer; user-select:none; font-size:13px;}
-    .preset:hover{transform: translateY(-1px);}
-    [data-theme="light"] .preset{border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03);}
-    .preset b{font-weight:900;}
-    .preset .dot{width:8px; height:8px; border-radius:999px; background: rgba(255,255,255,.6);}
-    [data-theme="light"] .preset .dot{background: rgba(0,0,0,.35);}
+    /* removed: quick presets (kept CSS minimal to reduce clutter) */
 
     .subnote{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
     .pill{display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius: 12px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10); font-size: 12px;}
@@ -88,29 +82,37 @@
 
     .textarea{min-height: 140px; resize: vertical;}
   
-    /* layout hardening: prevent table min-width from squeezing result card */
-    .grid{align-items:start;}
+    /* layout: stack results below inputs (avoid right-side squeeze) */
+    .grid{align-items:start; grid-template-columns: 1fr !important;}
     .grid > .card{min-width:0;}
     .tableWrap{max-width:100%;}
-    @media (min-width: 980px){
-      .grid > .card:last-child{position:sticky; top: 96px; align-self:start;}
+
+    /* hide implied-probability column (cleaner + more space) */
+    #standardTableWrap .tbl th:nth-child(3),
+    #standardTableWrap .tbl td:nth-child(3){display:none;}
+
+    /* --- Result KV: luxe board style --- */
+    .kvBoard{display:grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap:12px; margin-top:14px;}
+    .kvTile{grid-column: span 12; padding:14px 14px; border-radius:18px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10); box-shadow: 0 10px 28px rgba(0,0,0,.12);}
+    [data-theme="light"] .kvTile{background: rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.10); box-shadow: 0 10px 24px rgba(0,0,0,.08);}
+    .kvTile .k{font-size:12px; letter-spacing:.02em; opacity:.78;}
+    .kvTile .v{margin-top:8px; font-size: clamp(20px, 2.1vw, 28px); font-weight:900; line-height:1.08;}
+    .kvTile.full .v{font-size: 16px; line-height:1.25; font-weight:900; word-break: keep-all;}
+    .kvTile.emph{background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.18);}
+    [data-theme="light"] .kvTile.emph{background: rgba(0,0,0,.045); border-color: rgba(0,0,0,.14);}
+    @media (min-width: 720px){
+      .kvTile.third{grid-column: span 4;}
+    }
+    @media (prefers-reduced-motion: no-preference){
+      .kvTile{transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
+      .kvTile:hover{transform: translateY(-1px); box-shadow: 0 14px 34px rgba(0,0,0,.16);}
+      [data-theme="light"] .kvTile:hover{box-shadow: 0 14px 30px rgba(0,0,0,.10);}
     }
 </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="topbar">
-      <div class="brand"><span class="badge">88</span> 가상게임 분석기</div>
-      <div class="navlinks" aria-label="바로가기">
-        <a href="/" rel="home">홈</a>
-        <a href="/analysis/">분석기</a>
-        <a href="/tool-margin/">마진</a>
-        <a href="/tool-ev/">EV</a>
-        <a href="/tool-odds/">배당↔확률</a>
-      </div>
-    </div>
-
     <div class="hero">
       <h1>Bet365 가상게임 전 종목 배당 마진·공정배당 분석기</h1>
       <p>
@@ -121,15 +123,6 @@
 
     <div class="grid">
       <div class="card">
-        
-        <div class="presetbar" aria-label="빠른 템플릿">
-          <div class="preset" data-preset="soccer:1x2"><span class="dot"></span><b>축구</b> 승/무/패</div>
-          <div class="preset" data-preset="soccer:ou"><span class="dot"></span><b>축구</b> 오버/언더</div>
-          <div class="preset" data-preset="soccer:ou_lines"><span class="dot"></span><b>축구</b> 오버/언더(라인 다중)</div>
-          <div class="preset" data-preset="basket:ml"><span class="dot"></span><b>농구</b> 승/패</div>
-          <div class="preset" data-preset="racing:win"><span class="dot"></span><b>경마/레이싱</b> 우승자(다중)</div>
-        </div>
-
         <div class="controls">
           <div class="field">
             <label for="sportSelect">종목</label>
@@ -163,7 +156,6 @@
         </div>
 
         <div id="standardTableWrap">
-          <div class="small">배당은 <b>소수(Decimal)</b> 기준입니다. (예: 1.95) / 빈칸·NaN·배당≤1은 자동 무시</div>
           <div class="tableWrap" style="margin-top:10px;">
             <table class="tbl" aria-label="결과 테이블">
               <thead>
@@ -213,11 +205,23 @@
       <div class="card">
         <h2>결과</h2>
 
-        <div class="kv">
-          <div class="item"><div class="k">오버라운드</div><div class="v mono" id="overround">-</div></div>
-          <div class="item"><div class="k">마진</div><div class="v mono" id="margin">-</div></div>
-          <div class="item"><div class="k">마켓/라인</div><div class="v mono" id="marketLine">-</div></div>
-          <div class="item"><div class="k">베스트(공정대비)</div><div class="v" id="bestPick">-</div></div>
+        <div class="kvBoard" aria-label="핵심 요약">
+          <div class="kvTile third">
+            <div class="k">오버라운드</div>
+            <div class="v mono" id="overround">-</div>
+          </div>
+          <div class="kvTile third">
+            <div class="k">마진</div>
+            <div class="v mono" id="margin">-</div>
+          </div>
+          <div class="kvTile third emph">
+            <div class="k">베스트(공정대비)</div>
+            <div class="v" id="bestPick">-</div>
+          </div>
+          <div class="kvTile full">
+            <div class="k">마켓/라인</div>
+            <div class="v mono" id="marketLine">-</div>
+          </div>
         </div>
 
         <div class="sep"></div>
