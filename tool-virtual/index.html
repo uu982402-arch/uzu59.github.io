@@ -108,6 +108,45 @@
       .kvTile:hover{transform: translateY(-1px); box-shadow: 0 14px 34px rgba(0,0,0,.16);}
       [data-theme="light"] .kvTile:hover{box-shadow: 0 14px 30px rgba(0,0,0,.10);}
     }
+
+    /* --- Input dock: sticky action bar (calc/reset + examples + share/save/history) --- */
+    .actionDock{
+      position: sticky;
+      bottom: 12px;
+      z-index: 25;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 12px 34px rgba(0,0,0,.14);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    [data-theme="light"] .actionDock{
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(0,0,0,.10);
+      box-shadow: 0 12px 30px rgba(0,0,0,.10);
+    }
+    .dockLeft,.dockCenter,.dockRight{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+    .dockCenter{justify-content:center;}
+    .dockRight{justify-content:flex-end;}
+    .dockSpacer{flex:1; min-width: 10px;}
+
+    /* Make injected global tool bar elements fit the dock */
+    .actionDock .stx-btn{height:40px; padding: 0 14px; border-radius: 14px; font-weight:900;}
+    .actionDock .stx-chip{height:40px; border-radius: 999px; padding: 0 14px; font-weight:900;}
+    .actionDock .stx-chiprow{display:flex; flex-wrap:wrap; gap:10px; align-items:center;}
+
+    @media (max-width: 820px){
+      .actionDock{flex-wrap:wrap;}
+      .dockCenter,.dockRight{margin-left:0;}
+      .dockCenter{order: 3; width:100%; justify-content:flex-start;}
+      .dockRight{order: 2; width:100%; justify-content:flex-start;}
+      .dockLeft{order: 1; width:100%;}
+    }
 </style>
 </head>
 
@@ -190,9 +229,18 @@
 
         <div class="divider"></div>
 
-        <div class="btnrow" style="justify-content:flex-start; gap:10px;">
-          <div class="btn" id="calcBtn">즉시 계산</div>
-          <div class="btn secondary" id="resetBtn">초기화</div>
+        <!-- state bridge for global share/save/history (config-driven) -->
+        <input id="vState" type="hidden" value=""/>
+
+        <!-- sticky dock (table scroll에서도 따라오는 고정바) -->
+        <div class="actionDock" id="actionDock" aria-label="입력 도구 고정바">
+          <div class="dockLeft">
+            <div class="btn" id="calcBtn">즉시 계산</div>
+            <div class="btn secondary" id="resetBtn">초기화</div>
+          </div>
+          <div class="dockSpacer" aria-hidden="true"></div>
+          <div class="dockCenter" id="dockCenter"></div>
+          <div class="dockRight" id="dockRight"></div>
         </div>
 
         <div class="subnote">
