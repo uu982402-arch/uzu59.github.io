@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html data-theme="light" lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Bet365 가상게임 배당 마진·공정배당 분석기 | 전 종목 | 88ST</title>
+  <meta name="description" content="Bet365 가상게임(가상축구·농구·테니스·아이스하키·야구·미식축구·크리켓·경마·그레이하운드·레이싱 등) 배당을 입력하면 마진(오버라운드), 공정확률/공정배당, 공정대비(덜 불리한 선택)를 즉시 계산합니다. 오버/언더는 라인을 여러 개 한 번에 붙여넣기 지원."/>
+  <meta name="keywords" content="bet365 가상게임, bet365 가상스포츠, bet365 가상축구, bet365 가상농구, bet365 가상테니스, bet365 가상아이스하키, bet365 가상야구, bet365 가상미식축구, bet365 가상크리켓, bet365 가상경마, bet365 그레이하운드, virtual sports odds, 승무패, 오버언더, 마진, 오버라운드, 공정확률, 공정배당"/>
+  <link rel="canonical" href="https://88st.cloud/tool-virtual/"/>
+  <meta name="robots" content="index,follow"/>
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="88 (팔팔커뮤니티)"/>
+  <meta property="og:title" content="Bet365 가상게임 배당 마진·공정배당 분석기 | 전 종목 | 88ST"/>
+  <meta property="og:description" content="가상게임 배당을 넣으면 마진/공정확률/공정배당/공정대비(덜 불리한 선택)를 한 번에 계산합니다. 오버/언더 라인 다중 붙여넣기 지원."/>
+  <meta property="og:url" content="https://88st.cloud/tool-virtual/"/>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Bet365 가상게임 배당 마진·공정배당 분석기",
+    "applicationCategory": "CalculatorApplication",
+    "operatingSystem": "All",
+    "url": "https://88st.cloud/tool-virtual/",
+    "description": "가상게임(승무패/오버언더/핸디/다중우승자) 배당을 입력하면 마진, 공정확률/공정배당, 공정대비 지표를 계산합니다.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" }
+  }
+  </script>
+
+  <script src="/assets/js/j.9179477b9417.js"></script>
+  <script defer src="/assets/js/j.71bbe4a35d81.js"></script>
+  <script defer src="/assets/js/j.d2cf652ff950.js"></script>
+  <script defer src="/assets/js/j.efba3509e62c.js"></script>
+  <script defer src="/assets/js/j.8829a3ccde44.js"></script>
+
+  <link href="/assets/css/x.11d0a10f603d.css" rel="stylesheet"/>
+  <link href="/assets/c.d0474bb4988d.css" rel="stylesheet"/>
+  <link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
+  <link href="/assets/c.0b3d8a45f8c9.css" rel="stylesheet"/>
+  <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
+
+  <style>
+    .controls{display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;}
+    .controls .field{min-width:160px; flex:1;}
+    .controls .field.small{min-width:130px; flex:0 1 160px;}
+    .select, .in{width:100%; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color: inherit; outline:none;}
+    [data-theme="light"] .select,[data-theme="light"] .in{border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03);}
+    .select:focus,.in:focus{border-color: rgba(255,255,255,.28);}
+    [data-theme="light"] .select:focus,[data-theme="light"] .in:focus{border-color: rgba(0,0,0,.22);}
+
+    .presetbar{display:flex; flex-wrap:wrap; gap:8px; margin: 8px 0 12px;}
+    .preset{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); cursor:pointer; user-select:none; font-size:13px;}
+    .preset:hover{transform: translateY(-1px);}
+    [data-theme="light"] .preset{border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03);}
+    .preset b{font-weight:900;}
+    .preset .dot{width:8px; height:8px; border-radius:999px; background: rgba(255,255,255,.6);}
+    [data-theme="light"] .preset .dot{background: rgba(0,0,0,.35);}
+
+    .subnote{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+    .pill{display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius: 12px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10); font-size: 12px;}
+    [data-theme="light"] .pill{background: rgba(0,0,0,.04); border:1px solid rgba(0,0,0,.10);}
+    .pill b{font-weight:900}
+
+    .tableWrap{overflow:auto; border-radius: 14px; border:1px solid rgba(255,255,255,.10);}
+    [data-theme="light"] .tableWrap{border:1px solid rgba(0,0,0,.10);}
+    .tbl{width:100%; border-collapse:collapse; min-width: 840px;}
+    .tbl th,.tbl td{padding:10px 10px; text-align:left; border-bottom:1px solid rgba(255,255,255,.08); font-size:13px; white-space:nowrap;}
+    [data-theme="light"] .tbl th,[data-theme="light"] .tbl td{border-bottom:1px solid rgba(0,0,0,.08);}
+    .tbl th{font-size:12px; opacity:.82; letter-spacing:.02em;}
+    .tbl tr:last-child td{border-bottom:none;}
+    .tbl td .in{padding:9px 10px; border-radius: 12px;}
+
+    .row-good{background: rgba(46, 204, 113, .10);}
+    .row-bad{background: rgba(231, 76, 60, .09);}
+
+    .chip{display:inline-flex; padding:4px 9px; border-radius:999px; font-size:12px; font-weight:900;}
+    .chip.good{background: rgba(46, 204, 113, .18);}
+    .chip.bad{background: rgba(231, 76, 60, .18);}
+    .chip.neu{background: rgba(255, 255, 255, .10);}
+    [data-theme="light"] .chip.neu{background: rgba(0,0,0,.06);}
+
+    .mono{font-variant-numeric: tabular-nums;}
+    .divider{height:1px; background: rgba(255,255,255,.08); margin: 14px 0;}
+    [data-theme="light"] .divider{background: rgba(0,0,0,.08);}
+
+    .textarea{min-height: 140px; resize: vertical;}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand"><span class="badge">88</span> 가상게임 분석기</div>
+      <div class="navlinks" aria-label="바로가기">
+        <a href="/" rel="home">홈</a>
+        <a href="/analysis/">분석기</a>
+        <a href="/tool-margin/">마진</a>
+        <a href="/tool-ev/">EV</a>
+        <a href="/tool-odds/">배당↔확률</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <h1>Bet365 가상게임 전 종목 배당 마진·공정배당 분석기</h1>
+      <p>
+        종목/마켓을 고르고 배당을 넣으면 <b>마진(오버라운드)</b>, <b>공정확률/공정배당</b>, <b>공정대비(덜 불리한 선택)</b>를 즉시 계산합니다.<br/>
+        <span class="small">※ <b>내 확률 입력은 제거</b>했습니다. 이 페이지는 <b>마진/공정배당 기반의 구조 분석</b>에 집중합니다.</span>
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>입력</h2>
+
+        <div class="presetbar" aria-label="빠른 템플릿">
+          <div class="preset" data-preset="soccer:1x2"><span class="dot"></span><b>축구</b> 승/무/패</div>
+          <div class="preset" data-preset="soccer:ou"><span class="dot"></span><b>축구</b> 오버/언더</div>
+          <div class="preset" data-preset="soccer:ou_lines"><span class="dot"></span><b>축구</b> 오버/언더(라인 다중)</div>
+          <div class="preset" data-preset="basket:ml"><span class="dot"></span><b>농구</b> 승/패</div>
+          <div class="preset" data-preset="racing:win"><span class="dot"></span><b>경마/레이싱</b> 우승자(다중)</div>
+        </div>
+
+        <div class="controls">
+          <div class="field">
+            <label for="sportSelect">종목</label>
+            <select id="sportSelect" class="select"></select>
+          </div>
+          <div class="field">
+            <label for="marketSelect">마켓</label>
+            <select id="marketSelect" class="select"></select>
+          </div>
+          <div class="field small" id="lineWrap" style="display:none">
+            <label for="lineValue" id="lineLabel">기준</label>
+            <input id="lineValue" class="in mono" inputmode="decimal" placeholder="예: 2.5" value=""/>
+          </div>
+        </div>
+
+        <div style="margin-top:10px;">
+          <div class="btnrow">
+            <div class="btn" id="calcBtn">즉시 계산</div>
+            <div class="btn secondary" id="resetBtn">초기화</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div id="pasteWrap" style="display:none">
+          <div class="small" id="pasteDesc">다중 마켓은 줄 단위로 붙여넣으면 자동 파싱됩니다.</div>
+          <div class="small mono" id="pasteHint" style="margin-top:6px;">예: 1번말 6.5</div>
+          <textarea id="pasteInput" class="in textarea mono" placeholder="한 줄에 하나씩 붙여넣기"></textarea>
+          <div class="small" id="pasteStatus" style="margin-top:8px;"></div>
+          <div class="divider"></div>
+        </div>
+
+        <div id="standardTableWrap">
+          <div class="small">배당은 <b>소수(Decimal)</b> 기준입니다. (예: 1.95) / 빈칸·NaN·배당≤1은 자동 무시</div>
+          <div class="tableWrap" style="margin-top:10px;">
+            <table class="tbl" aria-label="결과 테이블">
+              <thead>
+                <tr>
+                  <th>선택</th>
+                  <th>배당</th>
+                  <th>암시확률</th>
+                  <th>공정확률</th>
+                  <th>공정배당</th>
+                  <th>공정대비</th>
+                </tr>
+              </thead>
+              <tbody id="rowsBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="pairTableWrap" style="display:none">
+          <div class="small">오버/언더 라인을 <b>여러 개 한 번에</b> 붙여넣어 라인별 마진/공정배당을 비교합니다. (예: <span class="mono">2.5 1.90 1.95</span>)</div>
+          <div class="tableWrap" style="margin-top:10px;">
+            <table class="tbl" aria-label="라인별 결과 테이블">
+              <thead>
+                <tr>
+                  <th>라인</th>
+                  <th id="pairAName">오버 배당</th>
+                  <th id="pairBName">언더 배당</th>
+                  <th>마진</th>
+                  <th id="pairAFair">오버 공정배당</th>
+                  <th id="pairBFair">언더 공정배당</th>
+                  <th id="pairAAdv">오버 공정대비</th>
+                  <th id="pairBAdv">언더 공정대비</th>
+                  <th>베스트</th>
+                </tr>
+              </thead>
+              <tbody id="pairBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subnote">
+          <div class="pill"><b>전 종목</b>·<b>승무패</b>·<b>오버/언더</b>·<b>핸디</b>·<b>다중 우승자</b> 통합 지원</div>
+          <div class="pill"><b>베스트</b>: 공정대비 ‘덜 불리’ 자동 표시</div>
+          <div class="pill"><b>속도</b>: 입력 중 버벅임 최소화</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>결과</h2>
+
+        <div class="kv">
+          <div class="item"><div class="k">오버라운드</div><div class="v mono" id="overround">-</div></div>
+          <div class="item"><div class="k">마진</div><div class="v mono" id="margin">-</div></div>
+          <div class="item"><div class="k">마켓/라인</div><div class="v mono" id="marketLine">-</div></div>
+          <div class="item"><div class="k">베스트(공정대비)</div><div class="v" id="bestPick">-</div></div>
+        </div>
+
+        <div class="sep"></div>
+        <div class="small" id="explain">
+          공정확률/공정배당은 입력 배당의 암시확률을 정규화해 계산합니다. “공정대비”는 그 공정배당 대비 얼마나 덜 불리한지(상대지표)를 보여줍니다.
+        </div>
+        <div style="margin-top:12px;">
+          <span class="chip neu" id="healthChip">입력 대기</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/inline-bundles/b.virtual.v31.7c2f0c2a7a.js"></script>
+  <script id="__88stToolConfig" type="application/json" data-src="../assets/config/toolconfig/c.4b8e8f74b9.json"></script>
+  <script defer src="/assets/js/j.025d649c8b11.js"></script>
+</body>
+</html>
