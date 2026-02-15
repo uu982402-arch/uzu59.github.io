@@ -162,10 +162,19 @@
       .dockLeft .btn{width:100%; justify-content:center;}
 
       /* tools = single compact row (scrollable) */
-      .dockTools{display:flex; gap:8px; width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:2px;}
+      .dockTools{display:flex; flex-wrap:nowrap; align-items:center; gap:8px; width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:2px;}
       .dockTools::-webkit-scrollbar{display:none;}
-      .dockCenter,.dockRight{flex-wrap:nowrap; gap:8px;}
-      .dockRight{margin-left:auto;}
+      .dockCenter,.dockRight{display:flex; flex-wrap:nowrap; align-items:center; gap:8px; flex:0 0 auto;}
+      /* divider should not expand or wrap */
+      #dockDivider{flex:0 0 auto;}
+
+      /* injected example row should NEVER wrap on mobile */
+      .actionDock .stx-chiprow{flex-wrap:nowrap !important; gap:8px; flex:0 0 auto;}
+
+      /* prevent vertical letter-breaking (e.g., 히스토리) */
+      .actionDock .stx-btn,
+      .actionDock .stx-chip{white-space:nowrap; word-break:keep-all; flex:0 0 auto;}
+      #_88stHistBtn{min-width: 84px;}
 
       /* compact buttons inside dock */
       .actionDock .stx-btn{height:36px; padding:0 12px; border-radius: 14px; font-size:13px;}
