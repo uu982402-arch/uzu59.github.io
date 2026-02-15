@@ -4,9 +4,9 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>스포츠 배당 분석기(오버라운드·EV·켈리) | 88ST</title>
-<meta content="축구·농구·야구·배구·e스포츠·하키 배당으로 공정확률/공정배당, 오버라운드(마진), EV(+EV), 보수적 켈리 비중까지 한 번에 계산하는 스포츠 배당 분석기." name="description"/>
-<meta content="스포츠 배당 분석기, 배당률 계산기, 오버라운드, 배당 마진, 비그(vig), 공정확률 계산기, 공정배당, EV 계산기, +EV, 켈리 공식, 언더오버 마진, 핸디캡 마진, 1X2 마진" name="keywords"/>
+<title>스포츠 배당 분석기(오버라운드·공정배당·마진) | 88ST</title>
+<meta content="축구·농구·야구·배구·e스포츠·하키 배당으로 공정확률/공정배당, 오버라운드(마진), 라인(OU/핸디) 마진까지 한 번에 계산하는 스포츠 배당 분석기." name="description"/>
+<meta content="스포츠 배당 분석기, 배당률 계산기, 오버라운드, 배당 마진, 비그(vig), 공정확률 계산기, 공정배당, 언더오버 마진, 핸디캡 마진, 1X2 마진, 오즈 비교" name="keywords"/>
 <link href="https://88st.cloud/analysis/" rel="canonical"/>
 <meta content="index,follow" name="robots"/>
 <link href="/assets/css/x.0b2e79a53127.css" rel="stylesheet"/>
@@ -36,7 +36,71 @@
 <script defer="" src="/assets/js/j.efba3509e62c.js"></script>
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
 <script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
-<meta content="스포츠 배당 분석기(오버라운드·EV·켈리) | 88ST" property="og:title"/><meta content="축구·농구·야구·배구·e스포츠·하키 배당으로 공정확률/공정배당, 오버라운드(마진), EV(+EV), 보수적 켈리 비중까지 한 번에 계산하는 스포츠 배당 분석기." property="og:description"/><meta content="website" property="og:type"/><meta content="https://88st.cloud/analysis/" property="og:url"/><meta content="/img/logo.png" property="og:image"/></head>
+<meta content="스포츠 배당 분석기(오버라운드·공정배당·마진) | 88ST" property="og:title"/><meta content="축구·농구·야구·배구·e스포츠·하키 배당으로 공정확률/공정배당, 오버라운드(마진), 라인(OU/핸디) 마진까지 한 번에 계산하는 스포츠 배당 분석기." property="og:description"/><meta content="website" property="og:type"/><meta content="https://88st.cloud/analysis/" property="og:url"/><meta content="/img/logo.png" property="og:image"/><style>
+/* --- OddsPortal-style odds compare (local paste) --- */
+#bookCompareBox .paste-ta{min-height:120px}
+#bookCompareOut{margin-top:12px}
+.bookTbl{width:100%;border-collapse:separate;border-spacing:0 8px}
+.bookTbl th{font-size:12px;opacity:.8;text-align:left;padding:0 10px}
+.bookTbl td{padding:10px;border:1px solid var(--line, rgba(255,255,255,.12));border-radius:14px;background:var(--card, rgba(255,255,255,.04))}
+.bookTbl .book{font-weight:800;white-space:nowrap}
+.bookTbl .od{font-variant-numeric:tabular-nums}
+.bookTbl .best{outline:2px solid rgba(80,160,255,.55)}
+.bookTbl .mini{display:block;font-size:12px;opacity:.8;margin-top:2px}
+.bookSummary{display:grid;gap:10px;grid-template-columns:repeat(3, minmax(0,1fr));margin-top:10px}
+@media (max-width:640px){.bookSummary{grid-template-columns:1fr}}
+.bookKpi{padding:12px 14px;border-radius:16px;border:1px solid var(--line, rgba(255,255,255,.12));background:var(--card, rgba(255,255,255,.04))}
+.bookKpi .k{font-size:12px;opacity:.75}
+.bookKpi .v{font-size:18px;font-weight:900;margin-top:4px;font-variant-numeric:tabular-nums}
+.bookKpi .s{font-size:12px;opacity:.75;margin-top:4px}
+
+/* --- Analysis cleanup: remove clutter, prevent overlaps --- */
+/* Keep underlying DOM (avoid JS break), but hide unnecessary UI surfaces */
+.controls-settings .selectWrap.is-hidden{display:none !important;}
+#valueInputs{display:none !important;}
+#lineCompareBox{display:none !important;}
+#bundleShareModal{display:none !important;}
+#perfBox{display:none !important;}
+.paste-actions .paste-adv{display:none !important;}
+.paste-actions .paste-inline{display:none !important;}
+#pasteListWrap{display:none !important;}
+#btnBundleShare{display:none !important;}
+.bundle-promo, .bundle-promo-adv{display:none !important;}
+.field.is-adv{display:none !important;}
+
+/* Typography + spacing refinements */
+.calc-hero-right .autosave{min-width:0}
+.calc-headline{line-height:1.25;overflow-wrap:anywhere}
+.calc-tags{gap:6px}
+.st-tabbar{flex-wrap:wrap}
+
+/* Paste box: keep primary action + utility actions, never overlap */
+.paste-actions{gap:10px;flex-wrap:wrap;align-items:center}
+.paste-actions .btn{white-space:nowrap}
+@media (max-width:560px){
+  .paste-actions{gap:8px}
+  .paste-actions .btn{flex:1 1 calc(50% - 8px)}
+  .paste-actions .btn.primary{flex:1 1 100%}
+}
+
+/* Result: avoid cramped two-column on smaller screens */
+@media (max-width:1024px){
+  .app-layout.is-two{display:block !important;}
+  .app-right{margin-top:14px}
+}
+
+@media (max-width:860px){
+  .split{display:block !important;}
+  .split-col{margin-top:14px;}
+}
+
+.history-toolbar{flex-wrap:wrap;gap:8px;}
+.history-filters{flex-wrap:wrap;gap:8px;}
+
+/* Hide EV/Kelly output surfaces (if rendered) */
+.st-r-panel [data-role="ev"], .st-r-panel [data-role="kelly"], .st-r-panel .ev, .st-r-panel .kelly{display:none !important;}
+</style>
+</head>
 <body>
 <div class="scam-popup" id="scamPopup">
 <div class="scam-box">
@@ -69,7 +133,7 @@
 <a aria-label="홈으로 이동" class="logo-link" href="/">
 <img alt="88 커뮤니티" class="logo-img logoImg" src="/img/logo.png"/>
 </a>
-<div class="sub">스포츠 배당 분석기 (완전체 · 통합 마진/EV/히스토리 · 판단 보조용)</div>
+<div class="sub">스포츠 배당 분석기 (공정배당·마진·라인 마진 · 판단 보조용)</div>
 </div>
 <div class="wrap">
 <div class="card card--hero" id="calcCard">
@@ -77,7 +141,7 @@
 <div class="calc-hero">
 <div class="calc-hero-left">
 <div class="calc-kicker">88 커뮤니티 · 배당 분석기</div>
-<div class="calc-headline">마진 · EV · 켈리 · 라인별 마진까지 <span class="accent">한 번에</span></div>
+<div class="calc-headline">마진 · 공정배당 · 라인별 마진까지 <span class="accent">한 번에</span></div>
 <div aria-label="주요 기능" class="calc-tags">
 <span class="tag">메인/OU/핸디 통합</span>
 <span class="tag">히스토리·비교</span>
@@ -105,7 +169,7 @@
 <option value="hockey">하키</option>
 </select>
 </div>
-<div class="selectWrap">
+<div class="selectWrap is-hidden">
 <div class="fieldLabel"><span class="stepBubble">2</span> 분석 레벨</div>
 <select class="select" data-ee0c80bcd="gvSyYi9vCk5m" id="level">
 <option value="simple">간단</option>
@@ -114,7 +178,7 @@
 </select>
 </div>
 </div>
-<div class="settingsHint">👇 먼저 <b>종목</b>과 <b>레벨</b>을 선택하면, 아래 입력 폼(메인/오버·언더/핸디)이 자동으로 최적화됩니다.</div>
+<div class="settingsHint">👇 먼저 <b>종목</b>을 선택하면, 아래 입력 폼(메인/오버·언더/핸디)이 자동으로 최적화됩니다.</div>
 <button class="btn ghost" data-d8593ac4d="xWlIZD_eEbXC" id="metaToggleBtn" type="button">추가 정보 입력(선택) ▾</button><div id="metaFields"><div class="row2">
 <div>
 <input class="textinput" id="league" placeholder="리그/대회명 (선택)"/>
@@ -139,9 +203,9 @@
 <button aria-expanded="false" class="pill" id="miniGuidePill" type="button">열기</button>
 </div>
 <div class="body" id="miniGuideBody">
-          1) <b>종목/모드</b> 선택 → 2) <b>메인 배당</b> 입력(필수) → 3) 오버·언더/핸디(선택) → 4) <b>중급/고급</b>이면 <b>내 예상 확률</b> 입력 시 EV/켈리까지 계산됩니다.<br/>
-          • 결과는 <b>판단 보조용</b>이며, 마진이 높을수록 장기 기대값이 불리해질 수 있어요.<br/>
-          • 히스토리 항목 클릭하면 <b>입력 자동 복원 + 재계산</b>됩니다.
+          1) <b>종목</b> 선택 → 2) <b>메인 배당</b> 입력(필수) → 3) 오버·언더/핸디(선택) → 4) <b>결과/히스토리</b> 확인.<br/>
+          • 결과는 <b>판단 보조용</b>이며, 마진이 낮을수록 장기적으로 덜 불리한 구조일 가능성이 큽니다.<br/>
+          • 히스토리 항목 클릭 → <b>입력 자동 복원 + 즉시 재계산</b>됩니다.
         </div>
 </div>
 <div class="snap-wrap" id="snapWrap" style="display:none;">
@@ -207,6 +271,30 @@
 </div>
 </div>
 </div>
+</div>
+<div class="box" id="bookCompareBox">
+  <div class="box-head">
+    <div class="box-title" style="margin:0;">오즈 비교(북메이커 여러개) — 복붙</div>
+    <button class="toggle" data-target="bookCompareBody" type="button">접기</button>
+  </div>
+  <div id="bookCompareBody">
+    <div class="small-hint" style="margin-top:4px;">
+      한 줄 = 한 북메이커(또는 한 소스) 입니다. 예) <b>bet365 2.35 3.40 2.90</b> / <b>2.35 3.40 2.90</b> 처럼 붙여넣으면
+      <b>무비그 공정확률</b>을 계산해 평균내고, outcome별 <b>최고배당</b>을 강조합니다. (데이터는 저장/전송되지 않음)
+    </div>
+    <div class="paste-area" style="margin-top:10px;">
+      <textarea class="paste-ta" id="bookCompareInput" placeholder="예)
+bet365 2.35 3.40 2.90
+pinnacle 2.38 3.44 2.86
+(또는 숫자만) 2.36 3.42 2.88"></textarea>
+    </div>
+    <div class="paste-actions" style="gap:8px;flex-wrap:wrap;">
+      <button class="btn primary" id="bookCompareParse" type="button">비교</button>
+      <button class="btn secondary" id="bookCompareApplyBest" type="button">최고배당 적용</button>
+      <button class="btn ghost" id="bookCompareClear" type="button">지우기</button>
+    </div>
+    <div id="bookCompareOut"></div>
+  </div>
 </div>
 <div class="box" id="mainBox">
 <div class="box-title" id="mainMarketTitle">메인 배당</div>
@@ -359,7 +447,7 @@
 <label id="handicapOddsBLabel">반대(선택B) 배당</label>
 <input id="handicapOddsB" inputmode="decimal" placeholder="예: 1.95"/>
 </div>
-<div class="field">
+<div class="field is-adv">
 <label>아시안(푸시) 근사(선택)</label>
 <input id="handicapPush" inputmode="decimal" placeholder="푸시 확률 % (예: 2)"/>
 </div>
@@ -388,11 +476,11 @@
 <label>언더 배당</label>
 <input id="underOdds" inputmode="decimal" placeholder="예: 1.85"/>
 </div>
-<div class="field">
+<div class="field is-adv">
 <label>아시안(푸시) 근사(선택)</label>
 <input id="ouPush" inputmode="decimal" placeholder="푸시 확률 % (예: 6)"/>
 </div>
-<div class="field">
+<div class="field is-adv">
 <label>내 예상 확률(오버) % (고급)</label>
 <input id="myOverProb" inputmode="decimal" placeholder="예: 52"/>
 </div>
@@ -401,7 +489,7 @@
 <input disabled="" value="※ 푸시 확률 미입력 시 종목 기본값으로 근사합니다"/>
 </div>
 </div>
-<div class="small-hint">※ 고급에서 내 예상 확률(오버)을 넣으면 오버 EV/비중 계산이 가능합니다.</div>
+<div class="small-hint">※ 오버/언더는 선택 항목입니다. 배당만 입력해도 마진/공정배당 계산이 가능합니다.</div>
 </div>
 </div>
 <div aria-live="polite" class="input-warn" id="inputWarn"></div>
@@ -694,5 +782,164 @@
 </div>
 </div>
 <script defer="" src="/assets/js/j.025d649c8b11.js"></script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n, d=2) => (Number.isFinite(n) ? n.toFixed(d) : "—");
+  const pct = (n, d=2) => (Number.isFinite(n) ? (n*100).toFixed(d)+"%" : "—");
+
+  const parseLine = (line) => {
+    const firstNum = line.search(/\d/);
+    const name = (firstNum>0 ? line.slice(0, firstNum).trim() : "").replace(/[:|,]+$/,"").trim();
+    const nums = (line.match(/(\d+(?:\.\d+)?)/g) || []).map(Number).filter(v => v>1);
+    return { name: name || "source", nums };
+  };
+
+  const noVig = (odds) => {
+    const inv = odds.reduce((s,o)=>s+(1/o),0);
+    if(!Number.isFinite(inv) || inv<=0) return null;
+    const payout = 1/inv;
+    const probs = odds.map(o => (1/o)*payout);
+    return { payout, probs, overround: inv, margin: inv-1 };
+  };
+
+  function render(outEl, rows, mode){
+    const n = mode;
+    const labels = (n===3) ? ["홈","무","원정"] : ["A","B"];
+
+    const best = Array(n).fill(-Infinity);
+    rows.forEach(r => r.odds.forEach((o,i)=>{ if(o>best[i]) best[i]=o; }));
+
+    const avg = Array(n).fill(0);
+    rows.forEach(r => r.nv.probs.forEach((p,i)=>{ avg[i]+=p; }));
+    for(let i=0;i<n;i++) avg[i]/=rows.length;
+
+    const fairOdds = avg.map(p => p>0 ? 1/p : NaN);
+    const bestOver = best.reduce((s,o)=>s+(1/o),0);
+    const bestMargin = bestOver-1;
+
+    let html = `<div class="bookSummary">
+      <div class="bookKpi"><div class="k">컨센서스 공정배당</div><div class="v">${fairOdds.map(o=>fmt(o,2)).join(" / ")}</div><div class="s">무비그 평균 확률</div></div>
+      <div class="bookKpi"><div class="k">최고배당 조합 마진</div><div class="v">${pct(bestMargin,2)}</div><div class="s">(${fmt(bestOver,4)} - 1)</div></div>
+      <div class="bookKpi"><div class="k">데이터 소스</div><div class="v">${rows.length}개</div><div class="s">줄 단위 인식</div></div>
+    </div>`;
+
+    html += `<table class="bookTbl" aria-label="오즈 비교 테이블">
+      <thead><tr><th>북메이커/소스</th>${labels.map(l=>`<th>${l}</th>`).join("")}</tr></thead><tbody>`;
+
+    rows.forEach(r=>{
+      html += `<tr><td class="book">${r.name}</td>`;
+      r.odds.forEach((o,i)=>{
+        const isBest = Math.abs(o - best[i]) < 1e-9;
+        const vi = (Number.isFinite(o) && Number.isFinite(fairOdds[i]) && fairOdds[i]>0) ? (o / fairOdds[i]) : NaN;
+        html += `<td class="od ${isBest?'best':''}">${fmt(o,2)}<span class="mini">지수 ${fmt(vi,3)} · 무비그 ${pct(r.nv.probs[i],2)}</span></td>`;
+      });
+      html += `</tr>`;
+    });
+
+    html += `<tr><td class="book">공정(평균)</td>${fairOdds.map(o=>`<td class="od">${fmt(o,2)}<span class="mini">확률 ${pct(1/o,2)}</span></td>`).join("")}</tr>`;
+    html += `<tr><td class="book">최고배당</td>${best.map(o=>`<td class="od best">${fmt(o,2)}</td>`).join("")}</tr>`;
+    html += `</tbody></table>`;
+
+    outEl.innerHTML = html;
+    outEl.dataset.mode = String(n);
+    outEl.dataset.best = JSON.stringify(best);
+  }
+
+  function applyBest(outEl){
+    const best = JSON.parse(outEl.dataset.best || "[]");
+    const n = Number(outEl.dataset.mode || 0);
+    if(!(n===2 || n===3) || best.length!==n) return;
+
+    const set = (id,val) => {
+      const el=$(id);
+      if(!el) return;
+      el.value = String(val);
+      el.dispatchEvent(new Event('input',{bubbles:true}));
+      el.dispatchEvent(new Event('change',{bubbles:true}));
+    };
+
+    const main2 = $("main2"), main3 = $("main3");
+    if(n===2){
+      if(main2) main2.style.display = "";
+      if(main3) main3.style.display = "none";
+      set("main2OddsA", fmt(best[0],2));
+      set("main2OddsB", fmt(best[1],2));
+    }else{
+      if(main3) main3.style.display = "";
+      if(main2) main2.style.display = "none";
+      set("main3OddsH", fmt(best[0],2));
+      set("main3OddsD", fmt(best[1],2));
+      set("main3OddsA", fmt(best[2],2));
+    }
+
+    // try to trigger existing calculate button if present
+    const calcBtn = document.querySelector('#btnCalc, #calcBtn, [data-action="calc"]');
+    if(calcBtn) { try { calcBtn.click(); } catch(e) {} }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function run(){
+    const ta = $("bookCompareInput");
+    const out = $("bookCompareOut");
+    if(!ta || !out) return;
+
+    const raw = (ta.value||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);
+    if(raw.length<2){
+      out.innerHTML = `<div class="small-hint">2줄 이상 붙여넣으면 비교가 가능합니다.</div>`;
+      out.dataset.best = "[]";
+      return;
+    }
+
+    const parsed = raw.map(parseLine).map((r,i)=>({ ...r, name: r.name==="source" ? `source ${i+1}` : r.name }));
+    const lens = parsed.map(p=>p.nums.length).filter(n=>n===2 || n===3);
+    const mode = lens.sort()[lens.length-1] || 0;
+
+    const rows = parsed
+      .map(p => ({ name:p.name, odds:p.nums.slice(0,mode) }))
+      .filter(r => r.odds.length===mode && r.odds.every(o=>Number.isFinite(o) && o>1));
+
+    if(rows.length<2 || !(mode===2 || mode===3)){
+      out.innerHTML = `<div class="small-hint">인식 실패: 각 줄에 배당 숫자 2개(2-way) 또는 3개(1X2)가 필요합니다.</div>`;
+      out.dataset.best = "[]";
+      return;
+    }
+
+    const finalRows = [];
+    for(const r of rows){
+      const nv = noVig(r.odds);
+      if(!nv) continue;
+      finalRows.push({ ...r, nv });
+    }
+    if(finalRows.length<2){
+      out.innerHTML = `<div class="small-hint">유효한 줄이 2개 미만입니다. (배당은 1보다 커야 합니다)</div>`;
+      out.dataset.best = "[]";
+      return;
+    }
+
+    render(out, finalRows, mode);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const parseBtn = $("bookCompareParse");
+    const applyBtn = $("bookCompareApplyBest");
+    const clearBtn = $("bookCompareClear");
+    const out = $("bookCompareOut");
+    if(parseBtn) parseBtn.addEventListener("click", run);
+    if(applyBtn) applyBtn.addEventListener("click", () => applyBest(out));
+    if(clearBtn) clearBtn.addEventListener("click", () => { $("bookCompareInput").value=""; out.innerHTML=""; out.dataset.best="[]"; });
+
+    // Layout: keep odds-compare right under paste box for 1-flow UX (no tab split)
+    try{
+      const pasteBox = $("pasteBox");
+      const cmpBox = $("bookCompareBox");
+      const tabbar = $("appTabbar");
+      if(pasteBox && cmpBox && tabbar && tabbar.parentNode){
+        pasteBox.insertAdjacentElement("afterend", cmpBox);
+      }
+    }catch(e){}
+  });
+})();
+</script>
 </body>
 </html>
