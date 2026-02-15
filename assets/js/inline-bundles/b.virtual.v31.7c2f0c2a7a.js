@@ -163,6 +163,11 @@
   const explainEl = $("explain");
   const healthChip = $("healthChip");
 
+  // state bridge (for global share/save/history + permalink restore)
+  const vStateEl = $("vState");
+  const dockCenter = $("dockCenter");
+  const dockRight = $("dockRight");
+
   const calcBtn = $("calcBtn");
   const resetBtn = $("resetBtn");
 
@@ -173,6 +178,129 @@
     rows: [],      // standard rows: {label, odds}
     pairs: []      // pairLines: {line, a, b}
   };
+
+  // vState sync
+  let _syncingFromExternal = false;
+
+  function encodeState(){
+    const market = getMarket(state.sportKey, state.marketKey);
+    const st = { s: state.sportKey, m: state.marketKey };
+    const lv = lineValue ? String(lineValue.value||"").trim() : "";
+    if(lv) st.l = lv;
+
+    if(market.type === "fixed"){
+      readStandardRowInputs();
+      st.o = (state.rows||[]).map(r=>{
+        const o = r && r.odds;
+        return okOdds(o) ? String(o) : "";
+      });
+    }else{
+      // list / pairLines
+      const p = pasteInput ? String(pasteInput.value||"").trim() : "";
+      if(p) st.p = p;
+    }
+    return JSON.stringify(st);
+  }
+
+  function setVState(){
+    if(!vStateEl || _syncingFromExternal) return;
+    try{ vStateEl.value = encodeState(); }catch(e){}
+  }
+
+  function tryParseState(raw){
+    const s = String(raw||"").trim();
+    if(!s) return null;
+    // 1) JSON
+    try{ if(s[0] === "{") return JSON.parse(s); }catch(e){}
+    // 2) base64(json)
+    try{
+      const b64 = s.replace(/-/g,"+").replace(/_/g,"/");
+      const json = decodeURIComponent(escape(atob(b64)));
+      return JSON.parse(json);
+    }catch(e){}
+    return null;
+  }
+
+  function applyStateObj(obj){
+    if(!obj || typeof obj !== "object") return;
+    _syncingFromExternal = true;
+    try{
+      if(obj.s && typeof obj.s === "string") state.sportKey = obj.s;
+      if(sportSelect) sportSelect.value = state.sportKey;
+      fillMarketOptions();
+
+      if(obj.m && typeof obj.m === "string") state.marketKey = obj.m;
+      if(marketSelect) marketSelect.value = state.marketKey;
+
+      if(lineValue) lineValue.value = (obj.l==null?"":String(obj.l));
+      if(pasteInput) pasteInput.value = (obj.p==null?"":String(obj.p));
+
+      render();
+
+      // Apply odds array for fixed markets after rows exist
+      const market = getMarket(state.sportKey, state.marketKey);
+      if(market.type === "fixed" && Array.isArray(obj.o)){
+        const inputs = rowsBody ? rowsBody.querySelectorAll("input[data-field='odds']") : [];
+        inputs.forEach((inp, idx)=>{
+          const v = obj.o[idx];
+          if(v!=null && String(v).trim()!=="") inp.value = String(v);
+        });
+      }
+
+      recalc();
+      setChip("good","복원됨");
+    }catch(e){
+      setChip("bad","복원 실패");
+    }finally{
+      _syncingFromExternal = false;
+      setVState();
+    }
+  }
+
+  function bindVState(){
+    if(!vStateEl) return;
+    const handler = ()=>{
+      if(_syncingFromExternal) return;
+      const obj = tryParseState(vStateEl.value);
+      if(obj) applyStateObj(obj);
+    };
+    vStateEl.addEventListener("input", handler);
+    vStateEl.addEventListener("change", handler);
+  }
+
+  function relocateGlobalBar(){
+    // Global tool bar injected by /assets/js/j.d2cf652ff950.js
+    const shareBtn = document.getElementById("_88stShareBtn");
+    const saveBtn  = document.getElementById("_88stSaveBtn");
+    const histBtn  = document.getElementById("_88stHistBtn");
+    const exRow    = document.getElementById("_88stExampleRow");
+    const bar      = document.querySelector(".stx-bar");
+
+    if(dockCenter && shareBtn && !dockCenter.contains(shareBtn)) dockCenter.appendChild(shareBtn);
+    if(dockCenter && saveBtn  && !dockCenter.contains(saveBtn))  dockCenter.appendChild(saveBtn);
+    if(dockCenter && histBtn  && !dockCenter.contains(histBtn))  dockCenter.appendChild(histBtn);
+    if(dockRight  && exRow    && !dockRight.contains(exRow))     dockRight.appendChild(exRow);
+
+    // remove empty injected bar
+    if(bar && bar.parentNode){
+      try{ bar.remove(); }catch(e){ bar.parentNode.removeChild(bar); }
+    }
+  }
+
+  function watchGlobalBar(){
+    const ok = ()=>{
+      const shareBtn = document.getElementById("_88stShareBtn");
+      const exRow = document.getElementById("_88stExampleRow");
+      if(shareBtn && exRow){
+        relocateGlobalBar();
+        return true;
+      }
+      return false;
+    };
+    if(ok()) return;
+    const mo = new MutationObserver(()=>{ if(ok()) mo.disconnect(); });
+    mo.observe(document.body, {childList:true, subtree:true});
+  }
 
   function getSport(key){ return SPORTS.find(s=>s.key===key) || SPORTS[0]; }
   function getMarket(sportKey, marketKey){
@@ -672,6 +800,7 @@
     const market = getMarket(state.sportKey, state.marketKey);
     if(market.type === "pairLines") recalcPairLines();
     else recalcStandard();
+    setVState();
   }
 
   // --- Render
@@ -791,6 +920,7 @@
       if(pasteInput) pasteInput.value = "";
       render();
       setChip("neu","초기화됨");
+      setVState();
     });
   }
 
@@ -798,8 +928,10 @@
   try{
     fillSportOptions();
     fillMarketOptions();
+    bindVState();
     bind();
     render();
+    watchGlobalBar();
   }catch(e){
     console && console.error && console.error("[tool-virtual] init error", e);
   }
