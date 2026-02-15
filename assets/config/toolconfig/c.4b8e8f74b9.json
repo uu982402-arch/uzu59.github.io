@@ -1,0 +1,78 @@
+{
+  "tool": "virtual",
+  "title": "가상스포츠 분석기",
+  "inputs": [
+    "vsHomeOdds", "vsDrawOdds", "vsAwayOdds", "vsPick",
+    "vsHomeP", "vsDrawP", "vsAwayP", "vsNote",
+
+    "vbOddsA", "vbOddsB", "vbPick",
+    "vbPA", "vbPB", "vbNote",
+
+    "vhList",
+
+    "bankroll", "kellyFrac", "kellyCap"
+  ],
+  "outputs": {
+    "sumImp": "#sumImp",
+    "margin": "#margin",
+    "fairProb": "#fairProb",
+    "fairOdds": "#fairOdds",
+    "ev": "#ev",
+    "kelly": "#kelly",
+    "stake": "#stake"
+  },
+  "shareParams": {
+    "vsHomeOdds": "h",
+    "vsDrawOdds": "d",
+    "vsAwayOdds": "a",
+    "vsPick": "p",
+    "vsHomeP": "ph",
+    "vsDrawP": "pd",
+    "vsAwayP": "pa",
+    "vbOddsA": "ba",
+    "vbOddsB": "bb",
+    "vbPick": "bp",
+    "vbPA": "bpa",
+    "vbPB": "bpb",
+    "vhList": "hl",
+    "bankroll": "br",
+    "kellyFrac": "kf",
+    "kellyCap": "kc"
+  },
+  "examples": [
+    {
+      "label": "가상축구 예시",
+      "values": {
+        "vsHomeOdds": "2.10",
+        "vsDrawOdds": "3.40",
+        "vsAwayOdds": "3.60",
+        "vsPick": "H",
+        "vsHomeP": "48",
+        "vsDrawP": "27",
+        "vsAwayP": "25",
+        "kellyFrac": "0.50",
+        "kellyCap": "5"
+      }
+    },
+    {
+      "label": "가상농구 예시",
+      "values": {
+        "vbOddsA": "1.92",
+        "vbOddsB": "1.92",
+        "vbPick": "A",
+        "vbPA": "54",
+        "vbPB": "46",
+        "kellyFrac": "0.50",
+        "kellyCap": "5"
+      }
+    },
+    {
+      "label": "가상경마 예시",
+      "values": {
+        "vhList": "1 3.20 28\n2 4.50 20\n3 6.00 16\n4 9.50 10\n5 12.0\n6 15.0",
+        "kellyFrac": "0.50",
+        "kellyCap": "5"
+      }
+    }
+  ]
+}
