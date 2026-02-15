@@ -66,7 +66,7 @@
 
     .tableWrap{overflow:auto; border-radius: 14px; border:1px solid rgba(255,255,255,.10);}
     [data-theme="light"] .tableWrap{border:1px solid rgba(0,0,0,.10);}
-    .tbl{width:100%; border-collapse:collapse; min-width: 840px;}
+    .tbl{width:100%; border-collapse:collapse; min-width: 720px;}
     .tbl th,.tbl td{padding:10px 10px; text-align:left; border-bottom:1px solid rgba(255,255,255,.08); font-size:13px; white-space:nowrap;}
     [data-theme="light"] .tbl th,[data-theme="light"] .tbl td{border-bottom:1px solid rgba(0,0,0,.08);}
     .tbl th{font-size:12px; opacity:.82; letter-spacing:.02em;}
@@ -87,7 +87,15 @@
     [data-theme="light"] .divider{background: rgba(0,0,0,.08);}
 
     .textarea{min-height: 140px; resize: vertical;}
-  </style>
+  
+    /* layout hardening: prevent table min-width from squeezing result card */
+    .grid{align-items:start;}
+    .grid > .card{min-width:0;}
+    .tableWrap{max-width:100%;}
+    @media (min-width: 980px){
+      .grid > .card:last-child{position:sticky; top: 96px; align-self:start;}
+    }
+</style>
 </head>
 
 <body>
