@@ -6,7 +6,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>스포츠 배당 분석기(오버라운드·공정배당·마진) | 88ST</title>
 <meta content="축구·농구·야구·배구·e스포츠·하키 배당으로 공정확률/공정배당, 오버라운드(마진), 라인(OU/핸디) 마진까지 한 번에 계산하는 스포츠 배당 분석기." name="description"/>
-<meta content="스포츠 배당 분석기, 배당률 계산기, 오버라운드, 배당 마진, 비그(vig), 공정확률 계산기, 공정배당, 언더오버 마진, 핸디캡 마진, 1X2 마진, 오즈 비교" name="keywords"/>
+<meta content="스포츠 배당 정밀 분석기, 배당 마진 계산기, 오버라운드 계산기, 비그 제거(무비그), 공정확률 계산기, 공정배당 계산기, 1X2 마진, 2-way 마진, 언더오버(O/U) 마진, 핸디캡 마진, 오즈 무브(오픈 vs 현재), 시장 평균(여러 북메이커), 최고배당 비교, 멀티 스캔 TOP3, 1줄 붙여넣기 자동입력, implied probability, fair odds, overround, margin, de-vig, 88ST 스포츠 PRO" name="keywords"/>
 <link href="https://88st.cloud/analysis/" rel="canonical"/>
 <meta content="index,follow" name="robots"/>
 <link href="/assets/css/x.0b2e79a53127.css" rel="stylesheet"/>
@@ -143,6 +143,8 @@
 .pro-scanitem .right{display:flex;align-items:center;gap:10px}
 .pro-badge{font-size:12px;font-weight:900;padding:7px 10px;border-radius:999px;background:rgba(0,0,0,.07)}
 .pro-badge.good{background:rgba(0,0,0,.08)}
+.pro-badge.warn{background:rgba(255,180,0,.18);border:1px solid rgba(255,180,0,.22)}
+.pro-badge.bad{background:rgba(255,60,60,.12);border:1px solid rgba(255,60,60,.20)}
 .pro-inline{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .pro-divider{height:1px;background:rgba(0,0,0,.08);margin:8px 0}
 /* mobile prevent weird wraps */
@@ -192,6 +194,10 @@
 .pro-opts[open] summary{background:rgba(255,255,255,.72)}
 .pro-opts-body{padding-top:12px}
 .pro-miniout{margin-top:10px}
+#summaryOut{border:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.65);border-radius:18px;padding:12px}
+#summaryOut .sum-line{font-size:13px;font-weight:800;line-height:1.4}
+#summaryOut .sum-sub{font-size:12px;opacity:.75;line-height:1.45;margin-top:8px}
+#summaryOut .sum-mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
 .pro-mini-grid{display:grid;gap:10px}
 @media (min-width:700px){.pro-mini-grid.cols2{grid-template-columns:1fr 1fr}}
 .pro-mini-kv{display:grid;gap:10px}
@@ -210,16 +216,13 @@
 </style>
 </head>
 <body>
-<div class="scam-popup" id="scamPopup">
+<div class="scam-popup" id="scamPopup" role="region" aria-label="사칭 주의 안내">
 <div class="scam-box">
-<h3>⚠️ 사칭 주의 안내</h3>
-<p>
-      88 커뮤니티 공식 관리자 텔레그램은<br/>
-<b>@UZU59</b> 단 하나입니다.<br/><br/>
-      그 외 계정은 사칭일 수 있으니<br/>
-      반드시 주의해 주세요.
-    </p>
-<div class="btn primary" data-d8593ac4d="VQkTbQtZrbr_">확인</div>
+  <div class="scam-left">
+    <div class="scam-ic">⚠</div>
+    <div class="scam-msg"><b>사칭 주의</b> · 공식 관리자 텔레그램은 <b>@UZU59</b> 단 하나입니다. 다른 계정 주의</div>
+  </div>
+  <div class="btn primary" data-d8593ac4d="VQkTbQtZrbr_">확인</div>
 </div>
 </div>
 <div class="ad-popup" id="adPopup">
@@ -380,6 +383,13 @@
 <div class="pro-kvi"><div class="k">업셋(정배 아닌 결과)</div><div class="v" id="kvUpset">—</div><div class="s" id="kvUpsetNote">—</div></div>
 <div class="pro-kvi"><div class="k">주의</div><div class="v" id="kvWarn" style="font-size:16px">입력 대기</div><div class="s">형식/값 검증</div></div>
 </div>
+
+<div class="pro-inline" id="sigRow" style="gap:10px;flex-wrap:wrap;margin-top:12px">
+  <span class="pro-badge" id="sigMargin">마진 등급 —</span>
+  <span class="pro-badge" id="sigAgreement" style="display:none">시장 합의도 —</span>
+  <span class="pro-badge" id="sigMove" style="display:none">오즈 무브 —</span>
+  <span class="pro-badge" id="sigMarketAvg" style="display:none">시장 평균 비교 —</span>
+</div>
 <div style="margin-top:12px">
 <table aria-label="공정확률 테이블" class="pro-table">
 <thead>
@@ -390,6 +400,16 @@
 </tbody>
 </table>
 </div>
+
+<div class="pro-divider" style="margin-top:12px"></div>
+<div class="pro-inline" style="justify-content:space-between;align-items:center;margin-top:10px">
+  <div>
+    <div class="pro-kicker" style="margin-bottom:6px">REFERENCE</div>
+    <div style="font-weight:900;font-size:16px">요약 · 참고</div>
+  </div>
+  <button class="pro-btn ghost" id="btnCopySummary" type="button">요약 복사</button>
+</div>
+<div class="pro-miniout" id="summaryOut" style="margin-top:10px"></div>
 <div class="pro-note" id="noteVol" style="margin-top:10px">
         ※ 가상/스포츠 공통: 정배가 높아도 역배는 충분히 나옵니다. 확률은 “장기 빈도”이고, 단기에는 변동성이 큽니다.
       </div>
@@ -413,6 +433,6 @@
 <script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
 <script src="../assets/js/inline-bundles/b.e942e1c830.js"></script>
 <script defer="" src="/assets/js/j.025d649c8b11.js"></script>
-<script defer="" src="/assets/js/inline-bundles/b.analysis.pro.v48.3f1b7c2a.js"></script>
+<script defer="" src="/assets/js/inline-bundles/b.analysis.pro.v52.20260216.js"></script>
 </body>
 </html>

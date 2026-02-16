@@ -57,8 +57,13 @@ body{
 #loader.hide{opacity:0;pointer-events:none;transition:opacity .35s ease;}
 
 .scam-popup{
-  position:fixed; inset:0; background:rgba(0,0,0,.75);
-  display:none; align-items:center; justify-content:center; z-index:3000; padding:18px;
+  position:fixed;
+  /* Avoid `inset` shorthand for older/quirky browsers */
+  top:0; right:0; bottom:0; left:0;
+  width:100vw;
+  height:100vh;
+  background:rgba(0,0,0,.75);
+  display:none; align-items:center; justify-content:center; z-index:99999; padding:18px;
 }
 .scam-box{
   background:rgba(17,17,17,.95);
