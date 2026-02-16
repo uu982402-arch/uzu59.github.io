@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html data-theme="light" lang="ko">
 <head>
 <meta charset="utf-8"/>
@@ -150,9 +151,65 @@
   .pro-btn{flex:1}
 }
 </style>
+<style>
+/* v46 mobile polish: remove theory-formula 느낌 */
+@media (max-width: 520px){
+  .pro-kvi .s{display:none !important;}
+  .pro-kvi .v{font-size:20px;}
+  .pro-kicker{font-size:11px;}
+  .pro-pill{font-size:11px;padding:7px 9px;}
+}
+</style>
+<style>
+/* v47: mobile formula toggle */
+.pro-kvwrap{position:relative}
+.pro-helpbtn{
+  position:absolute; top:10px; right:10px;
+  width:28px; height:28px; border-radius:999px;
+  border:1px solid rgba(0,0,0,.12);
+  background:rgba(255,255,255,.7);
+  font-weight:900; cursor:pointer;
+  display:none; align-items:center; justify-content:center;
+}
+.pro-formula{margin-top:10px;padding:12px 14px;border-radius:18px;border:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.72)}
+.pro-formula-h{font-weight:900;margin-bottom:8px}
+.pro-formula-list{margin:0;padding-left:16px;opacity:.85;line-height:1.55;font-size:12px}
+.pro-formula-list b{font-weight:900}
+@media (max-width:520px){
+  .pro-helpbtn{display:inline-flex}
+  .pro-kvi .s{display:none} /* hide formula snippets in KPI cards */
+  .pro-formula[hidden]{display:none !important;}
+}
+</style>
+
+<style>
+/* v48: PRO options (collapsible) */
+.pro-opts{margin-top:14px}
+.pro-opts summary{list-style:none;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:18px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.62)}
+.pro-opts summary::-webkit-details-marker{display:none}
+.pro-opts .sum-left{display:flex;align-items:center;gap:10px;font-weight:900}
+.pro-opts .sum-badge{font-size:12px;font-weight:900;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.06)}
+.pro-opts[open] summary{background:rgba(255,255,255,.72)}
+.pro-opts-body{padding-top:12px}
+.pro-miniout{margin-top:10px}
+.pro-mini-grid{display:grid;gap:10px}
+@media (min-width:700px){.pro-mini-grid.cols2{grid-template-columns:1fr 1fr}}
+.pro-mini-kv{display:grid;gap:10px}
+@media (min-width:700px){.pro-mini-kv{grid-template-columns:repeat(3,1fr)}}
+.pro-mini-kvi{border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:12px;background:rgba(255,255,255,.62)}
+.pro-mini-kvi .k{font-size:12px;font-weight:750;opacity:.75}
+.pro-mini-kvi .v{font-size:18px;font-weight:900;margin-top:6px;font-variant-numeric:tabular-nums}
+.pro-mini-kvi .s{font-size:12px;opacity:.72;margin-top:4px}
+.pro-mini-table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.pro-mini-table th{text-align:left;font-size:12px;opacity:.7;padding:0 10px}
+.pro-mini-table td{background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.06);padding:10px 10px;font-weight:650}
+.pro-mini-table tr td:first-child{border-radius:14px 0 0 14px}
+.pro-mini-table tr td:last-child{border-radius:0 14px 14px 0}
+.pro-mini-table .best{outline:2px solid rgba(80,160,255,.45)}
+.pro-mini-table .mono{font-variant-numeric:tabular-nums}
+</style>
 </head>
 <body>
-
 <div class="scam-popup" id="scamPopup">
 <div class="scam-box">
 <h3>⚠️ 사칭 주의 안내</h3>
@@ -180,157 +237,182 @@
 <div class="ad-close" data-d8593ac4d="GF0gf-ppHzTB" style="margin-top:10px;text-align:center;">닫기</div>
 </div>
 </div>
-
 <div class="header">
-  <a aria-label="홈으로 이동" class="logo-link" href="/">
-    <img alt="88 커뮤니티" class="logo-img logoImg" src="/img/logo.png"/>
-  </a>
-  <div class="sub">스포츠 배당 분석기 PRO (공정확률·공정배당·마진 · 판단 보조용)</div>
+<a aria-label="홈으로 이동" class="logo-link" href="/">
+<img alt="88 커뮤니티" class="logo-img logoImg" src="/img/logo.png"/>
+</a>
+<div class="sub">스포츠 배당 분석기 PRO (공정확률·공정배당·마진 · 판단 보조용)</div>
 </div>
-
 <div class="wrap">
-
-  <section class="pro-card" id="proHero">
-    <div class="pro-hero">
-      <div>
-        <div class="pro-kicker">88ST · SPORTS PRO</div>
-        <h1 class="pro-title">스포츠 배당 정밀 분석기</h1>
-        <p class="pro-sub">배당만으로 <b>오버라운드(마진)</b>·<b>공정확률</b>·<b>공정배당</b>을 즉시 계산합니다. (결과 예측 도구 아님)</p>
-        <div class="pro-pills" aria-label="핵심 기능">
-          <span class="pro-pill">⚡ 1줄 붙여넣기 자동 적용</span>
-          <span class="pro-pill">🧠 언더독 민감 보정(선택)</span>
-          <span class="pro-pill">🏁 멀티 붙여넣기 → 마진 최저 TOP3</span>
-        </div>
-      </div>
-      <div class="pro-kv" style="min-width:260px">
-        <div class="pro-kvi"><div class="k">현재 마켓</div><div class="v" id="kvMarket">—</div><div class="s" id="kvSport">—</div></div>
-        <div class="pro-kvi"><div class="k">오버라운드</div><div class="v" id="kvOver">—</div><div class="s">Σ(1/배당)</div></div>
-        <div class="pro-kvi"><div class="k">마진</div><div class="v" id="kvMargin">—</div><div class="s">오버라운드 - 1</div></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="pro-grid cols2" style="margin-top:14px">
-    <section class="pro-card" id="proInput">
-      <div class="pro-form">
-        <div class="pro-field">
-          <label for="quickPaste">빠른 붙여넣기 (1줄/여러줄)</label>
-          <textarea id="quickPaste" placeholder="예: 맨시티 1.72 3.90 4.80 리버풀
+<section class="pro-card" id="proHero">
+<div class="pro-hero">
+<div>
+<div class="pro-kicker">88ST · SPORTS PRO</div>
+<h1 class="pro-title">스포츠 배당 정밀 분석기</h1>
+<p class="pro-sub">배당만으로 <b>오버라운드(마진)</b>·<b>공정확률</b>·<b>공정배당</b>을 즉시 계산합니다. (결과 예측 도구 아님)</p>
+<div aria-label="핵심 기능" class="pro-pills">
+<span class="pro-pill">⚡ 1줄 붙여넣기 자동 적용</span>
+<span class="pro-pill">🧠 언더독 민감 보정(선택)</span>
+<span class="pro-pill">🏁 멀티 붙여넣기 → 마진 최저 TOP3</span>
+</div>
+</div>
+<div class="pro-kvwrap"><button aria-label="계산식/설명 보기" class="pro-helpbtn" id="btnFormula" type="button">?</button><div class="pro-kv" style="min-width:260px">
+<div class="pro-kvi"><div class="k">현재 마켓</div><div class="v" id="kvMarket">—</div><div class="s" id="kvSport">—</div></div>
+<div class="pro-kvi"><div class="k">오버라운드</div><div class="v" id="kvOver">—</div><div class="s">Σ(1/배당)</div></div>
+<div class="pro-kvi"><div class="k">마진</div><div class="v" id="kvMargin">—</div><div class="s">오버라운드 - 1</div></div>
+</div></div><div class="pro-formula" hidden="" id="formulaPanel">
+<div class="pro-formula-h">계산식/설명</div>
+<ul class="pro-formula-list">
+<li><b>오버라운드</b> = Σ(1/배당)</li>
+<li><b>마진</b> = 오버라운드 − 1</li>
+<li><b>공정확률</b> = 비그(마진) 제거 후 확률 정규화</li>
+<li><b>공정배당</b> = 1 / 공정확률</li>
+<li>※ 이 도구는 <b>예측 도구가 아니라</b> “시장 확률/수수료 구조”를 빠르게 해석하기 위한 분석기입니다.</li>
+</ul>
+</div>
+</div>
+</section>
+<div class="pro-grid cols2" style="margin-top:14px">
+<section class="pro-card" id="proInput">
+<div class="pro-form">
+<div class="pro-field">
+<label for="quickPaste">빠른 붙여넣기 (1줄/여러줄)</label>
+<textarea id="quickPaste" placeholder="예: 맨시티 1.72 3.90 4.80 리버풀
 예: 2.5 1.90 1.95
 여러 줄 붙여넣기 → 자동 스캔 TOP3"></textarea>
-          <div class="pro-note">※ 숫자(배당)만 인식합니다. 1X2=3개, 2-way=2개, O/U·핸디=라인+2개(또는 자동 추정)</div>
-        </div>
+<div class="pro-note">※ 숫자(배당)만 인식합니다. 1X2=3개, 2-way=2개, O/U·핸디=라인+2개(또는 자동 추정)</div>
+</div>
+<div class="pro-actions">
+<button class="pro-btn primary" id="btnApply" type="button">분석하기</button>
+<button class="pro-btn secondary" id="btnScan" type="button">멀티 스캔 TOP3</button>
+<button class="pro-btn ghost" id="btnClear" type="button">초기화</button>
+</div>
+<div class="pro-divider"></div>
+<div class="pro-row cols3">
+<div class="pro-field">
+<label for="sportSel">종목</label>
+<select id="sportSel"><option value="soccer">축구</option><option value="basketball">농구</option><option value="baseball">야구</option><option value="volleyball">배구</option><option value="tennis">테니스</option><option value="tabletennis">탁구</option><option value="badminton">배드민턴</option><option value="handball">핸드볼</option><option value="hockey">하키</option><option value="rugby">럭비</option><option value="americanfootball">미식축구</option><option value="cricket">크리켓</option><option value="futsal">풋살</option><option value="mma">격투기(MMA)</option><option value="boxing">복싱</option><option value="esports">e스포츠</option><option value="other">기타(커스텀)</option></select>
+</div>
+<div class="pro-field">
+<label for="marketSel">마켓</label>
+<select id="marketSel">
+<option value="auto">자동 감지</option>
+<option value="1x2">승/무/패 (1X2)</option>
+<option value="2way">2-way (승/패)</option>
+<option value="ou">오버/언더</option>
+<option value="handicap">핸디캡</option>
+</select>
+</div>
+<div class="pro-field">
+<label for="methodSel">공정확률 방식</label>
+<select id="methodSel"><option value="norm">정규화(기본)</option><option selected="" value="power">파워(권장)</option><option value="add">가산(균등)</option><option value="udog">언더독 민감(보정)</option></select>
+</div>
+</div>
+<div class="pro-row cols3" id="inputs1x2" style="display:none">
+<div class="pro-field"><label for="od1">홈</label><input id="od1" inputmode="decimal" placeholder="예: 1.95"/></div>
+<div class="pro-field"><label for="odx">무</label><input id="odx" inputmode="decimal" placeholder="예: 3.40"/></div>
+<div class="pro-field"><label for="od2">원정</label><input id="od2" inputmode="decimal" placeholder="예: 4.10"/></div>
+</div>
+<div class="pro-row cols2" id="inputs2way" style="display:none">
+<div class="pro-field"><label for="odA">A</label><input id="odA" inputmode="decimal" placeholder="예: 1.90"/></div>
+<div class="pro-field"><label for="odB">B</label><input id="odB" inputmode="decimal" placeholder="예: 1.95"/></div>
+</div>
+<div class="pro-row cols3" id="inputsOU" style="display:none">
+<div class="pro-field"><label for="lineOU">라인</label><input id="lineOU" inputmode="decimal" placeholder="예: 2.5"/></div>
+<div class="pro-field"><label for="odO">오버</label><input id="odO" inputmode="decimal" placeholder="예: 1.90"/></div>
+<div class="pro-field"><label for="odU">언더</label><input id="odU" inputmode="decimal" placeholder="예: 1.95"/></div>
+</div>
+<div class="pro-row cols3" id="inputsHcap" style="display:none">
+<div class="pro-field"><label for="lineH">핸디 라인</label><input id="lineH" inputmode="decimal" placeholder="예: -1.5"/></div>
+<div class="pro-field"><label for="odH1">선택 A</label><input id="odH1" inputmode="decimal" placeholder="예: 1.92"/></div>
+<div class="pro-field"><label for="odH2">반대(B)</label><input id="odH2" inputmode="decimal" placeholder="예: 1.92"/></div>
+</div>
+<div class="pro-note">TIP) “정배만 높아 보인다”면 <b>언더독 민감(보정)</b>으로 공정확률을 한 번 더 확인해보세요. (시장 확률 해석 보조)</div>
 
+<details class="pro-opts" id="proOptions">
+  <summary>
+    <div class="sum-left">🛠️ PRO 옵션</div>
+    <div class="sum-badge">접기/펼치기</div>
+  </summary>
+  <div class="pro-opts-body">
+    <div class="pro-mini-grid cols2">
+      <div>
+        <div class="pro-kicker" style="margin-bottom:6px">ODDS MOVE</div>
+        <div style="font-weight:900;font-size:16px">오즈 무브 (오픈 vs 현재)</div>
+        <div class="pro-note">오픈(초기) 배당을 저장/붙여넣고, 현재 배당과의 변화(Δ)·확률 변화(Δp)를 계산합니다.</div>
+
+        <div class="pro-field" style="margin-top:10px">
+          <label for="openPaste">오픈 배당 붙여넣기 (1줄)</label>
+          <textarea id="openPaste" placeholder="예: (오픈) 맨시티 1.80 3.70 4.40 리버풀\n예: (오픈) 2.5 1.91 1.91"></textarea>
+        </div>
         <div class="pro-actions">
-          <button class="pro-btn primary" id="btnApply" type="button">즉시 적용</button>
-          <button class="pro-btn secondary" id="btnScan" type="button">멀티 스캔 TOP3</button>
-          <button class="pro-btn ghost" id="btnClear" type="button">초기화</button>
+          <button class="pro-btn secondary" id="btnOpenFromCurrent" type="button">현재값을 오픈으로 저장</button>
+          <button class="pro-btn ghost" id="btnApplyOpen" type="button">오픈 적용</button>
+          <button class="pro-btn ghost" id="btnClearOpen" type="button">오픈 초기화</button>
         </div>
-
-        <div class="pro-divider"></div>
-
-        <div class="pro-row cols3">
-          <div class="pro-field">
-            <label for="sportSel">종목</label>
-            <select id="sportSel">
-              <option value="soccer">축구</option>
-              <option value="basketball">농구</option>
-              <option value="baseball">야구</option>
-              <option value="volleyball">배구</option>
-              <option value="esports">e스포츠</option>
-              <option value="hockey">하키</option>
-            </select>
-          </div>
-          <div class="pro-field">
-            <label for="marketSel">마켓</label>
-            <select id="marketSel">
-              <option value="auto">자동 감지</option>
-              <option value="1x2">승/무/패 (1X2)</option>
-              <option value="2way">2-way (승/패)</option>
-              <option value="ou">오버/언더</option>
-              <option value="handicap">핸디캡</option>
-            </select>
-          </div>
-          <div class="pro-field">
-            <label for="methodSel">공정확률 방식</label>
-            <select id="methodSel">
-              <option value="norm">정규화(기본)</option>
-              <option value="udog">언더독 민감(보정)</option>
-            </select>
-          </div>
-        </div>
-
-        <div id="inputs1x2" class="pro-row cols3" style="display:none">
-          <div class="pro-field"><label for="od1">홈</label><input id="od1" inputmode="decimal" placeholder="예: 1.95"></div>
-          <div class="pro-field"><label for="odx">무</label><input id="odx" inputmode="decimal" placeholder="예: 3.40"></div>
-          <div class="pro-field"><label for="od2">원정</label><input id="od2" inputmode="decimal" placeholder="예: 4.10"></div>
-        </div>
-
-        <div id="inputs2way" class="pro-row cols2" style="display:none">
-          <div class="pro-field"><label for="odA">A</label><input id="odA" inputmode="decimal" placeholder="예: 1.90"></div>
-          <div class="pro-field"><label for="odB">B</label><input id="odB" inputmode="decimal" placeholder="예: 1.95"></div>
-        </div>
-
-        <div id="inputsOU" class="pro-row cols3" style="display:none">
-          <div class="pro-field"><label for="lineOU">라인</label><input id="lineOU" inputmode="decimal" placeholder="예: 2.5"></div>
-          <div class="pro-field"><label for="odO">오버</label><input id="odO" inputmode="decimal" placeholder="예: 1.90"></div>
-          <div class="pro-field"><label for="odU">언더</label><input id="odU" inputmode="decimal" placeholder="예: 1.95"></div>
-        </div>
-
-        <div id="inputsHcap" class="pro-row cols3" style="display:none">
-          <div class="pro-field"><label for="lineH">핸디 라인</label><input id="lineH" inputmode="decimal" placeholder="예: -1.5"></div>
-          <div class="pro-field"><label for="odH1">선택 A</label><input id="odH1" inputmode="decimal" placeholder="예: 1.92"></div>
-          <div class="pro-field"><label for="odH2">반대(B)</label><input id="odH2" inputmode="decimal" placeholder="예: 1.92"></div>
-        </div>
-
-        <div class="pro-note">TIP) “정배만 높아 보인다”면 <b>언더독 민감(보정)</b>으로 공정확률을 한 번 더 확인해보세요. (시장 확률 해석 보조)</div>
-      </div>
-    </section>
-
-    <section class="pro-card" id="proResult">
-      <div class="pro-kv">
-        <div class="pro-kvi"><div class="k">공정배당(요약)</div><div class="v" id="kvFair">—</div><div class="s" id="kvFairNote">—</div></div>
-        <div class="pro-kvi"><div class="k">업셋(정배 아닌 결과)</div><div class="v" id="kvUpset">—</div><div class="s" id="kvUpsetNote">—</div></div>
-        <div class="pro-kvi"><div class="k">주의</div><div class="v" style="font-size:16px" id="kvWarn">입력 대기</div><div class="s">형식/값 검증</div></div>
+        <div class="pro-miniout" id="openOut"></div>
       </div>
 
-      <div style="margin-top:12px">
-        <table class="pro-table" aria-label="공정확률 테이블">
-          <thead>
-            <tr><th style="padding-left:12px">선택</th><th>배당</th><th>공정확률</th><th>공정배당</th></tr>
-          </thead>
-          <tbody id="tblBody">
-            <tr><td colspan="4" style="border-radius:14px;text-align:center;opacity:.7">입력 후 자동 계산됩니다.</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <div>
+        <div class="pro-kicker" style="margin-bottom:6px">MARKET AVG</div>
+        <div style="font-weight:900;font-size:16px">북메이커 시장평균 비교 (복붙)</div>
+        <div class="pro-note">여러 소스(북메이커/커뮤니티) 배당을 <b>줄마다</b> 붙여넣으면, <b>시장 평균(컨센서스)</b> 기준 공정배당과 결과별 최고배당을 계산합니다. <span class="muted">시장 평균=각 줄의 암시확률을 마진 제거 후 평균낸 값</span></div>
 
-      <div class="pro-note" id="noteVol" style="margin-top:10px">
+        <div class="pro-field" style="margin-top:10px">
+          <label for="consPaste">여러 줄 붙여넣기</label>
+          <textarea id="consPaste" placeholder="bet365: 1.90 3.40 4.10\npinnacle: 1.92 3.50 4.00\nbook3: 1.88 3.55 4.20\n\n※ 라인/마켓이 다르면 자동 제외"></textarea>
+        </div>
+        <div class="pro-actions">
+          <button class="pro-btn secondary" id="btnConsRun" type="button">비교하기</button>
+          <button class="pro-btn ghost" id="btnConsApplyBest" type="button">최고배당 적용</button>
+          <button class="pro-btn ghost" id="btnConsClear" type="button">초기화</button>
+        </div>
+        <div class="pro-miniout" id="consOut"></div>
+      </div>
+    </div>
+  </div>
+</details>
+</div>
+</section>
+<section class="pro-card" id="proResult">
+<div class="pro-kv">
+<div class="pro-kvi"><div class="k">공정배당(요약)</div><div class="v" id="kvFair">—</div><div class="s" id="kvFairNote">—</div></div>
+<div class="pro-kvi"><div class="k">업셋(정배 아닌 결과)</div><div class="v" id="kvUpset">—</div><div class="s" id="kvUpsetNote">—</div></div>
+<div class="pro-kvi"><div class="k">주의</div><div class="v" id="kvWarn" style="font-size:16px">입력 대기</div><div class="s">형식/값 검증</div></div>
+</div>
+<div style="margin-top:12px">
+<table aria-label="공정확률 테이블" class="pro-table">
+<thead>
+<tr><th style="padding-left:12px">선택</th><th>배당</th><th>공정확률</th><th>공정배당</th></tr>
+</thead>
+<tbody id="tblBody">
+<tr><td colspan="4" style="border-radius:14px;text-align:center;opacity:.7">입력 후 자동 계산됩니다.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="pro-note" id="noteVol" style="margin-top:10px">
         ※ 가상/스포츠 공통: 정배가 높아도 역배는 충분히 나옵니다. 확률은 “장기 빈도”이고, 단기에는 변동성이 큽니다.
       </div>
-    </section>
-  </div>
-
-  <section class="pro-card" id="proScan" style="margin-top:14px;display:none">
-    <div class="pro-inline" style="justify-content:space-between">
-      <div>
-        <div class="pro-kicker" style="margin-bottom:6px">MARGIN SCANNER</div>
-        <div style="font-weight:900;font-size:18px">멀티 스캔 TOP3 (마진 최저)</div>
-        <div class="pro-note">여러 줄 붙여넣기 결과 중, <b>마진이 가장 낮은 3개</b>를 뽑아서 바로 적용할 수 있습니다.</div>
-      </div>
-      <button class="pro-btn ghost" id="btnScanClose" type="button">닫기</button>
-    </div>
-    <div class="pro-divider"></div>
-    <div class="pro-scanlist" id="scanList"></div>
-  </section>
-
+</section>
 </div>
-
+<section class="pro-card" id="proScan" style="margin-top:14px;display:none">
+<div class="pro-inline" style="justify-content:space-between">
+<div>
+<div class="pro-kicker" style="margin-bottom:6px">MARGIN SCANNER</div>
+<div style="font-weight:900;font-size:18px">멀티 스캔 TOP3 (마진 최저)</div>
+<div class="pro-note">여러 줄 붙여넣기 결과 중, <b>마진이 가장 낮은 3개</b>를 뽑아서 바로 적용할 수 있습니다.</div>
+</div>
+<button class="pro-btn ghost" id="btnScanClose" type="button">닫기</button>
+</div>
+<div class="pro-divider"></div>
+<div class="pro-scanlist" id="scanList"></div>
+</section>
+</div>
 <script src="/assets/js/j.9179477b9417.js"></script>
 <script defer="" src="/assets/js/j.efba3509e62c.js"></script>
 <script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
 <script src="../assets/js/inline-bundles/b.e942e1c830.js"></script>
 <script defer="" src="/assets/js/j.025d649c8b11.js"></script>
-<script defer src="/assets/js/inline-bundles/b.analysis.pro.v45.4f8c1a.js"></script>
+<script defer="" src="/assets/js/inline-bundles/b.analysis.pro.v48.3f1b7c2a.js"></script>
 </body>
 </html>
