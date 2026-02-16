@@ -54,14 +54,27 @@
 .bookKpi .v{font-size:18px;font-weight:900;margin-top:4px;font-variant-numeric:tabular-nums}
 .bookKpi .s{font-size:12px;opacity:.75;margin-top:4px}
 
-/* --- Ultra-clean analysis layout: no history, no hidden advanced clutter --- */
+/* --- Analysis cleanup: remove clutter, prevent overlaps --- */
+/* Keep underlying DOM (avoid JS break), but hide unnecessary UI surfaces */
+.controls-settings .selectWrap.is-hidden{display:none !important;}
+#valueInputs{display:none !important;}
+#lineCompareBox{display:none !important;}
+#bundleShareModal{display:none !important;}
+#perfBox{display:none !important;}
+.paste-actions .paste-adv{display:none !important;}
+.paste-actions .paste-inline{display:none !important;}
+#pasteListWrap{display:none !important;}
+#btnBundleShare{display:none !important;}
+.bundle-promo, .bundle-promo-adv{display:none !important;}
+.field.is-adv{display:none !important;}
 
-/* Ensure hero never overlaps on small screens */
+/* Typography + spacing refinements */
+.calc-hero-right .autosave{min-width:0}
 .calc-headline{line-height:1.25;overflow-wrap:anywhere}
 .calc-tags{gap:6px}
 .st-tabbar{flex-wrap:wrap}
 
-/* Paste actions: compact, wrap-safe */
+/* Paste box: keep primary action + utility actions, never overlap */
 .paste-actions{gap:10px;flex-wrap:wrap;align-items:center}
 .paste-actions .btn{white-space:nowrap}
 @media (max-width:560px){
@@ -70,20 +83,22 @@
   .paste-actions .btn.primary{flex:1 1 100%}
 }
 
-/* Result board (KV) */
-.kvBoard{display:grid;gap:10px;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:10px}
-@media (max-width:980px){.kvBoard{grid-template-columns:repeat(2,minmax(0,1fr));}}
-@media (max-width:560px){.kvBoard{grid-template-columns:1fr}}
-.kvCard{padding:14px 16px;border-radius:18px;border:1px solid var(--line, rgba(255,255,255,.12));background:var(--card, rgba(255,255,255,.04))}
-.kvCard .k{font-size:12px;opacity:.78}
-.kvCard .v{margin-top:6px;font-size:20px;font-weight:900;font-variant-numeric:tabular-nums}
-.kvCard .s{margin-top:6px;font-size:12px;opacity:.78;line-height:1.35}
-
-/* Force single-column on narrow layouts to prevent squish */
+/* Result: avoid cramped two-column on smaller screens */
 @media (max-width:1024px){
   .app-layout.is-two{display:block !important;}
   .app-right{margin-top:14px}
 }
+
+@media (max-width:860px){
+  .split{display:block !important;}
+  .split-col{margin-top:14px;}
+}
+
+.history-toolbar{flex-wrap:wrap;gap:8px;}
+.history-filters{flex-wrap:wrap;gap:8px;}
+
+/* Hide EV/Kelly output surfaces (if rendered) */
+.st-r-panel [data-role="ev"], .st-r-panel [data-role="kelly"], .st-r-panel .ev, .st-r-panel .kelly{display:none !important;}
 </style>
 </head>
 <body>
@@ -129,8 +144,8 @@
 <div class="calc-headline">마진 · 공정배당 · 라인별 마진까지 <span class="accent">한 번에</span></div>
 <div aria-label="주요 기능" class="calc-tags">
 <span class="tag">메인/OU/핸디 통합</span>
-
-<span class="tag">공유</span>
+<span class="tag">히스토리·비교</span>
+<span class="tag">공유·공유카드</span>
 </div>
 </div>
 <div class="calc-hero-right">
@@ -138,6 +153,7 @@
 <span class="autosave-label">자동 저장</span>
 <span aria-live="polite" class="save-badge" id="saveBadge"></span>
 </div>
+<button class="btn secondary mini" data-d8593ac4d="uOGSDv8DqmMO" type="button">10초 가이드</button>
 </div>
 </div>
 <div aria-hidden="true" class="calc-divider"></div>
@@ -153,9 +169,17 @@
 <option value="hockey">하키</option>
 </select>
 </div>
-
+<div class="selectWrap is-hidden">
+<div class="fieldLabel"><span class="stepBubble">2</span> 분석 레벨</div>
+<select class="select" data-ee0c80bcd="gvSyYi9vCk5m" id="level">
+<option value="simple">간단</option>
+<option value="mid">중급</option>
+<option value="adv">고급</option>
+</select>
+</div>
+</div>
 <div class="settingsHint">👇 먼저 <b>종목</b>을 선택하면, 아래 입력 폼(메인/오버·언더/핸디)이 자동으로 최적화됩니다.</div>
-<button class="btn ghost" data-d8593ac4d="xWlIZD_eEbXC" id="metaToggleBtn" type="button">추가 정보 입력(선택) ▾</button><div id="metaFields" style="display:none;"><div class="row2">
+<button class="btn ghost" data-d8593ac4d="xWlIZD_eEbXC" id="metaToggleBtn" type="button">추가 정보 입력(선택) ▾</button><div id="metaFields"><div class="row2">
 <div>
 <input class="textinput" id="league" placeholder="리그/대회명 (선택)"/>
 <div class="small-hint">※ 입력하지 않아도 분석 가능 / 공유 시 입력한 내용만 포함됩니다.</div>
@@ -171,9 +195,25 @@
 <button aria-selected="false" class="st-tab" data-jump="total" role="tab" type="button">오버·언더</button>
 <button aria-selected="false" class="st-tab" data-jump="handicap" role="tab" type="button">핸디캡</button>
 <button aria-selected="false" class="st-tab" data-jump="result" role="tab" type="button">결과</button>
+<button aria-selected="false" class="st-tab" data-jump="history" role="tab" type="button">히스토리</button>
 </nav>
-
-
+<div class="mini-guide" id="miniGuide">
+<div class="head" data-d8593ac4d="uOGSDv8DqmMO">
+<div>💡 처음이면 <b>10초 가이드</b></div>
+<button aria-expanded="false" class="pill" id="miniGuidePill" type="button">열기</button>
+</div>
+<div class="body" id="miniGuideBody">
+          1) <b>종목</b> 선택 → 2) <b>메인 배당</b> 입력(필수) → 3) 오버·언더/핸디(선택) → 4) <b>결과/히스토리</b> 확인.<br/>
+          • 결과는 <b>판단 보조용</b>이며, 마진이 낮을수록 장기적으로 덜 불리한 구조일 가능성이 큽니다.<br/>
+          • 히스토리 항목 클릭 → <b>입력 자동 복원 + 즉시 재계산</b>됩니다.
+        </div>
+</div>
+<div class="snap-wrap" id="snapWrap" style="display:none;">
+<div class="snap-head">
+<div>🕘 최근 입력</div>
+<div class="snap-meta" id="snapMeta"></div>
+</div>
+<div class="snap-list" id="snapList"></div>
 </div>
 <div class="box" id="pasteBox">
 <div class="box-head">
@@ -188,12 +228,44 @@
 <textarea class="paste-ta" id="pasteInput" placeholder="예) 맨시티 vs 리버풀  승 1.85 무 3.40 패 4.20 / 오버 2.5 1.95 언더 1.85 / 핸디 -1.5 1.90 1.95"></textarea>
 <div class="paste-actions">
 <button class="btn primary" data-d8593ac4d="RG2u63JlaEyJ" id="btnPasteOneTap" type="button">원터치 자동 입력+결과</button>
-<button class="btn ghost" id="btnPasteExample" type="button">예시</button>
-<button class="btn ghost" id="btnPasteClear" type="button">지우기</button>
+<button class="btn primary paste-adv" data-d8593ac4d="RG2u63JlaEyJ" type="button">자동 입력</button>
+<button class="btn secondary paste-adv" data-d8593ac4d="WfTVXwpHJuak" type="button">입력만</button>
+<button class="btn secondary paste-adv" data-d8593ac4d="I6HX1nAJRZ4l" type="button">여러 경기 만들기</button>
+<button class="btn ghost" data-d8593ac4d="SZ1yBqtdpqDt" type="button">예시</button>
+<button class="btn ghost" data-d8593ac4d="9ixszyLscJC2" type="button">지우기</button>
+<button class="btn ghost paste-adv" data-d8593ac4d="FE6sWoKqMaI7" type="button">리스트 지우기</button>
 <span class="paste-badge good" id="pasteBadgeOk" style="display:none;"></span>
 <span class="paste-badge warn" id="pasteBadgeWarn" style="display:none;"></span>
+<div class="paste-inline" style="margin-left:auto;">
+<label class="chk simple-only"><input checked="" id="pasteAutoRun" type="checkbox"/> 붙여넣자마자 계산</label>
+<label class="chk">메인 타입
+                  <select class="paste-select" id="pasteMainMode" title="메인 배당 타입">
+<option value="auto">자동</option>
+<option value="2">2배당</option>
+<option value="3">3배당</option>
+</select>
+</label>
+<label class="chk"><input checked="" id="pasteAutoLevel" type="checkbox"/> OU/핸디 감지 시 레벨 자동 전환</label>
+<label class="chk"><input checked="" id="pasteChainMode" type="checkbox"/> 클릭=연속 저장</label>
+<label class="chk"><input checked="" id="pasteSkipLow" type="checkbox"/> 정확도 낮음 제외</label>
+</div>
 </div>
 <div class="small-hint" id="pasteHint"></div>
+<div class="paste-list-wrap" id="pasteListWrap" style="display:none;">
+<div class="paste-list-head">
+<div class="k">감지된 경기</div>
+<div class="m" id="pasteListMeta"></div>
+<div class="paste-list-tools">
+<button class="btn ghost mini" data-d8593ac4d="SlRGMuG2WqLc" type="button">정렬: 마진 낮은순</button>
+<label class="paste-mini-label">연속
+                    <input class="paste-num" id="pasteChainCount" max="30" min="1" type="number" value="10"/>
+                    개
+                  </label>
+<button class="btn primary mini" data-d8593ac4d="MYhpccSZZMGX" type="button">연속 저장</button>
+<button class="btn ghost mini" data-d8593ac4d="bvfd5WWECgt3" id="pasteChainStop" style="display:none;" type="button">중지</button>
+<button class="btn secondary mini" data-d8593ac4d="Xk-t0nqs079A" id="btnBundleShare" type="button">오늘 수집 묶음</button>
+<button class="btn danger mini" data-d8593ac4d="1u-qKOhomaR0" title="오늘 수집 묶음(연속 저장으로 누적된 항목)을 초기화합니다." type="button">초기화</button>
+</div>
 </div>
 <div class="paste-list" id="pasteList"></div>
 </div>
@@ -225,48 +297,140 @@ pinnacle 2.38 3.44 2.86
   </div>
 </div>
 <div class="box" id="mainBox">
-  <div class="box-title" id="mainMarketTitle">메인 배당</div>
-  <div class="st-point" id="mainPoint"></div>
-
-  <div id="main2" style="display:none;">
-    <div class="grid">
-      <div class="field">
-        <label id="main2LabelA">선택 A 배당</label>
-        <input id="main2OddsA" inputmode="decimal" placeholder="예: 1.85"/>
-      </div>
-      <div class="field">
-        <label id="main2LabelB">선택 B 배당</label>
-        <input id="main2OddsB" inputmode="decimal" placeholder="예: 2.05"/>
-      </div>
-    </div>
-  </div>
-
-  <div id="main3" style="display:block;">
-    <div class="grid">
-      <div class="field">
-        <label id="main3LabelH">홈 배당</label>
-        <input id="main3OddsH" inputmode="decimal" placeholder="예: 2.10"/>
-      </div>
-      <div class="field">
-        <label id="main3LabelD">무 배당</label>
-        <input id="main3OddsD" inputmode="decimal" placeholder="예: 3.20"/>
-      </div>
-      <div class="field">
-        <label id="main3LabelA">원정 배당</label>
-        <input id="main3OddsA" inputmode="decimal" placeholder="예: 3.40"/>
-      </div>
-      <div class="field">
-        <label> </label>
-        <input disabled="" value="※ 축구는 3배당(홈/무/원정) 기준입니다"/>
-      </div>
-    </div>
-  </div>
-
-  <div class="small-hint" id="mainHint"></div>
+<div class="box-title" id="mainMarketTitle">메인 배당</div>
+<div class="st-point" id="mainPoint"></div>
+<div id="main2" style="display:none;">
+<div class="grid">
+<div class="field">
+<label id="main2LabelA">선택 A 배당</label>
+<input id="main2OddsA" inputmode="decimal" placeholder="예: 1.85"/>
+</div>
+<div class="field">
+<label id="main2LabelB">선택 B 배당</label>
+<input id="main2OddsB" inputmode="decimal" placeholder="예: 2.05"/>
+</div>
+</div>
+</div>
+<div id="main3" style="display:none;">
+<div class="grid">
+<div class="field">
+<label id="main3LabelH">홈 배당</label>
+<input id="main3OddsH" inputmode="decimal" placeholder="예: 2.10"/>
+</div>
+<div class="field">
+<label id="main3LabelD">무 배당</label>
+<input id="main3OddsD" inputmode="decimal" placeholder="예: 3.20"/>
+</div>
+<div class="field">
+<label id="main3LabelA">원정 배당</label>
+<input id="main3OddsA" inputmode="decimal" placeholder="예: 3.40"/>
+</div>
+<div class="field">
+<label> </label>
+<input disabled="" value="※ 축구는 3배당이 기본입니다"/>
+</div>
+</div>
+</div>
+<div id="valueInputs" style="display:none;">
+<div class="grid">
+<div class="field">
+<label id="myProbLabel">내 예상 확률(선택) %</label>
+<input id="myProb" inputmode="decimal" placeholder="예: 55  또는  45,28,27"/>
+<div class="small-hint" id="myProbHint"></div>
+</div>
+<div class="field">
+<label>베팅금(선택)</label>
+<input id="stake" inputmode="numeric" placeholder="예: 100000"/>
+<div class="small-hint">※ 입력 시 기대값(EV)을 원 단위로도 표시합니다.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="box" id="lineCompareBox">
+<div class="box-head">
+<div class="box-title" style="margin:0;">라인 비교 (A vs B)</div>
+<button class="toggle" data-d8593ac4d="klkZ57Kntwds" data-target="lineCompareBody" type="button">펼치기</button>
+</div>
+<div id="lineCompareBody" style="display:none;">
+<div class="small-hint" style="margin-top:4px;">
+            두 업체(또는 두 라인) 배당을 넣고 <b>마진/공정배당</b>을 비교하세요. 같은 조건이면 마진이 낮은 쪽이 유리한 경우가 많습니다.
+          </div>
+<div class="lc-grid">
+<div class="lc-col">
+<div class="lc-head">라인 A</div>
+<div class="grid lc-fields" id="lcA2" style="display:none;">
+<div class="field">
+<label id="lcA2LabelA">선택 A 배당</label>
+<input id="lcA2OddsA" inputmode="decimal" placeholder="예: 1.85"/>
+</div>
+<div class="field">
+<label id="lcA2LabelB">선택 B 배당</label>
+<input id="lcA2OddsB" inputmode="decimal" placeholder="예: 2.05"/>
+</div>
+</div>
+<div class="grid lc-fields" id="lcA3" style="display:none;">
+<div class="field">
+<label id="lcA3LabelH">홈 배당</label>
+<input id="lcA3OddsH" inputmode="decimal" placeholder="예: 2.10"/>
+</div>
+<div class="field">
+<label id="lcA3LabelD">무 배당</label>
+<input id="lcA3OddsD" inputmode="decimal" placeholder="예: 3.20"/>
+</div>
+<div class="field">
+<label id="lcA3LabelA">원정 배당</label>
+<input id="lcA3OddsA" inputmode="decimal" placeholder="예: 3.40"/>
+</div>
+<div class="field">
+<label> </label>
+<input disabled="" value="(A) 3배당 입력"/>
+</div>
+</div>
+<button class="btn secondary" data-d8593ac4d="fI3gsMKQ3iv8" type="button">A를 메인에 적용</button>
+</div>
+<div class="lc-col">
+<div class="lc-head">라인 B</div>
+<div class="grid lc-fields" id="lcB2" style="display:none;">
+<div class="field">
+<label id="lcB2LabelA">선택 A 배당</label>
+<input id="lcB2OddsA" inputmode="decimal" placeholder="예: 1.85"/>
+</div>
+<div class="field">
+<label id="lcB2LabelB">선택 B 배당</label>
+<input id="lcB2OddsB" inputmode="decimal" placeholder="예: 2.05"/>
+</div>
+</div>
+<div class="grid lc-fields" id="lcB3" style="display:none;">
+<div class="field">
+<label id="lcB3LabelH">홈 배당</label>
+<input id="lcB3OddsH" inputmode="decimal" placeholder="예: 2.10"/>
+</div>
+<div class="field">
+<label id="lcB3LabelD">무 배당</label>
+<input id="lcB3OddsD" inputmode="decimal" placeholder="예: 3.20"/>
+</div>
+<div class="field">
+<label id="lcB3LabelA">원정 배당</label>
+<input id="lcB3OddsA" inputmode="decimal" placeholder="예: 3.40"/>
+</div>
+<div class="field">
+<label> </label>
+<input disabled="" value="(B) 3배당 입력"/>
+</div>
+</div>
+<button class="btn secondary" data-d8593ac4d="TN8h5tkOhSfT" type="button">B를 메인에 적용</button>
+</div>
+</div>
+<div class="lc-out" id="lineCompareOut" style="display:none;"></div>
+<div class="actionRow" style="margin-top:10px;">
+<button class="btn" data-d8593ac4d="x1nSjbNFmm6Z" type="button">비교 계산</button>
+<button class="btn ghost" data-d8593ac4d="RqTwC004JmFA" type="button">현재 메인값으로 채우기</button>
+</div>
+</div>
 </div>
 <div class="box" id="handicapBox" style="display:none;">
 <div class="box-head">
-<div class="box-title" style="margin:0;">핸디캡 (선택)</div>
+<div class="box-title" style="margin:0;">핸디캡 (선택 · 정밀 마진)</div>
 <button class="toggle" data-d8593ac4d="TDbVewp0oa1u" data-target="handicapBody" type="button">접기</button>
 </div>
 <div id="handicapBody">
@@ -283,6 +447,10 @@ pinnacle 2.38 3.44 2.86
 <label id="handicapOddsBLabel">반대(선택B) 배당</label>
 <input id="handicapOddsB" inputmode="decimal" placeholder="예: 1.95"/>
 </div>
+<div class="field is-adv">
+<label>아시안(푸시) 근사(선택)</label>
+<input id="handicapPush" inputmode="decimal" placeholder="푸시 확률 % (예: 2)"/>
+</div>
 </div>
 <div class="small-hint">
             ※ “양쪽 배당”이 있어야 핸디 마진을 정밀 계산할 수 있습니다. (단일 배당만 있으면 참고 수준)
@@ -291,7 +459,7 @@ pinnacle 2.38 3.44 2.86
 </div>
 <div class="box" id="totalBox" style="display:none;">
 <div class="box-head">
-<div class="box-title" style="margin:0;">오버/언더 (선택)</div>
+<div class="box-title" style="margin:0;">오버/언더 (선택 · 아시안 근사 지원)</div>
 <button class="toggle" data-d8593ac4d="WS8n31aaHPFd" data-target="totalBody" type="button">접기</button>
 </div>
 <div id="totalBody">
@@ -308,6 +476,18 @@ pinnacle 2.38 3.44 2.86
 <label>언더 배당</label>
 <input id="underOdds" inputmode="decimal" placeholder="예: 1.85"/>
 </div>
+<div class="field is-adv">
+<label>아시안(푸시) 근사(선택)</label>
+<input id="ouPush" inputmode="decimal" placeholder="푸시 확률 % (예: 6)"/>
+</div>
+<div class="field is-adv">
+<label>내 예상 확률(오버) % (고급)</label>
+<input id="myOverProb" inputmode="decimal" placeholder="예: 52"/>
+</div>
+<div class="field">
+<label> </label>
+<input disabled="" value="※ 푸시 확률 미입력 시 종목 기본값으로 근사합니다"/>
+</div>
 </div>
 <div class="small-hint">※ 오버/언더는 선택 항목입니다. 배당만 입력해도 마진/공정배당 계산이 가능합니다.</div>
 </div>
@@ -315,7 +495,7 @@ pinnacle 2.38 3.44 2.86
 <div aria-live="polite" class="input-warn" id="inputWarn"></div>
 <div class="actions">
 <button class="btn primary" data-d8593ac4d="fmq5ven9k7Fa" id="btnCalc" type="button">계산하기</button>
-<button class="btn secondary" id="btnReset" type="button">초기화</button>
+<button class="btn secondary" data-d8593ac4d="ms2ix9qMVxiZ" type="button">초기화</button>
 </div>
 <div class="note">
         ※ 본 도구는 “판단 보조용”입니다. 승률을 보장하지 않으며, 손실을 감당 가능한 범위 내에서 이용하세요.
@@ -329,14 +509,210 @@ pinnacle 2.38 3.44 2.86
 </div>
 <div class="result" id="result" style="display:none;"></div>
 <div aria-label="저장/공유/업체 바로가기" class="result-dock" id="resultDock" style="display:none;">
-<button class="btn gold" id="btnShare" type="button">공유</button>
+<button class="btn secondary" data-d8593ac4d="AqnMNsluDUTE" type="button">저장됨 · 히스토리</button>
+<button class="btn gold" data-d8593ac4d="WS-vCSAFHNts" type="button">공유</button>
 <a class="btn secondary" data-cta="analysis_to_vendors" data-no-auto-outbound="1" href="/cert/">업체 카드</a>
 </div>
 </div>
-
+<div class="card" id="topInfoCard">
+<h2 class="sr-only">오늘 마진 낮은 TOP3 및 마진 기준</h2>
+<div class="split">
+<section aria-label="오늘 마진 낮은 계산 TOP3" class="split-col">
+<div class="subhead"><span class="mini-badge">TOP3</span>오늘 마진 낮은 계산 TOP3</div>
+<div class="small-hint">※ 오늘 저장된 히스토리에서 “마진%”가 가장 낮은 순으로 자동 정렬됩니다.</div>
+<div class="box" style="margin-top:10px;">
+<div class="box-title">메인 마진 TOP3</div>
+<div class="small-hint" id="topMain"></div>
+</div>
+<div class="box">
+<div class="box-title">오버/언더 마진 TOP3</div>
+<div class="small-hint" id="topOU"></div>
+</div>
+<div class="box">
+<div class="box-title">핸디캡 마진 TOP3</div>
+<div class="small-hint" id="topHC"></div>
+</div>
+</section>
+<section aria-label="마진 낮은 경기 기준과 예시" class="split-col">
+<div class="subhead"><span class="mini-badge">INFO</span>“마진 낮은 경기” 기준 &amp; 예시</div>
+<div class="note" style="margin-top:0;">
+      • 마진(수수료)은 <b>오버라운드-1</b>을 %로 표현한 값입니다.<br/>
+      • 종목/유형별로 일반적인 마진 범위가 달라서, 이 페이지는 <b>종목+유형별 기준</b>으로 “낮음/보통/주의/고마진”을 판정합니다.<br/>
+      • 아래 기준은 “대략적인 체감”을 빠르게 돕기 위한 용도이며, 실제 라인/업체/시장에 따라 달라질 수 있어요.
+    </div>
+<div class="box" style="margin-top:10px;">
+<div class="box-title">예시 (축구 1X2)</div>
+<div class="small-hint">
+        배당: <b>1.70 / 3.20 / 3.40</b> → 오버라운드가 커져 <b>고마진</b>으로 뜰 수 있습니다.<br/>
+        반대로 동일 시장에서 오버라운드가 1.05 근처면 대체로 <b>마진 낮음</b>으로 표시됩니다.
+      </div>
+</div>
+</section>
+</div>
+</div>
+<div class="card" id="historyCard">
+<h2 class="sr-only">최근 계산 히스토리</h2>
+<div class="small-hint">
+        • 히스토리 항목 클릭 → <b>입력 자동 복원 + 즉시 재계산</b><br/>
+        • 체크 2개 선택 → <b>비교(2개 나란히)</b> 가능
+      </div>
+<div class="history-actions">
+<div class="history-toolbar">
+<button class="btn secondary danger" data-d8593ac4d="YapZRugllwOs" disabled="" id="btnDeleteSelected" type="button">선택 삭제</button>
+<button class="btn secondary" data-d8593ac4d="CJkt3NTIGv-N" type="button">전체 삭제</button>
+<button class="btn secondary" data-d8593ac4d="ZkVzt3VeqjQH" disabled="" id="btnCompare" type="button">비교</button>
+<button class="btn secondary" data-d8593ac4d="ef8xOolOcchg" type="button">TOP3</button>
+</div>
+<div aria-label="히스토리 필터" class="history-filters">
+<button class="seg on" data-d8593ac4d="luIySC_qSxhZ" data-filter="all" type="button">전체</button>
+<button class="seg" data-d8593ac4d="X0VKKdCB-rqd" data-filter="rec" type="button">추천</button>
+<button class="seg" data-d8593ac4d="-H_c6tLDy42C" data-filter="untracked" type="button">미기록</button>
+<div class="pick-ind">선택 <b id="pickCount">0</b></div>
+</div>
+</div>
+<div class="perf-box" id="perfBox" style="display:none;">
+<div class="perf-title">
+<div>📊 내 성과</div>
+<div class="snap-meta" id="perfMeta"></div>
+</div>
+<div class="perf-sub" id="perfSub"></div>
+<div class="perf-grid" id="perfGrid"></div>
+</div>
+<div class="h-list" id="historyList"></div>
+</div>
+</div>
+<div class="modal" id="compareModal">
+<div class="modal-box">
+<div class="modal-head">
+<div class="t">비교 (2개 나란히)</div>
+<div class="modal-close" data-d8593ac4d="fzvwda_d90qo">닫기</div>
+</div>
+<div class="small-hint" style="margin-bottom:10px;">
+      히스토리에서 체크박스로 2개 선택 후 “비교 열기”를 누르세요.
+    </div>
+<div class="compare-grid" id="compareGrid"></div>
+</div>
+</div>
+<div class="modal" id="shareCardModal" style="display:none;">
+<div class="modal-box share">
+<div class="modal-head">
+<div class="t">공유 카드 (이미지 저장)</div>
+<div class="modal-close" data-d8593ac4d="IH2ODpJZCovh">닫기</div>
+</div>
+<div class="small-hint" style="margin-bottom:10px;">
+      결과가 생성된 상태에서만 카드가 만들어집니다. (텍스트/링크도 함께 복사 가능)
+    </div>
+<div class="share-canvas-wrap">
+<canvas aria-label="공유 카드 캔버스" class="share-canvas" height="1080" id="shareCardCanvas" width="1080"></canvas>
+</div>
+<div class="history-toolbar" style="margin-top:12px;">
+<button class="btn secondary" data-d8593ac4d="37kB_79DnI5W" type="button">링크 복사</button>
+<button class="btn gold" data-d8593ac4d="Ff4q1VIsadfc" type="button">이미지 저장</button>
+<button class="btn secondary" data-d8593ac4d="bK66pl_3HuZK" type="button">문구 복사</button>
+</div>
+</div>
+</div>
+<div class="modal" id="bundleShareModal" style="display:none;">
+<div class="modal-box share">
+<div class="modal-head">
+<div class="t" id="bundleTitle">오늘 수집 묶음</div>
+<div class="modal-close" data-d8593ac4d="VC6pVxT0Y2nJ">닫기</div>
+</div>
+<div class="small-hint" style="margin-bottom:10px;">
+      연속 저장(또는 클릭=연속 저장)으로 모은 항목을 <b>한 번에 공유</b>합니다. (각 항목 링크는 열면 동일 결과로 복원됩니다)
+    </div>
+<div class="bundle-meta" id="bundleMeta"></div>
+<div class="share-canvas-wrap">
+<canvas aria-label="오늘 수집 묶음 공유 카드" class="share-canvas" height="1080" id="bundleCanvas" width="1080"></canvas>
+</div>
+<textarea class="bundle-ta" id="bundleText" readonly=""></textarea>
+<div class="bundle-promo">
+<div class="bundle-promo-head">
+<div class="bundle-promo-title">홍보글 자동 생성</div>
+<div class="bundle-promo-ctrl">
+<select aria-label="홍보 채널 선택" class="inp mini" id="bundlePromoChannel"></select>
+<label class="bundle-switch" title="채널별 게시판 규칙(링크/톤/형식)에 맞춘 프리셋을 자동 적용합니다. 필요하면 꺼서 직접 조절하세요.">
+<input checked="" id="bundlePromoPreset" type="checkbox"/>
+<span>프리셋 자동</span>
+</label>
+<span class="bundle-pill" id="bundlePresetHint" style="display:none;"></span>
+<select aria-label="홍보 톤 선택" class="inp mini" id="bundlePromoStyle">
+<option value="promo">홍보형</option>
+<option value="info">정보형</option>
+<option value="tg">텔레그램형</option>
+</select>
+<select aria-label="링크 범위 선택" class="inp mini" id="bundlePromoLinks">
+<option value="top3">링크 TOP3(권장)</option>
+<option value="top5">링크 TOP5</option>
+<option value="all">링크 전체</option>
+<option value="one">링크 1개만</option>
+<option value="none">링크 0개</option>
+</select>
+<select aria-label="링크 1개 대상" class="inp mini" id="bundlePromoOneTarget" style="display:none;">
+<option value="analysis">분석기 링크</option>
+<option value="vendor">업체 카드 링크</option>
+</select>
+<label class="bundle-switch" title="UTM을 제거하고 https://를 생략해 URL을 짧게 표시합니다. (추적 정확도는 낮아질 수 있어요)">
+<input id="bundlePromoShortUrl" type="checkbox"/>
+<span>URL 줄이기</span>
+</label>
+<label class="bundle-switch" title="줄바꿈을 최소화해 게시판 규칙/필터에 더 잘 맞게 만듭니다.">
+<input id="bundlePromoCompact" type="checkbox"/>
+<span>줄바꿈 최소</span>
+</label>
+<label class="bundle-switch" title="링크를 못 올리는 게시판(링크 0개)에서 댓글로 요청을 유도하는 버전 문구를 추가합니다.">
+<input id="bundlePromoComment" type="checkbox"/>
+<span>댓글 유도</span>
+</label>
+<label class="bundle-switch" title="마진 낮음 또는 +EV 조건을 만족할 때만 업체 티저 1개를 포함합니다.">
+<input checked="" id="bundlePromoVendor" type="checkbox"/>
+<span>업체 1개(조건부)</span>
+</label>
+<button class="btn ghost mini" data-d8593ac4d="nVlJHwUjmGQ5" id="btnPromoAdv" title="업체 티저 포함 조건(마진/EV 임계값)과 프리셋 상태를 세부 조절합니다." type="button">고급</button>
+<button class="btn ghost mini" data-d8593ac4d="-WaoAgDSqeF3" title="문구 변형(3종) 중 다음 템플릿으로 바꿉니다" type="button">새 문구</button>
+</div>
+</div>
+<div class="bundle-promo-adv" id="bundlePromoAdv" style="display:none;">
+<div class="bundle-adv-row">
+<div class="bundle-adv-label">업체 티저 포함 조건</div>
+<div class="bundle-adv-controls">
+<label class="bundle-range" title="최저 마진이 이 값 이하이면 업체 티저를 포함할 수 있습니다.">
+          마진 ≤ <span id="bundleVendorMarginVal">3.2</span>%
+          <input id="bundleVendorMargin" max="6.0" min="2.0" step="0.1" type="range" value="3.2"/>
+</label>
+<label class="bundle-range" title="+EV(0보다 큰 EV)이 최소 몇 개 이상일 때 업체 티저를 포함할지 설정합니다.">
+          +EV ≥ <span id="bundleVendorEvVal">1</span>개
+          <input id="bundleVendorEv" max="5" min="0" step="1" type="range" value="1"/>
+</label>
+</div>
+</div>
+<div class="small-hint" style="margin-top:8px;">
+      임계값을 올리면 업체 티저가 더 자주 포함될 수 있어요. (게시판 규칙이 엄격한 채널은 프리셋이 링크/톤을 자동으로 제한합니다)
+    </div>
+</div>
+<div class="small-hint" style="margin-top:8px;">
+    채널/톤/옵션을 바꾸면 홍보 문구가 자동 생성됩니다. (게시판 규칙에 맞춰 링크 0~전체/URL 짧게/줄바꿈 최소를 선택 가능)
+  </div>
+<textarea class="bundle-ta bundle-ta--promo" id="bundlePromoText" readonly=""></textarea>
+<div class="history-toolbar" style="margin-top:10px;">
+<button class="btn secondary" data-d8593ac4d="jKPqvhIv1KY_" type="button">홍보글 복사</button>
+<button class="btn ghost" data-d8593ac4d="ZhWufXRUtvAR" type="button">제목 복사</button>
+<button class="btn ghost" data-d8593ac4d="MstW3ga9vnG4" type="button">말머리 복사</button>
+</div>
+</div>
+<div class="history-toolbar" style="margin-top:12px;">
+<button class="btn secondary" data-d8593ac4d="MXCqtr-ry1oG" type="button">문구 복사</button>
+<button class="btn secondary" data-d8593ac4d="D8rKqy4z83SF" type="button">링크만 복사</button>
+<button class="btn ghost" data-d8593ac4d="yqB3OaYKCXoC" type="button">TOP3 요약 복사</button>
+<button class="btn gold" data-d8593ac4d="ddZX1WfOYxLL" type="button">이미지 저장</button>
+<button class="btn danger" data-d8593ac4d="1u-qKOhomaR0" type="button">오늘 묶음 초기화</button>
+</div>
+</div>
+</div>
 <div aria-label="빠른 동작" class="mobile-dock" id="mobileDock">
 <button class="dock-btn primary" data-d8593ac4d="fmq5ven9k7Fa" type="button">계산</button>
-<button class="dock-btn" id="btnShareMobile" type="button">공유</button>
+<button class="dock-btn" data-d8593ac4d="AqnMNsluDUTE" type="button">저장</button>
+<button class="dock-btn" data-d8593ac4d="WS-vCSAFHNts" type="button">공유</button>
 <a class="dock-btn" data-cta="analysis_dock_vendors" data-no-auto-outbound="1" href="/cert/">업체</a>
 </div>
 <div id="toast88"></div>
@@ -351,10 +727,60 @@ pinnacle 2.38 3.44 2.86
 <div class="st-r-panel" data-r-panel="detail" hidden=""></div>
 </section>
 </template>
-
-
-<script src="/assets/js/inline-bundles/b.analysis.v43.lite.js"></script>
-
+<template id="tplHistoryEmpty">
+<div class="demo-empty" data-role="history-empty">
+<div class="demo-title" data-slot="title"></div>
+<div class="demo-desc" data-slot="desc"></div>
+<div class="demo-btns">
+<button class="btn primary2" data-demo="soccer" type="button">⚽ 축구 예시로 계산</button>
+<button class="btn primary2" data-demo="basketball" type="button">🏀 농구 예시로 계산</button>
+</div>
+<div class="demo-note">※ 예시는 샘플 데이터이며, 실제 결과/승률을 보장하지 않습니다.</div>
+</div>
+</template>
+<template id="tplHistoryItem">
+<article class="h-item" data-role="history-item" role="button" tabindex="0">
+<div class="h-top">
+<div class="h-left">
+<div class="h-title" data-slot="title"></div>
+<div class="h-sub" data-slot="sub"></div>
+<div class="h-outcome" data-role="outcome">
+<div class="row">
+<div class="label">결과 기록</div>
+<span class="outTag" data-slot="outTag">미기록</span>
+</div>
+<div class="outBtns">
+<button class="oBtn" data-h-action="outcome" data-outcome="W" type="button">✅ 적중</button>
+<button class="oBtn" data-h-action="outcome" data-outcome="L" type="button">❌ 미적중</button>
+<button class="oBtn" data-h-action="outcome" data-outcome="V" type="button">⚪ 취소</button>
+<button class="oBtn" data-h-action="outcome" data-outcome="" type="button">↩︎ 미기록</button>
+</div>
+</div>
+</div>
+<div class="h-actions" data-role="actions">
+<button class="primary2" data-h-action="restoreCalc" type="button">복원+재계산</button>
+<button data-h-action="restoreOnly" type="button">복원만</button>
+<label class="pick">
+<input data-h-action="pick" type="checkbox"/>
+          비교
+        </label>
+</div>
+</div>
+</article>
+</template>
+<script src="../assets/js/inline-bundles/b.e942e1c830.js"></script>
+<div aria-label="처음 이용 가이드" aria-modal="true" id="onbPopover" role="dialog">
+<div class="onb-hd">
+<div class="onb-title" id="onbTitle">처음 이용 가이드</div>
+<div class="onb-step" id="onbStep">1/3</div>
+</div>
+<div class="onb-body" id="onbBody"></div>
+<div class="onb-actions">
+<button class="btn onb-skip" data-d8593ac4d="VOhHWL2BF7E0" type="button">건너뛰기</button>
+<button class="btn secondary" data-d8593ac4d="8qSAzlxTJHGC" type="button">이전</button>
+<button class="btn primary" data-d8593ac4d="b_J_l7QdVHpG" type="button">다음</button>
+</div>
+</div>
 <script defer="" src="/assets/js/j.025d649c8b11.js"></script>
 <script>
 (() => {
