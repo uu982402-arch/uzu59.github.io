@@ -19,9 +19,10 @@
 <link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
 <link href="/assets/c.b9ac867a4d9b.css" rel="stylesheet"/>
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
+<link href="/assets/c.minigame.v55.20260217.css" rel="stylesheet"/>
 <script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
-<script defer="" src="/assets/js/j.0a9ef6920d9e.js"></script>
-<script src="../assets/js/inline-bundles/b.d7a7e748dd.js"></script>
+<script defer="" src="/assets/js/j.minigame.v55.20260217.js"></script>
+<script src="../assets/js/inline-bundles/b.minigame.v55.20260217.js"></script>
 <script defer="" src="/assets/js/j.9179477b9417.js"></script>
 <script type="application/ld+json">
   {
@@ -65,6 +66,8 @@
 <option value="4">최근 4회</option>
 <option value="5">최근 5회</option>
 <option selected="" value="6">최근 6회</option>
+<option value="10">최근 10회</option>
+<option value="20">최근 20회</option>
 </select>
 </div>
 </div>
@@ -146,6 +149,9 @@
 </section>
 <section aria-label="결과" class="mg-card">
 <h2>계산 결과</h2>
+<div class="mg-copy-row">
+  <button class="mg-btn" id="mgCopySummary" type="button">요약 복사</button>
+</div>
 <div aria-label="요약 KPI" class="mg-kpis">
 <div class="mg-kpi"><div class="k">암시확률 합</div><div class="v" id="mgSumP">—</div><div class="s">Σ(1/배당)</div></div>
 <div class="mg-kpi"><div class="k">마진(오버라운드)</div><div class="v" id="mgMargin">—</div><div class="s">Σ-1</div></div>
