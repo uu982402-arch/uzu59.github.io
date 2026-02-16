@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html data-theme="light" lang="ko">
 <head>
 <meta charset="utf-8"/>
@@ -100,8 +99,60 @@
 /* Hide EV/Kelly output surfaces (if rendered) */
 .st-r-panel [data-role="ev"], .st-r-panel [data-role="kelly"], .st-r-panel .ev, .st-r-panel .kelly{display:none !important;}
 </style>
+<style>
+/* v45 /analysis PRO rebuild (minimal, keeps site design language) */
+.pro-grid{display:grid;gap:14px}
+@media (min-width: 980px){.pro-grid.cols2{grid-template-columns: 1.05fr .95fr}}
+.pro-card{background:var(--card, #fff);border:1px solid rgba(0,0,0,.06);border-radius:22px;box-shadow:0 14px 40px rgba(0,0,0,.07);padding:18px}
+.pro-hero{display:flex;flex-direction:column;gap:10px}
+@media (min-width: 980px){.pro-hero{flex-direction:row;align-items:flex-start;justify-content:space-between;gap:18px}}
+.pro-kicker{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.pro-title{font-size:28px;line-height:1.15;margin:0}
+.pro-sub{margin:0;opacity:.85}
+.pro-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.pro-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.55);backdrop-filter:saturate(1.2) blur(6px);font-weight:650;font-size:12px}
+.pro-form{display:grid;gap:12px}
+.pro-row{display:grid;gap:10px}
+@media (min-width: 700px){.pro-row.cols3{grid-template-columns:repeat(3,1fr)} .pro-row.cols2{grid-template-columns:repeat(2,1fr)}}
+.pro-field label{display:block;font-size:12px;font-weight:750;opacity:.8;margin:0 0 6px 2px}
+.pro-field input, .pro-field select, .pro-field textarea{width:100%;border-radius:14px;border:1px solid rgba(0,0,0,.10);padding:12px 12px;font-size:15px;outline:none;background:rgba(255,255,255,.78)}
+.pro-field textarea{min-height:86px;resize:vertical}
+.pro-actions{display:flex;gap:10px;flex-wrap:wrap}
+.pro-btn{border:none;border-radius:14px;padding:12px 14px;font-weight:800;font-size:14px;cursor:pointer}
+.pro-btn.primary{background:#111;color:#fff}
+.pro-btn.secondary{background:rgba(0,0,0,.06)}
+.pro-btn.ghost{background:transparent;border:1px solid rgba(0,0,0,.12)}
+.pro-kv{display:grid;gap:10px}
+@media (min-width: 700px){.pro-kv{grid-template-columns:repeat(3,1fr)}}
+.pro-kvi{border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:12px;background:rgba(255,255,255,.62)}
+.pro-kvi .k{font-size:12px;font-weight:750;opacity:.75}
+.pro-kvi .v{font-size:22px;font-weight:900;margin-top:6px;font-variant-numeric:tabular-nums}
+.pro-kvi .s{font-size:12px;opacity:.72;margin-top:4px}
+.pro-table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.pro-table th{text-align:left;font-size:12px;opacity:.7;padding:0 10px}
+.pro-table td{background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.06);padding:12px 10px;font-weight:650}
+.pro-table tr td:first-child{border-radius:14px 0 0 14px}
+.pro-table tr td:last-child{border-radius:0 14px 14px 0}
+.pro-note{font-size:12px;opacity:.75;line-height:1.45}
+.pro-scanlist{display:grid;gap:10px}
+.pro-scanitem{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border-radius:18px;border:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.65)}
+.pro-scanitem .meta{display:flex;flex-direction:column;gap:2px}
+.pro-scanitem .meta .t{font-weight:900}
+.pro-scanitem .meta .d{font-size:12px;opacity:.75}
+.pro-scanitem .right{display:flex;align-items:center;gap:10px}
+.pro-badge{font-size:12px;font-weight:900;padding:7px 10px;border-radius:999px;background:rgba(0,0,0,.07)}
+.pro-badge.good{background:rgba(0,0,0,.08)}
+.pro-inline{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pro-divider{height:1px;background:rgba(0,0,0,.08);margin:8px 0}
+/* mobile prevent weird wraps */
+@media (max-width: 420px){
+  .pro-title{font-size:24px}
+  .pro-btn{flex:1}
+}
+</style>
 </head>
 <body>
+
 <div class="scam-popup" id="scamPopup">
 <div class="scam-box">
 <h3>⚠️ 사칭 주의 안내</h3>
@@ -129,817 +180,157 @@
 <div class="ad-close" data-d8593ac4d="GF0gf-ppHzTB" style="margin-top:10px;text-align:center;">닫기</div>
 </div>
 </div>
+
 <div class="header">
-<a aria-label="홈으로 이동" class="logo-link" href="/">
-<img alt="88 커뮤니티" class="logo-img logoImg" src="/img/logo.png"/>
-</a>
-<div class="sub">스포츠 배당 분석기 (공정배당·마진·라인 마진 · 판단 보조용)</div>
+  <a aria-label="홈으로 이동" class="logo-link" href="/">
+    <img alt="88 커뮤니티" class="logo-img logoImg" src="/img/logo.png"/>
+  </a>
+  <div class="sub">스포츠 배당 분석기 PRO (공정확률·공정배당·마진 · 판단 보조용)</div>
 </div>
+
 <div class="wrap">
-<div class="card card--hero" id="calcCard">
-<h2 class="sr-only">스포츠 배당 분석기</h2>
-<div class="calc-hero">
-<div class="calc-hero-left">
-<div class="calc-kicker">88 커뮤니티 · 배당 분석기</div>
-<div class="calc-headline">마진 · 공정배당 · 라인별 마진까지 <span class="accent">한 번에</span></div>
-<div aria-label="주요 기능" class="calc-tags">
-<span class="tag">메인/OU/핸디 통합</span>
-<span class="tag">히스토리·비교</span>
-<span class="tag">공유·공유카드</span>
-</div>
-</div>
-<div class="calc-hero-right">
-<div aria-label="자동 저장 상태" class="autosave">
-<span class="autosave-label">자동 저장</span>
-<span aria-live="polite" class="save-badge" id="saveBadge"></span>
-</div>
-<button class="btn secondary mini" data-d8593ac4d="uOGSDv8DqmMO" type="button">10초 가이드</button>
-</div>
-</div>
-<div aria-hidden="true" class="calc-divider"></div>
-<div class="controls controls-settings">
-<div class="selectWrap">
-<div class="fieldLabel"><span class="stepBubble">1</span> 종목</div>
-<select class="select" data-ee0c80bcd="MtJA2cKxcWfD" id="sport">
-<option value="soccer">축구</option>
-<option value="basketball">농구</option>
-<option value="baseball">야구</option>
-<option value="volleyball">배구</option>
-<option value="esports">e스포츠</option>
-<option value="hockey">하키</option>
-</select>
-</div>
-<div class="selectWrap is-hidden">
-<div class="fieldLabel"><span class="stepBubble">2</span> 분석 레벨</div>
-<select class="select" data-ee0c80bcd="gvSyYi9vCk5m" id="level">
-<option value="simple">간단</option>
-<option value="mid">중급</option>
-<option value="adv">고급</option>
-</select>
-</div>
-</div>
-<div class="settingsHint">👇 먼저 <b>종목</b>을 선택하면, 아래 입력 폼(메인/오버·언더/핸디)이 자동으로 최적화됩니다.</div>
-<button class="btn ghost" data-d8593ac4d="xWlIZD_eEbXC" id="metaToggleBtn" type="button">추가 정보 입력(선택) ▾</button><div id="metaFields"><div class="row2">
-<div>
-<input class="textinput" id="league" placeholder="리그/대회명 (선택)"/>
-<div class="small-hint">※ 입력하지 않아도 분석 가능 / 공유 시 입력한 내용만 포함됩니다.</div>
-</div>
-<div>
-<input class="textinput" id="teams" placeholder="팀명 (선택) 예: 맨시티 vs 리버풀"/>
-<div class="small-hint">※ 팀/리그는 선택사항입니다.</div>
-</div>
-</div></div>
-<div class="small-hint" id="sportHint" style="margin-top:10px;"></div>
-<nav aria-label="분석기 섹션" class="st-tabbar" id="appTabbar" role="tablist">
-<button aria-selected="true" class="st-tab on" data-jump="main" role="tab" type="button">메인</button>
-<button aria-selected="false" class="st-tab" data-jump="total" role="tab" type="button">오버·언더</button>
-<button aria-selected="false" class="st-tab" data-jump="handicap" role="tab" type="button">핸디캡</button>
-<button aria-selected="false" class="st-tab" data-jump="result" role="tab" type="button">결과</button>
-<button aria-selected="false" class="st-tab" data-jump="history" role="tab" type="button">히스토리</button>
-</nav>
-<div class="mini-guide" id="miniGuide">
-<div class="head" data-d8593ac4d="uOGSDv8DqmMO">
-<div>💡 처음이면 <b>10초 가이드</b></div>
-<button aria-expanded="false" class="pill" id="miniGuidePill" type="button">열기</button>
-</div>
-<div class="body" id="miniGuideBody">
-          1) <b>종목</b> 선택 → 2) <b>메인 배당</b> 입력(필수) → 3) 오버·언더/핸디(선택) → 4) <b>결과/히스토리</b> 확인.<br/>
-          • 결과는 <b>판단 보조용</b>이며, 마진이 낮을수록 장기적으로 덜 불리한 구조일 가능성이 큽니다.<br/>
-          • 히스토리 항목 클릭 → <b>입력 자동 복원 + 즉시 재계산</b>됩니다.
+
+  <section class="pro-card" id="proHero">
+    <div class="pro-hero">
+      <div>
+        <div class="pro-kicker">88ST · SPORTS PRO</div>
+        <h1 class="pro-title">스포츠 배당 정밀 분석기</h1>
+        <p class="pro-sub">배당만으로 <b>오버라운드(마진)</b>·<b>공정확률</b>·<b>공정배당</b>을 즉시 계산합니다. (결과 예측 도구 아님)</p>
+        <div class="pro-pills" aria-label="핵심 기능">
+          <span class="pro-pill">⚡ 1줄 붙여넣기 자동 적용</span>
+          <span class="pro-pill">🧠 언더독 민감 보정(선택)</span>
+          <span class="pro-pill">🏁 멀티 붙여넣기 → 마진 최저 TOP3</span>
         </div>
-</div>
-<div class="snap-wrap" id="snapWrap" style="display:none;">
-<div class="snap-head">
-<div>🕘 최근 입력</div>
-<div class="snap-meta" id="snapMeta"></div>
-</div>
-<div class="snap-list" id="snapList"></div>
-</div>
-<div class="box" id="pasteBox">
-<div class="box-head">
-<div class="box-title" style="margin:0;">텍스트 붙여넣기 (자동 입력)</div>
-<button class="toggle" data-d8593ac4d="4bn7Ps0Lz2-X" data-target="pasteBody" type="button">접기</button>
-</div>
-<div id="pasteBody">
-<div class="small-hint" style="margin-top:4px;">
-            커뮤니티 글/배당표 텍스트를 그대로 붙여넣으면 <b>메인/오버·언더/핸디</b> 배당을 자동으로 채워줍니다. (지원: 2배당/3배당, 오버·언더, 핸디)
-          </div>
-<div class="paste-area" style="margin-top:10px;">
-<textarea class="paste-ta" id="pasteInput" placeholder="예) 맨시티 vs 리버풀  승 1.85 무 3.40 패 4.20 / 오버 2.5 1.95 언더 1.85 / 핸디 -1.5 1.90 1.95"></textarea>
-<div class="paste-actions">
-<button class="btn primary" data-d8593ac4d="RG2u63JlaEyJ" id="btnPasteOneTap" type="button">원터치 자동 입력+결과</button>
-<button class="btn primary paste-adv" data-d8593ac4d="RG2u63JlaEyJ" type="button">자동 입력</button>
-<button class="btn secondary paste-adv" data-d8593ac4d="WfTVXwpHJuak" type="button">입력만</button>
-<button class="btn secondary paste-adv" data-d8593ac4d="I6HX1nAJRZ4l" type="button">여러 경기 만들기</button>
-<button class="btn ghost" data-d8593ac4d="SZ1yBqtdpqDt" type="button">예시</button>
-<button class="btn ghost" data-d8593ac4d="9ixszyLscJC2" type="button">지우기</button>
-<button class="btn ghost paste-adv" data-d8593ac4d="FE6sWoKqMaI7" type="button">리스트 지우기</button>
-<span class="paste-badge good" id="pasteBadgeOk" style="display:none;"></span>
-<span class="paste-badge warn" id="pasteBadgeWarn" style="display:none;"></span>
-<div class="paste-inline" style="margin-left:auto;">
-<label class="chk simple-only"><input checked="" id="pasteAutoRun" type="checkbox"/> 붙여넣자마자 계산</label>
-<label class="chk">메인 타입
-                  <select class="paste-select" id="pasteMainMode" title="메인 배당 타입">
-<option value="auto">자동</option>
-<option value="2">2배당</option>
-<option value="3">3배당</option>
-</select>
-</label>
-<label class="chk"><input checked="" id="pasteAutoLevel" type="checkbox"/> OU/핸디 감지 시 레벨 자동 전환</label>
-<label class="chk"><input checked="" id="pasteChainMode" type="checkbox"/> 클릭=연속 저장</label>
-<label class="chk"><input checked="" id="pasteSkipLow" type="checkbox"/> 정확도 낮음 제외</label>
-</div>
-</div>
-<div class="small-hint" id="pasteHint"></div>
-<div class="paste-list-wrap" id="pasteListWrap" style="display:none;">
-<div class="paste-list-head">
-<div class="k">감지된 경기</div>
-<div class="m" id="pasteListMeta"></div>
-<div class="paste-list-tools">
-<button class="btn ghost mini" data-d8593ac4d="SlRGMuG2WqLc" type="button">정렬: 마진 낮은순</button>
-<label class="paste-mini-label">연속
-                    <input class="paste-num" id="pasteChainCount" max="30" min="1" type="number" value="10"/>
-                    개
-                  </label>
-<button class="btn primary mini" data-d8593ac4d="MYhpccSZZMGX" type="button">연속 저장</button>
-<button class="btn ghost mini" data-d8593ac4d="bvfd5WWECgt3" id="pasteChainStop" style="display:none;" type="button">중지</button>
-<button class="btn secondary mini" data-d8593ac4d="Xk-t0nqs079A" id="btnBundleShare" type="button">오늘 수집 묶음</button>
-<button class="btn danger mini" data-d8593ac4d="1u-qKOhomaR0" title="오늘 수집 묶음(연속 저장으로 누적된 항목)을 초기화합니다." type="button">초기화</button>
-</div>
-</div>
-<div class="paste-list" id="pasteList"></div>
-</div>
-</div>
-</div>
-</div>
-<div class="box" id="bookCompareBox">
-  <div class="box-head">
-    <div class="box-title" style="margin:0;">오즈 비교(북메이커 여러개) — 복붙</div>
-    <button class="toggle" data-target="bookCompareBody" type="button">접기</button>
-  </div>
-  <div id="bookCompareBody">
-    <div class="small-hint" style="margin-top:4px;">
-      한 줄 = 한 북메이커(또는 한 소스) 입니다. 예) <b>bet365 2.35 3.40 2.90</b> / <b>2.35 3.40 2.90</b> 처럼 붙여넣으면
-      <b>무비그 공정확률</b>을 계산해 평균내고, outcome별 <b>최고배당</b>을 강조합니다. (데이터는 저장/전송되지 않음)
-    </div>
-    <div class="paste-area" style="margin-top:10px;">
-      <textarea class="paste-ta" id="bookCompareInput" placeholder="예)
-bet365 2.35 3.40 2.90
-pinnacle 2.38 3.44 2.86
-(또는 숫자만) 2.36 3.42 2.88"></textarea>
-    </div>
-    <div class="paste-actions" style="gap:8px;flex-wrap:wrap;">
-      <button class="btn primary" id="bookCompareParse" type="button">비교</button>
-      <button class="btn secondary" id="bookCompareApplyBest" type="button">최고배당 적용</button>
-      <button class="btn ghost" id="bookCompareClear" type="button">지우기</button>
-    </div>
-    <div id="bookCompareOut"></div>
-  </div>
-</div>
-<div class="box" id="mainBox">
-<div class="box-title" id="mainMarketTitle">메인 배당</div>
-<div class="st-point" id="mainPoint"></div>
-<div id="main2" style="display:none;">
-<div class="grid">
-<div class="field">
-<label id="main2LabelA">선택 A 배당</label>
-<input id="main2OddsA" inputmode="decimal" placeholder="예: 1.85"/>
-</div>
-<div class="field">
-<label id="main2LabelB">선택 B 배당</label>
-<input id="main2OddsB" inputmode="decimal" placeholder="예: 2.05"/>
-</div>
-</div>
-</div>
-<div id="main3" style="display:none;">
-<div class="grid">
-<div class="field">
-<label id="main3LabelH">홈 배당</label>
-<input id="main3OddsH" inputmode="decimal" placeholder="예: 2.10"/>
-</div>
-<div class="field">
-<label id="main3LabelD">무 배당</label>
-<input id="main3OddsD" inputmode="decimal" placeholder="예: 3.20"/>
-</div>
-<div class="field">
-<label id="main3LabelA">원정 배당</label>
-<input id="main3OddsA" inputmode="decimal" placeholder="예: 3.40"/>
-</div>
-<div class="field">
-<label> </label>
-<input disabled="" value="※ 축구는 3배당이 기본입니다"/>
-</div>
-</div>
-</div>
-<div id="valueInputs" style="display:none;">
-<div class="grid">
-<div class="field">
-<label id="myProbLabel">내 예상 확률(선택) %</label>
-<input id="myProb" inputmode="decimal" placeholder="예: 55  또는  45,28,27"/>
-<div class="small-hint" id="myProbHint"></div>
-</div>
-<div class="field">
-<label>베팅금(선택)</label>
-<input id="stake" inputmode="numeric" placeholder="예: 100000"/>
-<div class="small-hint">※ 입력 시 기대값(EV)을 원 단위로도 표시합니다.</div>
-</div>
-</div>
-</div>
-</div>
-<div class="box" id="lineCompareBox">
-<div class="box-head">
-<div class="box-title" style="margin:0;">라인 비교 (A vs B)</div>
-<button class="toggle" data-d8593ac4d="klkZ57Kntwds" data-target="lineCompareBody" type="button">펼치기</button>
-</div>
-<div id="lineCompareBody" style="display:none;">
-<div class="small-hint" style="margin-top:4px;">
-            두 업체(또는 두 라인) 배당을 넣고 <b>마진/공정배당</b>을 비교하세요. 같은 조건이면 마진이 낮은 쪽이 유리한 경우가 많습니다.
-          </div>
-<div class="lc-grid">
-<div class="lc-col">
-<div class="lc-head">라인 A</div>
-<div class="grid lc-fields" id="lcA2" style="display:none;">
-<div class="field">
-<label id="lcA2LabelA">선택 A 배당</label>
-<input id="lcA2OddsA" inputmode="decimal" placeholder="예: 1.85"/>
-</div>
-<div class="field">
-<label id="lcA2LabelB">선택 B 배당</label>
-<input id="lcA2OddsB" inputmode="decimal" placeholder="예: 2.05"/>
-</div>
-</div>
-<div class="grid lc-fields" id="lcA3" style="display:none;">
-<div class="field">
-<label id="lcA3LabelH">홈 배당</label>
-<input id="lcA3OddsH" inputmode="decimal" placeholder="예: 2.10"/>
-</div>
-<div class="field">
-<label id="lcA3LabelD">무 배당</label>
-<input id="lcA3OddsD" inputmode="decimal" placeholder="예: 3.20"/>
-</div>
-<div class="field">
-<label id="lcA3LabelA">원정 배당</label>
-<input id="lcA3OddsA" inputmode="decimal" placeholder="예: 3.40"/>
-</div>
-<div class="field">
-<label> </label>
-<input disabled="" value="(A) 3배당 입력"/>
-</div>
-</div>
-<button class="btn secondary" data-d8593ac4d="fI3gsMKQ3iv8" type="button">A를 메인에 적용</button>
-</div>
-<div class="lc-col">
-<div class="lc-head">라인 B</div>
-<div class="grid lc-fields" id="lcB2" style="display:none;">
-<div class="field">
-<label id="lcB2LabelA">선택 A 배당</label>
-<input id="lcB2OddsA" inputmode="decimal" placeholder="예: 1.85"/>
-</div>
-<div class="field">
-<label id="lcB2LabelB">선택 B 배당</label>
-<input id="lcB2OddsB" inputmode="decimal" placeholder="예: 2.05"/>
-</div>
-</div>
-<div class="grid lc-fields" id="lcB3" style="display:none;">
-<div class="field">
-<label id="lcB3LabelH">홈 배당</label>
-<input id="lcB3OddsH" inputmode="decimal" placeholder="예: 2.10"/>
-</div>
-<div class="field">
-<label id="lcB3LabelD">무 배당</label>
-<input id="lcB3OddsD" inputmode="decimal" placeholder="예: 3.20"/>
-</div>
-<div class="field">
-<label id="lcB3LabelA">원정 배당</label>
-<input id="lcB3OddsA" inputmode="decimal" placeholder="예: 3.40"/>
-</div>
-<div class="field">
-<label> </label>
-<input disabled="" value="(B) 3배당 입력"/>
-</div>
-</div>
-<button class="btn secondary" data-d8593ac4d="TN8h5tkOhSfT" type="button">B를 메인에 적용</button>
-</div>
-</div>
-<div class="lc-out" id="lineCompareOut" style="display:none;"></div>
-<div class="actionRow" style="margin-top:10px;">
-<button class="btn" data-d8593ac4d="x1nSjbNFmm6Z" type="button">비교 계산</button>
-<button class="btn ghost" data-d8593ac4d="RqTwC004JmFA" type="button">현재 메인값으로 채우기</button>
-</div>
-</div>
-</div>
-<div class="box" id="handicapBox" style="display:none;">
-<div class="box-head">
-<div class="box-title" style="margin:0;">핸디캡 (선택 · 정밀 마진)</div>
-<button class="toggle" data-d8593ac4d="TDbVewp0oa1u" data-target="handicapBody" type="button">접기</button>
-</div>
-<div id="handicapBody">
-<div class="grid">
-<div class="field">
-<label id="handicapLineLabel">핸디 라인 (예: -1.5, +3.5)</label>
-<input id="handicapLine" inputmode="decimal" placeholder="예: -1.5"/>
-</div>
-<div class="field">
-<label id="handicapOddsALabel">핸디 선택A 배당</label>
-<input id="handicapOddsA" inputmode="decimal" placeholder="예: 1.90"/>
-</div>
-<div class="field">
-<label id="handicapOddsBLabel">반대(선택B) 배당</label>
-<input id="handicapOddsB" inputmode="decimal" placeholder="예: 1.95"/>
-</div>
-<div class="field is-adv">
-<label>아시안(푸시) 근사(선택)</label>
-<input id="handicapPush" inputmode="decimal" placeholder="푸시 확률 % (예: 2)"/>
-</div>
-</div>
-<div class="small-hint">
-            ※ “양쪽 배당”이 있어야 핸디 마진을 정밀 계산할 수 있습니다. (단일 배당만 있으면 참고 수준)
-          </div>
-</div>
-</div>
-<div class="box" id="totalBox" style="display:none;">
-<div class="box-head">
-<div class="box-title" style="margin:0;">오버/언더 (선택 · 아시안 근사 지원)</div>
-<button class="toggle" data-d8593ac4d="WS8n31aaHPFd" data-target="totalBody" type="button">접기</button>
-</div>
-<div id="totalBody">
-<div class="grid">
-<div class="field">
-<label>기준점 (예: 2.5, 7.5, 2.0)</label>
-<input id="totalLine" inputmode="decimal" placeholder="예: 2.5"/>
-</div>
-<div class="field">
-<label>오버 배당</label>
-<input id="overOdds" inputmode="decimal" placeholder="예: 1.95"/>
-</div>
-<div class="field">
-<label>언더 배당</label>
-<input id="underOdds" inputmode="decimal" placeholder="예: 1.85"/>
-</div>
-<div class="field is-adv">
-<label>아시안(푸시) 근사(선택)</label>
-<input id="ouPush" inputmode="decimal" placeholder="푸시 확률 % (예: 6)"/>
-</div>
-<div class="field is-adv">
-<label>내 예상 확률(오버) % (고급)</label>
-<input id="myOverProb" inputmode="decimal" placeholder="예: 52"/>
-</div>
-<div class="field">
-<label> </label>
-<input disabled="" value="※ 푸시 확률 미입력 시 종목 기본값으로 근사합니다"/>
-</div>
-</div>
-<div class="small-hint">※ 오버/언더는 선택 항목입니다. 배당만 입력해도 마진/공정배당 계산이 가능합니다.</div>
-</div>
-</div>
-<div aria-live="polite" class="input-warn" id="inputWarn"></div>
-<div class="actions">
-<button class="btn primary" data-d8593ac4d="fmq5ven9k7Fa" id="btnCalc" type="button">계산하기</button>
-<button class="btn secondary" data-d8593ac4d="ms2ix9qMVxiZ" type="button">초기화</button>
-</div>
-<div class="note">
-        ※ 본 도구는 “판단 보조용”입니다. 승률을 보장하지 않으며, 손실을 감당 가능한 범위 내에서 이용하세요.
       </div>
-<div class="box" style="margin-top:12px;">
-<div class="m-grid" id="marginDash">
-</div>
-<div class="small-hint" style="margin-top:10px;">
-          ※ 색상: <span class="good">낮음</span> / <span class="mid">보통·주의</span> / <span class="warn">고마진</span>
-</div>
-</div>
-<div class="result" id="result" style="display:none;"></div>
-<div aria-label="저장/공유/업체 바로가기" class="result-dock" id="resultDock" style="display:none;">
-<button class="btn secondary" data-d8593ac4d="AqnMNsluDUTE" type="button">저장됨 · 히스토리</button>
-<button class="btn gold" data-d8593ac4d="WS-vCSAFHNts" type="button">공유</button>
-<a class="btn secondary" data-cta="analysis_to_vendors" data-no-auto-outbound="1" href="/cert/">업체 카드</a>
-</div>
-</div>
-<div class="card" id="topInfoCard">
-<h2 class="sr-only">오늘 마진 낮은 TOP3 및 마진 기준</h2>
-<div class="split">
-<section aria-label="오늘 마진 낮은 계산 TOP3" class="split-col">
-<div class="subhead"><span class="mini-badge">TOP3</span>오늘 마진 낮은 계산 TOP3</div>
-<div class="small-hint">※ 오늘 저장된 히스토리에서 “마진%”가 가장 낮은 순으로 자동 정렬됩니다.</div>
-<div class="box" style="margin-top:10px;">
-<div class="box-title">메인 마진 TOP3</div>
-<div class="small-hint" id="topMain"></div>
-</div>
-<div class="box">
-<div class="box-title">오버/언더 마진 TOP3</div>
-<div class="small-hint" id="topOU"></div>
-</div>
-<div class="box">
-<div class="box-title">핸디캡 마진 TOP3</div>
-<div class="small-hint" id="topHC"></div>
-</div>
-</section>
-<section aria-label="마진 낮은 경기 기준과 예시" class="split-col">
-<div class="subhead"><span class="mini-badge">INFO</span>“마진 낮은 경기” 기준 &amp; 예시</div>
-<div class="note" style="margin-top:0;">
-      • 마진(수수료)은 <b>오버라운드-1</b>을 %로 표현한 값입니다.<br/>
-      • 종목/유형별로 일반적인 마진 범위가 달라서, 이 페이지는 <b>종목+유형별 기준</b>으로 “낮음/보통/주의/고마진”을 판정합니다.<br/>
-      • 아래 기준은 “대략적인 체감”을 빠르게 돕기 위한 용도이며, 실제 라인/업체/시장에 따라 달라질 수 있어요.
-    </div>
-<div class="box" style="margin-top:10px;">
-<div class="box-title">예시 (축구 1X2)</div>
-<div class="small-hint">
-        배당: <b>1.70 / 3.20 / 3.40</b> → 오버라운드가 커져 <b>고마진</b>으로 뜰 수 있습니다.<br/>
-        반대로 동일 시장에서 오버라운드가 1.05 근처면 대체로 <b>마진 낮음</b>으로 표시됩니다.
+      <div class="pro-kv" style="min-width:260px">
+        <div class="pro-kvi"><div class="k">현재 마켓</div><div class="v" id="kvMarket">—</div><div class="s" id="kvSport">—</div></div>
+        <div class="pro-kvi"><div class="k">오버라운드</div><div class="v" id="kvOver">—</div><div class="s">Σ(1/배당)</div></div>
+        <div class="pro-kvi"><div class="k">마진</div><div class="v" id="kvMargin">—</div><div class="s">오버라운드 - 1</div></div>
       </div>
-</div>
-</section>
-</div>
-</div>
-<div class="card" id="historyCard">
-<h2 class="sr-only">최근 계산 히스토리</h2>
-<div class="small-hint">
-        • 히스토리 항목 클릭 → <b>입력 자동 복원 + 즉시 재계산</b><br/>
-        • 체크 2개 선택 → <b>비교(2개 나란히)</b> 가능
+    </div>
+  </section>
+
+  <div class="pro-grid cols2" style="margin-top:14px">
+    <section class="pro-card" id="proInput">
+      <div class="pro-form">
+        <div class="pro-field">
+          <label for="quickPaste">빠른 붙여넣기 (1줄/여러줄)</label>
+          <textarea id="quickPaste" placeholder="예: 맨시티 1.72 3.90 4.80 리버풀
+예: 2.5 1.90 1.95
+여러 줄 붙여넣기 → 자동 스캔 TOP3"></textarea>
+          <div class="pro-note">※ 숫자(배당)만 인식합니다. 1X2=3개, 2-way=2개, O/U·핸디=라인+2개(또는 자동 추정)</div>
+        </div>
+
+        <div class="pro-actions">
+          <button class="pro-btn primary" id="btnApply" type="button">즉시 적용</button>
+          <button class="pro-btn secondary" id="btnScan" type="button">멀티 스캔 TOP3</button>
+          <button class="pro-btn ghost" id="btnClear" type="button">초기화</button>
+        </div>
+
+        <div class="pro-divider"></div>
+
+        <div class="pro-row cols3">
+          <div class="pro-field">
+            <label for="sportSel">종목</label>
+            <select id="sportSel">
+              <option value="soccer">축구</option>
+              <option value="basketball">농구</option>
+              <option value="baseball">야구</option>
+              <option value="volleyball">배구</option>
+              <option value="esports">e스포츠</option>
+              <option value="hockey">하키</option>
+            </select>
+          </div>
+          <div class="pro-field">
+            <label for="marketSel">마켓</label>
+            <select id="marketSel">
+              <option value="auto">자동 감지</option>
+              <option value="1x2">승/무/패 (1X2)</option>
+              <option value="2way">2-way (승/패)</option>
+              <option value="ou">오버/언더</option>
+              <option value="handicap">핸디캡</option>
+            </select>
+          </div>
+          <div class="pro-field">
+            <label for="methodSel">공정확률 방식</label>
+            <select id="methodSel">
+              <option value="norm">정규화(기본)</option>
+              <option value="udog">언더독 민감(보정)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="inputs1x2" class="pro-row cols3" style="display:none">
+          <div class="pro-field"><label for="od1">홈</label><input id="od1" inputmode="decimal" placeholder="예: 1.95"></div>
+          <div class="pro-field"><label for="odx">무</label><input id="odx" inputmode="decimal" placeholder="예: 3.40"></div>
+          <div class="pro-field"><label for="od2">원정</label><input id="od2" inputmode="decimal" placeholder="예: 4.10"></div>
+        </div>
+
+        <div id="inputs2way" class="pro-row cols2" style="display:none">
+          <div class="pro-field"><label for="odA">A</label><input id="odA" inputmode="decimal" placeholder="예: 1.90"></div>
+          <div class="pro-field"><label for="odB">B</label><input id="odB" inputmode="decimal" placeholder="예: 1.95"></div>
+        </div>
+
+        <div id="inputsOU" class="pro-row cols3" style="display:none">
+          <div class="pro-field"><label for="lineOU">라인</label><input id="lineOU" inputmode="decimal" placeholder="예: 2.5"></div>
+          <div class="pro-field"><label for="odO">오버</label><input id="odO" inputmode="decimal" placeholder="예: 1.90"></div>
+          <div class="pro-field"><label for="odU">언더</label><input id="odU" inputmode="decimal" placeholder="예: 1.95"></div>
+        </div>
+
+        <div id="inputsHcap" class="pro-row cols3" style="display:none">
+          <div class="pro-field"><label for="lineH">핸디 라인</label><input id="lineH" inputmode="decimal" placeholder="예: -1.5"></div>
+          <div class="pro-field"><label for="odH1">선택 A</label><input id="odH1" inputmode="decimal" placeholder="예: 1.92"></div>
+          <div class="pro-field"><label for="odH2">반대(B)</label><input id="odH2" inputmode="decimal" placeholder="예: 1.92"></div>
+        </div>
+
+        <div class="pro-note">TIP) “정배만 높아 보인다”면 <b>언더독 민감(보정)</b>으로 공정확률을 한 번 더 확인해보세요. (시장 확률 해석 보조)</div>
       </div>
-<div class="history-actions">
-<div class="history-toolbar">
-<button class="btn secondary danger" data-d8593ac4d="YapZRugllwOs" disabled="" id="btnDeleteSelected" type="button">선택 삭제</button>
-<button class="btn secondary" data-d8593ac4d="CJkt3NTIGv-N" type="button">전체 삭제</button>
-<button class="btn secondary" data-d8593ac4d="ZkVzt3VeqjQH" disabled="" id="btnCompare" type="button">비교</button>
-<button class="btn secondary" data-d8593ac4d="ef8xOolOcchg" type="button">TOP3</button>
-</div>
-<div aria-label="히스토리 필터" class="history-filters">
-<button class="seg on" data-d8593ac4d="luIySC_qSxhZ" data-filter="all" type="button">전체</button>
-<button class="seg" data-d8593ac4d="X0VKKdCB-rqd" data-filter="rec" type="button">추천</button>
-<button class="seg" data-d8593ac4d="-H_c6tLDy42C" data-filter="untracked" type="button">미기록</button>
-<div class="pick-ind">선택 <b id="pickCount">0</b></div>
-</div>
-</div>
-<div class="perf-box" id="perfBox" style="display:none;">
-<div class="perf-title">
-<div>📊 내 성과</div>
-<div class="snap-meta" id="perfMeta"></div>
-</div>
-<div class="perf-sub" id="perfSub"></div>
-<div class="perf-grid" id="perfGrid"></div>
-</div>
-<div class="h-list" id="historyList"></div>
-</div>
-</div>
-<div class="modal" id="compareModal">
-<div class="modal-box">
-<div class="modal-head">
-<div class="t">비교 (2개 나란히)</div>
-<div class="modal-close" data-d8593ac4d="fzvwda_d90qo">닫기</div>
-</div>
-<div class="small-hint" style="margin-bottom:10px;">
-      히스토리에서 체크박스로 2개 선택 후 “비교 열기”를 누르세요.
-    </div>
-<div class="compare-grid" id="compareGrid"></div>
-</div>
-</div>
-<div class="modal" id="shareCardModal" style="display:none;">
-<div class="modal-box share">
-<div class="modal-head">
-<div class="t">공유 카드 (이미지 저장)</div>
-<div class="modal-close" data-d8593ac4d="IH2ODpJZCovh">닫기</div>
-</div>
-<div class="small-hint" style="margin-bottom:10px;">
-      결과가 생성된 상태에서만 카드가 만들어집니다. (텍스트/링크도 함께 복사 가능)
-    </div>
-<div class="share-canvas-wrap">
-<canvas aria-label="공유 카드 캔버스" class="share-canvas" height="1080" id="shareCardCanvas" width="1080"></canvas>
-</div>
-<div class="history-toolbar" style="margin-top:12px;">
-<button class="btn secondary" data-d8593ac4d="37kB_79DnI5W" type="button">링크 복사</button>
-<button class="btn gold" data-d8593ac4d="Ff4q1VIsadfc" type="button">이미지 저장</button>
-<button class="btn secondary" data-d8593ac4d="bK66pl_3HuZK" type="button">문구 복사</button>
-</div>
-</div>
-</div>
-<div class="modal" id="bundleShareModal" style="display:none;">
-<div class="modal-box share">
-<div class="modal-head">
-<div class="t" id="bundleTitle">오늘 수집 묶음</div>
-<div class="modal-close" data-d8593ac4d="VC6pVxT0Y2nJ">닫기</div>
-</div>
-<div class="small-hint" style="margin-bottom:10px;">
-      연속 저장(또는 클릭=연속 저장)으로 모은 항목을 <b>한 번에 공유</b>합니다. (각 항목 링크는 열면 동일 결과로 복원됩니다)
-    </div>
-<div class="bundle-meta" id="bundleMeta"></div>
-<div class="share-canvas-wrap">
-<canvas aria-label="오늘 수집 묶음 공유 카드" class="share-canvas" height="1080" id="bundleCanvas" width="1080"></canvas>
-</div>
-<textarea class="bundle-ta" id="bundleText" readonly=""></textarea>
-<div class="bundle-promo">
-<div class="bundle-promo-head">
-<div class="bundle-promo-title">홍보글 자동 생성</div>
-<div class="bundle-promo-ctrl">
-<select aria-label="홍보 채널 선택" class="inp mini" id="bundlePromoChannel"></select>
-<label class="bundle-switch" title="채널별 게시판 규칙(링크/톤/형식)에 맞춘 프리셋을 자동 적용합니다. 필요하면 꺼서 직접 조절하세요.">
-<input checked="" id="bundlePromoPreset" type="checkbox"/>
-<span>프리셋 자동</span>
-</label>
-<span class="bundle-pill" id="bundlePresetHint" style="display:none;"></span>
-<select aria-label="홍보 톤 선택" class="inp mini" id="bundlePromoStyle">
-<option value="promo">홍보형</option>
-<option value="info">정보형</option>
-<option value="tg">텔레그램형</option>
-</select>
-<select aria-label="링크 범위 선택" class="inp mini" id="bundlePromoLinks">
-<option value="top3">링크 TOP3(권장)</option>
-<option value="top5">링크 TOP5</option>
-<option value="all">링크 전체</option>
-<option value="one">링크 1개만</option>
-<option value="none">링크 0개</option>
-</select>
-<select aria-label="링크 1개 대상" class="inp mini" id="bundlePromoOneTarget" style="display:none;">
-<option value="analysis">분석기 링크</option>
-<option value="vendor">업체 카드 링크</option>
-</select>
-<label class="bundle-switch" title="UTM을 제거하고 https://를 생략해 URL을 짧게 표시합니다. (추적 정확도는 낮아질 수 있어요)">
-<input id="bundlePromoShortUrl" type="checkbox"/>
-<span>URL 줄이기</span>
-</label>
-<label class="bundle-switch" title="줄바꿈을 최소화해 게시판 규칙/필터에 더 잘 맞게 만듭니다.">
-<input id="bundlePromoCompact" type="checkbox"/>
-<span>줄바꿈 최소</span>
-</label>
-<label class="bundle-switch" title="링크를 못 올리는 게시판(링크 0개)에서 댓글로 요청을 유도하는 버전 문구를 추가합니다.">
-<input id="bundlePromoComment" type="checkbox"/>
-<span>댓글 유도</span>
-</label>
-<label class="bundle-switch" title="마진 낮음 또는 +EV 조건을 만족할 때만 업체 티저 1개를 포함합니다.">
-<input checked="" id="bundlePromoVendor" type="checkbox"/>
-<span>업체 1개(조건부)</span>
-</label>
-<button class="btn ghost mini" data-d8593ac4d="nVlJHwUjmGQ5" id="btnPromoAdv" title="업체 티저 포함 조건(마진/EV 임계값)과 프리셋 상태를 세부 조절합니다." type="button">고급</button>
-<button class="btn ghost mini" data-d8593ac4d="-WaoAgDSqeF3" title="문구 변형(3종) 중 다음 템플릿으로 바꿉니다" type="button">새 문구</button>
-</div>
-</div>
-<div class="bundle-promo-adv" id="bundlePromoAdv" style="display:none;">
-<div class="bundle-adv-row">
-<div class="bundle-adv-label">업체 티저 포함 조건</div>
-<div class="bundle-adv-controls">
-<label class="bundle-range" title="최저 마진이 이 값 이하이면 업체 티저를 포함할 수 있습니다.">
-          마진 ≤ <span id="bundleVendorMarginVal">3.2</span>%
-          <input id="bundleVendorMargin" max="6.0" min="2.0" step="0.1" type="range" value="3.2"/>
-</label>
-<label class="bundle-range" title="+EV(0보다 큰 EV)이 최소 몇 개 이상일 때 업체 티저를 포함할지 설정합니다.">
-          +EV ≥ <span id="bundleVendorEvVal">1</span>개
-          <input id="bundleVendorEv" max="5" min="0" step="1" type="range" value="1"/>
-</label>
-</div>
-</div>
-<div class="small-hint" style="margin-top:8px;">
-      임계값을 올리면 업체 티저가 더 자주 포함될 수 있어요. (게시판 규칙이 엄격한 채널은 프리셋이 링크/톤을 자동으로 제한합니다)
-    </div>
-</div>
-<div class="small-hint" style="margin-top:8px;">
-    채널/톤/옵션을 바꾸면 홍보 문구가 자동 생성됩니다. (게시판 규칙에 맞춰 링크 0~전체/URL 짧게/줄바꿈 최소를 선택 가능)
+    </section>
+
+    <section class="pro-card" id="proResult">
+      <div class="pro-kv">
+        <div class="pro-kvi"><div class="k">공정배당(요약)</div><div class="v" id="kvFair">—</div><div class="s" id="kvFairNote">—</div></div>
+        <div class="pro-kvi"><div class="k">업셋(정배 아닌 결과)</div><div class="v" id="kvUpset">—</div><div class="s" id="kvUpsetNote">—</div></div>
+        <div class="pro-kvi"><div class="k">주의</div><div class="v" style="font-size:16px" id="kvWarn">입력 대기</div><div class="s">형식/값 검증</div></div>
+      </div>
+
+      <div style="margin-top:12px">
+        <table class="pro-table" aria-label="공정확률 테이블">
+          <thead>
+            <tr><th style="padding-left:12px">선택</th><th>배당</th><th>공정확률</th><th>공정배당</th></tr>
+          </thead>
+          <tbody id="tblBody">
+            <tr><td colspan="4" style="border-radius:14px;text-align:center;opacity:.7">입력 후 자동 계산됩니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pro-note" id="noteVol" style="margin-top:10px">
+        ※ 가상/스포츠 공통: 정배가 높아도 역배는 충분히 나옵니다. 확률은 “장기 빈도”이고, 단기에는 변동성이 큽니다.
+      </div>
+    </section>
   </div>
-<textarea class="bundle-ta bundle-ta--promo" id="bundlePromoText" readonly=""></textarea>
-<div class="history-toolbar" style="margin-top:10px;">
-<button class="btn secondary" data-d8593ac4d="jKPqvhIv1KY_" type="button">홍보글 복사</button>
-<button class="btn ghost" data-d8593ac4d="ZhWufXRUtvAR" type="button">제목 복사</button>
-<button class="btn ghost" data-d8593ac4d="MstW3ga9vnG4" type="button">말머리 복사</button>
+
+  <section class="pro-card" id="proScan" style="margin-top:14px;display:none">
+    <div class="pro-inline" style="justify-content:space-between">
+      <div>
+        <div class="pro-kicker" style="margin-bottom:6px">MARGIN SCANNER</div>
+        <div style="font-weight:900;font-size:18px">멀티 스캔 TOP3 (마진 최저)</div>
+        <div class="pro-note">여러 줄 붙여넣기 결과 중, <b>마진이 가장 낮은 3개</b>를 뽑아서 바로 적용할 수 있습니다.</div>
+      </div>
+      <button class="pro-btn ghost" id="btnScanClose" type="button">닫기</button>
+    </div>
+    <div class="pro-divider"></div>
+    <div class="pro-scanlist" id="scanList"></div>
+  </section>
+
 </div>
-</div>
-<div class="history-toolbar" style="margin-top:12px;">
-<button class="btn secondary" data-d8593ac4d="MXCqtr-ry1oG" type="button">문구 복사</button>
-<button class="btn secondary" data-d8593ac4d="D8rKqy4z83SF" type="button">링크만 복사</button>
-<button class="btn ghost" data-d8593ac4d="yqB3OaYKCXoC" type="button">TOP3 요약 복사</button>
-<button class="btn gold" data-d8593ac4d="ddZX1WfOYxLL" type="button">이미지 저장</button>
-<button class="btn danger" data-d8593ac4d="1u-qKOhomaR0" type="button">오늘 묶음 초기화</button>
-</div>
-</div>
-</div>
-<div aria-label="빠른 동작" class="mobile-dock" id="mobileDock">
-<button class="dock-btn primary" data-d8593ac4d="fmq5ven9k7Fa" type="button">계산</button>
-<button class="dock-btn" data-d8593ac4d="AqnMNsluDUTE" type="button">저장</button>
-<button class="dock-btn" data-d8593ac4d="WS-vCSAFHNts" type="button">공유</button>
-<a class="dock-btn" data-cta="analysis_dock_vendors" data-no-auto-outbound="1" href="/cert/">업체</a>
-</div>
-<div id="toast88"></div>
-<template id="tplResultCard">
-<section aria-label="분석 결과" class="st-result" data-role="result">
-<div aria-label="결과 탭" class="st-r-tabs" role="tablist">
-<button aria-selected="true" class="st-r-tab on" data-r-tab="summary" role="tab" type="button">요약</button>
-<button aria-selected="false" class="st-r-tab" data-r-tab="detail" role="tab" type="button">상세</button>
-<div aria-live="polite" class="st-r-meta" id="resultMeta"></div>
-</div>
-<div class="st-r-panel" data-r-panel="summary"></div>
-<div class="st-r-panel" data-r-panel="detail" hidden=""></div>
-</section>
-</template>
-<template id="tplHistoryEmpty">
-<div class="demo-empty" data-role="history-empty">
-<div class="demo-title" data-slot="title"></div>
-<div class="demo-desc" data-slot="desc"></div>
-<div class="demo-btns">
-<button class="btn primary2" data-demo="soccer" type="button">⚽ 축구 예시로 계산</button>
-<button class="btn primary2" data-demo="basketball" type="button">🏀 농구 예시로 계산</button>
-</div>
-<div class="demo-note">※ 예시는 샘플 데이터이며, 실제 결과/승률을 보장하지 않습니다.</div>
-</div>
-</template>
-<template id="tplHistoryItem">
-<article class="h-item" data-role="history-item" role="button" tabindex="0">
-<div class="h-top">
-<div class="h-left">
-<div class="h-title" data-slot="title"></div>
-<div class="h-sub" data-slot="sub"></div>
-<div class="h-outcome" data-role="outcome">
-<div class="row">
-<div class="label">결과 기록</div>
-<span class="outTag" data-slot="outTag">미기록</span>
-</div>
-<div class="outBtns">
-<button class="oBtn" data-h-action="outcome" data-outcome="W" type="button">✅ 적중</button>
-<button class="oBtn" data-h-action="outcome" data-outcome="L" type="button">❌ 미적중</button>
-<button class="oBtn" data-h-action="outcome" data-outcome="V" type="button">⚪ 취소</button>
-<button class="oBtn" data-h-action="outcome" data-outcome="" type="button">↩︎ 미기록</button>
-</div>
-</div>
-</div>
-<div class="h-actions" data-role="actions">
-<button class="primary2" data-h-action="restoreCalc" type="button">복원+재계산</button>
-<button data-h-action="restoreOnly" type="button">복원만</button>
-<label class="pick">
-<input data-h-action="pick" type="checkbox"/>
-          비교
-        </label>
-</div>
-</div>
-</article>
-</template>
+
+<script src="/assets/js/j.9179477b9417.js"></script>
+<script defer="" src="/assets/js/j.efba3509e62c.js"></script>
+<script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
 <script src="../assets/js/inline-bundles/b.e942e1c830.js"></script>
-<div aria-label="처음 이용 가이드" aria-modal="true" id="onbPopover" role="dialog">
-<div class="onb-hd">
-<div class="onb-title" id="onbTitle">처음 이용 가이드</div>
-<div class="onb-step" id="onbStep">1/3</div>
-</div>
-<div class="onb-body" id="onbBody"></div>
-<div class="onb-actions">
-<button class="btn onb-skip" data-d8593ac4d="VOhHWL2BF7E0" type="button">건너뛰기</button>
-<button class="btn secondary" data-d8593ac4d="8qSAzlxTJHGC" type="button">이전</button>
-<button class="btn primary" data-d8593ac4d="b_J_l7QdVHpG" type="button">다음</button>
-</div>
-</div>
 <script defer="" src="/assets/js/j.025d649c8b11.js"></script>
-<script>
-(() => {
-  const $ = (id) => document.getElementById(id);
-  const fmt = (n, d=2) => (Number.isFinite(n) ? n.toFixed(d) : "—");
-  const pct = (n, d=2) => (Number.isFinite(n) ? (n*100).toFixed(d)+"%" : "—");
-
-  const parseLine = (line) => {
-    const firstNum = line.search(/\d/);
-    const name = (firstNum>0 ? line.slice(0, firstNum).trim() : "").replace(/[:|,]+$/,"").trim();
-    const nums = (line.match(/(\d+(?:\.\d+)?)/g) || []).map(Number).filter(v => v>1);
-    return { name: name || "source", nums };
-  };
-
-  const noVig = (odds) => {
-    const inv = odds.reduce((s,o)=>s+(1/o),0);
-    if(!Number.isFinite(inv) || inv<=0) return null;
-    const payout = 1/inv;
-    const probs = odds.map(o => (1/o)*payout);
-    return { payout, probs, overround: inv, margin: inv-1 };
-  };
-
-  function render(outEl, rows, mode){
-    const n = mode;
-    const labels = (n===3) ? ["홈","무","원정"] : ["A","B"];
-
-    const best = Array(n).fill(-Infinity);
-    rows.forEach(r => r.odds.forEach((o,i)=>{ if(o>best[i]) best[i]=o; }));
-
-    const avg = Array(n).fill(0);
-    rows.forEach(r => r.nv.probs.forEach((p,i)=>{ avg[i]+=p; }));
-    for(let i=0;i<n;i++) avg[i]/=rows.length;
-
-    const fairOdds = avg.map(p => p>0 ? 1/p : NaN);
-    const bestOver = best.reduce((s,o)=>s+(1/o),0);
-    const bestMargin = bestOver-1;
-
-    let html = `<div class="bookSummary">
-      <div class="bookKpi"><div class="k">컨센서스 공정배당</div><div class="v">${fairOdds.map(o=>fmt(o,2)).join(" / ")}</div><div class="s">무비그 평균 확률</div></div>
-      <div class="bookKpi"><div class="k">최고배당 조합 마진</div><div class="v">${pct(bestMargin,2)}</div><div class="s">(${fmt(bestOver,4)} - 1)</div></div>
-      <div class="bookKpi"><div class="k">데이터 소스</div><div class="v">${rows.length}개</div><div class="s">줄 단위 인식</div></div>
-    </div>`;
-
-    html += `<table class="bookTbl" aria-label="오즈 비교 테이블">
-      <thead><tr><th>북메이커/소스</th>${labels.map(l=>`<th>${l}</th>`).join("")}</tr></thead><tbody>`;
-
-    rows.forEach(r=>{
-      html += `<tr><td class="book">${r.name}</td>`;
-      r.odds.forEach((o,i)=>{
-        const isBest = Math.abs(o - best[i]) < 1e-9;
-        const vi = (Number.isFinite(o) && Number.isFinite(fairOdds[i]) && fairOdds[i]>0) ? (o / fairOdds[i]) : NaN;
-        html += `<td class="od ${isBest?'best':''}">${fmt(o,2)}<span class="mini">지수 ${fmt(vi,3)} · 무비그 ${pct(r.nv.probs[i],2)}</span></td>`;
-      });
-      html += `</tr>`;
-    });
-
-    html += `<tr><td class="book">공정(평균)</td>${fairOdds.map(o=>`<td class="od">${fmt(o,2)}<span class="mini">확률 ${pct(1/o,2)}</span></td>`).join("")}</tr>`;
-    html += `<tr><td class="book">최고배당</td>${best.map(o=>`<td class="od best">${fmt(o,2)}</td>`).join("")}</tr>`;
-    html += `</tbody></table>`;
-
-    outEl.innerHTML = html;
-    outEl.dataset.mode = String(n);
-    outEl.dataset.best = JSON.stringify(best);
-  }
-
-  function applyBest(outEl){
-    const best = JSON.parse(outEl.dataset.best || "[]");
-    const n = Number(outEl.dataset.mode || 0);
-    if(!(n===2 || n===3) || best.length!==n) return;
-
-    const set = (id,val) => {
-      const el=$(id);
-      if(!el) return;
-      el.value = String(val);
-      el.dispatchEvent(new Event('input',{bubbles:true}));
-      el.dispatchEvent(new Event('change',{bubbles:true}));
-    };
-
-    const main2 = $("main2"), main3 = $("main3");
-    if(n===2){
-      if(main2) main2.style.display = "";
-      if(main3) main3.style.display = "none";
-      set("main2OddsA", fmt(best[0],2));
-      set("main2OddsB", fmt(best[1],2));
-    }else{
-      if(main3) main3.style.display = "";
-      if(main2) main2.style.display = "none";
-      set("main3OddsH", fmt(best[0],2));
-      set("main3OddsD", fmt(best[1],2));
-      set("main3OddsA", fmt(best[2],2));
-    }
-
-    // try to trigger existing calculate button if present
-    const calcBtn = document.querySelector('#btnCalc, #calcBtn, [data-action="calc"]');
-    if(calcBtn) { try { calcBtn.click(); } catch(e) {} }
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  function run(){
-    const ta = $("bookCompareInput");
-    const out = $("bookCompareOut");
-    if(!ta || !out) return;
-
-    const raw = (ta.value||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);
-    if(raw.length<2){
-      out.innerHTML = `<div class="small-hint">2줄 이상 붙여넣으면 비교가 가능합니다.</div>`;
-      out.dataset.best = "[]";
-      return;
-    }
-
-    const parsed = raw.map(parseLine).map((r,i)=>({ ...r, name: r.name==="source" ? `source ${i+1}` : r.name }));
-    const lens = parsed.map(p=>p.nums.length).filter(n=>n===2 || n===3);
-    const mode = lens.sort()[lens.length-1] || 0;
-
-    const rows = parsed
-      .map(p => ({ name:p.name, odds:p.nums.slice(0,mode) }))
-      .filter(r => r.odds.length===mode && r.odds.every(o=>Number.isFinite(o) && o>1));
-
-    if(rows.length<2 || !(mode===2 || mode===3)){
-      out.innerHTML = `<div class="small-hint">인식 실패: 각 줄에 배당 숫자 2개(2-way) 또는 3개(1X2)가 필요합니다.</div>`;
-      out.dataset.best = "[]";
-      return;
-    }
-
-    const finalRows = [];
-    for(const r of rows){
-      const nv = noVig(r.odds);
-      if(!nv) continue;
-      finalRows.push({ ...r, nv });
-    }
-    if(finalRows.length<2){
-      out.innerHTML = `<div class="small-hint">유효한 줄이 2개 미만입니다. (배당은 1보다 커야 합니다)</div>`;
-      out.dataset.best = "[]";
-      return;
-    }
-
-    render(out, finalRows, mode);
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const parseBtn = $("bookCompareParse");
-    const applyBtn = $("bookCompareApplyBest");
-    const clearBtn = $("bookCompareClear");
-    const out = $("bookCompareOut");
-    if(parseBtn) parseBtn.addEventListener("click", run);
-    if(applyBtn) applyBtn.addEventListener("click", () => applyBest(out));
-    if(clearBtn) clearBtn.addEventListener("click", () => { $("bookCompareInput").value=""; out.innerHTML=""; out.dataset.best="[]"; });
-
-    // Layout: keep odds-compare right under paste box for 1-flow UX (no tab split)
-    try{
-      const pasteBox = $("pasteBox");
-      const cmpBox = $("bookCompareBox");
-      const tabbar = $("appTabbar");
-      if(pasteBox && cmpBox && tabbar && tabbar.parentNode){
-        pasteBox.insertAdjacentElement("afterend", cmpBox);
-      }
-    }catch(e){}
-  });
-})();
-</script>
+<script defer src="/assets/js/inline-bundles/b.analysis.pro.v45.4f8c1a.js"></script>
 </body>
 </html>
