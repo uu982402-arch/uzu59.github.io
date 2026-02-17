@@ -70,7 +70,7 @@
 <script defer="" src="/assets/js/j.efba3509e62c.js"></script>
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
 <script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
-<link href="/assets/css/fortune.v60.20260217.css" rel="stylesheet"/>
+<link href="/assets/css/fortune.v62.20260217.css" rel="stylesheet"/>
 <meta content="https://88st.cloud/img/logo.png" property="og:image"/>
 <script type="application/ld+json">
 {
@@ -187,6 +187,15 @@
         </div>
       </div>
 
+      <div class="fortune-pick fortune-profile">
+        <label class="fortune-label" for="fortuneDob">생년월일</label>
+        <div class="fortune-profile-row">
+          <input class="fortune-input" id="fortuneDob" type="date" inputmode="numeric" placeholder="YYYY-MM-DD"/>
+          <button class="fortune-btn fortune-query" id="fortuneQuery" type="button">조회</button>
+        </div>
+        <div class="fortune-profile-hint fortune-muted">입력하면 별자리/띠가 자동 적용됩니다.</div>
+      </div>
+
       <div class="fortune-pick">
         <label class="fortune-label" for="fortuneSign">별자리</label>
         <select class="insight-select" id="fortuneSign">
@@ -204,7 +213,7 @@
           <option value="pisces">물고기자리</option>
         </select>
       </div>
-      
+
       <div class="fortune-pick">
         <label class="fortune-label" for="fortuneLevel">브리핑 레벨</label>
         <select class="insight-select" id="fortuneLevel">
@@ -222,6 +231,11 @@
         <div class="fortune-line"><span>행운 컬러</span><b id="fortuneColor">—</b></div>
         <div class="fortune-line"><span>행운 숫자</span><b id="fortuneNumber">—</b></div>
         <div class="fortune-line"><span>미션</span><b id="fortuneMission">—</b></div>
+      </div>
+
+      <div class="fortune-ban">
+        <span class="k">오늘의 금지 행동</span>
+        <b class="v" id="fortuneBan">—</b>
       </div>
 
       <div class="fortune-actions">
@@ -303,7 +317,7 @@
 </div>
 </div>
 </div>
-<script defer="" src="/assets/js/fortune.v60.20260217.js"></script>
+<script defer="" src="/assets/js/fortune.v62.20260217.js"></script>
 <script defer="" src="/assets/js/j.025d649c8b11.js"></script>
 </body>
 </html>

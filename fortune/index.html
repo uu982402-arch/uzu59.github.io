@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="/assets/c.a50dd3bc5b33.css"/>
   <script defer src="/assets/js/j.8829a3ccde44.js"></script>
 
-  <link rel="stylesheet" href="/assets/css/fortune.v60.20260217.css"/>
+  <link rel="stylesheet" href="/assets/css/fortune.v62.20260217.css"/>
 
   <style>
     /* Fortune page refinements (keeps base language + premium spacing) */
@@ -86,6 +86,7 @@
         <button class="seg" type="button" data-ftab="silly">쓸데없음</button>
       </div>
 
+      
       <div class="fortune-widget" style="margin-top:12px">
         <div class="fortune-left">
           <div class="fortune-ring" role="img" aria-label="운 점수">
@@ -94,6 +95,22 @@
               <div class="fortune-date" id="fpDate">—</div>
             </div>
           </div>
+
+          <div class="fortune-pick fortune-profile">
+            <label class="fortune-label" for="fpDob">사주 입력</label>
+            <div class="fortune-profile-grid">
+              <input class="fortune-input" id="fpDob" type="date" inputmode="numeric" placeholder="생년월일(YYYY-MM-DD)"/>
+              <input class="fortune-input" id="fpTime" type="time" inputmode="numeric" placeholder="태어난 시(선택)"/>
+              <select class="fortune-input" id="fpGender" aria-label="성별">
+                <option value="">성별(선택)</option>
+                <option value="m">남</option>
+                <option value="f">여</option>
+              </select>
+              <button class="fortune-btn fortune-query" id="fpQuery" type="button">조회</button>
+            </div>
+            <div class="fortune-profile-hint fortune-muted">입력하면 <b>별자리/띠</b>가 자동 적용됩니다. (간단 계산)</div>
+          </div>
+
           <div class="fortune-pick" id="fpPickSign">
             <label class="fortune-label" for="fpSign">별자리</label>
             <select class="insight-select" id="fpSign">
@@ -111,33 +128,33 @@
               <option value="pisces">물고기자리</option>
             </select>
           </div>
-        </div>
 
-        <div class="fortune-pick" id="fpPickZodiac" hidden>
-          <label class="fortune-label" for="fpZodiac">띠</label>
-          <select class="insight-select" id="fpZodiac">
-            <option value="rat">쥐띠</option>
-            <option value="ox">소띠</option>
-            <option value="tiger">호랑이띠</option>
-            <option value="rabbit">토끼띠</option>
-            <option value="dragon">용띠</option>
-            <option value="snake">뱀띠</option>
-            <option value="horse">말띠</option>
-            <option value="goat">양띠</option>
-            <option value="monkey">원숭이띠</option>
-            <option value="rooster">닭띠</option>
-            <option value="dog">개띠</option>
-            <option value="pig">돼지띠</option>
-          </select>
-        </div>
+          <div class="fortune-pick" id="fpPickZodiac" hidden>
+            <label class="fortune-label" for="fpZodiac">띠</label>
+            <select class="insight-select" id="fpZodiac">
+              <option value="rat">쥐띠</option>
+              <option value="ox">소띠</option>
+              <option value="tiger">호랑이띠</option>
+              <option value="rabbit">토끼띠</option>
+              <option value="dragon">용띠</option>
+              <option value="snake">뱀띠</option>
+              <option value="horse">말띠</option>
+              <option value="goat">양띠</option>
+              <option value="monkey">원숭이띠</option>
+              <option value="rooster">닭띠</option>
+              <option value="dog">개띠</option>
+              <option value="pig">돼지띠</option>
+            </select>
+          </div>
 
-        <div class="fortune-pick" id="fpPickLevel">
-          <label class="fortune-label" for="fpLevel">브리핑 레벨</label>
-          <select class="insight-select" id="fpLevel">
-            <option value="beginner">초급</option>
-            <option value="pro">프로</option>
-            <option value="risk">하이리스크 경고</option>
-          </select>
+          <div class="fortune-pick" id="fpPickLevel">
+            <label class="fortune-label" for="fpLevel">브리핑 레벨</label>
+            <select class="insight-select" id="fpLevel">
+              <option value="beginner">초급</option>
+              <option value="pro">프로</option>
+              <option value="risk">하이리스크 경고</option>
+            </select>
+          </div>
         </div>
 
         <div class="fortune-right">
@@ -147,6 +164,12 @@
             <div class="fortune-line"><span id="fpL2">행운 컬러</span><b id="fpV2">—</b></div>
             <div class="fortune-line"><span id="fpL3">행운 숫자</span><b id="fpV3">—</b></div>
             <div class="fortune-line"><span id="fpL4">미션</span><b id="fpV4">—</b></div>
+            <div class="fortune-line"><span id="fpL5">오늘의 금지 행동</span><b id="fpV5">—</b></div>
+          </div>
+
+          <div class="fortune-pro" id="fpProCard" hidden>
+            <div class="fortune-pro-title">프로 체크리스트</div>
+            <ul class="fortune-pro-list" id="fpProList"></ul>
           </div>
 
           <div class="fortune-kpis" id="fpKpis">
@@ -175,6 +198,6 @@
     </div>
   </div>
 
-  <script defer src="/assets/js/fortune.v60.20260217.js"></script>
+  <script defer src="/assets/js/fortune.v62.20260217.js"></script>
 </body>
 </html>
