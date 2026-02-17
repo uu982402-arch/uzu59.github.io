@@ -15,6 +15,7 @@
 <meta content="RTP(환수율)·변동성·베팅·스핀 수를 기반으로 총베팅/기대손실/권장 뱅크롤/세션 비용을 계산합니다. 하우스엣지(100-RTP) 이해에 도움됩니다." property="og:description"/>
 <meta content="https://88st.cloud/tool-slot/" property="og:url"/>
 <link href="/assets/css/x.11d0a10f603d.css" rel="stylesheet"/>
+<link href="/assets/c.slot.v58.20260217.css" rel="stylesheet"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -91,6 +92,7 @@
 <script defer="" src="/assets/js/j.efba3509e62c.js"></script>
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
 <script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
+<script defer="" src="/assets/js/j.slot.v58.20260217.js"></script>
 <meta content="/img/logo.png" property="og:image"/></head>
 <body>
 <div class="wrap">
@@ -98,6 +100,14 @@
 <h1>슬롯 환수율(RTP) 분석기</h1>
 <p>RTP·변동성·베팅·스핀수로 <b>총베팅</b>, <b>기대 손실(이론)</b>, <b>권장 뱅크롤</b>을 한 번에 계산합니다.<br/><span class="small">※ 정보 제공/참고용 · 실제 결과는 변동성이 매우 큽니다.</span></p>
 </div>
+
+<div class="sl-tabs" id="slTabs" role="tablist" aria-label="슬롯 도구 탭">
+  <button class="sl-tab on" type="button" data-tab="calc" aria-selected="true">RTP 계산</button>
+  <button class="sl-tab" type="button" data-tab="db" aria-selected="false">슬롯 DB (Pragmatic)</button>
+  <button class="sl-tab" type="button" data-tab="session" aria-selected="false">세션 기록</button>
+</div>
+
+<section class="sl-panel on" id="slPanelCalc" data-panel="calc" aria-label="RTP 계산">
 <div class="grid">
 <div class="card">
 <h2>입력</h2>
@@ -175,6 +185,201 @@
 </details>
 </div>
 </div>
+</section>
+
+<section class="sl-panel" id="slPanelDb" data-panel="db" aria-label="슬롯 DB">
+  <div class="grid sl-grid-1">
+    <div class="card">
+      <h2>슬롯 DB (Pragmatic)</h2>
+      <div class="small" style="line-height:1.6;">
+        Pragmatic Play 기반으로 <b>게임 검색/필터</b>를 제공하며, 클릭 한 번으로 <b>RTP 계산기</b>에 불러오거나 <b>세션 기록</b>을 시작할 수 있습니다.
+        <br/>
+        <span class="sl-muted">※ RTP/변동성 표기는 운영사 설정/버전에 따라 달라질 수 있어, 최종 값은 게임 내 정보(i)로 확인 권장.</span>
+      </div>
+      <div class="sl-row" style="margin-top:12px;">
+        <div class="sl-field" style="flex:1.3; min-width:220px;">
+          <label for="slDbQ">검색</label>
+          <input id="slDbQ" placeholder="게임명 검색 (예: Olympus, Bonanza)"/>
+        </div>
+        <div class="sl-field" style="min-width:180px;">
+          <label for="slDbVol">변동성</label>
+          <select id="slDbVol">
+            <option value="">전체</option>
+            <option value="low">저변동</option>
+            <option value="mid">중변동</option>
+            <option value="high">고변동</option>
+            <option value="vhigh">초고변동</option>
+            <option value="unknown">미표기</option>
+          </select>
+        </div>
+        <div class="sl-field" style="min-width:180px;">
+          <label for="slDbMaxwin">Max Win</label>
+          <select id="slDbMaxwin">
+            <option value="">전체</option>
+            <option value="lt5000">~ 5,000x</option>
+            <option value="gte5000">5,000x 이상</option>
+            <option value="unknown">미표기</option>
+          </select>
+        </div>
+        <div class="sl-field" style="min-width:180px;">
+          <label for="slDbTag">태그</label>
+          <select id="slDbTag">
+            <option value="">전체</option>
+          </select>
+        </div>
+        <div class="sl-field" style="min-width:180px;">
+          <label>즐겨찾기</label>
+          <label class="sl-check"><input id="slDbFavOnly" type="checkbox"/> <span>즐겨찾기만</span></label>
+        </div>
+      </div>
+
+      <details class="sl-admin" style="margin-top:12px;">
+        <summary>DB 관리 (게임 추가 · JSON 업로드 · 즐겨찾기/태그 확장)</summary>
+        <div class="sl-admin-body">
+          <div class="sl-row" style="margin-top:10px;">
+            <div class="sl-field" style="flex:1.3; min-width:220px;">
+              <label for="slAddName">게임명</label>
+              <input id="slAddName" placeholder="예: Sweet Bonanza 1000"/>
+            </div>
+            <div class="sl-field" style="min-width:180px;">
+              <label for="slAddProvider">Provider</label>
+              <input id="slAddProvider" placeholder="예: Pragmatic" value="Pragmatic"/>
+            </div>
+            <div class="sl-field" style="min-width:180px;">
+              <label for="slAddVol">변동성</label>
+              <select id="slAddVol">
+                <option value="unknown">미표기</option>
+                <option value="low">저변동</option>
+                <option value="mid" selected="">중변동</option>
+                <option value="high">고변동</option>
+                <option value="vhigh">초고변동</option>
+              </select>
+            </div>
+            <div class="sl-field" style="min-width:180px;">
+              <label for="slAddMaxwin">Max Win (x)</label>
+              <input id="slAddMaxwin" inputmode="numeric" placeholder="예: 5000"/>
+            </div>
+            <div class="sl-field" style="min-width:180px;">
+              <label for="slAddRtp">RTP(%) (선택)</label>
+              <input id="slAddRtp" inputmode="decimal" placeholder="예: 96.5"/>
+            </div>
+            <div class="sl-field" style="flex:1.1; min-width:220px;">
+              <label for="slAddTags">태그 (쉼표로 구분)</label>
+              <input id="slAddTags" placeholder="예: megaways, buy-feature, bonus"/>
+            </div>
+          </div>
+
+          <div class="btnrow" style="margin-top:10px;">
+            <button class="sl-mini" type="button" id="slDbAddBtn">게임 추가</button>
+            <button class="sl-mini" type="button" id="slDbExportBtn">JSON 내보내기</button>
+            <label class="sl-mini sl-file" role="button" tabindex="0">JSON 가져오기<input id="slDbImportFile" type="file" accept="application/json,.json"/></label>
+            <label class="sl-check" style="margin-left:6px;"><input id="slDbImportOverwrite" type="checkbox"/> <span>덮어쓰기</span></label>
+            <button class="sl-mini" type="button" id="slDbResetBtn">기본 DB로</button>
+          </div>
+
+          <div class="sl-row" style="margin-top:10px; align-items:stretch;">
+            <div class="sl-field" style="flex:1; min-width:260px;">
+              <label for="slDbImportText">JSON 붙여넣기(선택)</label>
+              <textarea id="slDbImportText" class="sl-ta" rows="4" placeholder='[{"name":"...","provider":"Pragmatic","vol":"high","maxWin":5000,"rtp":null,"tags":["megaways"]}]'></textarea>
+            </div>
+            <div class="sl-field" style="min-width:220px; justify-content:flex-end;">
+              <div class="sl-muted" style="font-size:12px; line-height:1.6;">
+                • DB/즐겨찾기는 <b>브라우저에만</b> 저장됩니다.<br/>
+                • RTP는 운영사/버전에 따라 달라질 수 있어 <b>확인 후</b> 입력 권장.
+              </div>
+              <button class="sl-mini" type="button" id="slDbImportTextBtn" style="margin-top:10px;">붙여넣기 적용</button>
+            </div>
+          </div>
+          <div class="sl-toast" id="slDbToast" aria-live="polite"></div>
+        </div>
+      </details>
+      <div class="sl-table" style="margin-top:12px;">
+        <table aria-label="슬롯 DB 목록">
+          <thead>
+            <tr>
+              <th>게임</th>
+              <th style="width:110px;">변동성</th>
+              <th style="width:120px;">Max Win</th>
+              <th style="width:210px;">액션</th>
+            </tr>
+          </thead>
+          <tbody id="slDbBody">
+            <tr><td colspan="4" class="sl-muted">로딩중…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sl-note" style="margin-top:10px;">
+        <b>팁</b>: DB에서 게임을 선택하면 <b>게임명</b>(그리고 제공 가능한 경우 <b>변동성</b>)이 자동 반영됩니다.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sl-panel" id="slPanelSession" data-panel="session" aria-label="세션 기록">
+  <div class="grid sl-grid-1">
+    <div class="card">
+      <h2>세션 기록</h2>
+      <div class="small" style="line-height:1.6;">
+        슬롯 결과를 “예측”하는 기능이 아니라, <b>세션 비용/수익/ROI</b>를 기록해 과몰입을 줄이고 자기 데이터를 쌓는 용도입니다.
+      </div>
+
+      <div class="sl-row" style="margin-top:12px;">
+        <div class="sl-field" style="flex:1.2; min-width:220px;">
+          <label for="slSessGame">게임명</label>
+          <input id="slSessGame" placeholder="예: Sweet Bonanza"/>
+        </div>
+        <div class="sl-field" style="min-width:180px;">
+          <label for="slSessBet">스핀당 베팅(원)</label>
+          <input id="slSessBet" inputmode="numeric" placeholder="예: 1000"/>
+        </div>
+        <div class="sl-field" style="min-width:180px;">
+          <label for="slSessSpins">스핀 수</label>
+          <input id="slSessSpins" inputmode="numeric" placeholder="예: 300"/>
+        </div>
+        <div class="sl-field" style="min-width:220px;">
+          <label for="slSessReturn">회수 금액(원)</label>
+          <input id="slSessReturn" inputmode="numeric" placeholder="예: 250000"/>
+        </div>
+      </div>
+
+      <div class="btnrow" style="margin-top:10px;">
+        <div class="btn" id="slSessAdd">세션 추가</div>
+        <div class="btn secondary" id="slSessCopy">요약 복사</div>
+        <div class="btn secondary" id="slSessCsv">CSV 내보내기</div>
+        <div class="btn secondary" id="slSessClear">전체 삭제</div>
+      </div>
+
+      <div class="sl-kpi" style="margin-top:12px;">
+        <div class="sl-kpi-item"><div class="k">총 세션</div><div class="v" id="slSessKpiCount">0</div></div>
+        <div class="sl-kpi-item"><div class="k">총 베팅</div><div class="v" id="slSessKpiBet">-</div></div>
+        <div class="sl-kpi-item"><div class="k">총 손익</div><div class="v" id="slSessKpiPL">-</div></div>
+        <div class="sl-kpi-item"><div class="k">ROI</div><div class="v" id="slSessKpiRoi">-</div></div>
+      </div>
+
+      <div class="sl-table" style="margin-top:12px;">
+        <table aria-label="세션 기록 목록">
+          <thead>
+            <tr>
+              <th style="width:120px;">날짜</th>
+              <th>게임</th>
+              <th style="width:120px;">총 베팅</th>
+              <th style="width:120px;">회수</th>
+              <th style="width:120px;">손익</th>
+              <th style="width:90px;">삭제</th>
+            </tr>
+          </thead>
+          <tbody id="slSessBody">
+            <tr><td colspan="6" class="sl-muted">아직 기록이 없습니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sl-note" style="margin-top:10px;">
+        <b>팁</b>: 숫자 입력이 틀리면 입력칸이 빨갛게 표시됩니다. (기록은 브라우저에만 저장됩니다)
+      </div>
+    </div>
+  </div>
+</section>
 <footer>
 <div>© 88 — Slot Analyzer</div>
 <div class="small">책임감 있게 이용해 주세요. 과몰입 방지/리스크 관리가 우선입니다.</div>

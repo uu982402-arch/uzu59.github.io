@@ -5,8 +5,8 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <title>88ST | 스포츠 배당 분석기 · EV/마진 · 켈리 계산기</title>
-<meta content="스포츠 배당 분석기(오버라운드·마진·EV·공정배당) + 켈리 비중 계산기, 슬롯 RTP 분석, 카지노 전략/미니게임 가이드를 한 곳에서 빠르게 확인하세요." name="description"/>
-<meta content="스포츠 배당 분석기, 배당 마진 계산기, 오버라운드 계산기, EV 계산기, 공정배당 계산기, 공정확률, 켈리 공식 계산기, 배당 확률 변환기, 슬롯 RTP 분석기, 바카라 전략 계산기, 미니게임 분석기, 입플 체크리스트, 인증사이트, 88 커뮤니티, 팔팔커뮤니티" name="keywords"/>
+<meta content="스포츠 배당 분석기(오버라운드·마진·EV·공정배당) + 켈리 비중 계산기, 슬롯 RTP 분석, 카지노 전략/미니게임 가이드와 오늘의 운 브리핑(별자리/띠/연애/신년)을 한 곳에서 빠르게 확인하세요." name="description"/>
+<meta content="스포츠 배당 분석기, 배당 마진 계산기, 오버라운드 계산기, EV 계산기, 공정배당 계산기, 공정확률, 켈리 공식 계산기, 배당 확률 변환기, 슬롯 RTP 분석기, 바카라 전략 계산기, 미니게임 분석기, 오늘의 운세, 별자리 운세, 띠 운세, 신년운세, 연애운, 입플 체크리스트, 인증사이트, 88 커뮤니티, 팔팔커뮤니티" name="keywords"/>
 <link href="https://88st.cloud/" rel="canonical"/>
 <meta content="index,follow" name="robots"/>
 <meta content="website" property="og:type"/>
@@ -53,6 +53,12 @@
       "position": 5,
       "name": "입플·보너스 안내",
       "url": "https://88st.cloud/landing-a/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "name": "오늘의 운 브리핑",
+      "url": "https://88st.cloud/fortune/"
     }
   ]
 }
@@ -64,6 +70,7 @@
 <script defer="" src="/assets/js/j.efba3509e62c.js"></script>
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
 <script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
+<link href="/assets/css/fortune.v60.20260217.css" rel="stylesheet"/>
 <meta content="https://88st.cloud/img/logo.png" property="og:image"/>
 <script type="application/ld+json">
 {
@@ -164,6 +171,74 @@
 </a>
 </div>
 </div>
+
+<div class="section" id="fortuneSection">
+  <div class="section-header">
+    <div class="title"><span class="badge">LUCK</span>오늘의 운 브리핑</div>
+    <a class="insight-btn btn-mini" href="/fortune/">전체 보기 <span aria-hidden="true">→</span></a>
+  </div>
+
+  <div class="fortune-widget" data-role="fortuneWidget">
+    <div class="fortune-left">
+      <div aria-label="오늘의 운 점수" class="fortune-ring" role="img">
+        <div class="fortune-ring-inner">
+          <div class="fortune-score" id="fortuneScore">—</div>
+          <div class="fortune-date" id="fortuneDate">—</div>
+        </div>
+      </div>
+
+      <div class="fortune-pick">
+        <label class="fortune-label" for="fortuneSign">별자리</label>
+        <select class="insight-select" id="fortuneSign">
+          <option value="aries">양자리</option>
+          <option value="taurus">황소자리</option>
+          <option value="gemini">쌍둥이자리</option>
+          <option value="cancer">게자리</option>
+          <option value="leo">사자자리</option>
+          <option value="virgo">처녀자리</option>
+          <option value="libra">천칭자리</option>
+          <option value="scorpio">전갈자리</option>
+          <option value="sagittarius">사수자리</option>
+          <option value="capricorn">염소자리</option>
+          <option value="aquarius">물병자리</option>
+          <option value="pisces">물고기자리</option>
+        </select>
+      </div>
+      
+      <div class="fortune-pick">
+        <label class="fortune-label" for="fortuneLevel">브리핑 레벨</label>
+        <select class="insight-select" id="fortuneLevel">
+          <option value="beginner">초급</option>
+          <option value="pro">프로</option>
+          <option value="risk">하이리스크 경고</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="fortune-right">
+      <div class="fortune-head" id="fortuneHead">—</div>
+      <div class="fortune-lines">
+        <div class="fortune-line"><span>행운 키워드</span><b id="fortuneKeyword">—</b></div>
+        <div class="fortune-line"><span>행운 컬러</span><b id="fortuneColor">—</b></div>
+        <div class="fortune-line"><span>행운 숫자</span><b id="fortuneNumber">—</b></div>
+        <div class="fortune-line"><span>미션</span><b id="fortuneMission">—</b></div>
+      </div>
+
+      <div class="fortune-actions">
+        <button class="insight-btn" id="fortuneSpeak" type="button">운세 듣기</button>
+        <button class="fortune-btn" id="fortuneSilly" type="button">쓸데없는 운세</button>
+        <button class="fortune-btn" id="fortuneCopy" type="button">요약 복사</button>
+      </div>
+
+      <div class="fortune-silly" hidden id="fortuneSillyBox">
+        <div class="fortune-silly-title">쓸데없지만 은근 쓸모있는 한 줄</div>
+        <div class="fortune-silly-text" id="fortuneSillyText">—</div>
+      </div>
+      <div class="fortune-note">※ 엔터테인먼트용 브리핑입니다. 예측이 아니라 <b>컨디션·리듬·충동 억제</b>를 위한 참고로만 사용하세요.</div>
+    </div>
+  </div>
+</div>
+
 <div class="section" id="whySection">
 <div class="title"><span class="badge">WHY</span>왜 88 분석기를 써야 하나요?</div>
 <div aria-label="WHY 섹션(스포츠/카지노)" class="why-split">
@@ -228,6 +303,7 @@
 </div>
 </div>
 </div>
+<script defer="" src="/assets/js/fortune.v60.20260217.js"></script>
 <script defer="" src="/assets/js/j.025d649c8b11.js"></script>
 </body>
 </html>

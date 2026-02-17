@@ -19,8 +19,10 @@
 <link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
 <link href="/assets/c.43df7d0713c1.css" rel="stylesheet"/>
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
+<link href="/assets/c.casino.evo.v57.20260217.css" rel="stylesheet"/>
 <script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
 <script defer="" src="/assets/js/j.c471c3193855.js"></script>
+<script defer="" src="/assets/js/j.casino.evo.v57.20260217.js"></script>
 <script src="../assets/js/inline-bundles/b.cba5ff41a7.js"></script>
 <script defer="" src="/assets/js/j.9179477b9417.js"></script>
 <script type="application/ld+json">
@@ -40,6 +42,13 @@
 <h1>바카라 전략 계산기</h1>
 <p>턴이 빠른 바카라 환경에 맞춘 <b>스피드 조작형(WIN/LOSE)</b> 계산기입니다. PLAYER 2.00 / BANKER 1.97 프리셋을 지원하고, 세션/자금관리 트래커와 최근 5개 세션 저장을 제공합니다.</p>
 </section>
+
+<div class="cs-top-tabs" id="csTopTabs" role="tablist" aria-label="카지노 도구 탭">
+  <button class="cs-chip cs-top-tab on" type="button" data-view="baccarat" aria-selected="true">바카라 전략</button>
+  <button class="cs-chip cs-top-tab" type="button" data-view="evo" aria-selected="false">라이브 테이블 (Evolution)</button>
+</div>
+
+<div class="cs-view on" id="csViewBaccarat" data-panel="baccarat">
 <div class="cs-grid">
 <section aria-label="설정" class="cs-card">
 <h2>설정</h2>
@@ -197,6 +206,116 @@
 <div>• BANKER(1.97)은 배당-1이 0.97이라, 같은 손실을 회복하려면 PLAYER(2.00)보다 필요한 베팅이 커질 수 있습니다.</div>
 </div>
 </section>
+</div>
+
+<div class="cs-view" id="csViewEvo" data-panel="evo">
+  <section class="cs-card" style="margin-top:12px;">
+    <h2>라이브 테이블 인사이트 (Evolution)</h2>
+    <div class="cs-adv small" style="border-top:none; padding-top:8px;">
+      <div>• 특정 결과를 “맞추는” 도구가 아니라, <b>하우스엣지/기대값/세션 리스크</b>를 숫자로 확인해 과몰입을 줄이는 용도입니다.</div>
+      <div>• 바카라 확률/엣지는 일반적으로 널리 알려진 8덱 기준 수치를 사용합니다. (운영사 룰/커미션/타이 배당에 따라 달라질 수 있음)</div>
+    </div>
+  </section>
+
+  <div class="cs-evo-grid">
+    <section class="cs-card" aria-label="바카라 하우스엣지">
+      <h2>바카라: 기대값 · 하우스엣지</h2>
+      <div class="cs-row" style="margin-top:10px;">
+        <div class="cs-field" style="min-width:200px;">
+          <label for="evoBacBet">베팅금(원)</label>
+          <input id="evoBacBet" inputmode="numeric" value="10000"/>
+        </div>
+        <div class="cs-field" style="min-width:180px;">
+          <label for="evoBacHands">핸드 수</label>
+          <input id="evoBacHands" inputmode="numeric" value="100"/>
+        </div>
+        <div class="cs-field" style="min-width:180px;">
+          <label for="evoBacType">베팅</label>
+          <select id="evoBacType">
+            <option value="banker">BANKER</option>
+            <option value="player">PLAYER</option>
+            <option value="tie">TIE</option>
+          </select>
+        </div>
+      </div>
+      <div class="cs-row" style="margin-top:10px;">
+        <div class="cs-field" style="min-width:200px;">
+          <label for="evoBacCommission">BANKER 커미션(%)</label>
+          <input id="evoBacCommission" inputmode="decimal" value="5"/>
+        </div>
+        <div class="cs-field" style="min-width:200px;">
+          <label for="evoBacTiePay">TIE 배당 (예: 8 = 8:1)</label>
+          <input id="evoBacTiePay" inputmode="decimal" value="8"/>
+        </div>
+      </div>
+      <div class="cs-evo-out" id="evoBacOut" style="margin-top:10px;"></div>
+      <div class="cs-adv small">
+        <div>• 8덱 기준(대표값): Banker 45.86% / Player 44.62% / Tie 9.52% (Tie는 Push 처리)</div>
+      </div>
+    </section>
+
+    <section class="cs-card" aria-label="룰렛 하우스엣지">
+      <h2>룰렛: 기대 손실(이론)</h2>
+      <div class="cs-row" style="margin-top:10px;">
+        <div class="cs-field" style="min-width:220px;">
+          <label for="evoRouWheel">휠 타입</label>
+          <select id="evoRouWheel">
+            <option value="eu">유럽(0) · 37칸</option>
+            <option value="us">미국(0,00) · 38칸</option>
+          </select>
+        </div>
+        <div class="cs-field" style="min-width:200px;">
+          <label for="evoRouBet">베팅금(원)</label>
+          <input id="evoRouBet" inputmode="numeric" value="10000"/>
+        </div>
+        <div class="cs-field" style="min-width:180px;">
+          <label for="evoRouSpins">스핀 수</label>
+          <input id="evoRouSpins" inputmode="numeric" value="100"/>
+        </div>
+      </div>
+      <div class="cs-evo-out" id="evoRouOut" style="margin-top:10px;"></div>
+      <div class="cs-adv small">
+        <div>• 룰렛은 베팅 종류(인사이드/아웃사이드)와 무관하게, 같은 휠이면 이론 하우스엣지가 동일합니다.</div>
+      </div>
+    </section>
+
+    <section class="cs-card" aria-label="세션 리스크">
+      <h2>세션 리스크: 목표/손절 도달 확률</h2>
+      <div class="cs-row" style="margin-top:10px;">
+        <div class="cs-field" style="min-width:200px;">
+          <label for="evoUnit">베팅 단위(원)</label>
+          <input id="evoUnit" inputmode="numeric" value="10000"/>
+        </div>
+        <div class="cs-field" style="min-width:200px;">
+          <label for="evoPwin">승률 p (0~1)</label>
+          <input id="evoPwin" inputmode="decimal" value="0.50"/>
+        </div>
+      </div>
+      <div class="cs-row" style="margin-top:10px;">
+        <div class="cs-field" style="min-width:200px;">
+          <label for="evoTargetU">목표(유닛)</label>
+          <input id="evoTargetU" inputmode="numeric" value="5"/>
+        </div>
+        <div class="cs-field" style="min-width:200px;">
+          <label for="evoStopU">손절(유닛)</label>
+          <input id="evoStopU" inputmode="numeric" value="5"/>
+        </div>
+      </div>
+      <div class="cs-evo-out" id="evoRiskOut" style="margin-top:10px;"></div>
+      <div class="cs-adv small">
+        <div>• 단순화된 “1유닛 랜덤워크” 모델입니다. 실제 게임은 변동성/커미션/베팅 분산에 따라 달라질 수 있습니다.</div>
+      </div>
+    </section>
+  </div>
+
+  <section class="cs-card" style="margin-top:12px;">
+    <h2>안내</h2>
+    <div class="cs-adv small" style="border-top:none; padding-top:8px;">
+      <div>• 수학적 기대값은 장기 평균입니다. 단기 결과는 크게 흔들릴 수 있어, <b>손절·휴식·한도</b>가 우선입니다.</div>
+      <div>• “하우스엣지가 낮다”는 “안전하다”가 아닙니다. 특히 고변동(세션) 환경에서는 체감 리스크가 커질 수 있습니다.</div>
+    </div>
+  </section>
+</div>
 </main>
 <script defer="" src="/assets/js/j.025d649c8b11.js"></script>
 </body>
