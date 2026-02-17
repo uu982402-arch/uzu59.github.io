@@ -19,9 +19,9 @@
 <link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
 <link href="/assets/c.b9ac867a4d9b.css" rel="stylesheet"/>
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
-<link href="/assets/c.minigame.v56.20260217.css" rel="stylesheet"/>
-<script defer="" src="/assets/js/j.8829a3ccde44.v63.20260217.js"></script>
-<script defer="" src="/assets/js/j.minigame.v56.20260217.js"></script>
+<link href="/assets/c.minigame.v55.20260217.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
+<script defer="" src="/assets/js/j.minigame.v55.20260217.js"></script>
 <script src="../assets/js/inline-bundles/b.minigame.v55.20260217.js"></script>
 <script defer="" src="/assets/js/j.9179477b9417.js"></script>
 <script type="application/ld+json">
@@ -44,14 +44,8 @@
         결과 히스토리를 붙여넣으면 <b>빈도 기반 확률</b>도 자동으로 산출합니다.
       </p>
 </section>
-
-<div class="mg-mobile-switch" id="mgMobileSwitch" aria-label="모바일 뷰 전환">
-  <button class="mg-ms-btn is-active" type="button" data-mg-view="input">입력</button>
-  <button class="mg-ms-btn" type="button" data-mg-view="result">결과</button>
-</div>
-
 <div class="mg-grid">
-<section aria-label="입력" class="mg-card mg-view mg-view-input">
+<section aria-label="입력" class="mg-card">
 <h2>게임 · 마켓 · 배당 입력</h2>
 <div aria-label="게임 선택" class="mg-tabs" id="mgGameTabs"></div>
 <div class="mg-row" style="margin-top:10px;">
@@ -153,7 +147,7 @@
 <button class="mg-btn primary" id="mgAnalyze" type="button">분석하기</button>
 </div>
 </section>
-<section aria-label="결과" class="mg-card mg-view mg-view-result">
+<section aria-label="결과" class="mg-card">
 <h2>계산 결과</h2>
 <div class="mg-copy-row">
   <button class="mg-btn" id="mgCopySummary" type="button">요약 복사</button>
@@ -188,8 +182,8 @@
 <div id="mgProInsights"></div>
 </section>
 <div class="mg-divider"></div>
-<details aria-label="픽 기록" class="mg-picks mg-fold">
-<summary>픽 기록</summary>
+<section aria-label="픽 기록" class="mg-picks">
+<h3 style="margin:0 0 10px;">픽 기록</h3>
 <div class="mg-note" style="margin:-2px 0 12px;">분석 결과를 <b>근거 메모</b>와 함께 저장해두면, 다음날/다음 세션에 비교가 쉬워집니다.</div>
 <div class="mg-row" style="align-items:flex-end;">
 <div class="mg-field" style="flex:1.2; min-width:240px;">
@@ -202,10 +196,10 @@
 </div>
 </div>
 <div id="mgPickList" style="margin-top:10px;"></div>
-</details>
+</section>
 <div class="mg-divider"></div>
-<details aria-label="사용법" class="mg-how mg-fold">
-<summary>사용법 (빠른 시작)</summary>
+<section aria-label="사용법" class="mg-how">
+<h3 style="margin:0 0 10px;">사용법 (빠른 시작)</h3>
 <div class="mg-how-grid">
 <div class="mg-how-card">
 <div class="mg-how-k">1) 배당 입력</div>
@@ -231,19 +225,19 @@
 <div class="mg-warnbox" style="margin-top:10px;">
 <b>주의</b> 이 도구는 <b>결과 예측</b>이 아니라, 배당/최근 결과를 기반으로 <b>확률·마진·EV를 계산</b>해 세션 의사결정을 돕습니다.
           </div>
-</details>
+</section>
 <div class="mg-note" style="margin-top:12px;">
           • EV% = (<b>최근 확률(히스토리) × 배당</b> − 1). 베팅금은 EV 금액(원) 참고용입니다.
           <br/>
           • 이 도구는 계산을 돕기 위한 용도이며, 실제 결과는 변동성이 큽니다.
         </div>
 <div class="mg-divider"></div>
-<details aria-label="안내" class="mg-foot mg-fold">
-<summary>SEO / 안내</summary>
+<section aria-label="안내" class="mg-foot">
+<h3>SEO / 안내</h3>
 <div class="mg-note">
             동행파워볼 분석기 · 동행파워볼+ 분석기 · 키노사다리 분석기 · 스피드키노사다리 분석기 · 미니게임 EV 계산기 · 마진 계산기
           </div>
-</details>
+</section>
 </section>
 </div>
 </main>
