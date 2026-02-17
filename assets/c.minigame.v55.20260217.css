@@ -3,3 +3,11 @@
 .mg-in.is-bad:focus{box-shadow:0 0 0 4px rgba(255,77,77,.18) !important;}
 .mg-kpi .s{line-height:1.35;}
 .mg-copy-row{display:flex;justify-content:flex-end;gap:8px;margin:6px 0 0;}
+
+/* v66 — collapsible session box */
+.mg-collapsible{padding:0;overflow:hidden;}
+.mg-collapsible-sum{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:14px 16px;font-weight:1200;}
+.mg-collapsible-sum::-webkit-details-marker{display:none;}
+.mg-collapsible-sub{font-weight:900;opacity:.68;font-size:12px;}
+.mg-collapsible[open] .mg-collapsible-sum{border-bottom:1px solid rgba(255,255,255,.10);}
+.mg-collapsible-body{padding:12px 16px 16px;}
