@@ -19,10 +19,10 @@
 <link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
 <link href="/assets/c.43df7d0713c1.css" rel="stylesheet"/>
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
-<link href="/assets/c.casino.evo.v65.20260217.css" rel="stylesheet"/>
+<link href="/assets/c.casino.evo.v62.20260217.css" rel="stylesheet"/>
 <script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
 <script defer="" src="/assets/js/j.c471c3193855.js"></script>
-<script defer="" src="/assets/js/j.casino.evo.v65.20260217.js"></script>
+<script defer="" src="/assets/js/j.casino.evo.v62.20260217.js"></script>
 <script src="../assets/js/inline-bundles/b.cba5ff41a7.js"></script>
 <script defer="" src="/assets/js/j.9179477b9417.js"></script>
 <script type="application/ld+json">
@@ -217,9 +217,8 @@
     </div>
   </section>
 
-
-
-  <section class="cs-card" style="margin-top:12px;" aria-label="슈 트래커">
+  <div class="cs-evo-grid">
+<section class="cs-card" style="margin-top:12px;" aria-label="슈 트래커">
     <h2>슈 트래커 (최근 결과 기록)</h2>
     <div class="cs-adv small" style="border-top:none; padding-top:8px;">
       <div>• 최근 결과를 기록해 <b>편차/연속/분산</b>을 숫자로 확인하는 용도입니다. “다음 결과를 맞추는 예측”이 아닙니다.</div>
@@ -243,104 +242,20 @@
     <div class="cs-evo-out" id="evoShoeOut" style="margin-top:10px;"></div>
   </section>
 
-
-
-
-  <section class="cs-card cs-evo-switch" aria-label="EV/리스크 계산기">
-  <div class="cs-evo-switch-row" role="tablist" aria-label="계산기 선택">
-    <button class="cs-top-tab cs-evo-tab on" type="button" data-show="bac">바카라: 기대값·하우스엣지</button>
-    <button class="cs-top-tab cs-evo-tab" type="button" data-show="rou">룰렛: 기대손실(이론)</button>
-    <button class="cs-top-tab cs-evo-tab" type="button" data-show="risk">세션 리스크</button>
+    <div class="cs-evo-acc" id="evoCalcAcc">
+  <div class="cs-evo-acc-tabs" role="tablist" aria-label="라이브 계산기">
+    <button type="button" class="cs-evo-tab on" data-panel="bac" aria-selected="true">바카라</button>
+    <button type="button" class="cs-evo-tab" data-panel="rou" aria-selected="false">룰렛</button>
+    <button type="button" class="cs-evo-tab" data-panel="risk" aria-selected="false">세션리스크</button>
   </div>
   <div class="cs-evo-panels">
-    <section class="cs-card cs-evo-panel on" data-panel="bac" aria-label="바카라 하우스엣지">
-          <h2>바카라: 기대값 · 하우스엣지</h2>
-          <div class="cs-row" style="margin-top:10px;">
-            <div class="cs-field" style="min-width:200px;">
-              <label for="evoBacBet">베팅금(원)</label>
-              <input id="evoBacBet" inputmode="numeric" value="10000"/>
-            </div>
-            <div class="cs-field" style="min-width:180px;">
-              <label for="evoBacHands">핸드 수</label>
-              <input id="evoBacHands" inputmode="numeric" value="100"/>
-            </div>
-            <div class="cs-field" style="min-width:180px;">
-              <label for="evoBacType">베팅</label>
-              <select id="evoBacType">
-                <option value="banker">BANKER</option>
-                <option value="player">PLAYER</option>
-                <option value="tie">TIE</option>
-              </select>
-            </div>
-          </div>
-          <div class="cs-row" style="margin-top:10px;">
-            <div class="cs-field" style="min-width:200px;">
-              <label for="evoBacCommission">BANKER 커미션(%)</label>
-              <input id="evoBacCommission" inputmode="decimal" value="5"/>
-            </div>
-            <div class="cs-field" style="min-width:200px;">
-              <label for="evoBacTiePay">TIE 배당 (예: 8 = 8:1)</label>
-              <input id="evoBacTiePay" inputmode="decimal" value="8"/>
-            </div>
-          </div>
-          <div class="cs-evo-out" id="evoBacOut" style="margin-top:10px;"></div>
-          <div class="cs-adv small">
-            <div>• 8덱 기준(대표값): Banker 45.86% / Player 44.62% / Tie 9.52% (Tie는 Push 처리)</div>
-          </div>
-        </section>
-    <section class="cs-card cs-evo-panel" data-panel="rou" aria-label="룰렛 하우스엣지">
-          <h2>룰렛: 기대 손실(이론)</h2>
-          <div class="cs-row" style="margin-top:10px;">
-            <div class="cs-field" style="min-width:220px;">
-              <label for="evoRouWheel">휠 타입</label>
-              <select id="evoRouWheel">
-                <option value="eu">유럽(0) · 37칸</option>
-                <option value="us">미국(0,00) · 38칸</option>
-              </select>
-            </div>
-            <div class="cs-field" style="min-width:200px;">
-              <label for="evoRouBet">베팅금(원)</label>
-              <input id="evoRouBet" inputmode="numeric" value="10000"/>
-            </div>
-            <div class="cs-field" style="min-width:180px;">
-              <label for="evoRouSpins">스핀 수</label>
-              <input id="evoRouSpins" inputmode="numeric" value="100"/>
-            </div>
-          </div>
-          <div class="cs-evo-out" id="evoRouOut" style="margin-top:10px;"></div>
-          <div class="cs-adv small">
-            <div>• 룰렛은 베팅 종류(인사이드/아웃사이드)와 무관하게, 같은 휠이면 이론 하우스엣지가 동일합니다.</div>
-          </div>
-        </section>
-    <section class="cs-card cs-evo-panel" data-panel="risk" aria-label="세션 리스크">
-          <h2>세션 리스크: 목표/손절 도달 확률</h2>
-          <div class="cs-row" style="margin-top:10px;">
-            <div class="cs-field" style="min-width:200px;">
-              <label for="evoUnit">베팅 단위(원)</label>
-              <input id="evoUnit" inputmode="numeric" value="10000"/>
-            </div>
-            <div class="cs-field" style="min-width:200px;">
-              <label for="evoPwin">승률 p (0~1)</label>
-              <input id="evoPwin" inputmode="decimal" value="0.50"/>
-            </div>
-          </div>
-          <div class="cs-row" style="margin-top:10px;">
-            <div class="cs-field" style="min-width:200px;">
-              <label for="evoTargetU">목표(유닛)</label>
-              <input id="evoTargetU" inputmode="numeric" value="5"/>
-            </div>
-            <div class="cs-field" style="min-width:200px;">
-              <label for="evoStopU">손절(유닛)</label>
-              <input id="evoStopU" inputmode="numeric" value="5"/>
-            </div>
-          </div>
-          <div class="cs-evo-out" id="evoRiskOut" style="margin-top:10px;"></div>
-          <div class="cs-adv small">
-            <div>• 단순화된 “1유닛 랜덤워크” 모델입니다. 실제 게임은 변동성/커미션/베팅 분산에 따라 달라질 수 있습니다.</div>
-          </div>
-        </section>
-  </div>
-</section>
+<section class="cs-card cs-evo-panel on" data-panel=\"bac\" aria-label="바카라 하우스엣지">
+      <h2>바카라: 기대값 · 하우스엣지</h2>
+      <div class="cs-row" style="margin-top:10px;">
+        <div class="cs-field" style="min-width:200px;">
+          <label for="evoBacBet">베팅금(원)</label>
+          <input id="evoBacBet" inputmode="numeric" value="10000"/>
+        </div>
         <div class="cs-field" style="min-width:180px;">
           <label for="evoBacHands">핸드 수</label>
           <input id="evoBacHands" inputmode="numeric" value="100"/>
@@ -370,7 +285,7 @@
       </div>
     </section>
 
-    <section class="cs-card" aria-label="룰렛 하우스엣지">
+<section class="cs-card cs-evo-panel" data-panel=\"rou\" aria-label="룰렛 하우스엣지">
       <h2>룰렛: 기대 손실(이론)</h2>
       <div class="cs-row" style="margin-top:10px;">
         <div class="cs-field" style="min-width:220px;">
@@ -395,7 +310,7 @@
       </div>
     </section>
 
-    <section class="cs-card" aria-label="세션 리스크">
+<section class="cs-card cs-evo-panel" data-panel=\"risk\" aria-label="세션 리스크">
       <h2>세션 리스크: 목표/손절 도달 확률</h2>
       <div class="cs-row" style="margin-top:10px;">
         <div class="cs-field" style="min-width:200px;">
@@ -422,7 +337,13 @@
         <div>• 단순화된 “1유닛 랜덤워크” 모델입니다. 실제 게임은 변동성/커미션/베팅 분산에 따라 달라질 수 있습니다.</div>
       </div>
     </section>
+
   </div>
+</div>
+  </div>
+
+
+  
   <section class="cs-card" style="margin-top:12px;">
     <h2>안내</h2>
     <div class="cs-adv small" style="border-top:none; padding-top:8px;">

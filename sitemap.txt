@@ -22,3 +22,5 @@ https://88st.cloud/tool-virtual/
 https://88st.cloud/tool/fair-odds/
 https://88st.cloud/tool/kelly/
 https://88st.cloud/fortune/
+https://88st.cloud/calc/
+https://88st.cloud/guide/

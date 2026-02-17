@@ -131,10 +131,9 @@
 <button class="mg-btn" id="mgSave" type="button">저장</button>
 <button class="mg-btn primary" id="mgAnalyze" type="button">분석하기</button>
 </div>
-</section>
-<details class="mg-card mg-collapsible mg-session" aria-label="세션 관리">
-  <summary class="mg-collapsible-sum">세션 관리 <span class="mg-collapsible-sub">(손실 한도 / 연속 경고)</span></summary>
-  <div class="mg-collapsible-body">
+<details class="mg-acc" aria-label="세션 관리(접기)">
+  <summary>세션 관리 (선택)</summary>
+  <section aria-label="세션 관리" class="mg-session" style="margin-top:10px;">
 <div class="mg-row">
 <div class="mg-field" style="flex:1; min-width:220px;">
 <label for="mgStopLoss">오늘 손실 한도(원) <span class="mg-muted">(0 = 끔)</span></label>
@@ -148,9 +147,9 @@
 <div class="mg-note" style="margin-top:8px;">
 <b>세션 관리</b>는 예측이 아니라 <b>손실 제한/과열 방지</b>를 돕는 장치입니다.
           </div>
-  </div>
+</section>
 </details>
-
+</section>
 <section aria-label="결과" class="mg-card">
 <h2>계산 결과</h2>
 <div class="mg-copy-row">

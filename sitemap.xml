@@ -146,14 +146,10 @@
   </url>
     <url>
     <loc>https://88st.cloud/calc/</loc>
-    <priority>0.75</priority>
+    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://88st.cloud/guide/</loc>
-    <priority>0.65</priority>
-  </url>
-  <url>
-    <loc>https://88st.cloud/casino-strategy/</loc>
-    <priority>0.55</priority>
+    <priority>0.70</priority>
   </url>
 </urlset>
