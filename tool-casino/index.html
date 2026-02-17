@@ -19,10 +19,10 @@
 <link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
 <link href="/assets/c.43df7d0713c1.css" rel="stylesheet"/>
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
-<link href="/assets/c.casino.evo.v62.20260217.css" rel="stylesheet"/>
-<script defer="" src="/assets/js/j.8829a3ccde44.js"></script>
+<link href="/assets/c.casino.evo.v64.20260217.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/j.8829a3ccde44.v63.20260217.js"></script>
 <script defer="" src="/assets/js/j.c471c3193855.js"></script>
-<script defer="" src="/assets/js/j.casino.evo.v62.20260217.js"></script>
+<script defer="" src="/assets/js/j.casino.evo.v64.20260217.js"></script>
 <script src="../assets/js/inline-bundles/b.cba5ff41a7.js"></script>
 <script defer="" src="/assets/js/j.9179477b9417.js"></script>
 <script type="application/ld+json">
@@ -35,7 +35,8 @@
     ]
   }
   </script>
-<meta content="/img/logo.png" property="og:image"/></head>
+<meta content="/img/logo.png" property="og:image"/>  <link href="/assets/c.guide.v63.20260217.css" rel="stylesheet"/>
+</head>
 <body class="st-app">
 <main class="cs-wrap">
 <section class="cs-hero">
@@ -309,7 +310,7 @@
   </div>
 
 
-  <section class="cs-card" style="margin-top:12px;" aria-label="슈 트래커">
+  <section class="cs-card" id="evoShoeSection" style="margin-top:12px;" aria-label="슈 트래커">
     <h2>슈 트래커 (최근 결과 기록)</h2>
     <div class="cs-adv small" style="border-top:none; padding-top:8px;">
       <div>• 최근 결과를 기록해 <b>편차/연속/분산</b>을 숫자로 확인하는 용도입니다. “다음 결과를 맞추는 예측”이 아닙니다.</div>
@@ -328,8 +329,28 @@
         <button class="insight-btn btn-mini cs-shoe-soft" type="button" data-act="undo">되돌리기</button>
         <button class="insight-btn btn-mini cs-shoe-soft" type="button" data-act="clear">초기화</button>
       </div>
+    <div class="cs-shoe-paste" style="margin-top:10px;">
+      <div class="cs-row" style="align-items:stretch;">
+        <div class="cs-field" style="flex:1; min-width:260px;">
+          <label for="evoShoePaste">최근 결과 붙여넣기</label>
+          <textarea id="evoShoePaste" placeholder="예: B P P T B ... (공백/쉼표/줄바꿈 구분)"></textarea>
+        </div>
+        <div class="cs-field" style="min-width:220px;">
+          <label>도구</label>
+          <div class="cs-btnrow" style="margin-top:0;">
+            <button class="insight-btn btn-mini" type="button" id="evoShoeApplyPaste">붙여넣기 적용</button>
+            <button class="insight-btn btn-mini cs-shoe-soft" type="button" id="evoShoeCopySeq">기록 복사</button>
+          </div>
+          <div class="cs-adv small" style="border-top:none; padding-top:8px;">
+            <div>표기: <b>P</b>=PLAYER / <b>B</b>=BANKER / <b>T</b>=TIE</div>
+          </div>
+        </div>
+      </div>
     </div>
 
+    </div>
+
+    <div class="cs-shoe-badges" id="evoShoeBadges" aria-label="패턴 알림"></div>
     <div class="cs-evo-out" id="evoShoeOut" style="margin-top:10px;"></div>
   </section>
 
