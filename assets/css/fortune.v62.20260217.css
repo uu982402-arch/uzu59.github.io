@@ -263,3 +263,47 @@
   pointer-events: none;
   min-height: 0;
 }
+
+/* Compact mode (main index): one-line KPI, minimal controls */
+.fortune-widget.fortune-compact{
+  grid-template-columns: 180px 1fr;
+  gap:12px;
+}
+@media (max-width: 760px){
+  .fortune-widget.fortune-compact{ grid-template-columns: 1fr; }
+}
+.fortune-widget.fortune-compact .fortune-ring{
+  padding:12px;
+  border-radius:18px;
+}
+.fortune-widget.fortune-compact .fortune-ring-inner{ min-height:118px; }
+.fortune-widget.fortune-compact .fortune-ring-inner::before{ width:94px; height:94px; }
+.fortune-widget.fortune-compact .fortune-score{ font-size:28px; }
+.fortune-widget.fortune-compact .fortune-date{ font-size:11px; }
+
+.fortune-widget.fortune-compact .fortune-lines,
+.fortune-widget.fortune-compact .fortune-pro,
+.fortune-widget.fortune-compact .fortune-profile-hint{
+  display:none !important;
+}
+
+.fortune-widget.fortune-compact .fortune-head{
+  padding:12px 14px;
+  font-size:13px;
+  line-height:1.45;
+  border-radius:16px;
+}
+
+.fortune-widget.fortune-compact .fortune-profile{
+  padding:12px 14px;
+  border-radius:18px;
+}
+.fortune-widget.fortune-compact .fortune-profile-grid{
+  gap:8px;
+  margin-top:8px;
+}
+.fortune-widget.fortune-compact .fortune-profile-grid > *{ min-height:44px; }
+
+/* Hide sign selector on compact (dob auto) */
+.fortune-widget.fortune-compact .fortune-sign-row{ display:none !important; }
+

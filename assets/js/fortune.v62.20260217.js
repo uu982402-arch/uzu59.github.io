@@ -379,7 +379,8 @@
       setRing(root.querySelector('.fortune-ring-inner'), data.score);
       setText('fortuneScore', data.score);
       setText('fortuneDate', todayKey());
-      setText('fortuneHead', data.head);
+      const compact = root.classList.contains('fortune-compact');
+      setText('fortuneHead', compact ? `점수 ${data.score} · 주의 ${data.ban} · 추천 ${data.keyword}` : data.head);
       setText('fortuneKeyword', data.keyword);
       setText('fortuneColor', data.color);
       setText('fortuneNumber', data.number);

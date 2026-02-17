@@ -216,30 +216,95 @@
 
   function renderShoe(provider){
     const out = $('evoShoeOut');
+    const call = shoeStats(provider);
     if(!out) return;
-    const seq = loadShoe(provider);
+    if(!call){ out.innerHTML = ''; return; }
+
+    const seq = (call.seq || '');
     const last10 = seq.slice(-10);
-    const last5 = seq.slice(-5);
-    const c10 = countOf(last10);
-    const c5 = countOf(last5);
-    const call = countOf(seq);
+    const last20 = seq.slice(-20);
+
+    const c10 = countPBT(last10);
+    const c20 = countPBT(last20);
+    const N20 = last20.length || 0;
+
     const st = streak(seq);
+    const stSym = st.sym==='P' ? 'PLAYER' : st.sym==='B' ? 'BANKER' : st.sym==='T' ? 'TIE' : '—';
 
-    const theo = { banker: BAC_P.banker, player: BAC_P.player, tie: BAC_P.tie };
+    // deviation score (chi-square-like) but we do NOT show raw numeric score
+    const exp = {
+      p: N20 * BAC_P.player,
+      b: N20 * BAC_P.banker,
+      t: N20 * BAC_P.tie,
+    };
+    const chi2 = (exp.p>0?((c20.p-exp.p)*(c20.p-exp.p)/exp.p):0)
+              + (exp.b>0?((c20.b-exp.b)*(c20.b-exp.b)/exp.b):0)
+              + (exp.t>0?((c20.t-exp.t)*(c20.t-exp.t)/exp.t):0);
 
-    const rows = [];
-    rows.push({k:'운영사', v: provider==='prag' ? 'Pragmatic' : 'Evolution'});
-    rows.push({k:'최근 10', v: `<span class="cs-shoe-seq">${seqToText(last10) || '—'}</span>`});
-    rows.push({k:'최근 10 카운트', v: `P ${c10.p} · B ${c10.b} · T ${c10.t}`});
-    rows.push({k:'최근 5 카운트', v: `P ${c5.p} · B ${c5.b} · T ${c5.t}`});
-    rows.push({k:'전체(저장) 카운트', v: `N ${call.n} / P ${call.p} · B ${call.b} · T ${call.t}`});
-    rows.push({k:'현재 연속', v: `${st.sym==='P'?'PLAYER':(st.sym==='B'?'BANKER':(st.sym==='T'?'TIE':'—'))} ${st.len}`});
-    rows.push({k:'다음 핸드 이론 확률(참고)', v: `B ${(theo.banker*100).toFixed(2)}% / P ${(theo.player*100).toFixed(2)}% / T ${(theo.tie*100).toFixed(2)}%`});
+    const badges = [];
+    if(st.len >= 6 && (st.sym==='P' || st.sym==='B')) badges.push({k:'hot', t:'연속 과열'});
+    if(c20.t >= 4) badges.push({k:'tie', t:'타이 급증'});
+    if(chi2 >= 7.8) badges.push({k:'dev', t:'최근20 편차↑'});
 
-    out.innerHTML = rows.map((r)=>`<div class="row"><div class="k">${r.k}</div><div class="v cs-shoe-mono">${r.v}</div></div>`).join('');
+    let analysis = '보통(노이즈)';
+    if(badges.some(b=>b.k==='hot')) analysis = '주의(연속 과열)';
+    else if(badges.some(b=>b.k==='dev')) analysis = '주의(편차↑)';
+    else if(badges.some(b=>b.k==='tie')) analysis = '주의(타이↑)';
+
+    const badgeHtml = badges.length
+      ? badges.map(b=>`<span class="shoe-badge ${b.k}">${b.t}</span>`).join('')
+      : '<span class="shoe-badge ok">정상</span>';
+
+    const providerName = provider==='prag' ? 'Pragmatic' : 'Evolution';
+
+    const obsPct = (c)=> N20 ? ((c/N20)*100).toFixed(2)+'%' : '—';
+    const devPp = (c, theo)=>{
+      if(!N20) return '—';
+      const d = (c/N20*100) - (theo*100);
+      const s = (d>=0?'+':'') + d.toFixed(2) + '%p';
+      return s;
+    };
+
+    out.innerHTML = `
+      <div class="cs-shoe-grid">
+        <div class="cs-shoe-box">
+          <div class="cs-shoe-meta">
+            <div>
+              <div class="cs-shoe-provider">${providerName}</div>
+              <div class="cs-shoe-count">저장 N ${call.n} · P ${call.p} · B ${call.b} · T ${call.t}</div>
+            </div>
+            <div style="text-align:right">
+              <div class="cs-shoe-count">현재 연속</div>
+              <div style="font-weight:1100">${stSym} ${st.len||0}</div>
+              <div class="cs-shoe-count">최대 ${st.max||0}</div>
+            </div>
+          </div>
+
+          <div class="cs-shoe-seqrow"><span class="label">최근10</span><span class="cs-shoe-seq">${seqToText(last10) || '—'}</span></div>
+          <div class="cs-shoe-seqrow"><span class="label">최근20</span><span>P ${obsPct(c20.p)} · B ${obsPct(c20.b)} · T ${obsPct(c20.t)} <span style="color:rgba(255,255,255,.62)">(이론 대비)</span></span></div>
+          <div class="cs-shoe-seqrow"><span class="label">최근20</span><span>편차: P ${devPp(c20.p,BAC_P.player)} · B ${devPp(c20.b,BAC_P.banker)} · T ${devPp(c20.t,BAC_P.tie)}</span></div>
+        </div>
+
+        <div class="cs-shoe-analysis">
+          <div class="cs-shoe-ana-head">
+            <div>
+              <div class="cs-shoe-ana-title">분석 결과</div>
+              <div class="cs-shoe-count" style="margin-top:4px">리듬/분산 체크 <b style="color:rgba(255,255,255,.94)">${analysis}</b></div>
+            </div>
+            <div class="cs-shoe-badges">${badgeHtml}</div>
+          </div>
+
+          <div class="cs-shoe-ana-prob">
+            <span class="k">다음 핸드 이론 확률</span><br/>
+            <span>B ${fmtPct(BAC_P.banker)}</span> / <span>P ${fmtPct(BAC_P.player)}</span> / <span>T ${fmtPct(BAC_P.tie)}</span>
+          </div>
+
+          <div class="cs-shoe-ana-note">※ “예측”이 아니라 관측 편차·연속·과몰입 신호만 점검합니다. 다음 결과를 맞추는 도구가 아닙니다.</div>
+        </div>
+      </div>
+    `;
   }
-
-  function wireShoe(){
+function wireShoe(){
     const out = $('evoShoeOut');
     if(!out) return;
 
@@ -299,6 +364,28 @@
       const saved = lsRead(VIEW_KEY, 'baccarat');
       setView(saved==='evo' ? 'evo' : 'baccarat');
     }
+
+    // EVO calculators: horizontal fold tabs
+    (function(){
+      const acc = $('evoCalcAcc');
+      if(!acc) return;
+      const tabs = acc.querySelectorAll('.cs-evo-tab');
+      const panels = acc.querySelectorAll('.cs-evo-panel');
+      const setOn = (key)=>{
+        tabs.forEach(btn=>{
+          const on = btn.dataset.panel===key;
+          btn.classList.toggle('on', on);
+          btn.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        panels.forEach(p=> p.classList.toggle('on', p.dataset.panel===key));
+      };
+      acc.addEventListener('click', (e)=>{
+        const btn = e.target && e.target.closest('.cs-evo-tab');
+        if(!btn) return;
+        e.preventDefault();
+        setOn(btn.dataset.panel);
+      });
+    })();
 
     // calculators
     const ids = [

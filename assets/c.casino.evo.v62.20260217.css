@@ -59,3 +59,122 @@
 
 .cs-shoe-seq{ font-weight:1100; letter-spacing:.06em; }
 .cs-shoe-mono{ font-variant-numeric: tabular-nums; }
+
+/* EVO calculators: horizontal fold (tabs) */
+.cs-evo-acc{ margin-top:12px; }
+.cs-evo-acc-tabs{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding:10px;
+  border-radius:18px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.06));
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow: 0 10px 30px rgba(0,0,0,.16);
+  position: sticky;
+  top: 58px;
+  z-index: 2;
+}
+@media (max-width: 860px){
+  .cs-evo-acc-tabs{ position: static; box-shadow:none; }
+}
+.cs-evo-tab{
+  flex:1;
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  height:40px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.78);
+  font-weight:900;
+  letter-spacing:.02em;
+  cursor:pointer;
+}
+.cs-evo-tab.on{
+  background: rgba(255,255,255,.12);
+  color: rgba(255,255,255,.96);
+  border-color: rgba(255,255,255,.18);
+}
+.cs-evo-panel{ display:none; }
+.cs-evo-panel.on{ display:block; }
+
+/* Shoe tracker: enlarged analysis block + warning badges */
+.cs-evo-out{ padding:0; }
+.cs-evo-out .cs-shoe-grid{
+  display:grid;
+  grid-template-columns: 1.12fr .88fr;
+  gap:12px;
+}
+@media (max-width: 860px){
+  .cs-evo-out .cs-shoe-grid{ grid-template-columns: 1fr; }
+}
+.cs-evo-out .cs-shoe-box{
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;
+  background: rgba(0,0,0,.14);
+  padding:12px;
+}
+.cs-evo-out .cs-shoe-meta{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+.cs-evo-out .cs-shoe-provider{ font-weight:1100; letter-spacing:.02em; }
+.cs-evo-out .cs-shoe-count{ color: rgba(255,255,255,.72); font-size:12px; }
+.cs-evo-out .cs-shoe-seqrow{ display:flex; gap:10px; margin-top:8px; }
+.cs-evo-out .cs-shoe-seqrow .label{ width:64px; color: rgba(255,255,255,.62); font-size:12px; }
+.cs-evo-out .cs-shoe-seq{ letter-spacing:.06em; font-weight:900; }
+
+.cs-evo-out .cs-shoe-analysis{
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.20));
+  padding:14px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.22);
+}
+.cs-evo-out .cs-shoe-ana-head{ display:flex; justify-content:space-between; gap:10px; align-items:center; }
+.cs-evo-out .cs-shoe-ana-title{ font-weight:1200; letter-spacing:.02em; }
+.cs-evo-out .cs-shoe-badges{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+.cs-evo-out .shoe-badge{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:1100;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.86);
+}
+.cs-evo-out .shoe-badge.hot{ border-color: rgba(255,80,80,.42); background: rgba(255,60,60,.10); color: rgba(255,180,180,.98); }
+.cs-evo-out .shoe-badge.tie{ border-color: rgba(255,210,120,.38); background: rgba(255,200,120,.10); color: rgba(255,235,190,.98); }
+.cs-evo-out .shoe-badge.dev{ border-color: rgba(95,178,255,.36); background: rgba(95,178,255,.12); color: rgba(185,225,255,.98); }
+.cs-evo-out .shoe-badge.ok{ border-color: rgba(140,255,200,.22); background: rgba(120,255,190,.08); color: rgba(200,255,230,.95); }
+
+.cs-evo-out .cs-shoe-ana-prob{
+  margin-top:12px;
+  padding:12px 12px;
+  border-radius:16px;
+  background: rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.10);
+  font-weight:1200;
+  letter-spacing:.02em;
+  font-size:16px;
+}
+@media (min-width: 860px){
+  .cs-evo-out .cs-shoe-ana-prob{ font-size:18px; }
+}
+.cs-evo-out .cs-shoe-ana-prob .k{ color: rgba(255,255,255,.72); font-weight:900; }
+.cs-evo-out .cs-shoe-ana-note{
+  margin-top:10px;
+  color: rgba(255,255,255,.68);
+  font-size:12px;
+  line-height:1.4;
+}
+
+/* Make shoe tracker + accordion span full width in 3-col grid */
+.cs-evo-grid > [aria-label="슈 트래커"],
+.cs-evo-grid > .cs-evo-acc{ grid-column: 1 / -1; }
