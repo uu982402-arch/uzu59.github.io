@@ -398,6 +398,18 @@
       t: obsBayesRaw.t==null ? '—' : (obsBayesRaw.t*100).toFixed(2)+'%',
     };
 
+    const bestObs = (obsBayesRaw.p==null) ? null : (function(){
+      const arr = [
+        {id:'B', p:obsBayesRaw.b},
+        {id:'P', p:obsBayesRaw.p},
+        {id:'T', p:obsBayesRaw.t},
+      ].filter(x=>Number.isFinite(x.p));
+      arr.sort((a,b)=>b.p-a.p);
+      return arr[0] || null;
+    })();
+    const bestObsLabel = bestObs ? (bestObs.id==='B'?'BANKER':bestObs.id==='P'?'PLAYER':'TIE') : '—';
+
+
     out.innerHTML = `
       <div class="cs-shoe-grid">
         <div class="cs-shoe-box">
@@ -427,13 +439,13 @@
           </div>
 
           <div class="cs-shoe-ana-prob big">
-            <span class="k">다음 핸드 확률(이론)</span>
-            <span class="v"><b>B ${fmtPct(BAC_P.banker)}</b> / <b>P ${fmtPct(BAC_P.player)}</b> / <b>T ${fmtPct(BAC_P.tie)}</b></span>
+            <span class="k">다음 핸드 예상 확률(관측·보정)</span>
+            <span class="v"><b>B ${obsBayes.b}</b> / <b>P ${obsBayes.p}</b> / <b>T ${obsBayes.t}</b> <span style="margin-left:10px;color:rgba(255,255,255,.78)">우세: <b style="color:rgba(255,255,255,.94)">${bestObsLabel}</b></span></span>
           </div>
 
           <div class="cs-shoe-ana-prob">
-            <span class="k">관측 기반(최근20)</span>
-            <span class="v">B ${obsBayes.b} / P ${obsBayes.p} / T ${obsBayes.t}</span>
+            <span class="k">이론 확률(8덱 기준)</span>
+            <span class="v">B ${fmtPct(BAC_P.banker)} / P ${fmtPct(BAC_P.player)} / T ${fmtPct(BAC_P.tie)}</span>
           </div>
 
           <div class="cs-shoe-ana-grid">
