@@ -97,4 +97,4 @@
   });
 })();
 
-;try{var s=document.createElement("script");s.defer=true;s.src="/assets/js/j.headerpatch.v90.js";document.head.appendChild(s);}catch(e){}
+;(()=>{try{var s=document.createElement('script');s.defer=true;s.src='/assets/js/j.safePatch.v91.js';document.head.appendChild(s);}catch(e){}})();
