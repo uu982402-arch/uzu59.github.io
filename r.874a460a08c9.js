@@ -1,1 +1,0 @@
-!function(){try{var e=document.querySelector(".glass-notice");if(!e)return;var t="88_glass_notice_dismissed";if("1"===localStorage.getItem(t))return void e.remove();var r=e.querySelector("[data-dismiss]");r&&r.addEventListener("click",function(){try{localStorage.setItem(t,"1")}catch(e){}e.remove()})}catch(e){}}();
