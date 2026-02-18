@@ -2,6 +2,22 @@
 (function(){
   'use strict';
 
+  // v72: manage shoe AI brief here (avoid duplicate listeners)
+  try{ window.__CASINO_SHOE_BRIEF_MANAGED = true; }catch(e){}
+  const escapeHtml = (s)=> String(s==null?'':s).replace(/[&<>"']/g, (c)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  const countPBT = (seq)=>{
+    let p=0,b=0,t=0;
+    (seq||[]).forEach(x=>{ if(x==='P')p++; else if(x==='B')b++; else if(x==='T')t++; });
+    return {p,b,t};
+  };
+
+  function shoeStats(provider){
+    const seq = loadShoe(provider) || [];
+    if(!seq.length) return null;
+    const c = countPBT(seq);
+    return { seq, n: seq.length, p: c.p, b: c.b, t: c.t };
+  }
+
   const VIEW_KEY = '88st_casino_top_view_v1';
   const $ = (id)=>document.getElementById(id);
 
@@ -223,9 +239,30 @@
 
   function renderShoe(provider){
     const out = $('evoShoeOut');
-    const call = shoeStats(provider);
     if(!out) return;
-    if(!call){ out.innerHTML = ''; return; }
+
+    const brief = $('shoeBrief');
+    const setBrief = (score, level, tags, warns, recos)=>{
+      if(!brief) return;
+      const q = (sel)=> brief.querySelector(sel);
+      const scoreEl = q('[data-role="score"]');
+      const labelEl = q('[data-role="label"]');
+      const tagsEl  = q('[data-role="tags"]');
+      const warnEl  = q('[data-role="warn"]');
+      const recoEl  = q('[data-role="reco"]');
+      if(scoreEl) scoreEl.textContent = (score==null ? '—' : String(score));
+      if(labelEl) labelEl.textContent = level || '대기';
+      if(tagsEl)  tagsEl.innerHTML = (tags||[]).map(t=>`<span class="vvip-tag ${escapeHtml(t.cls||'')}">${escapeHtml(t.t||'')}<\/span>`).join('');
+      if(warnEl)  warnEl.innerHTML = (warns||[]).map(w=>`<li>${escapeHtml(w)}<\/li>`).join('');
+      if(recoEl)  recoEl.innerHTML = (recos||[]).map(r=>`<li>${escapeHtml(r)}<\/li>`).join('');
+    };
+
+    const call = shoeStats(provider);
+    if(!call){
+      out.innerHTML = `<div class="cs-empty">최근 결과를 <b>PLAYER / BANKER / TIE</b>로 입력하면 분석이 표시됩니다.</div>`;
+      try{ setBrief(null,'대기',[{cls:'warn',t:'입력 대기'}],["최근 결과를 입력하면 연속/편차/타이 급증 경고를 자동 태깅합니다."],["초기에는 소액·짧게 테스트 후, 표본(20+)을 모아 확인하세요."]) }catch(e){}
+      return;
+    }
 
     const seq = (call.seq || '');
     const last10 = seq.slice(-10);
@@ -320,6 +357,7 @@
 
     score = Math.round(clamp(score, 10, 95));
     const level = score >= 80 ? "양호" : score >= 65 ? "보통" : score >= 50 ? "주의" : "위험";
+    try{ setBrief(score, level, tags, warns, recos); }catch(e){};
 
     if(!warns.length) warns.push("특이 경고 없음. 그래도 과열/추격은 피하세요.");
 
@@ -341,29 +379,7 @@
     const tagHtml = tags.map(x=>`<span class="cs-shoe-tag ${escapeHtml(x.cls)}">${escapeHtml(x.t)}</span>`).join('');
     const warnHtml = warns.map(x=>`<li>${escapeHtml(x)}</li>`).join('');
     const recoHtml = recos.map(x=>`<li>${escapeHtml(x)}</li>`).join('');
-
-    const briefHtml = `
-      <div class="cs-shoe-brief">
-        <div class="cs-shoe-brief-head">
-          <div>
-            <div class="cs-shoe-brief-title">AI 브리핑</div>
-            <div class="cs-shoe-brief-sub">최근20 기준 · ${escapeHtml(provider==='prag' ? 'Pragmatic' : 'Evolution')}</div>
-          </div>
-          <div class="cs-shoe-score">${score}<span class="cs-shoe-score-sub">/100 · ${escapeHtml(level)}</span></div>
-        </div>
-        <div class="cs-shoe-tags">${tagHtml || '<span class="cs-shoe-tag">태그 없음</span>'}</div>
-        <div class="cs-shoe-brief-grid">
-          <div>
-            <div class="cs-shoe-brief-k">주의</div>
-            <ul class="cs-shoe-ul">${warnHtml}</ul>
-          </div>
-          <div>
-            <div class="cs-shoe-brief-k">추천</div>
-            <ul class="cs-shoe-ul">${recoHtml}</ul>
-          </div>
-        </div>
-      </div>
-    `;
+    const briefHtml = ``;
 
     const providerName = provider==='prag' ? 'Pragmatic' : 'Evolution';
 
@@ -408,7 +424,7 @@
               <div class="cs-shoe-count" style="margin-top:4px">분석 요약 <b style="color:rgba(255,255,255,.94)">${analysis}</b></div>
             </div>
             <div class="cs-shoe-badges">${badgeHtml}</div>
-          </div>${briefHtml}
+          </div>
 
           <div class="cs-shoe-ana-prob big">
             <span class="k">다음 핸드 확률(이론)</span>

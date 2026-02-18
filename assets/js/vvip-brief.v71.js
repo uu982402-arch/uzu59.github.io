@@ -123,7 +123,8 @@
   }
 
   /* --- CASINO SHOE --- */
-  function initShoe(){
+   function initShoe(){
+    try{ if(window.__CASINO_SHOE_BRIEF_MANAGED) return; }catch(e){}
     var root = document.getElementById('shoeBrief');
     if(!root) return;
 

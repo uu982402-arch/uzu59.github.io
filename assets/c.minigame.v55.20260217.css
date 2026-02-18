@@ -39,3 +39,24 @@
 @media(max-width:720px){.mg-risk-brief{grid-template-columns:1fr;}}
 .mg-risk-ul{margin:8px 0 0 18px;padding:0;}
 .mg-risk-ul li{margin:4px 0;font-size:12.5px;line-height:1.45;opacity:.92;}
+
+/* v72: game selector tidy (scroll row) */
+.mg-tabs.mg-tabs--scroll{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:10px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:6px 2px 10px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.mg-tabs.mg-tabs--scroll::-webkit-scrollbar{height:0;}
+.mg-tabs.mg-tabs--scroll .mg-chip{
+  flex:0 0 auto;
+  white-space:nowrap;
+  scroll-snap-align:start;
+}
+
+/* v72: risk warn skin */
+.mg-risk-warn{border-color:rgba(235,195,70,.28);background:rgba(235,195,70,.08)}

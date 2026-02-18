@@ -11,6 +11,11 @@
   }
 
   function hydrate(el){
+    var noStore = (el.getAttribute('data-pro-nostore') === '1');
+    if(noStore){
+      try{ el.open = false; el.removeAttribute('open'); }catch(e){}
+      return;
+    }
     var k = keyFor(el);
     try{
       var v = localStorage.getItem(k);
