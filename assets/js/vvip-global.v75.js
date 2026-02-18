@@ -50,13 +50,48 @@
     });
   }
 
+
+  function hardHideStyle(){
+    try{
+      if(document.getElementById("vvipNoBottomCtaStyle")) return;
+      const s = document.createElement("style");
+      s.id = "vvipNoBottomCtaStyle";
+      s.textContent = `
+        .vvip-cta-dock, .vvip-tools-backdrop, .vvip-tools-sheet, .st-certdock{
+          display:none !important;
+          visibility:hidden !important;
+          pointer-events:none !important;
+        }
+        body{ padding-bottom: 0 !important; }
+      `;
+      document.head.appendChild(s);
+    }catch(e){}
+  }
+
+  function watchBottomCtas(){
+    try{
+      // Some pages inject late. Observe for a short window and keep removing.
+      let ticks = 0;
+      const iv = setInterval(()=>{
+        cleanupBottomCtas();
+        if(++ticks >= 30) clearInterval(iv);
+      }, 250);
+
+      const mo = new MutationObserver(()=>{ cleanupBottomCtas(); });
+      mo.observe(document.documentElement, {childList:true, subtree:true});
+      setTimeout(()=>{ try{ mo.disconnect(); }catch(e){} }, 8000);
+    }catch(e){}
+  }
+
   function ready(fn){
     if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", fn);
     else fn();
   }
 
   ready(()=>{
+    hardHideStyle();
     cleanupBottomCtas();
+    watchBottomCtas();
     // give shell a moment if it is injected async
     setTimeout(()=>{ normalizeAccordions(); }, 250);
   });
