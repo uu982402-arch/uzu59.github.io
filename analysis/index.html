@@ -214,6 +214,9 @@
 .pro-mini-table .best{outline:2px solid rgba(80,160,255,.45)}
 .pro-mini-table .mono{font-variant-numeric:tabular-nums}
 </style>
+<link href="/assets/vvip-pro.v71.css?v=71" rel="stylesheet"/>
+<script defer src="/assets/js/vvip-pro.v71.js?v=71"></script>
+<script defer src="/assets/js/vvip-brief.v71.js?v=71"></script>
 </head>
 <body>
 <div class="scam-popup" id="scamPopup" role="region" aria-label="사칭 주의 안내">
@@ -332,12 +335,12 @@
 </div>
 <div class="pro-note">TIP) “정배만 높아 보인다”면 <b>언더독 민감(보정)</b>으로 공정확률을 한 번 더 확인해보세요. (시장 확률 해석 보조)</div>
 
-<details class="pro-opts" id="proOptions">
+<details class="pro-opts vvip-pro" id="proOptions" data-prokey="analysis-pro">
   <summary>
     <div class="sum-left">🛠️ PRO 옵션</div>
     <div class="sum-badge">접기/펼치기</div>
   </summary>
-  <div class="pro-opts-body">
+  <div class="pro-opts-body vvip-pro-body">
     <div class="pro-mini-grid cols2">
       <div>
         <div class="pro-kicker" style="margin-bottom:6px">ODDS MOVE</div>
@@ -390,6 +393,28 @@
   <span class="pro-badge" id="sigMove" style="display:none">오즈 무브 —</span>
   <span class="pro-badge" id="sigMarketAvg" style="display:none">시장 평균 비교 —</span>
 </div>
+
+<!-- Beginner Summary (Unified) -->
+<div class="vvip-brief" id="sprtBrief" aria-label="초보 요약">
+  <div class="vvip-brief-head">
+    <div class="vvip-brief-title">AI 브리핑 (요약)</div>
+    <div class="vvip-brief-score"><span class="n" data-role="score">-</span><span class="lab" data-role="label">대기</span></div>
+  </div>
+  <div class="vvip-brief-body">
+    <div class="vvip-brief-grid">
+      <div class="vvip-brief-col">
+        <div class="vvip-brief-k">주의</div>
+        <ul class="vvip-brief-list" data-role="warn"><li>배당을 입력하면 자동 분석됩니다.</li></ul>
+      </div>
+      <div class="vvip-brief-col">
+        <div class="vvip-brief-k">추천</div>
+        <ul class="vvip-brief-list" data-role="reco"><li>마진이 낮은 라인/북부터 선택하세요.</li></ul>
+      </div>
+    </div>
+    <div class="vvip-brief-tags" data-role="tags"></div>
+  </div>
+</div>
+
 <div style="margin-top:12px">
 <table aria-label="공정확률 테이블" class="pro-table">
 <thead>

@@ -35,7 +35,10 @@
     ]
   }
   </script>
-<meta content="/img/logo.png" property="og:image"/></head>
+<meta content="/img/logo.png" property="og:image"/><link href="/assets/vvip-pro.v71.css?v=71" rel="stylesheet"/>
+<script defer src="/assets/js/vvip-pro.v71.js?v=71"></script>
+<script defer src="/assets/js/vvip-brief.v71.js?v=71"></script>
+</head>
 <body class="st-app">
 <main class="cs-wrap">
 <section class="cs-hero">
@@ -139,6 +142,13 @@
 <button class="cs-btn ghost" id="csUndo" type="button">UNDO</button>
 <button class="cs-btn ghost" id="csReset" type="button">RESET</button>
 </div>
+
+<details class="vvip-pro vvip-pro--mt" id="csProBac" data-prokey="casino-bac-pro">
+  <summary>
+    <div class="sum-left">🧠 PRO (근거·세부룰)</div>
+    <div class="sum-badge">세션 플래너 · 로그 · 저장</div>
+  </summary>
+  <div class="vvip-pro-body">
 <div aria-label="세션 플래너" class="cs-planner" style="margin-top:12px;">
 <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
 <h2 style="margin:0; font-size:14px;">세션 플래너</h2>
@@ -196,6 +206,9 @@
 <button class="cs-chip" id="csSaveSession" type="button">세션 저장</button>
 </div>
 <div class="cs-recent" id="csRecentList"></div>
+  </div>
+  </div>
+</details>
 </div>
 </section>
 </div>
@@ -225,6 +238,27 @@
       <div>• 바카라는 독립 시행이므로, 다음 핸드에 대한 확정 예측은 불가능합니다. (여기서는 이론 확률 + 관측치만 제공합니다)</div>
     </div>
 
+    <!-- Beginner Summary (Unified) -->
+    <div class="vvip-brief" id="shoeBrief" aria-label="AI 브리핑" style="margin-top:12px;">
+      <div class="vvip-brief-head">
+        <div class="vvip-brief-title">AI 브리핑 (점수/주의/추천)</div>
+        <div class="vvip-brief-score"><span class="n" data-role="score">-</span><span class="lab" data-role="label">대기</span></div>
+      </div>
+      <div class="vvip-brief-body">
+        <div class="vvip-brief-grid">
+          <div class="vvip-brief-col">
+            <div class="vvip-brief-k">주의</div>
+            <ul class="vvip-brief-list" data-role="warn"><li>최근 결과를 입력하면 자동 태깅됩니다.</li></ul>
+          </div>
+          <div class="vvip-brief-col">
+            <div class="vvip-brief-k">추천</div>
+            <ul class="vvip-brief-list" data-role="reco"><li>연속/편차/타이 급증 구간은 “추격 금지”로 보세요.</li></ul>
+          </div>
+        </div>
+        <div class="vvip-brief-tags" data-role="tags"></div>
+      </div>
+    </div>
+
     <div class="cs-shoe-toolbar" style="margin-top:10px;">
       <div class="cs-shoe-providers" role="tablist" aria-label="운영사 선택">
         <button class="cs-shoe-pill on" type="button" data-provider="evo">Evolution</button>
@@ -242,7 +276,14 @@
     <div class="cs-evo-out" id="evoShoeOut" style="margin-top:10px;"></div>
   </section>
 
-    <div class="cs-evo-acc" id="evoCalcAcc">
+<details class="vvip-pro vvip-pro--mt" id="csProEvo" data-prokey="casino-evo-pro">
+  <summary>
+    <div class="sum-left">🧠 PRO (근거·세부룰)</div>
+    <div class="sum-badge">하우스엣지 · 리스크</div>
+  </summary>
+  <div class="vvip-pro-body">
+
+<div class="cs-evo-acc" id="evoCalcAcc">
   <div class="cs-evo-acc-tabs" role="tablist" aria-label="라이브 계산기">
     <button type="button" class="cs-evo-tab on" data-panel="bac" aria-selected="true">바카라</button>
     <button type="button" class="cs-evo-tab" data-panel="rou" aria-selected="false">룰렛</button>
@@ -341,10 +382,10 @@
   </div>
 </div>
   </div>
+</details>
+</div>
 
-
-  
-  <section class="cs-card" style="margin-top:12px;">
+<section class="cs-card" style="margin-top:12px;">
     <h2>안내</h2>
     <div class="cs-adv small" style="border-top:none; padding-top:8px;">
       <div>• 수학적 기대값은 장기 평균입니다. 단기 결과는 크게 흔들릴 수 있어, <b>손절·휴식·한도</b>가 우선입니다.</div>

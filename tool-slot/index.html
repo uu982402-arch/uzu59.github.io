@@ -93,7 +93,10 @@
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
 <script defer="" src="/assets/js/j.8829a3ccde44.js?v=70"></script>
 <script defer="" src="/assets/js/j.slot.v62.20260217.js?v=70"></script>
-<meta content="/img/logo.png" property="og:image"/></head>
+<meta content="/img/logo.png" property="og:image"/><link href="/assets/vvip-pro.v71.css?v=71" rel="stylesheet"/>
+<script defer src="/assets/js/vvip-pro.v71.js?v=71"></script>
+<script defer src="/assets/js/vvip-brief.v71.js?v=71"></script>
+</head>
 <body>
 <div class="wrap">
 <div class="hero">
@@ -156,11 +159,63 @@
 </div>
 <div class="sep"></div>
 <div class="small" id="explain"></div>
+
+<!-- Beginner Summary (Unified) -->
+<div class="vvip-brief" id="slotBrief" aria-label="AI 브리핑">
+  <div class="vvip-brief-head">
+    <div class="vvip-brief-title">AI 브리핑 (요약)</div>
+    <div class="vvip-brief-score"><span class="n" data-role="score">-</span><span class="lab" data-role="label">대기</span></div>
+  </div>
+  <div class="vvip-brief-body">
+    <div class="vvip-brief-grid">
+      <div class="vvip-brief-col">
+        <div class="vvip-brief-k">주의</div>
+        <ul class="vvip-brief-list" data-role="warn"><li>값을 입력하면 자동 분석됩니다.</li></ul>
+      </div>
+      <div class="vvip-brief-col">
+        <div class="vvip-brief-k">추천</div>
+        <ul class="vvip-brief-list" data-role="reco"><li>RTP 버전을 확인하고, 세션 비용을 관리하세요.</li></ul>
+      </div>
+    </div>
+    <div class="vvip-brief-tags" data-role="tags"></div>
+  </div>
+</div>
 </div>
 </div>
 <script src="../assets/js/inline-bundles/b.e333b1edf1.js"></script>
 <script data-src="../assets/config/toolconfig/c.9344802715.json" id="__88stToolConfig" type="application/json"></script>
-<div class="card" style="margin-top:12px;">
+<details class="vvip-pro vvip-pro--mt" id="slProFaq" data-prokey="slot-faq">
+  <summary>
+    <div class="sum-left">🧠 PRO (근거·세부룰)</div>
+    <div class="sum-badge">FAQ · 해석</div>
+  </summary>
+  <div class="vvip-pro-body">
+    <div class="vvip-pro-section">
+      <h3 class="vvip-pro-h">계산식(참고)</h3>
+      <div class="vvip-pro-note">
+        • <b>총 베팅액</b> = 스핀당 베팅 × 스핀 수<br/>
+        • <b>하우스엣지(HE)</b> = 100 − RTP<br/>
+        • <b>기대 손실(이론)</b> = 총 베팅액 × (HE/100)<br/>
+        • <b>권장 뱅크롤</b>은 변동성(저/중/고/초고)에 따라 베팅 단위 배수를 적용한 <b>세션 리스크 관리용</b> 참고값입니다.
+      </div>
+    </div>
+    <div class="vvip-pro-section">
+      <h3 class="vvip-pro-h">진품/가품 체크(실전 팁)</h3>
+      <div class="vvip-pro-note">
+        • 같은 게임명이라도 운영사/카지노 설정에 따라 <b>RTP 버전</b>이 다를 수 있습니다. 가능하면 <b>게임 내 정보(i)·페이테이블</b>에서 RTP를 확인하세요.<br/>
+        • 프라그마틱/노리밋 등 공식 제공사 게임이라면 로비/게임 화면에 <b>제공사 로고/룰 문서</b>가 명확히 노출됩니다.<br/>
+        • RTP 표기가 없거나 제공사/룰 문서가 비정상적이면 “검증 불가”로 보고, <b>단위/세션을 보수적으로</b> 운영하는 편이 안전합니다.
+      </div>
+    </div>
+    <div class="vvip-pro-section">
+      <h3 class="vvip-pro-h">리스크 운영 가이드</h3>
+      <div class="vvip-pro-note">
+        • <b>고/초고변동</b>은 단기 결과가 크게 흔들립니다. “대박”보다 “낙폭(MDD)”을 먼저 관리하세요.<br/>
+        • 세션 시작 전 <b>손절선</b>을 숫자로 정해두고, 도달 시 즉시 종료하세요. (과열 방지)
+      </div>
+    </div>
+
+<div class="card" style="margin-top:0;">
 <h2>자주 묻는 질문(FAQ)</h2>
 <div class="faq">
 <details>
@@ -185,6 +240,8 @@
 </details>
 </div>
 </div>
+  </div>
+</details>
 </section>
 
 <section class="sl-panel" id="slPanelDb" data-panel="db" aria-label="슬롯 DB">
@@ -247,9 +304,9 @@
       <div class="sl-db-status" id="slDbStatus">DB 로딩 중…</div>
 
 
-      <details class="sl-admin" style="margin-top:12px;">
+      <details class="sl-admin vvip-pro" data-prokey="slot-db-admin" style="margin-top:12px;">
         <summary>DB 관리 (게임 추가 · JSON 업로드 · 즐겨찾기/태그 확장)</summary>
-        <div class="sl-admin-body">
+        <div class="sl-admin-body vvip-pro-body">
           <div class="sl-row" style="margin-top:10px;">
             <div class="sl-field" style="flex:1.3; min-width:220px;">
               <label for="slAddName">게임명</label>

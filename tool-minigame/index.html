@@ -34,7 +34,10 @@
     ]
   }
   </script>
-<meta content="/img/logo.png" property="og:image"/></head>
+<meta content="/img/logo.png" property="og:image"/><link href="/assets/vvip-pro.v71.css?v=71" rel="stylesheet"/>
+<script defer src="/assets/js/vvip-pro.v71.js?v=71"></script>
+<script defer src="/assets/js/vvip-brief.v71.js?v=71"></script>
+</head>
 <body class="st-app">
 <main class="mg-wrap">
 <section class="mg-hero">
@@ -133,8 +136,9 @@
 <button class="mg-btn" id="mgSave" type="button">저장</button>
 <button class="mg-btn primary" id="mgAnalyze" type="button">분석하기</button>
 </div>
-<details class="mg-acc" aria-label="세션 관리(접기)">
+<details class="mg-acc vvip-pro" aria-label="세션 관리(접기)" data-prokey="minigame-session">
   <summary>세션 관리 (선택)</summary>
+  <div class="vvip-pro-body">
   <section aria-label="세션 관리" class="mg-session" style="margin-top:10px;">
 <div class="mg-row">
 <div class="mg-field" style="flex:1; min-width:220px;">
@@ -150,6 +154,7 @@
 <b>세션 관리</b>는 예측이 아니라 <b>손실 제한/과열 방지</b>를 돕는 장치입니다.
           </div>
 </section>
+  </div>
 </details>
 </section>
 <section aria-label="결과" class="mg-card">
@@ -181,6 +186,12 @@
 </table>
 </div>
 <div class="mg-divider"></div>
+<details class="vvip-pro vvip-pro--mt" id="vvipProMinigame" data-prokey="minigame-pro">
+  <summary>
+    <div class="sum-left">🧠 PRO (근거·세부룰)</div>
+    <div class="sum-badge">접기/펼치기</div>
+  </summary>
+  <div class="vvip-pro-body">
 <section aria-label="Pro 인사이트" class="mg-pro">
 <h3 style="margin:0 0 10px;">Pro 인사이트</h3>
 <div class="mg-note" style="margin:-2px 0 12px;">최근 결과(붙여넣기) 기반으로 <b>편향·연속·변동성</b>을 요약합니다. (예측 보장 아님)</div>
@@ -243,6 +254,8 @@
             동행파워볼 분석기 · 동행파워볼+ 분석기 · 키노사다리 분석기 · 스피드키노사다리 분석기 · 미니게임 EV 계산기 · 마진 계산기
           </div>
 </section>
+  </div>
+</details>
 </section>
 </div>
 </main>
