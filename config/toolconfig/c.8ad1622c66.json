@@ -1,0 +1,21 @@
+{
+  "tool": "margin",
+  "title": "마진 계산기",
+  "inputs": ["mode", "o1", "o2", "o3"],
+  "outputs": {
+    "sumImp": "#sumImp",
+    "margin": "#margin",
+    "fairProb": "#fairProb",
+    "fairOdds": "#fairOdds"
+  },
+  "shareParams": {
+    "mode": "m",
+    "o1": "a",
+    "o2": "b",
+    "o3": "c"
+  },
+  "examples": [
+    {"label": "2-way 예시", "values": {"mode": "2", "o1": "1.95", "o2": "1.95"}},
+    {"label": "3-way 예시", "values": {"mode": "3", "o1": "2.10", "o2": "3.40", "o3": "3.60"}}
+  ]
+}

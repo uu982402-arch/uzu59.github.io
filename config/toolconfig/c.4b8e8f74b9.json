@@ -1,0 +1,36 @@
+{
+  "tool": "virtual",
+  "title": "BET365 가상게임 분석기",
+  "inputs": [
+    "vState"
+  ],
+  "outputs": {
+    "overround": "#overround",
+    "margin": "#margin",
+    "best": "#bestPick",
+    "market": "#marketLine"
+  },
+  "shareParams": {
+    "vState": "v"
+  },
+  "examples": [
+    {
+      "label": "가상축구 예시",
+      "values": {
+        "vState": "{\"s\":\"soccer\",\"m\":\"1x2\",\"o\":[\"2.10\",\"3.40\",\"3.60\"]}"
+      }
+    },
+    {
+      "label": "가상농구 예시",
+      "values": {
+        "vState": "{\"s\":\"basket\",\"m\":\"ml\",\"o\":[\"1.92\",\"1.92\"]}"
+      }
+    },
+    {
+      "label": "가상경마 예시",
+      "values": {
+        "vState": "{\"s\":\"racing\",\"m\":\"win\",\"p\":\"1번말 6.5\\n2번말 4.2\\n3번말 9.0\\n4번말 12.0\\n5번말 15.0\"}"
+      }
+    }
+  ]
+}

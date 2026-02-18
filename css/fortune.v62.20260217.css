@@ -1,0 +1,309 @@
+/* v60 Fortune (VVVVIP+ Levels + Zodiac) (VVVVIP) — minimal + luxury, zero dependencies */
+:root{
+  --f-line: rgba(255,255,255,.12);
+  --f-card: rgba(0,0,0,.28);
+  --f-card2: rgba(0,0,0,.18);
+  --f-glow: rgb(var(--accentRGB) / .22);
+}
+
+.fortune-widget{
+  display:grid;
+  gap:14px;
+  align-items:stretch;
+  grid-template-columns: 240px 1fr;
+}
+@media (max-width: 760px){
+  .fortune-widget{ grid-template-columns: 1fr; }
+}
+
+.fortune-left{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  min-width:0;
+}
+
+.fortune-ring{
+  position:relative;
+  border-radius:22px;
+  padding:16px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 14px 38px rgba(0,0,0,.45);
+  overflow:hidden;
+}
+.fortune-ring::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background: radial-gradient(600px 160px at 50% 0%, var(--f-glow), transparent 60%),
+              radial-gradient(260px 120px at 20% 20%, rgba(255,215,120,.18), transparent 55%);
+  pointer-events:none;
+}
+
+.fortune-ring-inner{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  min-height:146px;
+}
+
+.fortune-ring-inner::before{
+  content:"";
+  width:118px;
+  height:118px;
+  border-radius:50%;
+  background:
+    conic-gradient(from 220deg, rgba(255,215,120,.95) calc(var(--p, 0)*1%), rgba(255,255,255,.12) 0),
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,.40) 0 56%, rgba(0,0,0,0) 58%);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.10) inset, 0 0 22px rgba(255,215,120,.12);
+}
+
+.fortune-score{
+  position:absolute;
+  top:50%;
+  transform:translateY(-56%);
+  font-weight: 950;
+  font-size: 34px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-shadow: 0 10px 28px rgba(0,0,0,.55);
+}
+.fortune-date{
+  position:absolute;
+  top:50%;
+  transform:translateY(40%);
+  font-size: 12px;
+  font-weight: 850;
+  color:#b9b9b9;
+}
+
+.fortune-pick{
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 18px;
+  padding: 12px;
+}
+.fortune-label{
+  display:block;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.78);
+  margin: 0 0 8px 2px;
+}
+
+.fortune-right{
+  min-width:0;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.18);
+  padding: 14px;
+  box-shadow: 0 10px 26px rgba(0,0,0,.35);
+}
+
+.fortune-head{
+  font-size: 16px;
+  font-weight: 950;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: rgba(255,255,255,.96);
+}
+
+.fortune-lines{ margin-top: 10px; display:grid; gap:8px; }
+.fortune-line{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.fortune-line span{ font-size: 12px; font-weight: 850; color: rgba(255,255,255,.72); }
+.fortune-line b{ font-size: 13px; font-weight: 950; color: rgba(255,255,255,.95); }
+
+.fortune-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top: 12px;
+}
+
+.fortune-btn{
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.25);
+  color: rgba(255,255,255,.92);
+  font-weight: 900;
+  cursor:pointer;
+}
+.fortune-btn:hover{ filter: brightness(1.06); }
+.fortune-btn:active{ transform: translateY(1px); }
+
+.fortune-silly{
+  margin-top: 12px;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255,255,255,.18);
+  background: rgba(0,0,0,.14);
+}
+.fortune-silly-title{
+  font-size: 12px;
+  font-weight: 950;
+  color: rgba(255,255,255,.74);
+  letter-spacing: .02em;
+}
+.fortune-silly-text{
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.45;
+  color: rgba(255,255,255,.94);
+}
+
+.fortune-note{
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(255,255,255,.70);
+}
+
+/* micro toast */
+.fortune-toast{
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,.72);
+  border: 1px solid rgba(255,255,255,.18);
+  padding: 10px 12px;
+  border-radius: 14px;
+  color: rgba(255,255,255,.95);
+  font-size: 12px;
+  font-weight: 900;
+  box-shadow: 0 18px 46px rgba(0,0,0,.55);
+  z-index: 9999;
+  backdrop-filter: blur(10px);
+  max-width: 92vw;
+}
+
+
+/* v60 additions: subtle helper */
+.fortune-muted{opacity:.84}
+
+/* v62 — birth profile + ban action + pro checklist */
+.fortune-input{
+  width: 100%;
+  color-scheme: dark;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.92);
+  padding: 10px 12px;
+  font-weight: 900;
+  outline: none;
+}
+.fortune-input:focus{ box-shadow: 0 0 0 3px rgba(var(--accentRGB,30,58,138), .18); border-color: rgba(var(--accentRGB,30,58,138), .38); }
+.fortune-input::placeholder{ color: rgba(255,255,255,.48); font-weight: 800; }
+
+.fortune-profile-row{ display:flex; gap:10px; align-items:center; }
+.fortune-profile .fortune-query{ white-space:nowrap; }
+.fortune-profile-hint{ margin-top:8px; font-size:12px; line-height:1.5; }
+
+/* fortune page: compact grid */
+.fortune-profile-grid{ display:grid; grid-template-columns: 1fr; gap:10px; margin-top:6px; }
+@media(min-width:560px){ .fortune-profile-grid{ grid-template-columns: 1fr 1fr; } }
+.fortune-profile-grid .fortune-query{ grid-column: 1 / -1; }
+
+.fortune-ban{
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.16);
+  border-radius: 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.fortune-ban .k{ font-size:12px; font-weight:950; color: rgba(255,255,255,.72); }
+.fortune-ban .v{ font-size:13px; font-weight:1000; color: rgba(255,255,255,.96); text-align:right; }
+
+.fortune-pro{
+  margin-top: 10px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.16);
+  padding: 12px 12px;
+}
+.fortune-pro-title{ font-size:12px; font-weight:1100; color: rgba(255,255,255,.82); letter-spacing:.03em; }
+.fortune-pro-list{ margin:10px 0 0; padding:0 0 0 18px; color: rgba(255,255,255,.92); font-size:13px; line-height:1.55; }
+.fortune-pro-list li{ margin:6px 0; }
+
+.fortune-toast{
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.78);
+  color: rgba(255,255,255,.95);
+  font-weight: 900;
+  font-size: 12px;
+  pointer-events: none;
+  min-height: 0;
+}
+
+/* Compact mode (main index): one-line KPI, minimal controls */
+.fortune-widget.fortune-compact{
+  grid-template-columns: 180px 1fr;
+  gap:12px;
+}
+@media (max-width: 760px){
+  .fortune-widget.fortune-compact{ grid-template-columns: 1fr; }
+}
+.fortune-widget.fortune-compact .fortune-ring{
+  padding:12px;
+  border-radius:18px;
+}
+.fortune-widget.fortune-compact .fortune-ring-inner{ min-height:118px; }
+.fortune-widget.fortune-compact .fortune-ring-inner::before{ width:94px; height:94px; }
+.fortune-widget.fortune-compact .fortune-score{ font-size:28px; }
+.fortune-widget.fortune-compact .fortune-date{ font-size:11px; }
+
+.fortune-widget.fortune-compact .fortune-lines,
+.fortune-widget.fortune-compact .fortune-pro,
+.fortune-widget.fortune-compact .fortune-profile-hint{
+  display:none !important;
+}
+
+.fortune-widget.fortune-compact .fortune-head{
+  padding:12px 14px;
+  font-size:13px;
+  line-height:1.45;
+  border-radius:16px;
+}
+
+.fortune-widget.fortune-compact .fortune-profile{
+  padding:12px 14px;
+  border-radius:18px;
+}
+.fortune-widget.fortune-compact .fortune-profile-grid{
+  gap:8px;
+  margin-top:8px;
+}
+.fortune-widget.fortune-compact .fortune-profile-grid > *{ min-height:44px; }
+
+/* Hide sign selector on compact (dob auto) */
+.fortune-widget.fortune-compact .fortune-sign-row{ display:none !important; }
+

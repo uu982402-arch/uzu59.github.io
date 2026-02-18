@@ -1,0 +1,22 @@
+{
+  "tool": "slot",
+  "title": "슬롯 환수율(RTP) 분석기",
+  "inputs": ["slotName", "rtp", "vol", "bet", "spins"],
+  "outputs": {
+    "total": "#outTotal",
+    "loss": "#outLoss",
+    "bankroll": "#outBankroll"
+  },
+  "shareParams": {
+    "slotName": "g",
+    "rtp": "r",
+    "vol": "v",
+    "bet": "b",
+    "spins": "n"
+  },
+  "examples": [
+    {"label": "96% / 고변동", "values": {"rtp": "96", "vol": "high", "bet": "1000", "spins": "300"}},
+    {"label": "94% / 중변동", "values": {"rtp": "94", "vol": "mid", "bet": "2000", "spins": "200"}},
+    {"label": "97% / 저변동", "values": {"rtp": "97", "vol": "low", "bet": "500", "spins": "500"}}
+  ]
+}
