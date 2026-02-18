@@ -34,7 +34,7 @@
   <script defer src="/assets/js/j.71bbe4a35d81.js"></script>
   <script defer src="/assets/js/j.d2cf652ff950.js"></script>
   <script defer src="/assets/js/j.efba3509e62c.js"></script>
-  <script defer src="/assets/js/j.8829a3ccde44.js"></script>
+  <script defer src="/assets/js/j.8829a3ccde44.js?v=69"></script>
 
   <link href="/assets/css/x.11d0a10f603d.css" rel="stylesheet"/>
   <link href="/assets/c.d0474bb4988d.css" rel="stylesheet"/>
@@ -249,6 +249,29 @@
 @media (max-width: 860px){
   .cmpCard{grid-column: span 12;}
 }
+
+/* --- AI Briefing (score / warnings / recommendations) --- */
+.aiBrief{margin-top:12px; padding:14px; border-radius:18px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10); box-shadow: 0 12px 34px rgba(0,0,0,.14);} 
+[data-theme="light"] .aiBrief{background: rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.10); box-shadow: 0 12px 28px rgba(0,0,0,.09);} 
+.aiHead{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+.aiTitle{font-weight:1200; letter-spacing:.02em;}
+.aiScoreWrap{display:flex; align-items:baseline; gap:10px;}
+.aiScore{font-size:32px; font-weight:1300; line-height:1; font-variant-numeric:tabular-nums;}
+.aiScoreLabel{font-size:12px; font-weight:1000; opacity:.82;}
+.aiGrid{margin-top:10px; display:grid; gap:10px; grid-template-columns:1fr 1fr;}
+@media(max-width:720px){.aiGrid{grid-template-columns:1fr;}}
+.aiCol{padding:12px; border-radius:16px; background: rgba(0,0,0,.12); border:1px solid rgba(255,255,255,.10);} 
+[data-theme="light"] .aiCol{background: rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.10);} 
+.aiK{font-size:12px; font-weight:1100; opacity:.78;}
+.aiList{margin:8px 0 0 18px; padding:0;}
+.aiList li{margin:4px 0; font-size:12.5px; line-height:1.45; opacity:.92;}
+.aiTags{margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;}
+.aiTag{display:inline-flex; align-items:center; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:1100; border:1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.14);} 
+[data-theme="light"] .aiTag{border:1px solid rgba(0,0,0,.10); background: rgba(0,0,0,.04);} 
+.aiTag.good{border-color: rgba(65,200,120,.35); background: rgba(65,200,120,.12);} 
+.aiTag.warn{border-color: rgba(235,195,70,.35); background: rgba(235,195,70,.12);} 
+.aiTag.bad{border-color: rgba(255,96,96,.35); background: rgba(255,96,96,.12);} 
+
 </style>
 </head>
 
@@ -388,6 +411,28 @@
         </div>
 
 
+
+
+        <div class="aiBrief" id="aiBrief" aria-label="AI 브리핑">
+          <div class="aiHead">
+            <div class="aiTitle">AI 브리핑</div>
+            <div class="aiScoreWrap">
+              <div class="aiScore" id="aiScore">-</div>
+              <div class="aiScoreLabel" id="aiScoreLabel">대기</div>
+            </div>
+          </div>
+          <div class="aiGrid">
+            <div class="aiCol">
+              <div class="aiK">주의</div>
+              <ul class="aiList" id="aiWarnList"><li>배당을 입력하면 자동 분석됩니다.</li></ul>
+            </div>
+            <div class="aiCol">
+              <div class="aiK">추천</div>
+              <ul class="aiList" id="aiRecoList"><li>마진이 낮은 마켓/라인을 우선하세요.</li></ul>
+            </div>
+          </div>
+          <div class="aiTags" id="aiTags"></div>
+        </div>
 <div class="cmpWrap" id="cmpWrap">
   <div class="cmpHead">
     <div class="small"><b>Multi View</b> · A/B 비교 보드</div>
@@ -415,7 +460,7 @@
     </div>
   </div>
 
-  <script src="../assets/js/inline-bundles/b.virtual.v40.luxe.9f01c2.js"></script>
+  <script src="../assets/js/inline-bundles/b.virtual.v40.luxe.9f01c2.js?v=69"></script>
   <script id="__88stToolConfig" type="application/json" data-src="../assets/config/toolconfig/c.4b8e8f74b9.json"></script>
   <script>
     // Mobile/desktop dock polish: keep tools compact and insert a subtle divider between "예시" and "공유/저장/히스토리".
