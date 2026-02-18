@@ -191,8 +191,8 @@
 
 
 /* v69: shoe tracker AI briefing + auto tagging */
-.cs-evo-out .cs-shoe-brief{margin-top:12px;padding:12px;border-radius:16px;background:rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.10);} 
-[data-theme="light"] .cs-evo-out .cs-shoe-brief{background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.10);} 
+.cs-evo-out .cs-shoe-brief{margin-top:12px;padding:12px;border-radius:16px;background:var(--panel,rgba(255,255,255,.06));border:1px solid var(--panel-border,rgba(255,255,255,.10));box-shadow:var(--shadow-sm);}  
+[data-theme="light"] .cs-evo-out .cs-shoe-brief{background:var(--panel,rgba(245,246,248,.92));border:1px solid var(--panel-border,rgba(15,23,42,.10));box-shadow:var(--shadow-sm);}   
 .cs-evo-out .cs-shoe-brief-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap;}
 .cs-evo-out .cs-shoe-brief-title{font-weight:1200;letter-spacing:.02em;}
 .cs-evo-out .cs-shoe-brief-sub{font-size:12px;opacity:.75;margin-top:2px;}

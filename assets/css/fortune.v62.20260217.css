@@ -210,7 +210,7 @@
   font-weight: 900;
   outline: none;
 }
-.fortune-input:focus{ box-shadow: 0 0 0 3px rgba(var(--accentRGB,212,175,55), .18); border-color: rgba(var(--accentRGB,212,175,55), .38); }
+.fortune-input:focus{ box-shadow: 0 0 0 3px rgba(var(--accentRGB,30,58,138), .18); border-color: rgba(var(--accentRGB,30,58,138), .38); }
 .fortune-input::placeholder{ color: rgba(255,255,255,.48); font-weight: 800; }
 
 .fortune-profile-row{ display:flex; gap:10px; align-items:center; }

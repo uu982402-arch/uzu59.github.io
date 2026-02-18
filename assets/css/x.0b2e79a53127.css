@@ -1,11 +1,11 @@
 *{box-sizing:border-box}
 :root{
   /* Theme (auto/preset) */
-  --accent1:#d4af37;
-  --accent2:#f5e27a;
-  --accentRGB:212,175,55;
-  --accentText:#000;
-  --accentOn:#00121a;
+  --accent1:#1E3A8A;
+  --accent2:#60A5FA;
+  --accentRGB:30,58,138;
+  --accentText:#fff;
+  --accentOn:#ffffff;
 
   /* Glass intensity */
   --glassA:.84;
@@ -871,7 +871,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 }
 .bundle-switch input{
   width:14px; height:14px;
-  accent-color:#d4af37;
+  accent-color:#1E3A8A;
 }
 .bundle-switch span{ font-weight:900; }
 
@@ -986,7 +986,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   max-width:340px;
   width:calc(100vw - 36px);
   background:rgba(14,16,20,.96);
-  border:1px solid rgba(255,255,255,.14);
+  border:1px solid rgba(15,23,42,.12);
   border-radius:16px;
   box-shadow: 0 10px 30px rgba(0,0,0,.45);
   padding:14px;
@@ -1112,7 +1112,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
   padding:4px 10px;
   font-size:11px;
   font-weight:900;
-  border:1px solid rgba(255,255,255,.14);
+  border:1px solid rgba(15,23,42,.12);
   background:rgba(255,255,255,.06);
   color:var(--text);
 }
@@ -1129,7 +1129,7 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 }
 .oBtn{
   cursor:pointer;
-  border:1px solid rgba(255,255,255,.14);
+  border:1px solid rgba(15,23,42,.12);
   background:rgba(255,255,255,.06);
   color:var(--text);
   border-radius:12px;
@@ -1469,14 +1469,14 @@ hr.sep{ border:none; height:1px; background:rgba(255,255,255,.06); margin:12px 0
 /* === v13.1 look unify (from main index) === */
 :root{
   /* unify accent (blue) */
-  --accent1:#d4af37;
-  --accent2:#f5e27a;
-  --accentRGB:212,175,55;  /* for rgba(var(--accentRGB), .xx) */
+  --accent1:#1E3A8A;
+  --accent2:#60A5FA;
+  --accentRGB:30,58,138;  /* for rgba(var(--accentRGB), .xx) */
   --accentText:#00121a;
-  --accentOn:#00121a;
+  --accentOn:#ffffff;
 
   /* unify tokens */
-  --bg:#f5f6f8;
+  --bg:#ffffff;
   --panel:rgba(255,255,255,.92);
   --glassA:.72;
   --glassStrongA:.86;
@@ -1515,7 +1515,7 @@ h3 .badge{ display:none !important; }
 /* inputs */
 input, select, textarea{
   background: rgba(0,0,0,.28) !important;
-  border:1px solid rgba(255,255,255,.14) !important;
+  border:1px solid rgba(15,23,42,.12) !important;
   color:var(--text) !important;
   border-radius:14px !important;
   outline:none;
@@ -1528,7 +1528,7 @@ input:focus, select:focus, textarea:focus{
 /* buttons: less-blue, premium glass */
 .btn, button, a.btn{
   background: rgba(255,255,255,.06) !important;
-  border:1px solid rgba(255,255,255,.14) !important;
+  border:1px solid rgba(15,23,42,.12) !important;
   color:var(--text) !important;
   box-shadow: 0 12px 34px rgba(0,0,0,.38) !important;
 }
@@ -1548,7 +1548,7 @@ a{ color:inherit; }
 .lc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;}
 @media(max-width:820px){.lc-grid{grid-template-columns:1fr;}}
 .lc-col{border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:12px;background:rgba(0,0,0,.18);}
-.lc-head{font-weight:900;font-size:13px;color:rgba(245,226,122,.92);margin-bottom:8px;}
+.lc-head{font-weight:900;font-size:13px;color:rgba(30,58,138,.92);margin-bottom:8px;}
 .lc-fields .field{margin-top:0;}
 .lc-out{margin-top:10px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);padding:12px;line-height:1.55;font-size:13px;}
 .lc-out .k{color:var(--muted);font-weight:900;}
@@ -1570,7 +1570,7 @@ a{ color:inherit; }
 /* multi paste list */
 .paste-list-wrap{margin-top:10px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);overflow:hidden}
 .paste-list-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
-.paste-list-head .k{font-weight:950;color:rgba(245,226,122,.95)}
+.paste-list-head .k{font-weight:950;color:rgba(30,58,138,.95)}
 .paste-list-head .m{font-size:12px;color:var(--muted)}
 .paste-list{display:flex;flex-direction:column}
 .paste-item{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
@@ -1644,8 +1644,8 @@ body.simple .paste-inline .chk:not(.simple-only){display:none !important;}
 .rel-links{max-width:1080px;margin:26px auto 34px;padding:14px 14px 16px;border-radius:18px;
     border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
     box-shadow:0 14px 40px rgba(0,0,0,.35);}
-  .rel-links h2{margin:0 0 10px;font-size:13px;letter-spacing:.02em;color:rgba(245,226,122,.92);font-weight:900;}
+  .rel-links h2{margin:0 0 10px;font-size:13px;letter-spacing:.02em;color:rgba(30,58,138,.92);font-weight:900;}
   .rel-grid{display:flex;flex-wrap:wrap;gap:8px;}
   .rel-grid a{text-decoration:none;color:var(--text-2);font-size:12px;padding:8px 10px;border-radius:999px;
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
-  .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
+  .rel-grid a:hover{border-color:rgba(30,58,138,.25);color:rgba(30,58,138,.92);}

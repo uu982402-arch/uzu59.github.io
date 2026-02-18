@@ -8,33 +8,12 @@
   'use strict';
 
   const CARDS = {
-    card1: { title: '어느날', code: 'ST95', link: 'http://oday-147.com', telegram: 'UZU59',
-      benefit: '고액전용 전용 무제제 삼치기OK / 입금플러스5+2 10+3 20+4 외 첫충 10%',
-      notice: '가입코드 미입력 시 혜택 적용 불가'},
-    card2: { title: 'OK Bet', code: '88ST', link: 'https://ok-8888.com/?code=88ST', telegram: 'UZU59',
-      benefit: '신규가입 77만원 쿠폰지급, 코인 입/출금 가능, 롤 세트별 베팅, 벤픽 후 마감, BJ, 스타리그 업데이트',
-      notice: '가입코드 미입력 시 혜택 적용 불가'},
-    card3: { title: 'SPEED Bet', code: '88ST', link: '/speed/', telegram: 'UZU59',
-      benefit: '신규가입 77만원 쿠폰지급, 코인 입/출금 가능, 롤 세트별 베팅, 벤픽 후 마감, BJ, 스타리그 업데이트',
-      notice: '가입코드 미입력 시 혜택 적용 불가'},
-    card4: { title: 'VEGAS', code: '6789', link: 'https://las403.com', telegram: 'UZU59',
+    card1: { title: 'VEGAS', code: '6789', link: 'https://las403.com', telegram: 'UZU59',
       benefit: '스포츠·고액전용 입플 최대 30% 페이백 / 카지노 입플',
       notice: '가입코드 미입력 시 혜택 적용 불가' },
-    card6: { title: 'CHOY BET', code: 'TAN', link: 'https://cy-40.com', telegram: 'DY0302',
-      benefit: '신규 30% / 매충 10% / 페이백 10 / 입플 %',
-      notice: '가입코드 미입력 시 혜택 적용 불가' },
-    card7: { title: 'CAPS', code: 'RUST', link: 'https://caps-22.com/', telegram: 'UZU59',
-      benefit: '미겜 첫충 5% / 페이백 5% / 출석 30만원',
-      notice: '가입코드 미입력 시 혜택 적용 불가'},
-    card8: { title: 'BETZY', code: 'BANGU', link: 'https://b88-et.com', telegram: 'UZU59',
-      benefit: '스포츠 첫충 10% / 미겜 첫충 5% / 페이백 5% / 출석 30만원',
-      notice: '가입코드 미입력 시 혜택 적용 불가' },
-    card10: { title: 'RED HULK', code: 'HERO', link: 'https://rhk-777.com', telegram: 'SDTR8',
-      benefit: '입금플러스 신규 30% / 매충 10% / 페이백5% 콤프(1%/3%)%',
-      notice: '가입코드 미입력 시 혜택 적용 불가' },
-    card11: { title: 'TOP GUN', code: 'GAS7', link: 'https://topgun-88.com', telegram: 'SDTR8',
-      benefit: '입금플러스 신규 30% / 매충 10% / 페이백5% 콤프(1%/3%)%',
-      notice: '가입코드 미입력 시 혜택 적용 불가' },
+    card2: { title: 'OK Bet', code: '88ST', link: 'https://ok-8888.com/?code=88ST', telegram: 'UZU59',
+      benefit: '신규가입 77만원 쿠폰지급, 코인 입/출금 가능, 롤 세트별 베팅, 벤픽 후 마감, BJ, 스타리그 업데이트',
+      notice: '가입코드 미입력 시 혜택 적용 불가'}
   };
 
   const TOP_IDS = ['card1', 'card2', 'card3'];
@@ -86,7 +65,7 @@
 
   const cardSourcesById = (id) => {
     const n = String(id).replace('card', '');
-    const gifMap = { card2: ['/img/img2.gif'], card3: ['/img/img3.gif'] };
+    const gifMap = { card2: ['/img/img2.gif'] };
     const arr = gifMap[id];
     return {
       gif: Array.isArray(arr) ? (arr[0] || '') : (arr || ''),

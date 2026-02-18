@@ -1,11 +1,11 @@
 *{box-sizing:border-box}
 :root{
   /* Theme (auto/preset) */
-  --accent1:#d4af37;
-  --accent2:#f5e27a;
-  --accentRGB:212,175,55;
-  --accentText:#000;
-  --accentOn:#00121a;
+  --accent1:#1E3A8A;
+  --accent2:#60A5FA;
+  --accentRGB:30,58,138;
+  --accentText:#fff;
+  --accentOn:#ffffff;
 
   /* Glass intensity */
   --glassA:.84;
@@ -17,7 +17,7 @@
   --gold: var(--accent1);
   --gold2: var(--accent2);
 
-  --bg:#f5f6f8;
+  --bg:#ffffff;
   --panel:rgba(255,255,255,.92);
   --bd:rgba(18,20,28,.10);
 --muted:#cfcfcf;
@@ -193,8 +193,8 @@ input{
 .rel-links{max-width:1080px;margin:26px auto 34px;padding:14px 14px 16px;border-radius:18px;
     border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
     box-shadow:0 14px 40px rgba(0,0,0,.35);}
-  .rel-links h2{margin:0 0 10px;font-size:13px;letter-spacing:.02em;color:rgba(245,226,122,.92);font-weight:900;}
+  .rel-links h2{margin:0 0 10px;font-size:13px;letter-spacing:.02em;color:rgba(30,58,138,.92);font-weight:900;}
   .rel-grid{display:flex;flex-wrap:wrap;gap:8px;}
   .rel-grid a{text-decoration:none;color:var(--text-2);font-size:12px;padding:8px 10px;border-radius:999px;
     border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);}
-  .rel-grid a:hover{border-color:rgba(245,226,122,.25);color:rgba(245,226,122,.92);}
+  .rel-grid a:hover{border-color:rgba(30,58,138,.25);color:rgba(30,58,138,.92);}
