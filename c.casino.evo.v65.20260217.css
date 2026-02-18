@@ -1,0 +1,104 @@
+/* Casino tool v57 — top tabs + Evolution live insights */
+
+.cs-top-tabs{
+  margin-top:12px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.cs-top-tab{ padding:10px 12px; }
+
+@media(max-width:860px){
+  .cs-top-tabs{ flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:6px; }
+  .cs-top-tabs::-webkit-scrollbar{ height:0; }
+  .cs-top-tab{ flex:0 0 auto; }
+}
+
+.cs-view{ display:none; }
+.cs-view.on{ display:block; }
+
+.cs-evo-grid{
+  margin-top:12px;
+  display:grid;
+  gap:12px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+@media(max-width:980px){
+  .cs-evo-grid{ grid-template-columns: 1fr; }
+}
+
+.cs-evo-out{
+  border:1px solid rgba(255,255,255,.10);
+  background:radial-gradient(700px 260px at 12% 18%,rgba(var(--st-accent-rgb,95,178,255),.14),transparent 60%),
+             rgba(0,0,0,.18);
+  border-radius:18px;
+  padding:12px;
+  font-variant-numeric: tabular-nums;
+}
+.cs-evo-out .row{ display:flex; justify-content:space-between; gap:10px; padding:6px 0; border-top:1px solid rgba(255,255,255,.08); }
+.cs-evo-out .row:first-child{ border-top:none; }
+.cs-evo-out .k{ color:var(--muted, rgba(255,255,255,.62)); font-weight:900; font-size:12px; }
+.cs-evo-out .v{ color:var(--text, #f4f6ff); font-weight:1100; font-size:14px; }
+.cs-evo-out .v.neg{ color:rgba(255,120,120,.92); }
+
+/* v62 — shoe tracker */
+.cs-shoe-toolbar{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.cs-shoe-providers{ display:flex; gap:8px; flex-wrap:wrap; }
+.cs-shoe-pill{
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.16);
+  color: rgba(255,255,255,.85);
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-weight: 1000;
+  cursor:pointer;
+}
+.cs-shoe-pill.on{ border-color: rgba(var(--st-accent-rgb,95,178,255), .42); box-shadow: 0 0 0 3px rgba(var(--st-accent-rgb,95,178,255), .14); color: rgba(255,255,255,.95); }
+.cs-shoe-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+.cs-shoe-soft{ opacity:.88; }
+
+.cs-shoe-seq{ font-weight:1100; letter-spacing:.06em; }
+.cs-shoe-mono{ font-variant-numeric: tabular-nums; }
+
+/* v65 — Shoe tracker alert badges */
+.cs-badge-row{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+.cs-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.22);
+  color: rgba(255,255,255,.92);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: -0.01em;
+}
+.cs-badge small{ font-size: 11px; font-weight: 900; opacity: .78; }
+.cs-badge.warn{ border-color: rgba(255,215,120,.35); background: rgba(255,215,120,.12); }
+.cs-badge.danger{ border-color: rgba(255,90,90,.35); background: rgba(255,90,90,.10); }
+.cs-badge.neutral{ border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+
+/* v66 — horizontal switch (EV/리스크) */
+.cs-evo-switch{padding:14px;}
+.cs-evo-switch-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.cs-evo-switch-row .cs-evo-tab{flex:1 1 220px;min-height:44px;}
+.cs-evo-panels{margin-top:12px;}
+.cs-evo-panel{display:none;}
+.cs-evo-panel.on{display:block;}
+
+/* v66 — shoe tracker emphasis */
+.cs-shoe-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:10px;align-items:stretch;}
+@media (max-width: 980px){.cs-shoe-wrap{grid-template-columns:1fr;}}
+.cs-shoe-ana{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06);border-radius:18px;padding:14px;box-shadow:0 10px 24px rgba(0,0,0,.10);}
+.cs-shoe-ana h3{margin:0 0 8px 0;font-size:14px;letter-spacing:-.02em;}
+.cs-shoe-prob{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 8px;align-items:baseline;}
+.cs-shoe-prob .k{font-weight:1100;opacity:.92;}
+.cs-shoe-prob .v{font-weight:1200;font-size:16px;letter-spacing:-.02em;}
+.cs-shoe-prob .v b{font-size:18px;}
+.cs-shoe-note{margin-top:10px;font-size:11px;line-height:1.45;opacity:.74;font-weight:900;}
+.cs-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+.cs-badges .cs-badge{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);font-size:11px;font-weight:1100;}
+.cs-badges .cs-badge.warn{border-color:rgba(255,200,0,.32);background:rgba(255,200,0,.10);}
+.cs-badges .cs-badge .meta{opacity:.78;font-weight:900;}
