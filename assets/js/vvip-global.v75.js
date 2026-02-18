@@ -96,5 +96,3 @@
     setTimeout(()=>{ normalizeAccordions(); }, 250);
   });
 })();
-
-;(()=>{try{var s=document.createElement('script');s.defer=true;s.src='/assets/js/j.safePatch.v91.js';document.head.appendChild(s);}catch(e){}})();
