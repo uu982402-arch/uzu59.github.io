@@ -52,6 +52,20 @@ input:focus,select:focus,textarea:focus{outline:none!important; box-shadow: var(
 }
 .btn.primary:hover,.st-btn.primary:hover{filter: brightness(1.03);}
 .btn.secondary,.st-btn.secondary{background:#fff!important;}
+
+/* header 문의 CTA (always visible) */
+.st-shell-actions{display:flex; gap:10px; align-items:center;}
+.st-shell-btn.cta{
+  padding: 10px 14px!important;
+  border-radius: 999px!important;
+  background: linear-gradient(180deg, rgba(30,58,138,1), rgba(37,99,235,1))!important;
+  border: 1px solid rgba(30,58,138,.55)!important;
+  color:#fff!important;
+  font-weight: 900!important;
+  box-shadow: 0 12px 26px rgba(30,58,138,.18)!important;
+}
+.st-shell-btn.cta:hover{ filter: brightness(1.03); }
+.st-shell-btn.cta:active{ transform: translateY(1px); }
 /* shell header */
 .st-shell{
   position: sticky;
@@ -113,7 +127,7 @@ input:focus,select:focus,textarea:focus{outline:none!important; box-shadow: var(
   border-radius: 14px;
 }
 .st-acc-body a .hint{color: var(--vvip-accent); opacity:.85;}
-/* footer CTA dock */
+/* footer CTA dock (v76: disabled, kept for backward compatibility) */
 .vvip-cta-dock{
   position: fixed;
   left: 50%;
@@ -128,6 +142,14 @@ input:focus,select:focus,textarea:focus{outline:none!important; box-shadow: var(
   border:1px solid rgba(226,232,240,.9);
   border-radius: 999px;
   box-shadow: var(--vvip-shadow);
+}
+
+/* v76: ensure legacy bottom CTAs are not visible even if injected by cache */
+.vvip-cta-dock,
+.vvip-tools-backdrop,
+.vvip-tools-sheet,
+.st-certdock{
+  display:none!important;
 }
 .vvip-cta-btn{
   appearance:none;

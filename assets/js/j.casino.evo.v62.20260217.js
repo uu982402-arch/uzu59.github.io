@@ -460,7 +460,7 @@
           </div>
 
           <div class="cs-shoe-seqrow"><span class="label">최근10</span><span class="cs-shoe-seq">${seqToText(last10) || '—'}</span></div>
-          <div class="cs-shoe-seqrow"><span class="label">최근${win}</span><span>P ${obsPct(cW.p)} · B ${obsPct(cW.b)} · T ${obsPct(cW.t)} <span style="color:rgba(255,255,255,.62)">(이론 대비)</span></span></div>
+          <div class="cs-shoe-seqrow"><span class="label">최근${win}</span><span>P ${obsPct(cW.p)} · B ${obsPct(cW.b)} · T ${obsPct(cW.t)} <span class="shoe-pill">이론 대비</span></span></div>
         </div>
 
         <div class="cs-shoe-analysis">
@@ -473,12 +473,12 @@
           </div>
 
           <div class="cs-shoe-ana-prob big">
-            <span class="k">다음 핸드 예상 확률(관측·보정)</span>
+            <span class="k">다음 핸드 예상 확률 <span class="shoe-pill alt">관측·보정</span></span>
             <span class="v"><b>B ${obsBayes.b}</b> / <b>P ${obsBayes.p}</b> / <b>T ${obsBayes.t}</b> <span style="margin-left:10px;color:rgba(255,255,255,.78)">우세: <b style="color:rgba(255,255,255,.94)">${bestObsLabel}</b></span></span>
           </div>
 
           <div class="cs-shoe-ana-prob">
-            <span class="k">이론 확률(8덱 기준)</span>
+            <span class="k">이론 확률 <span class="shoe-pill">8덱 기준</span></span>
             <span class="v">B ${fmtPct(BAC_P.banker)} / P ${fmtPct(BAC_P.player)} / T ${fmtPct(BAC_P.tie)}</span>
           </div>
 

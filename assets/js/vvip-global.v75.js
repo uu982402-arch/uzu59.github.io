@@ -1,13 +1,10 @@
-/* v75 global: footer CTA dock + minor UX glue */
+/* v76 global: shell accordion sync + cleanup legacy bottom CTAs */
 (function(){
-  const TG_URL = "https://t.me/UZU59";
-  const links = [
-    {t:"인증사이트", href:"/cert/"},
-    {t:"스포츠 분석기", href:"/analysis/"},
-    {t:"카지노 분석기", href:"/tool-casino/"},
-    {t:"슬롯 분석기", href:"/tool-slot/"},
-    {t:"미니게임 분석기", href:"/tool-minigame/"},
-    {t:"BET365 가상게임", href:"/tool-virtual/"},
+  const LEGACY_IDS = [
+    "vvipCtaDock",
+    "vvipToolsBackdrop",
+    "vvipToolsSheet",
+    "stCertDock",
   ];
 
   function el(tag, attrs, html){
@@ -25,64 +22,20 @@
     return n;
   }
 
-  function injectDock(){
-    if(document.getElementById("vvipCtaDock")) return;
+  function cleanupBottomCtas(){
+    try{
+      for(const id of LEGACY_IDS){
+        const node = document.getElementById(id);
+        if(node && node.parentNode) node.parentNode.removeChild(node);
+      }
+      document.querySelectorAll('.vvip-cta-dock, .vvip-tools-backdrop, .vvip-tools-sheet, .st-certdock')
+        .forEach(n=>{ try{ n.remove(); }catch(e){} });
 
-    const dock = el("div",{class:"vvip-cta-dock",id:"vvipCtaDock"});
-    const aCert = el("a",{class:"vvip-cta-btn primary",href:"/cert/"},"🛡️ 인증사이트");
-    const btnTools = el("button",{class:"vvip-cta-btn",type:"button",id:"vvipToolsBtn"},"🧰 분석기");
-    const aTg = el("a",{class:"vvip-cta-btn",href:TG_URL,target:"_blank",rel:"noopener"},"💬 텔레그램 문의");
-
-    dock.appendChild(aCert);
-    dock.appendChild(btnTools);
-    dock.appendChild(aTg);
-
-    const backdrop = el("div",{class:"vvip-tools-backdrop",id:"vvipToolsBackdrop"});
-    backdrop.style.display="none";
-
-    const sheet = el("div",{class:"vvip-tools-sheet",id:"vvipToolsSheet"});
-    sheet.style.display="none";
-
-    const title = el("div",{class:"vvip-tools-title"},"빠른 바로가기");
-    const sub = el("div",{class:"vvip-tools-sub"},"초보는 요약, 숙련자는 PRO(접기)로 깊게 확인하세요.");
-    const grid = el("div",{class:"vvip-tools-grid"});
-
-    const toolLinks = links.slice(1); // analyzers
-    for(const L of toolLinks){
-      const a = el("a",{href:L.href}, `<span>${L.t}</span><span style="opacity:.7">→</span>`);
-      grid.appendChild(a);
-    }
-    sheet.appendChild(title);
-    sheet.appendChild(sub);
-    sheet.appendChild(grid);
-
-    function openSheet(){
-      sheet.style.display="block";
-      backdrop.style.display="block";
-      document.body.style.overflow="hidden";
-    }
-    function closeSheet(){
-      sheet.style.display="none";
-      backdrop.style.display="none";
-      document.body.style.overflow="";
-    }
-    btnTools.addEventListener("click", ()=>{
-      if(sheet.style.display==="none") openSheet();
-      else closeSheet();
-    });
-    backdrop.addEventListener("click", closeSheet);
-    document.addEventListener("keydown", (e)=>{
-      if(e.key==="Escape") closeSheet();
-    });
-
-    document.body.appendChild(backdrop);
-    document.body.appendChild(sheet);
-    document.body.appendChild(dock);
-
-    // if page already has fixed bottom action dock, add a bit more padding
-    if(document.querySelector(".actionDock")){
-      document.body.style.paddingBottom = "132px";
-    }
+      // Reset any forced padding
+      if(document.body && document.body.style && document.body.style.paddingBottom){
+        document.body.style.paddingBottom = "";
+      }
+    }catch(e){}
   }
 
   function normalizeAccordions(){
@@ -103,7 +56,7 @@
   }
 
   ready(()=>{
-    injectDock();
+    cleanupBottomCtas();
     // give shell a moment if it is injected async
     setTimeout(()=>{ normalizeAccordions(); }, 250);
   });
