@@ -225,3 +225,14 @@
   opacity:.85;
 }
 .sl-fav-toggle[aria-pressed="true"] .sl-fav-chip{ opacity:1; background: rgba(var(--accentRGB,212,175,55), .14); border-color: rgba(var(--accentRGB,212,175,55), .26); }
+
+
+/* DB presets + status */
+.sl-presets{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 6px}
+.sl-presets .chip{border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.72);padding:7px 10px;border-radius:999px;font-weight:800;font-size:12px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+.dark .sl-presets .chip{border-color:rgba(255,255,255,.12);background:rgba(30,30,30,.55)}
+.sl-presets .chip:active{transform:translateY(1px)}
+.sl-db-status{font-size:12px;opacity:.82;margin-bottom:10px}
+
+.sl-missing{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:999px;background:rgba(255,80,0,.12);border:1px solid rgba(255,80,0,.25);font-weight:900}
+.dark .sl-missing{background:rgba(255,80,0,.14);border-color:rgba(255,80,0,.22)}

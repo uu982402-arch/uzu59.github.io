@@ -167,6 +167,16 @@
 @media (min-width: 860px){
   .cs-evo-out .cs-shoe-ana-prob{ font-size:18px; }
 }
+
+.cs-evo-out .cs-shoe-ana-prob.big{
+  font-size:18px;
+  padding:14px 14px;
+}
+@media (min-width: 860px){
+  .cs-evo-out .cs-shoe-ana-prob.big{ font-size:22px; }
+}
+.cs-evo-out .cs-shoe-ana-prob .v{ margin-left:10px; }
+.cs-evo-out .cs-shoe-ana-prob.big b{ font-weight:1400; }
 .cs-evo-out .cs-shoe-ana-prob .k{ color: rgba(255,255,255,.72); font-weight:900; }
 .cs-evo-out .cs-shoe-ana-note{
   margin-top:10px;

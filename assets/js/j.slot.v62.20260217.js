@@ -311,8 +311,8 @@
               ${tags.length ? `<div class="sl-tags">${tags.map(t=>`<span class=\"sl-tag\">${esc(t)}</span>`).join('')}</div>` : ''}
             </div>
           </td>
-          <td data-label="변동성">${esc(volLabel)}</td>
-          <td data-label="Max Win">${esc(maxWin)}</td>
+          <td data-label="변동성">${volLabel==='미표기'?'<span class="sl-missing">미표기</span>':esc(volLabel)}</td>
+          <td data-label="Max Win">${maxWin==='—'?'<span class="sl-missing">미표기</span>':esc(maxWin)}</td>
           <td data-label="액션">
             <div class="sl-actions">
               <button class="sl-mini" type="button" data-load="${esc(it.id)}">RTP로</button>

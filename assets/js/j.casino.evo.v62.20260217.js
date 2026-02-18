@@ -205,13 +205,20 @@
   }
 
   function streak(seq){
-    if(!seq.length) return {sym:'—', len:0};
-    const last = seq[seq.length-1];
-    let k=1;
-    for(let i=seq.length-2;i>=0;i--){
-      if(seq[i]===last) k++; else break;
+    // current streak + max streak by symbol
+    if(!seq.length) return {sym:'—', len:0, maxBy:{P:0,B:0,T:0}};
+    const maxBy={P:0,B:0,T:0};
+    let curSym=seq[0], curLen=1;
+    for(let i=1;i<seq.length;i++){
+      const s=seq[i];
+      if(s===curSym) curLen++;
+      else{ if(maxBy[curSym]!=null) maxBy[curSym]=Math.max(maxBy[curSym], curLen); curSym=s; curLen=1; }
     }
-    return {sym:last, len:k};
+    if(maxBy[curSym]!=null) maxBy[curSym]=Math.max(maxBy[curSym], curLen);
+    const last=seq[seq.length-1];
+    let k=1;
+    for(let i=seq.length-2;i>=0;i--){ if(seq[i]===last) k++; else break; }
+    return {sym:last, len:k, maxBy};
   }
 
   function renderShoe(provider){
@@ -258,11 +265,18 @@
     const providerName = provider==='prag' ? 'Pragmatic' : 'Evolution';
 
     const obsPct = (c)=> N20 ? ((c/N20)*100).toFixed(2)+'%' : '—';
-    const devPp = (c, theo)=>{
-      if(!N20) return '—';
-      const d = (c/N20*100) - (theo*100);
-      const s = (d>=0?'+':'') + d.toFixed(2) + '%p';
-      return s;
+
+    // Bayesian-smoothed observational estimate (recent20) with theoretical prior
+    const priorK = 10; // pseudo-count strength
+    const obsBayesRaw = {
+      p: N20 ? (c20.p + priorK*BAC_P.player) / (N20 + priorK) : null,
+      b: N20 ? (c20.b + priorK*BAC_P.banker) / (N20 + priorK) : null,
+      t: N20 ? (c20.t + priorK*BAC_P.tie) / (N20 + priorK) : null,
+    };
+    const obsBayes = {
+      p: obsBayesRaw.p==null ? '—' : (obsBayesRaw.p*100).toFixed(2)+'%',
+      b: obsBayesRaw.b==null ? '—' : (obsBayesRaw.b*100).toFixed(2)+'%',
+      t: obsBayesRaw.t==null ? '—' : (obsBayesRaw.t*100).toFixed(2)+'%',
     };
 
     out.innerHTML = `
@@ -276,30 +290,41 @@
             <div style="text-align:right">
               <div class="cs-shoe-count">현재 연속</div>
               <div style="font-weight:1100">${stSym} ${st.len||0}</div>
-              <div class="cs-shoe-count">최대 ${st.max||0}</div>
+              <div class="cs-shoe-count">최대 P ${st.maxBy.P||0} · B ${st.maxBy.B||0}</div>
             </div>
           </div>
 
           <div class="cs-shoe-seqrow"><span class="label">최근10</span><span class="cs-shoe-seq">${seqToText(last10) || '—'}</span></div>
           <div class="cs-shoe-seqrow"><span class="label">최근20</span><span>P ${obsPct(c20.p)} · B ${obsPct(c20.b)} · T ${obsPct(c20.t)} <span style="color:rgba(255,255,255,.62)">(이론 대비)</span></span></div>
-          <div class="cs-shoe-seqrow"><span class="label">최근20</span><span>편차: P ${devPp(c20.p,BAC_P.player)} · B ${devPp(c20.b,BAC_P.banker)} · T ${devPp(c20.t,BAC_P.tie)}</span></div>
         </div>
 
         <div class="cs-shoe-analysis">
           <div class="cs-shoe-ana-head">
             <div>
-              <div class="cs-shoe-ana-title">분석 결과</div>
-              <div class="cs-shoe-count" style="margin-top:4px">리듬/분산 체크 <b style="color:rgba(255,255,255,.94)">${analysis}</b></div>
+              <div class="cs-shoe-ana-title">분석 결과(최근 ${N20})</div>
+              <div class="cs-shoe-count" style="margin-top:4px">분석 요약 <b style="color:rgba(255,255,255,.94)">${analysis}</b></div>
             </div>
             <div class="cs-shoe-badges">${badgeHtml}</div>
           </div>
 
-          <div class="cs-shoe-ana-prob">
-            <span class="k">다음 핸드 이론 확률</span><br/>
-            <span>B ${fmtPct(BAC_P.banker)}</span> / <span>P ${fmtPct(BAC_P.player)}</span> / <span>T ${fmtPct(BAC_P.tie)}</span>
+          <div class="cs-shoe-ana-prob big">
+            <span class="k">다음 핸드 확률(이론)</span>
+            <span class="v"><b>B ${fmtPct(BAC_P.banker)}</b> / <b>P ${fmtPct(BAC_P.player)}</b> / <b>T ${fmtPct(BAC_P.tie)}</b></span>
           </div>
 
-          <div class="cs-shoe-ana-note">※ “예측”이 아니라 관측 편차·연속·과몰입 신호만 점검합니다. 다음 결과를 맞추는 도구가 아닙니다.</div>
+          <div class="cs-shoe-ana-prob">
+            <span class="k">관측 기반(최근20)</span>
+            <span class="v">B ${obsBayes.b} / P ${obsBayes.p} / T ${obsBayes.t}</span>
+          </div>
+
+          <div class="cs-shoe-ana-grid">
+            <div class="it"><span>최근 5</span><b>${seqToText(seq.slice(-5))||'—'}</b></div>
+            <div class="it"><span>최근 10</span><b>${seqToText(seq.slice(-10))||'—'}</b></div>
+            <div class="it"><span>최근20 분포</span><b>P ${obsPct(c20.p)} · B ${obsPct(c20.b)} · T ${obsPct(c20.t)}</b></div>
+            <div class="it"><span>최대 연속</span><b>P ${st.maxBy.P||0} · B ${st.maxBy.B||0} · T ${st.maxBy.T||0}</b></div>
+          </div>
+
+          <div class="cs-shoe-ana-note">※ “예측”이 아니라 <b>관측 편차·연속·과몰입</b> 신호를 경고합니다. 바카라는 독립 시행이므로 다음 결과를 확정 예측할 수 없습니다.</div>
         </div>
       </div>
     `;
