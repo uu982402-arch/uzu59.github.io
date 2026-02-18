@@ -31,3 +31,11 @@
 }
 .mg-acc[open] > summary::after{ content:'▴'; }
 .mg-acc .mg-session{ margin-top:0 !important; }
+
+
+/* v69: risk auto-tagging layout */
+.mg-risk-tags{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;}
+.mg-risk-brief{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:720px){.mg-risk-brief{grid-template-columns:1fr;}}
+.mg-risk-ul{margin:8px 0 0 18px;padding:0;}
+.mg-risk-ul li{margin:4px 0;font-size:12.5px;line-height:1.45;opacity:.92;}

@@ -169,6 +169,13 @@
   const explainEl = $("explain");
   const healthChip = $("healthChip");
 
+  // AI Briefing (score / warnings / recommendations)
+  const aiScoreEl = $("aiScore");
+  const aiScoreLabelEl = $("aiScoreLabel");
+  const aiWarnListEl = $("aiWarnList");
+  const aiRecoListEl = $("aiRecoList");
+  const aiTagsEl = $("aiTags");
+
   // Multi View compare board
   const cmpWrap = $("cmpWrap");
   const cmpSaveA = $("cmpSaveA");
@@ -804,7 +811,123 @@ function handleQuickPasteText(text){
     if(pct >= 8) return {k:"bad", t:`마진 높음 ${pct.toFixed(1)}%`};
     if(pct >= 4) return {k:"neu", t:`마진 보통 ${pct.toFixed(1)}%`};
     return {k:"good", t:`마진 낮음 ${pct.toFixed(1)}%`};
+  }  function escHtml(x){
+    return String(x ?? "").replace(/[&<>"']/g, (ch)=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
   }
+
+  function setAiList(el, items){
+    if(!el) return;
+    const arr = (items && items.length) ? items : ["—"]; 
+    el.innerHTML = arr.map(t=>`<li>${escHtml(t)}</li>`).join("");
+  }
+
+  function renderAiBrief(payload){
+    if(!aiScoreEl || !aiScoreLabelEl || !aiWarnListEl || !aiRecoListEl) return;
+    if(!payload){
+      aiScoreEl.textContent = "-";
+      aiScoreLabelEl.textContent = "대기";
+      setAiList(aiWarnListEl, ["배당을 2개 이상 입력하면 자동 분석됩니다."]);
+      setAiList(aiRecoListEl, ["마진이 낮은 마켓/라인을 우선하세요.", "여러 케이스는 A/B 비교로 저장해 마진을 비교하세요."]);
+      if(aiTagsEl) aiTagsEl.innerHTML = "";
+      return;
+    }
+
+    const scoreTxt = (payload.score==null) ? "-" : String(payload.score);
+    aiScoreEl.textContent = scoreTxt;
+    aiScoreLabelEl.textContent = payload.level || "대기";
+
+    setAiList(aiWarnListEl, payload.warns);
+    setAiList(aiRecoListEl, payload.recos);
+
+    if(aiTagsEl){
+      const tags = payload.tags || [];
+      aiTagsEl.innerHTML = tags.map(t=>`<span class="aiTag ${escHtml(t.cls||"")}">${escHtml(t.t||"")}</span>`).join("");
+    }
+  }
+
+  function buildAiBrief(args){
+    const margin = args && Number.isFinite(args.margin) ? args.margin : NaN;
+    const bestAdv = args && Number.isFinite(args.bestAdv) ? args.bestAdv : NaN;
+    const spread = args && Number.isFinite(args.spread) ? args.spread : NaN;
+    const bestText = args && args.bestText ? String(args.bestText) : "";
+    const type = args && args.type ? String(args.type) : "";
+
+    if(!Number.isFinite(margin)) return null;
+
+    const mPct = margin * 100;
+    let score;
+    if(margin < 0){
+      score = 40;
+    }else{
+      score = 95 - (mPct * 4.5);
+    }
+
+    if(Number.isFinite(bestAdv)){
+      const bad = Math.abs(bestAdv*100);
+      if(bad >= 4) score -= 8;
+      else if(bad >= 2) score -= 4;
+    }
+
+    if(Number.isFinite(spread)){
+      const sp = spread*100;
+      if(sp >= 5) score -= 10;
+      else if(sp >= 3) score -= 6;
+    }
+
+    score = Math.round(clamp(score, 10, 95));
+    const level = score >= 80 ? "양호" : score >= 65 ? "보통" : score >= 50 ? "주의" : "위험";
+
+    const warns = [];
+    const recos = [];
+    const tags = [];
+
+    if(margin < 0){
+      tags.push({t:"입력 이상치", cls:"bad"});
+      warns.push("마진이 음수로 계산됩니다. 배당 입력을 다시 확인하세요.");
+    }else if(mPct >= 8){
+      tags.push({t:`마진 높음 ${mPct.toFixed(1)}%`, cls:"bad"});
+      warns.push(`마진이 높습니다(${mPct.toFixed(1)}%). 기대값이 급격히 불리해집니다.`);
+    }else if(mPct >= 4){
+      tags.push({t:`마진 보통 ${mPct.toFixed(1)}%`, cls:"warn"});
+      warns.push(`마진이 보통 이상입니다(${mPct.toFixed(1)}%). 라인/마켓 비교를 권장합니다.`);
+    }else{
+      tags.push({t:`마진 낮음 ${mPct.toFixed(1)}%`, cls:"good"});
+    }
+
+    if(Number.isFinite(bestAdv)){
+      const ba = bestAdv*100; // negative or 0
+      if(ba <= -4){
+        tags.push({t:`불리폭 큼 ${ba.toFixed(1)}%`, cls:"warn"});
+        warns.push(`베스트 선택도 공정 대비 불리폭이 큽니다(${ba.toFixed(1)}%).`);
+      }
+    }
+
+    if(Number.isFinite(spread) && spread > 0.03){
+      tags.push({t:`라인 편차 ${(spread*100).toFixed(1)}%`, cls:"warn"});
+      warns.push("라인별 마진 편차가 큽니다. 최저 마진 라인을 우선 적용하세요.");
+    }
+
+    if(bestText){
+      recos.push(`현재 베스트: ${bestText}`);
+    }
+    if(type === "pairLines"){
+      recos.push("여러 라인 중 '최저 마진' 라인을 먼저 고르세요.");
+    }
+    recos.push("경고 태그가 많으면 PASS(관망) 비중을 올리세요.");
+
+    if(!warns.length){
+      warns.push("특이 경고 없음. 그래도 과열 구간에서는 과몰입을 피하세요.");
+    }
+
+    return {
+      score,
+      level: `점수 ${score} · ${level}`,
+      warns,
+      recos,
+      tags
+    };
+  }
+
 
   function recalcStandard(){
     readStandardRowInputs();
@@ -820,6 +943,7 @@ function handleQuickPasteText(text){
       if(marginEl) marginEl.textContent = "-";
       if(bestPickEl) bestPickEl.textContent = "-";
       setChip("neu","입력 부족");
+      renderAiBrief(null);
       rows.forEach((_, idx)=>{
         ["imp_","fairp_","fairo_","adv_"].forEach(p=>setText(p+idx, "-"));
         const tr = rowsBody && rowsBody.querySelector(`tr[data-idx=\"${idx}\"]`);
@@ -834,6 +958,7 @@ function handleQuickPasteText(text){
       if(marginEl) marginEl.textContent = "-";
       if(bestPickEl) bestPickEl.textContent = "-";
       setChip("neu","입력 대기");
+      renderAiBrief(null);
       rows.forEach((_, idx)=>{
         ["imp_","fairp_","fairo_","adv_"].forEach(p=>setText(p+idx, "-"));
         const tr = rowsBody && rowsBody.querySelector(`tr[data-idx=\"${idx}\"]`);
@@ -887,6 +1012,14 @@ function handleQuickPasteText(text){
     const m = sumImp - 1;
     const h = healthFromMargin(m);
     setChip(h.k, h.t);
+
+    renderAiBrief(buildAiBrief({
+      margin: m,
+      bestAdv: best.adv,
+      spread: NaN,
+      type: "standard",
+      bestText: (best.idx>=0 && rows[best.idx]) ? `${rows[best.idx].label} (${fmtPct(best.adv, 2)})` : ""
+    }));
 
     if(explainEl){
       explainEl.innerHTML = "공정확률/공정배당은 암시확률(1/배당)을 정규화해 계산합니다. “공정대비”는 공정배당 대비 상대적으로 덜 불리한지(정규화 기준)입니다.";
@@ -964,6 +1097,7 @@ function handleQuickPasteText(text){
       if(marginEl) marginEl.textContent = "-";
       if(bestPickEl) bestPickEl.textContent = "-";
       setChip("neu","입력 대기");
+      renderAiBrief(null);
       return;
     }
 

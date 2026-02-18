@@ -188,3 +188,24 @@
 /* Make shoe tracker + accordion span full width in 3-col grid */
 .cs-evo-grid > [aria-label="슈 트래커"],
 .cs-evo-grid > .cs-evo-acc{ grid-column: 1 / -1; }
+
+
+/* v69: shoe tracker AI briefing + auto tagging */
+.cs-evo-out .cs-shoe-brief{margin-top:12px;padding:12px;border-radius:16px;background:rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.10);} 
+[data-theme="light"] .cs-evo-out .cs-shoe-brief{background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.10);} 
+.cs-evo-out .cs-shoe-brief-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.cs-evo-out .cs-shoe-brief-title{font-weight:1200;letter-spacing:.02em;}
+.cs-evo-out .cs-shoe-brief-sub{font-size:12px;opacity:.75;margin-top:2px;}
+.cs-evo-out .cs-shoe-score{font-size:28px;font-weight:1300;line-height:1;font-variant-numeric:tabular-nums;}
+.cs-evo-out .cs-shoe-score-sub{font-size:12px;font-weight:1000;opacity:.8;margin-left:8px;}
+.cs-evo-out .cs-shoe-tags{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;}
+.cs-evo-out .cs-shoe-tag{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:1100;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.14);} 
+[data-theme="light"] .cs-evo-out .cs-shoe-tag{border:1px solid rgba(0,0,0,.10);background:rgba(0,0,0,.04);} 
+.cs-evo-out .cs-shoe-tag.good{border-color: rgba(65,200,120,.35);background:rgba(65,200,120,.12);} 
+.cs-evo-out .cs-shoe-tag.warn{border-color: rgba(235,195,70,.35);background:rgba(235,195,70,.12);} 
+.cs-evo-out .cs-shoe-tag.bad{border-color: rgba(255,96,96,.35);background:rgba(255,96,96,.12);} 
+.cs-evo-out .cs-shoe-brief-grid{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:860px){.cs-evo-out .cs-shoe-brief-grid{grid-template-columns:1fr;}}
+.cs-evo-out .cs-shoe-brief-k{font-size:12px;font-weight:1100;opacity:.78;}
+.cs-evo-out .cs-shoe-ul{margin:8px 0 0 18px;padding:0;}
+.cs-evo-out .cs-shoe-ul li{margin:4px 0;font-size:12.5px;line-height:1.45;opacity:.92;}

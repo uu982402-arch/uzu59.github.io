@@ -249,18 +249,121 @@
               + (exp.t>0?((c20.t-exp.t)*(c20.t-exp.t)/exp.t):0);
 
     const badges = [];
-    if(st.len >= 6 && (st.sym==='P' || st.sym==='B')) badges.push({k:'hot', t:'연속 과열'});
-    if(c20.t >= 4) badges.push({k:'tie', t:'타이 급증'});
-    if(chi2 >= 7.8) badges.push({k:'dev', t:'최근20 편차↑'});
+    const tags = [];
+    const warns = [];
+    const recos = [];
+    let score = 90;
 
-    let analysis = '보통(노이즈)';
-    if(badges.some(b=>b.k==='hot')) analysis = '주의(연속 과열)';
-    else if(badges.some(b=>b.k==='dev')) analysis = '주의(편차↑)';
-    else if(badges.some(b=>b.k==='tie')) analysis = '주의(타이↑)';
+    // 표본 부족
+    if(N20 < 12){
+      tags.push({cls:"warn", t:`표본 부족 ${N20}/20`});
+      warns.push("최근20 표본이 적어 신호가 불안정합니다.");
+      score -= 10;
+    }
 
-    const badgeHtml = badges.length
-      ? badges.map(b=>`<span class="shoe-badge ${b.k}">${b.t}</span>`).join('')
-      : '<span class="shoe-badge ok">정상</span>';
+    // 연속(플/뱅)
+    if((st.sym === "P" || st.sym === "B") && st.len >= 5){
+      const sev = st.len >= 10 ? 2 : st.len >= 8 ? 1 : 0;
+      const sLbl = st.sym === "P" ? "플" : "뱅";
+      const cls = sev >= 1 ? "bad" : "warn";
+      tags.push({cls, t:`연속 ${sLbl} ${st.len}`});
+      warns.push(sev >= 1
+        ? `연속 ${sLbl} ${st.len} — 과열 구간(추격/물타기 금지, 쉬어가기 권장)`
+        : `연속 ${sLbl} ${st.len} — 과열 진입 가능성(전환/편차 확인 권장)`);
+      score -= (sev >= 1 ? 14 : 7) + Math.max(0, st.len - 6) * 3;
+      badges.push({k:"hot", t: sev >= 2 ? "연속 과열(매우)" : "연속 과열"});
+    }
+
+    // 타이 연속
+    if(st.sym === "T" && st.len >= 2){
+      const sev = st.len >= 3 ? 2 : 1;
+      tags.push({cls: sev===2?"bad":"warn", t:`타이 연속 ${st.len}`});
+      warns.push(`타이 연속 ${st.len} — 변동성 급증 구간(타이 추격 금지)`);
+      score -= (sev===2?16:10) + Math.max(0, st.len-2) * 4;
+      badges.push({k:"tie", t: sev===2?"타이 연속(강)":"타이 연속"});
+    }
+
+    // 타이 급증(최근20)
+    if(c20.t >= 4){
+      const sev = c20.t >= 6 ? 2 : 1;
+      tags.push({cls: sev===2?"bad":"warn", t:`타이 ${c20.t}/20`});
+      warns.push(`최근20 타이가 ${c20.t}회로 높습니다. 변동성↑, 타이 추격 금지.`);
+      score -= sev===2 ? 18 : 10;
+      badges.push({k:"tie", t: sev===2?"타이 급증(강)":"타이 급증"});
+    }
+
+    // 편차(카이제곱)
+    if(chi2 >= 9.2){
+      tags.push({cls:"bad", t:`편차 강함 χ²=${chi2.toFixed(1)}`});
+      warns.push("최근20 분포가 이론 대비 크게 치우쳤습니다(편차 강함). 평균회귀 기대만으로 진입 금지.");
+      score -= 16;
+      badges.push({k:"dev", t:"편차 강함"});
+    }else if(chi2 >= 6.0){
+      tags.push({cls:"warn", t:`편차 감지 χ²=${chi2.toFixed(1)}`});
+      warns.push("최근20 분포에 편차가 감지됩니다. 단타/스테이크 다운 권장.");
+      score -= 8;
+      badges.push({k:"dev", t:"편차 감지"});
+    }
+
+    // P/B 쏠림(이론 대비)
+    if(N20){
+      const pObs = c20.p / N20, bObs = c20.b / N20;
+      const pbDelta = Math.max(Math.abs(pObs - BAC_P.player), Math.abs(bObs - BAC_P.banker));
+      if(pbDelta >= 0.12){
+        tags.push({cls:"bad", t:`P/B 쏠림 ${(pbDelta*100).toFixed(1)}%p`});
+        score -= 10;
+      }else if(pbDelta >= 0.08){
+        tags.push({cls:"warn", t:`P/B 쏠림 ${(pbDelta*100).toFixed(1)}%p`});
+        score -= 6;
+      }
+    }
+
+    score = Math.round(clamp(score, 10, 95));
+    const level = score >= 80 ? "양호" : score >= 65 ? "보통" : score >= 50 ? "주의" : "위험";
+
+    if(!warns.length) warns.push("특이 경고 없음. 그래도 과열/추격은 피하세요.");
+
+    if(score < 55){
+      recos.push("PASS(관망) 비중을 올리고 2~3핸드 쉬어가세요.");
+    }else if(score < 70){
+      recos.push("스테이크 다운 + 짧게 접근(손절 엄격). 연속/타이/편차 경고 해제 후 재진입 권장.");
+    }else{
+      recos.push("정석 운영(스테이크 고정) + 과몰입 방지. 그래도 ‘추격’은 금지.");
+    }
+    recos.push("슈는 독립 시행입니다. ‘예측’이 아니라 리스크 관리용 신호로만 사용하세요.");
+
+    let analysis = score < 55 ? "위험(피해야 할 구간)" : score < 70 ? "주의(리스크↑)" : "보통(관리 가능)";
+
+    if(!badges.length) badges.push({k:"ok", t:"정상"});
+
+    const badgeHtml = badges.map(b=>`<span class="shoe-badge ${b.k}">${b.t}</span>`).join('');
+
+    const tagHtml = tags.map(x=>`<span class="cs-shoe-tag ${escapeHtml(x.cls)}">${escapeHtml(x.t)}</span>`).join('');
+    const warnHtml = warns.map(x=>`<li>${escapeHtml(x)}</li>`).join('');
+    const recoHtml = recos.map(x=>`<li>${escapeHtml(x)}</li>`).join('');
+
+    const briefHtml = `
+      <div class="cs-shoe-brief">
+        <div class="cs-shoe-brief-head">
+          <div>
+            <div class="cs-shoe-brief-title">AI 브리핑</div>
+            <div class="cs-shoe-brief-sub">최근20 기준 · ${escapeHtml(provider==='prag' ? 'Pragmatic' : 'Evolution')}</div>
+          </div>
+          <div class="cs-shoe-score">${score}<span class="cs-shoe-score-sub">/100 · ${escapeHtml(level)}</span></div>
+        </div>
+        <div class="cs-shoe-tags">${tagHtml || '<span class="cs-shoe-tag">태그 없음</span>'}</div>
+        <div class="cs-shoe-brief-grid">
+          <div>
+            <div class="cs-shoe-brief-k">주의</div>
+            <ul class="cs-shoe-ul">${warnHtml}</ul>
+          </div>
+          <div>
+            <div class="cs-shoe-brief-k">추천</div>
+            <ul class="cs-shoe-ul">${recoHtml}</ul>
+          </div>
+        </div>
+      </div>
+    `;
 
     const providerName = provider==='prag' ? 'Pragmatic' : 'Evolution';
 
@@ -305,7 +408,7 @@
               <div class="cs-shoe-count" style="margin-top:4px">분석 요약 <b style="color:rgba(255,255,255,.94)">${analysis}</b></div>
             </div>
             <div class="cs-shoe-badges">${badgeHtml}</div>
-          </div>
+          </div>${briefHtml}
 
           <div class="cs-shoe-ana-prob big">
             <span class="k">다음 핸드 확률(이론)</span>
