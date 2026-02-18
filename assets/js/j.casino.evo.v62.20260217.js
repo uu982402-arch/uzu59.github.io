@@ -192,8 +192,26 @@
   const SHOE = {
     providerKey: '88st_bac_shoe_provider_v1',
     keys: { evo: '88st_bac_shoe_evo_v1', prag: '88st_bac_shoe_prag_v1' },
-    maxLen: 60
+    maxLen: 120
   };
+
+  // v74: shoe prediction preferences (window / mode)
+  const SHOE_PREF = { windowKey: '88st_bac_shoe_window_v1', modeKey: '88st_bac_shoe_mode_v1' };
+  const normWindow = (v) => (v === 50 || v === 100 || v === 20) ? v : 20;
+  const normMode = (v) => (v === 'agg' ? 'agg' : 'cons');
+  const getShoeWindow = () => {
+    try { return normWindow(parseInt(localStorage.getItem(SHOE_PREF.windowKey) || '20', 10)); } catch { return 20; }
+  };
+  const setShoeWindow = (w) => {
+    try { localStorage.setItem(SHOE_PREF.windowKey, String(normWindow(Number(w)))); } catch { /* ignore */ }
+  };
+  const getShoeMode = () => {
+    try { return normMode(String(localStorage.getItem(SHOE_PREF.modeKey) || 'cons')); } catch { return 'cons'; }
+  };
+  const setShoeMode = (m) => {
+    try { localStorage.setItem(SHOE_PREF.modeKey, String(normMode(String(m)))); } catch { /* ignore */ }
+  };
+
 
   function loadShoe(provider){
     const key = (SHOE.keys[provider] || SHOE.keys.evo);
@@ -241,6 +259,10 @@
     const out = $('evoShoeOut');
     if(!out) return;
 
+    const win = getShoeWindow();
+    const mode = getShoeMode(); // 'cons' | 'agg'
+    const modeLabel = (mode === 'agg') ? '공격' : '보수';
+
     const brief = $('shoeBrief');
     const setBrief = (score, level, tags, warns, recos)=>{
       if(!brief) return;
@@ -260,42 +282,52 @@
     const call = shoeStats(provider);
     if(!call){
       out.innerHTML = `<div class="cs-empty">최근 결과를 <b>PLAYER / BANKER / TIE</b>로 입력하면 분석이 표시됩니다.</div>`;
-      try{ setBrief(null,'대기',[{cls:'warn',t:'입력 대기'}],["최근 결과를 입력하면 연속/편차/타이 급증 경고를 자동 태깅합니다."],["초기에는 소액·짧게 테스트 후, 표본(20+)을 모아 확인하세요."]) }catch(e){}
+      try{
+        setBrief(null,'대기',
+          [{cls:'warn',t:'입력 대기'},{cls:'',t:`최근${win}`},{cls:'',t:`모드 ${modeLabel}`}],
+          ["최근 결과를 입력하면 연속/편차/타이 급증 경고를 자동 태깅합니다."],
+          ["초기에는 소액·짧게 테스트 후, 표본(20+)을 모아 확인하세요."]
+        );
+      }catch(e){}
       return;
     }
 
-    const seq = (call.seq || '');
+    const seq = Array.isArray(call.seq) ? call.seq : [];
     const last10 = seq.slice(-10);
-    const last20 = seq.slice(-20);
-
+    const lastW  = seq.slice(-win);
     const c10 = countPBT(last10);
-    const c20 = countPBT(last20);
-    const N20 = last20.length || 0;
+    const cW  = countPBT(lastW);
+    const NW  = lastW.length || 0;
 
     const st = streak(seq);
     const stSym = st.sym==='P' ? 'PLAYER' : st.sym==='B' ? 'BANKER' : st.sym==='T' ? 'TIE' : '—';
 
-    // deviation score (chi-square-like) but we do NOT show raw numeric score
+    // deviation score (chi-square-like)
     const exp = {
-      p: N20 * BAC_P.player,
-      b: N20 * BAC_P.banker,
-      t: N20 * BAC_P.tie,
+      p: NW * BAC_P.player,
+      b: NW * BAC_P.banker,
+      t: NW * BAC_P.tie,
     };
-    const chi2 = (exp.p>0?((c20.p-exp.p)*(c20.p-exp.p)/exp.p):0)
-              + (exp.b>0?((c20.b-exp.b)*(c20.b-exp.b)/exp.b):0)
-              + (exp.t>0?((c20.t-exp.t)*(c20.t-exp.t)/exp.t):0);
+    const chi2 = (exp.p>0?((cW.p-exp.p)*(cW.p-exp.p)/exp.p):0)
+              + (exp.b>0?((cW.b-exp.b)*(cW.b-exp.b)/exp.b):0)
+              + (exp.t>0?((cW.t-exp.t)*(cW.t-exp.t)/exp.t):0);
 
     const badges = [];
-    const tags = [];
+    const tags = [{cls:'good', t:`최근${win}`},{cls:'', t:`모드 ${modeLabel}`}];
     const warns = [];
     const recos = [];
     let score = 90;
 
-    // 표본 부족
-    if(N20 < 12){
-      tags.push({cls:"warn", t:`표본 부족 ${N20}/20`});
-      warns.push("최근20 표본이 적어 신호가 불안정합니다.");
-      score -= 10;
+    // 표본 부족 (선택한 윈도우 기준)
+    if(NW < win){
+      tags.push({cls:"warn", t:`표본 ${NW}/${win}`});
+      warns.push(`선택한 최근${win} 구간이 ${NW}개로 부족합니다. 입력을 더 쌓아 정확도를 올리세요.`);
+      score -= 8 + Math.round(10*(1 - (NW/Math.max(win,1))));
+    }
+    if(NW && NW < 12){
+      tags.push({cls:"warn", t:`표본 부족 ${NW}`});
+      warns.push(`표본이 ${NW}개로 너무 적습니다. 최소 20개 이상을 권장합니다.`);
+      score -= 8;
     }
 
     // 연속(플/뱅)
@@ -320,31 +352,37 @@
       badges.push({k:"tie", t: sev===2?"타이 연속(강)":"타이 연속"});
     }
 
-    // 타이 급증(최근20)
-    if(c20.t >= 4){
-      const sev = c20.t >= 6 ? 2 : 1;
-      tags.push({cls: sev===2?"bad":"warn", t:`타이 ${c20.t}/20`});
-      warns.push(`최근20 타이가 ${c20.t}회로 높습니다. 변동성↑, 타이 추격 금지.`);
-      score -= sev===2 ? 18 : 10;
-      badges.push({k:"tie", t: sev===2?"타이 급증(강)":"타이 급증"});
+    // 타이 급증(최근 윈도우)
+    if(NW >= 10){
+      const tieRate = NW ? (cW.t / NW) : 0;
+      const tieThresh = Math.max(3, Math.ceil(NW * 0.20));
+      if(cW.t >= tieThresh){
+        const sev = tieRate >= 0.30 ? 2 : 1;
+        tags.push({cls: sev===2?"bad":"warn", t:`타이 ${cW.t}/${NW}`});
+        warns.push(`최근${NW} 타이 비중이 높습니다(${(tieRate*100).toFixed(1)}%). 변동성↑, 타이 추격 금지.`);
+        score -= sev===2 ? 16 : 9;
+        badges.push({k:"tie", t: sev===2?"타이 급증(강)":"타이 급증"});
+      }
     }
 
     // 편차(카이제곱)
-    if(chi2 >= 9.2){
-      tags.push({cls:"bad", t:`편차 강함 χ²=${chi2.toFixed(1)}`});
-      warns.push("최근20 분포가 이론 대비 크게 치우쳤습니다(편차 강함). 평균회귀 기대만으로 진입 금지.");
-      score -= 16;
-      badges.push({k:"dev", t:"편차 강함"});
-    }else if(chi2 >= 6.0){
-      tags.push({cls:"warn", t:`편차 감지 χ²=${chi2.toFixed(1)}`});
-      warns.push("최근20 분포에 편차가 감지됩니다. 단타/스테이크 다운 권장.");
-      score -= 8;
-      badges.push({k:"dev", t:"편차 감지"});
+    if(NW >= 10){
+      if(chi2 >= 9.2){
+        tags.push({cls:"bad", t:`편차 강함 χ²=${chi2.toFixed(1)}`});
+        warns.push(`최근${NW} 분포가 이론 대비 크게 치우쳤습니다(편차 강함). 평균회귀 기대만으로 진입 금지.`);
+        score -= 16;
+        badges.push({k:"dev", t:"편차 강함"});
+      }else if(chi2 >= 6.0){
+        tags.push({cls:"warn", t:`편차 감지 χ²=${chi2.toFixed(1)}`});
+        warns.push(`최근${NW} 분포에 편차가 감지됩니다. 단타/스테이크 다운 권장.`);
+        score -= 8;
+        badges.push({k:"dev", t:"편차 감지"});
+      }
     }
 
     // P/B 쏠림(이론 대비)
-    if(N20){
-      const pObs = c20.p / N20, bObs = c20.b / N20;
+    if(NW){
+      const pObs = cW.p / NW, bObs = cW.b / NW;
       const pbDelta = Math.max(Math.abs(pObs - BAC_P.player), Math.abs(bObs - BAC_P.banker));
       if(pbDelta >= 0.12){
         tags.push({cls:"bad", t:`P/B 쏠림 ${(pbDelta*100).toFixed(1)}%p`});
@@ -355,49 +393,18 @@
       }
     }
 
-    score = Math.round(clamp(score, 10, 95));
-    const level = score >= 80 ? "양호" : score >= 65 ? "보통" : score >= 50 ? "주의" : "위험";
-    try{ setBrief(score, level, tags, warns, recos); }catch(e){};
-
-    if(!warns.length) warns.push("특이 경고 없음. 그래도 과열/추격은 피하세요.");
-
-    if(score < 55){
-      recos.push("PASS(관망) 비중을 올리고 2~3핸드 쉬어가세요.");
-    }else if(score < 70){
-      recos.push("스테이크 다운 + 짧게 접근(손절 엄격). 연속/타이/편차 경고 해제 후 재진입 권장.");
-    }else{
-      recos.push("정석 운영(스테이크 고정) + 과몰입 방지. 그래도 ‘추격’은 금지.");
-    }
-    recos.push("슈는 독립 시행입니다. ‘예측’이 아니라 리스크 관리용 신호로만 사용하세요.");
-
-    let analysis = score < 55 ? "위험(피해야 할 구간)" : score < 70 ? "주의(리스크↑)" : "보통(관리 가능)";
-
-    if(!badges.length) badges.push({k:"ok", t:"정상"});
-
-    const badgeHtml = badges.map(b=>`<span class="shoe-badge ${b.k}">${b.t}</span>`).join('');
-
-    const tagHtml = tags.map(x=>`<span class="cs-shoe-tag ${escapeHtml(x.cls)}">${escapeHtml(x.t)}</span>`).join('');
-    const warnHtml = warns.map(x=>`<li>${escapeHtml(x)}</li>`).join('');
-    const recoHtml = recos.map(x=>`<li>${escapeHtml(x)}</li>`).join('');
-    const briefHtml = ``;
-
-    const providerName = provider==='prag' ? 'Pragmatic' : 'Evolution';
-
-    const obsPct = (c)=> N20 ? ((c/N20)*100).toFixed(2)+'%' : '—';
-
-    // Bayesian-smoothed observational estimate (recent20) with theoretical prior
-    const priorK = 10; // pseudo-count strength
+    // Bayesian-smoothed observational estimate (recent window) with theoretical prior
+    const priorK = (mode === 'agg') ? 8 : 24; // pseudo-count strength
     const obsBayesRaw = {
-      p: N20 ? (c20.p + priorK*BAC_P.player) / (N20 + priorK) : null,
-      b: N20 ? (c20.b + priorK*BAC_P.banker) / (N20 + priorK) : null,
-      t: N20 ? (c20.t + priorK*BAC_P.tie) / (N20 + priorK) : null,
+      p: NW ? (cW.p + priorK*BAC_P.player) / (NW + priorK) : null,
+      b: NW ? (cW.b + priorK*BAC_P.banker) / (NW + priorK) : null,
+      t: NW ? (cW.t + priorK*BAC_P.tie) / (NW + priorK) : null,
     };
     const obsBayes = {
       p: obsBayesRaw.p==null ? '—' : (obsBayesRaw.p*100).toFixed(2)+'%',
       b: obsBayesRaw.b==null ? '—' : (obsBayesRaw.b*100).toFixed(2)+'%',
       t: obsBayesRaw.t==null ? '—' : (obsBayesRaw.t*100).toFixed(2)+'%',
     };
-
     const bestObs = (obsBayesRaw.p==null) ? null : (function(){
       const arr = [
         {id:'B', p:obsBayesRaw.b},
@@ -409,6 +416,33 @@
     })();
     const bestObsLabel = bestObs ? (bestObs.id==='B'?'BANKER':bestObs.id==='P'?'PLAYER':'TIE') : '—';
 
+    score = Math.round(clamp(score, 10, 95));
+    const level = score >= 80 ? "양호" : score >= 65 ? "보통" : score >= 50 ? "주의" : "위험";
+
+    if(!warns.length) warns.push("특이 경고 없음. 그래도 과열/추격은 피하세요.");
+
+    if(score < 55){
+      recos.push("PASS(관망) 비중을 올리고 2~3핸드 쉬어가세요.");
+    }else if(score < 70){
+      recos.push("스테이크 다운 + 짧게 접근(손절 엄격). 연속/타이/편차 경고 해제 후 재진입 권장.");
+    }else{
+      recos.push("정석 운영(스테이크 고정) + 과몰입 방지. 그래도 ‘추격’은 금지.");
+    }
+    recos.push(mode === 'agg'
+      ? "공격 모드는 최근 편차를 더 강하게 반영합니다(표본이 적을수록 과신 금지)."
+      : "보수 모드는 이론 확률(기본값)을 더 강하게 반영합니다(표시가 완만)."
+    );
+    recos.push("슈는 독립 시행입니다. ‘예측’이 아니라 리스크 관리용 신호로만 사용하세요.");
+
+    try{ setBrief(score, level, tags, warns, recos); }catch(e){};
+
+    let analysis = score < 55 ? "위험(피해야 할 구간)" : score < 70 ? "주의(리스크↑)" : "보통(관리 가능)";
+    if(!badges.length) badges.push({k:"ok", t:"정상"});
+
+    const badgeHtml = badges.map(b=>`<span class="shoe-badge ${b.k}">${b.t}</span>`).join('');
+    const obsPct = (c)=> NW ? ((c/NW)*100).toFixed(2)+'%' : '—';
+
+    const providerName = provider==='prag' ? 'Pragmatic' : 'Evolution';
 
     out.innerHTML = `
       <div class="cs-shoe-grid">
@@ -426,14 +460,14 @@
           </div>
 
           <div class="cs-shoe-seqrow"><span class="label">최근10</span><span class="cs-shoe-seq">${seqToText(last10) || '—'}</span></div>
-          <div class="cs-shoe-seqrow"><span class="label">최근20</span><span>P ${obsPct(c20.p)} · B ${obsPct(c20.b)} · T ${obsPct(c20.t)} <span style="color:rgba(255,255,255,.62)">(이론 대비)</span></span></div>
+          <div class="cs-shoe-seqrow"><span class="label">최근${win}</span><span>P ${obsPct(cW.p)} · B ${obsPct(cW.b)} · T ${obsPct(cW.t)} <span style="color:rgba(255,255,255,.62)">(이론 대비)</span></span></div>
         </div>
 
         <div class="cs-shoe-analysis">
           <div class="cs-shoe-ana-head">
             <div>
-              <div class="cs-shoe-ana-title">분석 결과(최근 ${N20})</div>
-              <div class="cs-shoe-count" style="margin-top:4px">분석 요약 <b style="color:rgba(255,255,255,.94)">${analysis}</b></div>
+              <div class="cs-shoe-ana-title">분석 결과(최근 ${NW})</div>
+              <div class="cs-shoe-count" style="margin-top:4px">분석 요약 <b style="color:rgba(255,255,255,.94)">${analysis}</b> · <span style="opacity:.85">모드 ${modeLabel}</span></div>
             </div>
             <div class="cs-shoe-badges">${badgeHtml}</div>
           </div>
@@ -451,7 +485,7 @@
           <div class="cs-shoe-ana-grid">
             <div class="it"><span>최근 5</span><b>${seqToText(seq.slice(-5))||'—'}</b></div>
             <div class="it"><span>최근 10</span><b>${seqToText(seq.slice(-10))||'—'}</b></div>
-            <div class="it"><span>최근20 분포</span><b>P ${obsPct(c20.p)} · B ${obsPct(c20.b)} · T ${obsPct(c20.t)}</b></div>
+            <div class="it"><span>최근${win} 분포</span><b>P ${obsPct(cW.p)} · B ${obsPct(cW.b)} · T ${obsPct(cW.t)}</b></div>
             <div class="it"><span>최대 연속</span><b>P ${st.maxBy.P||0} · B ${st.maxBy.B||0} · T ${st.maxBy.T||0}</b></div>
           </div>
 
@@ -471,6 +505,18 @@ function wireShoe(){
     if(!host) return;
 
     const providerBtns = Array.from(host.querySelectorAll('button[data-provider]'));
+    const winBtns = Array.from(host.querySelectorAll('button[data-window]'));
+    const modeBtns = Array.from(host.querySelectorAll('button[data-mode]'));
+
+    const syncWin = ()=>{
+      const w = getShoeWindow();
+      winBtns.forEach(b=> b.classList.toggle('on', parseInt(b.getAttribute('data-window'),10)===w));
+    };
+    const syncMode = ()=>{
+      const m = getShoeMode();
+      modeBtns.forEach(b=> b.classList.toggle('on', (b.getAttribute('data-mode')||'cons')===m));
+    };
+
     function setProvider(p){
       provider = (p==='prag') ? 'prag' : 'evo';
       lsWrite(SHOE.providerKey, provider);
@@ -479,6 +525,23 @@ function wireShoe(){
     }
     providerBtns.forEach(b=>{
       b.addEventListener('click', ()=>setProvider(b.getAttribute('data-provider')));
+    });
+
+    winBtns.forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const w = parseInt(b.getAttribute('data-window')||'20',10);
+        setShoeWindow(w);
+        syncWin();
+        renderShoe(provider);
+      });
+    });
+    modeBtns.forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const m = b.getAttribute('data-mode')||'cons';
+        setShoeMode(m);
+        syncMode();
+        renderShoe(provider);
+      });
     });
 
     const actions = host.querySelector('.cs-shoe-actions');
@@ -504,8 +567,11 @@ function wireShoe(){
       });
     }
 
+    syncWin();
+    syncMode();
     setProvider(provider);
   }
+
 
 
   function wire(){

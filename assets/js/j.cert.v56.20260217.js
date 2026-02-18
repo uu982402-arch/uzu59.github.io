@@ -11,15 +11,12 @@
     card1: { title: 'VEGAS', code: '6789', link: 'https://las403.com', telegram: 'UZU59',
       benefit: '스포츠·고액전용 입플 최대 30% 페이백 / 카지노 입플',
       notice: '가입코드 미입력 시 혜택 적용 불가' },
-    card2: { title: 'OK Bet', code: '88ST', link: 'https://ok-8888.com/?code=88ST', telegram: 'UZU59',
-      benefit: '신규가입 77만원 쿠폰지급, 코인 입/출금 가능, 롤 세트별 베팅, 벤픽 후 마감, BJ, 스타리그 업데이트',
-      notice: '가입코드 미입력 시 혜택 적용 불가'},
-    card3: { title: '777 Bet', code: '6767', link: 'https://82clf.com/?code=6767', telegram: 'UZU59',
+card3: { title: '777 Bet', code: '6767', link: 'https://82clf.com/?code=6767', telegram: 'UZU59',
       benefit: '가입코드 6767 전용 혜택 / 스포츠·카지노 이용 가능',
       notice: '가입코드 미입력 시 혜택 적용 불가' },
   };
 
-  const TOP_IDS = ['card1', 'card2', 'card3'];
+  const TOP_IDS = ['card1','card3'];
   const TOP_SET = new Set(TOP_IDS);
 
   const CLICK_PREFIX = '88_card_click_';
@@ -68,10 +65,10 @@
 
   const cardSourcesById = (id) => {
     const n = String(id).replace('card', '');
-    const gifMap = { card2: ['/img/img2.gif'] };
+    const gifMap = {};
     const arr = gifMap[id];
     const specialMap = {
-      card3: { webp: '/img/img4.webp', jpg: '/img/img4.webp' },
+      card3: { webp: '/img/img2.webp', jpg: '/img/img2.webp' },
     };
     if (specialMap[id]) {
       return { gif: Array.isArray(arr) ? (arr[0] || '') : (arr || ''), gif2: Array.isArray(arr) ? (arr[1] || '') : '', webp: specialMap[id].webp, jpg: specialMap[id].jpg };

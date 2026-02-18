@@ -234,6 +234,14 @@
     ? predArr.map(o=>`<span class=\"mg-pill ${bestPred && o.id===bestPred.id ? 'good' : ''}\">${escapeHtml(o.label)} ${pct(o.p,1)}<\/span>`).join("")
     : "";
 
+  // v74: also expose next prediction in KPI area
+  try{
+    const kpi = $("mgNextPred");
+    if(kpi) kpi.textContent = bestPred ? `${bestPred.label} ${pct(bestPred.p,1)}` : "—";
+    const sub = $("mgNextPredSub");
+    if(sub) sub.textContent = bestPred ? `최근 ${predN}회 기반` : "최근 결과 기반";
+  }catch(e){}
+
   box.className = avoid ? "mg-risk mg-risk-bad" : tags.some(x=>x.cls==="warn") ? "mg-risk mg-risk-warn" : "mg-risk";
   box.innerHTML = `
     <div class=\"mg-risk-row\">
