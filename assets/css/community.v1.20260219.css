@@ -1,0 +1,29 @@
+/* Community MVP (v1) — scoped */
+.com-wrap{max-width:980px;margin:0 auto;padding:18px 14px 44px}
+@media(max-width:860px){.com-wrap{padding-bottom:44px}}
+.com-hero{margin-top:10px}
+.com-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-top:12px}
+.com-toolbar .field{flex:1 1 260px;min-width:220px}
+.com-toolbar .field label{display:block;font-size:12px;font-weight:900;opacity:.78;margin:0 0 6px 2px}
+.com-toolbar .field input{width:100%}
+.com-toolbar .right{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+.com-list{margin-top:12px;display:grid;gap:12px}
+.com-post{display:block;text-decoration:none;color:inherit}
+.com-post .head{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.com-post .t{margin:0;font-size:15px;font-weight:1000;line-height:1.28;letter-spacing:-.02em;color:var(--text,#0F172A)}
+.com-post .meta{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted,#5B6472)}
+.com-post .snippet{margin:10px 0 0;font-size:13px;line-height:1.55;color:var(--text-2,#334155);opacity:.95}
+.com-post .badgeRow{display:flex;gap:6px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+.com-kpi{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--panel-border,#E2E8F0);background:rgba(255,255,255,.7);font-size:12px;font-weight:950;color:var(--text,#0F172A);white-space:nowrap}
+.com-kpi .n{font-variant-numeric:tabular-nums}
+.com-empty{padding:18px;border-radius:18px;border:1px dashed var(--panel-border,#E2E8F0);color:var(--muted,#5B6472);background:rgba(255,255,255,.55)}
+.com-postBody{white-space:pre-wrap;line-height:1.65;font-size:14px;color:var(--text-2,#334155)}
+.com-divider{height:1px;background:rgba(18,20,28,.10);margin:14px 0}
+.com-comments{display:grid;gap:10px}
+.com-comment{border:1px solid var(--panel-border,#E2E8F0);background:rgba(255,255,255,.72);border-radius:18px;padding:12px}
+.com-comment .top{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.com-comment .name{font-weight:1000;font-size:12px;color:var(--text,#0F172A)}
+.com-comment .time{font-size:12px;color:var(--muted,#5B6472)}
+.com-comment .body{margin-top:8px;white-space:pre-wrap;line-height:1.6;font-size:13px;color:var(--text-2,#334155)}
+.com-note{font-size:12px;color:var(--muted,#5B6472);line-height:1.55}
+.com-turnstile{margin-top:10px;display:flex;justify-content:flex-start}
