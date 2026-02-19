@@ -1,0 +1,150 @@
+/* v89 Componentization patch (2026-02-19)
+   Goals:
+   - Card/section spacing “rhythm” unified
+   - CTA buttons hover/active/focus states unified
+   Target focus:
+   /casino, /slot, /minigame, /ipl, /casino-strategy (st-guide + st-land)
+*/
+
+:root{
+  /* rhythm */
+  --rhythm-max: var(--shell-max, 1180px);
+  --rhythm-pad-x: 18px;
+  --rhythm-pad-y: clamp(18px, 2.2vw, 24px);
+  --rhythm-pad-b: clamp(38px, 4vw, 54px);
+  --rhythm-gap: 12px;
+  --rhythm-gap-lg: 14px;
+
+  /* button */
+  --cta-radius: 999px;
+  --cta-minh: 44px;
+  --cta-px: 14px;
+  --cta-py: 11px;
+  --cta-border: rgba(var(--accent-rgb,30,58,138), .22);
+  --cta-ring: 0 0 0 3px rgba(var(--accent-rgb,30,58,138), .18);
+  --cta-shadow: var(--shadow-sm, 0 1px 0 rgba(16,24,40,.04),0 10px 26px rgba(16,24,40,.10));
+  --cta-shadow-hover: var(--shadow-md, 0 1px 0 rgba(16,24,40,.05),0 18px 56px rgba(16,24,40,.12));
+}
+
+/* ------------------------------
+   Layout rhythm (wrap / grids)
+------------------------------ */
+
+/* Guide pages: /casino, /slot, /minigame, /ipl */
+.wrap.st-guide{
+  max-width: var(--rhythm-max) !important;
+  margin: 0 auto !important;
+  padding: var(--rhythm-pad-y) var(--rhythm-pad-x) var(--rhythm-pad-b) !important;
+}
+
+/* Strategy landing pages: /casino-strategy/* */
+.st-land-wrap{
+  max-width: var(--rhythm-max) !important;
+  margin: 0 auto !important;
+  padding: var(--rhythm-pad-y) var(--rhythm-pad-x) var(--rhythm-pad-b) !important;
+}
+
+/* section blocks */
+.st-guide-hero,
+.st-land-hero,
+.hub-hero{
+  border-radius: var(--radius-xl, 22px) !important;
+}
+
+/* unified grid gaps */
+:where(.grid2,.st-land-grid,.hub-grid){
+  gap: var(--rhythm-gap) !important;
+}
+
+/* normalize top spacing between hero and next content */
+.st-guide .grid2{ margin-top: var(--rhythm-gap-lg) !important; }
+.st-land-grid{ margin-top: var(--rhythm-gap-lg) !important; }
+.hub-section{ margin-top: var(--rhythm-gap-lg) !important; }
+
+/* card spacing */
+:where(.st-guide .card, .st-land-card, .hub-card){
+  padding: 16px !important;
+  border-radius: var(--radius-xl, 22px) !important;
+}
+
+/* subtle hover polish for non-link cards (keep it luxe, not “clicky”) */
+:where(.st-guide .card, .st-land-card):hover{
+  border-color: rgba(var(--accent-rgb,30,58,138), .22) !important;
+  box-shadow: var(--shadow-md, 0 1px 0 rgba(16,24,40,.05),0 18px 56px rgba(16,24,40,.12)) !important;
+}
+
+/* ------------------------------
+   CTA components (buttons)
+------------------------------ */
+
+/* CTA containers */
+:where(.st-guide-actions,.btnRow,.st-land-cta,.hub-actions){
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px !important;
+  align-items:center;
+}
+
+/* Base CTA surface */
+:where(.btn, .st-land-btn, .hub-btn, .cs-btn, .st-btn){
+  border-radius: var(--cta-radius) !important;
+  min-height: var(--cta-minh) !important;
+  padding: var(--cta-py) var(--cta-px) !important;
+  font-weight: 950 !important;
+  letter-spacing: -.01em;
+  text-decoration:none !important;
+  border: 1px solid var(--cta-border) !important;
+  box-shadow: var(--cta-shadow) !important;
+  transition: transform .12s ease, filter .12s ease, box-shadow .12s ease, border-color .12s ease, background-color .12s ease;
+  will-change: transform;
+}
+
+/* Hover/active: consistent “one product” feel */
+:where(.btn, .st-land-btn, .hub-btn, .cs-btn, .st-btn):not(.disabled):not([aria-disabled="true"]):not([disabled]):hover{
+  transform: translateY(-1px);
+  box-shadow: var(--cta-shadow-hover) !important;
+  filter: brightness(1.02);
+}
+:where(.btn, .st-land-btn, .hub-btn, .cs-btn, .st-btn):not(.disabled):not([aria-disabled="true"]):not([disabled]):active{
+  transform: translateY(0px);
+  filter: brightness(0.99);
+  box-shadow: var(--cta-shadow) !important;
+}
+
+/* Focus ring */
+:where(.btn, .st-land-btn, .hub-btn, .cs-btn, .st-btn):focus{ outline:none !important; }
+:where(.btn, .st-land-btn, .hub-btn, .cs-btn, .st-btn):focus-visible{
+  box-shadow: var(--cta-shadow), var(--cta-ring) !important;
+}
+
+/* Primary variant: consistent deep-blue luxe gradient */
+:where(.btn.primary, .st-land-btn.primary, .hub-btn.primary, .cs-btn.primary, .st-btn.primary, .btn.blue){
+  background: linear-gradient(180deg, rgba(var(--accent-rgb,30,58,138), 1) 0%, rgba(37,99,235, 1) 100%) !important;
+  border-color: rgba(var(--accent-rgb,30,58,138), .55) !important;
+  color: #fff !important;
+  box-shadow: 0 12px 26px rgba(var(--accent-rgb,30,58,138), .18) !important;
+}
+
+/* Secondary/ghost: unified neutral surface */
+:where(.btn.secondary, .st-land-btn:not(.primary), .hub-btn:not(.primary), .btn.ghost, .cs-btn.ghost){
+  background: color-mix(in srgb, var(--panel-2, rgba(255,255,255,.74)) 92%, rgba(var(--accent-rgb,30,58,138), .06)) !important;
+  border-color: rgba(var(--accent-rgb,30,58,138), .18) !important;
+  color: var(--text, rgba(18,20,28,.94)) !important;
+}
+
+/* “gold” CTA (telegram/문의 등)도 같은 컴포넌트 규칙으로 정렬 */
+:where(.btn.gold){
+  background: color-mix(in srgb, var(--panel, rgba(255,255,255,.92)) 92%, rgba(var(--accent-rgb,30,58,138), .06)) !important;
+  border-color: rgba(var(--accent-rgb,30,58,138), .22) !important;
+  color: var(--text, rgba(18,20,28,.94)) !important;
+}
+
+/* Ensure small popup confirm buttons also align */
+.scam-popup .btn{ min-height: 42px !important; padding: 10px 14px !important; }
+
+/* Strategy hero CTA stack on narrow screens */
+@media (max-width: 520px){
+  .st-land-cta > :where(a,button){ width: 100% !important; }
+  .st-guide-actions > :where(a,button){ width: 100% !important; }
+  .btnRow > :where(a,button){ width: 100% !important; }
+}

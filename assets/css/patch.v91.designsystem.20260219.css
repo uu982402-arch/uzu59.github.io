@@ -1,0 +1,271 @@
+/* v91 – Card inner components design system (lists / FAQ / badges / KV / notes)
+   scope: guide cards, strategy landing cards, main WHY cards, bonus-checklist sections
+*/
+
+:root{
+  --ds-badge-h: 22px;
+  --ds-badge-pad-x: 10px;
+  --ds-badge-fs: 11px;
+  --ds-badge-fw: 900;
+
+  --ds-list-gap: 8px;
+  --ds-bullet: 7px;
+
+  --ds-faq-gap: 10px;
+  --ds-faq-pad-y: 12px;
+  --ds-faq-pad-x: 14px;
+
+  --ds-kv-label-w: 160px;
+  --ds-kv-gap: 12px;
+
+  --ds-note-pad-y: 10px;
+  --ds-note-pad-x: 12px;
+}
+
+/* ===== Badge ===== */
+/* 기존 CSS에서 .title .badge를 숨기는 경우가 있어, 주요 페이지 스코프 내에서는 강제 표시 */
+.wrap.st-guide .title .badge,
+#whySection .title .badge,
+.wrap .hero .badges .badge,
+.st-land-wrap .st-land-card h1 .badge,
+.st-land-wrap .st-land-card h2 .badge,
+.st-land-wrap .st-land-hero h1 .badge,
+.st-land-wrap .st-land-hero h2 .badge,
+.wrap.st-guide h1 .badge,
+.wrap.st-guide h2 .badge,
+.wrap.st-guide h3 .badge,
+#whySection h1 .badge,
+#whySection h2 .badge,
+#whySection h3 .badge{
+  display:inline-flex !important;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  height:var(--ds-badge-h);
+  padding:0 var(--ds-badge-pad-x);
+  border-radius:999px;
+  font-size:var(--ds-badge-fs) !important;
+  font-weight:var(--ds-badge-fw);
+  letter-spacing:-.01em;
+  line-height:1;
+  border:1px solid color-mix(in srgb, var(--panel-border) 85%, transparent);
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: rgba(10,12,20,.92);
+  box-shadow: var(--shadow-sm);
+}
+.badge strong{ font-weight:1000; color: rgba(10,12,20,.92); }
+
+/* ===== Lists ===== */
+/* 공통 리스트: guide(list/clean), main why-list */
+.wrap.st-guide ul.list,
+.wrap .card ul.clean,
+#whySection ul.why-list{
+  list-style:none;
+  padding:0;
+  margin:12px 0 0;
+  display:flex;
+  flex-direction:column;
+  gap:var(--ds-list-gap);
+}
+
+.wrap.st-guide ul.list > li,
+.wrap .card ul.clean > li,
+#whySection ul.why-list > li{
+  position:relative;
+  padding-left: calc(var(--ds-bullet) + 12px);
+  color: var(--text-2);
+}
+
+.wrap.st-guide ul.list > li::before,
+.wrap .card ul.clean > li::before,
+#whySection ul.why-list > li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top: .56em;
+  width: var(--ds-bullet);
+  height: var(--ds-bullet);
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), .62);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .14);
+}
+
+.wrap.st-guide ul.list b,
+.wrap .card ul.clean b,
+#whySection ul.why-list b,
+.wrap.st-guide ul.list strong,
+.wrap .card ul.clean strong,
+#whySection ul.why-list strong{ color: var(--text); }
+
+/* casino-strategy steps (numbered pill + description) */
+.st-land-wrap ul.st-steps{
+  list-style:none;
+  padding:0;
+  margin:12px 0 0;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.st-land-wrap ul.st-steps > li{
+  display:grid;
+  grid-template-columns: 30px 1fr;
+  gap:12px;
+  align-items:start;
+}
+.st-land-wrap ul.st-steps .s{
+  width:30px; height:30px;
+  border-radius:999px;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:1000;
+  font-size:12px;
+  color: rgba(10,12,20,.92);
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  border:1px solid color-mix(in srgb, var(--panel-border) 85%, transparent);
+  box-shadow: var(--shadow-sm);
+}
+.st-land-wrap ul.st-steps .d{ color: var(--text-2); }
+.st-land-wrap ul.st-steps .d b{ color: var(--text); }
+
+/* ===== FAQ (details/summary) ===== */
+/* guide cards + bonus-checklist faq + strategy faq */
+.wrap.st-guide .card.faq details,
+.wrap .section.faq details,
+.st-land-wrap .st-faq details{
+  border:1px solid var(--panel-border);
+  border-radius:18px;
+  background: color-mix(in srgb, var(--panel-2) 88%, transparent);
+  box-shadow: var(--shadow-sm);
+  overflow:hidden;
+}
+
+.wrap.st-guide .card.faq details + details,
+.wrap .section.faq details + details,
+.st-land-wrap .st-faq details + details{ margin-top: var(--ds-faq-gap); }
+
+.wrap.st-guide .card.faq summary,
+.wrap .section.faq summary,
+.st-land-wrap .st-faq summary{
+  list-style:none;
+  cursor:pointer;
+  padding: var(--ds-faq-pad-y) var(--ds-faq-pad-x);
+  font-weight: 900;
+  font-size: var(--ts-card-body);
+  color: var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.wrap.st-guide .card.faq summary::-webkit-details-marker,
+.wrap .section.faq summary::-webkit-details-marker,
+.st-land-wrap .st-faq summary::-webkit-details-marker{ display:none; }
+
+.wrap.st-guide .card.faq summary::after,
+.wrap .section.faq summary::after,
+.st-land-wrap .st-faq summary::after{
+  content:"▾";
+  font-weight:1000;
+  color: var(--muted);
+  transform: translateY(-1px) rotate(0deg);
+  transition: transform .16s ease, color .16s ease;
+}
+
+.wrap.st-guide .card.faq details[open] > summary::after,
+.wrap .section.faq details[open] > summary::after,
+.st-land-wrap .st-faq details[open] > summary::after{
+  transform: translateY(-1px) rotate(180deg);
+  color: var(--text-2);
+}
+
+.wrap.st-guide .card.faq details > :not(summary),
+.wrap .section.faq details > :not(summary),
+.st-land-wrap .st-faq details > :not(summary){
+  padding: 0 var(--ds-faq-pad-x) calc(var(--ds-faq-pad-y) + 2px);
+  color: var(--text-2);
+}
+
+/* details 내부 노트/문단 기본 마진 정리 */
+.wrap.st-guide .card.faq details > .a,
+.wrap .section.faq details > p,
+.st-land-wrap .st-faq details > .st-land-note{
+  margin: 8px 0 0 !important;
+}
+
+/* ===== KV (Key-Value) ===== */
+/* guide callout kv */
+.wrap.st-guide .callout .kv{
+  display:grid;
+  grid-template-columns: var(--ds-kv-label-w) 1fr;
+  gap: var(--ds-kv-gap);
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid color-mix(in srgb, var(--panel-border) 80%, transparent);
+}
+.wrap.st-guide .callout .kv:last-child{ border-bottom:none; }
+
+.wrap.st-guide .callout .kv .k{
+  color: var(--muted);
+  font-weight: 900;
+  font-size: var(--ts-card-sub);
+  line-height: 1.25;
+}
+.wrap.st-guide .callout .kv .v{
+  text-align:right;
+  font-weight: 1000;
+  font-size: var(--ts-card-body);
+  line-height: 1.25;
+}
+
+@media (max-width: 560px){
+  .wrap.st-guide .callout .kv{ grid-template-columns: 1fr; }
+  .wrap.st-guide .callout .kv .v{ text-align:left; }
+}
+
+/* strategy facts (fact: k/v) */
+.st-land-wrap .st-facts .fact{
+  display:grid;
+  grid-template-columns: var(--ds-kv-label-w) 1fr;
+  gap: var(--ds-kv-gap);
+  padding:10px 0;
+  border-bottom:1px solid color-mix(in srgb, var(--panel-border) 80%, transparent);
+}
+.st-land-wrap .st-facts .fact:last-child{ border-bottom:none; }
+.st-land-wrap .st-facts .fact .k{
+  color: var(--muted);
+  font-weight: 1000;
+  font-size: var(--ts-card-sub);
+}
+.st-land-wrap .st-facts .fact .v{
+  color: var(--text-2);
+  font-size: var(--ts-card-body);
+}
+
+@media (max-width: 560px){
+  .st-land-wrap .st-facts .fact{ grid-template-columns: 1fr; }
+}
+
+/* ===== Notes ===== */
+/* note-like blocks: why-note / st-land-note / disclaimer-box / callout.text */
+#whySection .why-note,
+.st-land-wrap .st-land-note,
+.wrap .disclaimer-box,
+.wrap.st-guide .callout.text{
+  border:1px solid var(--panel-border);
+  background: color-mix(in srgb, var(--panel-2) 90%, transparent);
+  border-radius:18px;
+  padding: var(--ds-note-pad-y) var(--ds-note-pad-x);
+  color: var(--text-2);
+  font-size: var(--ts-card-sub);
+  line-height: 1.5;
+}
+
+#whySection .why-note b,
+.st-land-wrap .st-land-note b,
+.wrap.st-guide .callout.text b{ color: var(--text); }
+
+/* bonus-checklist hero small text in CTA */
+.wrap .cta-row .cta small{ font-size: var(--ts-card-sub); color: var(--muted); }
+

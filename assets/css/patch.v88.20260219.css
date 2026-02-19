@@ -1,0 +1,45 @@
+/* v88 UI/UX unify patch (2026-02-19)
+   - Text color consistency across pages
+   - Fix hardcoded black text on dark UI (notice bar, etc.)
+   - Let /cert/ follow global theme tokens (dark/light)
+*/
+:root{
+  /* /cert/ (c.cert.*) theme alignment */
+  --cert-bg: var(--bg);
+  --cert-panel: var(--panel);
+  --cert-panel-solid: color-mix(in srgb, var(--panel) 92%, rgba(0,0,0,0));
+  --cert-border: var(--panel-border);
+  --cert-text: var(--text);
+  --cert-sub: var(--muted);
+  --cert-shadow: var(--shadow-md);
+  --cert-shadow-2: var(--shadow-sm);
+}
+
+/* Global base text */
+html, body{ color: var(--text); }
+body{ -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+p, li, td, th, label, input, textarea, select, button{ color: inherit; }
+
+/* Muted/secondary text */
+small, .small, .meta, .hint, .desc, .sub, .note{
+  color: var(--muted) !important;
+}
+
+/* Links */
+a{ color: color-mix(in srgb, var(--accent2) 92%, white); }
+a:hover{ opacity:.92; }
+
+/* Notice bar: avoid #000 on dark backgrounds */
+.notice-bar, .notice-bar a{
+  color: var(--accentText, #fff) !important;
+}
+
+/* Popup text */
+.popup-sub, .popup-meta .line{ color: var(--text-2) !important; }
+
+/* Inputs */
+::placeholder{ color: color-mix(in srgb, var(--muted) 75%, transparent); opacity:1; }
+
+/* /cert/ specific fine-tune */
+.cert-hero p, .cert-hero-note, .cert-side-card li{ color: var(--text-2); }
+.cert-side-card .k, .cert-hero h1{ color: var(--text); }

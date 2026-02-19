@@ -65,37 +65,25 @@ card3: { title: '777 Bet', code: '6767', link: 'https://82clf.com/?code=6767', t
 
   
 
-  // v86: checklist gating (trust UX)
-  const setLinkEnabled = (on) => {
+  // v88: checklist removed (direct outbound)
+  const setLinkEnabled = (_on=true) => {
     const linkEl = $('pLink');
     if (!linkEl) return;
     const okEl = $('pCheckOk');
-    if (on) {
-      linkEl.classList.remove('is-disabled');
-      linkEl.setAttribute('aria-disabled', 'false');
-      linkEl.removeAttribute('tabindex');
-      if (okEl) okEl.style.display = 'block';
-    } else {
-      linkEl.classList.add('is-disabled');
-      linkEl.setAttribute('aria-disabled', 'true');
-      linkEl.setAttribute('tabindex', '-1');
-      if (okEl) okEl.style.display = 'none';
-    }
+    linkEl.classList.remove('is-disabled');
+    linkEl.setAttribute('aria-disabled', 'false');
+    linkEl.removeAttribute('tabindex');
+    if (okEl) okEl.style.display = 'none';
   };
 
   const resetChecklist = () => {
-    const box = $('pChecklist');
-    if (!box) return;
-    box.querySelectorAll('input.pChk[type="checkbox"]').forEach((c) => { c.checked = false; });
-    setLinkEnabled(false);
+    // v88: checklist removed
+    try { setLinkEnabled(true); } catch { /* ignore */ }
   };
 
   const syncChecklist = () => {
-    const box = $('pChecklist');
-    if (!box) return;
-    const checks = Array.from(box.querySelectorAll('input.pChk[type="checkbox"]'));
-    const all = checks.length ? checks.every((c) => !!c.checked) : true;
-    setLinkEnabled(all);
+    // v88: checklist removed
+    try { setLinkEnabled(true); } catch { /* ignore */ }
   };
 const cardSourcesById = (id) => {
     const n = String(id).replace('card', '');

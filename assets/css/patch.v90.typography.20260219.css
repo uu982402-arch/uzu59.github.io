@@ -1,0 +1,186 @@
+/* v90 Typography system patch (2026-02-19)
+   Goal: unify card internal typography (title / body / subtext)
+   across: main index, /bonus-checklist, /casino, /slot, /minigame, /ipl, /casino-strategy
+*/
+
+:root{
+  /* Card type scale */
+  --ts-card-title: clamp(15px, 1.2vw, 17px);
+  --ts-card-body: clamp(13px, 1.05vw, 14.5px);
+  --ts-card-sub: clamp(12px, .95vw, 13px);
+  --ts-card-micro: 11.5px;
+
+  --lh-card-title: 1.25;
+  --lh-card-body: 1.55;
+  --lh-card-sub: 1.45;
+
+  --fw-card-title: 900;
+  --fw-card-body: 520;
+  --fw-card-sub: 650;
+
+  --ls-card-title: -0.012em;
+  --ls-card-body: -0.006em;
+}
+
+/* =========================
+   Main index: WHY cards
+   ========================= */
+.why-card .why-kicker{
+  font-size: var(--ts-card-sub) !important;
+  font-weight: var(--fw-card-sub) !important;
+  letter-spacing: .02em;
+}
+.why-card .why-head{
+  font-size: var(--ts-card-title) !important;
+  font-weight: var(--fw-card-title) !important;
+  letter-spacing: var(--ls-card-title);
+  line-height: var(--lh-card-title);
+}
+.why-card .why-list li{
+  font-size: var(--ts-card-body) !important;
+  line-height: var(--lh-card-body);
+  letter-spacing: var(--ls-card-body);
+}
+.why-card .why-note{
+  font-size: var(--ts-card-sub) !important;
+  line-height: var(--lh-card-sub);
+  color: var(--vvip-muted, rgba(232,232,238,.72)) !important;
+}
+
+/* =========================
+   st-guide pages: /casino /slot /minigame /ipl
+   ========================= */
+.wrap.st-guide .card:not(.st-guide-hero) .title,
+.wrap.st-guide .card:not(.st-guide-hero) h2,
+.wrap.st-guide .card:not(.st-guide-hero) h3{
+  font-size: var(--ts-card-title) !important;
+  font-weight: var(--fw-card-title) !important;
+  letter-spacing: var(--ls-card-title);
+  line-height: var(--lh-card-title);
+}
+
+.wrap.st-guide .card:not(.st-guide-hero) p,
+.wrap.st-guide .card:not(.st-guide-hero) li,
+.wrap.st-guide .card:not(.st-guide-hero) .a,
+.wrap.st-guide .card:not(.st-guide-hero) summary{
+  font-size: var(--ts-card-body) !important;
+  line-height: var(--lh-card-body);
+  letter-spacing: var(--ls-card-body);
+}
+
+/* Details summary: keep title feel */
+.wrap.st-guide .card:not(.st-guide-hero) summary{
+  font-weight: 850 !important;
+}
+
+.wrap.st-guide .card:not(.st-guide-hero) .callout,
+.wrap.st-guide .card:not(.st-guide-hero) .callout.text{
+  font-size: var(--ts-card-body) !important;
+  line-height: var(--lh-card-body);
+}
+
+.wrap.st-guide .card:not(.st-guide-hero) .footer,
+.wrap.st-guide .card:not(.st-guide-hero) .note,
+.wrap.st-guide .card:not(.st-guide-hero) small{
+  font-size: var(--ts-card-sub) !important;
+  line-height: var(--lh-card-sub);
+  color: var(--vvip-muted, rgba(232,232,238,.72)) !important;
+}
+
+/* KV blocks inside cards */
+.wrap.st-guide .card:not(.st-guide-hero) .kv .k{
+  font-size: var(--ts-card-sub) !important;
+  font-weight: var(--fw-card-sub) !important;
+  color: var(--vvip-muted, rgba(232,232,238,.72)) !important;
+}
+.wrap.st-guide .card:not(.st-guide-hero) .kv .v{
+  font-size: var(--ts-card-body) !important;
+  font-weight: 850 !important;
+}
+
+/* =========================
+   /bonus-checklist
+   ========================= */
+.wrap .card h3{
+  font-size: var(--ts-card-title) !important;
+  font-weight: var(--fw-card-title) !important;
+  letter-spacing: var(--ls-card-title);
+  line-height: var(--lh-card-title);
+}
+.wrap .card p,
+.wrap .card li,
+.wrap .card .clean li{
+  font-size: var(--ts-card-body) !important;
+  line-height: var(--lh-card-body);
+  letter-spacing: var(--ls-card-body);
+}
+.wrap .copybar .copynote,
+.wrap .disclaimer-box p,
+.wrap .section > p[style*="color:"],
+.wrap .faq details p{
+  font-size: var(--ts-card-sub) !important;
+  line-height: var(--lh-card-sub);
+}
+
+/* =========================
+   /casino-strategy/* landing
+   ========================= */
+.st-land-hero h1{
+  letter-spacing: -0.02em;
+}
+.st-land-card h2{
+  font-size: var(--ts-card-title) !important;
+  font-weight: var(--fw-card-title) !important;
+  letter-spacing: var(--ls-card-title);
+  line-height: var(--lh-card-title);
+}
+.st-land-card p,
+.st-land-card li,
+.st-land-card summary,
+.st-land-card .v,
+.st-land-card .d{
+  font-size: var(--ts-card-body) !important;
+  line-height: var(--lh-card-body);
+  letter-spacing: var(--ls-card-body);
+}
+.st-land-card summary{ font-weight: 850 !important; }
+
+.st-land-note,
+.st-land-card .st-land-note{
+  font-size: var(--ts-card-sub) !important;
+  line-height: var(--lh-card-sub);
+  color: var(--vvip-muted, rgba(232,232,238,.72)) !important;
+}
+
+/* Fact label */
+.st-facts .k{
+  font-size: var(--ts-card-sub) !important;
+  font-weight: var(--fw-card-sub) !important;
+  color: var(--vvip-muted, rgba(232,232,238,.72)) !important;
+}
+
+/* =========================
+   Micro-fixes: margin rhythm inside cards
+   ========================= */
+.wrap.st-guide .card:not(.st-guide-hero) .title,
+.wrap .card h3,
+.st-land-card h2{
+  margin-top: 0 !important;
+  margin-bottom: 10px !important;
+}
+
+.wrap.st-guide .card:not(.st-guide-hero) p,
+.wrap .card p,
+.st-land-card p{
+  margin-top: 0 !important;
+}
+
+/* Keep badges readable */
+.badge{font-size: var(--ts-card-micro) !important;}
+
+@media (max-width: 520px){
+  :root{ --ts-card-micro: 11px; }
+  .wrap.st-guide .card:not(.st-guide-hero) .title,
+  .wrap .card h3,
+  .st-land-card h2{ margin-bottom: 9px !important; }
+}

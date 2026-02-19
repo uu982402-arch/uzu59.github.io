@@ -1,0 +1,188 @@
+/* v92 – Card header alignment + btnRow layout + tool cards (tool/tool-card) spec (2026-02-19)
+   Goal:
+   - btnRow alignment spec (consistent spacing + responsive stacking)
+   - tool cards typography + badge/meta line spec (for .tools .tool and future .tool-card)
+   - card header (title row) left-right alignment + badge placement spec (guide cards, and generic)
+*/
+
+:root{
+  --ds-head-gap: 10px;
+  --ds-btnrow-gap: 10px;
+  --ds-btnrow-mt: 14px;
+
+  --ds-tool-gap: 10px;
+  --ds-tool-pad-y: 12px;
+  --ds-tool-pad-x: 14px;
+  --ds-tool-radius: 18px;
+
+  --ts-tool-title: var(--ts-card-title);
+  --ts-tool-desc: var(--ts-card-sub);
+  --ts-tool-meta: var(--ts-card-micro);
+
+  /* KV label width (tool cards) */
+  --ds-kv-label-w-tool: 132px;
+}
+
+/* =========================================================
+   1) Card header (title row) – left text / right badges
+   ========================================================= */
+
+/* Guide cards: .card .title often includes .badge + text */
+.wrap.st-guide .card .title{
+  display:flex;
+  align-items:center;
+  gap: var(--ds-head-gap);
+  flex-wrap:wrap;
+}
+
+/* Put badges to the far-right, even if they appear first in the HTML */
+.wrap.st-guide .card .title .badge{
+  order: 2;
+}
+.wrap.st-guide .card .title .badge:first-of-type{
+  margin-left: auto;
+}
+
+/* Keep title text readable when wrapping */
+.wrap.st-guide .card .title{
+  line-height: var(--lh-card-title);
+}
+
+/* Generic card header alignment if project adds .card-head later */
+.card :where(.card-head,.cardHead,.headRow,.titleRow){
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: var(--ds-head-gap);
+}
+
+/* =========================================================
+   2) Button row (btnRow / cta-row / btn-row)
+   ========================================================= */
+:where(.btnRow,.btn-row,.cta-row){
+  display:flex;
+  align-items:center;
+  gap: var(--ds-btnrow-gap);
+  flex-wrap:wrap;
+  margin-top: var(--ds-btnrow-mt);
+}
+
+:where(.btnRow,.btn-row,.cta-row) > :where(a,button){
+  flex: 0 0 auto;
+}
+
+@media (max-width: 520px){
+  :where(.btnRow,.btn-row,.cta-row){
+    flex-direction:column;
+    align-items:stretch;
+  }
+  :where(.btnRow,.btn-row,.cta-row) > :where(a,button){
+    width:100%;
+    justify-content:center;
+  }
+}
+
+/* =========================================================
+   3) Tool cards (tools/tool-card) – typography + badge/meta spec
+   ========================================================= */
+
+/* Container grid */
+.tools{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--ds-tool-gap);
+  margin-top: 12px;
+}
+
+@media (max-width: 980px){
+  .tools{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px){
+  .tools{ grid-template-columns: 1fr; }
+}
+
+/* Card */
+.tools :where(a.tool, .tool-card){
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+  padding: var(--ds-tool-pad-y) var(--ds-tool-pad-x);
+  border-radius: var(--ds-tool-radius);
+  text-decoration:none;
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
+  box-shadow: 0 10px 22px rgba(0,0,0,.28);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+
+.tools :where(a.tool, .tool-card):hover{
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+  box-shadow: 0 14px 30px rgba(0,0,0,.34);
+}
+
+.tools :where(a.tool, .tool-card):active{
+  transform: translateY(0);
+}
+
+/* Title / Description */
+.tools :where(a.tool, .tool-card) :where(.t,.tool-title,h3){
+  font-size: var(--ts-tool-title) !important;
+  font-weight: var(--fw-card-title) !important;
+  letter-spacing: var(--ls-card-title);
+  line-height: var(--lh-card-title);
+  margin:0;
+}
+
+.tools :where(a.tool, .tool-card) :where(.d,.tool-desc,p){
+  font-size: var(--ts-tool-desc) !important;
+  font-weight: var(--fw-card-sub) !important;
+  line-height: var(--lh-card-sub);
+  color: var(--muted);
+  margin:0;
+}
+
+/* Meta line (optional) */
+.tools :where(a.tool, .tool-card) :where(.meta,.tool-meta,.m){
+  margin-top: 2px;
+  font-size: var(--ts-tool-meta) !important;
+  line-height: 1.35;
+  color: rgba(232,232,238,.62);
+}
+
+/* Badge (optional) – top-right */
+.tools :where(a.tool, .tool-card) .badge{
+  position:absolute;
+  top: 10px;
+  right: 10px;
+  margin: 0 !important;
+  order: 10;
+  pointer-events:none;
+}
+
+/* =========================================================
+   4) KV inside tool cards (optional)
+   ========================================================= */
+.tools :where(a.tool, .tool-card) .kv{
+  display:grid;
+  grid-template-columns: var(--ds-kv-label-w-tool) 1fr;
+  gap: 6px var(--ds-kv-gap);
+  margin-top: 6px;
+}
+@media (max-width: 520px){
+  .tools :where(a.tool, .tool-card) .kv{
+    grid-template-columns: 1fr;
+  }
+}
+.tools :where(a.tool, .tool-card) .kv .k{
+  font-size: var(--ts-card-sub) !important;
+  font-weight: var(--fw-card-sub) !important;
+  color: var(--muted);
+}
+.tools :where(a.tool, .tool-card) .kv .v{
+  font-size: var(--ts-card-body) !important;
+  font-weight: var(--fw-card-body) !important;
+  color: var(--text);
+}
