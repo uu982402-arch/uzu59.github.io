@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-
 <html data-theme="light" lang="ko">
 <head>
 <meta charset="utf-8"/>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KWT87FBY6S', { anonymize_ip: true });
+</script>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>인증사이트 | 가입코드·혜택·출금규정 체크 | 88ST</title>
 <meta content="가입코드/혜택/주의사항을 한 화면에서 비교하고, 즐겨찾기·최근 기록으로 빠르게 재방문하는 인증사이트 카드 모음입니다. 가입 전 롤링/출금/제한 규정은 반드시 재확인하세요." name="description"/>
-<meta content="인증사이트, 보증사이트, 안전한 사이트 체크리스트, 가입코드, 혜택 비교, 출금 규정, 롤링 조건, 제외 게임, 페이백, 첫충, 입플" name="keywords"/>
+<meta content="인증사이트, 보증사이트, 안전한 사이트, 가입코드, 혜택 비교, 출금 규정, 롤링 조건, 제한 조건, 페이백, 첫충, 88ST" name="keywords"/>
 <meta content="index,follow" name="robots"/>
 <meta content="인증사이트 | 가입코드·혜택·출금규정 체크 | 88ST" property="og:title"/>
 <meta content="가입코드/혜택/주의사항을 한 화면에서 비교하고, 즐겨찾기·최근 기록으로 빠르게 재방문하는 인증사이트 카드 모음입니다. 가입 전 롤링/출금/제한 규정은 반드시 재확인하세요." property="og:description"/>
@@ -19,9 +26,8 @@
 <script defer="" src="/assets/js/j.8829a3ccde44.js?v=85"></script>
 <script defer="" src="/assets/js/j.9179477b9417.js"></script>
 <meta content="https://88st.cloud/cert/" property="og:url"/>
-  <link href="/assets/css/vvip-luxe.v75.css?v=77" rel="stylesheet"/>
-
-  <script defer src="/assets/js/vvip-global.v75.js?v=77"></script>
+<link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/><link href="/assets/c.0b3d8a45f8c9.css" rel="stylesheet"/><link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/><link href="/assets/css/vvip-luxe.v75.css?v=77" rel="stylesheet"/><link href="/assets/css/patch.v88.20260219.css" rel="stylesheet"/><link href="/assets/css/patch.v89.components.20260219.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/vvip-global.v75.js?v=77"></script>
 </head>
 <body>
 <main class="cert-wrap">
@@ -37,7 +43,6 @@
           </p>
 <div class="cert-actions">
 <a class="cert-btn primary" href="#certList">카드 목록 보기 →</a>
-<a class="cert-btn" href="/bonus-checklist/">입플 체크리스트</a>
 <a class="cert-btn" href="https://t.me/UZU59" rel="noopener noreferrer" target="_blank">문의 (텔레그램)</a>
 </div>
 <p class="cert-hero-note">
@@ -127,23 +132,10 @@
 <div class="line" id="pBenefit" style="display:none;"></div>
 <div class="line" id="pNotice" style="display:none;"></div>
 </div>
-
-        <div class="popup-check" id="pChecklist">
-          <div class="popup-check-head">
-            <div class="t">가입 전 체크리스트</div>
-            <button class="mini" id="pCheckAll" type="button">모두 체크</button>
-          </div>
-          <label class="ck"><input type="checkbox" class="pChk" data-ck="rules"/> 롤링/제외게임/출금 규정 확인</label>
-          <label class="ck"><input type="checkbox" class="pChk" data-ck="limit"/> 최대지급/환전속도/제한 확인</label>
-          <label class="ck"><input type="checkbox" class="pChk" data-ck="support"/> 고객센터/문의채널 정상 확인</label>
-          <div class="hint">모두 체크하면 <b>사이트 이동</b> 버튼이 활성화됩니다.</div>
-          <div class="ok" id="pCheckOk" style="display:none;">체크 완료 ✓</div>
-        </div>
-
-      <div class="popup-actions">
+<div class="popup-actions">
 <button class="btn" id="copyBtn">코드 복사</button>
 <button class="btn" id="shareBtn">링크 복사</button>
-<a class="btn primary is-disabled" aria-disabled="true" tabindex="-1" data-no-auto-outbound="1" data-outbound-manual="1" href="#" id="pLink" rel="noopener noreferrer" target="_blank">사이트 이동</a>
+<a class="btn primary" data-no-auto-outbound="1" data-outbound-manual="1" href="#" id="pLink" rel="noopener noreferrer" target="_blank">사이트 이동</a>
 <a class="btn" data-no-auto-outbound="1" data-outbound-manual="1" href="https://t.me/UZU59" id="pTelegram" rel="noopener noreferrer" target="_blank">문의 (텔레그램)</a>
 <button class="btn" id="favBtn">☆ 즐겨찾기</button>
 </div>

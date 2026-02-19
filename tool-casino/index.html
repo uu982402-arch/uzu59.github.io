@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-
 <html data-theme="light" lang="ko">
 <head>
 <meta charset="utf-8"/>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KWT87FBY6S', { anonymize_ip: true });
+</script>
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>바카라 전략 계산기 | 마틴게일·파롤리·달랑베르·피보나치 | 88ST</title>
 <meta content="바카라 기준(PLAYER 2.00 / BANKER 1.97)으로 마틴게일·파롤리·달랑베르·오스카·피보나치·라부셰르 전략의 다음 베팅/세션 손익/최대낙폭을 계산합니다." name="description"/>
-<meta content="바카라 전략 계산기, 마틴게일 계산기, 파롤리 계산기, 달랑베르 계산기, 피보나치 배팅법, 라부셰르, 오스카 그라인드, 베팅금 계산기, 자금관리, 세션 손익, 최대낙폭" name="keywords"/>
+<meta content="바카라 전략 계산기, 마틴게일, 파롤리, 달랑베르, 피보나치, 오스카 그라인드, 라부셰르, 자금관리, 세션 손익, 88ST" name="keywords"/>
 <meta content="index,follow" name="robots"/>
 <link href="https://88st.cloud/tool-casino/" rel="canonical"/>
 <meta content="website" property="og:type"/>
@@ -36,12 +44,10 @@
   }
   </script>
 <meta content="/img/logo.png" property="og:image"/><link href="/assets/vvip-pro.v71.css?v=71" rel="stylesheet"/>
-<script defer src="/assets/js/vvip-pro.v71.js?v=71"></script>
-<script defer src="/assets/js/vvip-brief.v71.js?v=71"></script>
-
-  <link href="/assets/css/vvip-luxe.v75.css?v=77" rel="stylesheet"/>
-
-  <script defer src="/assets/js/vvip-global.v75.js?v=77"></script>
+<script defer="" src="/assets/js/vvip-pro.v71.js?v=71"></script>
+<script defer="" src="/assets/js/vvip-brief.v71.js?v=71"></script>
+<link href="/assets/c.0b3d8a45f8c9.css" rel="stylesheet"/><link href="/assets/css/vvip-luxe.v75.css?v=77" rel="stylesheet"/><link href="/assets/css/patch.v88.20260219.css" rel="stylesheet"/><link href="/assets/css/patch.v89.components.20260219.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/vvip-global.v75.js?v=77"></script>
 </head>
 <body class="st-app">
 <main class="cs-wrap">
@@ -49,13 +55,11 @@
 <h1>바카라 전략 계산기</h1>
 <p>턴이 빠른 바카라 환경에 맞춘 <b>스피드 조작형(WIN/LOSE)</b> 계산기입니다. PLAYER 2.00 / BANKER 1.97 프리셋을 지원하고, 세션/자금관리 트래커와 최근 5개 세션 저장을 제공합니다.</p>
 </section>
-
-<div class="cs-top-tabs" id="csTopTabs" role="tablist" aria-label="카지노 도구 탭">
-  <button class="cs-chip cs-top-tab on" type="button" data-view="baccarat" aria-selected="true">바카라 전략</button>
-  <button class="cs-chip cs-top-tab" type="button" data-view="evo" aria-selected="false">라이브 테이블 (Evolution)</button>
+<div aria-label="카지노 도구 탭" class="cs-top-tabs" id="csTopTabs" role="tablist">
+<button aria-selected="true" class="cs-chip cs-top-tab on" data-view="baccarat" type="button">바카라 전략</button>
+<button aria-selected="false" class="cs-chip cs-top-tab" data-view="evo" type="button">라이브 테이블 (Evolution)</button>
 </div>
-
-<div class="cs-view on" id="csViewBaccarat" data-panel="baccarat">
+<div class="cs-view on" data-panel="baccarat" id="csViewBaccarat">
 <div class="cs-grid">
 <section aria-label="설정" class="cs-card">
 <h2>설정</h2>
@@ -146,13 +150,12 @@
 <button class="cs-btn ghost" id="csUndo" type="button">UNDO</button>
 <button class="cs-btn ghost" id="csReset" type="button">RESET</button>
 </div>
-
-<details class="vvip-pro vvip-pro--mt" id="csProBac" data-prokey="casino-bac-pro">
-  <summary>
-    <div class="sum-left">🧠 PRO (근거·세부룰)</div>
-    <div class="sum-badge">세션 플래너 · 로그 · 저장</div>
-  </summary>
-  <div class="vvip-pro-body">
+<details class="vvip-pro vvip-pro--mt" data-prokey="casino-bac-pro" id="csProBac">
+<summary>
+<div class="sum-left">🧠 PRO (근거·세부룰)</div>
+<div class="sum-badge">세션 플래너 · 로그 · 저장</div>
+</summary>
+<div class="vvip-pro-body">
 <div aria-label="세션 플래너" class="cs-planner" style="margin-top:12px;">
 <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
 <h2 style="margin:0; font-size:14px;">세션 플래너</h2>
@@ -210,11 +213,11 @@
 <button class="cs-chip" id="csSaveSession" type="button">세션 저장</button>
 </div>
 <div class="cs-recent" id="csRecentList"></div>
-  </div>
-  </div>
-</details>
 </div>
-</section>
+</div>
+</details>
+</section></div>
+
 </div>
 <section aria-label="안내" class="cs-card" style="margin-top:12px;">
 <h2>안내</h2>
@@ -223,190 +226,179 @@
 <div>• BANKER(1.97)은 배당-1이 0.97이라, 같은 손실을 회복하려면 PLAYER(2.00)보다 필요한 베팅이 커질 수 있습니다.</div>
 </div>
 </section>
+
+<div class="cs-view" data-panel="evo" id="csViewEvo">
+<section class="cs-card" style="margin-top:12px;">
+<h2>라이브 테이블 인사이트 (Evolution)</h2>
+<div class="cs-adv small" style="border-top:none; padding-top:8px;">
+<div>• 특정 결과를 “맞추는” 도구가 아니라, <b>하우스엣지/기대값/세션 리스크</b>를 숫자로 확인해 과몰입을 줄이는 용도입니다.</div>
+<div>• 바카라 확률/엣지는 일반적으로 널리 알려진 8덱 기준 수치를 사용합니다. (운영사 룰/커미션/타이 배당에 따라 달라질 수 있음)</div>
 </div>
-
-<div class="cs-view" id="csViewEvo" data-panel="evo">
-  <section class="cs-card" style="margin-top:12px;">
-    <h2>라이브 테이블 인사이트 (Evolution)</h2>
-    <div class="cs-adv small" style="border-top:none; padding-top:8px;">
-      <div>• 특정 결과를 “맞추는” 도구가 아니라, <b>하우스엣지/기대값/세션 리스크</b>를 숫자로 확인해 과몰입을 줄이는 용도입니다.</div>
-      <div>• 바카라 확률/엣지는 일반적으로 널리 알려진 8덱 기준 수치를 사용합니다. (운영사 룰/커미션/타이 배당에 따라 달라질 수 있음)</div>
-    </div>
-  </section>
-
-  <div class="cs-evo-grid">
-<section class="cs-card" style="margin-top:12px;" aria-label="슈 트래커">
-    <h2>슈 트래커 (최근 결과 기록)</h2>
-    <div class="cs-adv small" style="border-top:none; padding-top:8px;">
-      <div>• 최근 결과를 기록해 <b>편차/연속/분산</b>을 숫자로 확인하는 용도입니다. “다음 결과를 맞추는 예측”이 아닙니다.</div>
-      <div>• 바카라는 독립 시행이므로, 다음 핸드에 대한 확정 예측은 불가능합니다. (여기서는 이론 확률 + 관측치만 제공합니다)</div>
-    </div>
-
-    <!-- Beginner Summary (Unified) -->
-    <div class="vvip-brief" id="shoeBrief" aria-label="AI 브리핑" style="margin-top:12px;">
-      <div class="vvip-brief-head">
-        <div class="vvip-brief-title">AI 브리핑 (점수/주의/추천)</div>
-        <div class="vvip-brief-score"><span class="n" data-role="score">-</span><span class="lab" data-role="label">대기</span></div>
-      </div>
-      <div class="vvip-brief-body">
-        <div class="vvip-brief-grid">
-          <div class="vvip-brief-col">
-            <div class="vvip-brief-k">주의</div>
-            <ul class="vvip-brief-list" data-role="warn"><li>최근 결과를 입력하면 자동 태깅됩니다.</li></ul>
-          </div>
-          <div class="vvip-brief-col">
-            <div class="vvip-brief-k">추천</div>
-            <ul class="vvip-brief-list" data-role="reco"><li>연속/편차/타이 급증 구간은 “추격 금지”로 보세요.</li></ul>
-          </div>
-        </div>
-        <div class="vvip-brief-tags" data-role="tags"></div>
-      </div>
-    </div>
-
-    <div class="cs-shoe-toolbar" style="margin-top:10px;">
-      <div class="cs-shoe-providers" role="tablist" aria-label="운영사 선택">
-        <button class="cs-shoe-pill on" type="button" data-provider="evo">Evolution</button>
-        <button class="cs-shoe-pill" type="button" data-provider="prag">Pragmatic</button>
-      </div>
-      <div class="cs-shoe-controls" aria-label="예상 옵션">
+</section>
+<div class="cs-evo-grid">
+<section aria-label="슈 트래커" class="cs-card" style="margin-top:12px;">
+<h2>슈 트래커 (최근 결과 기록)</h2>
+<div class="cs-adv small" style="border-top:none; padding-top:8px;">
+<div>• 최근 결과를 기록해 <b>편차/연속/분산</b>을 숫자로 확인하는 용도입니다. “다음 결과를 맞추는 예측”이 아닙니다.</div>
+<div>• 바카라는 독립 시행이므로, 다음 핸드에 대한 확정 예측은 불가능합니다. (여기서는 이론 확률 + 관측치만 제공합니다)</div>
+</div>
+<!-- Beginner Summary (Unified) -->
+<div aria-label="AI 브리핑" class="vvip-brief" id="shoeBrief" style="margin-top:12px;">
+<div class="vvip-brief-head">
+<div class="vvip-brief-title">AI 브리핑 (점수/주의/추천)</div>
+<div class="vvip-brief-score"><span class="n" data-role="score">-</span><span class="lab" data-role="label">대기</span></div>
+</div>
+<div class="vvip-brief-body">
+<div class="vvip-brief-grid">
+<div class="vvip-brief-col">
+<div class="vvip-brief-k">주의</div>
+<ul class="vvip-brief-list" data-role="warn"><li>최근 결과를 입력하면 자동 태깅됩니다.</li></ul>
+</div>
+<div class="vvip-brief-col">
+<div class="vvip-brief-k">추천</div>
+<ul class="vvip-brief-list" data-role="reco"><li>연속/편차/타이 급증 구간은 “추격 금지”로 보세요.</li></ul>
+</div>
+</div>
+<div class="vvip-brief-tags" data-role="tags"></div>
+</div>
+</div>
+<div class="cs-shoe-toolbar" style="margin-top:10px;">
+<div aria-label="운영사 선택" class="cs-shoe-providers" role="tablist">
+<button class="cs-shoe-pill on" data-provider="evo" type="button">Evolution</button>
+<button class="cs-shoe-pill" data-provider="prag" type="button">Pragmatic</button>
+</div>
+<div aria-label="예상 옵션" class="cs-shoe-controls">
 <div class="cs-shoe-group"><span class="lbl">최근</span>
-<button class="cs-shoe-pill" type="button" data-window="20">20</button>
-<button class="cs-shoe-pill" type="button" data-window="50">50</button>
-<button class="cs-shoe-pill" type="button" data-window="100">100</button>
+<button class="cs-shoe-pill" data-window="20" type="button">20</button>
+<button class="cs-shoe-pill" data-window="50" type="button">50</button>
+<button class="cs-shoe-pill" data-window="100" type="button">100</button>
 </div>
 <div class="cs-shoe-group"><span class="lbl">예상모드</span>
-<button class="cs-shoe-pill" type="button" data-mode="cons">보수</button>
-<button class="cs-shoe-pill" type="button" data-mode="agg">공격</button>
+<button class="cs-shoe-pill" data-mode="cons" type="button">보수</button>
+<button class="cs-shoe-pill" data-mode="agg" type="button">공격</button>
 </div>
 </div>
 <div class="cs-shoe-actions">
-        <button class="insight-btn btn-mini" type="button" data-add="P">PLAYER</button>
-        <button class="insight-btn btn-mini" type="button" data-add="B">BANKER</button>
-        <button class="insight-btn btn-mini" type="button" data-add="T">TIE</button>
-        <button class="insight-btn btn-mini cs-shoe-soft" type="button" data-act="undo">되돌리기</button>
-        <button class="insight-btn btn-mini cs-shoe-soft" type="button" data-act="clear">초기화</button>
-      </div>
-    </div>
-
-    <div class="cs-evo-out" id="evoShoeOut" style="margin-top:10px;"></div>
-  </section>
-
-<details class="vvip-pro vvip-pro--mt" id="csProEvo" data-prokey="casino-evo-pro-v72" data-pro-nostore="1">
-  <summary>
-    <div class="sum-left">🧠 PRO (근거·세부룰)</div>
-    <div class="sum-badge">하우스엣지 · 리스크</div>
-  </summary>
-  <div class="vvip-pro-body">
-
-<div class="cs-evo-acc" id="evoCalcAcc">
-  <div class="cs-evo-acc-tabs" role="tablist" aria-label="라이브 계산기">
-    <button type="button" class="cs-evo-tab on" data-panel="bac" aria-selected="true">바카라</button>
-    <button type="button" class="cs-evo-tab" data-panel="rou" aria-selected="false">룰렛</button>
-    <button type="button" class="cs-evo-tab" data-panel="risk" aria-selected="false">세션리스크</button>
-  </div>
-  <div class="cs-evo-panels">
-<section class="cs-card cs-evo-panel on" data-panel="bac" aria-label="바카라 하우스엣지">
-      <h2>바카라: 기대값 · 하우스엣지</h2>
-      <div class="cs-row" style="margin-top:10px;">
-        <div class="cs-field" style="min-width:200px;">
-          <label for="evoBacBet">베팅금(원)</label>
-          <input id="evoBacBet" inputmode="numeric" value="10000"/>
-        </div>
-        <div class="cs-field" style="min-width:180px;">
-          <label for="evoBacHands">핸드 수</label>
-          <input id="evoBacHands" inputmode="numeric" value="100"/>
-        </div>
-        <div class="cs-field" style="min-width:180px;">
-          <label for="evoBacType">베팅</label>
-          <select id="evoBacType">
-            <option value="banker">BANKER</option>
-            <option value="player">PLAYER</option>
-            <option value="tie">TIE</option>
-          </select>
-        </div>
-      </div>
-      <div class="cs-row" style="margin-top:10px;">
-        <div class="cs-field" style="min-width:200px;">
-          <label for="evoBacCommission">BANKER 커미션(%)</label>
-          <input id="evoBacCommission" inputmode="decimal" value="5"/>
-        </div>
-        <div class="cs-field" style="min-width:200px;">
-          <label for="evoBacTiePay">TIE 배당 (예: 8 = 8:1)</label>
-          <input id="evoBacTiePay" inputmode="decimal" value="8"/>
-        </div>
-      </div>
-      <div class="cs-evo-out" id="evoBacOut" style="margin-top:10px;"></div>
-      <div class="cs-adv small">
-        <div>• 8덱 기준(대표값): Banker 45.86% / Player 44.62% / Tie 9.52% (Tie는 Push 처리)</div>
-      </div>
-    </section>
-
-<section class="cs-card cs-evo-panel" data-panel="rou" aria-label="룰렛 하우스엣지">
-      <h2>룰렛: 기대 손실(이론)</h2>
-      <div class="cs-row" style="margin-top:10px;">
-        <div class="cs-field" style="min-width:220px;">
-          <label for="evoRouWheel">휠 타입</label>
-          <select id="evoRouWheel">
-            <option value="eu">유럽(0) · 37칸</option>
-            <option value="us">미국(0,00) · 38칸</option>
-          </select>
-        </div>
-        <div class="cs-field" style="min-width:200px;">
-          <label for="evoRouBet">베팅금(원)</label>
-          <input id="evoRouBet" inputmode="numeric" value="10000"/>
-        </div>
-        <div class="cs-field" style="min-width:180px;">
-          <label for="evoRouSpins">스핀 수</label>
-          <input id="evoRouSpins" inputmode="numeric" value="100"/>
-        </div>
-      </div>
-      <div class="cs-evo-out" id="evoRouOut" style="margin-top:10px;"></div>
-      <div class="cs-adv small">
-        <div>• 룰렛은 베팅 종류(인사이드/아웃사이드)와 무관하게, 같은 휠이면 이론 하우스엣지가 동일합니다.</div>
-      </div>
-    </section>
-
-<section class="cs-card cs-evo-panel" data-panel="risk" aria-label="세션 리스크">
-      <h2>세션 리스크: 목표/손절 도달 확률</h2>
-      <div class="cs-row" style="margin-top:10px;">
-        <div class="cs-field" style="min-width:200px;">
-          <label for="evoUnit">베팅 단위(원)</label>
-          <input id="evoUnit" inputmode="numeric" value="10000"/>
-        </div>
-        <div class="cs-field" style="min-width:200px;">
-          <label for="evoPwin">승률 p (0~1)</label>
-          <input id="evoPwin" inputmode="decimal" value="0.50"/>
-        </div>
-      </div>
-      <div class="cs-row" style="margin-top:10px;">
-        <div class="cs-field" style="min-width:200px;">
-          <label for="evoTargetU">목표(유닛)</label>
-          <input id="evoTargetU" inputmode="numeric" value="5"/>
-        </div>
-        <div class="cs-field" style="min-width:200px;">
-          <label for="evoStopU">손절(유닛)</label>
-          <input id="evoStopU" inputmode="numeric" value="5"/>
-        </div>
-      </div>
-      <div class="cs-evo-out" id="evoRiskOut" style="margin-top:10px;"></div>
-      <div class="cs-adv small">
-        <div>• 단순화된 “1유닛 랜덤워크” 모델입니다. 실제 게임은 변동성/커미션/베팅 분산에 따라 달라질 수 있습니다.</div>
-      </div>
-    </section>
-
-  </div>
+<button class="insight-btn btn-mini" data-add="P" type="button">PLAYER</button>
+<button class="insight-btn btn-mini" data-add="B" type="button">BANKER</button>
+<button class="insight-btn btn-mini" data-add="T" type="button">TIE</button>
+<button class="insight-btn btn-mini cs-shoe-soft" data-act="undo" type="button">되돌리기</button>
+<button class="insight-btn btn-mini cs-shoe-soft" data-act="clear" type="button">초기화</button>
 </div>
-  </div>
+</div>
+<div class="cs-evo-out" id="evoShoeOut" style="margin-top:10px;"></div>
+</section>
+<details class="vvip-pro vvip-pro--mt" data-pro-nostore="1" data-prokey="casino-evo-pro-v72" id="csProEvo">
+<summary>
+<div class="sum-left">🧠 PRO (근거·세부룰)</div>
+<div class="sum-badge">하우스엣지 · 리스크</div>
+</summary>
+<div class="vvip-pro-body">
+<div class="cs-evo-acc" id="evoCalcAcc">
+<div aria-label="라이브 계산기" class="cs-evo-acc-tabs" role="tablist">
+<button aria-selected="true" class="cs-evo-tab on" data-panel="bac" type="button">바카라</button>
+<button aria-selected="false" class="cs-evo-tab" data-panel="rou" type="button">룰렛</button>
+<button aria-selected="false" class="cs-evo-tab" data-panel="risk" type="button">세션리스크</button>
+</div>
+<div class="cs-evo-panels">
+<section aria-label="바카라 하우스엣지" class="cs-card cs-evo-panel on" data-panel="bac">
+<h2>바카라: 기대값 · 하우스엣지</h2>
+<div class="cs-row" style="margin-top:10px;">
+<div class="cs-field" style="min-width:200px;">
+<label for="evoBacBet">베팅금(원)</label>
+<input id="evoBacBet" inputmode="numeric" value="10000"/>
+</div>
+<div class="cs-field" style="min-width:180px;">
+<label for="evoBacHands">핸드 수</label>
+<input id="evoBacHands" inputmode="numeric" value="100"/>
+</div>
+<div class="cs-field" style="min-width:180px;">
+<label for="evoBacType">베팅</label>
+<select id="evoBacType">
+<option value="banker">BANKER</option>
+<option value="player">PLAYER</option>
+<option value="tie">TIE</option>
+</select>
+</div>
+</div>
+<div class="cs-row" style="margin-top:10px;">
+<div class="cs-field" style="min-width:200px;">
+<label for="evoBacCommission">BANKER 커미션(%)</label>
+<input id="evoBacCommission" inputmode="decimal" value="5"/>
+</div>
+<div class="cs-field" style="min-width:200px;">
+<label for="evoBacTiePay">TIE 배당 (예: 8 = 8:1)</label>
+<input id="evoBacTiePay" inputmode="decimal" value="8"/>
+</div>
+</div>
+<div class="cs-evo-out" id="evoBacOut" style="margin-top:10px;"></div>
+<div class="cs-adv small">
+<div>• 8덱 기준(대표값): Banker 45.86% / Player 44.62% / Tie 9.52% (Tie는 Push 처리)</div>
+</div>
+</section>
+<section aria-label="룰렛 하우스엣지" class="cs-card cs-evo-panel" data-panel="rou">
+<h2>룰렛: 기대 손실(이론)</h2>
+<div class="cs-row" style="margin-top:10px;">
+<div class="cs-field" style="min-width:220px;">
+<label for="evoRouWheel">휠 타입</label>
+<select id="evoRouWheel">
+<option value="eu">유럽(0) · 37칸</option>
+<option value="us">미국(0,00) · 38칸</option>
+</select>
+</div>
+<div class="cs-field" style="min-width:200px;">
+<label for="evoRouBet">베팅금(원)</label>
+<input id="evoRouBet" inputmode="numeric" value="10000"/>
+</div>
+<div class="cs-field" style="min-width:180px;">
+<label for="evoRouSpins">스핀 수</label>
+<input id="evoRouSpins" inputmode="numeric" value="100"/>
+</div>
+</div>
+<div class="cs-evo-out" id="evoRouOut" style="margin-top:10px;"></div>
+<div class="cs-adv small">
+<div>• 룰렛은 베팅 종류(인사이드/아웃사이드)와 무관하게, 같은 휠이면 이론 하우스엣지가 동일합니다.</div>
+</div>
+</section>
+<section aria-label="세션 리스크" class="cs-card cs-evo-panel" data-panel="risk">
+<h2>세션 리스크: 목표/손절 도달 확률</h2>
+<div class="cs-row" style="margin-top:10px;">
+<div class="cs-field" style="min-width:200px;">
+<label for="evoUnit">베팅 단위(원)</label>
+<input id="evoUnit" inputmode="numeric" value="10000"/>
+</div>
+<div class="cs-field" style="min-width:200px;">
+<label for="evoPwin">승률 p (0~1)</label>
+<input id="evoPwin" inputmode="decimal" value="0.50"/>
+</div>
+</div>
+<div class="cs-row" style="margin-top:10px;">
+<div class="cs-field" style="min-width:200px;">
+<label for="evoTargetU">목표(유닛)</label>
+<input id="evoTargetU" inputmode="numeric" value="5"/>
+</div>
+<div class="cs-field" style="min-width:200px;">
+<label for="evoStopU">손절(유닛)</label>
+<input id="evoStopU" inputmode="numeric" value="5"/>
+</div>
+</div>
+<div class="cs-evo-out" id="evoRiskOut" style="margin-top:10px;"></div>
+<div class="cs-adv small">
+<div>• 단순화된 “1유닛 랜덤워크” 모델입니다. 실제 게임은 변동성/커미션/베팅 분산에 따라 달라질 수 있습니다.</div>
+</div>
+</section>
+</div>
+</div>
+</div>
 </details>
 </div>
-
 <section class="cs-card" style="margin-top:12px;">
-    <h2>안내</h2>
-    <div class="cs-adv small" style="border-top:none; padding-top:8px;">
-      <div>• 수학적 기대값은 장기 평균입니다. 단기 결과는 크게 흔들릴 수 있어, <b>손절·휴식·한도</b>가 우선입니다.</div>
-      <div>• “하우스엣지가 낮다”는 “안전하다”가 아닙니다. 특히 고변동(세션) 환경에서는 체감 리스크가 커질 수 있습니다.</div>
-    </div>
-  </section>
+<h2>안내</h2>
+<div class="cs-adv small" style="border-top:none; padding-top:8px;">
+<div>• 수학적 기대값은 장기 평균입니다. 단기 결과는 크게 흔들릴 수 있어, <b>손절·휴식·한도</b>가 우선입니다.</div>
+<div>• “하우스엣지가 낮다”는 “안전하다”가 아닙니다. 특히 고변동(세션) 환경에서는 체감 리스크가 커질 수 있습니다.</div>
+</div>
+</section>
 </div>
 </main>
 <script defer="" src="/assets/js/j.025d649c8b11.js"></script>

@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-
 <html data-theme="light" lang="ko">
 <head>
 <meta charset="utf-8"/>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KWT87FBY6S', { anonymize_ip: true });
+</script>
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>스포츠 배당 분석기(오버라운드·공정배당·마진) | 88ST</title>
 <meta content="축구·농구·야구·배구·e스포츠·하키 배당으로 공정확률/공정배당, 오버라운드(마진), 라인(OU/핸디) 마진까지 한 번에 계산하는 스포츠 배당 분석기." name="description"/>
-<meta content="스포츠 배당 정밀 분석기, 배당 마진 계산기, 오버라운드 계산기, 비그 제거(무비그), 공정확률 계산기, 공정배당 계산기, 1X2 마진, 2-way 마진, 언더오버(O/U) 마진, 핸디캡 마진, 오즈 무브(오픈 vs 현재), 시장 평균(여러 북메이커), 최고배당 비교, 멀티 스캔 TOP3, 1줄 붙여넣기 자동입력, implied probability, fair odds, overround, margin, de-vig, 88ST 스포츠 PRO" name="keywords"/>
+<meta content="스포츠 배당 분석기, 오버라운드 계산, 마진 계산, 공정확률, 공정배당, 비그(vig) 제거, 라인 비교, 배당 최적화, EV, 88ST" name="keywords"/>
 <link href="https://88st.cloud/analysis/" rel="canonical"/>
 <meta content="index,follow" name="robots"/>
 <link href="/assets/css/x.0b2e79a53127.css" rel="stylesheet"/>
@@ -30,7 +38,7 @@
   ]
 }
 </script>
-<script defer src="/assets/js/j.9179477b9417.js"></script>
+<script defer="" src="/assets/js/j.9179477b9417.js"></script>
 <link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
 <link href="/assets/c.0b3d8a45f8c9.css" rel="stylesheet"/>
 <script defer="" src="/assets/js/j.efba3509e62c.js"></script>
@@ -183,7 +191,6 @@
   .pro-formula[hidden]{display:none !important;}
 }
 </style>
-
 <style>
 /* v48: PRO options (collapsible) */
 .pro-opts{margin-top:14px}
@@ -215,21 +222,19 @@
 .pro-mini-table .mono{font-variant-numeric:tabular-nums}
 </style>
 <link href="/assets/vvip-pro.v71.css?v=71" rel="stylesheet"/>
-<script defer src="/assets/js/vvip-pro.v71.js?v=71"></script>
-<script defer src="/assets/js/vvip-brief.v71.js?v=71"></script>
-
-  <link href="/assets/css/vvip-luxe.v75.css?v=77" rel="stylesheet"/>
-
-  <script defer src="/assets/js/vvip-global.v75.js?v=77"></script>
+<script defer="" src="/assets/js/vvip-pro.v71.js?v=71"></script>
+<script defer="" src="/assets/js/vvip-brief.v71.js?v=71"></script>
+<link href="/assets/css/vvip-luxe.v75.css?v=77" rel="stylesheet"/><link href="/assets/css/patch.v88.20260219.css" rel="stylesheet"/><link href="/assets/css/patch.v89.components.20260219.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/vvip-global.v75.js?v=77"></script>
 </head>
 <body>
-<div class="scam-popup" id="scamPopup" role="region" aria-label="사칭 주의 안내">
+<div aria-label="사칭 주의 안내" class="scam-popup" id="scamPopup" role="region">
 <div class="scam-box">
-  <div class="scam-left">
-    <div class="scam-ic">⚠</div>
-    <div class="scam-msg"><b>사칭 주의</b> · 공식 관리자 텔레그램은 <b>@UZU59</b> 단 하나입니다. 다른 계정 주의</div>
-  </div>
-  <div class="btn primary" data-d8593ac4d="VQkTbQtZrbr_">확인</div>
+<div class="scam-left">
+<div class="scam-ic">⚠</div>
+<div class="scam-msg"><b>사칭 주의</b> · 공식 관리자 텔레그램은 <b>@UZU59</b> 단 하나입니다. 다른 계정 주의</div>
+</div>
+<div class="btn primary" data-d8593ac4d="VQkTbQtZrbr_">확인</div>
 </div>
 </div>
 <div class="ad-popup" id="adPopup">
@@ -338,49 +343,45 @@
 <div class="pro-field"><label for="odH2">반대(B)</label><input id="odH2" inputmode="decimal" placeholder="예: 1.92"/></div>
 </div>
 <div class="pro-note">TIP) “정배만 높아 보인다”면 <b>언더독 민감(보정)</b>으로 공정확률을 한 번 더 확인해보세요. (시장 확률 해석 보조)</div>
-
-<details class="pro-opts vvip-pro" id="proOptions" data-prokey="analysis-pro">
-  <summary>
-    <div class="sum-left">🛠️ PRO 옵션</div>
-    <div class="sum-badge">접기/펼치기</div>
-  </summary>
-  <div class="pro-opts-body vvip-pro-body">
-    <div class="pro-mini-grid cols2">
-      <div>
-        <div class="pro-kicker" style="margin-bottom:6px">ODDS MOVE</div>
-        <div style="font-weight:900;font-size:16px">오즈 무브 (오픈 vs 현재)</div>
-        <div class="pro-note">오픈(초기) 배당을 저장/붙여넣고, 현재 배당과의 변화(Δ)·확률 변화(Δp)를 계산합니다.</div>
-
-        <div class="pro-field" style="margin-top:10px">
-          <label for="openPaste">오픈 배당 붙여넣기 (1줄)</label>
-          <textarea id="openPaste" placeholder="예: (오픈) 맨시티 1.80 3.70 4.40 리버풀\n예: (오픈) 2.5 1.91 1.91"></textarea>
-        </div>
-        <div class="pro-actions">
-          <button class="pro-btn secondary" id="btnOpenFromCurrent" type="button">현재값을 오픈으로 저장</button>
-          <button class="pro-btn ghost" id="btnApplyOpen" type="button">오픈 적용</button>
-          <button class="pro-btn ghost" id="btnClearOpen" type="button">오픈 초기화</button>
-        </div>
-        <div class="pro-miniout" id="openOut"></div>
-      </div>
-
-      <div>
-        <div class="pro-kicker" style="margin-bottom:6px">MARKET AVG</div>
-        <div style="font-weight:900;font-size:16px">북메이커 시장평균 비교 (복붙)</div>
-        <div class="pro-note">여러 소스(북메이커/커뮤니티) 배당을 <b>줄마다</b> 붙여넣으면, <b>시장 평균(컨센서스)</b> 기준 공정배당과 결과별 최고배당을 계산합니다. <span class="muted">시장 평균=각 줄의 암시확률을 마진 제거 후 평균낸 값</span></div>
-
-        <div class="pro-field" style="margin-top:10px">
-          <label for="consPaste">여러 줄 붙여넣기</label>
-          <textarea id="consPaste" placeholder="bet365: 1.90 3.40 4.10\npinnacle: 1.92 3.50 4.00\nbook3: 1.88 3.55 4.20\n\n※ 라인/마켓이 다르면 자동 제외"></textarea>
-        </div>
-        <div class="pro-actions">
-          <button class="pro-btn secondary" id="btnConsRun" type="button">비교하기</button>
-          <button class="pro-btn ghost" id="btnConsApplyBest" type="button">최고배당 적용</button>
-          <button class="pro-btn ghost" id="btnConsClear" type="button">초기화</button>
-        </div>
-        <div class="pro-miniout" id="consOut"></div>
-      </div>
-    </div>
-  </div>
+<details class="pro-opts vvip-pro" data-prokey="analysis-pro" id="proOptions">
+<summary>
+<div class="sum-left">🛠️ PRO 옵션</div>
+<div class="sum-badge">접기/펼치기</div>
+</summary>
+<div class="pro-opts-body vvip-pro-body">
+<div class="pro-mini-grid cols2">
+<div>
+<div class="pro-kicker" style="margin-bottom:6px">ODDS MOVE</div>
+<div style="font-weight:900;font-size:16px">오즈 무브 (오픈 vs 현재)</div>
+<div class="pro-note">오픈(초기) 배당을 저장/붙여넣고, 현재 배당과의 변화(Δ)·확률 변화(Δp)를 계산합니다.</div>
+<div class="pro-field" style="margin-top:10px">
+<label for="openPaste">오픈 배당 붙여넣기 (1줄)</label>
+<textarea id="openPaste" placeholder="예: (오픈) 맨시티 1.80 3.70 4.40 리버풀\n예: (오픈) 2.5 1.91 1.91"></textarea>
+</div>
+<div class="pro-actions">
+<button class="pro-btn secondary" id="btnOpenFromCurrent" type="button">현재값을 오픈으로 저장</button>
+<button class="pro-btn ghost" id="btnApplyOpen" type="button">오픈 적용</button>
+<button class="pro-btn ghost" id="btnClearOpen" type="button">오픈 초기화</button>
+</div>
+<div class="pro-miniout" id="openOut"></div>
+</div>
+<div>
+<div class="pro-kicker" style="margin-bottom:6px">MARKET AVG</div>
+<div style="font-weight:900;font-size:16px">북메이커 시장평균 비교 (복붙)</div>
+<div class="pro-note">여러 소스(북메이커/커뮤니티) 배당을 <b>줄마다</b> 붙여넣으면, <b>시장 평균(컨센서스)</b> 기준 공정배당과 결과별 최고배당을 계산합니다. <span class="muted">시장 평균=각 줄의 암시확률을 마진 제거 후 평균낸 값</span></div>
+<div class="pro-field" style="margin-top:10px">
+<label for="consPaste">여러 줄 붙여넣기</label>
+<textarea id="consPaste" placeholder="bet365: 1.90 3.40 4.10\npinnacle: 1.92 3.50 4.00\nbook3: 1.88 3.55 4.20\n\n※ 라인/마켓이 다르면 자동 제외"></textarea>
+</div>
+<div class="pro-actions">
+<button class="pro-btn secondary" id="btnConsRun" type="button">비교하기</button>
+<button class="pro-btn ghost" id="btnConsApplyBest" type="button">최고배당 적용</button>
+<button class="pro-btn ghost" id="btnConsClear" type="button">초기화</button>
+</div>
+<div class="pro-miniout" id="consOut"></div>
+</div>
+</div>
+</div>
 </details>
 </div>
 </section>
@@ -390,35 +391,32 @@
 <div class="pro-kvi"><div class="k">업셋(정배 아닌 결과)</div><div class="v" id="kvUpset">—</div><div class="s" id="kvUpsetNote">—</div></div>
 <div class="pro-kvi"><div class="k">주의</div><div class="v" id="kvWarn" style="font-size:16px">입력 대기</div><div class="s">형식/값 검증</div></div>
 </div>
-
 <div class="pro-inline" id="sigRow" style="gap:10px;flex-wrap:wrap;margin-top:12px">
-  <span class="pro-badge" id="sigMargin">마진 등급 —</span>
-  <span class="pro-badge" id="sigAgreement" style="display:none">시장 합의도 —</span>
-  <span class="pro-badge" id="sigMove" style="display:none">오즈 무브 —</span>
-  <span class="pro-badge" id="sigMarketAvg" style="display:none">시장 평균 비교 —</span>
+<span class="pro-badge" id="sigMargin">마진 등급 —</span>
+<span class="pro-badge" id="sigAgreement" style="display:none">시장 합의도 —</span>
+<span class="pro-badge" id="sigMove" style="display:none">오즈 무브 —</span>
+<span class="pro-badge" id="sigMarketAvg" style="display:none">시장 평균 비교 —</span>
 </div>
-
 <!-- Beginner Summary (Unified) -->
-<div class="vvip-brief" id="sprtBrief" aria-label="초보 요약">
-  <div class="vvip-brief-head">
-    <div class="vvip-brief-title">AI 브리핑 (요약)</div>
-    <div class="vvip-brief-score"><span class="n" data-role="score">-</span><span class="lab" data-role="label">대기</span></div>
-  </div>
-  <div class="vvip-brief-body">
-    <div class="vvip-brief-grid">
-      <div class="vvip-brief-col">
-        <div class="vvip-brief-k">주의</div>
-        <ul class="vvip-brief-list" data-role="warn"><li>배당을 입력하면 자동 분석됩니다.</li></ul>
-      </div>
-      <div class="vvip-brief-col">
-        <div class="vvip-brief-k">추천</div>
-        <ul class="vvip-brief-list" data-role="reco"><li>마진이 낮은 라인/북부터 선택하세요.</li></ul>
-      </div>
-    </div>
-    <div class="vvip-brief-tags" data-role="tags"></div>
-  </div>
+<div aria-label="초보 요약" class="vvip-brief" id="sprtBrief">
+<div class="vvip-brief-head">
+<div class="vvip-brief-title">AI 브리핑 (요약)</div>
+<div class="vvip-brief-score"><span class="n" data-role="score">-</span><span class="lab" data-role="label">대기</span></div>
 </div>
-
+<div class="vvip-brief-body">
+<div class="vvip-brief-grid">
+<div class="vvip-brief-col">
+<div class="vvip-brief-k">주의</div>
+<ul class="vvip-brief-list" data-role="warn"><li>배당을 입력하면 자동 분석됩니다.</li></ul>
+</div>
+<div class="vvip-brief-col">
+<div class="vvip-brief-k">추천</div>
+<ul class="vvip-brief-list" data-role="reco"><li>마진이 낮은 라인/북부터 선택하세요.</li></ul>
+</div>
+</div>
+<div class="vvip-brief-tags" data-role="tags"></div>
+</div>
+</div>
 <div style="margin-top:12px">
 <table aria-label="공정확률 테이블" class="pro-table">
 <thead>
@@ -429,14 +427,13 @@
 </tbody>
 </table>
 </div>
-
 <div class="pro-divider" style="margin-top:12px"></div>
 <div class="pro-inline" style="justify-content:space-between;align-items:center;margin-top:10px">
-  <div>
-    <div class="pro-kicker" style="margin-bottom:6px">REFERENCE</div>
-    <div style="font-weight:900;font-size:16px">요약 · 참고</div>
-  </div>
-  <button class="pro-btn ghost" id="btnCopySummary" type="button">요약 복사</button>
+<div>
+<div class="pro-kicker" style="margin-bottom:6px">REFERENCE</div>
+<div style="font-weight:900;font-size:16px">요약 · 참고</div>
+</div>
+<button class="pro-btn ghost" id="btnCopySummary" type="button">요약 복사</button>
 </div>
 <div class="pro-miniout" id="summaryOut" style="margin-top:10px"></div>
 <div class="pro-note" id="noteVol" style="margin-top:10px">
@@ -457,12 +454,12 @@
 <div class="pro-scanlist" id="scanList"></div>
 </section>
 </div>
-<script defer src="/assets/js/j.9179477b9417.js"></script>
+<script defer="" src="/assets/js/j.9179477b9417.js"></script>
 <script defer="" src="/assets/js/j.efba3509e62c.js"></script>
 <script defer="" src="/assets/js/j.8829a3ccde44.js?v=85"></script>
 <script src="../assets/js/inline-bundles/b.e942e1c830.js"></script>
 <script defer="" src="/assets/js/j.025d649c8b11.js"></script>
 <script defer="" src="/assets/js/inline-bundles/b.analysis.pro.v52.20260216.js"></script>
-  <script defer src="/assets/js/ai.brief.v68.js"></script>
+<script defer="" src="/assets/js/ai.brief.v68.js"></script>
 </body>
 </html>

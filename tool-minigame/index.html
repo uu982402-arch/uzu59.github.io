@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-
 <html data-theme="light" lang="ko">
 <head>
 <meta charset="utf-8"/>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KWT87FBY6S', { anonymize_ip: true });
+</script>
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>미니게임 분석기 | 파워볼·키노사다리 EV·공정배당 | 88ST</title>
 <meta content="동행/베픽 파워볼+, 동행/베픽 키노사다리, 동행 스피드키노사다리 배당 입력 → 공정확률/EV/추천 + AI 브리핑(연속·편차·세션관리 자동태깅)." name="description"/>
-<meta content="파워볼,파워볼+,키노사다리,스피드키노사다리,동행,베픽,미니게임 분석기,EV,공정배당,확률,연속경고,편차,AI 브리핑" name="keywords"/>
+<meta content="미니게임 분석기, 파워볼 분석, 키노사다리, 패턴 트래커, EV, 공정배당, 연속/편차 경고, 88ST" name="keywords"/>
 <meta content="index,follow" name="robots"/>
 <link href="https://88st.cloud/tool-minigame/" rel="canonical"/>
 <meta content="website" property="og:type"/>
@@ -35,19 +43,17 @@
   }
   </script>
 <meta content="/img/logo.png" property="og:image"/><link href="/assets/vvip-pro.v71.css?v=71" rel="stylesheet"/>
-<script defer src="/assets/js/vvip-pro.v71.js?v=71"></script>
-<script defer src="/assets/js/vvip-brief.v71.js?v=71"></script>
-
-  <link href="/assets/css/vvip-luxe.v75.css?v=77" rel="stylesheet"/>
-
-  <script defer src="/assets/js/vvip-global.v75.js?v=77"></script>
+<script defer="" src="/assets/js/vvip-pro.v71.js?v=71"></script>
+<script defer="" src="/assets/js/vvip-brief.v71.js?v=71"></script>
+<link href="/assets/c.0b3d8a45f8c9.css" rel="stylesheet"/><link href="/assets/css/vvip-luxe.v75.css?v=77" rel="stylesheet"/><link href="/assets/css/patch.v88.20260219.css" rel="stylesheet"/><link href="/assets/css/patch.v89.components.20260219.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/vvip-global.v75.js?v=77"></script>
 </head>
 <body class="st-app">
 <main class="mg-wrap">
 <section class="mg-hero">
 <h1>미니게임 분석기</h1>
 <p>
-        <b>동행/베픽 파워볼+</b>, <b>동행/베픽 키노사다리</b>, <b>동행 스피드키노사다리</b> 배당을 넣으면
+<b>동행/베픽 파워볼+</b>, <b>동행/베픽 키노사다리</b>, <b>동행 스피드키노사다리</b> 배당을 넣으면
         <b>암시확률·마진(오버라운드)·공정확률/공정배당·EV</b>를 즉시 계산합니다.
         결과 히스토리를 붙여넣으면 <b>빈도 기반 확률</b>도 자동 산출하며,
         <b>AI 브리핑</b>이 <b>연속·편차·세션관리</b> 경고를 자동 태깅해 “피해야 할 구간”을 빠르게 표시합니다.
@@ -138,10 +144,10 @@
 <div class="mg-btnrow">
 <button class="mg-btn" id="mgReset" type="button">초기화</button>
 <button class="mg-btn" id="mgSave" type="button">저장</button></div>
-<details class="mg-acc vvip-pro" aria-label="세션 관리(접기)" data-prokey="minigame-session">
-  <summary>세션 관리 (선택)</summary>
-  <div class="vvip-pro-body">
-  <section aria-label="세션 관리" class="mg-session" style="margin-top:10px;">
+<details aria-label="세션 관리(접기)" class="mg-acc vvip-pro" data-prokey="minigame-session">
+<summary>세션 관리 (선택)</summary>
+<div class="vvip-pro-body">
+<section aria-label="세션 관리" class="mg-session" style="margin-top:10px;">
 <div class="mg-row">
 <div class="mg-field" style="flex:1; min-width:220px;">
 <label for="mgStopLoss">오늘 손실 한도(원) <span class="mg-muted">(0 = 끔)</span></label>
@@ -156,13 +162,13 @@
 <b>세션 관리</b>는 예측이 아니라 <b>손실 제한/과열 방지</b>를 돕는 장치입니다.
           </div>
 </section>
-  </div>
+</div>
 </details>
 </section>
 <section aria-label="결과" class="mg-card">
 <h2>계산 결과</h2>
 <div class="mg-copy-row">
-  <button class="mg-btn" id="mgCopySummary" type="button">요약 복사</button>
+<button class="mg-btn" id="mgCopySummary" type="button">요약 복사</button>
 </div>
 <div aria-label="요약 KPI" class="mg-kpis">
 <div class="mg-kpi"><div class="k">암시확률 합</div><div class="v" id="mgSumP">—</div><div class="s">Σ(1/배당)</div></div>
@@ -189,12 +195,12 @@
 </table>
 </div>
 <div class="mg-divider"></div>
-<details class="vvip-pro vvip-pro--mt" id="vvipProMinigame" data-prokey="minigame-pro">
-  <summary>
-    <div class="sum-left">🧠 PRO (근거·세부룰)</div>
-    <div class="sum-badge">접기/펼치기</div>
-  </summary>
-  <div class="vvip-pro-body">
+<details class="vvip-pro vvip-pro--mt" data-prokey="minigame-pro" id="vvipProMinigame">
+<summary>
+<div class="sum-left">🧠 PRO (근거·세부룰)</div>
+<div class="sum-badge">접기/펼치기</div>
+</summary>
+<div class="vvip-pro-body">
 <section aria-label="Pro 인사이트" class="mg-pro">
 <h3 style="margin:0 0 10px;">Pro 인사이트</h3>
 <div class="mg-note" style="margin:-2px 0 12px;">최근 결과(붙여넣기) 기반으로 <b>편향·연속·변동성</b>을 요약합니다. (예측 보장 아님)</div>
@@ -217,12 +223,12 @@
 <div id="mgPickList" style="margin-top:10px;"></div>
 </section>
 <div class="mg-divider"></div>
-<details class="vvip-pro mg-doc" data-prokey="minigame-doc" data-pro-nostore="1">
-  <summary>
-    <div class="sum-left"><span class="vvip-pro-title">📘 설명서 (사용법)</span></div>
-    <div class="sum-badge">접기/열기</div>
-  </summary>
-  <div class="vvip-pro-body">
+<details class="vvip-pro mg-doc" data-pro-nostore="1" data-prokey="minigame-doc">
+<summary>
+<div class="sum-left"><span class="vvip-pro-title">📘 설명서 (사용법)</span></div>
+<div class="sum-badge">접기/열기</div>
+</summary>
+<div class="vvip-pro-body">
 <section aria-label="사용법" class="mg-how">
 <h3 style="margin:0 0 10px;">사용법 (빠른 시작)</h3>
 <div class="mg-how-grid">
@@ -256,7 +262,7 @@
           <br/>
           • 이 도구는 계산을 돕기 위한 용도이며, 실제 결과는 변동성이 큽니다.
         </div>
-  </div>
+</div>
 </details>
 <div class="mg-divider"></div>
 <section aria-label="안내" class="mg-foot">
@@ -265,7 +271,7 @@
             동행파워볼 분석기 · 동행파워볼+ 분석기 · 키노사다리 분석기 · 스피드키노사다리 분석기 · 미니게임 EV 계산기 · 마진 계산기
           </div>
 </section>
-  </div>
+</div>
 </details>
 </section>
 </div>
