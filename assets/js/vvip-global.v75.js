@@ -291,32 +291,70 @@
       if(!shouldEnablePersist()) return;
       const saved = loadPersist();
       if(!saved) return;
-      const main = document.querySelector('main');
-      if(!main) return;
-      if(document.getElementById('vvipRestoreBar')) return;
 
-      // if there is no applicable field, do not show
       const anyKey = Object.keys(saved.fields || {}).length;
       if(!anyKey) return;
 
+      if(document.getElementById('vvipRestoreInline')) return;
+
+      const path = String(location.pathname || '');
+      const pick = (sel)=>document.querySelector(sel);
+
+      let host = null;
+      if(path.indexOf('/tool-minigame')===0){
+        host = pick('.mg-copy-row') || pick('.mg-kpis') || pick('.mg-kpi');
+      }else if(path.indexOf('/tool-casino')===0){
+        host = pick('.cs-next') || pick('.cs-actions') || pick('.cs-kpi');
+      }else if(path.indexOf('/tool-slot')===0 || path.indexOf('/slot')===0){
+        host = pick('.slot-actions') || pick('.slot-head-actions') || pick('.slot-kpi-actions') || pick('.tool-actions');
+      }else if(path.indexOf('/analysis')===0){
+        host = pick('.a-actions') || pick('.a-kpi-actions') || pick('.tool-actions');
+      }else{
+        host = pick('.kpi-actions, .tool-actions, .mg-copy-row, .cs-actions, .stx-actions, .hub-actions');
+      }
+
+      if(!host) return;
+
       const t = saved.ts ? relTime(saved.ts) : '';
-      const bar = el('div', { id:'vvipRestoreBar', class:'vvip-restore-bar' });
-      const left = el('div', { class:'vvip-restore-left' }, `<b>최근 입력 저장됨</b><span class="vvip-restore-time">${escapeHtml(t)}</span>`);
-      const right = el('div', { class:'vvip-restore-right' });
-      const btn = el('button', { type:'button', class:'vvip-restore-btn' }, '1클릭 복원');
-      const clr = el('button', { type:'button', class:'vvip-restore-clear' }, '지우기');
-      right.appendChild(btn);
-      right.appendChild(clr);
-      bar.appendChild(left);
-      bar.appendChild(right);
+      const wrap = el('div', { id:'vvipRestoreInline', class:'vvip-restore-inline' });
+      const btn = el('button', { type:'button', class:'vvip-inline-btn' }, '최근 복원');
+      const menu = el('button', { type:'button', class:'vvip-inline-menu', title:'최근 입력 지우기' }, '⋯');
+
+      if(t){ wrap.setAttribute('title', '최근 저장: '+t); }
+
+      wrap.appendChild(btn);
+      wrap.appendChild(menu);
+
+      const setBtn = (label, done)=>{
+        try{
+          btn.textContent = label;
+          if(done){ btn.classList.add('done'); } else { btn.classList.remove('done'); }
+        }catch(e){}
+      };
 
       btn.addEventListener('click', ()=>{
         const ok = restorePersist();
         if(!ok){
-          try{ btn.textContent='복원 실패'; setTimeout(()=>btn.textContent='1클릭 복원', 900); }catch(e){}
+          setBtn('복원 실패', false);
+          setTimeout(()=>setBtn('최근 복원', false), 900);
         }else{
-          try{ btn.textContent='복원 완료 ✓'; setTimeout(()=>btn.textContent='1클릭 복원', 900); }catch(e){}
+          setBtn('복원 ✓', true);
+          setTimeout(()=>setBtn('최근 복원', false), 900);
         }
+      });
+
+      menu.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const ok = confirm('저장된 최근 입력을 삭제할까요?');
+        if(!ok) return;
+        clearPersist();
+        try{ wrap.remove(); }catch(err){}
+      });
+
+      host.appendChild(wrap);
+    }catch(e){}
+  }
+
       });
       clr.addEventListener('click', ()=>{ clearPersist(); try{ bar.remove(); }catch(e){} });
 
