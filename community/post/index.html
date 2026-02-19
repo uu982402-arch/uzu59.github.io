@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="ko">
+<head>
+<meta charset="utf-8"/>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KWT87FBY6S', { anonymize_ip: true });
+</script>
+<title>게시글 | 88ST 커뮤니티</title>
+<meta name="description" content="88ST 커뮤니티 게시글 상세 및 댓글."/>
+<meta name="keywords" content="자유게시판, 커뮤니티, 게시글, 댓글, 88ST"/>
+<link rel="canonical" href="https://88st.cloud/community/post/"/>
+<meta name="robots" content="noindex,follow"/>
+<meta property="og:type" content="article"/>
+<meta property="og:site_name" content="88 커뮤니티"/>
+<meta property="og:title" content="게시글 | 88ST 커뮤니티"/>
+<meta property="og:description" content="88ST 커뮤니티 게시글 상세 및 댓글"/>
+<meta property="og:url" content="https://88st.cloud/community/post/"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/assets/css/x.ca5a4ba23b1a.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/j.9179477b9417.js"></script>
+<link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
+<link href="/assets/c.0b3d8a45f8c9.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/j.efba3509e62c.js"></script>
+<link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
+<script defer="" src="/assets/js/j.8829a3ccde44.js?v=85"></script>
+<meta content="/img/logo.png" property="og:image"/>
+<link href="/assets/css/vvip-luxe.v75.css?v=77" rel="stylesheet"/><script defer="" src="/assets/js/vvip-global.v75.js?v=77"></script>
+<link rel="stylesheet" href="/assets/css/patch.v94.productui.20260219.min.css"/>
+<link rel="stylesheet" href="/assets/css/community.v1.20260219.css"/>
+<script defer="" src="/assets/js/community.v1.20260219.js"></script>
+<script async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+</head>
+<body data-page="community-post">
+<div class="wrap st-guide com-wrap" role="main">
+  <div class="card st-guide-hero com-hero">
+    <div class="st-guide-kicker">88ST.CLOUD · 커뮤니티</div>
+    <h1 class="st-guide-title" id="postTitle">게시글</h1>
+    <p class="st-guide-desc" id="postMeta"></p>
+    <div class="st-guide-actions">
+      <a class="btn secondary" href="/community/">목록</a>
+      <a class="btn primary" href="/community/write/">글쓰기</a>
+      <a class="btn ghost" href="/analysis/">분석기</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="title"><span class="badge">POST</span>내용</div>
+    <div class="com-postBody" id="postBody">불러오는 중…</div>
+  </div>
+
+  <div class="card" id="commentWrap">
+    <div class="title"><span class="badge">COMMENTS</span>댓글 <span class="badge" id="commentCount">0</span></div>
+    <div id="commentList" class="com-comments"></div>
+
+    <div class="com-divider"></div>
+
+    <form id="commentForm">
+      <div class="grid2" style="grid-template-columns:1fr;">
+        <div class="field">
+          <label for="cName">닉네임</label>
+          <input id="cName" type="text" placeholder="익명(최대 20자)" maxlength="20" autocomplete="nickname"/>
+        </div>
+        <div class="field">
+          <label for="cBody">댓글</label>
+          <textarea id="cBody" placeholder="도배/홍보/개인정보 금지" maxlength="2000"></textarea>
+        </div>
+      </div>
+
+      <div class="com-turnstile"></div>
+      <div class="com-note com-turnstile-note" style="display:none;margin-top:8px;">
+        Turnstile 설정이 필요합니다. <code>assets/config/community.json</code>에서 <b>turnstileSiteKey</b>를 입력하세요.
+      </div>
+
+      <div class="btnRow">
+        <button class="btn primary" type="submit">댓글 등록</button>
+        <a class="btn ghost" href="/community/">목록</a>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
