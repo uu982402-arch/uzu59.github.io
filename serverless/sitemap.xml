@@ -2,8 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://88st.cloud/</loc></url>
   <url><loc>https://88st.cloud/analysis/</loc></url>
-  <url><loc>https://88st.cloud/community/</loc></url>
-  <url><loc>https://88st.cloud/bonus-checklist/</loc></url>
+<url><loc>https://88st.cloud/bonus-checklist/</loc></url>
   <url><loc>https://88st.cloud/casino/</loc></url>
   <url><loc>https://88st.cloud/cert/</loc></url>
   <url><loc>https://88st.cloud/ipl/</loc></url>
@@ -28,4 +27,10 @@
   <url><loc>https://88st.cloud/fortune/</loc></url>
   <url><loc>https://88st.cloud/calc/</loc></url>
   <url><loc>https://88st.cloud/guide/</loc></url>
+  <url>
+    <loc>https://88st.cloud/logbook/</loc>
+    <lastmod>2026-02-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

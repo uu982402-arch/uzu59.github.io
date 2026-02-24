@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+
+  <title>OPS Console | 88ST</title>
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
+  <link rel="canonical" href="https://88st.cloud/ops/"/>
+
+  <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+  <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+
+  <!-- Base styling (keeps look consistent with the rest of the site) -->
+  <link href="/assets/css/x.9d7841e705c5.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/assets/css/hdr.shell.v1.20260221.css?v=119"/>
+
+  <!-- Global asset loader (cache-busted via build.ver.js) -->
+  <script defer src="/assets/js/build.ver.js?v=v20260224-1845"></script>
+  <script defer src="/assets/js/build.loader.js?v=v20260224-1845"></script>
+
+  <style>
+    :root{ --opsMax: 1040px; }
+    body{ margin:0; min-height:100vh; display:flex; }
+    .opsWrap{ width:100%; max-width:var(--opsMax); margin:0 auto; padding:28px 16px 64px; }
+    .opsCard{ border-radius:18px; border:1px solid rgba(255,255,255,.08); background: rgba(20,20,24,.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 18px 50px rgba(0,0,0,.35); }
+    [data-theme="light"] .opsCard{ background: rgba(255,255,255,.72); border-color: rgba(0,0,0,.08); box-shadow: 0 18px 50px rgba(0,0,0,.12); }
+
+    .opsLock{ padding:22px 18px; max-width:520px; margin:40px auto 0; }
+    .opsTitle{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.02em; font-size:18px; }
+    .opsBadge{ font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.15); opacity:.9; }
+    [data-theme="light"] .opsBadge{ border-color: rgba(0,0,0,.12); }
+    .opsSub{ margin-top:10px; opacity:.78; line-height:1.45; font-size:13px; }
+
+    .opsRow{ display:flex; gap:10px; margin-top:14px; }
+    .opsRow input{ flex:1; height:44px; border-radius:12px; padding:0 12px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.18); color: inherit; outline:none; }
+    [data-theme="light"] .opsRow input{ background: rgba(255,255,255,.8); border-color: rgba(0,0,0,.12); }
+
+    .opsBtn{ height:44px; border-radius:12px; padding:0 14px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color: inherit; font-weight:700; cursor:pointer; }
+    [data-theme="light"] .opsBtn{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.12); }
+    .opsBtn.primary{ background: rgba(121, 83, 255, .30); border-color: rgba(121, 83, 255, .55); }
+    [data-theme="light"] .opsBtn.primary{ background: rgba(121, 83, 255, .16); }
+    .opsBtn:active{ transform: translateY(1px); }
+
+    .opsMsg{ margin-top:10px; font-size:13px; opacity:.85; }
+    .opsErr{ color: #ff6b6b; }
+    [data-theme="light"] .opsErr{ color: #c51f1f; }
+
+    .opsConsole{ margin-top:18px; padding:18px; }
+    .opsTop{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .opsTop .left{ display:flex; align-items:center; gap:10px; }
+    .opsTop .ttl{ font-size:16px; font-weight:800; letter-spacing:-.02em; }
+    .opsTop .meta{ opacity:.75; font-size:12px; }
+
+    .opsGrid{ margin-top:14px; display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:10px; }
+    @media (max-width: 860px){ .opsGrid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 520px){ .opsGrid{ grid-template-columns: 1fr; } }
+
+    .opsLink{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.12); text-decoration:none; color:inherit; }
+    [data-theme="light"] .opsLink{ background: rgba(255,255,255,.65); border-color: rgba(0,0,0,.10); }
+    .opsLink .name{ font-weight:800; }
+    .opsLink .path{ font-size:12px; opacity:.75; }
+    .opsLink .go{ font-weight:900; opacity:.7; }
+
+    .opsSection{ margin-top:16px; padding:14px; }
+    .opsSection h2{ margin:0; font-size:14px; letter-spacing:-.02em; }
+    .opsSection .hint{ margin-top:6px; font-size:12px; opacity:.75; line-height:1.45; }
+
+    .opsFlex{ margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .opsToggle{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.10); }
+    [data-theme="light"] .opsToggle{ background: rgba(255,255,255,.65); border-color: rgba(0,0,0,.10); }
+    .opsToggle input{ width:18px; height:18px; }
+
+    .opsTable{ width:100%; border-collapse:separate; border-spacing:0 8px; margin-top:10px; }
+    .opsTable th{ text-align:left; font-size:12px; opacity:.75; padding:0 8px; }
+    .opsTable td{ padding:0 8px; }
+    .opsTable input, .opsTable select{ width:100%; height:38px; border-radius:12px; padding:0 10px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); color:inherit; outline:none; }
+    [data-theme="light"] .opsTable input, [data-theme="light"] .opsTable select{ background: rgba(255,255,255,.82); border-color: rgba(0,0,0,.12); }
+
+    .opsMiniBtn{ height:38px; border-radius:12px; padding:0 12px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color:inherit; font-weight:800; cursor:pointer; }
+    [data-theme="light"] .opsMiniBtn{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.12); }
+
+    .opsArea{ width:100%; min-height:140px; border-radius:14px; padding:10px 12px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); color:inherit; outline:none; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; line-height:1.45; }
+    [data-theme="light"] .opsArea{ background: rgba(255,255,255,.82); border-color: rgba(0,0,0,.12); }
+
+    .opsFooter{ margin-top:14px; opacity:.7; font-size:12px; }
+    .opsFooter code{ opacity:1; }
+  </style>
+</head>
+
+<body>
+  <main class="opsWrap">
+    <!-- LOCK SCREEN -->
+    <section id="opsLock" class="opsCard opsLock" aria-label="OPS Console 잠금 화면">
+      <div class="opsTitle">
+        <span aria-hidden="true">🔒</span>
+        <span>88ST OPS Console</span>
+        <span class="opsBadge">PRIVATE</span>
+      </div>
+      <div class="opsSub">
+        접근 제한 영역입니다. 비밀번호가 올바르지 않으면 콘솔이 표시되지 않습니다.
+      </div>
+      <div class="opsRow">
+        <input id="opsPw" type="password" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="비밀번호"/>
+        <button id="opsEnter" class="opsBtn primary" type="button">입장</button>
+      </div>
+      <div id="opsMsg" class="opsMsg"></div>
+    </section>
+
+    <!-- CONSOLE -->
+    <section id="opsConsole" class="opsCard opsConsole" hidden aria-label="OPS Console">
+      <div class="opsTop">
+        <div class="left">
+          <div>
+            <div class="ttl">운영 콘솔</div>
+            <div class="meta" id="opsMeta">세션 인증됨</div>
+          </div>
+        </div>
+        <div class="opsFlex">
+          <button id="opsOpenHome" class="opsBtn" type="button">홈 열기</button>
+          <button id="opsLogout" class="opsBtn" type="button">로그아웃</button>
+        </div>
+      </div>
+
+      <!-- QUICK LINKS -->
+      <div class="opsGrid" id="opsLinks"></div>
+
+      <!-- PATCH RULES -->
+      <section class="opsCard opsSection" style="margin-top:14px;">
+        <h2>전역 패치 룰(선택)</h2>
+        <div class="hint">
+          코드 수정 없이 <b>특정 요소의 텍스트/HTML/속성(href 등)/표시 여부</b>를 바꾸는 룰셋입니다.
+          저장하면 이 브라우저에서만 전 페이지에 적용됩니다(로컬 테스트). 전체 사용자에게 적용하려면 배포형 설정 파일(<code>/assets/config/ops.dom.patch.json</code>)로 내보내서 교체하세요.
+        </div>
+
+        <div class="opsFlex">
+          <label class="opsToggle">
+            <input id="opsEnabled" type="checkbox"/>
+            <span>패치 활성화</span>
+          </label>
+          <button id="opsAddRule" class="opsMiniBtn" type="button">+ 룰 추가</button>
+          <button id="opsSave" class="opsMiniBtn" type="button">저장</button>
+          <button id="opsExport" class="opsMiniBtn" type="button">내보내기</button>
+          <button id="opsImport" class="opsMiniBtn" type="button">가져오기</button>
+          <button id="opsClear" class="opsMiniBtn" type="button">초기화</button>
+          <span style="flex:1"></span>
+          <button id="opsLoadDeploy" class="opsMiniBtn" type="button">배포 설정 불러오기</button>
+          <button id="opsExportDeploy" class="opsMiniBtn" type="button">배포용 JSON 만들기</button>
+          <button id="opsDownloadDeploy" class="opsMiniBtn" type="button">배포파일 다운로드</button>
+        </div>
+
+        <table class="opsTable" aria-label="패치 룰 테이블">
+          <thead>
+            <tr>
+              <th style="width:34%">selector</th>
+              <th style="width:16%">type</th>
+              <th style="width:14%">attr</th>
+              <th>value</th>
+              <th style="width:86px">관리</th>
+            </tr>
+          </thead>
+          <tbody id="opsRules"></tbody>
+        </table>
+
+        <textarea id="opsJson" class="opsArea" spellcheck="false" placeholder="(옵션) JSON 영역 — 내보내기/가져오기용"></textarea>
+        <div id="opsPatchMsg" class="opsMsg"></div>
+        <div class="opsFooter">배포 경로: <code>/assets/config/ops.dom.patch.json</code> · 적용 모드: <code>merge</code>(기본) / <code>override</code>(로컬 전용)</div>
+      </section>
+
+
+      <!-- CERT LANDING CONFIG -->
+      <section class="opsCard opsSection" style="margin-top:14px;">
+        <h2>인증 랜딩 설정(배포)</h2>
+        <div class="hint">
+          <b>/cert 모달 + 전용 URL(/cert/vegas/, /cert/777/)</b>에서 사용하는 <b>join 링크/가입코드/텔레그램</b>을 배포형 설정 파일로 관리합니다.
+          아래 값만 바꿔서 <code>/assets/config/cert.landing.json</code> 파일을 교체하면 <b>코드 수정 0</b>으로 전체 적용됩니다.
+        </div>
+
+        <div class="opsFlex">
+          <button id="opsCertLoad" class="opsMiniBtn" type="button">배포 설정 불러오기</button>
+          <button id="opsCertMake" class="opsMiniBtn" type="button">배포용 JSON 만들기</button>
+          <button id="opsCertCopy" class="opsMiniBtn" type="button">JSON 복사</button>
+          <button id="opsCertDownload" class="opsMiniBtn" type="button">배포파일 다운로드</button>
+        </div>
+
+        <table class="opsTable" aria-label="인증 랜딩 설정 테이블">
+          <thead>
+            <tr>
+              <th style="width:16%">vendor</th>
+              <th style="width:16%">code</th>
+              <th>join_url</th>
+              <th style="width:24%">telegram</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>VEGAS</b><div style="opacity:.75;font-size:12px;">/cert/vegas/</div></td>
+              <td><input id="certVegasCode" value="6789" /></td>
+              <td><input id="certVegasJoin" value="https://las403.com" /></td>
+              <td rowspan="2"><input id="certTelegram" value="https://t.me/UZU59" /></td>
+            </tr>
+            <tr>
+              <td><b>777 Bet</b><div style="opacity:.75;font-size:12px;">/cert/777/</div></td>
+              <td><input id="cert777Code" value="6767" /></td>
+              <td><input id="cert777Join" value="https://82clf.com/?code=6767" /></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <textarea id="opsCertJson" class="opsArea" spellcheck="false" placeholder="(자동) 배포용 JSON — 필요 시 편집 가능"></textarea>
+        <div id="opsCertMsg" class="opsMsg"></div>
+        <div class="opsFooter">배포 경로: <code>/assets/config/cert.landing.json</code> · 캐시: <code>no-store</code>(Worker)</div>
+      </section>
+
+      <!-- DANGER ZONE -->
+      <section class="opsCard opsSection" style="margin-top:14px;">
+        <h2>운영 유틸리티</h2>
+        <div class="hint">최근 저장/입력/세션 데이터 등, 브라우저 로컬 상태를 빠르게 정리합니다.</div>
+        <div class="opsFlex">
+          <button id="opsClearRecent" class="opsMiniBtn" type="button">최근 사용 초기화</button>
+          <button id="opsClearPersist" class="opsMiniBtn" type="button">최근 입력 초기화</button>
+          <button id="opsHardReload" class="opsMiniBtn" type="button">강력 새로고침</button>
+        </div>
+        <div class="opsFooter">
+          적용 키: <code>vvip_ops_dom_patch_v1</code> · 세션 키: <code>vvip_ops_authed_v1</code>
+        </div>
+      
+      <!-- SMOKE CHECK -->
+      <section class="opsCard opsSection" style="margin-top:14px;">
+        <h2>전체 페이지 CTA 스모크 체크</h2>
+        <div class="hint">
+          배포 전 자동 점검용입니다. 주요 페이지를 순차적으로 열어 <b>JS 에러/필수 함수/CTA 클릭 가능/인증 모달 오픈</b>을 빠르게 확인합니다.
+          (보안 헤더로 iframe 테스트가 불가하여, 작은 팝업 창 1개를 재사용합니다.)
+        </div>
+        <div class="opsFlex">
+          <button id="opsSmokeRun" class="opsMiniBtn" type="button">전체 점검 실행</button>
+          <button id="opsSmokeStop" class="opsMiniBtn" type="button" disabled>중지</button>
+          <span id="opsSmokeStatus" class="opsMsg" style="margin:0;"></span>
+        </div>
+
+        <table class="opsTable" aria-label="스모크 체크 결과">
+          <thead>
+            <tr>
+              <th style="width:24%">page</th>
+              <th style="width:10%">status</th>
+              <th style="width:10%">errors</th>
+              <th style="width:14%">CTA (click/total)</th>
+              <th style="width:14%">cert modal</th>
+              <th>note</th>
+            </tr>
+          </thead>
+          <tbody id="opsSmokeBody"></tbody>
+        </table>
+
+        <textarea id="opsSmokeJson" class="opsArea" spellcheck="false" placeholder="(자동) 상세 결과 JSON — 필요 시 복사해서 공유/보관"></textarea>
+      </section>
+
+</section>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const HASH_HEX = '23c9221f8d58970a191a4762e4c9ca052c08c905b44e293ee4b2f6ed2a9b1755'; // sha256("88st0617!")
+      const AUTH_KEY = 'vvip_ops_authed_v1';
+      const LOCK_KEY = 'vvip_ops_lock_v1';
+      const PATCH_KEY = 'vvip_ops_dom_patch_v1';
+      const DEPLOY_URL = '/assets/config/ops.dom.patch.json';
+      const CERT_DEPLOY_URL = '/assets/config/cert.landing.json';
+      const BUILD_VER = (window.__BUILD_VER || '0') + '';
+
+      const $ = (id)=>document.getElementById(id);
+      const lock = $('opsLock');
+      const consoleEl = $('opsConsole');
+      const msg = $('opsMsg');
+      const pw = $('opsPw');
+      const enter = $('opsEnter');
+
+      function safeParse(s, fallback){
+        try{ return JSON.parse(s); }catch(_){ return fallback; }
+      }
+
+      function setMsg(text, isErr){
+        msg.textContent = text || '';
+        msg.className = 'opsMsg' + (isErr ? ' opsErr' : '');
+      }
+
+      function getLock(){
+        try{ return safeParse(localStorage.getItem(LOCK_KEY) || '', {fails:0, until:0}); }catch(e){ return {fails:0, until:0}; }
+      }
+
+      function setLock(v){
+        try{ localStorage.setItem(LOCK_KEY, JSON.stringify(v)); }catch(e){}
+      }
+
+      function isLocked(){
+        const l = getLock();
+        const until = Number(l.until||0);
+        return until && Date.now() < until;
+      }
+
+      function lockLeftMs(){
+        const l = getLock();
+        return Math.max(0, Number(l.until||0) - Date.now());
+      }
+
+      function toHex(buf){
+        const bytes = new Uint8Array(buf);
+        let out = '';
+        for(let i=0;i<bytes.length;i++) out += bytes[i].toString(16).padStart(2,'0');
+        return out;
+      }
+
+      async function sha256Hex(text){
+        const enc = new TextEncoder();
+        const data = enc.encode(text);
+        const hash = await crypto.subtle.digest('SHA-256', data);
+        return toHex(hash);
+      }
+
+      function showConsole(){
+        lock.hidden = true;
+        consoleEl.hidden = false;
+        try{ $('opsMeta').textContent = '세션 인증됨 · ' + new Date().toLocaleString(); }catch(e){}
+        initConsole();
+      }
+
+      function logout(){
+        try{ sessionStorage.removeItem(AUTH_KEY); }catch(e){}
+        consoleEl.hidden = true;
+        lock.hidden = false;
+        pw.value = '';
+        setMsg('로그아웃됨', false);
+      }
+
+      async function handleEnter(){
+        if(isLocked()){
+          const s = Math.ceil(lockLeftMs()/1000);
+          setMsg('잠시 후 다시 시도하세요 ('+s+'s)', true);
+          return;
+        }
+
+        const v = (pw.value||'').trim();
+        if(!v){
+          setMsg('비밀번호를 입력하세요.', true);
+          return;
+        }
+
+        try{
+          if(!('crypto' in window) || !crypto.subtle){
+            setMsg('이 브라우저는 보안 해시 검증을 지원하지 않습니다.', true);
+            return;
+          }
+          const hx = await sha256Hex(v);
+          if(hx === HASH_HEX){
+            try{ sessionStorage.setItem(AUTH_KEY, '1'); }catch(e){}
+            setLock({fails:0, until:0});
+            setMsg('', false);
+            showConsole();
+          }else{
+            const l = getLock();
+            const nextFails = Number(l.fails||0) + 1;
+            // 6회 실패 시 60초 락
+            const until = (nextFails >= 6) ? (Date.now() + 60*1000) : 0;
+            setLock({fails: nextFails, until});
+            setMsg(until ? '실패가 누적되어 잠시 잠금 처리되었습니다.' : '비밀번호가 올바르지 않습니다.', true);
+          }
+        }catch(e){
+          setMsg('검증 중 오류가 발생했습니다.', true);
+        }
+      }
+
+      // --- Console features ---
+      const linkItems = [
+        {name:'홈', path:'/'},
+        {name:'분석 대시보드', path:'/analysis/'},
+        {name:'인증사이트', path:'/cert/'},
+        {name:'EV 계산기', path:'/tool-ev/'},
+        {name:'마진 계산기', path:'/tool-margin/'},
+        {name:'배당 비교', path:'/tool-odds/'},
+        {name:'슬롯 분석기', path:'/tool-slot/'},
+        {name:'미니게임 분석기', path:'/tool-minigame/'},
+        {name:'카지노 전략', path:'/casino-strategy/'},
+        {name:'카지노', path:'/casino/'},
+        {name:'미니게임', path:'/minigame/'},
+        {name:'슬롯', path:'/slot/'},
+        {name:'가이드', path:'/guide/'},
+        {name:'계산기 허브', path:'/calc/'},
+        {name:'기록', path:'/logbook/'},
+        {name:'운세 브리핑', path:'/fortune/'},
+        {name:'랜딩 A', path:'/landing-a/'},
+        {name:'랜딩 B', path:'/landing-b/'},
+        {name:'랜딩 C', path:'/landing-c/'},
+        {name:'랜딩 D', path:'/landing-d/'},
+        {name:'랜딩 E', path:'/landing-e/'},
+        {name:'랜딩 F', path:'/landing-f/'}
+      ];
+
+      function esc(s){
+        return String(s==null?'':s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+      }
+
+      function readPatch(){
+        try{
+          const raw = localStorage.getItem(PATCH_KEY);
+          if(!raw) return {enabled:false, rules:[]};
+          const cfg = safeParse(raw, {enabled:false, rules:[]});
+          if(!cfg || typeof cfg !== 'object') return {enabled:false, rules:[]};
+          cfg.enabled = (cfg.enabled === true);
+          cfg.rules = Array.isArray(cfg.rules) ? cfg.rules : [];
+          return cfg;
+        }catch(e){
+          return {enabled:false, rules:[]};
+        }
+      }
+
+      function writePatch(cfg){
+        try{ localStorage.setItem(PATCH_KEY, JSON.stringify(cfg)); }catch(e){}
+      }
+
+      function patchMsg(text, isErr){
+        const el = $('opsPatchMsg');
+        el.textContent = text || '';
+        el.className = 'opsMsg' + (isErr ? ' opsErr' : '');
+      }
+
+      function ensureRuleShape(r){
+        return {
+          selector: String(r && r.selector || ''),
+          type: String(r && r.type || 'text'),
+          attr: String(r && r.attr || ''),
+          value: (r && r.value!=null) ? String(r.value) : ''
+        };
+      }
+
+      function renderLinks(){
+        const box = $('opsLinks');
+        box.innerHTML = linkItems.map(x=>{
+          const name = esc(x.name);
+          const path = esc(x.path);
+          return `
+            <a class="opsLink" href="${path}" target="_blank" rel="noopener">
+              <div>
+                <div class="name">${name}</div>
+                <div class="path">${path}</div>
+              </div>
+              <div class="go">→</div>
+            </a>
+          `;
+        }).join('');
+      }
+
+      function rowHtml(idx, r){
+        const rule = ensureRuleShape(r);
+        const sel = esc(rule.selector);
+        const type = esc(rule.type);
+        const attr = esc(rule.attr);
+        const val = esc(rule.value);
+
+        const opts = [
+          ['text','setText'],
+          ['html','setHTML'],
+          ['attr','setAttr'],
+          ['hide','hide'],
+          ['show','show'],
+          ['addClass','addClass'],
+          ['removeClass','removeClass'],
+        ].map(([v,label])=>`<option value="${v}" ${v===type?'selected':''}>${label}</option>`).join('');
+
+        return `
+          <tr data-i="${idx}">
+            <td><input data-k="selector" value="${sel}" placeholder="예: a[href='/cert/']"/></td>
+            <td>
+              <select data-k="type">${opts}</select>
+            </td>
+            <td><input data-k="attr" value="${attr}" placeholder="href"/></td>
+            <td><input data-k="value" value="${val}" placeholder="값"/></td>
+            <td><button class="opsMiniBtn" data-act="del" type="button">삭제</button></td>
+          </tr>
+        `;
+      }
+
+      function renderRules(cfg){
+        $('opsEnabled').checked = !!cfg.enabled;
+        const body = $('opsRules');
+        const rules = Array.isArray(cfg.rules) ? cfg.rules : [];
+        body.innerHTML = rules.map((r,i)=>rowHtml(i,r)).join('');
+
+        // dynamic UI: hide attr/value depending on type
+        body.querySelectorAll('tr').forEach(tr=>{
+          const typeSel = tr.querySelector('select[data-k="type"]');
+          const attrIn = tr.querySelector('input[data-k="attr"]');
+          const valIn = tr.querySelector('input[data-k="value"]');
+          const sync = ()=>{
+            const t = (typeSel.value||'').trim();
+            const needsAttr = (t === 'attr');
+            const needsVal = !(t === 'hide' || t === 'show');
+            attrIn.disabled = !needsAttr;
+            attrIn.style.opacity = needsAttr ? '1' : '.45';
+            valIn.disabled = !needsVal;
+            valIn.style.opacity = needsVal ? '1' : '.45';
+          };
+          typeSel.addEventListener('change', sync);
+          sync();
+        });
+      }
+
+      function collectRules(){
+        const rows = Array.from($('opsRules').querySelectorAll('tr'));
+        const rules = rows.map(tr=>{
+          const get = (k)=>{
+            const el = tr.querySelector('[data-k="'+k+'"]');
+            return el ? el.value : '';
+          };
+          return ensureRuleShape({
+            selector: get('selector'),
+            type: get('type'),
+            attr: get('attr'),
+            value: get('value')
+          });
+        }).filter(r=>r.selector.trim());
+        return rules.slice(0, 60);
+      }
+
+      function savePatch(){
+        const cfg = {
+          enabled: $('opsEnabled').checked === true,
+          rules: collectRules()
+        };
+        writePatch(cfg);
+        $('opsJson').value = JSON.stringify(cfg, null, 2);
+        patchMsg('저장 완료. (다른 페이지 새로고침 시 적용)', false);
+      }
+
+      function exportPatch(){
+        const cfg = {
+          enabled: $('opsEnabled').checked === true,
+          rules: collectRules()
+        };
+        const text = JSON.stringify(cfg, null, 2);
+        $('opsJson').value = text;
+        try{
+          navigator.clipboard.writeText(text);
+          patchMsg('클립보드로 복사됨', false);
+        }catch(e){
+          patchMsg('내보내기 생성됨 (텍스트 영역에서 복사)', false);
+        }
+      }
+
+      async function loadDeploy(){
+        try{
+          if(!('fetch' in window)) { patchMsg('fetch 미지원 브라우저', true); return; }
+          const url = DEPLOY_URL + (DEPLOY_URL.indexOf('?')>=0 ? '&' : '?') + 'v=' + encodeURIComponent(BUILD_VER) + '&t=' + Date.now();
+          const res = await fetch(url, {cache:'no-store', credentials:'same-origin'});
+          if(!res || !res.ok){ patchMsg('배포 설정을 불러올 수 없습니다. (파일이 없거나 응답 오류)', true); return; }
+          const cfg = await res.json().catch(()=>null);
+          if(!cfg || typeof cfg !== 'object'){ patchMsg('배포 JSON 파싱 실패', true); return; }
+          cfg.enabled = (cfg.enabled === true);
+          cfg.mode = String(cfg.mode || 'merge');
+          cfg.rules = Array.isArray(cfg.rules) ? cfg.rules : [];
+          cfg.rules = cfg.rules.map(ensureRuleShape);
+
+          // Load into UI (but do not auto-save to localStorage)
+          renderRules(cfg);
+          $('opsJson').value = JSON.stringify(cfg, null, 2);
+          patchMsg('배포 설정 불러오기 완료 (저장 시 로컬에도 적용)', false);
+        }catch(e){
+          patchMsg('배포 설정 불러오기 실패', true);
+        }
+      }
+
+      function buildDeployConfig(){
+        return {
+          enabled: $('opsEnabled').checked === true,
+          mode: 'merge',
+          rules: collectRules(),
+          meta: {
+            updatedAt: new Date().toISOString(),
+            by: '88st.ops.console'
+          }
+        };
+      }
+
+      function exportDeploy(){
+        const cfg = buildDeployConfig();
+        const text = JSON.stringify(cfg, null, 2);
+        $('opsJson').value = text;
+        try{
+          navigator.clipboard.writeText(text);
+          patchMsg('배포용 JSON 생성 + 클립보드 복사됨', false);
+        }catch(e){
+          patchMsg('배포용 JSON 생성됨 (텍스트 영역에서 복사)', false);
+        }
+      }
+
+      function downloadDeploy(){
+        const cfg = buildDeployConfig();
+        const text = JSON.stringify(cfg, null, 2);
+        $('opsJson').value = text;
+        try{
+          const blob = new Blob([text], {type:'application/json;charset=utf-8'});
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'ops.dom.patch.json';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(()=>{ try{ URL.revokeObjectURL(a.href); }catch(e){} try{ a.remove(); }catch(e){} }, 200);
+          patchMsg('배포파일 다운로드 시작됨 (ops.dom.patch.json)', false);
+        }catch(e){
+          patchMsg('다운로드 생성 실패 (텍스트를 수동 저장하세요)', true);
+        }
+      }
+
+
+      // --- CERT Landing deploy config (join/code/telegram) ---
+      let certBase = null;
+
+      const certMsg = (text, isErr) => {
+        const el = $('opsCertMsg');
+        if (!el) return;
+        el.textContent = text || '';
+        el.className = 'opsMsg' + (isErr ? ' opsErr' : '');
+      };
+
+      const pickVendor = (cfg, slug, idFallback) => {
+        try{
+          const vmap = (cfg && cfg.vendors) ? cfg.vendors : {};
+          if (vmap && vmap[slug]) return vmap[slug];
+          // try find by landing_path or id
+          for (const k in vmap){
+            const v = vmap[k];
+            if (!v) continue;
+            if ((v.slug && String(v.slug).toLowerCase() === String(slug).toLowerCase()) ||
+                (v.landing_path && v.landing_path === `/cert/${slug}/`) ||
+                (idFallback && v.id === idFallback)) return v;
+          }
+        }catch(e){}
+        return null;
+      };
+
+      function readCertUi(){
+        const telegram = String(($('certTelegram')?.value || '')).trim() || 'https://t.me/UZU59';
+        const vegasCode = String(($('certVegasCode')?.value || '')).trim();
+        const vegasJoin = String(($('certVegasJoin')?.value || '')).trim();
+        const s777Code = String(($('cert777Code')?.value || '')).trim();
+        const s777Join = String(($('cert777Join')?.value || '')).trim();
+        return { telegram, vegasCode, vegasJoin, s777Code, s777Join };
+      }
+
+      function buildCertDeployConfig(){
+        const ui = readCertUi();
+        const now = new Date();
+        const yyyy = now.getFullYear();
+        const mm = String(now.getMonth()+1).padStart(2,'0');
+        const dd = String(now.getDate()).padStart(2,'0');
+
+        // preserve benefit/notice if present in loaded config; otherwise keep sensible defaults
+        const base = certBase || {};
+        const vVegas = pickVendor(base, 'vegas', 'card1') || {};
+        const v777 = pickVendor(base, '777', 'card3') || {};
+
+        return {
+          enabled: true,
+          version: `${yyyy}-${mm}-${dd}`,
+          telegram: ui.telegram,
+          vendors: {
+            vegas: {
+              id: 'card1',
+              slug: 'vegas',
+              title: vVegas.title || 'VEGAS',
+              code: ui.vegasCode || vVegas.code || '6789',
+              join_url: ui.vegasJoin || vVegas.join_url || 'https://las403.com',
+              landing_path: '/cert/vegas/',
+              hero_image: '/img/landing/vegas-landing.webp',
+              thumb_image: '/img/img1.webp',
+              benefit: vVegas.benefit || '스포츠·고액전용 입플 최대 30% 페이백 / 카지노 입플',
+              notice: vVegas.notice || '가입코드 미입력 시 혜택 적용 불가'
+            },
+            "777": {
+              id: 'card3',
+              slug: '777',
+              title: v777.title || '777 Bet',
+              code: ui.s777Code || v777.code || '6767',
+              join_url: ui.s777Join || v777.join_url || 'https://82clf.com/?code=6767',
+              landing_path: '/cert/777/',
+              hero_image: '/img/landing/777-landing.webp',
+              thumb_image: '/img/img2.webp',
+              benefit: v777.benefit || '가입코드 6767 전용 혜택 / 스포츠·카지노 이용 가능',
+              notice: v777.notice || '가입코드 미입력 시 혜택 적용 불가'
+            }
+          },
+          meta: {
+            updatedAt: new Date().toISOString(),
+            by: '88st.ops.console'
+          }
+        };
+      }
+
+      async function opsCertLoad(){
+        try{
+          const url = CERT_DEPLOY_URL + (CERT_DEPLOY_URL.indexOf('?')>=0 ? '&' : '?') + 't=' + Date.now();
+          const res = await fetch(url, {cache:'no-store', credentials:'same-origin'});
+          if(!res || !res.ok){ certMsg('배포 설정을 불러올 수 없습니다. (파일이 없거나 응답 오류)', true); return; }
+          const cfg = await res.json().catch(()=>null);
+          if(!cfg || typeof cfg !== 'object'){ certMsg('배포 JSON 파싱 실패', true); return; }
+          certBase = cfg;
+
+          const vVegas = pickVendor(cfg, 'vegas', 'card1') || {};
+          const v777 = pickVendor(cfg, '777', 'card3') || {};
+          if($('certTelegram')) $('certTelegram').value = String(cfg.telegram || 'https://t.me/UZU59');
+          if($('certVegasCode')) $('certVegasCode').value = String(vVegas.code || '6789');
+          if($('certVegasJoin')) $('certVegasJoin').value = String(vVegas.join_url || 'https://las403.com');
+          if($('cert777Code')) $('cert777Code').value = String(v777.code || '6767');
+          if($('cert777Join')) $('cert777Join').value = String(v777.join_url || 'https://82clf.com/?code=6767');
+
+          $('opsCertJson').value = JSON.stringify(cfg, null, 2);
+          certMsg('배포 설정 불러오기 완료', false);
+        }catch(e){
+          certMsg('배포 설정 불러오기 실패', true);
+        }
+      }
+
+      function opsCertMake(){
+        const cfg = buildCertDeployConfig();
+        const text = JSON.stringify(cfg, null, 2);
+        $('opsCertJson').value = text;
+        certMsg('배포용 JSON 생성됨', false);
+        return text;
+      }
+
+      function opsCertCopy(){
+        const text = opsCertMake();
+        try{
+          navigator.clipboard.writeText(text);
+          certMsg('JSON이 클립보드로 복사됨', false);
+        }catch(e){
+          certMsg('복사 실패 — 텍스트 영역에서 수동 복사하세요', true);
+        }
+      }
+
+      function opsCertDownload(){
+        const text = opsCertMake();
+        try{
+          const blob = new Blob([text], {type:'application/json;charset=utf-8'});
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'cert.landing.json';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(()=>{ try{ URL.revokeObjectURL(a.href); }catch(e){} try{ a.remove(); }catch(e){} }, 200);
+          certMsg('배포파일 다운로드 시작됨 (cert.landing.json)', false);
+        }catch(e){
+          certMsg('다운로드 생성 실패 (텍스트를 수동 저장하세요)', true);
+        }
+      }
+
+
+      function importPatch(){
+        const raw = ($('opsJson').value||'').trim();
+        if(!raw){ patchMsg('가져올 JSON이 없습니다.', true); return; }
+        try{
+          const cfg = safeParse(raw, null);
+          if(!cfg || typeof cfg !== 'object') throw new Error('bad');
+          cfg.enabled = (cfg.enabled === true);
+          cfg.rules = Array.isArray(cfg.rules) ? cfg.rules : [];
+          cfg.rules = cfg.rules.map(ensureRuleShape);
+          writePatch(cfg);
+          renderRules(cfg);
+          patchMsg('가져오기 완료. (다른 페이지 새로고침 시 적용)', false);
+        }catch(e){
+          patchMsg('JSON 형식이 올바르지 않습니다.', true);
+        }
+      }
+
+      function clearPatch(){
+        if(!confirm('패치 룰을 초기화할까요?')) return;
+        const cfg = {enabled:false, rules:[]};
+        writePatch(cfg);
+        $('opsJson').value = JSON.stringify(cfg, null, 2);
+        renderRules(cfg);
+        patchMsg('초기화 완료', false);
+      }
+
+      function addRule(){
+        const cfg = readPatch();
+        cfg.rules = Array.isArray(cfg.rules) ? cfg.rules : [];
+        cfg.rules.push({selector:'', type:'text', attr:'', value:''});
+        renderRules(cfg);
+        patchMsg('', false);
+      }
+
+      function initConsole(){
+        renderLinks();
+
+        // patch controls
+        const cfg = readPatch();
+        renderRules(cfg);
+        $('opsJson').value = JSON.stringify(cfg, null, 2);
+
+        $('opsAddRule').addEventListener('click', addRule);
+        $('opsSave').addEventListener('click', savePatch);
+        $('opsExport').addEventListener('click', exportPatch);
+        $('opsImport').addEventListener('click', importPatch);
+        $('opsClear').addEventListener('click', clearPatch);
+
+        $('opsLoadDeploy').addEventListener('click', loadDeploy);
+        $('opsExportDeploy').addEventListener('click', exportDeploy);
+        $('opsDownloadDeploy').addEventListener('click', downloadDeploy);
+
+        // cert landing config
+        $('opsCertLoad').addEventListener('click', opsCertLoad);
+        $('opsCertMake').addEventListener('click', opsCertMake);
+        $('opsCertCopy').addEventListener('click', opsCertCopy);
+        $('opsCertDownload').addEventListener('click', opsCertDownload);
+
+        $('opsRules').addEventListener('click', (e)=>{
+          const btn = e.target && e.target.closest && e.target.closest('button[data-act="del"]');
+          if(!btn) return;
+          const tr = btn.closest('tr');
+          if(!tr) return;
+          const idx = Number(tr.getAttribute('data-i')||-1);
+          const cfg2 = readPatch();
+          if(idx>=0 && Array.isArray(cfg2.rules)){
+            cfg2.rules.splice(idx, 1);
+            writePatch(cfg2);
+            renderRules(cfg2);
+            $('opsJson').value = JSON.stringify(cfg2, null, 2);
+            patchMsg('삭제됨', false);
+          }
+        });
+
+        // utilities
+        $('opsOpenHome').addEventListener('click', ()=>{ window.open('/', '_blank', 'noopener'); });
+        $('opsLogout').addEventListener('click', logout);
+
+        $('opsClearRecent').addEventListener('click', ()=>{
+          if(!confirm('최근 사용 데이터를 초기화할까요?')) return;
+          try{ localStorage.removeItem('vvip_recent_pages_v1'); }catch(e){}
+          patchMsg('최근 사용 초기화 완료', false);
+        });
+
+        $('opsClearPersist').addEventListener('click', ()=>{
+          if(!confirm('최근 입력(폼 저장) 데이터를 초기화할까요?')) return;
+          try{
+            const keys = [];
+            for(let i=0;i<localStorage.length;i++){
+              const k = localStorage.key(i);
+              if(k && k.indexOf('vvip_form_persist_v1:')===0) keys.push(k);
+            }
+            keys.forEach(k=>{ try{ localStorage.removeItem(k); }catch(e){} });
+            try{ localStorage.removeItem('vvip_form_persist_v1_index'); }catch(e){}
+          }catch(e){}
+          patchMsg('최근 입력 초기화 완료', false);
+        });
+
+        $('opsHardReload').addEventListener('click', ()=>{
+          // Clear SW + caches best-effort then reload
+          try{
+            if('serviceWorker' in navigator && navigator.serviceWorker.getRegistrations){
+              navigator.serviceWorker.getRegistrations().then(regs=>Promise.all(regs.map(r=>r.unregister()))).catch(()=>{});
+            }
+            if('caches' in window && caches.keys){
+              caches.keys().then(keys=>Promise.all(keys.map(k=>caches.delete(k)))).catch(()=>{});
+            }
+          }catch(e){}
+  
+        setTimeout(()=>location.reload(), 250);
+        });
+
+        // --- CTA Smoke Check (popup-based; iframe blocked by security headers) ---
+        const smokeRunBtn = $('opsSmokeRun');
+        const smokeStopBtn = $('opsSmokeStop');
+        const smokeBody = $('opsSmokeBody');
+        const smokeJson = $('opsSmokeJson');
+        const smokeStatus = $('opsSmokeStatus');
+
+        const smoke = { running:false, stop:false, idx:0, queue:[], results:[], rows:{}, win:null, timer:null, pendingToken:'', pendingPath:'' };
+
+        function smokeSetStatus(text, isErr){
+          if(!smokeStatus) return;
+          smokeStatus.textContent = text || '';
+          smokeStatus.className = 'opsMsg' + (isErr ? ' opsErr' : '');
+        }
+
+        function smokeRow(token, path){
+          if(!smokeBody) return;
+          smoke.rows[token] = true;
+          const tr = document.createElement('tr');
+          tr.id = 'smk_' + token;
+          tr.innerHTML = `
+            <td><code>${esc(path)}</code></td>
+            <td data-k="st">…</td>
+            <td data-k="er">0</td>
+            <td data-k="cta">-</td>
+            <td data-k="md">-</td>
+            <td data-k="nt">-</td>
+          `;
+          smokeBody.appendChild(tr);
+        }
+
+        function smokeUpdate(token, patch){
+          const tr = document.getElementById('smk_' + token);
+          if(!tr) return;
+          const set = (k, v)=>{
+            const td = tr.querySelector('[data-k="'+k+'"]');
+            if(td) td.textContent = v;
+          };
+          if(patch.st != null) set('st', patch.st);
+          if(patch.er != null) set('er', patch.er);
+          if(patch.cta != null) set('cta', patch.cta);
+          if(patch.md != null) set('md', patch.md);
+          if(patch.nt != null) set('nt', patch.nt);
+        }
+
+        function smokeEnsureWin(){
+          try{
+            if(smoke.win && !smoke.win.closed) return smoke.win;
+          }catch(e){}
+          try{
+            smoke.win = window.open('about:blank', '88stSmokeCheck', 'popup,width=420,height=760');
+            return smoke.win;
+          }catch(e){
+            return null;
+          }
+        }
+
+        function smokeToken(){
+          return 't' + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+        }
+
+        function smokeNext(){
+          if(!smoke.running) return;
+          if(smoke.stop || smoke.idx >= smoke.queue.length){
+            smokeFinish();
+            return;
+          }
+
+          const path = smoke.queue[smoke.idx];
+          smoke.idx++;
+
+          const token = smokeToken();
+          smoke.pendingToken = token;
+          smoke.pendingPath = path;
+
+          smokeRow(token, path);
+          smokeUpdate(token, { st: 'LOADING', nt: '' });
+
+          const w = smokeEnsureWin();
+          if(!w){
+            smokeUpdate(token, { st:'POPUP BLOCKED', nt:'브라우저 팝업 차단 해제 필요' });
+            smokeSetStatus('팝업이 차단되었습니다. 88st.cloud 팝업 허용 후 다시 실행하세요.', true);
+            smokeFinish(true);
+            return;
+          }
+
+          smokeSetStatus(`진행: ${smoke.idx}/${smoke.queue.length}  ${path}`, false);
+
+          const url = path + (path.indexOf('?')>=0 ? '&' : '?')
+            + 'smoke=1'
+            + '&smoke_token=' + encodeURIComponent(token)
+            + '&smoke_origin=' + encodeURIComponent(location.origin)
+            + '&t=' + Date.now();
+
+          try{ w.location.href = url; }catch(e){}
+
+          try{ clearTimeout(smoke.timer); }catch(e){}
+          smoke.timer = setTimeout(()=>{
+            smokeUpdate(token, { st:'TIMEOUT', nt:'응답 시간 초과(9s)' });
+            smoke.results.push({ token, path, ok:false, timeout:true });
+            if(smokeJson) smokeJson.value = JSON.stringify(smoke.results, null, 2);
+            try{ if(smoke.win && !smoke.win.closed) smoke.win.location.replace('about:blank'); }catch(e){}
+            smokeNext();
+          }, 9000);
+        }
+
+        function smokeFinish(isErr){
+          smoke.running = false;
+          smoke.stop = false;
+          try{ clearTimeout(smoke.timer); }catch(e){}
+          if(smokeRunBtn) smokeRunBtn.disabled = false;
+          if(smokeStopBtn) smokeStopBtn.disabled = true;
+
+          const fails = smoke.results.filter(r=>r && r.ok === false).length;
+          const total = smoke.results.length || 0;
+          smokeSetStatus(isErr ? '중단됨' : (`완료: ${total}개 중 실패 ${fails}개`), !!(isErr || fails));
+
+          try{
+            if(smoke.win && !smoke.win.closed){
+              // close after a short delay (optional)
+              setTimeout(()=>{ try{ smoke.win.close(); }catch(e){} }, 250);
+            }
+          }catch(e){}
+        }
+
+        function smokeStart(){
+          if(smoke.running) return;
+
+          smoke.running = true;
+          smoke.stop = false;
+          smoke.idx = 0;
+          smoke.results = [];
+          smoke.rows = {};
+          smoke.pendingToken = '';
+          smoke.pendingPath = '';
+          if(smokeBody) smokeBody.innerHTML = '';
+          if(smokeJson) smokeJson.value = '';
+
+          if(smokeRunBtn) smokeRunBtn.disabled = true;
+          if(smokeStopBtn) smokeStopBtn.disabled = false;
+
+          // Use quick links as smoke targets (dedupe)
+          smoke.queue = (linkItems || []).map(x=>x.path).filter(p=>!!p && p !== '/ops/' && p !== '/ops');
+          smoke.queue = smoke.queue.filter((p, i, a)=>a.indexOf(p) === i);
+
+          smokeSetStatus('점검 시작… (팝업 창을 닫지 마세요)', false);
+
+          const w = smokeEnsureWin();
+          if(!w){
+            smokeSetStatus('팝업이 차단되었습니다. 88st.cloud 팝업 허용 후 다시 실행하세요.', true);
+            smokeFinish(true);
+            return;
+          }
+
+          smokeNext();
+        }
+
+        function smokeStopNow(){
+          smoke.stop = true;
+          smokeSetStatus('중지 요청됨…', true);
+        }
+
+        // One-time listener
+        if(!window.__OPS_SMOKE_LISTENER){
+          window.__OPS_SMOKE_LISTENER = 1;
+          window.addEventListener('message', (e)=>{
+            try{
+              if(e.origin !== location.origin) return;
+              const d = e.data || {};
+              if(!d.__88st_smoke) return;
+
+              const token = (d.token || '') + '';
+              if(!token) return;
+
+              // boot phase
+              if(d.phase === 'boot'){
+                if(smoke.rows[token]) smokeUpdate(token, { st:'BOOT' });
+                return;
+              }
+
+              // final report
+              if(!d.state || typeof d.ok !== 'boolean') return;
+
+              if(token !== smoke.pendingToken){
+                // ignore unexpected token (stale)
+              }
+
+              try{ clearTimeout(smoke.timer); }catch(e2){}
+
+              const st = d.state || {};
+              const chk = st.checks || {};
+              const errCount = (st.errors ? st.errors.length : 0) + (st.rejections ? st.rejections.length : 0);
+
+              const cta = (chk.cta_clickable != null && chk.cta_total != null) ? `${chk.cta_clickable}/${chk.cta_total}` : '-';
+              const md = (st.path && st.path.indexOf('/cert')===0) ? (chk.cert_modal_opens ? 'OK' : (chk.cert_modal_exists ? 'FAIL' : 'N/A')) : 'N/A';
+
+              const noteParts = [];
+              if(!chk.track) noteParts.push('track 미검출');
+              if(errCount) noteParts.push('JS 에러');
+              if((chk.cta_total || 0) > 0 && (chk.cta_clickable || 0) === 0) noteParts.push('CTA 클릭 불가');
+              if(st.path && st.path.indexOf('/cert')===0 && chk.cert_modal_exists && !chk.cert_modal_opens) noteParts.push('인증 모달 불가');
+
+              smokeUpdate(token, {
+                st: d.ok ? 'PASS' : 'FAIL',
+                er: String(errCount),
+                cta: cta,
+                md: md,
+                nt: noteParts.join(' · ') || ''
+              });
+
+              smoke.results.push({ token, path: st.path, ok: !!d.ok, state: st });
+              if(smokeJson) smokeJson.value = JSON.stringify(smoke.results, null, 2);
+
+              // Unload popup ASAP to avoid slow-script warnings during batch checks.
+              try{ if(smoke.win && !smoke.win.closed) smoke.win.location.replace('about:blank'); }catch(e3){}
+
+              setTimeout(smokeNext, 180);
+            }catch(err){
+              // ignore
+            }
+          });
+        }
+
+        if(smokeRunBtn) smokeRunBtn.addEventListener('click', smokeStart);
+        if(smokeStopBtn) smokeStopBtn.addEventListener('click', smokeStopNow);
+
+      }
+
+      // Boot
+      enter.addEventListener('click', handleEnter);
+      pw.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); handleEnter(); } });
+
+      // If locked, show countdown hint
+      if(isLocked()){
+        const s = Math.ceil(lockLeftMs()/1000);
+        setMsg('잠금 상태입니다 ('+s+'s)', true);
+      }
+
+      // restore session
+      try{
+        if(sessionStorage.getItem(AUTH_KEY) === '1'){
+          showConsole();
+        }
+      }catch(e){}
+    })();
+  </script>
+</body>
+</html>

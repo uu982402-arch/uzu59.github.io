@@ -4,6 +4,7 @@ PRAGMA foreign_keys = ON;
 
 CREATE TABLE IF NOT EXISTS posts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
+  board TEXT NOT NULL DEFAULT 'free',
   title TEXT NOT NULL,
   body TEXT NOT NULL,
   author_name TEXT NOT NULL,
@@ -27,5 +28,6 @@ CREATE TABLE IF NOT EXISTS comments (
 );
 
 CREATE INDEX IF NOT EXISTS idx_posts_created ON posts(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_posts_board_created ON posts(board, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_posts_status ON posts(status, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_comments_post ON comments(post_id, created_at DESC);

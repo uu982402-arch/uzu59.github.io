@@ -1,6 +1,5 @@
 https://88st.cloud/
 https://88st.cloud/analysis/
-https://88st.cloud/community/
 https://88st.cloud/bonus-checklist/
 https://88st.cloud/casino/
 https://88st.cloud/cert/
@@ -26,3 +25,6 @@ https://88st.cloud/tool/overround/
 https://88st.cloud/fortune/
 https://88st.cloud/calc/
 https://88st.cloud/guide/
+https://88st.cloud/logbook/
+https://88st.cloud/cert/vegas/
+https://88st.cloud/cert/777/
