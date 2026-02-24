@@ -1,0 +1,9 @@
+{
+  "enabled": false,
+  "mode": "merge",
+  "rules": [],
+  "meta": {
+    "updatedAt": "2026-02-23T17:00:47+09:00",
+    "note": "Deployment DOM patch rules for 88ST. Edit carefully."
+  }
+}

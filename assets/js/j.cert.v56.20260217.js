@@ -7,13 +7,57 @@
 (() => {
   'use strict';
 
-  const CARDS = {
-    card1: { title: 'VEGAS', code: '6789', link: 'https://las403.com', telegram: 'UZU59',
+  let CARDS = {
+        card1: { title: 'VEGAS', code: '6789', link: 'https://las403.com', telegram: 'UZU59', landing: '/cert/vegas/', hero: '/img/landing/vegas-landing.webp',
       benefit: '스포츠·고액전용 입플 최대 30% 페이백 / 카지노 입플',
       notice: '가입코드 미입력 시 혜택 적용 불가' },
-card3: { title: '777 Bet', code: '6767', link: 'https://82clf.com/?code=6767', telegram: 'UZU59',
+    card3: { title: '777 Bet', code: '6767', link: 'https://82clf.com/?code=6767', telegram: 'UZU59', landing: '/cert/777/', hero: '/img/landing/777-landing.webp',
       benefit: '가입코드 6767 전용 혜택 / 스포츠·카지노 이용 가능',
       notice: '가입코드 미입력 시 혜택 적용 불가' },
+  };
+
+  const CERT_CFG_URL = '/assets/config/cert.landing.json';
+  let __certCfg = null;
+  let __certTelegram = 'https://t.me/UZU59';
+
+  const applyCertCfg = (cfg) => {
+    try {
+      if (!cfg || cfg.enabled === false) return;
+      if (cfg.telegram) __certTelegram = String(cfg.telegram);
+      const vendors = cfg.vendors || {};
+      Object.keys(vendors).forEach((k) => {
+        const v = vendors[k] || {};
+        const id = v.id;
+        if (!id) return;
+        if (!CARDS[id]) CARDS[id] = {};
+        CARDS[id] = {
+          ...CARDS[id],
+          title: v.title ?? CARDS[id].title,
+          code: (v.code ?? CARDS[id].code ?? '') + '',
+          link: v.join_url ?? CARDS[id].link,
+          landing: v.landing_path ?? CARDS[id].landing,
+          hero: v.hero_image ?? CARDS[id].hero,
+          thumb: v.thumb_image ?? CARDS[id].thumb,
+          benefit: v.benefit ?? CARDS[id].benefit,
+          notice: v.notice ?? CARDS[id].notice,
+          telegram_url: v.telegram_url ?? __certTelegram,
+        };
+      });
+      try { window.__CERT_TELEGRAM = __certTelegram; } catch {}
+    } catch { /* ignore */ }
+  };
+
+  const loadCertCfg = async () => {
+    try {
+      const ac = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+      const t = ac ? setTimeout(() => { try { ac.abort(); } catch {} }, 2200) : null;
+      const res = await fetch(CERT_CFG_URL, { cache: 'no-store', signal: ac ? ac.signal : undefined });
+      if (t) clearTimeout(t);
+      if (!res || !res.ok) return;
+      const cfg = await res.json();
+      __certCfg = cfg;
+      applyCertCfg(cfg);
+    } catch { /* ignore */ }
   };
 
   const TOP_IDS = ['card1','card3'];
@@ -29,6 +73,10 @@ card3: { title: '777 Bet', code: '6767', link: 'https://82clf.com/?code=6767', t
   let currentCardId = '';
   let currentCode = '';
   let lastActive = null;
+
+  // Safety: prevent duplicate / re-entrant opens (Safari + slow devices)
+  let opening = false;
+  let lastOpenAt = 0;
 
   const $ = (id) => document.getElementById(id);
 
@@ -85,22 +133,46 @@ card3: { title: '777 Bet', code: '6767', link: 'https://82clf.com/?code=6767', t
     // v88: checklist removed
     try { setLinkEnabled(true); } catch { /* ignore */ }
   };
+const certThumbSvgDataUri = (rawId) => {
+    const n = Number(String(rawId).replace('card', '')) || 0;
+    const hue = (n * 37) % 360;
+    const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="hsl(${hue} 80% 45%)"/>
+      <stop offset="1" stop-color="hsl(${(hue+40)%360} 80% 30%)"/>
+    </linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <g filter="url(#s)">
+    <rect x="90" y="90" width="1020" height="450" rx="28" fill="rgba(0,0,0,0.28)"/>
+    <text x="140" y="210" font-family="Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="46" fill="#fff" opacity="0.95">88ST 인증사이트</text>
+    <text x="140" y="278" font-family="Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="28" fill="#fff" opacity="0.90">이미지 경로 오류 방지용 썸네일</text>
+    <text x="140" y="430" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="34" fill="#fff" opacity="0.95">ID #${n}</text>
+  </g>
+</svg>`;
+    return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+  };
+
 const cardSourcesById = (id) => {
-    const n = String(id).replace('card', '');
-    const gifMap = {};
-    const arr = gifMap[id];
-    const specialMap = {
-      card3: { webp: '/img/img2.webp', jpg: '/img/img2.webp' },
+    // 인증업체 카드 썸네일 경로:
+    // - config의 thumb_image가 있으면 그걸 우선 사용
+    // - 없으면 card1/img1.webp, card3/img2.webp 기본값 사용
+    const fallback = {
+      card1: '/img/img1.jpg',
+      card3: '/img/img2.jpg',
     };
-    if (specialMap[id]) {
-      return { gif: Array.isArray(arr) ? (arr[0] || '') : (arr || ''), gif2: Array.isArray(arr) ? (arr[1] || '') : '', webp: specialMap[id].webp, jpg: specialMap[id].jpg };
-    }
-    return {
-      gif: Array.isArray(arr) ? (arr[0] || '') : (arr || ''),
-      gif2: Array.isArray(arr) ? (arr[1] || '') : '',
-      webp: `/img/img${n}.webp`,
-      jpg: `/img/img${n}.jpg`,
-    };
+    const c = (CARDS && CARDS[id]) ? CARDS[id] : {};
+    const base = (c && c.thumb) ? String(c.thumb) : (fallback[id] || '/img/logo.png');
+    const webp = base;
+    // iOS/저사양 브라우저에서 webp 디코딩/로딩 문제가 있을 수 있어 jpg를 1차 대체로 제공
+    const jpg = (String(base).endsWith('.webp')) ? String(base).replace(/\.webp$/i, '.jpg') : String(base);
+    // 만약 jpg도 실패하면 최종적으로 SVG 썸네일(data URI)로 폴백
+    return { gif: '', gif2: '', webp, jpg: jpg || certThumbSvgDataUri(id) };
   };
 
   const appendUtmSafe = (url) => {
@@ -109,13 +181,22 @@ const cardSourcesById = (id) => {
   };
 
   const shareLinkFor = (id) => {
+    const c = CARDS[id] || {};
+    const destPath = c.landing || '/cert/';
     try {
-      const u = new URL(window.location.href);
-      u.pathname = '/cert/';
-      u.search = `?v=${encodeURIComponent(id)}`;
-      return u.toString();
+      const src = new URL(window.location.href);
+      // Build a clean share url while preserving only utm/ref params (if present)
+      const keep = new URLSearchParams();
+      const sp = new URLSearchParams(src.search);
+      for (const [k,v] of sp.entries()) {
+        if (k.startsWith('utm_') || k === 'ref') keep.set(k, v);
+      }
+      src.pathname = destPath;
+      src.search = keep.toString() ? `?${keep.toString()}` : '';
+      src.hash = '';
+      return src.toString();
     } catch {
-      return `/cert/?v=${encodeURIComponent(id)}`;
+      return destPath;
     }
   };
 
@@ -150,16 +231,44 @@ const cardSourcesById = (id) => {
   const bindCardClicks = () => {
     const grid = $('vendorGrid');
     if (!grid) return;
-    grid.querySelectorAll('.card[data-card]').forEach((el) => {
-      const open = () => openCard(el.getAttribute('data-card'));
-      el.onclick = open;
-      el.onkeydown = (ev) => {
+
+    // Delegated handler (more robust across re-renders + mobile Safari)
+    if (!grid.__bound) {
+      grid.__bound = true;
+
+      const pick = (ev) => {
+        const t = ev.target;
+        const el = t && t.closest ? t.closest('.card[data-card]') : null;
+        if (!el) return null;
+        return el.getAttribute('data-card');
+      };
+
+      grid.addEventListener('click', (ev) => {
+        const id = pick(ev);
+        if (!id) return;
+        ev.preventDefault();
+        ev.stopPropagation();
+        openCard(id);
+      }, true);
+
+      grid.addEventListener('pointerup', (ev) => {
+        const id = pick(ev);
+        if (!id) return;
+        ev.preventDefault();
+        ev.stopPropagation();
+        openCard(id);
+      }, true);
+
+      grid.addEventListener('keydown', (ev) => {
+        const t = ev.target;
+        const el = t && t.closest ? t.closest('.card[data-card]') : null;
+        if (!el) return;
         if (ev.key === 'Enter' || ev.key === ' ') {
           ev.preventDefault();
-          open();
+          openCard(el.getAttribute('data-card'));
         }
-      };
-    });
+      });
+    }
   };
 
   const renderGrid = () => {
@@ -237,6 +346,17 @@ const cardSourcesById = (id) => {
     const c = CARDS[id];
     if (!c) return;
 
+    const now = Date.now();
+    if (opening) return;
+    // Ignore rapid double-fire (some browsers dispatch multiple clicks)
+    if (now - lastOpenAt < 450 && currentCardId === id) return;
+    opening = true;
+    lastOpenAt = now;
+
+    // Defer heavy DOM work to next frame to avoid main-thread stalls
+    requestAnimationFrame(() => {
+      try {
+
     currentCardId = id;
     currentCode = c.code || '';
 
@@ -266,6 +386,38 @@ const cardSourcesById = (id) => {
 
     setPopupText();
 
+    // 1-sec pre-landing (hero image + dedicated landing URL)
+    const landingPath = c.landing || shareLinkFor(id);
+    const landingUrl = (() => {
+      try {
+        const u = new URL(window.location.href);
+        u.pathname = landingPath;
+        // keep only utm/ref params
+        const keep = new URLSearchParams();
+        const sp = new URLSearchParams(u.search);
+        for (const [k,v] of sp.entries()) { if (k.startsWith('utm_') || k === 'ref') keep.set(k, v); }
+        u.search = keep.toString() ? `?${keep.toString()}` : '';
+        u.hash = '';
+        return u.toString();
+      } catch { return landingPath; }
+    })();
+
+    const heroLink = $('pLandingHeroLink');
+    const heroImg = $('pHero');
+    const landingBtn = $('pLanding');
+
+    if (heroLink) heroLink.href = landingUrl;
+    if (landingBtn) landingBtn.href = landingUrl;
+
+    if (heroImg && c.hero) {
+      heroImg.src = c.hero;
+      try { heroImg.style.display = 'block'; } catch { /* ignore */ }
+      try { if (heroLink) heroLink.style.display = 'block'; } catch { /* ignore */ }
+    } else {
+      try { if (heroImg) heroImg.src = ''; } catch { /* ignore */ }
+      try { if (heroLink) heroLink.style.display = 'none'; } catch { /* ignore */ }
+    }
+
     const linkEl = $('pLink');
     if (linkEl) linkEl.href = c.link ? appendUtmSafe(c.link) : '#';
 
@@ -274,13 +426,14 @@ const cardSourcesById = (id) => {
 
     const tgEl = $('pTelegram');
     if (tgEl) {
-      tgEl.href = 'https://t.me/UZU59';
+      const tg = (c.telegram_url || __certTelegram || window.__CERT_TELEGRAM || 'https://t.me/UZU59');
+      tgEl.href = tg;
       tgEl.innerText = '문의 (텔레그램)';
     }
 
     // Recent + fav
     try {
-      if (window.__88stAddRecentVendor) window.__88stAddRecentVendor({ id, title: c.title || id, href: `/cert/?v=${encodeURIComponent(id)}` });
+      if (window.__88stAddRecentVendor) window.__88stAddRecentVendor({ id, title: c.title || id, href: (c.landing || `/cert/?v=${encodeURIComponent(id)}`) });
       if (window.__88stRefreshUserMenu) window.__88stRefreshUserMenu();
     } catch { /* ignore */ }
 
@@ -295,10 +448,19 @@ const cardSourcesById = (id) => {
 
     const popup = $('cardPopup');
     if (popup) {
+      try {
+      popup.style.setProperty('display','flex','important');
+      popup.style.setProperty('position','fixed','important');
+      popup.style.setProperty('inset','0','important');
+      popup.style.setProperty('z-index','99999','important');
+      popup.style.setProperty('pointer-events','auto','important');
+    } catch (e) {
       popup.style.display = 'flex';
       popup.style.position = 'fixed';
       popup.style.inset = '0';
       popup.style.zIndex = '99999';
+      popup.style.pointerEvents = 'auto';
+    }
       popup.classList.add('open');
       popup.setAttribute('aria-hidden', 'false');
       try {
@@ -311,6 +473,11 @@ const cardSourcesById = (id) => {
     if (closeBtn) {
       try { closeBtn.focus({ preventScroll: true }); } catch { try { closeBtn.focus(); } catch { /* ignore */ } }
     }
+      } finally {
+        opening = false;
+      }
+    });
+
   };
 
   const closeCard = () => {
@@ -318,7 +485,12 @@ const cardSourcesById = (id) => {
     if (popup) {
       popup.classList.remove('open');
       popup.setAttribute('aria-hidden', 'true');
-      try { popup.style.display = ''; } catch { /* ignore */ }
+      try {
+      popup.style.setProperty('display','none','important');
+      popup.style.setProperty('pointer-events','none','important');
+    } catch (e) {
+      try { popup.style.display = 'none'; popup.style.pointerEvents = 'none'; } catch (e2) { /* ignore */ }
+    }
     }
 
     try {
@@ -378,8 +550,9 @@ const cardSourcesById = (id) => {
     await copyText(url, '링크가 복사되었습니다');
   };
 
-  const init = () => {
+  const init = async () => {
     try { if (typeof window.saveUtmFromUrl === 'function') window.saveUtmFromUrl(); } catch { /* ignore */ }
+    await loadCertCfg();
 
     // Controls
     const filterSel = $('filterSelect');

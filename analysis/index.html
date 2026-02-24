@@ -38,12 +38,12 @@
   ]
 }
 </script>
-<script defer="" src="/assets/js/j.9179477b9417.js"></script>
 <link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
 <link href="/assets/c.0b3d8a45f8c9.css" rel="stylesheet"/>
 <script defer="" src="/assets/js/j.efba3509e62c.js"></script>
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
-<script defer="" src="/assets/js/j.8829a3ccde44.js?v=85"></script>
+<link href="/assets/css/popup.event.v1.css?v=v20260224-1845" rel="stylesheet"/>
+
 <meta content="스포츠 배당 분석기(오버라운드·공정배당·마진) | 88ST" property="og:title"/><meta content="축구·농구·야구·배구·e스포츠·하키 배당으로 공정확률/공정배당, 오버라운드(마진), 라인(OU/핸디) 마진까지 한 번에 계산하는 스포츠 배당 분석기." property="og:description"/><meta content="website" property="og:type"/><meta content="https://88st.cloud/analysis/" property="og:url"/><meta content="/img/logo.png" property="og:image"/><style>
 /* --- OddsPortal-style odds compare (local paste) --- */
 #bookCompareBox .paste-ta{min-height:120px}
@@ -224,8 +224,57 @@
 <link href="/assets/vvip-pro.v71.css?v=71" rel="stylesheet"/>
 <script defer="" src="/assets/js/vvip-pro.v71.js?v=71"></script>
 <script defer="" src="/assets/js/vvip-brief.v71.js?v=71"></script>
-<link href="/assets/css/vvip-luxe.v75.css?v=77" rel="stylesheet"/><script defer="" src="/assets/js/vvip-global.v75.js?v=77"></script>
-<link rel="stylesheet" href="/assets/css/patch.v94.productui.20260219.min.css"/>
+<script defer="" src="/assets/js/build.ver.js?v=v20260224-1845"></script>
+<script defer="" src="/assets/js/build.loader.js?v=v20260224-1845"></script>
+<script defer src="/assets/js/popup.event.v1.js?v=v20260224-1845"></script>
+
+<style>
+/* v113+ /analysis → Logbook quick-save modal */
+.lb-modal{position:fixed; inset:0; z-index:6400; display:none;}
+.lb-modal.open{display:block;}
+.lb-backdrop{position:absolute; inset:0; background:rgba(0,0,0,.62);}
+.lb-panel{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(720px, calc(100vw - 24px));
+  max-height:calc(100vh - 24px);
+  overflow:auto;
+  border-radius:22px;
+  border:1px solid rgba(0,0,0,.10);
+  background:rgba(255,255,255,.92);
+  box-shadow:0 22px 70px rgba(0,0,0,.28);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding:14px;
+}
+.lb-head{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+.lb-head .t{font-weight:1000; font-size:16px;}
+.lb-body{margin-top:10px;}
+.lb-chips{display:grid; gap:10px; grid-template-columns:repeat(3, minmax(0,1fr)); margin-top:10px;}
+@media(max-width:720px){.lb-chips{grid-template-columns:repeat(2, minmax(0,1fr));}}
+.lb-chip{display:flex; flex-direction:column; gap:6px; align-items:flex-start; justify-content:center;
+  padding:12px 12px; border-radius:18px; border:1px solid rgba(0,0,0,.10);
+  background:rgba(0,0,0,.03);
+  cursor:pointer; font-weight:950;
+}
+.lb-chip:hover{filter:brightness(1.02); border-color: rgba(0,0,0,.16);} 
+.lb-chip.is-on{border-color: rgba(37,99,235,.35); background: rgba(37,99,235,.08);} 
+.lb-chip .k{font-size:12px; opacity:.75; font-weight:900;}
+.lb-chip .v{font-size:16px; font-variant-numeric:tabular-nums;}
+.lb-row{display:grid; gap:10px; grid-template-columns: 1.2fr .8fr; margin-top:10px;}
+@media(max-width:560px){
+  .lb-panel{left:50%; top:auto; bottom:12px; transform:translateX(-50%);}
+  .lb-row{grid-template-columns:1fr;}
+}
+/* toast */
+#lbToast{position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+  z-index:6500; padding:10px 12px; border-radius:999px;
+  border:1px solid rgba(0,0,0,.10);
+  background:rgba(255,255,255,.85);
+  box-shadow:0 16px 46px rgba(0,0,0,.22);
+  font-weight:950; font-size:13px; display:none;}
+#lbToast.show{display:block;}
+</style>
+
+<link rel="stylesheet" href="/assets/css/hdr.shell.v1.20260221.css?v=119"/>
 </head>
 <body>
 <div aria-label="사칭 주의 안내" class="scam-popup" id="scamPopup" role="region">
@@ -252,11 +301,87 @@
 <div class="ad-close" data-d8593ac4d="GF0gf-ppHzTB" style="margin-top:10px;text-align:center;">닫기</div>
 </div>
 </div>
-<div class="header">
-<a aria-label="홈으로 이동" class="logo-link" href="/">
-<img alt="88 커뮤니티" class="logo-img logoImg" src="/img/logo.png"/>
-</a>
-<div class="sub">스포츠 배당 분석기 PRO (공정확률·공정배당·마진 · 판단 보조용)</div>
+<div id="_88stShellHeader" class="header header--shell" role="banner">
+  <div class="hdrShell">
+    <a class="hdrBrand" href="/" aria-label="홈으로 이동">
+      <img class="hdrLogo" src="/img/logo.png" alt="88ST" />
+      <span class="hdrName">88ST.Cloud</span>
+    </a>
+
+    <nav class="hdrNavDesktop" aria-label="주요 메뉴">
+      <a class="hdrLink" href="/cert/">인증사이트</a>
+      <a class="hdrLink" href="/">홈</a>
+
+      <details class="hdrDD">
+        <summary class="hdrSummary">분석기</summary>
+        <div class="hdrMenu" role="menu">
+          <a href="/analysis/">스포츠 배당 분석기</a>
+          <a href="/tool-slot/">슬롯 RTP 분석기</a>
+          <a href="/tool-minigame/">미니게임 분석기</a>
+        </div>
+      </details>
+
+      <details class="hdrDD">
+        <summary class="hdrSummary">계산기</summary>
+        <div class="hdrMenu" role="menu">
+          <a href="/tool-margin/">마진 계산기</a>
+          <a href="/tool-ev/">EV 계산기</a>
+          <a href="/tool-odds/">배당↔확률 변환</a>
+          <a href="/tool-casino/">바카라 전략 계산기</a>
+          <a href="/logbook/">베팅 로그북</a>
+          <a href="/calc/">계산기 홈</a>
+        </div>
+      </details>
+
+      <details class="hdrDD">
+        <summary class="hdrSummary">가이드</summary>
+        <div class="hdrMenu" role="menu">
+          <a href="/guide/">가이드 홈</a>
+          <a href="/bonus-checklist/">배팅 전 체크리스트</a>
+        </div>
+      </details>
+    </nav>
+
+    <details class="hdrNavMobile">
+      <summary class="hdrBurger" aria-label="메뉴 열기">≡</summary>
+      <div class="hdrMobileMenu" role="menu">
+        <a href="/cert/">인증사이트</a>
+        <a href="/">홈</a>
+
+        <div class="hdrMobileGroup">
+          <details>
+            <summary>분석기</summary>
+            <div class="hdrMenu">
+              <a href="/analysis/">스포츠 배당 분석기</a>
+              <a href="/tool-slot/">슬롯 RTP 분석기</a>
+              <a href="/tool-minigame/">미니게임 분석기</a>
+            </div>
+          </details>
+
+          <details>
+            <summary>계산기</summary>
+            <div class="hdrMenu">
+              <a href="/tool-margin/">마진 계산기</a>
+              <a href="/tool-ev/">EV 계산기</a>
+              <a href="/tool-odds/">배당↔확률 변환</a>
+              <a href="/tool-casino/">바카라 전략 계산기</a>
+              <a href="/logbook/">베팅 로그북</a>
+              <a href="/calc/">계산기 홈</a>
+            </div>
+          </details>
+
+          <details>
+            <summary>가이드</summary>
+            <div class="hdrMenu">
+              <a href="/guide/">가이드 홈</a>
+              <a href="/bonus-checklist/">배팅 전 체크리스트</a>
+            </div>
+          </details>
+        </div>
+      </div>
+    </details>
+  </div>
+</div>
 </div>
 <div class="wrap">
 <section class="pro-card" id="proHero">
@@ -382,6 +507,10 @@
 </div>
 </div>
 </div>
+
+<!-- PRO SUITE (v110+) : additional premium tools (collapsible) -->
+<div class="pro-divider"></div>
+<div id="psSportsSuite" data-prosuite="sports"></div>
 </details>
 </div>
 </section>
@@ -433,12 +562,99 @@
 <div class="pro-kicker" style="margin-bottom:6px">REFERENCE</div>
 <div style="font-weight:900;font-size:16px">요약 · 참고</div>
 </div>
-<button class="pro-btn ghost" id="btnCopySummary" type="button">요약 복사</button>
+<div class="pro-inline" style="gap:10px;justify-content:flex-end">
+  <button class="pro-btn secondary" id="btnSaveToLogbook" type="button">로그북 저장</button>
+  <button class="pro-btn ghost" id="btnCopySummary" type="button">요약 복사</button>
+</div>
 </div>
 <div class="pro-miniout" id="summaryOut" style="margin-top:10px"></div>
 <div class="pro-note" id="noteVol" style="margin-top:10px">
         ※ 가상/스포츠 공통: 정배가 높아도 역배는 충분히 나옵니다. 확률은 “장기 빈도”이고, 단기에는 변동성이 큽니다.
       </div>
+
+<!-- Logbook Summary (local) -->
+<details class="pro-opts" id="lbSummary" style="margin-top:12px">
+  <summary>
+    <div class="sum-left">📒 로그북 요약</div>
+    <div class="sum-badge">접기/펼치기</div>
+  </summary>
+  <div class="pro-opts-body">
+    <div class="pro-inline" style="justify-content:space-between;align-items:center">
+      <div class="pro-inline" style="gap:8px;align-items:center">
+        <span class="pro-badge" id="lbBadge">이번주 —</span>
+        <span class="pro-note" style="margin:0">/logbook/ 기록 기반 (로컬 저장)</span>
+      </div>
+      <div class="pro-inline">
+        <button class="pro-btn secondary" id="btnLbRefresh" type="button">새로고침</button>
+        <button class="pro-btn primary" id="btnOpenLogbook" type="button">로그북 열기</button>
+      </div>
+    </div>
+
+    <div class="pro-divider"></div>
+
+    <div class="pro-kv">
+      <div class="pro-kvi"><div class="k">주간 ROI</div><div class="v" id="lbWroi">—</div><div class="s" id="lbWnote">—</div></div>
+      <div class="pro-kvi"><div class="k">월간 ROI</div><div class="v" id="lbMroi">—</div><div class="s" id="lbMnote">—</div></div>
+      <div class="pro-kvi"><div class="k">전체 기록</div><div class="v" id="lbCnt">—</div><div class="s">누적 기준</div></div>
+    </div>
+
+    <div class="pro-divider"></div>
+
+    <div class="pro-inline" style="justify-content:space-between;align-items:center">
+      <div>
+        <div class="pro-kicker" style="margin-bottom:6px">RECENT 5</div>
+        <div style="font-weight:900;font-size:16px">최근 기록</div>
+      </div>
+      <div class="pro-inline" style="gap:10px">
+        <div class="pro-kicker" style="margin:0">MDD</div>
+        <div style="font-weight:900;font-variant-numeric:tabular-nums" id="lbMdd">—</div>
+      </div>
+    </div>
+    <div class="pro-scanlist" id="lbRecent" style="margin-top:10px"></div>
+
+    <div class="pro-note" style="margin-top:10px">TIP) 로그북은 서버로 전송하지 않습니다. 기기 변경 전에는 /logbook/에서 JSON 백업을 권장합니다.</div>
+  </div>
+</details>
+
+<!-- Quick save to Logbook modal -->
+<div class="lb-modal" id="lbSaveModal" aria-hidden="true">
+  <div class="lb-backdrop" data-close="1"></div>
+  <div class="lb-panel" role="dialog" aria-modal="true" aria-label="로그북 저장">
+    <div class="lb-head">
+      <div class="t">📒 로그북 저장</div>
+      <button class="pro-btn ghost" type="button" data-close="1">닫기</button>
+    </div>
+    <div class="lb-body">
+      <div class="pro-note">현재 입력값에서 <b>선택(칩)</b>만 고르면 됩니다. (금액이 있으면 칩 클릭으로 즉시 저장)</div>
+      <div class="lb-chips" id="lbPick"></div>
+      <div class="lb-row">
+        <div class="pro-field">
+          <label for="lbStake">금액(원)</label>
+          <input id="lbStake" inputmode="numeric" placeholder="예: 50,000" />
+        </div>
+        <div class="pro-field">
+          <label for="lbRes">결과</label>
+          <select id="lbRes">
+            <option value="V" selected>미정(VOID)</option>
+            <option value="W">WIN</option>
+            <option value="L">LOSE</option>
+          </select>
+        </div>
+      </div>
+      <div class="pro-field" style="margin-top:10px">
+        <label for="lbNote">메모(선택)</label>
+        <input id="lbNote" placeholder="예: 라인 무브 체크 / 공정대비 유리" />
+      </div>
+      <div class="pro-actions" style="margin-top:10px">
+        <button class="pro-btn primary" id="lbSaveBtn" type="button">저장</button>
+        <button class="pro-btn ghost" type="button" data-close="1">취소</button>
+      </div>
+      <div class="pro-note" id="lbPreview" style="margin-top:8px;opacity:.85"></div>
+    </div>
+  </div>
+</div>
+<div id="lbToast" role="status" aria-live="polite"></div>
+
 </section>
 </div>
 <section class="pro-card" id="proScan" style="margin-top:14px;display:none">
@@ -454,12 +670,11 @@
 <div class="pro-scanlist" id="scanList"></div>
 </section>
 </div>
-<script defer="" src="/assets/js/j.9179477b9417.js"></script>
 <script defer="" src="/assets/js/j.efba3509e62c.js"></script>
-<script defer="" src="/assets/js/j.8829a3ccde44.js?v=85"></script>
-<script src="../assets/js/inline-bundles/b.e942e1c830.js"></script>
-<script defer="" src="/assets/js/j.025d649c8b11.js"></script>
+
+<script src="../assets/js/inline-bundles/b.e942e1c830.js?v=v20260221-1215"></script>
 <script defer="" src="/assets/js/inline-bundles/b.analysis.pro.v52.20260216.js"></script>
+<script defer="" src="/assets/js/inline-bundles/b.analysis.logbook.bridge.v2.20260221.js"></script>
 <script defer="" src="/assets/js/ai.brief.v68.js"></script>
 </body>
 </html>

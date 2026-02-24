@@ -355,19 +355,6 @@
     }catch(e){}
   }
 
-      });
-      clr.addEventListener('click', ()=>{ clearPersist(); try{ bar.remove(); }catch(e){} });
-
-      // Insert after hero if exists
-      const anchor = main.querySelector('.mg-hero, .st-land-hero, .st-hero, .tool-hero, .a-hero, .page-hero, section');
-      if(anchor && anchor.parentNode === main){
-        anchor.insertAdjacentElement('afterend', bar);
-      }else{
-        main.insertBefore(bar, main.firstChild);
-      }
-    }catch(e){}
-  }
-
   function bindPersistListeners(){
     try{
       if(!shouldEnablePersist()) return;
@@ -404,18 +391,247 @@
     }catch(e){}
   }
 
-  ready(()=>{
-    hardHideStyle();
-    cleanupBottomCtas();
-    watchBottomCtas();
-    trackRecent();
-    renderRecentHub();
+      // Community nav patch
+    function patchCommunityNav(){
+      try{
+        const anchors = document.querySelectorAll('a,button,summary');
+        anchors.forEach(el=>{
+          const t = (el.textContent||'').trim();
+          if(t === '커뮤니티'){
+            el.textContent = '홍보게시판';
+            if(el.tagName === 'A'){
+              el.setAttribute('href','/community/promo/');
+            }
+          }
+        });
 
-    // give shell a moment if it is injected async
-    setTimeout(()=>{ normalizeAccordions(); }, 250);
+        // Move guide menu to the far right (desktop header)
+        const nav = document.querySelector('.st-shell-nav');
+        if(nav){
+          const guideBtn = Array.from(nav.querySelectorAll('button, a')).find(x => ((x.textContent||'').trim()==='가이드'));
+          if(guideBtn){
+            const wrap = guideBtn.closest('.st-shell-dd') || guideBtn.closest('a') || guideBtn.parentElement;
+            if(wrap && wrap.parentElement === nav){
+              wrap.style.marginLeft = 'auto';
+              nav.appendChild(wrap);
+            }
+          }
+        }
+      }catch(e){}
+    }
 
-    // persist/restore
-    setTimeout(()=>{ mountRestoreBar(); }, 350);
-    setTimeout(()=>{ bindPersistListeners(); }, 600);
-  });
+    try{ patchCommunityNav(); }catch(e){}
+})();
+
+/* OPS console: optional global DOM patch rules (deploy + local override) */
+;(function(){
+  const LOCAL_KEY = 'vvip_ops_dom_patch_v1';
+  const DEPLOY_URL = '/assets/config/ops.dom.patch.json';
+  const BUILD_VER = (window.__BUILD_VER || '0') + '';
+  const REMOTE_CACHE_KEY = '__ops_deploy_patch_cache_v1';
+  const REMOTE_CACHE_TTL_MS = 60 * 1000; // 60s (fast ops iteration)
+
+  let remoteCfg = null;
+  let remoteTried = false;
+
+  function safeParse(s, fallback){
+    try{ return JSON.parse(s); }catch(_){ return fallback; }
+  }
+
+  function normalize(cfg){
+    if(!cfg || typeof cfg !== 'object') return null;
+    const out = {
+      enabled: cfg.enabled === true,
+      mode: String(cfg.mode || 'merge'),
+      rules: Array.isArray(cfg.rules) ? cfg.rules : []
+    };
+    // sanitize
+    out.rules = out.rules
+      .filter(r=>r && typeof r === 'object')
+      .map(r=>({
+        selector: String(r.selector || '').trim(),
+        type: String(r.type || '').trim(),
+        attr: String(r.attr || '').trim(),
+        value: (r.value == null) ? '' : String(r.value)
+      }))
+      .filter(r=>!!r.selector);
+    // safety caps
+    if(out.rules.length > 200) out.rules = out.rules.slice(0, 200);
+    return out;
+  }
+
+  function readLocal(){
+    try{
+      const raw = localStorage.getItem(LOCAL_KEY);
+      if(!raw) return null;
+      return normalize(safeParse(raw, null));
+    }catch(e){
+      return null;
+    }
+  }
+
+  function readRemoteCache(){
+    try{
+      const raw = sessionStorage.getItem(REMOTE_CACHE_KEY);
+      if(!raw) return null;
+      const wrap = safeParse(raw, null);
+      if(!wrap || typeof wrap !== 'object') return null;
+      const ts = Number(wrap.ts || 0);
+      if(!ts || (Date.now() - ts) > REMOTE_CACHE_TTL_MS) return null;
+      return normalize(wrap.cfg);
+    }catch(e){
+      return null;
+    }
+  }
+
+  function writeRemoteCache(cfg){
+    try{
+      sessionStorage.setItem(REMOTE_CACHE_KEY, JSON.stringify({ts: Date.now(), cfg}));
+    }catch(e){}
+  }
+
+  async function loadRemote(){
+    if(remoteTried) return remoteCfg;
+    remoteTried = true;
+
+    // session cache
+    const cached = readRemoteCache();
+    if(cached){ remoteCfg = cached; return remoteCfg; }
+
+    try{
+      if(!('fetch' in window)) return null;
+      const url = DEPLOY_URL + (DEPLOY_URL.indexOf('?')>=0 ? '&' : '?') + 'v=' + encodeURIComponent(BUILD_VER) + '&t=' + Date.now();
+      const res = await fetch(url, { cache: 'no-store', credentials: 'same-origin' });
+      if(!res || !res.ok) return null;
+      const data = await res.json().catch(()=>null);
+      const norm = normalize(data);
+      remoteCfg = norm;
+      if(norm) writeRemoteCache(norm);
+      return remoteCfg;
+    }catch(e){
+      return null;
+    }
+  }
+
+  function applyOne(rule){
+    try{
+      if(!rule || typeof rule !== 'object') return;
+      const sel = String(rule.selector||'').trim();
+      if(!sel) return;
+      const type = String(rule.type||'').trim();
+      const value = (rule.value==null) ? '' : String(rule.value);
+      const attr = String(rule.attr||'').trim();
+
+      let nodes = [];
+      try{ nodes = Array.from(document.querySelectorAll(sel)); }catch(_){ return; }
+      if(!nodes.length) return;
+
+      // Safety caps
+      if(nodes.length > 500) nodes = nodes.slice(0, 500);
+
+      nodes.forEach(n=>{
+        try{
+          switch(type){
+            case 'text':
+              n.textContent = value;
+              break;
+            case 'html':
+              n.innerHTML = value;
+              break;
+            case 'attr':
+              if(attr) n.setAttribute(attr, value);
+              break;
+            case 'hide':
+              n.dataset.opsHidden = '1';
+              n.style.setProperty('display','none','important');
+              n.style.setProperty('visibility','hidden','important');
+              n.style.setProperty('pointer-events','none','important');
+              break;
+            case 'show':
+              if(n.dataset.opsHidden === '1') delete n.dataset.opsHidden;
+              n.style.removeProperty('display');
+              n.style.removeProperty('visibility');
+              n.style.removeProperty('pointer-events');
+              break;
+            case 'addClass':
+              if(value) n.classList.add(value);
+              break;
+            case 'removeClass':
+              if(value) n.classList.remove(value);
+              break;
+            default:
+              break;
+          }
+        }catch(e){}
+      });
+    }catch(e){}
+  }
+
+  function effectiveConfig(){
+    const local = readLocal();
+    const remote = remoteCfg;
+
+    // Local override mode
+    if(local && local.mode === 'override'){
+      return local.enabled ? local : {enabled:false, rules:[]};
+    }
+
+    const rules = [];
+    let enabled = false;
+
+    if(remote && remote.enabled){
+      enabled = true;
+      if(Array.isArray(remote.rules)) rules.push.apply(rules, remote.rules);
+    }
+
+    if(local && local.enabled){
+      enabled = true;
+      if(Array.isArray(local.rules)) rules.push.apply(rules, local.rules);
+    }
+
+    // Safety cap (remote + local)
+    if(rules.length > 160) rules.length = 160;
+
+    return { enabled, rules };
+  }
+
+  function applyAll(){
+    try{
+      const p = location.pathname || '/';
+      if(p.startsWith('/ops')) return; // do not self-patch console
+
+      const cfg = effectiveConfig();
+      if(!cfg || cfg.enabled !== true) return;
+      const rules = Array.isArray(cfg.rules) ? cfg.rules : [];
+      if(!rules.length) return;
+
+      rules.forEach(applyOne);
+    }catch(e){}
+  }
+
+  function boot(){
+    // 1) apply local immediately
+    applyAll();
+
+    // 2) fetch deploy config and re-apply
+    try{
+      loadRemote().then(()=>{ applyAll(); }).catch(()=>{});
+    }catch(e){}
+
+    // 3) Late-render safety window
+    try{
+      let ticks = 0;
+      const iv = setInterval(()=>{
+        applyAll();
+        if(++ticks >= 10) clearInterval(iv);
+      }, 320);
+
+      const mo = new MutationObserver(()=>{ applyAll(); });
+      mo.observe(document.documentElement, {childList:true, subtree:true});
+      setTimeout(()=>{ try{ mo.disconnect(); }catch(e){} }, 2600);
+    }catch(e){}
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
