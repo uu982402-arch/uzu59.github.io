@@ -1,0 +1,61 @@
+/* patch.v101.contrast.20260226.css
+ * 88ST.Cloud — Contrast & readability hardening
+ * Goal: keep luxe tone while ensuring text is readable on all card surfaces (light/dark).
+ */
+
+/* Base text: cards, modals, panels */
+.card, .opsCard, .popup-box, .stx-modal-box{
+  color: var(--text) !important;
+}
+
+/* Muted text tokens (avoid hard-coded grays that can wash out) */
+.small, .desc, .meta, .sub, .hint, .muted{
+  color: var(--muted) !important;
+}
+
+/* Extra-muted */
+.small.dim, .muted-2{
+  color: var(--muted-2) !important;
+}
+
+/* Ensure links are readable inside cards */
+.card a, .opsCard a, .popup-box a, .stx-modal-box a{
+  color: var(--text) !important;
+}
+.card a:hover, .opsCard a:hover, .popup-box a:hover, .stx-modal-box a:hover{
+  text-decoration: none;
+}
+
+/* Checklist / guide chips sometimes inherit low-contrast; normalize */
+.badge, .chip, .pill{
+  color: var(--text) !important;
+}
+
+/* Modal/backdrop safety: when hidden, never block clicks */
+.evtPop:not(.is-on),
+.stx-modal:not(.open),
+.popup[aria-hidden="true"]{
+  pointer-events: none !important;
+}
+
+/* Ensure scam banner CTA remains clearly visible */
+.scam-box .btn{
+  color: var(--text) !important;
+}
+
+/* Tool result numbers should be high-contrast */
+.result .v, .kpi .v, .metric .v{
+  color: var(--text) !important;
+}
+
+/* Light theme: increase border contrast slightly for readability */
+html[data-theme="light"] .card,
+html[data-theme="light"] .opsCard,
+html[data-theme="light"] .popup-box,
+html[data-theme="light"] .stx-modal-box{
+  border-color: rgba(15,23,42,.10) !important;
+}
+
+/* Analysis ad popup safety */
+.ad-popup{ color: var(--text) !important; }
+.ad-popup[aria-hidden="true"]{ pointer-events:none !important; }

@@ -1,0 +1,59 @@
+/* v158: Home QuickStart + Dash horizontal premium layout */
+#homeRow.home-row{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 14px;
+}
+
+#homeRow .home-col{
+  min-width: 0;
+}
+
+/* On wide screens, show two columns */
+@media (min-width: 980px){
+  #homeRow.home-row{
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+  }
+}
+
+/* Make the two sections feel like one row */
+#homeRow .section{
+  margin: 0;
+}
+
+/* Slightly tighten titles to avoid tall blocks */
+#homeRow .section .title{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+/* Keep Dash cards consistent height and spacing */
+#homeDash .dash-grid{
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 980px){
+  #homeDash .dash-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* QuickStart cards: a bit denser on desktop */
+@media (min-width: 980px){
+  #homeQuickStart .qs-grid{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Visual separation without heavy lines */
+#homeRow .section{
+  border-radius: 18px;
+}
+
+/* Avoid any accidental overflow */
+#homeRow .qs-card, #homeRow .dash-card{
+  min-width: 0;
+}

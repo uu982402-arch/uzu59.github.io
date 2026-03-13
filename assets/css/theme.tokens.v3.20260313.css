@@ -1,0 +1,76 @@
+/* theme.tokens.v2.20260313.css
+ * Dark premium dashboard palette for 88ST refresh
+ */
+
+:root,
+html[data-theme="light"],
+html[data-theme="dark"]{
+  color-scheme: dark;
+  --vvip-bg:#0B1220;
+  --vvip-surface:#111827;
+  --vvip-surface-2:#172033;
+  --vvip-text:#F8FAFC;
+  --vvip-muted:#CBD5E1;
+  --vvip-muted-2:#94A3B8;
+  --vvip-accent:#2B4C7E;
+  --vvip-accent-hover:#24416C;
+  --vvip-accent-active:#1D3557;
+  --vvip-accent-2:#5B7FB3;
+  --vvip-ok:#22C55E;
+  --vvip-danger:#F87171;
+  --vvip-warn:#FBBF24;
+
+  --text:var(--vvip-text);
+  --text-2:var(--vvip-muted);
+  --muted:var(--vvip-muted);
+  --muted-2:var(--vvip-muted-2);
+
+  --bg:radial-gradient(1200px 640px at 10% 0%, rgba(43,76,126,.24), transparent 58%), radial-gradient(1000px 680px at 100% 0%, rgba(91,127,179,.18), transparent 62%), linear-gradient(180deg,#0B1220 0%,#0F172A 100%);
+  --bg-solid:#0B1220;
+  --panel:rgba(17,24,39,.94);
+  --panel-2:rgba(23,32,51,.92);
+  --panel-border:#253045;
+  --panel-border-2:#31405c;
+  --bd:var(--panel-border);
+  --card:rgba(17,24,39,.96);
+  --line:#253045;
+
+  --accent-rgb:43,76,126;
+  --accentRGB:var(--accent-rgb);
+  --gold:#2B4C7E;
+  --gold2:#5B7FB3;
+  --blue-rgb:43,76,126;
+
+  --ok:var(--vvip-ok);
+  --bad:var(--vvip-danger);
+  --warn:var(--vvip-warn);
+
+  --shadow-xs:0 8px 18px rgba(0,0,0,.22);
+  --shadow-sm:0 16px 34px rgba(0,0,0,.28);
+  --shadow-md:0 22px 48px rgba(0,0,0,.34);
+  --shadow-lg:0 32px 88px rgba(0,0,0,.44);
+}
+
+html, body{
+  background: var(--bg) !important;
+  background-color: var(--bg-solid) !important;
+  color: var(--text) !important;
+}
+
+body{
+  min-height:100%;
+}
+
+a{ color:inherit; }
+
+.scam-popup{pointer-events:auto;}
+.scam-popup .scam-box{pointer-events:auto;}
+.scam-popup .scam-box .btn{pointer-events:auto;}
+.scam-popup{ background: rgba(11,18,32,.74) !important; }
+.scam-box{ background: rgba(17,24,39,.98) !important; border:1px solid var(--panel-border) !important; box-shadow: var(--shadow-lg) !important; color:var(--text)!important; }
+.scam-box .scam-msg, .scam-box p{ color:var(--text-2) !important; }
+.scam-box .btn{ display:flex; align-items:center; justify-content:center; min-height:44px; background: linear-gradient(135deg, var(--vvip-accent), var(--vvip-accent-hover)) !important; color:#fff !important; border:1px solid rgba(91,127,179,.36) !important; box-shadow:0 14px 28px rgba(7,15,30,.32) !important; }
+
+.page-casino-strategy-index .grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 980px){ .page-casino-strategy-index .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px){ .page-casino-strategy-index .grid{ grid-template-columns: 1fr; } }

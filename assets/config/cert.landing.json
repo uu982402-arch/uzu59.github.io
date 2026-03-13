@@ -1,0 +1,31 @@
+{
+  "enabled": true,
+  "version": "2026-02-23r2",
+  "telegram": "https://t.me/UZU59",
+  "vendors": {
+    "vegas": {
+      "id": "card1",
+      "slug": "vegas",
+      "title": "VEGAS",
+      "code": "6789",
+      "join_url": "https://las403.com",
+      "landing_path": "/cert/vegas/",
+      "hero_image": "/img/landing/vegas-landing.jpg",
+      "thumb_image": "/img/img1.jpg",
+      "benefit": "스포츠·고액전용 입플 최대 30% 페이백 / 카지노 입플",
+      "notice": "가입코드 미입력 시 혜택 적용 불가"
+    },
+    "777": {
+      "id": "card3",
+      "slug": "777",
+      "title": "777 Bet",
+      "code": "6767",
+      "join_url": "https://82clf.com/?code=6767",
+      "landing_path": "/cert/777/",
+      "hero_image": "/img/landing/777-landing.jpg",
+      "thumb_image": "/img/img2.jpg",
+      "benefit": "가입코드 6767 전용 혜택 / 스포츠·카지노 이용 가능",
+      "notice": "가입코드 미입력 시 혜택 적용 불가"
+    }
+  }
+}

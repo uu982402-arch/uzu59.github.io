@@ -1,0 +1,75 @@
+/* patch.v102.lightfix.20260226.css
+ * Fix low-contrast text regressions on landing/guide pages in LIGHT theme.
+ * - Many legacy landing CSS files were authored for dark palette and hard-coded light text.
+ * - Also fixes earlier selector typo (:root[data-theme="light"].k ...) by providing correct overrides.
+ */
+
+/* Correct light-theme text helpers */
+html[data-theme="light"] .k,
+html[data-theme="light"] .label,
+html[data-theme="light"] .meta{
+  color: var(--text-2) !important;
+}
+html[data-theme="light"] .small-hint,
+html[data-theme="light"] .hint,
+html[data-theme="light"] .small,
+html[data-theme="light"] label,
+html[data-theme="light"] .muted,
+html[data-theme="light"] .sub,
+html[data-theme="light"] .desc{
+  color: var(--muted) !important;
+}
+
+/* st-guide pages (casino/ipl/minigame/slot): PRO box + FAQ 답변 가독성 */
+html[data-theme="light"] .st-guide .kv .k{
+  color: var(--text-2) !important;
+}
+html[data-theme="light"] .st-guide .faq .a{
+  color: var(--text-2) !important;
+}
+
+/* Bonus-checklist (/bonus-checklist/): badges/cta/cards use dark-palette CSS in legacy file */
+html[data-theme="light"] .badges .badge{
+  background: rgba(18,20,28,.04) !important;
+  border-color: rgba(18,20,28,.12) !important;
+  color: var(--text-2) !important;
+}
+html[data-theme="light"] .badges .badge strong{
+  color: rgba(var(--accent-rgb), .92) !important;
+}
+
+html[data-theme="light"] .cta-row .cta{
+  background: rgba(255,255,255,.90) !important;
+  border-color: rgba(15,23,42,.14) !important;
+  color: var(--text) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+html[data-theme="light"] .cta-row .cta small{
+  color: var(--muted) !important;
+}
+html[data-theme="light"] .cta-row .cta.primary{
+  background: linear-gradient(135deg, rgba(var(--accent-rgb),.18), rgba(255,255,255,.92)) !important;
+  border-color: rgba(var(--accent-rgb),.26) !important;
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .grid2 .card p,
+html[data-theme="light"] .grid2 .card li{
+  color: var(--text-2) !important;
+}
+html[data-theme="light"] .check span,
+html[data-theme="light"] .tool .d,
+html[data-theme="light"] .copynote,
+html[data-theme="light"] details p{
+  color: var(--muted) !important;
+}
+
+/* Any remaining hard-coded ultra-light text (legacy) */
+html[data-theme="light"] p[style*="rgba(232,232,238"],
+html[data-theme="light"] *[style*="color:rgba(232,232,238"],
+html[data-theme="light"] *[style*="color:#cfcfcf"],
+html[data-theme="light"] *[style*="color:#ddd"],
+html[data-theme="light"] *[style*="color:#fff"],
+html[data-theme="light"] *[style*="color:white"]{
+  color: var(--text-2) !important;
+}

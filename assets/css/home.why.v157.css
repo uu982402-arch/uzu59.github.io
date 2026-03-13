@@ -1,0 +1,173 @@
+/* Home WHY section refinement (v157)
+ * - Makes WHY accordions look premium (card/grid)
+ * - Removes default details marker + reduces pill weight
+ */
+
+#whySection{ max-width: 1100px; margin: 0 auto; }
+
+/* Grid layout */
+#whySection .why-acc-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+@media (max-width: 860px){
+  #whySection .why-acc-grid{ grid-template-columns: 1fr; }
+}
+
+/* Card */
+#whySection details.why-acc{
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 16px 40px rgba(0,0,0,.08);
+  overflow: hidden;
+}
+[data-theme="dark"] #whySection details.why-acc{
+  border-color: rgba(255,255,255,.10);
+  background: rgba(20,20,24,.46);
+  box-shadow: 0 16px 40px rgba(0,0,0,.28);
+}
+
+/* Summary baseline */
+#whySection details.why-acc > summary{
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 14px 12px;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  row-gap: 6px;
+  align-items: start;
+}
+#whySection details.why-acc > summary::-webkit-details-marker{ display:none; }
+
+#whySection details.why-acc > summary .kicker{
+  grid-column: 1 / 2;
+  grid-row: 1;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: -.01em;
+  opacity: .90;
+}
+
+#whySection details.why-acc > summary .head{
+  grid-column: 1 / 4;
+  grid-row: 2;
+  font-size: 14px;
+  font-weight: 950;
+  letter-spacing: -.02em;
+  line-height: 1.25;
+}
+
+/* Pill: make it a subtle tag (NOT a big button) */
+#whySection details.why-acc > summary .pill{
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  align-self: center;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(121,83,255,.25);
+  background: rgba(121,83,255,.10);
+  color: inherit;
+  opacity: .92;
+  white-space: nowrap;
+}
+[data-theme="dark"] #whySection details.why-acc > summary .pill{
+  border-color: rgba(121,83,255,.35);
+  background: rgba(121,83,255,.18);
+}
+
+/* Chevron */
+#whySection details.why-acc > summary .chev{
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  align-self: center;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(0,0,0,.03);
+  opacity: .75;
+  transform: rotate(0deg);
+  transition: transform .16s ease, opacity .16s ease;
+}
+[data-theme="dark"] #whySection details.why-acc > summary .chev{
+  border-color: rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+}
+#whySection details.why-acc[open] > summary .chev{ transform: rotate(180deg); opacity: .95; }
+
+/* Hover state */
+@media (hover:hover){
+  #whySection details.why-acc > summary:hover{ background: rgba(0,0,0,.02); }
+  [data-theme="dark"] #whySection details.why-acc > summary:hover{ background: rgba(255,255,255,.05); }
+}
+
+/* Body */
+#whySection details.why-acc .body{
+  padding: 0 14px 14px;
+  border-top: 1px solid rgba(0,0,0,.07);
+}
+[data-theme="dark"] #whySection details.why-acc .body{ border-top-color: rgba(255,255,255,.10); }
+
+#whySection details.why-acc .body ul{
+  margin: 10px 0 0;
+  padding-left: 18px;
+  line-height: 1.6;
+}
+#whySection details.why-acc .body li{ margin: 6px 0; }
+
+#whySection details.why-acc .note{
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: .78;
+}
+
+#whySection details.why-acc .cta{
+  margin-top: 12px;
+}
+
+/* CTA button style (scoped to WHY only) */
+#whySection a.insight-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 14px;
+  font-weight: 950;
+  letter-spacing: -.01em;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(0,0,0,.04);
+  color: inherit;
+}
+[data-theme="dark"] #whySection a.insight-btn{
+  border-color: rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+}
+
+#whySection a.insight-btn.primary{
+  border-color: rgba(121,83,255,.55);
+  background: rgba(121,83,255,.16);
+}
+[data-theme="dark"] #whySection a.insight-btn.primary{
+  border-color: rgba(121,83,255,.55);
+  background: rgba(121,83,255,.28);
+}
+#whySection a.insight-btn:active{ transform: translateY(1px); }
+
+/* Make intro spacing tighter (premium rhythm) */
+#whySection .why-intro{ margin-top: 4px; }

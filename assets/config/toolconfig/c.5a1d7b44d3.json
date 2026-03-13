@@ -1,0 +1,19 @@
+{
+  "tool": "odds",
+  "title": "배당↔확률 변환",
+  "inputs": ["odds", "prob"],
+  "outputs": {
+    "probOut": "#probOut",
+    "beOut": "#beOut",
+    "oddsOut": "#oddsOut",
+    "noteOut": "#noteOut"
+  },
+  "shareParams": {
+    "odds": "o",
+    "prob": "p"
+  },
+  "examples": [
+    {"label": "배당 예시", "values": {"odds": "2.05"}},
+    {"label": "확률 예시", "values": {"prob": "58"}}
+  ]
+}

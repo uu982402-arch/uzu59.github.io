@@ -1,0 +1,60 @@
+#analysisEngineMount{margin-top:18px}
+.ae-grid{display:grid;gap:14px}
+@media (min-width:980px){.ae-grid.cols2{grid-template-columns:1.05fr .95fr}}
+.ae-card{background:linear-gradient(180deg,rgba(17,24,39,.98),rgba(12,18,32,.96));border:1px solid var(--panel-border);border-radius:22px;box-shadow:var(--shadow-md);padding:18px;position:relative;overflow:hidden}
+.ae-card::before{content:"";position:absolute;inset:auto auto 0 0;height:1px;width:100%;background:linear-gradient(90deg,rgba(43,76,126,.55),transparent)}
+.ae-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:12px}
+.ae-kicker{display:inline-flex;gap:8px;align-items:center;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#94A3B8}
+.ae-title{font-size:22px;font-weight:900;letter-spacing:-.03em;margin:0;color:var(--text)}
+.ae-title-sm{font-size:18px}
+.ae-sub{margin:6px 0 0;font-size:13px;color:var(--text-2);line-height:1.6;max-width:74ch}
+.ae-pills{display:flex;gap:8px;flex-wrap:wrap}
+.ae-pill,.ae-flag{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border-radius:999px;background:rgba(43,76,126,.16);border:1px solid rgba(91,127,179,.25);font-size:12px;font-weight:800;color:var(--text)}
+.ae-flags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.ae-kv{display:grid;gap:10px}
+@media (min-width:640px){.ae-kv.cols4{grid-template-columns:repeat(4,1fr)} .ae-kv.cols6{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1120px){.ae-kv.cols6{grid-template-columns:repeat(6,1fr)}}
+.ae-box{border:1px solid var(--panel-border);border-radius:18px;padding:12px;background:rgba(15,23,42,.78)}
+.ae-box .k{font-size:12px;font-weight:800;color:var(--muted)}
+.ae-box .v{font-size:20px;font-weight:900;margin-top:6px;font-variant-numeric:tabular-nums;color:var(--text)}
+.ae-box .s{font-size:12px;color:var(--text-2);margin-top:4px;line-height:1.45}
+.ae-list{display:grid;gap:10px}
+.ae-item{border:1px solid var(--panel-border);border-radius:18px;padding:12px;background:rgba(15,23,42,.72)}
+.ae-item p,.ae-callout,.ae-footnote{margin:0;font-size:13px;line-height:1.6;color:var(--text-2)}
+.ae-callout,.ae-footnote{margin-top:12px;padding:12px 14px;border-radius:16px;border:1px dashed rgba(91,127,179,.30);background:rgba(20,30,48,.6)}
+.ae-table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.ae-table th{text-align:left;font-size:12px;color:var(--muted);padding:0 10px;white-space:nowrap}
+.ae-table td{background:rgba(15,23,42,.92);border:1px solid var(--panel-border);padding:10px;font-weight:650;vertical-align:middle;color:var(--text)}
+.ae-table tr td:first-child{border-radius:14px 0 0 14px}
+.ae-table tr td:last-child{border-radius:0 14px 14px 0}
+.ae-best td{outline:2px solid rgba(91,127,179,.24)}
+.ae-good{color:#4ADE80}.ae-mid{color:#60A5FA}.ae-warn{color:#FBBF24}.ae-bad{color:#F87171}
+.ae-tight td{padding:9px 10px}
+@media (max-width:720px){.ae-table{display:block;overflow:auto}.ae-card{padding:15px}.ae-title{font-size:19px}}
+
+/* v5: calibration/meta layout keeps KPI values readable */
+.ae-box .v{word-break:keep-all}
+
+/* v6 sport layer */
+.ae-card .ae-flags{margin-top:10px}
+
+/* v7 Phase D distribution layer */
+
+
+/* v8 Phase E controls */
+.ae-phasee-shell{margin-top:14px}
+.ae-phasee-card{border:1px solid var(--panel-border);border-radius:18px;background:rgba(12,18,32,.78);padding:14px}
+.ae-phasee-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}
+.ae-phasee-title{font-size:16px;font-weight:900;color:var(--text);margin:2px 0 0}
+.ae-phasee-sub{margin:6px 0 0;font-size:12px;line-height:1.55;color:var(--text-2)}
+.ae-phasee-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.ae-phasee-field{display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--panel-border);border-radius:14px;background:rgba(15,23,42,.72)}
+.ae-phasee-field span{font-size:12px;font-weight:800;color:var(--muted)}
+.ae-phasee-field b{font-size:13px;color:var(--text);font-weight:900}
+.ae-phasee-field input[type=range]{width:100%}
+.ae-mini-table{margin-top:12px}
+@media (max-width:900px){.ae-phasee-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.ae-phasee-grid{grid-template-columns:1fr}}
+
+.ae-table .ae-good,.ae-table .ae-mid,.ae-table .ae-warn,.ae-table .ae-bad{font-weight:800}
+.ae-callout strong{font-weight:800}
