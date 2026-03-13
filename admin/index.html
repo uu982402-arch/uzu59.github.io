@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>88ST 관리자 페이지</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <div class="brand-card">
+        <div class="brand-badge">88ST Admin</div>
+        <h1>운영 관리자 허브</h1>
+        <p>프로모, 그룹 허용, 문구, 웹앱 링크, 로그를 한 화면에서 관리합니다.</p>
+      </div>
+
+      <nav class="menu">
+        <button class="menu-item active" data-panel="dashboard">대시보드</button>
+        <button class="menu-item" data-panel="promos">프로모/인증놀이터</button>
+        <button class="menu-item" data-panel="groups">그룹 관리</button>
+        <button class="menu-item" data-panel="texts">키워드/문구 관리</button>
+        <button class="menu-item" data-panel="analysis">배당 분석 설정</button>
+        <button class="menu-item" data-panel="landing">웹앱/랜딩 관리</button>
+        <button class="menu-item" data-panel="schedules">스케줄/뉴스 관리</button>
+        <button class="menu-item" data-panel="logs">로그/이력</button>
+        <button class="menu-item" data-panel="security">권한/보안</button>
+      </nav>
+
+      <div class="sidebar-note">
+        <strong>현재 버전 안내</strong>
+        <p>이 화면은 정적 관리자 페이지이지만, 버튼/필터/토글/편집 동작은 실제로 반응하도록 구성했습니다. 저장은 브라우저 <code>localStorage</code>에 유지됩니다.</p>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="hero">
+        <div>
+          <div class="eyebrow">운영 현황</div>
+          <h2 id="panel-title">운영 대시보드</h2>
+          <p id="panel-subtitle">오늘 상태, 광고 노출, 그룹 허용, 오류 로그를 빠르게 확인할 수 있습니다.</p>
+        </div>
+        <div class="hero-actions">
+          <button class="glass-btn primary" data-action="quick-add-promo">업체 추가</button>
+          <button class="glass-btn" data-action="quick-add-group">그룹 추가</button>
+          <button class="glass-btn" data-action="quick-test">테스트 발송</button>
+          <button class="glass-btn secondary" data-action="reset-demo">데모 데이터 초기화</button>
+        </div>
+      </header>
+
+      <section class="panel active" id="dashboard">
+        <div class="kpi-grid" id="kpi-grid"></div>
+        <div class="grid two-up">
+          <section class="surface">
+            <div class="section-head">
+              <div>
+                <h3>최근 변경 이력</h3>
+                <p>누가 무엇을 바꿨는지 빠르게 확인합니다.</p>
+              </div>
+              <span class="chip">Audit</span>
+            </div>
+            <div class="stack-list" id="audit-list"></div>
+          </section>
+
+          <section class="surface">
+            <div class="section-head">
+              <div>
+                <h3>빠른 액션</h3>
+                <p>운영자가 자주 쓰는 작업을 바로 실행합니다.</p>
+              </div>
+              <span class="chip">Quick</span>
+            </div>
+            <div class="action-grid">
+              <button class="action-tile" data-action="switch-panel" data-target-panel="promos">프로모 추가</button>
+              <button class="action-tile" data-action="switch-panel" data-target-panel="groups">그룹 확인</button>
+              <button class="action-tile" data-action="switch-panel" data-target-panel="landing">링크 수정</button>
+              <button class="action-tile" data-action="switch-panel" data-target-panel="logs">오류 로그 보기</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="panel" id="promos">
+        <section class="surface">
+          <div class="section-head">
+            <div>
+              <h3>프로모 / 인증놀이터 관리</h3>
+              <p>광고 업체 추가, 수정, 순서 변경, 숨김 처리를 한 화면에서 관리합니다.</p>
+            </div>
+            <div class="section-tools">
+              <button class="glass-btn small primary" data-action="new-promo">신규 업체</button>
+            </div>
+          </div>
+          <div class="toolbar">
+            <input id="promo-search" type="text" placeholder="업체명, 코드, 링크 검색" />
+            <select id="promo-status-filter">
+              <option value="all">전체 상태</option>
+              <option value="on">ON</option>
+              <option value="off">OFF</option>
+            </select>
+            <select id="promo-scope-filter">
+              <option value="all">전체 위치</option>
+              <option value="웹">웹</option>
+              <option value="DM">DM</option>
+              <option value="그룹">그룹</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>상태</th><th>순서</th><th>업체명</th><th>표시명</th><th>코드</th><th>노출</th><th>기간</th><th>액션</th>
+                </tr>
+              </thead>
+              <tbody id="promo-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel" id="groups">
+        <section class="surface">
+          <div class="section-head">
+            <div>
+              <h3>그룹 관리</h3>
+              <p>허용 그룹, 차단 그룹, 메모, 최근 활동을 관리합니다.</p>
+            </div>
+            <div class="section-tools">
+              <button class="glass-btn small primary" data-action="new-group">그룹 추가</button>
+            </div>
+          </div>
+          <div class="toolbar">
+            <input id="group-search" type="text" placeholder="그룹명 또는 chat_id 검색" />
+            <select id="group-status-filter">
+              <option value="all">전체 상태</option>
+              <option value="allowed">허용</option>
+              <option value="blocked">차단</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>상태</th><th>그룹명</th><th>chat_id</th><th>최근활동</th><th>메모</th><th>액션</th>
+                </tr>
+              </thead>
+              <tbody id="group-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel" id="texts">
+        <div class="grid two-up two-up-mobile">
+          <section class="surface">
+            <div class="section-head">
+              <div>
+                <h3>문구 목록</h3>
+                <p>상태 메시지, 안내 문구, 버튼 문구를 선택합니다.</p>
+              </div>
+            </div>
+            <div class="stack-list" id="text-list"></div>
+          </section>
+          <section class="surface">
+            <div class="section-head">
+              <div>
+                <h3>문구 편집</h3>
+                <p>선택한 문구를 수정하고 바로 저장합니다.</p>
+              </div>
+            </div>
+            <div class="form">
+              <label>문구 키<input id="text-key" type="text" readonly /></label>
+              <label>그룹<input id="text-group" type="text" readonly /></label>
+              <label>문구 내용<textarea id="text-value"></textarea></label>
+              <div class="actions">
+                <button class="glass-btn primary" data-action="save-text">저장</button>
+                <button class="glass-btn" data-action="reset-text">원본 복원</button>
+                <button class="glass-btn secondary" data-action="preview-text">미리보기</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="panel" id="analysis">
+        <div class="grid two-up two-up-mobile">
+          <section class="surface">
+            <div class="section-head">
+              <div>
+                <h3>기능 토글</h3>
+                <p>내부 엔진 용어 노출 없이 운영 옵션만 관리합니다.</p>
+              </div>
+            </div>
+            <div class="toggle-list" id="feature-list"></div>
+          </section>
+          <section class="surface">
+            <div class="section-head">
+              <div>
+                <h3>운영 강도</h3>
+                <p>결과 회수, 기록 저장, 안내 강도를 조정합니다.</p>
+              </div>
+            </div>
+            <div class="form" id="setting-form"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="panel" id="landing">
+        <section class="surface">
+          <div class="section-head">
+            <div>
+              <h3>웹앱 / 랜딩 관리</h3>
+              <p>tg-match-entry, odds, playground 링크와 버튼 문구를 관리합니다.</p>
+            </div>
+          </div>
+          <div class="form two-col" id="landing-form"></div>
+          <div class="actions top-gap">
+            <button class="glass-btn primary" data-action="save-landing">저장</button>
+            <button class="glass-btn" data-action="preview-landing">새 탭 미리보기</button>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel" id="schedules">
+        <div class="grid two-up two-up-mobile">
+          <section class="surface">
+            <div class="section-head">
+              <div>
+                <h3>뉴스 / 스케줄</h3>
+                <p>발송 시간과 테스트 실행 상태를 관리합니다.</p>
+              </div>
+              <button class="glass-btn small" data-action="test-schedule">테스트 발송</button>
+            </div>
+            <div class="stack-list" id="schedule-list"></div>
+          </section>
+          <section class="surface">
+            <div class="section-head">
+              <div>
+                <h3>실행 로그</h3>
+                <p>최근 스케줄과 발송 결과를 확인합니다.</p>
+              </div>
+            </div>
+            <div class="stack-list" id="schedule-log-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="panel" id="logs">
+        <section class="surface">
+          <div class="section-head">
+            <div>
+              <h3>로그 / 이력</h3>
+              <p>오류, 관리자 액션, 결과 회수 로그를 필터링해서 확인합니다.</p>
+            </div>
+          </div>
+          <div class="toolbar">
+            <select id="log-type-filter">
+              <option value="all">전체 로그</option>
+              <option value="system">시스템</option>
+              <option value="audit">관리자 액션</option>
+              <option value="result">결과 회수</option>
+            </select>
+          </div>
+          <div class="stack-list" id="log-list"></div>
+        </section>
+      </section>
+
+      <section class="panel" id="security">
+        <div class="grid two-up two-up-mobile">
+          <section class="surface">
+            <div class="section-head">
+              <div>
+                <h3>관리자 계정</h3>
+                <p>권한 레벨과 활성 상태를 확인합니다.</p>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>이름</th><th>Telegram ID</th><th>권한</th><th>상태</th></tr></thead>
+                <tbody id="admin-table-body"></tbody>
+              </table>
+            </div>
+          </section>
+          <section class="surface">
+            <div class="section-head">
+              <div>
+                <h3>보안 체크</h3>
+                <p>Cloudflare Access, 세션 만료, 감사 로그 권장 상태를 정리합니다.</p>
+              </div>
+            </div>
+            <div class="stack-list" id="security-list"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h3 id="modal-title">편집</h3>
+          <p id="modal-subtitle">세부 내용을 수정합니다.</p>
+        </div>
+        <button class="icon-btn" data-action="close-modal">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
