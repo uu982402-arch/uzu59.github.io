@@ -1,0 +1,53 @@
+/* v25: analysis report finish */
+.analysis-has-report #proResult > .pro-kv,
+.analysis-has-report #sigRow,
+.analysis-has-report #sprtBrief,
+.analysis-has-report #proResult > div[style*="margin-top:12px"]:has(#tblBody),
+.analysis-has-report #proResult > .pro-divider,
+.analysis-has-report #proResult > .pro-inline:has(#btnCopySummary),
+.analysis-has-report #proResult > #summaryOut,
+.analysis-has-report #proResult > #noteVol,
+.analysis-has-report #analysisUpgradeLead{display:none!important}
+#aeDock{position:sticky;top:10px;z-index:24;margin-bottom:12px;border:1px solid var(--panel-border);background:rgba(9,14,26,.92);border-radius:18px;padding:10px 12px;box-shadow:0 18px 36px rgba(0,0,0,.22)}
+#aeDock .ae-dock-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#aeDock .ae-dock-kpis{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#aeDock .ae-dock-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border-radius:999px;background:rgba(43,76,126,.18);border:1px solid rgba(91,127,179,.28);font-size:12px;font-weight:900;color:var(--text)}
+#aeDock .ae-dock-actions{display:flex;gap:8px;flex-wrap:wrap}
+#aeDock .ae-dock-btn{border:none;border-radius:12px;padding:9px 12px;font-size:12px;font-weight:900;cursor:pointer;background:#2b4c7e;color:#fff}
+#aeDock .ae-dock-btn.secondary{background:rgba(23,32,51,.92);border:1px solid var(--panel-border);color:var(--text)}
+.ae-sheet{padding:14px 14px 12px!important;border-radius:20px!important}
+.ae-sheet-grid{gap:12px!important}
+.ae-sheet-title{font-size:22px!important}
+.ae-sheet-sub{font-size:12px!important;line-height:1.5!important;max-width:72ch}
+.ae-sheet-action{gap:8px!important;margin:8px 0 10px!important}
+.ae-sheet-actionbox{padding:10px 12px!important;border-radius:16px!important}
+.ae-sheet-actionbox strong{font-size:17px!important}
+.ae-sheet-lines{gap:6px!important}
+.ae-sheet-lines .ae-item{padding:8px 10px!important}
+.ae-sheet-kpis .ae-box{padding:10px!important}
+.ae-sheet-table td,.ae-sheet-table th{font-size:11px!important}
+.ae-sheet-note{font-size:12px!important;line-height:1.5!important}
+.ae-deep{margin-top:10px!important}
+.ae-deep>summary{padding:12px 14px!important}
+.ae-deep .ae-card{padding:14px!important}
+.ae-grid.cols2{gap:10px!important}
+@media (min-width:980px){
+  .analysis-has-report #analysisEngineMount .ae-grid.cols2{grid-template-columns:1fr!important}
+}
+@media (max-width:760px){
+  #aeDock{top:8px;padding:9px 10px}
+  #aeDock .ae-dock-row{align-items:flex-start}
+  #aeDock .ae-dock-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
+  #aeDock .ae-dock-chip{justify-content:center;font-size:11px;padding:8px}
+  #aeDock .ae-dock-actions{width:100%}
+  #aeDock .ae-dock-btn{flex:1 1 calc(50% - 8px);padding:9px 10px;font-size:12px}
+  .ae-sheet{padding:12px!important}
+  .ae-sheet-title{font-size:20px!important}
+  .ae-sheet-sub{display:none!important}
+  .ae-sheet-action{grid-template-columns:1fr!important}
+  .ae-sheet-lines .ae-item p{font-size:12px!important;line-height:1.45!important}
+  .ae-sheet-table-wrap{margin-top:10px!important}
+  .ae-sheet-table{display:block;overflow:auto}
+  .ae-sheet-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .ae-deep>summary{padding:11px 12px!important;font-size:13px}
+}

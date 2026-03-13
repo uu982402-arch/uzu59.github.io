@@ -1,0 +1,129 @@
+
+:root,
+html[data-theme="dark"],
+html[data-theme="light"]{
+  --v21-bg:#0B1220;
+  --v21-bg-2:#0F172A;
+  --v21-surface:#111827;
+  --v21-surface-2:#172033;
+  --v21-border:#253045;
+  --v21-border-2:#334155;
+  --v21-text:#F8FAFC;
+  --v21-muted:#CBD5E1;
+  --v21-muted-2:#94A3B8;
+  --v21-accent:#2B4C7E;
+  --v21-accent-hover:#24416C;
+  --v21-accent-soft:rgba(43,76,126,.16);
+}
+
+html,body{color-scheme:dark;background-color:var(--v21-bg)!important;color:var(--v21-text)!important}
+body, body * { scrollbar-color: rgba(91,127,179,.55) rgba(15,23,42,.45); }
+
+a{color:inherit}
+
+/* Strong surface unification across remaining pages */
+.mainHero,.hero,.hero-main,.hero-side,.hub-hero,.hub-card,.tool-card,.promo-card,.why-acc,
+.card,.panel,.section,.app-section,.cert-card,.cert-grid-panel,.cert-side-card,.lnd-card,
+.pro-card,.pro-kvi,.pro-box,.pro-miniout,.pro-notebox,.pro-tile,.st-guide,.st-guide-hero,
+.st-land-card,.st-land-note,.seoLite__panel,.cs-card,.cs-evo-panel,.cs-evo-panels,.sl-panel,
+.mg-card,.mg-how-card,.opsCard,.vendor-card,.vendor-tools,.feature-card,.highlight-card{
+  background:linear-gradient(180deg,var(--v21-surface) 0%,var(--v21-surface-2) 100%)!important;
+  border:1px solid var(--v21-border)!important;
+  color:var(--v21-text)!important;
+  box-shadow:0 16px 34px rgba(0,0,0,.22)!important;
+}
+
+h1,h2,h3,h4,h5,h6,.title,.ttl,.t,.h,.heroLead,.heroSub strong,.head,.k,.hero-badge,.hero-title,.pro-title,.st-guide-title,.st-land-title{
+  color:var(--v21-text)!important;
+}
+
+p,li,.desc,.d,.s,.small,.sub,.meta,.hint,.heroSub,.why-sub,.qs-sub,.dash-sub,.promo-code,.why-intro,.pro-note,.st-land-note,.st-guide-desc,.seoLite__muted,.sum-badge,.hub-pill,.pill,.badge,.promo-pill,.pro-pill,.pro-badge,.cs-chip,.chip{
+  color:var(--v21-muted)!important;
+}
+
+/* Unified CTA system */
+.btn,.cta,.cta a,.insight-btn,.go,.hub-go,.hub-btn,.lnd-btn,.st-land-btn,.st-land-cta a,
+.pro-btn,.cert-btn,.cmpBtn,.cs-btn,.mg-btn,.seoLite__btn,.opsBtn,.opsMiniBtn,.btn-mini,.btnx,
+button,.cbtn,.copybtn,.pro-helpbtn,.promo-hero-link,.promo-cta a,.hub-btn, .mg-quick-btns a {
+  border-radius:14px!important;
+  font-weight:800!important;
+}
+
+.btn.primary,.btn.blue,.btn.gold,.cta.primary,.cta.primary a,a.cta.primary,a.btn.primary,
+.insight-btn.primary,.go,.hub-go,.hub-btn,.lnd-btn.primary,.st-land-btn.primary,.st-land-cta a,
+.pro-btn.primary,.cert-btn.primary,.cmpBtn,.cs-btn,.mg-btn,.seoLite__btn,.promo-hero-link,
+#homeQuickStart .hub-card .go,#homeDash .tool-card .go{
+  background:linear-gradient(135deg,var(--v21-accent),var(--v21-accent-hover))!important;
+  color:#fff!important;
+  border:1px solid rgba(91,127,179,.34)!important;
+  box-shadow:0 12px 24px rgba(7,15,30,.22)!important;
+  text-decoration:none!important;
+}
+
+.btn.secondary,.btn.ghost,.lnd-btn.ghost,.lnd-btn.secondary,.cert-btn.ghost,.cert-btn.secondary,
+.pro-btn.secondary,.pro-btn.ghost,.cta.ghost,a.btn.secondary,a.btn.ghost,button.secondary,button.ghost,
+.habBtn,.stx-btn.ghost,.btn-mini,.opsMiniBtn{
+  background:rgba(15,23,42,.85)!important;
+  color:var(--v21-text)!important;
+  border:1px solid var(--v21-border)!important;
+  box-shadow:none!important;
+}
+
+.btn:hover,.cta:hover,.cta a:hover,.insight-btn:hover,.go:hover,.hub-go:hover,.hub-btn:hover,
+.lnd-btn:hover,.st-land-btn:hover,.st-land-cta a:hover,.pro-btn:hover,.cert-btn:hover,.cmpBtn:hover,
+.cs-btn:hover,.mg-btn:hover,.seoLite__btn:hover,.opsBtn:hover,.promo-hero-link:hover,
+button:hover{
+  filter:brightness(1.04)!important;
+}
+
+/* Inputs / tabs */
+input[type="text"],input[type="search"],input[type="number"],input[type="email"],input[type="tel"],select,textarea,
+.pro-field input,.pro-field select,.pro-field textarea,.field input,.field select,.field textarea,
+.cs-field input,.sl-field input,.mg-field input,#seoQuery{
+  background:rgba(15,23,42,.84)!important;
+  border:1px solid var(--v21-border)!important;
+  color:var(--v21-text)!important;
+  border-radius:12px!important;
+}
+input::placeholder,textarea::placeholder{color:var(--v21-muted-2)!important}
+
+.hdrShell,.hdrMenu,.hdrMobileMenu,.hdrDD[open] .hdrMenu{
+  background:rgba(11,18,32,.92)!important;
+  border-color:var(--v21-border)!important;
+}
+.hdrLink,.hdrSummary,.hdrMobileMenu a,.hdrMenu a,.hdrName{color:var(--v21-text)!important}
+.hdrMenu a:hover,.hdrMobileMenu a:hover{background:rgba(43,76,126,.18)!important}
+
+/* Guide / landing meta chips that looked like bare text */
+.hub-go,.go,.promo-cta a,.meta .hub-go{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  min-height:40px!important;padding:0 12px!important;min-width:110px!important;
+}
+
+/* Table readability */
+.pro-table td,.pro-table th,.pro-mini-table td,.pro-mini-table th,.ae-table td,.ae-table th,
+.bookTbl td,.bookTbl th,.opsTable td,.opsTable th,.mg-table td,.mg-table th,.sl-table td,.sl-table th{
+  color:var(--v21-text)!important;
+  border-color:var(--v21-border)!important;
+  background:rgba(15,23,42,.76)!important;
+}
+
+/* Desktop tightening across pages */
+.section-wrap,.wrap,.cert-wrap,.lnd-wrap{max-width:1200px}
+.heroSub,.d,.desc,.small{line-height:1.45!important}
+.btn,.pro-btn,.lnd-btn,.cert-btn,.insight-btn,.hub-go,.go,.st-land-btn{min-height:42px!important;padding:0 14px!important}
+
+/* Mobile compression sweep */
+@media (max-width:760px){
+  .section-wrap,.wrap,.cert-wrap,.lnd-wrap,.container{padding-left:12px!important;padding-right:12px!important}
+  .mainHero,.hero,.hub-hero,.st-guide-hero,.st-land-hero,.cert-hero,.pro-hero,.cs-hero,.mg-hero{padding:14px!important;border-radius:18px!important}
+  h1,.heroLead,.pro-title{font-size:clamp(22px,6.6vw,30px)!important;line-height:1.12!important}
+  h2{font-size:19px!important;line-height:1.18!important}
+  h3{font-size:16px!important;line-height:1.22!important}
+  p,li,.desc,.d,.s,.small,.sub,.meta,.hint,.heroSub,.why-sub,.qs-sub,.dash-sub,.promo-code,.why-intro,.pro-note,.st-land-note,.st-guide-desc,.seoLite__muted{font-size:12px!important;line-height:1.46!important}
+  .btn,.pro-btn,.lnd-btn,.cert-btn,.insight-btn,.hub-go,.go,.st-land-btn,.seoLite__btn,.opsBtn,.cmpBtn,.cs-btn,.mg-btn{min-height:40px!important;padding:0 12px!important;font-size:12px!important}
+  .card,.panel,.section,.app-section,.cert-card,.cert-grid-panel,.cert-side-card,.lnd-card,.pro-card,.pro-kvi,.st-guide,.st-guide-hero,.st-land-card,.st-land-note,.seoLite__panel,.cs-card,.sl-panel,.mg-card,.mg-how-card,.opsCard,.promo-card,.why-acc,.hub-card,.tool-card{border-radius:18px!important}
+  .card,.panel,.app-section,.cert-card,.cert-grid-panel,.cert-side-card,.lnd-card,.pro-card,.st-guide,.st-land-card,.seoLite__panel,.cs-card,.sl-panel,.mg-card,.opsCard,.promo-card,.hub-card,.tool-card{padding:13px!important}
+  .pro-table,.pro-mini-table,.ae-table,.bookTbl,.opsTable,.mg-table,.sl-table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  .hero-points,.hero-stat-grid,.cta-row,.btnRow,.btnrow,.cmpBtns,.pro-inline,.cert-actions,.vendor-tools,.dash-actions,.pro-actions,.lnd-actions,.seoLite__btnRow{gap:8px!important}
+}

@@ -1,0 +1,104 @@
+/* v25: sitewide finish polish (v23~v25 combined) */
+:root{
+  --v25-surface-0:#0b1220;
+  --v25-surface-1:#111827;
+  --v25-surface-2:#172033;
+  --v25-border:#253045;
+  --v25-text:#f8fafc;
+  --v25-text-2:#cbd5e1;
+  --v25-text-3:#94a3b8;
+  --v25-accent:#2b4c7e;
+  --v25-accent-hover:#24416c;
+}
+html[data-theme="dark"] body{background:linear-gradient(180deg,#0b1220 0%,#0f172a 100%);color:var(--v25-text)}
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .toolCard,
+html[data-theme="dark"] .pro-card,
+html[data-theme="dark"] .cert-card,
+html[data-theme="dark"] .guide-card,
+html[data-theme="dark"] .hero-card,
+html[data-theme="dark"] .ae-card,
+html[data-theme="dark"] .ad-box,
+html[data-theme="dark"] .scam-box,
+html[data-theme="dark"] details > .hdrMenu,
+html[data-theme="dark"] .hdrShell,
+html[data-theme="dark"] .vvip-brief,
+html[data-theme="dark"] .bookKpi,
+html[data-theme="dark"] .pro-kvi,
+html[data-theme="dark"] .pro-field input,
+html[data-theme="dark"] .pro-field select,
+html[data-theme="dark"] .pro-field textarea{background:rgba(17,24,39,.96)!important;color:var(--v25-text)!important;border-color:var(--v25-border)!important;box-shadow:none!important}
+html[data-theme="dark"] .muted,
+html[data-theme="dark"] .sub,
+html[data-theme="dark"] .desc,
+html[data-theme="dark"] .pro-note,
+html[data-theme="dark"] .ae-sub,
+html[data-theme="dark"] .bookKpi .s,
+html[data-theme="dark"] .pro-kvi .s,
+html[data-theme="dark"] .vvip-brief-list,
+html[data-theme="dark"] .vvip-brief-k,
+html[data-theme="dark"] .vvip-brief-score .lab{color:var(--v25-text-2)!important}
+html[data-theme="dark"] .btn,
+html[data-theme="dark"] a.btn,
+html[data-theme="dark"] button,
+html[data-theme="dark"] [role="button"],
+html[data-theme="dark"] .pro-btn,
+html[data-theme="dark"] .ae-deep > summary,
+html[data-theme="dark"] .site-cta,
+html[data-theme="dark"] .cta{border-radius:14px}
+html[data-theme="dark"] .btn.primary,
+html[data-theme="dark"] .pro-btn.primary,
+html[data-theme="dark"] .site-cta.primary,
+html[data-theme="dark"] .cta.primary{background:var(--v25-accent)!important;color:#fff!important;border:1px solid color-mix(in srgb,var(--v25-accent) 80%, #fff 20%)!important}
+html[data-theme="dark"] .btn.primary:hover,
+html[data-theme="dark"] .pro-btn.primary:hover,
+html[data-theme="dark"] .site-cta.primary:hover,
+html[data-theme="dark"] .cta.primary:hover{background:var(--v25-accent-hover)!important}
+html[data-theme="dark"] .btn.secondary,
+html[data-theme="dark"] .btn.ghost,
+html[data-theme="dark"] .pro-btn.secondary,
+html[data-theme="dark"] .pro-btn.ghost{background:rgba(23,32,51,.92)!important;color:var(--v25-text)!important;border:1px solid var(--v25-border)!important}
+html[data-theme="dark"] a,
+html[data-theme="dark"] .hdrMenu a,
+html[data-theme="dark"] .tabs a{color:var(--v25-text)}
+html[data-theme="dark"] .pro-kicker,
+html[data-theme="dark"] .ae-kicker{color:var(--v25-text-3)!important}
+html[data-theme="dark"] .pro-title,
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4{color:var(--v25-text)!important;letter-spacing:-.02em}
+html[data-theme="dark"] .chip,
+html[data-theme="dark"] .pro-pill,
+html[data-theme="dark"] .ae-pill,
+html[data-theme="dark"] .ae-flag,
+html[data-theme="dark"] .pro-badge{background:rgba(43,76,126,.18)!important;color:var(--v25-text)!important;border:1px solid rgba(43,76,126,.35)!important}
+html[data-theme="dark"] table th{color:var(--v25-text-3)!important}
+html[data-theme="dark"] table td{color:var(--v25-text)!important}
+html[data-theme="dark"] .ad-close,
+html[data-theme="dark"] .ad-title,
+html[data-theme="dark"] .scam-msg{color:var(--v25-text)!important}
+html[data-theme="dark"] .wrap{padding-bottom:32px}
+@media (max-width:760px){
+  html[data-theme="dark"] .wrap{padding-inline:14px!important}
+  html[data-theme="dark"] .card,
+  html[data-theme="dark"] .panel,
+  html[data-theme="dark"] .toolCard,
+  html[data-theme="dark"] .pro-card,
+  html[data-theme="dark"] .cert-card,
+  html[data-theme="dark"] .guide-card,
+  html[data-theme="dark"] .hero-card,
+  html[data-theme="dark"] .ae-card{padding:14px!important;border-radius:18px!important}
+  html[data-theme="dark"] .btn,
+  html[data-theme="dark"] button,
+  html[data-theme="dark"] [role="button"],
+  html[data-theme="dark"] .pro-btn{min-height:40px!important;padding:10px 12px!important;font-size:13px!important;line-height:1.25!important}
+  html[data-theme="dark"] p,
+  html[data-theme="dark"] li,
+  html[data-theme="dark"] .pro-note,
+  html[data-theme="dark"] .ae-sub{font-size:12px!important;line-height:1.5!important}
+  html[data-theme="dark"] h1{font-size:26px!important}
+  html[data-theme="dark"] h2{font-size:20px!important}
+  html[data-theme="dark"] h3{font-size:17px!important}
+}
