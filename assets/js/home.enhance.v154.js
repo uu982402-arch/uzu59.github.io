@@ -165,18 +165,18 @@
     var telegram = (cfg && cfg.links && cfg.links.telegram) ? cfg.links.telegram : (certCfg && certCfg.telegram) || '';
 
     host.innerHTML = [
-      '<div class="hab" aria-label="원클릭 액션 바">',
+      '<div class="hab" aria-label="빠른 액션 바">',
       '  <div class="habLeft">',
       '    <span class="habChip" id="_habVendorChip" role="button" tabindex="0" aria-label="인증 선택">✅ <span id="_habVendorText">'+escapeHtml(safeLabel)+'</span></span>',
       '    <div class="habTitle">',
-      '      <div class="t">원클릭 액션</div>',
-      '      <div class="d">복사+이동 / 문의 / 빠른 이동</div>',
+      '      <div class="t">빠른 액션</div>',
+      '      <div class="d">복사·문의·이동</div>',
       '    </div>',
       '  </div>',
       '  <div class="habRight">',
-      '    <button class="habBtn primary" type="button" id="_habGo">복사+이동 →</button>',
+      '    <button class="habBtn primary" type="button" id="_habGo">복사·이동</button>',
       '    <button class="habBtn" type="button" id="_habCopy">코드 복사</button>',
-      (telegram? '<button class="habBtn" type="button" id="_habTg">텔레그램</button>' : ''),
+      (telegram? '<button class="habBtn" type="button" id="_habTg">문의</button>' : ''),
       (f.homeQuickLog? '<button class="habBtn" type="button" id="_habQuick">빠른기록</button>' : ''),
       '  </div>',
       '</div>'
@@ -216,12 +216,12 @@
     }
 
     function showConnHelp(url){
-      var tgBtn = telegram ? ('<button class="btn" type="button" id="_connTg" style="flex:1">텔레그램 문의</button>') : '';
+      var tgBtn = telegram ? ('<button class="btn" type="button" id="_connTg" style="flex:1">문의 문의</button>') : '';
       openModal('접속 이슈 안내', [
         '<div class="p">접속이 안 되거나 새 창이 막히면 아래 순서대로 진행하세요.</div>',
         '<div class="p">1) 브라우저 <b>팝업 차단 해제</b> → 다시 시도</div>',
         '<div class="p">2) 그래도 안 되면 <b>인증 페이지</b>에서 혜택/가이드를 확인</div>',
-        '<div class="p">3) 마지막으로 텔레그램으로 문의</div>',
+        '<div class="p">3) 마지막으로 문의으로 문의</div>',
         '<div class="row">',
         '  <button class="btn primary" type="button" id="_connRetry" style="flex:1">다시 열기</button>',
         '  <a class="btn" href="'+escapeAttr(vendor.landing_path||'/cert/')+'" style="flex:1; display:inline-flex; align-items:center; justify-content:center; text-decoration:none;">혜택 보기</a>',
