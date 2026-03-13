@@ -7,3 +7,11 @@ Allow: /
 
 Sitemap: https://88st.cloud/sitemap.xml
 Sitemap: https://88st.cloud/sitemap.txt
+
+Disallow: /assets/
+Disallow: /ops/
+Disallow: /seo/
+Disallow: /build.txt
+
+Disallow: /package.json
+Disallow: /scripts/

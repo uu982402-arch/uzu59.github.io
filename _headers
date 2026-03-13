@@ -43,3 +43,32 @@
 /img/*
   Cross-Origin-Resource-Policy: same-origin
   X-Robots-Tag: noindex, noarchive
+
+/*.md
+  X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
+
+/*.txt
+  X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
+
+/assets/config/*
+  X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
+  Cross-Origin-Resource-Policy: same-origin
+
+/assets/js/*
+  X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
+  Cross-Origin-Resource-Policy: same-origin
+
+/assets/css/*
+  X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
+  Cross-Origin-Resource-Policy: same-origin
+
+/package.json
+  X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
+  Cache-Control: no-store, max-age=0
+
+/scripts/*
+  X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
+  Cache-Control: no-store, max-age=0
+
+/*.json
+  X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
