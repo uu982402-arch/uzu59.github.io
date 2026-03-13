@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>88ST · 경기 선택</title>
+  <meta name="theme-color" content="#eef4ff" />
+  <meta name="description" content="스포츠 종목, 리그, 팀을 빠르게 선택해 텔레그램에서 배당 입력으로 바로 이어지는 88ST 경기 선택 웹앱" />
+  <link rel="stylesheet" href="./app.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <section class="top-deck">
+    <header class="hero-card">
+      <div class="hero-topline">
+        <span class="brand-pill">88ST · Match Select</span>
+        <span class="brand-note">경기 선택 전용 웹앱</span>
+      </div>
+      <div class="hero-body">
+        <div>
+          <h1>한 화면에서 빠르게 경기 선택</h1>
+          <p>
+            이 화면은 <strong>경기 정보 선택 전용</strong>입니다. 종목과 리그, 팀까지 여기서 고르고
+            텔레그램으로 돌아가면 배당 입력과 적중·미적중만 간단히 이어집니다.
+          </p>
+        </div>
+        <div class="hero-glow"></div>
+      </div>
+      <div class="hero-quick">
+        <button id="toggleQuickBtn" class="ghost-action" type="button">최근 선택 / 즐겨찾기 보기</button>
+        <div class="hero-caption">아래로 길게 스크롤하지 않도록 단계별 선택형으로 구성했습니다.</div>
+      </div>
+    </header>
+
+    <aside class="quick-shell">
+    <section id="quickPanel" class="quick-panel is-collapsed">
+      <div class="quick-card">
+        <div class="quick-head">
+          <strong>즐겨찾는 리그</strong>
+          <button id="favoriteLeagueBtn" class="micro-btn" type="button">현재 리그 저장</button>
+        </div>
+        <div id="favoriteRail" class="pill-rail empty">저장된 즐겨찾기 없음</div>
+      </div>
+      <div class="quick-card">
+        <div class="quick-head">
+          <strong>최근 선택 경기</strong>
+          <button id="clearRecentBtn" class="micro-btn ghost" type="button">비우기</button>
+        </div>
+        <div id="recentRail" class="pill-rail empty">아직 선택한 경기 없음</div>
+      </div>
+    </section>
+    </aside>
+    </section>
+
+    <section class="stepper-shell">
+      <nav id="stepTabs" class="step-tabs" aria-label="경기 선택 단계"></nav>
+
+      <div class="stage-frame">
+        <section id="step-sport" class="stage-card active">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">STEP 1</span>
+              <h2>스포츠 종목 선택</h2>
+              <p>분석할 종목을 먼저 고르면, 그 종목에 맞는 리그와 대회만 다음 단계에 보입니다.</p>
+            </div>
+            <span id="sportCount" class="stat-pill">0개</span>
+          </div>
+          <div id="sportsGrid" class="sports-grid"></div>
+          <div class="stage-actions">
+            <button class="nav-btn primary" type="button" data-next="league">리그 선택으로 이동</button>
+          </div>
+        </section>
+
+        <section id="step-league" class="stage-card">
+          <div class="section-head tight-bottom">
+            <div>
+              <span class="eyebrow">STEP 2</span>
+              <h2>리그 / 대회 선택</h2>
+              <p>국가와 대회 성격을 먼저 좁히고, 검색으로 빠르게 원하는 리그를 찾을 수 있습니다.</p>
+            </div>
+            <span id="leagueCount" class="stat-pill">0개</span>
+          </div>
+
+          <div class="league-toolbar">
+            <div>
+              <div class="sub-label">대회 성격</div>
+              <div id="stageTabsRail" class="segmented"></div>
+            </div>
+            <label class="field compact-field">
+              <span>권역 / 국가</span>
+              <select id="regionSelect"></select>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>리그 검색</span>
+            <input id="leagueSearch" type="search" placeholder="예: EPL, 챔피언십, 2.분데스리가, NBA, KBO" autocomplete="off" />
+          </label>
+
+          <div id="leagueList" class="league-list"></div>
+
+          <div class="stage-actions between">
+            <button class="nav-btn secondary" type="button" data-prev="sport">이전</button>
+            <button class="nav-btn primary" type="button" data-next="team">팀 선택으로 이동</button>
+          </div>
+        </section>
+
+        <section id="step-team" class="stage-card">
+          <div class="section-head tight-bottom">
+            <div>
+              <span class="eyebrow">STEP 3</span>
+              <h2>경기 선택</h2>
+              <p>홈팀과 원정팀을 선택하면 바로 요약 카드에 반영됩니다. 목록에 없으면 직접 입력도 가능합니다.</p>
+            </div>
+            <span id="teamCount" class="stat-pill">0팀</span>
+          </div>
+
+          <div class="field-row two-up">
+            <label class="field">
+              <span>홈팀 검색</span>
+              <input id="homeSearch" type="search" placeholder="홈팀 검색" autocomplete="off" />
+              <select id="homeSelect" size="8"></select>
+            </label>
+            <label class="field">
+              <span>원정팀 검색</span>
+              <input id="awaySearch" type="search" placeholder="원정팀 검색" autocomplete="off" />
+              <select id="awaySelect" size="8"></select>
+            </label>
+          </div>
+
+          <details class="manual-box">
+            <summary>목록에 없으면 직접 입력</summary>
+            <div class="field-row two-up compact-top">
+              <label class="field"><span>홈팀 직접입력</span><input id="manualHome" type="text" placeholder="예: Chelsea" /></label>
+              <label class="field"><span>원정팀 직접입력</span><input id="manualAway" type="text" placeholder="예: Man United" /></label>
+            </div>
+          </details>
+
+          <div class="field-row two-up compact-top">
+            <label class="field"><span>경기 시간(선택)</span><input id="kickoffInput" type="text" placeholder="예: 03-15 19:30" /></label>
+            <label class="field"><span>대회 구분(선택)</span><input id="stageLabelInput" type="text" placeholder="예: 정규리그 / 플레이오프 / 컵대회" /></label>
+          </div>
+
+          <div class="stage-actions between">
+            <button class="nav-btn secondary" type="button" data-prev="league">이전</button>
+            <button class="nav-btn primary" type="button" data-next="summary">확인 단계로 이동</button>
+          </div>
+        </section>
+
+        <section id="step-summary" class="stage-card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">STEP 4</span>
+              <h2>텔레그램으로 적용</h2>
+              <p>선택한 경기를 마지막으로 확인하고, 텔레그램으로 전달하면 배당 입력으로 바로 이어집니다.</p>
+            </div>
+            <span class="stat-pill">요약</span>
+          </div>
+
+          <div id="summaryCard" class="summary-card empty">
+            <div class="summary-title">아직 경기 선택 전</div>
+            <div class="summary-body">종목, 리그, 팀을 선택하면 이곳에 최종 적용 내용이 표시됩니다.</div>
+          </div>
+
+          <div class="helper-box">
+            <strong>안내</strong>
+            <p>이 화면은 경기 선택용입니다. 배당 입력과 결과 확인은 텔레그램에서 진행됩니다.</p>
+          </div>
+
+          <div class="stage-actions between">
+            <button class="nav-btn secondary" type="button" data-prev="team">이전</button>
+            <div class="action-cluster">
+              <button id="copyPayloadBtn" class="nav-btn tertiary" type="button">요약 복사</button>
+              <button id="sendTelegramBtn" class="nav-btn primary" type="button">텔레그램으로 적용</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <template id="sportChipTpl">
+    <button class="sport-chip" type="button"></button>
+  </template>
+  <template id="stageChipTpl">
+    <button class="segment-chip" type="button"></button>
+  </template>
+  <template id="leagueCardTpl">
+    <button class="league-card" type="button">
+      <span class="league-name"></span>
+      <span class="league-meta"></span>
+    </button>
+  </template>
+  <template id="pillTpl">
+    <button class="pill-chip" type="button"></button>
+  </template>
+
+  <div id="toast" class="toast" hidden></div>
+  <script defer src="./app.js"></script>
+</body>
+</html>
