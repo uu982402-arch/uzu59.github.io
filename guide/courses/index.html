@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>추천 루트 | 88ST 가이드</title>
+  <meta name="description" content="초보/실전/고급 3단 루트로 빠르게 익히고, 바로 계산기로 연결합니다."/>
+  <meta name="robots" content="index,follow"/>
+  <link rel="canonical" href="https://88st.cloud/guide/courses/"/>
+
+  <link href="/assets/css/x.e28fb3ebcc4c.css" rel="stylesheet"/>
+  <link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
+  <link href="/assets/c.0b3d8a45f8c9.css" rel="stylesheet"/>
+  <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/assets/css/hdr.shell.v1.20260221.css?v=119"/>
+
+  <script defer src="/assets/js/build.ver.js?v=v20260226-3305"></script>
+  <script defer src="/assets/js/build.loader.js?v=v20260226-3305"></script>
+  <script src="/assets/js/seo.apply.v1.js?v=v20260224-2330"></script>
+  <style>
+    .courseGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+    @media(max-width:920px){.courseGrid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media(max-width:560px){.courseGrid{grid-template-columns:1fr;}}
+
+    .courseCard{border-radius:18px;border:1px solid rgba(255,255,255,.10);background: rgba(20,20,24,.55);backdrop-filter: blur(12px);-webkit-backdrop-filter: blur(12px);box-shadow:0 18px 50px rgba(0,0,0,.28);padding:14px 14px;display:flex;flex-direction:column;gap:10px;}
+    [data-theme="dark"] .courseCard{background: rgba(255,255,255,.78);border-color: rgba(0,0,0,.08);box-shadow:0 18px 50px rgba(0,0,0,.12);}
+
+    .courseTop{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+    .courseTop .ttl{font-weight:950;letter-spacing:-.02em;}
+    .courseTop .badge{font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.16);opacity:.9;}
+    [data-theme="dark"] .courseTop .badge{border-color: rgba(0,0,0,.12);} 
+
+    .courseDesc{font-size:13px;opacity:.78;line-height:1.45;}
+    .stepList{display:grid;gap:8px;}
+    .step{display:flex;gap:10px;align-items:flex-start;padding:10px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background: rgba(255,255,255,.06);}
+    [data-theme="dark"] .step{background: rgba(0,0,0,.03);border-color: rgba(0,0,0,.10);} 
+    .step input{margin-top:2px;width:18px;height:18px;}
+    .step .t{font-weight:900;}
+    .step .s{font-size:12px;opacity:.74;margin-top:2px;line-height:1.4;}
+    .step a{font-weight:900;text-decoration:none;}
+
+    .courseActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
+    .cbtn{height:40px;border-radius:12px;padding:0 12px;border:1px solid rgba(255,255,255,.14);background: rgba(255,255,255,.06);color:inherit;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;}
+    [data-theme="dark"] .cbtn{background: rgba(0,0,0,.04);border-color: rgba(0,0,0,.12);} 
+    .cbtn.primary{background: rgba(121,83,255,.22);border-color: rgba(121,83,255,.55);} 
+
+    .courseFoot{margin-top:10px;font-size:12px;opacity:.74;}
+  </style>
+<meta name="theme-color" content="#0B1220"/>
+</head>
+<body>
+  <div id="_88stShellHeader" class="header header--shell" role="banner">
+    <div class="hdrShell">
+      <a class="hdrBrand" href="/" aria-label="홈으로 이동">
+        <img class="hdrLogo" src="/img/logo.png" alt="88ST" />
+        <span class="hdrName">88ST.Cloud</span>
+      </a>
+
+      <nav class="hdrNavDesktop" aria-label="주요 메뉴">
+        <a class="hdrLink" href="/cert/">인증사이트</a>
+        <a class="hdrLink" href="/">홈</a>
+
+        <details class="hdrDD">
+          <summary class="hdrSummary">분석기</summary>
+          <div class="hdrMenu" role="menu">
+            <a href="/analysis/">스포츠 배당 분석기</a>
+            <a href="/tool-slot/">슬롯 RTP 분석기</a>
+            <a href="/tool-minigame/">미니게임 분석기</a>
+          </div>
+        </details>
+
+        <details class="hdrDD">
+          <summary class="hdrSummary">계산기</summary>
+          <div class="hdrMenu" role="menu">
+            <a href="/tool-margin/">마진 계산기</a>
+            <a href="/tool-ev/">EV 계산기</a>
+            <a href="/tool-odds/">배당↔확률 변환</a>
+            <a href="/tool-casino/">바카라 전략 계산기</a>
+                        <a href="/analysis/">분석기 홈</a>
+          </div>
+        </details>
+
+        <details class="hdrDD" open>
+          <summary class="hdrSummary">가이드</summary>
+          <div class="hdrMenu" role="menu">
+            <a href="/guide/">가이드 홈</a>
+            <a href="/bonus-checklist/">배팅 전 체크리스트</a>
+            <a href="/guide/courses/">추천 루트</a>
+          </div>
+        </details>
+      </nav>
+
+      <details class="hdrNavMobile">
+        <summary class="hdrBurger" aria-label="메뉴 열기">≡</summary>
+        <div class="hdrMobileMenu" role="menu">
+          <a href="/cert/">인증사이트</a>
+          <a href="/">홈</a>
+          <div class="hdrMobileGroup">
+            <details>
+              <summary>분석기</summary>
+              <div class="hdrMenu">
+                <a href="/analysis/">스포츠 배당 분석기</a>
+                <a href="/tool-slot/">슬롯 RTP 분석기</a>
+                <a href="/tool-minigame/">미니게임 분석기</a>
+              </div>
+            </details>
+            <details>
+              <summary>계산기</summary>
+              <div class="hdrMenu">
+                <a href="/tool-margin/">마진 계산기</a>
+                <a href="/tool-ev/">EV 계산기</a>
+                <a href="/tool-odds/">배당↔확률 변환</a>
+                <a href="/tool-casino/">바카라 전략 계산기</a>
+                                <a href="/analysis/">분석기 홈</a>
+              </div>
+            </details>
+            <details open>
+              <summary>가이드</summary>
+              <div class="hdrMenu">
+                <a href="/guide/">가이드 홈</a>
+                <a href="/bonus-checklist/">배팅 전 체크리스트</a>
+                <a href="/guide/courses/">추천 루트</a>
+              </div>
+            </details>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div id="shell"></div>
+  <main class="st-app">
+    <div class="hub">
+      <section class="hub-hero">
+        <div>
+          <div class="hero-badge">COURSES</div>
+          <h1>추천 루트</h1>
+          <p>초보/실전/고급 3단 루트로 <b>빠르게 익히고</b> → <b>바로 계산기</b>로 연결합니다. 완료 체크는 기기(브라우저)에 저장됩니다.</p>
+        </div>
+        <div class="hub-actions">
+          <a class="hub-btn primary" href="/cert/">인증사이트</a>
+          <a class="hub-btn" href="/analysis/">스포츠 분석기</a>
+          <a class="hub-btn" href="/tool-slot/">슬롯 분석기</a>
+        </div>
+      </section>
+
+      <section class="hub-section">
+        <div class="hub-head">
+          <h2>3분 코스(필수)</h2>
+          <div class="sub">처음 온 사용자가 “바로 써먹는” 루트</div>
+        </div>
+        <div class="courseGrid" id="courseGrid"></div>
+        <div class="courseFoot">* 코스는 “예측”이 아니라, 마진/확률/리스크를 빠르게 익히도록 설계했습니다.</div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+  (function(){
+    const KEY = '88st_courses_v1';
+    const read = ()=>{ try{ return JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ return {}; } };
+    const write = (o)=>{ try{ localStorage.setItem(KEY, JSON.stringify(o||{})); }catch(e){} };
+
+    const courses = [
+      {
+        id: 'starter',
+        title: '초보 3분(필수)',
+        badge: 'FAST',
+        desc: '마진/공정배당/EV만 이해해도 실수의 70%가 줄어듭니다.',
+        steps: [
+          {id:'checklist', t:'배팅 전 체크리스트', s:'사칭/피싱 방지 + 기본 안전수칙', href:'/bonus-checklist/'},
+          {id:'fair', t:'공정배당(Fair Odds)', s:'마진 제거 → 같은 기준으로 비교', href:'/tool/fair-odds/'},
+          {id:'ev', t:'EV 계산기', s:'손익분기점 vs 내 추정 승률', href:'/tool-ev/'},
+        ],
+        primary: {text:'바로 시작', href:'/bonus-checklist/'}
+      },
+      {
+        id: 'practical',
+        title: '10분 코스(실전)',
+        badge: 'PLAY',
+        desc: '라인 무브/켈리/기록까지 묶어서 “운영”으로 접근합니다.',
+        steps: [
+          {id:'analysis', t:'스포츠 분석기', s:'오버라운드·무브·리스크 브리핑', href:'/analysis/'},
+          {id:'kelly', t:'Kelly 비중', s:'과몰입 방지용 분수 켈리', href:'/tool/kelly/'},
+          {id:'kelly', t:'Kelly 비중', s:'배당과 승률 기준 사이징 확인', href:'/tool/kelly/'},
+        ],
+        primary: {text:'실전 루트', href:'/analysis/'}
+      },
+      {
+        id: 'mixed',
+        title: '카지노/슬롯/미니',
+        badge: 'MIX',
+        desc: '하우스엣지·변동성·공정성 검증으로 “체감 리스크”를 잡습니다.',
+        steps: [
+          {id:'slot', t:'슬롯 RTP 분석기', s:'세션 비용/권장 뱅크롤', href:'/tool-slot/'},
+          {id:'casino', t:'바카라 전략 계산기', s:'전략은 EV가 아니라 분산을 바꿈', href:'/tool-casino/'},
+          {id:'mini', t:'미니게임 분석기', s:'연속(스트릭)·목표배당 확률', href:'/tool-minigame/'},
+        ],
+        primary: {text:'MIX 루트', href:'/tool-slot/'}
+      }
+    ];
+
+    const state = read();
+    const grid = document.getElementById('courseGrid');
+
+    function render(){
+      grid.innerHTML = '';
+      courses.forEach(c=>{
+        const done = state[c.id] || {};
+        const card = document.createElement('div');
+        card.className = 'courseCard';
+        card.innerHTML = `
+          <div class="courseTop">
+            <div class="ttl">${c.title}</div>
+            <div class="badge">${c.badge}</div>
+          </div>
+          <div class="courseDesc">${c.desc}</div>
+          <div class="stepList"></div>
+          <div class="courseActions">
+            <a class="cbtn primary" href="${c.primary.href}">${c.primary.text}</a>
+            <button class="cbtn" type="button" data-act="reset" data-id="${c.id}">완료 초기화</button>
+          </div>
+        `;
+
+        const list = card.querySelector('.stepList');
+        c.steps.forEach(st=>{
+          const row = document.createElement('div');
+          row.className = 'step';
+          const checked = !!done[st.id];
+          row.innerHTML = `
+            <input type="checkbox" ${checked?'checked':''} data-id="${c.id}" data-step="${st.id}" aria-label="완료"/>
+            <div style="flex:1">
+              <div class="t"><a href="${st.href}">${st.t}</a></div>
+              <div class="s">${st.s}</div>
+            </div>
+          `;
+          list.appendChild(row);
+        });
+
+        grid.appendChild(card);
+      });
+
+      grid.querySelectorAll('input[type="checkbox"]').forEach(ch=>{
+        ch.addEventListener('change', ()=>{
+          const id = ch.dataset.id;
+          const step = ch.dataset.step;
+          state[id] = state[id] || {};
+          state[id][step] = !!ch.checked;
+          write(state);
+        });
+      });
+      grid.querySelectorAll('button[data-act="reset"]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const id = btn.dataset.id;
+          state[id] = {};
+          write(state);
+          render();
+        });
+      });
+    }
+
+    render();
+  })();
+  </script>
+</body>
+</html>

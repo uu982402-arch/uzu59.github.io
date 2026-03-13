@@ -1,0 +1,24 @@
+# Temporary: disable community routes
+/odds  /odds/  301
+/odds/ /odds/index.html 200
+/community/* / 302
+/community / 302
+/logbook/* /analysis/ 301
+/logbook /analysis/ 301
+/calc/* /analysis/ 301
+/calc /analysis/ 301
+/fortune/* /guide/ 301
+/fortune /guide/ 301
+/landing-a/* /cert/ 301
+/landing-a /cert/ 301
+/landing-b/* /cert/ 301
+/landing-b /cert/ 301
+/landing-c/* /analysis/ 301
+/landing-c /analysis/ 301
+/landing-d/* /analysis/ 301
+/landing-d /analysis/ 301
+/landing-e/* /analysis/ 301
+/landing-e /analysis/ 301
+/landing-f/* /cert/ 301
+/landing-f /cert/ 301
+/casino/landing-a_index.html /cert/ 301
