@@ -1,5 +1,7 @@
 User-agent: *
 Disallow: /ops/
+Disallow: /seo/
+Disallow: /guide/seo-tool/
 Allow: /
 
 

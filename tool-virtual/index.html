@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="light" lang="ko">
+<html data-theme="dark" lang="ko">
 <head>
 <meta charset="utf-8"/>
 <!-- Google tag (gtag.js) -->
@@ -48,22 +48,22 @@
     .controls .field{min-width:160px; flex:1;}
     .controls .field.small{min-width:130px; flex:0 1 160px;}
     .select, .in{width:100%; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color: inherit; outline:none;}
-    [data-theme="light"] .select,[data-theme="light"] .in{border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03);}
+    [data-theme="dark"] .select,[data-theme="dark"] .in{border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03);}
     .select:focus,.in:focus{border-color: rgba(255,255,255,.28);}
-    [data-theme="light"] .select:focus,[data-theme="light"] .in:focus{border-color: rgba(0,0,0,.22);}
+    [data-theme="dark"] .select:focus,[data-theme="dark"] .in:focus{border-color: rgba(0,0,0,.22);}
 
     /* removed: quick presets (kept CSS minimal to reduce clutter) */
 
     .subnote{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
     .pill{display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius: 12px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10); font-size: 12px;}
-    [data-theme="light"] .pill{background: rgba(0,0,0,.04); border:1px solid rgba(0,0,0,.10);}
+    [data-theme="dark"] .pill{background: rgba(0,0,0,.04); border:1px solid rgba(0,0,0,.10);}
     .pill b{font-weight:900}
 
     .tableWrap{overflow:auto; border-radius: 14px; border:1px solid rgba(255,255,255,.10);}
-    [data-theme="light"] .tableWrap{border:1px solid rgba(0,0,0,.10);}
+    [data-theme="dark"] .tableWrap{border:1px solid rgba(0,0,0,.10);}
     .tbl{width:100%; border-collapse:collapse; min-width: 720px;}
     .tbl th,.tbl td{padding:10px 10px; text-align:left; border-bottom:1px solid rgba(255,255,255,.08); font-size:13px; white-space:nowrap;}
-    [data-theme="light"] .tbl th,[data-theme="light"] .tbl td{border-bottom:1px solid rgba(0,0,0,.08);}
+    [data-theme="dark"] .tbl th,[data-theme="dark"] .tbl td{border-bottom:1px solid rgba(0,0,0,.08);}
     .tbl th{font-size:12px; opacity:.82; letter-spacing:.02em;}
     .tbl tr:last-child td{border-bottom:none;}
     .tbl td .in{padding:9px 10px; border-radius: 12px;}
@@ -75,11 +75,11 @@
     .chip.good{background: rgba(46, 204, 113, .18);}
     .chip.bad{background: rgba(231, 76, 60, .18);}
     .chip.neu{background: rgba(255, 255, 255, .10);}
-    [data-theme="light"] .chip.neu{background: rgba(0,0,0,.06);}
+    [data-theme="dark"] .chip.neu{background: rgba(0,0,0,.06);}
 
     .mono{font-variant-numeric: tabular-nums;}
     .divider{height:1px; background: rgba(255,255,255,.08); margin: 14px 0;}
-    [data-theme="light"] .divider{background: rgba(0,0,0,.08);}
+    [data-theme="dark"] .divider{background: rgba(0,0,0,.08);}
 
     .textarea{min-height: 140px; resize: vertical;}
   
@@ -95,19 +95,19 @@
     /* --- Result KV: luxe board style --- */
     .kvBoard{display:grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap:12px; margin-top:14px;}
     .kvTile{grid-column: span 12; padding:14px 14px; border-radius:18px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10); box-shadow: 0 10px 28px rgba(0,0,0,.12);}
-    [data-theme="light"] .kvTile{background: rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.10); box-shadow: 0 10px 24px rgba(0,0,0,.08);}
+    [data-theme="dark"] .kvTile{background: rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.10); box-shadow: 0 10px 24px rgba(0,0,0,.08);}
     .kvTile .k{font-size:12px; letter-spacing:.02em; opacity:.78;}
     .kvTile .v{margin-top:8px; font-size: clamp(20px, 2.1vw, 28px); font-weight:900; line-height:1.08;}
     .kvTile.full .v{font-size: 16px; line-height:1.25; font-weight:900; word-break: keep-all;}
     .kvTile.emph{background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.18);}
-    [data-theme="light"] .kvTile.emph{background: rgba(0,0,0,.045); border-color: rgba(0,0,0,.14);}
+    [data-theme="dark"] .kvTile.emph{background: rgba(0,0,0,.045); border-color: rgba(0,0,0,.14);}
     @media (min-width: 720px){
       .kvTile.third{grid-column: span 4;}
     }
     @media (prefers-reduced-motion: no-preference){
       .kvTile{transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
       .kvTile:hover{transform: translateY(-1px); box-shadow: 0 14px 34px rgba(0,0,0,.16);}
-      [data-theme="light"] .kvTile:hover{box-shadow: 0 14px 30px rgba(0,0,0,.10);}
+      [data-theme="dark"] .kvTile:hover{box-shadow: 0 14px 30px rgba(0,0,0,.10);}
     }
 
     /* --- Input dock: sticky action bar (calc/reset + examples + share/save/history) --- */
@@ -126,7 +126,7 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
-    [data-theme="light"] .actionDock{
+    [data-theme="dark"] .actionDock{
       background: rgba(255,255,255,.72);
       border: 1px solid rgba(0,0,0,.10);
       box-shadow: 0 12px 30px rgba(0,0,0,.10);
@@ -137,7 +137,7 @@
     .dockSpacer{flex:1; min-width: 10px;}
     .dockTools{display:flex; align-items:center; gap:10px; min-width: 10px;}
     .dockDivider{width:1px; height:28px; background: rgba(255,255,255,.16); border-radius: 999px; flex:0 0 auto;}
-    [data-theme="light"] .dockDivider{background: rgba(0,0,0,.14);}
+    [data-theme="dark"] .dockDivider{background: rgba(0,0,0,.14);}
 
     /* Make injected global tool bar elements fit the dock */
     .actionDock .stx-btn{height:40px; padding: 0 14px; border-radius: 14px; font-weight:900;}
@@ -201,7 +201,7 @@
   box-shadow: 0 10px 24px rgba(0,0,0,.12);
   display:flex; flex-direction:column; gap:8px;
 }
-[data-theme="light"] .scanCard{background: rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.10); box-shadow: 0 10px 20px rgba(0,0,0,.08);}
+[data-theme="dark"] .scanCard{background: rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.10); box-shadow: 0 10px 20px rgba(0,0,0,.08);}
 .scanCard .top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
 .scanCard .rank{font-weight:950; font-size:12px; letter-spacing:.02em; opacity:.85;}
 .scanCard .m{font-weight:950; font-size:13px;}
@@ -213,7 +213,7 @@
 @media (prefers-reduced-motion: no-preference){
   .scanCard{transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
   .scanCard:hover{transform: translateY(-1px); box-shadow: 0 14px 34px rgba(0,0,0,.16); border-color: rgba(255,255,255,.18);}
-  [data-theme="light"] .scanCard:hover{box-shadow: 0 14px 30px rgba(0,0,0,.10); border-color: rgba(0,0,0,.14);}
+  [data-theme="dark"] .scanCard:hover{box-shadow: 0 14px 30px rgba(0,0,0,.10); border-color: rgba(0,0,0,.14);}
 }
 @media (max-width: 860px){
   .scanCard{grid-column: span 12;}
@@ -221,7 +221,7 @@
 
 /* --- Multi View A/B Compare Board --- */
 .cmpWrap{margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.08);}
-[data-theme="light"] .cmpWrap{border-top: 1px solid rgba(0,0,0,.08);}
+[data-theme="dark"] .cmpWrap{border-top: 1px solid rgba(0,0,0,.08);}
 .cmpHead{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;}
 .cmpBtns{display:flex; gap:8px; flex-wrap:wrap;}
 .cmpBtn{appearance:none; border:none; cursor:pointer;
@@ -229,9 +229,9 @@
   background: rgba(255,255,255,.10); color: inherit;
   box-shadow: 0 10px 18px rgba(0,0,0,.10);
 }
-[data-theme="light"] .cmpBtn{background: rgba(0,0,0,.06); box-shadow: 0 10px 16px rgba(0,0,0,.06);}
+[data-theme="dark"] .cmpBtn{background: rgba(0,0,0,.06); box-shadow: 0 10px 16px rgba(0,0,0,.06);}
 .cmpBtn.ghost{opacity:.78; background: rgba(255,255,255,.06);}
-[data-theme="light"] .cmpBtn.ghost{background: rgba(0,0,0,.04);}
+[data-theme="dark"] .cmpBtn.ghost{background: rgba(0,0,0,.04);}
 @media (prefers-reduced-motion: no-preference){
   .cmpBtn{transition: transform .14s ease, box-shadow .14s ease;}
   .cmpBtn:hover{transform: translateY(-1px); box-shadow: 0 14px 26px rgba(0,0,0,.14);}
@@ -240,7 +240,7 @@
 .cmpCard{grid-column: span 6; padding:12px 12px; border-radius:18px;
   background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10);
 }
-[data-theme="light"] .cmpCard{background: rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.10);}
+[data-theme="dark"] .cmpCard{background: rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.10);}
 .cmpCard .t{display:flex; align-items:center; justify-content:space-between; gap:10px;}
 .cmpCard .tag{font-weight:950; font-size:12px; opacity:.86;}
 .cmpCard .mv{font-weight:950; font-size:12px;}
@@ -253,7 +253,7 @@
 
 /* --- AI Briefing (score / warnings / recommendations) --- */
 .aiBrief{margin-top:12px; padding:14px; border-radius:18px; background: var(--panel, rgba(255,255,255,.06)); border:1px solid var(--panel-border, rgba(255,255,255,.10)); box-shadow: var(--shadow-sm);} 
-[data-theme="light"] .aiBrief{background: var(--panel, rgba(245,246,248,.92)); border:1px solid var(--panel-border, rgba(15,23,42,.10)); box-shadow: var(--shadow-sm);} 
+[data-theme="dark"] .aiBrief{background: var(--panel, rgba(245,246,248,.92)); border:1px solid var(--panel-border, rgba(15,23,42,.10)); box-shadow: var(--shadow-sm);} 
 .aiHead{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;}
 .aiTitle{font-weight:1200; letter-spacing:.02em;}
 .aiScoreWrap{display:flex; align-items:baseline; gap:10px;}
@@ -262,13 +262,13 @@
 .aiGrid{margin-top:10px; display:grid; gap:10px; grid-template-columns:1fr 1fr;}
 @media(max-width:720px){.aiGrid{grid-template-columns:1fr;}}
 .aiCol{padding:12px; border-radius:16px; background: rgba(0,0,0,.12); border:1px solid rgba(255,255,255,.10);} 
-[data-theme="light"] .aiCol{background: rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.10);} 
+[data-theme="dark"] .aiCol{background: rgba(0,0,0,.03); border:1px solid rgba(0,0,0,.10);} 
 .aiK{font-size:12px; font-weight:1100; opacity:.78;}
 .aiList{margin:8px 0 0 18px; padding:0;}
 .aiList li{margin:4px 0; font-size:12.5px; line-height:1.45; opacity:.92;}
 .aiTags{margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;}
 .aiTag{display:inline-flex; align-items:center; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:1100; border:1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.14);} 
-[data-theme="light"] .aiTag{border:1px solid rgba(0,0,0,.10); background: rgba(0,0,0,.04);} 
+[data-theme="dark"] .aiTag{border:1px solid rgba(0,0,0,.10); background: rgba(0,0,0,.04);} 
 .aiTag.good{border-color: rgba(65,200,120,.35); background: rgba(65,200,120,.12);} 
 .aiTag.warn{border-color: rgba(235,195,70,.35); background: rgba(235,195,70,.12);} 
 .aiTag.bad{border-color: rgba(255,96,96,.35); background: rgba(255,96,96,.12);} 
@@ -277,10 +277,12 @@
 <link href="/assets/vvip-pro.v71.css?v=71" rel="stylesheet"/>
 <script defer="" src="/assets/js/vvip-pro.v71.js?v=71"></script>
 <script defer="" src="/assets/js/vvip-brief.v71.js?v=71"></script>
-<script defer="" src="/assets/js/build.ver.js?v=v20260224-1845"></script>
-<script defer="" src="/assets/js/build.loader.js?v=v20260224-1845"></script>
+<script defer="" src="/assets/js/build.ver.js?v=v20260226-3305"></script>
+<script defer="" src="/assets/js/build.loader.js?v=v20260226-3305"></script>
 
 <link rel="stylesheet" href="/assets/css/hdr.shell.v1.20260221.css?v=119"/>
+<script src="/assets/js/seo.apply.v1.js?v=v20260224-2330"></script>
+<meta name="theme-color" content="#0B1220"/>
 </head>
 <body>
 <div id="_88stShellHeader" class="header header--shell" role="banner">
@@ -310,8 +312,7 @@
           <a href="/tool-ev/">EV 계산기</a>
           <a href="/tool-odds/">배당↔확률 변환</a>
           <a href="/tool-casino/">바카라 전략 계산기</a>
-          <a href="/logbook/">베팅 로그북</a>
-          <a href="/calc/">계산기 홈</a>
+                    <a href="/analysis/">분석기 홈</a>
         </div>
       </details>
 
@@ -347,8 +348,7 @@
               <a href="/tool-ev/">EV 계산기</a>
               <a href="/tool-odds/">배당↔확률 변환</a>
               <a href="/tool-casino/">바카라 전략 계산기</a>
-              <a href="/logbook/">베팅 로그북</a>
-              <a href="/calc/">계산기 홈</a>
+                            <a href="/analysis/">분석기 홈</a>
             </div>
           </details>
 

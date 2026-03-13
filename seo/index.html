@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>SEO Console | 88ST</title>
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
+  <link rel="canonical" href="https://88st.cloud/seo/"/>
+
+  <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+  <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+
+  <link href="/assets/css/x.9d7841e705c5.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/assets/css/hdr.shell.v1.20260221.css?v=119"/>
+
+  <script defer src="/assets/js/build.ver.js"></script>
+  <script defer src="/assets/js/build.loader.js"></script>
+  <script defer src="/assets/js/seo.console.v1.20260228.js"></script>
+
+  <style>
+    :root{ --max: 1120px; }
+    body{ margin:0; min-height:100vh; }
+    .wrap{ width:100%; max-width:var(--max); margin:0 auto; padding:26px 16px 64px; }
+    .card{ border-radius:18px; border:1px solid rgba(255,255,255,.08); background: rgba(20,20,24,.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 18px 50px rgba(0,0,0,.35); }
+    [data-theme="dark"] .card{ background: rgba(255,255,255,.72); border-color: rgba(0,0,0,.08); box-shadow: 0 18px 50px rgba(0,0,0,.12); }
+    .top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .ttl{ font-size:18px; font-weight:900; letter-spacing:-.02em; }
+    .sub{ margin-top:8px; opacity:.78; line-height:1.45; font-size:13px; max-width:780px; }
+    .row{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+    .row input{ flex:1; min-width:240px; height:44px; border-radius:12px; padding:0 12px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.18); color: inherit; outline:none; }
+    [data-theme="dark"] .row input{ background: rgba(255,255,255,.8); border-color: rgba(0,0,0,.12); }
+    .btn{ height:44px; border-radius:12px; padding:0 14px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color: inherit; font-weight:800; cursor:pointer; }
+    [data-theme="dark"] .btn{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.12); }
+    .btn.primary{ background: rgba(121, 83, 255, .30); border-color: rgba(121, 83, 255, .55); }
+    [data-theme="dark"] .btn.primary{ background: rgba(121, 83, 255, .16); }
+    .btn:active{ transform: translateY(1px); }
+    .msg{ margin-top:10px; font-size:13px; opacity:.88; }
+    .err{ color:#ff6b6b; }
+    [data-theme="dark"] .err{ color:#c51f1f; }
+
+    .grid{ margin-top:14px; display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:10px; }
+    @media (max-width: 980px){ .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 520px){ .grid{ grid-template-columns: 1fr; } }
+    .kpi{ padding:14px 14px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.10); }
+    [data-theme="dark"] .kpi{ background: rgba(255,255,255,.65); border-color: rgba(0,0,0,.10); }
+    .kpi .k{ font-size:12px; opacity:.75; font-weight:800; }
+    .kpi .v{ margin-top:6px; font-size:20px; font-weight:1000; letter-spacing:-.02em; }
+    .kpi .m{ margin-top:6px; font-size:12px; opacity:.75; }
+
+    .table{ margin-top:14px; width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:16px; border:1px solid rgba(255,255,255,.12); }
+    [data-theme="dark"] .table{ border-color: rgba(0,0,0,.10); }
+    .table th, .table td{ padding:10px 10px; font-size:13px; text-align:left; border-bottom:1px solid rgba(255,255,255,.08); }
+    [data-theme="dark"] .table th, [data-theme="dark"] .table td{ border-bottom:1px solid rgba(0,0,0,.07); }
+    .table th{ font-size:12px; opacity:.80; font-weight:900; background: rgba(0,0,0,.10); }
+    [data-theme="dark"] .table th{ background: rgba(0,0,0,.03); }
+    .table tr:last-child td{ border-bottom:none; }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; }
+    .pill{ display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:4px 10px; font-size:12px; font-weight:800; border:1px solid rgba(255,255,255,.12); opacity:.9; }
+    [data-theme="dark"] .pill{ border-color: rgba(0,0,0,.12); }
+  </style>
+<meta name="theme-color" content="#0B1220"/>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card" style="padding:18px 18px;">
+      <div class="top">
+        <div>
+          <div class="ttl">SEO Console <span class="pill" id="seoStatus">offline</span></div>
+          <div class="sub">
+            Search Console(GSC) 데이터를 기준으로 “상위노출 기회(Quick Win)”를 뽑아주는 운영자 콘솔입니다.
+            <br/>※ 이 페이지는 <b>noindex</b>이며, API 쓰기 작업은 <b>ADMIN_TOKEN</b>으로 보호됩니다.
+          </div>
+        </div>
+        <div class="mono" id="seoMeta" style="opacity:.7"></div>
+      </div>
+
+      <div class="row">
+        <input id="adminToken" type="password" placeholder="ADMIN_TOKEN (Cloudflare env secret)"/>
+        <button class="btn primary" id="btnSaveToken">저장</button>
+        <button class="btn" id="btnSync">지금 동기화</button>
+        <button class="btn" id="btnRefresh">새로고침</button>
+      </div>
+      <div class="msg" id="msg"></div>
+
+      <div class="grid" id="kpiGrid" style="display:none"></div>
+
+      <table class="table" id="oppTable" style="display:none">
+        <thead>
+          <tr>
+            <th style="width:96px">점수</th>
+            <th>쿼리</th>
+            <th>페이지</th>
+            <th style="width:110px">노출</th>
+            <th style="width:90px">클릭</th>
+            <th style="width:90px">CTR</th>
+            <th style="width:100px">평균순위</th>
+            <th style="width:180px">추천</th>
+          </tr>
+        </thead>
+        <tbody id="oppBody"></tbody>
+      </table>
+    </div>
+
+    <div style="height:14px"></div>
+
+    <div class="card" style="padding:16px 18px;">
+      <div class="ttl" style="font-size:15px">설정 체크</div>
+      <div class="sub" style="margin-top:8px">
+        동기화가 실패하면 아래 4개 env secret이 누락된 경우가 거의 전부입니다:
+        <span class="mono">GSC_SITE_URL</span>, <span class="mono">GSC_CLIENT_ID</span>, <span class="mono">GSC_CLIENT_SECRET</span>, <span class="mono">GSC_REFRESH_TOKEN</span>.
+        <br/>D1 바인딩은 기존처럼 <span class="mono">DB</span>로 유지합니다.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

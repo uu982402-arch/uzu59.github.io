@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="light" lang="ko">
+<html data-theme="dark" lang="ko">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -16,35 +16,37 @@
   <link rel="stylesheet" href="/assets/css/hdr.shell.v1.20260221.css?v=119"/>
 
   <!-- Global asset loader (cache-busted via build.ver.js) -->
-  <script defer src="/assets/js/build.ver.js?v=v20260224-1845"></script>
-  <script defer src="/assets/js/build.loader.js?v=v20260224-1845"></script>
+  <script defer src="/assets/js/build.ver.js?v=v20260226-3305"></script>
+  <script defer src="/assets/js/build.loader.js?v=v20260226-3305"></script>
+  <script defer src="/assets/js/ops.sitemap.v1.20260226.js?v=v20260226-3305"></script>
+  <script defer src="/assets/js/ops.sitecfg.v154.js?v=v20260226-3305"></script>
 
   <style>
     :root{ --opsMax: 1040px; }
     body{ margin:0; min-height:100vh; display:flex; }
     .opsWrap{ width:100%; max-width:var(--opsMax); margin:0 auto; padding:28px 16px 64px; }
     .opsCard{ border-radius:18px; border:1px solid rgba(255,255,255,.08); background: rgba(20,20,24,.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 18px 50px rgba(0,0,0,.35); }
-    [data-theme="light"] .opsCard{ background: rgba(255,255,255,.72); border-color: rgba(0,0,0,.08); box-shadow: 0 18px 50px rgba(0,0,0,.12); }
+    [data-theme="dark"] .opsCard{ background: rgba(255,255,255,.72); border-color: rgba(0,0,0,.08); box-shadow: 0 18px 50px rgba(0,0,0,.12); }
 
     .opsLock{ padding:22px 18px; max-width:520px; margin:40px auto 0; }
     .opsTitle{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.02em; font-size:18px; }
     .opsBadge{ font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.15); opacity:.9; }
-    [data-theme="light"] .opsBadge{ border-color: rgba(0,0,0,.12); }
+    [data-theme="dark"] .opsBadge{ border-color: rgba(0,0,0,.12); }
     .opsSub{ margin-top:10px; opacity:.78; line-height:1.45; font-size:13px; }
 
     .opsRow{ display:flex; gap:10px; margin-top:14px; }
     .opsRow input{ flex:1; height:44px; border-radius:12px; padding:0 12px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.18); color: inherit; outline:none; }
-    [data-theme="light"] .opsRow input{ background: rgba(255,255,255,.8); border-color: rgba(0,0,0,.12); }
+    [data-theme="dark"] .opsRow input{ background: rgba(255,255,255,.8); border-color: rgba(0,0,0,.12); }
 
     .opsBtn{ height:44px; border-radius:12px; padding:0 14px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color: inherit; font-weight:700; cursor:pointer; }
-    [data-theme="light"] .opsBtn{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.12); }
+    [data-theme="dark"] .opsBtn{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.12); }
     .opsBtn.primary{ background: rgba(121, 83, 255, .30); border-color: rgba(121, 83, 255, .55); }
-    [data-theme="light"] .opsBtn.primary{ background: rgba(121, 83, 255, .16); }
+    [data-theme="dark"] .opsBtn.primary{ background: rgba(121, 83, 255, .16); }
     .opsBtn:active{ transform: translateY(1px); }
 
     .opsMsg{ margin-top:10px; font-size:13px; opacity:.85; }
     .opsErr{ color: #ff6b6b; }
-    [data-theme="light"] .opsErr{ color: #c51f1f; }
+    [data-theme="dark"] .opsErr{ color: #c51f1f; }
 
     .opsConsole{ margin-top:18px; padding:18px; }
     .opsTop{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
@@ -57,7 +59,7 @@
     @media (max-width: 520px){ .opsGrid{ grid-template-columns: 1fr; } }
 
     .opsLink{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.12); text-decoration:none; color:inherit; }
-    [data-theme="light"] .opsLink{ background: rgba(255,255,255,.65); border-color: rgba(0,0,0,.10); }
+    [data-theme="dark"] .opsLink{ background: rgba(255,255,255,.65); border-color: rgba(0,0,0,.10); }
     .opsLink .name{ font-weight:800; }
     .opsLink .path{ font-size:12px; opacity:.75; }
     .opsLink .go{ font-weight:900; opacity:.7; }
@@ -68,24 +70,26 @@
 
     .opsFlex{ margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
     .opsToggle{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.10); }
-    [data-theme="light"] .opsToggle{ background: rgba(255,255,255,.65); border-color: rgba(0,0,0,.10); }
+    [data-theme="dark"] .opsToggle{ background: rgba(255,255,255,.65); border-color: rgba(0,0,0,.10); }
     .opsToggle input{ width:18px; height:18px; }
 
     .opsTable{ width:100%; border-collapse:separate; border-spacing:0 8px; margin-top:10px; }
     .opsTable th{ text-align:left; font-size:12px; opacity:.75; padding:0 8px; }
     .opsTable td{ padding:0 8px; }
     .opsTable input, .opsTable select{ width:100%; height:38px; border-radius:12px; padding:0 10px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); color:inherit; outline:none; }
-    [data-theme="light"] .opsTable input, [data-theme="light"] .opsTable select{ background: rgba(255,255,255,.82); border-color: rgba(0,0,0,.12); }
+    [data-theme="dark"] .opsTable input, [data-theme="dark"] .opsTable select{ background: rgba(255,255,255,.82); border-color: rgba(0,0,0,.12); }
 
     .opsMiniBtn{ height:38px; border-radius:12px; padding:0 12px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color:inherit; font-weight:800; cursor:pointer; }
-    [data-theme="light"] .opsMiniBtn{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.12); }
+    [data-theme="dark"] .opsMiniBtn{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.12); }
 
     .opsArea{ width:100%; min-height:140px; border-radius:14px; padding:10px 12px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.14); color:inherit; outline:none; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; line-height:1.45; }
-    [data-theme="light"] .opsArea{ background: rgba(255,255,255,.82); border-color: rgba(0,0,0,.12); }
+    [data-theme="dark"] .opsArea{ background: rgba(255,255,255,.82); border-color: rgba(0,0,0,.12); }
 
     .opsFooter{ margin-top:14px; opacity:.7; font-size:12px; }
     .opsFooter code{ opacity:1; }
   </style>
+<script src="/assets/js/seo.apply.v1.js?v=v20260224-2330"></script>
+<meta name="theme-color" content="#0B1220"/>
 </head>
 
 <body>
@@ -212,7 +216,86 @@
         <div class="opsFooter">배포 경로: <code>/assets/config/cert.landing.json</code> · 캐시: <code>no-store</code>(Worker)</div>
       </section>
 
-      <!-- DANGER ZONE -->
+      
+      <!-- EVENT POPUP CONFIG -->
+      <section class="opsCard opsSection" style="margin-top:14px;">
+        <h2>이벤트 팝업 설정(배포)</h2>
+        <div class="hint">
+          메인/가이드/분석기 진입 시 노출되는 <b>이벤트 이미지 팝업</b> 설정입니다.
+          아래 값만 바꿔서 <code>/assets/config/popup.event.json</code> 파일을 교체하면 <b>코드 수정 0</b>으로 전체 적용됩니다.
+          <br/>· <b>intervalHours</b>: <code>0</code>이면 매 방문마다, <code>24</code>이면 하루 1회 노출
+        </div>
+
+        <div class="opsFlex">
+          <button id="opsPopupLoad" class="opsMiniBtn" type="button">배포 설정 불러오기</button>
+          <button id="opsPopupMake" class="opsMiniBtn" type="button">배포용 JSON 만들기</button>
+          <button id="opsPopupCopy" class="opsMiniBtn" type="button">JSON 복사</button>
+          <button id="opsPopupDownload" class="opsMiniBtn" type="button">배포파일 다운로드</button>
+          <span style="flex:1"></span>
+          <button id="opsPopupOpenImage" class="opsMiniBtn" type="button">이미지 미리보기</button>
+        </div>
+
+        <table class="opsTable" aria-label="이벤트 팝업 설정 테이블">
+          <thead>
+            <tr>
+              <th style="width:22%">key</th>
+              <th>value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>enabled</b></td>
+              <td>
+                <label class="opsToggle" style="display:inline-flex;">
+                  <input id="popupEnabled" type="checkbox"/>
+                  <span>팝업 활성화</span>
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td><b>intervalHours</b></td>
+              <td>
+                <input id="popupInterval" type="number" inputmode="numeric" min="0" step="1" value="0" />
+                <div style="margin-top:6px; opacity:.75; font-size:12px; line-height:1.45;">
+                  0: 매 방문 노출 · 24: 하루 1회 · 168: 주 1회
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><b>image</b></td>
+              <td>
+                <input id="popupImage" value="/img/popup/event-popup.jpg" readonly />
+                <div style="margin-top:6px; opacity:.75; font-size:12px; line-height:1.45;">
+                  <b>경로 고정</b>: <code>/img/popup/event-popup.jpg</code> · 이 파일만 교체하면 이미지가 바뀝니다 (코드/JSON 수정 0)
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><b>ctaText</b></td>
+              <td><input id="popupCtaText" value="@uzu59" /></td>
+            </tr>
+            <tr>
+              <td><b>ctaUrl</b></td>
+              <td><input id="popupCtaUrl" value="https://t.me/UZU59" /></td>
+            </tr>
+            <tr>
+              <td><b>excludePaths</b></td>
+              <td>
+                <input id="popupExclude" value="/cert/, /cert" readonly />
+                <div style="margin-top:6px; opacity:.75; font-size:12px; line-height:1.45;">
+                  인증 페이지(/cert)는 팝업을 띄우지 않도록 기본 제외합니다.
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <textarea id="opsPopupJson" class="opsArea" spellcheck="false" placeholder="(자동) 배포용 JSON — 필요 시 편집 가능"></textarea>
+        <div id="opsPopupMsg" class="opsMsg"></div>
+        <div class="opsFooter">배포 경로: <code>/assets/config/popup.event.json</code> · 캐시: <code>no-store</code>(Worker)</div>
+      </section>
+
+<!-- DANGER ZONE -->
       <section class="opsCard opsSection" style="margin-top:14px;">
         <h2>운영 유틸리티</h2>
         <div class="hint">최근 저장/입력/세션 데이터 등, 브라우저 로컬 상태를 빠르게 정리합니다.</div>
@@ -220,11 +303,132 @@
           <button id="opsClearRecent" class="opsMiniBtn" type="button">최근 사용 초기화</button>
           <button id="opsClearPersist" class="opsMiniBtn" type="button">최근 입력 초기화</button>
           <button id="opsHardReload" class="opsMiniBtn" type="button">강력 새로고침</button>
+          <button id="opsClearPreset" class="opsMiniBtn" type="button">추천 설정 초기화</button>
+          <a class="opsMiniBtn" href="/seo/" target="_blank" rel="noopener">SEO 키워드/카피 생성기</a>
         </div>
         <div class="opsFooter">
           적용 키: <code>vvip_ops_dom_patch_v1</code> · 세션 키: <code>vvip_ops_authed_v1</code>
         </div>
       
+
+      <!-- SITE RUNTIME CONFIG -->
+      <section class="opsCard opsSection" style="margin-top:14px;">
+        <h2>사이트 런타임 설정(배포)</h2>
+        <div class="hint">
+          <code>/assets/config/site.runtime.json</code> 하나로 <b>전페이지 공통 기능(공유 카드/인증 추천/가이드 루트)</b>을 관리합니다.
+          <br/>· <b>배포 적용</b>: 아래에서 JSON 생성 → <code>site.runtime.json</code> 파일로 저장해 교체
+          <br/>· <b>로컬 테스트</b>: “로컬 오버라이드 적용”을 누르면 이 브라우저에서만 즉시 반영
+        </div>
+
+        <div class="opsFlex">
+          <button id="opsSiteLoad" class="opsMiniBtn" type="button">배포 설정 불러오기</button>
+          <button id="opsSiteMake" class="opsMiniBtn" type="button">JSON 생성</button>
+          <button id="opsSiteCopy" class="opsMiniBtn" type="button">JSON 복사</button>
+          <button id="opsSiteDownload" class="opsMiniBtn" type="button">배포파일 다운로드</button>
+          <span style="flex:1"></span>
+          <button id="opsSiteApply" class="opsMiniBtn" type="button">로컬 오버라이드 적용</button>
+          <button id="opsSiteClear" class="opsMiniBtn" type="button">로컬 오버라이드 제거</button>
+        </div>
+
+        <table class="opsTable" aria-label="사이트 런타임 설정 테이블">
+          <thead>
+            <tr>
+              <th style="width:22%">key</th>
+              <th>value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>telegram</b></td>
+              <td><input id="siteTelegram" value="https://t.me/UZU59" /></td>
+            </tr>
+            <tr>
+              <td><b>features</b></td>
+              <td>
+                <div class="opsFlex" style="margin-top:0;">
+                  <label class="opsToggle"><input id="siteShareCard" type="checkbox" checked/><span>공유 카드(이미지)</span></label>
+                  <label class="opsToggle"><input id="siteCertPromo" type="checkbox" checked/><span>인증 추천 카드</span></label>
+                  <label class="opsToggle"><input id="siteGuideCourses" type="checkbox" checked/><span>추천 루트</span></label>
+                  <label class="opsToggle"><input id="siteProSuite" type="checkbox" checked/><span>PRO SUITE</span></label>
+                  <label class="opsToggle"><input id="sitePresetBar" type="checkbox" checked/><span>추천 설정(프리셋)</span></label>
+                  
+                  
+                  <label class="opsToggle"><input id="siteHomeActionBar" type="checkbox" checked/><span>홈 액션바</span></label>
+                  <label class="opsToggle"><input id="siteHomeCertCards" type="checkbox" checked/><span>홈 인증카드 고급화</span></label>
+                  <label class="opsToggle"><input id="siteHomeMirrorHelper" type="checkbox" checked/><span>홈 접속이슈 안내</span></label>
+                  <label class="opsToggle"><input id="siteHomeRecentUsed" type="checkbox" checked/><span>홈 최근 사용</span></label>
+<label class="opsToggle"><input id="siteHomeQuickLog" type="checkbox" checked/><span>홈 빠른 기록</span></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><b>presets.default</b></td>
+              <td>
+                <select id="sitePresetDefault" style="max-width:220px;">
+                  <option value="balanced" selected>밸런스(추천)</option>
+                  <option value="safe">안전(낙폭 우선)</option>
+                  <option value="aggressive">공격(변동성 큼)</option>
+                </select>
+                <div style="margin-top:6px; opacity:.75; font-size:12px; line-height:1.45;">
+                  기본 추천 프로필입니다. 사용자는 페이지 상단 “추천 설정”에서 선택 부담 없이 바꿀 수 있습니다.
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><b>risk</b></td>
+              <td>
+                <div class="opsFlex" style="margin-top:0;">
+                </div>
+                <div class="opsFlex">
+                  <input id="siteStopLoss" type="number" step="0.1" min="0.1" value="3" style="max-width:140px;" />
+                  <div style="opacity:.75;font-size:12px;">손절 %</div>
+                  <input id="siteTakeProfit" type="number" step="0.1" min="0.1" value="5" style="max-width:140px;" />
+                  <div style="opacity:.75;font-size:12px;">익절 %</div>
+                  <input id="siteCooldown" type="number" step="1" min="0" value="15" style="max-width:140px;" />
+                  <div style="opacity:.75;font-size:12px;">쿨다운 분</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><b>promo.hideAfter</b></td>
+              <td>
+                <input id="sitePromoHide" type="number" step="1" min="0" value="24" style="max-width:180px;" />
+                <div style="margin-top:6px; opacity:.75; font-size:12px; line-height:1.45;">
+                  인증 추천 카드를 닫은 후, 다시 노출되기까지 대기 시간(시간).
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <textarea id="opsSiteJson" class="opsArea" spellcheck="false" placeholder="(자동) 배포용 JSON"></textarea>
+        <div id="opsSiteMsg" class="opsMsg"></div>
+        <div class="opsFooter">배포 경로: <code>/assets/config/site.runtime.json</code></div>
+      </section>
+
+
+      <!-- SITEMAP PURGE LIST -->
+      <section class="opsCard opsSection" style="margin-top:14px;">
+        <h2>사이트맵 → 전페이지 퍼지 리스트</h2>
+        <div class="hint">
+          현재 배포된 <code>/sitemap.xml</code>을 자동 파싱해서 <b>전페이지 URL 리스트</b>와 <b>Cloudflare Purge(JSON)</b>를 한 번에 생성합니다.
+          <br/>· <b>FULL URL</b>: Cloudflare Purge API의 <code>files</code> 배열에 그대로 사용
+          <br/>· <b>RELATIVE PATH</b>: 전페이지 빠른 점검/공유용
+        </div>
+
+        <div class="opsFlex">
+          <button id="opsSitemapLoad" class="opsMiniBtn" type="button">sitemap.xml 불러오기</button>
+          <button id="opsSitemapCopy" class="opsMiniBtn" type="button">리스트 복사</button>
+          <button id="opsSitemapCopyJson" class="opsMiniBtn" type="button">JSON 복사</button>
+          <span style="flex:1"></span>
+          <span class="opsBadge" id="opsSitemapMeta">총 0개</span>
+        </div>
+
+        <textarea id="opsSitemapOut" class="opsArea" spellcheck="false" placeholder="(자동) FULL URL / RELATIVE PATH 퍼지 리스트"></textarea>
+        <textarea id="opsSitemapJson" class="opsArea" spellcheck="false" placeholder="(자동) Cloudflare Purge JSON"></textarea>
+        <div id="opsSitemapMsg" class="opsMsg"></div>
+      </section>
+
       <!-- SMOKE CHECK -->
       <section class="opsCard opsSection" style="margin-top:14px;">
         <h2>전체 페이지 CTA 스모크 체크</h2>
@@ -267,6 +471,7 @@
       const PATCH_KEY = 'vvip_ops_dom_patch_v1';
       const DEPLOY_URL = '/assets/config/ops.dom.patch.json';
       const CERT_DEPLOY_URL = '/assets/config/cert.landing.json';
+      const POPUP_DEPLOY_URL = '/assets/config/popup.event.json';
       const BUILD_VER = (window.__BUILD_VER || '0') + '';
 
       const $ = (id)=>document.getElementById(id);
@@ -385,15 +590,7 @@
         {name:'미니게임', path:'/minigame/'},
         {name:'슬롯', path:'/slot/'},
         {name:'가이드', path:'/guide/'},
-        {name:'계산기 허브', path:'/calc/'},
-        {name:'기록', path:'/logbook/'},
-        {name:'운세 브리핑', path:'/fortune/'},
-        {name:'랜딩 A', path:'/landing-a/'},
-        {name:'랜딩 B', path:'/landing-b/'},
-        {name:'랜딩 C', path:'/landing-c/'},
-        {name:'랜딩 D', path:'/landing-d/'},
-        {name:'랜딩 E', path:'/landing-e/'},
-        {name:'랜딩 F', path:'/landing-f/'}
+        {name:'분석기 허브', path:'/analysis/'},
       ];
 
       function esc(s){
@@ -614,6 +811,7 @@
 
       // --- CERT Landing deploy config (join/code/telegram) ---
       let certBase = null;
+      let popupBase = null;
 
       const certMsg = (text, isErr) => {
         const el = $('opsCertMsg');
@@ -755,6 +953,109 @@
       }
 
 
+
+      // --- Event popup deploy config ---
+      function popupMsg(text, isErr){
+        const el = $('opsPopupMsg');
+        el.textContent = text || '';
+        el.className = 'opsMsg' + (isErr ? ' opsErr' : '');
+      }
+
+      function readPopupUi(){
+        const enabled = !!($('popupEnabled') && $('popupEnabled').checked);
+        const raw = ($('popupInterval') && $('popupInterval').value || '').trim();
+        const n = Number(raw);
+        const intervalHours = Number.isFinite(n) ? Math.max(0, Math.floor(n)) : 0;
+
+        // Fixed path for zero-ops image swapping
+        const image = '/img/popup/event-popup.jpg';
+        const ctaText = String(($('popupCtaText') && $('popupCtaText').value || '').trim() || '@uzu59');
+        const ctaUrl = String(($('popupCtaUrl') && $('popupCtaUrl').value || '').trim() || 'https://t.me/UZU59');
+
+        return { enabled, intervalHours, image, ctaText, ctaUrl };
+      }
+
+      function buildPopupDeployConfig(){
+        const ui = readPopupUi();
+        const base = popupBase || {};
+        const exclude = Array.isArray(base.excludePaths) ? base.excludePaths : ['/cert/', '/cert'];
+
+        return {
+          enabled: ui.enabled,
+          intervalHours: ui.intervalHours,
+          image: ui.image,
+          ctaText: ui.ctaText,
+          ctaUrl: ui.ctaUrl,
+          excludePaths: exclude
+        };
+      }
+
+      async function opsPopupLoad(){
+        try{
+          const url = POPUP_DEPLOY_URL + (POPUP_DEPLOY_URL.indexOf('?')>=0 ? '&' : '?') + 't=' + Date.now();
+          const res = await fetch(url, { cache:'no-store', credentials:'same-origin' });
+          if(!res || !res.ok){ popupMsg('배포 설정을 불러올 수 없습니다. (파일이 없거나 응답 오류)', true); return; }
+          const cfg = await res.json().catch(()=>null);
+          if(!cfg || typeof cfg !== 'object'){ popupMsg('배포 JSON 파싱 실패', true); return; }
+
+          popupBase = cfg;
+
+          if($('popupEnabled')) $('popupEnabled').checked = (cfg.enabled === true);
+          if($('popupInterval')) $('popupInterval').value = String(Number(cfg.intervalHours||0));
+          if($('popupImage')) $('popupImage').value = '/img/popup/event-popup.jpg';
+          if($('popupCtaText')) $('popupCtaText').value = String(cfg.ctaText || '@uzu59');
+          if($('popupCtaUrl')) $('popupCtaUrl').value = String(cfg.ctaUrl || 'https://t.me/UZU59');
+
+          const ex = Array.isArray(cfg.excludePaths) ? cfg.excludePaths : ['/cert/','/cert'];
+          if($('popupExclude')) $('popupExclude').value = ex.join(', ');
+
+          $('opsPopupJson').value = JSON.stringify(cfg, null, 2);
+          popupMsg('배포 설정 불러오기 완료', false);
+        }catch(e){
+          popupMsg('배포 설정 불러오기 실패', true);
+        }
+      }
+
+      function opsPopupMake(){
+        const cfg = buildPopupDeployConfig();
+        const text = JSON.stringify(cfg, null, 2);
+        $('opsPopupJson').value = text;
+        popupMsg('배포용 JSON 생성됨', false);
+        return text;
+      }
+
+      function opsPopupCopy(){
+        const text = opsPopupMake();
+        try{
+          navigator.clipboard.writeText(text);
+          popupMsg('JSON이 클립보드로 복사됨', false);
+        }catch(e){
+          popupMsg('복사 실패 — 텍스트 영역에서 수동 복사하세요', true);
+        }
+      }
+
+      function opsPopupDownload(){
+        const text = opsPopupMake();
+        try{
+          const blob = new Blob([text], {type:'application/json;charset=utf-8'});
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'popup.event.json';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(()=>{ try{ URL.revokeObjectURL(a.href); }catch(e){} try{ a.remove(); }catch(e){} }, 200);
+          popupMsg('배포파일 다운로드 시작됨 (popup.event.json)', false);
+        }catch(e){
+          popupMsg('다운로드 생성 실패 (텍스트를 수동 저장하세요)', true);
+        }
+      }
+
+      function opsPopupOpenImage(){
+        const p = '/img/popup/event-popup.jpg';
+        try{ window.open(p, '_blank', 'noopener'); }catch(e){}
+      }
+
+
       function importPatch(){
         const raw = ($('opsJson').value||'').trim();
         if(!raw){ patchMsg('가져올 JSON이 없습니다.', true); return; }
@@ -813,6 +1114,13 @@
         $('opsCertCopy').addEventListener('click', opsCertCopy);
         $('opsCertDownload').addEventListener('click', opsCertDownload);
 
+        // event popup config
+        $('opsPopupLoad').addEventListener('click', opsPopupLoad);
+        $('opsPopupMake').addEventListener('click', opsPopupMake);
+        $('opsPopupCopy').addEventListener('click', opsPopupCopy);
+        $('opsPopupDownload').addEventListener('click', opsPopupDownload);
+        $('opsPopupOpenImage').addEventListener('click', opsPopupOpenImage);
+
         $('opsRules').addEventListener('click', (e)=>{
           const btn = e.target && e.target.closest && e.target.closest('button[data-act="del"]');
           if(!btn) return;
@@ -865,6 +1173,13 @@
           }catch(e){}
   
         setTimeout(()=>location.reload(), 250);
+        });
+
+        $('opsClearPreset').addEventListener('click', ()=>{
+          if(!confirm('추천 설정(프리셋)과 숨김 상태를 초기화할까요?')) return;
+          try{ localStorage.removeItem('__88st_preset_profile_v1'); }catch(e){}
+          try{ localStorage.removeItem('__88st_preset_dismiss_v1'); }catch(e){}
+          patchMsg('추천 설정 초기화 완료', false);
         });
 
         // --- CTA Smoke Check (popup-based; iframe blocked by security headers) ---
