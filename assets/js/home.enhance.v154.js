@@ -165,18 +165,18 @@
     var telegram = (cfg && cfg.links && cfg.links.telegram) ? cfg.links.telegram : (certCfg && certCfg.telegram) || '';
 
     host.innerHTML = [
-      '<div class="hab" aria-label="빠른 액션 바">',
+      '<div class="hab" aria-label="원클릭 액션 바">',
       '  <div class="habLeft">',
       '    <span class="habChip" id="_habVendorChip" role="button" tabindex="0" aria-label="인증 선택">✅ <span id="_habVendorText">'+escapeHtml(safeLabel)+'</span></span>',
       '    <div class="habTitle">',
-      '      <div class="t">빠른 액션</div>',
-      '      <div class="d">복사·문의·이동</div>',
+      '      <div class="t">원클릭 액션</div>',
+      '      <div class="d">복사+이동 / 문의 / 빠른 기록</div>',
       '    </div>',
       '  </div>',
       '  <div class="habRight">',
-      '    <button class="habBtn primary" type="button" id="_habGo">복사·이동</button>',
+      '    <button class="habBtn primary" type="button" id="_habGo">복사+이동 →</button>',
       '    <button class="habBtn" type="button" id="_habCopy">코드 복사</button>',
-      (telegram? '<button class="habBtn" type="button" id="_habTg">문의</button>' : ''),
+      (telegram? '<button class="habBtn" type="button" id="_habTg">텔레그램</button>' : ''),
       (f.homeQuickLog? '<button class="habBtn" type="button" id="_habQuick">빠른기록</button>' : ''),
       '  </div>',
       '</div>'
@@ -216,12 +216,12 @@
     }
 
     function showConnHelp(url){
-      var tgBtn = telegram ? ('<button class="btn" type="button" id="_connTg" style="flex:1">문의 문의</button>') : '';
+      var tgBtn = telegram ? ('<button class="btn" type="button" id="_connTg" style="flex:1">텔레그램 문의</button>') : '';
       openModal('접속 이슈 안내', [
         '<div class="p">접속이 안 되거나 새 창이 막히면 아래 순서대로 진행하세요.</div>',
         '<div class="p">1) 브라우저 <b>팝업 차단 해제</b> → 다시 시도</div>',
         '<div class="p">2) 그래도 안 되면 <b>인증 페이지</b>에서 혜택/가이드를 확인</div>',
-        '<div class="p">3) 마지막으로 문의으로 문의</div>',
+        '<div class="p">3) 마지막으로 텔레그램으로 문의</div>',
         '<div class="row">',
         '  <button class="btn primary" type="button" id="_connRetry" style="flex:1">다시 열기</button>',
         '  <a class="btn" href="'+escapeAttr(vendor.landing_path||'/cert/')+'" style="flex:1; display:inline-flex; align-items:center; justify-content:center; text-decoration:none;">혜택 보기</a>',
@@ -487,6 +487,7 @@
 
   function kindLabel(type, cat){
     if(type==='cert') return '인증';
+    if(type==='log') return '기록';
     if(type==='guide') return '가이드';
     if(type==='calc') return '계산기';
     if(type==='tool'){
@@ -499,9 +500,171 @@
     return '바로가기';
   }
 
-  function injectTodayStatus(cfg){ return; }
+  function injectTodayStatus(cfg){
+    try{ if(document.getElementById('homeTodayStatus')) return; }catch(e){}
+    var f = (cfg && cfg.features) ? cfg.features : {};
+    if(!f.homeTodayStatus) return;
 
-  function bindQuickLog(cfg){ return; }
+    var day = todayKey();
+    var betlog = readLS('88st_betlog_v1', []);
+    var slots = readLS('88st_slot_sessions_v1', []);
+    var pnl = 0;
+
+    if(Array.isArray(betlog)){
+      betlog.forEach(function(e){
+        if(!e || String(e.date||'')!==day) return;
+        var st = +e.stake||0;
+        var od = +e.odds||0;
+        if((e.res||'')==='W') pnl += st*(od-1);
+        else if((e.res||'')==='L') pnl -= st;
+      });
+    }
+    if(Array.isArray(slots)){
+      slots.forEach(function(e){
+        if(!e || String(e.date||'')!==day) return;
+        pnl += (+e.pl||0);
+      });
+    }
+
+    var sx = readLS('__88st_session_safety_v1', {});
+    var on = !!sx.on;
+    var locked = !!sx.locked;
+    var left = 0;
+    try{ left = Math.max(0, Math.ceil(((+sx.cooldownUntil||0) - Date.now())/1000)); }catch(e){ left = 0; }
+
+    var sec = document.createElement('section');
+    sec.className = 'homeEnhanceSection';
+    sec.id = 'homeTodayStatus';
+    sec.innerHTML = [
+      '<div class="title"><span class="badge">STATUS</span>오늘의 상태</div>',
+      '<div class="dash-sub">오늘 상태와 손익을 한 화면에서 확인합니다. <span class="muted">(로컬 저장)</span></div>',
+      '<div class="homeStatusRow">',
+      '  <div class="homeStatusPill"><div><div class="l">상태</div><div class="v" id="_hsLock">'+escapeHtml((locked?'LOCK':(on?'ON':'OFF')) )+'</div></div></div>',
+      '  <div class="homeStatusPill"><div><div class="l">오늘 손익</div><div class="v" id="_hsPnl">'+escapeHtml(fmtWon(pnl))+'</div></div></div>',
+      '  <div class="homeStatusPill"><div><div class="l">쿨다운</div><div class="v" id="_hsCd">'+escapeHtml(left? (left+'s') : '—')+'</div></div></div>',
+      (f.homeQuickLog? '  <button class="habBtn" type="button" id="_hsQuick" style="height:44px; border-radius:16px;">빠른 기록</button>' : ''),
+      '</div>'
+    ].join('');
+
+    var wrap = qs('.section-wrap');
+    if(wrap) wrap.insertBefore(sec, qs('#homeDash') || qs('#homeQuickStart') || wrap.firstChild);
+
+    var btn = qs('#_hsQuick', sec);
+    if(btn) btn.addEventListener('click', function(){
+      try{ if(window.__88st_home && window.__88st_home.openQuickLog) window.__88st_home.openQuickLog(); }
+      catch(e){}
+    });
+
+    // live update
+    function refresh(){
+      try{
+        var sx2 = readLS('__88st_session_safety_v1', {});
+        var on2 = !!sx2.on, locked2 = !!sx2.locked;
+        var left2 = Math.max(0, Math.ceil(((+sx2.cooldownUntil||0) - Date.now())/1000));
+        var el = qs('#_hsLock'); if(el) el.textContent = locked2?'LOCK':(on2?'ON':'OFF');
+        var cd = qs('#_hsCd'); if(cd) cd.textContent = left2? (left2+'s') : '—';
+      }catch(e){}
+    }
+    setInterval(refresh, 2000);
+    window.addEventListener('storage', refresh);
+  }
+
+  function bindQuickLog(cfg){
+    var f = (cfg && cfg.features) ? cfg.features : {};
+    if(!f.homeQuickLog) return;
+
+    function inferCat(){
+      // default: sports
+      return 'sports';
+    }
+
+    function open(){
+      var day = todayKey();
+      openModal('빠른 기록', [
+        '<div class="p">간단히 기록만 남기세요.</div>',
+        '<div class="row">',
+        '  <select id="_qlCat">',
+        '    <option value="sports">스포츠</option>',
+        '    <option value="casino">카지노</option>',
+        '    <option value="slot">슬롯</option>',
+        '    <option value="mini">미니게임</option>',
+        '  </select>',
+        '</div>',
+        '<div class="row">',
+        '  <input id="_qlMemo" placeholder="메모(선택) — 예: EPL 오버 2.5" />',
+        '</div>',
+        '<div class="row">',
+        '  <input id="_qlStake" inputmode="numeric" placeholder="금액(필수)" />',
+        '  <input id="_qlOdds" inputmode="decimal" placeholder="배당(선택)" />',
+        '</div>',
+        '<div class="row">',
+        '  <select id="_qlRes">',
+        '    <option value="V" selected>대기/VOID</option>',
+        '    <option value="W">WIN</option>',
+        '    <option value="L">LOSE</option>',
+        '  </select>',
+        '</div>',
+        '<div class="row">',
+        '  <button class="btn primary" type="button" id="_qlSave" style="flex:1">저장</button>',
+        '  <button class="btn" type="button" id="_qlOpen" style="flex:1">분석기로 이동</button>',
+        '</div>'
+      ].join(''));
+
+      var mask = ensureModal();
+      var cat = qs('#_qlCat', mask);
+      if(cat) cat.value = inferCat();
+
+      var save = qs('#_qlSave', mask);
+      if(save) save.addEventListener('click', function(){
+        var catv = (cat && cat.value) ? cat.value : 'sports';
+        var memo = (qs('#_qlMemo', mask).value||'').trim();
+        var stakeRaw = (qs('#_qlStake', mask).value||'').replace(/[^0-9.]/g,'');
+        var stake = parseFloat(stakeRaw);
+        var oddsRaw = (qs('#_qlOdds', mask).value||'').replace(/[^0-9.]/g,'');
+        var odds = parseFloat(oddsRaw);
+        var res = (qs('#_qlRes', mask).value||'V').trim();
+
+        if(!isFinite(stake) || stake<=0){ toast('금액을 입력하세요'); return; }
+        if(!isFinite(odds) || odds<=1) odds = 0;
+
+        var arr = readLS('88st_betlog_v1', []);
+        if(!Array.isArray(arr)) arr = [];
+
+        var rec = {
+          ts: Date.now(),
+          date: day,
+          stake: stake,
+          odds: odds,
+          res: (res==='W'||res==='L')?res:'V',
+          sport: (catv==='sports'?'SPORT':(catv==='casino'?'CASINO':(catv==='slot'?'SLOT':'MINI'))),
+          market: memo || '빠른 기록',
+          cat: catv
+        };
+        arr.push(rec);
+        writeLS('88st_betlog_v1', arr);
+
+        // record usage
+        try{ if(window.__88st_recent && window.__88st_recent.record) window.__88st_recent.record('/analysis/', '스포츠 분석기', {cat:'analysis', type:'tool'}); }catch(e){}
+
+        toast('저장 완료');
+        mask.classList.remove('show');
+
+        // broadcast
+        try{ window.dispatchEvent(new Event('storage')); }catch(e){}
+      });
+
+      var openBtn = qs('#_qlOpen', mask);
+      if(openBtn) openBtn.addEventListener('click', function(){
+        mask.classList.remove('show');
+        window.location.href = '/analysis/';
+      });
+    }
+
+    try{
+      window.__88st_home = window.__88st_home || {};
+      window.__88st_home.openQuickLog = open;
+    }catch(e){}
+  }
 
   function escapeHtml(s){
     return String(s||'').replace(/[&<>"']/g, function(m){
@@ -513,7 +676,6 @@
   }
 
   function boot(cfg){
-    cfg = cfg || {}; cfg.features = cfg.features || {}; cfg.features.homeTodayStatus = false; cfg.features.homeQuickLog = false;
     if(!isHome()) return;
 
     // ensure CSS loaded only once (for pages that don't use build.loader)
@@ -546,7 +708,7 @@
       window.__88st_ready(function(cfg){ boot(cfg||{}); });
     }else{
       // fallback without cfg
-      boot({features:{homeActionBar:true, homeCertCards:true, homeMirrorHelper:true, homeRecentUsed:true, homeTodayStatus:false, homeQuickLog:false}, links:{telegram:''}});
+      boot({features:{homeActionBar:true, homeCertCards:true, homeMirrorHelper:true, homeRecentUsed:true, homeTodayStatus:true, homeQuickLog:true}, links:{telegram:''}});
     }
   }
 

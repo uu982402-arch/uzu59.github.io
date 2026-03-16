@@ -35,7 +35,7 @@
     if(p.indexOf('/tool-slot/')===0) return {label:'슬롯 RTP 분석기', cat:'slot', type:'tool'};
     if(p.indexOf('/tool-minigame/')===0) return {label:'미니게임 분석기', cat:'mini', type:'tool'};
     if(p.indexOf('/tool-virtual/')===0) return {label:'가상게임 분석기', cat:'sports', type:'tool'};
-    if(p.indexOf('/analysis/')===0) return {label:'기록 보기', cat:'record', type:'record'};
+    if(p.indexOf('/logbook/')===0) return {label:'베팅 로그북', cat:'log', type:'log'};
     if(p.indexOf('/cert/')===0) {
       if(p.indexOf('/cert/vegas/')===0) return {label:'VEGAS 인증', cat:'cert', type:'cert'};
       if(p.indexOf('/cert/777/')===0) return {label:'777 Bet 인증', cat:'cert', type:'cert'};

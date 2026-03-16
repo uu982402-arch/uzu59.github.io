@@ -20,10 +20,10 @@
   }
   function scoreLabel(s){
     if(!isFinite(s)) return '대기';
-    if(s>=85) return '양호';
-    if(s>=70) return '보통';
-    if(s>=55) return '주의';
-    return '위험';
+    if(s>=85) return '안정';
+    if(s>=70) return '양호';
+    if(s>=55) return '재확인';
+    return '주의';
   }
 
   function setBrief(root, s, warns, recos, tags){
@@ -37,13 +37,13 @@
     var rEl = root.querySelector('[data-role="reco"]');
     if(wEl){
       wEl.innerHTML = '';
-      (warns && warns.length ? warns : ['입력 후 자동 분석됩니다.']).slice(0,6).forEach(function(t){
+      (warns && warns.length ? warns : ['배당을 입력하면 결과 브리프가 자동으로 정리됩니다.']).slice(0,6).forEach(function(t){
         var li = document.createElement('li'); li.textContent = t; wEl.appendChild(li);
       });
     }
     if(rEl){
       rEl.innerHTML = '';
-      (recos && recos.length ? recos : ['마진/리스크가 낮은 구간을 우선하세요.']).slice(0,6).forEach(function(t){
+      (recos && recos.length ? recos : ['가격 효율이 좋은 구간부터 비교해보세요.']).slice(0,6).forEach(function(t){
         var li = document.createElement('li'); li.textContent = t; rEl.appendChild(li);
       });
     }
@@ -282,13 +282,13 @@
     function compute(){
       var odds = getOdds();
       if(!odds || odds.length < 2){
-        setBrief(root, NaN, ['배당을 입력하면 자동 분석됩니다.'], ['마진이 낮은 라인/북부터 선택하세요.'], []);
+        setBrief(root, NaN, ['배당을 입력하면 결과 브리프가 자동으로 정리됩니다.'], ['가격 효율이 좋은 라인과 북부터 비교하세요.'], []);
         return;
       }
       var sum = 0;
       for(var i=0;i<odds.length;i++){
         if(!(odds[i] > 1.0001)){
-          setBrief(root, NaN, ['배당 값이 유효하지 않습니다. (1.01 이상 권장)'], ['배당을 다시 확인하세요.'], []);
+          setBrief(root, NaN, ['배당 값 형식을 다시 확인해주세요. (1.01 이상 권장)'], ['입력값을 정리한 뒤 다시 계산하세요.'], []);
           return;
         }
         sum += 1/odds[i];
@@ -299,20 +299,20 @@
       s = clamp(s, 35, 95);
 
       var warns = [];
-      if(margin >= 0.12) warns.push('마진 매우 높음: ' + (margin*100).toFixed(1) + '% (조건 불리)');
-      else if(margin >= 0.08) warns.push('마진 높음: ' + (margin*100).toFixed(1) + '% (북/라인 비교 권장)');
-      else if(margin >= 0.05) warns.push('마진 보통: ' + (margin*100).toFixed(1) + '%');
-      else warns.push('마진 낮음: ' + (margin*100).toFixed(1) + '% (상대적으로 유리)');
+      if(margin >= 0.12) warns.push('가격 효율 주의: ' + (margin*100).toFixed(1) + '% (수수료 부담 큼)');
+      else if(margin >= 0.08) warns.push('가격 효율 낮음: ' + (margin*100).toFixed(1) + '% (북·라인 비교 권장)');
+      else if(margin >= 0.05) warns.push('가격 효율 보통: ' + (margin*100).toFixed(1) + '%');
+      else warns.push('가격 효율 양호: ' + (margin*100).toFixed(1) + '%');
 
       var recos = [];
-      recos.push('마진이 낮은 북/라인을 우선 선택하세요.');
-      recos.push('오즈 무브/시장 평균 비교(PRO)로 “시장 합의”를 확인하세요.');
-      recos.push('정배/역배 모두 단기 변동이 크니, 단위·손절을 숫자로 고정하세요.');
+      recos.push('가격 효율이 더 좋은 북·라인을 먼저 확인하세요.');
+      recos.push('오즈 무브와 시장 평균 브리프로 현재 가격 위치를 함께 보세요.');
+      recos.push('정배·역배 모두 단기 변동이 크므로 단위와 손절 기준을 숫자로 고정하세요.');
 
       var tags = [];
       tags.push('마켓 ' + marketName());
       tags.push('오버라운드 ' + (sum*100).toFixed(1) + '%');
-      tags.push('마진 ' + (margin*100).toFixed(1) + '%');
+      tags.push('가격 효율 ' + (margin*100).toFixed(1) + '%');
       setBrief(root, s, warns, recos, tags);
     }
 

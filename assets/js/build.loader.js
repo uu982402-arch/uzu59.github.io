@@ -87,21 +87,20 @@
     // --- Core global assets (loaded on every page) ---
     var assets = window.__BUILD_ASSETS;
     var cssList = (assets && assets.css && assets.css.length) ? assets.css : [
-      "/assets/css/theme.tokens.v3.20260313.css",
+      "/assets/css/theme.tokens.v1.20260226.css",
       "/assets/css/vvip-luxe.v75.css",
       "/assets/css/vvip-hub.v85.css",
       "/assets/css/patch.v100.premiumdash.20260222.css",
       "/assets/css/pro-suite.v3.css",
-      "/assets/css/typography.premium.v2.css",
-      "/assets/css/global.unify.v4.20260313.css"
+      "/assets/css/typography.premium.v2.css"
     ];
     var jsList = (assets && assets.js && assets.js.length) ? assets.js : [
       "/assets/js/ui.fix.v1.20260226.js",
       "/assets/js/site.runtime.v1.20260226.js",
+      "/assets/js/share.session.v1.20260226.js",
       "/assets/js/vvip-global.v75.js",
       "/assets/js/j.searchtyping.v83.20260219.js",
-      "/assets/js/pro-suite.v3.js",
-      "/assets/js/global.unify.v3.20260313.js"
+      "/assets/js/pro-suite.v3.js"
     ];
 
 

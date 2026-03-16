@@ -1,4 +1,4 @@
-/* OPS: site.runtime.json editor (v154)
+/* OPS: site.runtime.json editor (v152)
    - Generates deploy JSON + local override preview
    - Adds: preset bar + logbook category report
 */
@@ -20,7 +20,7 @@
     if(['safe','balanced','aggressive'].indexOf(presetDefault)<0) presetDefault = 'balanced';
 
     var cfg = {
-      version: 'v154',
+      version: 'v152',
       brand: { name: '88ST.Cloud', mark: '88', themeColor: '#0b0c10' },
       links: {
         home: '/',
@@ -31,13 +31,7 @@
         shareCard: !!($('siteShareCard') && $('siteShareCard').checked),        certCrossPromo: !!($('siteCertPromo') && $('siteCertPromo').checked),
         guideCourses: !!($('siteGuideCourses') && $('siteGuideCourses').checked),
         proSuite: !!($('siteProSuite') && $('siteProSuite').checked),
-        presetBar: !!($('sitePresetBar') && $('sitePresetBar').checked),        homeActionBar: !!($('siteHomeActionBar') && $('siteHomeActionBar').checked),
-        homeCertCards: !!($('siteHomeCertCards') && $('siteHomeCertCards').checked),
-        homeMirrorHelper: !!($('siteHomeMirrorHelper') && $('siteHomeMirrorHelper').checked),
-        homeRecentUsed: !!($('siteHomeRecentUsed') && $('siteHomeRecentUsed').checked),
-        homeTodayStatus: !!($('siteHomeTodayStatus') && $('siteHomeTodayStatus').checked),
-        homeQuickLog: !!($('siteHomeQuickLog') && $('siteHomeQuickLog').checked)
-      },
+        presetBar: !!($('sitePresetBar') && $('sitePresetBar').checked),      },
       presets: {
         default: presetDefault
       },
@@ -86,13 +80,7 @@
       if($('siteShareCard')) $('siteShareCard').checked = !!(j.features && j.features.shareCard);      if($('siteCertPromo')) $('siteCertPromo').checked = !!(j.features && j.features.certCrossPromo);
       if($('siteGuideCourses')) $('siteGuideCourses').checked = !!(j.features && j.features.guideCourses);
       if($('siteProSuite')) $('siteProSuite').checked = !!(j.features && j.features.proSuite);
-      if($('sitePresetBar')) $('sitePresetBar').checked = !!(j.features && j.features.presetBar);      if($('siteHomeActionBar')) $('siteHomeActionBar').checked = !!(j.features && j.features.homeActionBar);
-      if($('siteHomeCertCards')) $('siteHomeCertCards').checked = !!(j.features && j.features.homeCertCards);
-      if($('siteHomeMirrorHelper')) $('siteHomeMirrorHelper').checked = !!(j.features && j.features.homeMirrorHelper);
-      if($('siteHomeRecentUsed')) $('siteHomeRecentUsed').checked = !!(j.features && j.features.homeRecentUsed);
-      if($('siteHomeTodayStatus')) $('siteHomeTodayStatus').checked = !!(j.features && j.features.homeTodayStatus);
-      if($('siteHomeQuickLog')) $('siteHomeQuickLog').checked = !!(j.features && j.features.homeQuickLog);
-
+      if($('sitePresetBar')) $('sitePresetBar').checked = !!(j.features && j.features.presetBar);
       if($('sitePresetDefault')) {
         var pd = (j.presets && j.presets.default) ? String(j.presets.default) : 'balanced';
         if(['safe','balanced','aggressive'].indexOf(pd)<0) pd = 'balanced';

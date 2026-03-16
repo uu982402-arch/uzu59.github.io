@@ -225,17 +225,17 @@ const safeNum = (v) => {
 
   const marginGrade = (m) => {
     if (!Number.isFinite(m)) return { label: '마진 등급 —', tone: '' };
-    if (m <= 0.03) return { label: `마진 최상 ${pct(m,2)}`, tone: 'good' };
-    if (m <= 0.05) return { label: `마진 좋음 ${pct(m,2)}`, tone: 'good' };
-    if (m <= 0.08) return { label: `마진 보통 ${pct(m,2)}`, tone: 'warn' };
-    return { label: `마진 높음 ${pct(m,2)}`, tone: 'bad' };
+    if (m <= 0.03) return { label: `가격 효율 우수 ${pct(m,2)}`, tone: 'good' };
+    if (m <= 0.05) return { label: `가격 효율 양호 ${pct(m,2)}`, tone: 'good' };
+    if (m <= 0.08) return { label: `가격 효율 보통 ${pct(m,2)}`, tone: 'warn' };
+    return { label: `가격 효율 주의 ${pct(m,2)}`, tone: 'bad' };
   };
 
   const agreementGrade = (sdMean) => {
     if (!Number.isFinite(sdMean)) return null;
-    if (sdMean <= 0.010) return { label: `시장 합의도 높음`, tone: 'good' };
-    if (sdMean <= 0.025) return { label: `시장 합의도 보통`, tone: 'warn' };
-    return { label: `시장 합의도 낮음`, tone: 'bad' };
+    if (sdMean <= 0.010) return { label: `시장 일치도 높음`, tone: 'good' };
+    if (sdMean <= 0.025) return { label: `시장 일치도 중간`, tone: 'warn' };
+    return { label: `시장 일치도 낮음`, tone: 'bad' };
   };
 
   const copyText = async (text) => {
@@ -620,15 +620,15 @@ const safeNum = (v) => {
     if (hasCons) {
       const ag = agreementGrade(consLast.sdMean);
       if (ag) setBadge('sigAgreement', ag.label, ag.tone, true);
-      else setBadge('sigAgreement', '시장 합의도 —', '', false);
-      setBadge('sigMarketAvg', '시장 평균 비교 ON', 'good', true);
+      else setBadge('sigAgreement', '시장 일치도 —', '', false);
+      setBadge('sigMarketAvg', '시장 평균 브리프 ON', 'good', true);
     } else {
-      setBadge('sigAgreement', '시장 합의도 —', '', false);
-      setBadge('sigMarketAvg', '시장 평균 비교 —', '', false);
+      setBadge('sigAgreement', '시장 일치도 —', '', false);
+      setBadge('sigMarketAvg', '시장 평균 브리프 —', '', false);
     }
 
     const hasOpen = !!(openSnap && openSnap.market === market && canMatchLine(openSnap.line, line) && Array.isArray(openSnap.odds) && openSnap.odds.length === shownOdds.length);
-    setBadge('sigMove', hasOpen ? '오즈 무브 ON' : '오즈 무브 —', hasOpen ? 'good' : '', !!hasOpen);
+    setBadge('sigMove', hasOpen ? '오즈 무브 추적 ON' : '오즈 무브 —', hasOpen ? 'good' : '', !!hasOpen);
 
     // summary card
     const so = $('summaryOut');
@@ -666,16 +666,19 @@ const safeNum = (v) => {
 
     // guidance (reference-first)
     let guide = '';
-    if (res.margin > 0.08) guide = '마진이 높습니다. 멀티 스캔 TOP3 또는 다른 북/라인으로 비교해보세요.';
-    else if (res.margin > 0.05) guide = '마진이 보통~높음 구간입니다. TOP3 스캔으로 더 낮은 마진을 먼저 찾는 게 효율적입니다.';
-    else guide = '마진이 낮은 편입니다. 같은 마켓/라인에서 오즈 무브·시장 평균 비교로 “가격(배당)” 차이를 확인해보세요.';
+    if (res.margin > 0.08) guide = '수수료 부담이 큰 구간입니다. 멀티 스캔 TOP3 또는 다른 북·라인과 비교해 가격 효율을 먼저 점검하세요.';
+    else if (res.margin > 0.05) guide = '무난하지만 더 나은 가격이 남아 있을 수 있는 구간입니다. TOP3 스캔으로 낮은 마진 후보를 먼저 정리해보세요.';
+    else guide = '비교적 정돈된 가격 구간입니다. 같은 마켓·라인에서 오즈 무브와 시장 평균 브리프로 세부 가격 차이를 확인해보세요.';
 
     so.innerHTML = `
-      <div class="sum-line">${htmlEscape(sportLabel)} · <b>${htmlEscape(marketLabel(market,line))}</b> · 현재 <span class="sum-mono">${htmlEscape(nowOddsText)}</span> · 공정확률 <span class="sum-mono">${htmlEscape(pText)}</span></div>
-      <div class="sum-sub">공정배당 <span class="sum-mono">${htmlEscape(fairText)}</span> · 방식 <b>${htmlEscape(methodLabel(method))}</b> · ${htmlEscape(mg.label)}</div>
-      ${extra?`<div class="sum-sub">${extra}</div>`:''}
-      ${extra2?`<div class="sum-sub">${extra2}</div>`:''}
-      <div class="sum-sub">TIP: ${htmlEscape(guide)}</div>
+      <div class="sum-card">
+        <div class="sum-line sum-line--lead">${htmlEscape(sportLabel)} · <b>${htmlEscape(marketLabel(market,line))}</b></div>
+        <div class="sum-sub sum-sub--meta">현재 배당 <span class="sum-mono">${htmlEscape(nowOddsText)}</span> · 공정확률 <span class="sum-mono">${htmlEscape(pText)}</span></div>
+        <div class="sum-sub">공정배당 <span class="sum-mono">${htmlEscape(fairText)}</span> · 방식 <b>${htmlEscape(methodLabel(method))}</b> · <b>${htmlEscape(mg.label)}</b></div>
+        ${extra?`<div class="sum-sub">${extra}</div>`:''}
+        ${extra2?`<div class="sum-sub">${extra2}</div>`:''}
+        <div class="sum-tip"><span class="sum-tip-k">BRIEF</span><span>${htmlEscape(guide)}</span></div>
+      </div>
     `;
 
     // clipboard text
@@ -695,7 +698,7 @@ const safeNum = (v) => {
       const mvText = mv.map(v => Number.isFinite(v) ? (v>=0?`+${fmt(v,2)}`:fmt(v,2)) : '—').join(' / ');
       lines.push(`오픈→현재 변동: ${mvText}`);
     }
-    lines.push(`TIP: ${guide}`);
+    lines.push(`브리프: ${guide}`);
     lastSummaryText = lines.join('\n');
   };
 
@@ -718,18 +721,18 @@ const safeNum = (v) => {
       $('kvOver').textContent = '—';
       $('kvMargin').textContent = '—';
       $('kvFair').textContent = '—';
-      $('kvFairNote').textContent = '입력 대기';
+      $(`kvFairNote`).textContent = '브리프 대기';
       $('kvUpset').textContent = '—';
       $('kvUpsetNote').textContent = '—';
-      if (warnEl) warnEl.textContent = '입력 대기';
-      tbody.innerHTML = `<tr><td colspan="4" style="border-radius:14px;text-align:center;opacity:.7">입력 후 자동 계산됩니다.</td></tr>`;
+      if (warnEl) warnEl.textContent = '브리프 대기';
+      tbody.innerHTML = `<tr><td colspan="4" style="border-radius:14px;text-align:center;opacity:.7">배당을 입력하면 결과 카드가 자동으로 정리됩니다.</td></tr>`;
 
-      setBadge('sigMargin', '마진 등급 —');
-      setBadge('sigAgreement', '시장 합의도 —', '', false);
+      setBadge('sigMargin', '가격 효율 —');
+      setBadge('sigAgreement', '시장 일치도 —', '', false);
       setBadge('sigMove', '오즈 무브 —', '', false);
-      setBadge('sigMarketAvg', '시장 평균 비교 —', '', false);
+      setBadge('sigMarketAvg', '시장 평균 브리프 —', '', false);
       const so = $('summaryOut');
-      if (so) so.innerHTML = `<div class="sum-sub">입력 후 결과 요약이 표시됩니다.</div>`;
+      if (so) so.innerHTML = `<div class="sum-empty"><div class="sum-empty-k">RESULT BRIEF</div><div class="sum-empty-t">배당을 입력하면 결과 브리프가 자동으로 정리됩니다.</div><div class="sum-empty-s">공정확률, 공정배당, 가격 효율, 시장 비교 포인트가 이 영역에 표시됩니다.</div></div>`;
       return;
     }
 
@@ -745,22 +748,22 @@ const safeNum = (v) => {
     $('kvMarket').textContent = mkText;
 
     $('kvFair').textContent = fairOdds.map(o => fmt(o,2)).join(' / ');
-    $('kvFairNote').textContent = methodLabel(method);
+    $(`kvFairNote`).textContent = `${methodLabel(method)} 기준`;
 
     // Upset
     const favIdx = probs.reduce((bi,p,i)=> p>probs[bi]?i:bi, 0);
     const upset = 1 - probs[favIdx];
     $('kvUpset').textContent = pct(upset, 2);
     const freq = upset>0 ? Math.max(2, Math.round(1/upset)) : 0;
-    $('kvUpsetNote').textContent = upset>0 ? `평균 ${freq}번 중 1번 정도` : '—';
+    $(`kvUpsetNote`).textContent = upset>0 ? `약 ${freq}회 중 1회 수준` : '—';
 
     // Warn
     const issues = [];
-    if (res.margin < 0) issues.push('마진 음수(입력 확인)');
-    if (res.margin > 0.12) issues.push('마진 높음');
+    if (res.margin < 0) issues.push('입력값 재확인 필요');
+    if (res.margin > 0.12) issues.push('가격 효율 주의');
     if (market === 'ou' && !Number.isFinite(line)) issues.push('라인 없음');
     if (market === 'handicap' && !Number.isFinite(line)) issues.push('라인 없음');
-    warnEl.textContent = issues.length ? issues[0] : '정상';
+    warnEl.textContent = issues.length ? issues[0] : '구조 안정';
 
     // Volatility note
     const noteVol = $('noteVol');
@@ -830,8 +833,8 @@ const safeNum = (v) => {
     const first = lines[0] || text;
     const payload = detectMarket(first, forced, sport);
     if (!payload.odds || payload.odds.length < 2) {
-      $('kvWarn').textContent = '붙여넣기 인식 실패';
-      toast('인식 실패: 배당 숫자 확인');
+      $(`kvWarn`).textContent = '입력 형식 확인 필요';
+      toast('붙여넣기 형식을 다시 확인하세요');
       return;
     }
     fillForm(payload);
