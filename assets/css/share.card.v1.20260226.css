@@ -1,0 +1,70 @@
+/* Share Card Modal (v1.20260226)
+   - Generates a premium PNG summary card for Telegram/community.
+   - Safe global load.
+*/
+:root{
+  --sc-line: rgba(15,23,42,.14);
+  --sc-bg: rgba(255,255,255,.76);
+  --sc-bg2: rgba(255,255,255,.62);
+  --sc-shadow: 0 22px 64px rgba(0,0,0,.16);
+}
+[data-theme="dark"]{
+  --sc-line: rgba(255,255,255,.14);
+  --sc-bg: rgba(18,18,22,.80);
+  --sc-bg2: rgba(18,18,22,.62);
+  --sc-shadow: 0 28px 76px rgba(0,0,0,.46);
+}
+
+.sc-modal{position:fixed; inset:0; z-index: 99999; display:none;}
+.sc-modal.open{display:block;}
+.sc-backdrop{position:absolute; inset:0; background: rgba(0,0,0,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);}
+.sc-box{position:relative; margin: 6vh auto 0; width: min(860px, calc(100% - 24px)); border-radius: 18px; border:1px solid var(--sc-line); background: linear-gradient(180deg, var(--sc-bg), var(--sc-bg2)); box-shadow: var(--sc-shadow); overflow:hidden;}
+.sc-head{display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:14px 14px 10px; border-bottom:1px solid var(--sc-line);}
+.sc-title{font-weight:950; letter-spacing:-.02em;}
+.sc-sub{margin-top:4px; font-size:12px; opacity:.74; line-height:1.4;}
+.sc-x{border:1px solid var(--sc-line); background: rgba(255,255,255,.06); color:inherit; width:36px; height:36px; border-radius:12px; cursor:pointer; font-weight:900;}
+[data-theme="light"] .sc-x{background: rgba(0,0,0,.04);} 
+
+.sc-body{padding:14px; display:grid; gap:12px;}
+.sc-row{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+.sc-btn{height:40px; border-radius:12px; padding:0 12px; border:1px solid var(--sc-line); background: rgba(255,255,255,.06); color:inherit; font-weight:900; cursor:pointer;}
+[data-theme="light"] .sc-btn{background: rgba(0,0,0,.04);} 
+.sc-btn.primary{background: rgba(121,83,255,.22); border-color: rgba(121,83,255,.55);} 
+
+.sc-canvasWrap{border-radius:16px; border:1px solid var(--sc-line); background: rgba(0,0,0,.08); padding:12px; overflow:auto;}
+[data-theme="light"] .sc-canvasWrap{background: rgba(0,0,0,.03);} 
+
+.sc-tip{font-size:12px; opacity:.74; line-height:1.45;}
+
+/* Session Widget */
+.sx-session{position:fixed; right:14px; bottom:14px; z-index: 9999; width: min(320px, calc(100% - 28px)); border-radius: 18px; border:1px solid rgba(255,255,255,.14); background: rgba(18,18,22,.72); color: #fff; box-shadow: 0 18px 54px rgba(0,0,0,.34); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); overflow:hidden;}
+[data-theme="light"] .sx-session{background: rgba(255,255,255,.78); color: inherit; border-color: rgba(0,0,0,.10); box-shadow: 0 18px 54px rgba(0,0,0,.14);} 
+.sx-session .hd{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; border-bottom:1px solid rgba(255,255,255,.12);} 
+[data-theme="light"] .sx-session .hd{border-bottom-color: rgba(0,0,0,.08);} 
+.sx-session .ttl{font-weight:950; letter-spacing:-.02em; font-size:13px;}
+.sx-session .badge{font-size:11px; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.14); opacity:.9;}
+[data-theme="light"] .sx-session .badge{border-color: rgba(0,0,0,.12);} 
+.sx-session .body{padding:10px 12px; display:grid; gap:10px;}
+.sx-session .kpis{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:8px;}
+.sx-session .kpi{border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); padding:8px 8px;}
+[data-theme="light"] .sx-session .kpi{background: rgba(0,0,0,.03); border-color: rgba(0,0,0,.10);} 
+.sx-session .k{font-size:11px; opacity:.74;}
+.sx-session .v{font-weight:950; margin-top:2px;}
+.sx-session .row{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+.sx-session input{flex:1; min-width: 90px; height:36px; border-radius:12px; padding:0 10px; border:1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.12); color:inherit; outline:none;}
+[data-theme="light"] .sx-session input{background: rgba(255,255,255,.9); border-color: rgba(0,0,0,.12);} 
+.sx-session .btn{height:36px; border-radius:12px; padding:0 10px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color:inherit; font-weight:900; cursor:pointer;}
+[data-theme="light"] .sx-session .btn{background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.12);} 
+.sx-session .btn.primary{background: rgba(121,83,255,.22); border-color: rgba(121,83,255,.55);} 
+.sx-session .note{font-size:11px; opacity:.76; line-height:1.4;}
+.sx-session .min{display:flex; gap:8px; align-items:center; justify-content:space-between;}
+.sx-session .x{width:32px; height:32px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color:inherit; cursor:pointer; font-weight:900;}
+[data-theme="light"] .sx-session .x{background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.12);} 
+
+.sx-hidden{display:none!important;}
+
+/* Tiny toast */
+#_88stToastHost{position:fixed; left:50%; top:14px; transform:translateX(-50%); z-index:999999; display:grid; gap:8px; pointer-events:none;}
+.stx-toast{opacity:0; transform:translateY(-6px); transition: all .22s ease; padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background: rgba(18,18,22,.72); color:#fff; font-weight:900; box-shadow:0 18px 54px rgba(0,0,0,.34); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); max-width:min(520px, calc(100vw - 20px)); text-align:center;}
+[data-theme="light"] .stx-toast{background: rgba(255,255,255,.86); color: inherit; border-color: rgba(0,0,0,.10); box-shadow:0 18px 54px rgba(0,0,0,.14);} 
+.stx-toast.show{opacity:1; transform:translateY(0);} 

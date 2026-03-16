@@ -1,0 +1,45 @@
+/* typography.premium.v1.css
+ * Global premium typography pass (subtle, safe).
+ * Goal: richer ink tone + slightly bolder default weight.
+ */
+
+:root{
+  /* align with existing VVIP palette */
+  --vvip-text:#0B1220;
+  --vvip-muted:#667085;
+}
+
+html, body{
+  color: var(--vvip-text) !important;
+}
+
+body{
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4{
+  font-weight: 800 !important;
+  letter-spacing: -0.2px;
+}
+
+b, strong{
+  font-weight: 800;
+}
+
+/* Inputs/buttons should feel a touch more premium */
+button, .btn, .st-btn, .hub-btn,
+input, select, textarea{
+  font-weight: 600;
+}
+
+/* Dark theme */
+html[data-theme="dark"]{
+  --vvip-text:#E7E9EE;
+  --vvip-muted:#A7B0C0;
+}
+
+html[data-theme="dark"], html[data-theme="dark"] body{
+  color: var(--vvip-text) !important;
+}

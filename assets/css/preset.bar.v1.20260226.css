@@ -1,0 +1,74 @@
+/* Preset Bar (v1.20260226)
+ * - Low-friction "추천 설정 적용" + optional mode picker
+ * - Injected by /assets/js/presets.core.v1.20260226.js
+ */
+
+.psPresetBar{
+  margin: 12px 0 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(20,20,24,.40);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 18px 46px rgba(0,0,0,.25);
+  padding: 12px;
+}
+[data-theme="light"] .psPresetBar{
+  background: rgba(255,255,255,.72);
+  border-color: rgba(0,0,0,.08);
+  box-shadow: 0 18px 46px rgba(0,0,0,.10);
+}
+
+.psPresetTop{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.psPresetLeft{ display:flex; flex-direction:column; gap:2px; min-width: 220px; }
+.psPresetRow{ display:flex; align-items:center; gap:10px; }
+.psPresetBadge{ font-size: 11px; font-weight: 900; letter-spacing: .08em; padding: 4px 8px; border-radius: 999px; border:1px solid rgba(255,255,255,.14); opacity:.92; }
+[data-theme="light"] .psPresetBadge{ border-color: rgba(0,0,0,.12); }
+.psPresetTitle{ font-weight: 900; letter-spacing: -.02em; }
+.psPresetSub{ font-size: 12px; opacity: .76; line-height: 1.35; }
+
+.psPresetActions{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.psPresetBtn{
+  height: 40px;
+  border-radius: 14px;
+  padding: 0 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+[data-theme="light"] .psPresetBtn{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.12); }
+.psPresetBtn.primary{ background: rgba(121, 83, 255, .30); border-color: rgba(121, 83, 255, .55); }
+[data-theme="light"] .psPresetBtn.primary{ background: rgba(121, 83, 255, .16); }
+.psPresetBtn:active{ transform: translateY(1px); }
+
+.psPresetToggle{ display:flex; align-items:center; gap:8px; font-size:12px; opacity:.85; }
+.psPresetToggle input{ width: 16px; height: 16px; }
+
+.psPresetPick{
+  margin-top: 10px;
+  display:none;
+  border-top: 1px solid rgba(255,255,255,.10);
+  padding-top: 10px;
+}
+[data-theme="light"] .psPresetPick{ border-top-color: rgba(0,0,0,.08); }
+
+.psPresetChips{ display:flex; gap:8px; flex-wrap:wrap; }
+.psPresetChip{
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.12);
+  color: inherit;
+  border-radius: 999px;
+  padding: 9px 12px;
+  font-weight: 900;
+  cursor: pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+[data-theme="light"] .psPresetChip{ background: rgba(255,255,255,.65); border-color: rgba(0,0,0,.10); }
+.psPresetChip .m{ font-size: 11px; opacity: .75; font-weight: 800; }
+.psPresetChip.active{ border-color: rgba(121, 83, 255, .72); box-shadow: 0 10px 26px rgba(121, 83, 255, .12); }
+
+.psPresetHint{ margin-top: 8px; font-size: 12px; opacity: .74; line-height: 1.45; }

@@ -1,0 +1,10 @@
+
+.guide-entry-section .guide-entry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.guide-entry-card{padding:28px;border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 48px rgba(0,0,0,.2)}
+.guide-entry-card h3{margin:10px 0 10px;font-size:28px;line-height:1.12;letter-spacing:-.03em}
+.guide-entry-card p{margin:0;color:#a6bad4}
+.guide-entry-card ul{margin:18px 0 0;padding-left:18px;color:#cfdef1}
+.guide-entry-card li+li{margin-top:8px}
+.guide-entry-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.guide-chip{display:inline-flex;padding:7px 12px;border-radius:999px;background:rgba(122,200,255,.12);border:1px solid rgba(122,200,255,.18);font-size:12px;font-weight:700;color:#d8ebff;letter-spacing:.08em;text-transform:uppercase}
+@media (max-width: 900px){.guide-entry-section .guide-entry-grid{grid-template-columns:1fr}}

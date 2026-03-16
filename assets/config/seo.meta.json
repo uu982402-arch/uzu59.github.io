@@ -1,42 +1,7 @@
 {
   "/": {
-    "title": "88ST | 스포츠 배당 분석 허브 · EV · 마진 · 켈리 계산기",
-    "description": "스포츠 배당 분석기, 공정확률·마진·EV·켈리 계산기, 인증사이트 비교와 핵심 가이드를 한곳에서 정리하는 프리미엄 분석 허브입니다.",
-    "keywords": "스포츠 배당 분석기, 공정확률, 마진 계산기, EV 계산기, Kelly 기준, 인증사이트 비교"
-  },
-  "/analysis/": {
-    "title": "스포츠 배당 정밀 분석기 | 공정확률·오버라운드·EV 해석 | 88ST",
-    "description": "배당을 공정확률, 오버라운드, 시장 합의, 오즈 무브, Kelly 스테이킹 관점까지 확장 해석하는 스포츠 배당 정밀 분석기.",
-    "keywords": "스포츠 배당 분석기, 공정확률, 오버라운드, 공정배당, 오즈 무브, Kelly"
-  },
-  "/cert/": {
-    "title": "인증사이트 비교 | 가입코드·혜택·체크포인트 | 88ST",
-    "description": "인증사이트의 혜택, 체크포인트, 가입코드, 기본 조건을 비교 정리한 인증 비교 허브.",
-    "keywords": "인증사이트, 가입코드, 혜택, 체크포인트, 안전 체크"
-  },
-  "/tool-margin/": {
-    "title": "배당 마진 계산기 | 오버라운드·공정확률 | 88ST",
-    "description": "북메이커 오버라운드와 공정확률, 공정배당을 빠르게 계산하는 마진 계산기.",
-    "keywords": "마진 계산기, 오버라운드, 공정확률"
-  },
-  "/tool-ev/": {
-    "title": "EV 계산기 | 기대값·손익분기 확률 | 88ST",
-    "description": "배당과 추정 승률을 기반으로 기대값(EV)과 손익분기 확률을 계산합니다.",
-    "keywords": "EV 계산기, 기대값, 손익분기 확률"
-  },
-  "/tool-odds/": {
-    "title": "배당 확률 변환기 | Odds to Probability | 88ST",
-    "description": "십진 배당과 implied probability를 빠르게 변환하는 배당↔확률 변환기.",
-    "keywords": "배당 변환, 확률 변환, implied probability"
-  },
-  "/tool/kelly/": {
-    "title": "Kelly 비중 계산기 | 베팅 비중·스테이킹 | 88ST",
-    "description": "Full·Half·Quarter Kelly 기준으로 베팅 비중을 계산합니다.",
-    "keywords": "Kelly criterion, Kelly 계산기, 베팅 비중"
-  },
-  "/guide/": {
-    "title": "배당 분석 가이드 | 공정확률·EV·체크리스트 | 88ST",
-    "description": "배당 분석, 공정확률, EV, 체크리스트 기초를 빠르게 이해할 수 있는 가이드 모음.",
-    "keywords": "배당 분석 가이드, 공정확률, EV, 체크리스트"
+    "title": "88ST.Cloud",
+    "description": "스포츠 분석 · 계산기 · 가이드 · 인증 비교",
+    "keywords": "스포츠 분석, 배당 분석기, EV 계산기, 켈리 기준, 마진"
   }
 }

@@ -1,0 +1,59 @@
+
+#proResult.pro-card{position:relative;overflow:hidden}
+#proResult.pro-card::before{content:"";position:absolute;inset:0 0 auto 0;height:1px;background:linear-gradient(90deg,rgba(108,160,255,0),rgba(108,160,255,.72),rgba(39,215,164,.45),rgba(108,160,255,0));opacity:.9}
+#proResult .pro-kv{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#proResult .pro-kvi{position:relative;min-height:118px;padding:15px 16px 14px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.03));border:1px solid rgba(135,166,217,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+#proResult .pro-kvi::after{content:"";position:absolute;left:16px;right:16px;top:0;height:3px;border-radius:999px;background:linear-gradient(90deg,rgba(108,160,255,.92),rgba(39,215,164,.58));opacity:.85}
+#proResult .pro-kvi .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#b7c8e5}
+#proResult .pro-kvi .v{margin-top:10px;font-size:24px;font-weight:950;letter-spacing:-.02em}
+#proResult .pro-kvi .s{margin-top:8px;font-size:12px;line-height:1.45;color:#90a7cf}
+#kvWarn{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(108,160,255,.08);border:1px solid rgba(108,160,255,.18);font-size:15px}
+#sigRow{margin-top:14px!important}
+.pro-badge{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(135,166,217,.14);font-size:12px;font-weight:900;letter-spacing:.02em}
+.pro-badge::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(183,202,232,.8);box-shadow:0 0 0 4px rgba(183,202,232,.08)}
+.pro-badge.good{background:rgba(39,215,164,.10);border-color:rgba(39,215,164,.22);color:#ddfff4}
+.pro-badge.good::before{background:#27d7a4;box-shadow:0 0 0 4px rgba(39,215,164,.14)}
+.pro-badge.warn{background:rgba(255,189,81,.12);border-color:rgba(255,189,81,.24);color:#ffe8b8}
+.pro-badge.warn::before{background:#ffbd51;box-shadow:0 0 0 4px rgba(255,189,81,.16)}
+.pro-badge.bad{background:rgba(255,97,97,.13);border-color:rgba(255,97,97,.22);color:#ffd6d6}
+.pro-badge.bad::before{background:#ff6161;box-shadow:0 0 0 4px rgba(255,97,97,.14)}
+#sprtBrief{margin-top:16px;border-radius:26px;background:linear-gradient(180deg,rgba(11,18,31,.9),rgba(14,24,39,.82));border:1px solid rgba(135,166,217,.14);box-shadow:0 20px 48px rgba(0,0,0,.18)}
+#sprtBrief .vvip-brief-head{padding:16px 18px 14px}
+#sprtBrief .vvip-brief-title{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#dfe8fb}
+#sprtBrief .vvip-brief-score{gap:10px}
+#sprtBrief .vvip-brief-score .n{font-size:22px;font-weight:1000}
+#sprtBrief .vvip-brief-score .lab{min-height:34px;padding:0 12px;background:rgba(255,255,255,.06);border:1px solid rgba(135,166,217,.14);color:#e8f0ff}
+#sprtBrief .vvip-brief-score .lab.is-good{background:rgba(39,215,164,.12);border-color:rgba(39,215,164,.22);color:#ddfff4}
+#sprtBrief .vvip-brief-score .lab.is-mid{background:rgba(108,160,255,.10);border-color:rgba(108,160,255,.20);color:#dfe9ff}
+#sprtBrief .vvip-brief-score .lab.is-warn{background:rgba(255,189,81,.12);border-color:rgba(255,189,81,.24);color:#ffe3ae}
+#sprtBrief .vvip-brief-score .lab.is-bad{background:rgba(255,97,97,.13);border-color:rgba(255,97,97,.22);color:#ffd6d6}
+#sprtBrief .vvip-brief-body{padding:14px 18px 18px}
+#sprtBrief .vvip-brief-col{border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.03));border:1px solid rgba(135,166,217,.12)}
+#sprtBrief .vvip-brief-k{font-size:11px;letter-spacing:.08em;color:#98afda}
+#sprtBrief .vvip-brief-list{font-size:13px;line-height:1.6}
+#sprtBrief .vvip-brief-list li{margin-bottom:6px}
+#sprtBrief .vvip-brief-tag{background:rgba(255,255,255,.06);border:1px solid rgba(135,166,217,.14);color:#dbe6fb}
+#summaryOut{margin-top:14px!important;padding:0!important;border:none!important;background:transparent!important}
+#summaryOut .sum-card{padding:18px 18px 16px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));border:1px solid rgba(135,166,217,.14);box-shadow:0 20px 46px rgba(0,0,0,.16)}
+#summaryOut .sum-line{font-size:15px;font-weight:900;line-height:1.5;color:#eff4ff}
+#summaryOut .sum-line--lead{font-size:17px;letter-spacing:-.01em}
+#summaryOut .sum-sub{margin-top:9px;font-size:13px;line-height:1.7;color:#a9bddf}
+#summaryOut .sum-sub--meta{margin-top:10px;padding-top:10px;border-top:1px solid rgba(135,166,217,.10)}
+#summaryOut .sum-tip{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px 14px;border-radius:18px;background:rgba(108,160,255,.08);border:1px solid rgba(108,160,255,.16);font-size:13px;line-height:1.65;color:#dfe9ff}
+#summaryOut .sum-tip-k{display:inline-flex;align-items:center;justify-content:center;min-width:58px;height:24px;border-radius:999px;background:rgba(255,255,255,.12);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+#summaryOut .sum-empty{padding:18px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));border:1px solid rgba(135,166,217,.14)}
+#summaryOut .sum-empty-k{font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#7fe3c7}
+#summaryOut .sum-empty-t{margin-top:8px;font-size:16px;font-weight:900;color:#eef4ff}
+#summaryOut .sum-empty-s{margin-top:8px;font-size:13px;line-height:1.65;color:#a9bddf}
+#proResult .pro-table{margin-top:14px;border-collapse:separate;border-spacing:0 10px}
+#proResult .pro-table th{padding:0 12px 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#93abcf}
+#proResult .pro-table td{padding:13px 12px;background:rgba(255,255,255,.045);border:1px solid rgba(135,166,217,.12)}
+#proResult .pro-table tbody tr td:first-child{font-weight:900;color:#f4f7ff}
+#proResult .pro-table tbody tr:hover td{background:rgba(255,255,255,.065)}
+#noteVol{padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.035);border:1px solid rgba(135,166,217,.10);line-height:1.65;color:#aac0e1}
+@media (max-width:860px){
+  #proResult .pro-kv{grid-template-columns:1fr}
+  #proResult .pro-kvi{min-height:auto}
+  #sprtBrief .vvip-brief-head{align-items:flex-start;flex-direction:column}
+  #summaryOut .sum-tip{flex-direction:column}
+}

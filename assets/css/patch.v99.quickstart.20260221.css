@@ -1,0 +1,58 @@
+/* patch.v99.quickstart.20260221.css
+   - Home "오늘의 루틴(30초)" premium quick-start cards
+*/
+#homeQuickStart{ margin-top: 18px; }
+#homeQuickStart .qs-sub{ margin-top: 6px; font-size: 13px; opacity: .82; line-height: 1.55; }
+#homeQuickStart .qs-grid{ display:grid; gap:12px; margin-top: 12px; }
+@media (min-width: 980px){ #homeQuickStart .qs-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+#homeQuickStart .qs-card{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding:14px 16px;
+  border-radius:22px;
+  border:1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 16px 46px rgba(0,0,0,.10);
+  text-decoration:none;
+  color:inherit;
+  position:relative;
+  overflow:hidden;
+}
+[data-theme="dark"] #homeQuickStart .qs-card{
+  border-color: rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 18px 52px rgba(0,0,0,.30);
+}
+#homeQuickStart .qs-card:before{
+  content:"";
+  position:absolute;
+  inset:-60px -90px auto auto;
+  width:220px;
+  height:160px;
+  background: radial-gradient(circle at 30% 30%, rgba(45,156,255,.22), transparent 62%);
+  transform: rotate(12deg);
+  pointer-events:none;
+}
+#homeQuickStart .qs-card:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+
+#homeQuickStart .qs-card .k{ font-size:12px; font-weight:950; letter-spacing:.06em; text-transform:uppercase; opacity:.82; }
+#homeQuickStart .qs-card .h{ font-size:16px; font-weight:1000; line-height:1.25; letter-spacing:-.2px; }
+#homeQuickStart .qs-card .d{ font-size:13px; opacity:.82; line-height:1.55; }
+#homeQuickStart .qs-card .go{ margin-top:4px; display:inline-flex; align-items:center; gap:8px;
+  font-weight:950; font-size:13px; padding:10px 12px; border-radius:16px;
+  border:1px solid rgba(0,0,0,.10);
+  background: rgba(0,0,0,.03);
+  width:fit-content;
+}
+[data-theme="dark"] #homeQuickStart .qs-card .go{
+  border-color: rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+}
+
+@media (max-width: 520px){
+  #homeQuickStart .qs-card{ padding:13px 14px; border-radius:20px; }
+  #homeQuickStart .qs-card .h{ font-size:15px; }
+  #homeQuickStart .qs-card .go{ width:100%; justify-content:center; }
+}
