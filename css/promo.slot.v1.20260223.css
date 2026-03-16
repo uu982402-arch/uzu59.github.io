@@ -1,0 +1,27 @@
+/* 88ST Promo Slot v1 (2026-02-23) */
+.promo-slot{margin-top:14px}
+.promo-slot .title{display:flex;align-items:center;gap:10px}
+.promo-slot .title .badge{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:5px 10px;font-weight:900;font-size:12px;letter-spacing:-.2px;background:rgba(20,24,34,.08);border:1px solid rgba(20,24,34,.12)}
+.promo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+@media (max-width:560px){.promo-grid{grid-template-columns:1fr}}
+.promo-card{display:flex;flex-direction:column;gap:10px;border-radius:22px;border:1px solid rgba(20,24,34,.12);background:rgba(255,255,255,.88);box-shadow:0 18px 55px rgba(0,0,0,.10);padding:12px;text-decoration:none;color:inherit;transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease}
+.promo-card:hover{transform:translateY(-1px);box-shadow:0 22px 70px rgba(0,0,0,.14);border-color:rgba(20,24,34,.18)}
+.promo-media{border-radius:18px;overflow:hidden;border:1px solid rgba(20,24,34,.12);background:rgba(0,0,0,.06);
+  /* Keep promo images consistent even if source aspect ratios differ */
+  aspect-ratio:16/9;
+}
+.promo-media img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+.promo-meta{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:2px 4px 0}
+.promo-name{font-size:15px;font-weight:1000;letter-spacing:-.3px;line-height:1.15}
+.promo-code{font-size:12px;font-weight:900;color:rgba(12,14,22,.70)}
+.promo-cta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px}
+.promo-pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:9px 12px;border:1px solid rgba(20,24,34,.12);background:rgba(255,255,255,.85);font-weight:900;font-size:13px}
+.promo-pill strong{font-weight:1100}
+.promo-arrow{opacity:.75}
+
+html[data-theme="dark"] .promo-card{background:rgba(17,19,24,.70);border-color:rgba(255,255,255,.10);box-shadow:0 18px 55px rgba(0,0,0,.35)}
+html[data-theme="dark"] .promo-card:hover{border-color:rgba(255,255,255,.16)}
+html[data-theme="dark"] .promo-slot .title .badge{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.10)}
+html[data-theme="dark"] .promo-media{border-color:rgba(255,255,255,.10);background:rgba(255,255,255,.06)}
+html[data-theme="dark"] .promo-code{color:rgba(255,255,255,.70)}
+html[data-theme="dark"] .promo-pill{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.10)}

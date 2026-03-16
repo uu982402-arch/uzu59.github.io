@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="dark" lang="ko">
+<html data-theme="light" lang="ko">
 <head>
 <meta charset="utf-8"/>
 <!-- Google tag (gtag.js) -->
@@ -12,9 +12,8 @@
 </script>
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="dark" name="color-scheme"/>
-<title>스포츠 배당 정밀 분석기 | 공정확률·오버라운드·EV 해석 | 88ST</title>
-<meta content="한 장 요약 리포트로 공정확률, 공동시장 적합도, 상태별 보정, 강건 비중, 타이밍까지 압축 해석하는 스포츠 배당 정밀 분석기." name="description"/>
+<title>스포츠 배당 분석기(오버라운드·공정배당·마진) | 88ST</title>
+<meta content="축구·농구·야구·배구·e스포츠·하키 배당으로 공정확률/공정배당, 오버라운드(마진), 라인(OU/핸디) 마진까지 한 번에 계산하는 스포츠 배당 분석기." name="description"/>
 <meta content="스포츠 배당 분석기, 오버라운드 계산, 마진 계산, 공정확률, 공정배당, 비그(vig) 제거, 라인 비교, 배당 최적화, EV, 88ST" name="keywords"/>
 <link href="https://88st.cloud/analysis/" rel="canonical"/>
 <meta content="index,follow" name="robots"/>
@@ -45,7 +44,7 @@
 <link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
 <link href="/assets/css/popup.event.v1.css?v=v20260225-1900" rel="stylesheet"/>
 
-<meta content="스포츠 배당 분석기(오버라운드·공정배당·마진) | 88ST" property="og:title"/><meta content="한 장 요약 리포트로 공정확률, 공동시장 적합도, 상태별 보정, 강건 비중, 타이밍까지 압축 해석하는 스포츠 배당 정밀 분석기." property="og:description"/><meta content="website" property="og:type"/><meta content="https://88st.cloud/analysis/" property="og:url"/><meta content="/img/logo.png" property="og:image"/><style>
+<meta content="스포츠 배당 분석기(오버라운드·공정배당·마진) | 88ST" property="og:title"/><meta content="축구·농구·야구·배구·e스포츠·하키 배당으로 공정확률/공정배당, 오버라운드(마진), 라인(OU/핸디) 마진까지 한 번에 계산하는 스포츠 배당 분석기." property="og:description"/><meta content="website" property="og:type"/><meta content="https://88st.cloud/analysis/" property="og:url"/><meta content="/img/logo.png" property="og:image"/><style>
 /* --- OddsPortal-style odds compare (local paste) --- */
 #bookCompareBox .paste-ta{min-height:120px}
 #bookCompareOut{margin-top:12px}
@@ -225,23 +224,62 @@
 <link href="/assets/vvip-pro.v71.css?v=71" rel="stylesheet"/>
 <script defer="" src="/assets/js/vvip-pro.v71.js?v=71"></script>
 <script defer="" src="/assets/js/vvip-brief.v71.js?v=71"></script>
-<script defer="" src="/assets/js/build.ver.js?v=v20260313-0722"></script>
-<script defer="" src="/assets/js/build.loader.js?v=v20260313-0722"></script>
-<link rel="stylesheet" href="/assets/css/global.unify.v4.20260313.css"/>
-<link rel="stylesheet" href="/assets/css/analysis.upgrade.v12.20260313.css"/>
-<link rel="stylesheet" href="/assets/css/analysis.finish.v25.20260313.css"/>
-<script defer src="/assets/js/global.unify.v3.20260313.js"></script>
+<script defer="" src="/assets/js/build.ver.js?v=v20260226-3305"></script>
+<script defer="" src="/assets/js/build.loader.js?v=v20260226-3305"></script>
 <script defer src="/assets/js/popup.event.v1.js?v=v20260225-1900"></script>
 
+<style>
+/* v113+ /analysis → Logbook quick-save modal */
+.lb-modal{position:fixed; inset:0; z-index:6400; display:none;}
+.lb-modal.open{display:block;}
+.lb-backdrop{position:absolute; inset:0; background:rgba(0,0,0,.62);}
+.lb-panel{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(720px, calc(100vw - 24px));
+  max-height:calc(100vh - 24px);
+  overflow:auto;
+  border-radius:22px;
+  border:1px solid rgba(0,0,0,.10);
+  background:rgba(255,255,255,.92);
+  box-shadow:0 22px 70px rgba(0,0,0,.28);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding:14px;
+}
+.lb-head{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+.lb-head .t{font-weight:1000; font-size:16px;}
+.lb-body{margin-top:10px;}
+.lb-chips{display:grid; gap:10px; grid-template-columns:repeat(3, minmax(0,1fr)); margin-top:10px;}
+@media(max-width:720px){.lb-chips{grid-template-columns:repeat(2, minmax(0,1fr));}}
+.lb-chip{display:flex; flex-direction:column; gap:6px; align-items:flex-start; justify-content:center;
+  padding:12px 12px; border-radius:18px; border:1px solid rgba(0,0,0,.10);
+  background:rgba(0,0,0,.03);
+  cursor:pointer; font-weight:950;
+}
+.lb-chip:hover{filter:brightness(1.02); border-color: rgba(0,0,0,.16);} 
+.lb-chip.is-on{border-color: rgba(37,99,235,.35); background: rgba(37,99,235,.08);} 
+.lb-chip .k{font-size:12px; opacity:.75; font-weight:900;}
+.lb-chip .v{font-size:16px; font-variant-numeric:tabular-nums;}
+.lb-row{display:grid; gap:10px; grid-template-columns: 1.2fr .8fr; margin-top:10px;}
+@media(max-width:560px){
+  .lb-panel{left:50%; top:auto; bottom:12px; transform:translateX(-50%);}
+  .lb-row{grid-template-columns:1fr;}
+}
+/* toast */
+#lbToast{position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+  z-index:6500; padding:10px 12px; border-radius:999px;
+  border:1px solid rgba(0,0,0,.10);
+  background:rgba(255,255,255,.85);
+  box-shadow:0 16px 46px rgba(0,0,0,.22);
+  font-weight:950; font-size:13px; display:none;}
+#lbToast.show{display:block;}
+</style>
 
 <link rel="stylesheet" href="/assets/css/hdr.shell.v1.20260221.css?v=119"/>
-
-<link rel="stylesheet" href="/assets/css/site.mode.v18.20260313.css"/>
-<link rel="stylesheet" href="/assets/css/site.compact.v19.20260313.css"/>
 <script src="/assets/js/seo.apply.v1.js?v=v20260224-2330"></script>
-<meta name="theme-color" content="#0B1220"/>
 
-<link rel="stylesheet" href="/assets/css/site.sweep.v21.20260313.css"/>
+<link href="/assets/css/analysis.unify.home.v1.20260317.css" rel="stylesheet"/>
+<link href="/assets/css/analysis.result.refine.v1.20260317.css" rel="stylesheet"/>
+<script defer src="/assets/js/analysis.result.refine.v1.20260317.js"></script>
 </head>
 <body>
 <div aria-label="사칭 주의 안내" class="scam-popup" id="scamPopup" role="region">
@@ -261,8 +299,8 @@
 </div>
 <div class="ad-grid" id="adGrid"></div>
 <div class="ad-actions">
-<a aria-label="인증 놀이터 보기" class="btnx primary" href="/cert/">인증 놀이터 보기</a>
-<a class="btnx" href="https://t.me/UZU59" rel="noopener noreferrer" target="_blank">문의</a>
+<a aria-label="인증 놀이터 보기" class="btnx primary" href="/odds/">텔레그램 스포츠 봇 보기</a>
+<a class="btnx" href="https://t.me/kakacloud" rel="noopener noreferrer" target="_blank">문의</a>
 </div>
 <div class="ad-note">※ 팝업은 1일 1회만 표시됩니다. (원치 않으면 닫기)</div>
 <div class="ad-close" data-d8593ac4d="GF0gf-ppHzTB" style="margin-top:10px;text-align:center;">닫기</div>
@@ -276,89 +314,80 @@
     </a>
 
     <nav class="hdrNavDesktop" aria-label="주요 메뉴">
-      <a class="hdrLink" href="/cert/">인증사이트</a>
-      <a class="hdrLink" href="/">홈</a>
-
-      <details class="hdrDD">
-        <summary class="hdrSummary">분석기</summary>
-        <div class="hdrMenu" role="menu">
-          <a href="/analysis/">스포츠 배당 분석기</a>
-          <a href="/tool-slot/">슬롯 RTP 분석기</a>
-          <a href="/tool-minigame/">미니게임 분석기</a>
-        </div>
-      </details>
-
-      <details class="hdrDD">
-        <summary class="hdrSummary">계산기</summary>
-        <div class="hdrMenu" role="menu">
-          <a href="/tool-margin/">마진 계산기</a>
-          <a href="/tool-ev/">EV 계산기</a>
-          <a href="/tool-odds/">배당↔확률 변환</a>
-          <a href="/tool-casino/">바카라 전략 계산기</a>
-                    
-        </div>
-      </details>
-
-      <details class="hdrDD">
-        <summary class="hdrSummary">가이드</summary>
-        <div class="hdrMenu" role="menu">
-          <a href="/guide/">가이드</a>
-          <a href="/bonus-checklist/">배팅 전 체크리스트</a>
-        </div>
-      </details>
+      <a class="hdrLink" href="/">메인</a>
+      <a class="hdrLink" href="/analysis/">스포츠 분석기</a>
+      <a class="hdrLink" href="/odds/">텔레그램 스포츠 봇</a>
+      <a class="hdrLink" href="https://t.me/kakacloud" target="_blank" rel="noopener">문의하기</a>
     </nav>
 
     <details class="hdrNavMobile">
       <summary class="hdrBurger" aria-label="메뉴 열기">≡</summary>
       <div class="hdrMobileMenu" role="menu">
-        <a href="/cert/">인증사이트</a>
-        <a href="/">홈</a>
-
-        <div class="hdrMobileGroup">
-          <details>
-            <summary>분석기</summary>
-            <div class="hdrMenu">
-              <a href="/analysis/">스포츠 배당 분석기</a>
-              <a href="/tool-slot/">슬롯 RTP 분석기</a>
-              <a href="/tool-minigame/">미니게임 분석기</a>
-            </div>
-          </details>
-
-          <details>
-            <summary>계산기</summary>
-            <div class="hdrMenu">
-              <a href="/tool-margin/">마진 계산기</a>
-              <a href="/tool-ev/">EV 계산기</a>
-              <a href="/tool-odds/">배당↔확률 변환</a>
-              <a href="/tool-casino/">바카라 전략 계산기</a>
-                            
-            </div>
-          </details>
-
-          <details>
-            <summary>가이드</summary>
-            <div class="hdrMenu">
-              <a href="/guide/">가이드</a>
-              <a href="/bonus-checklist/">배팅 전 체크리스트</a>
-            </div>
-          </details>
-        </div>
+        <a href="/">메인</a>
+        <a href="/analysis/">스포츠 분석기</a>
+        <a href="/odds/">텔레그램 스포츠 봇</a>
+        <a href="https://t.me/kakacloud" target="_blank" rel="noopener">문의하기</a>
       </div>
     </details>
   </div>
 </div>
-</div>
-<div class="wrap">
+<main class="wrap analysis-wrap">
+<section class="analysis-unify-hero" aria-label="스포츠 분석기 안내">
+  <div class="analysis-unify-copy">
+    <div class="analysis-unify-kicker">SPORTS INTELLIGENCE</div>
+    <div class="analysis-unify-title">스포츠 분석기를 현재 메인·가이드 디자인과 같은 결로 정리한 분석 허브</div>
+    <p class="analysis-unify-desc">배당 구조를 빠르게 해석하고, 공정확률·공정배당·오버라운드를 같은 화면에서 확인할 수 있도록 정돈한 스포츠 분석 전용 페이지입니다. 기존 계산 기능은 그대로 유지하고, 상단 시각 언어와 카드 리듬만 현재 홈 기준으로 통일했습니다.</p>
+    <div class="analysis-unify-actions">
+      <a class="analysis-unify-btn is-primary" href="/">메인 허브</a>
+      <a class="analysis-unify-btn is-secondary" href="/odds/">텔레그램 스포츠 봇</a>
+      <a class="analysis-unify-btn is-ghost" href="https://t.me/kakacloud" target="_blank" rel="noopener">문의하기</a>
+    </div>
+    <div class="analysis-unify-chips" aria-label="핵심 항목">
+      <span>공정확률</span>
+      <span>공정배당</span>
+      <span>오버라운드</span>
+      <span>마진 해석</span>
+      <span>멀티 스캔</span>
+    </div>
+  </div>
+  <aside class="analysis-unify-brief">
+    <div class="analysis-unify-brief-kicker">GUIDE BRIEF</div>
+    <h2 class="analysis-unify-brief-title">빠르게 읽는 사용 흐름</h2>
+    <ul class="analysis-unify-brief-list">
+      <li>배당 1줄 또는 여러 줄을 붙여넣어 즉시 분석</li>
+      <li>공정확률 방식별로 시장 구조를 비교 확인</li>
+      <li>멀티 스캔으로 마진이 낮은 후보를 먼저 정리</li>
+      <li>요약 복사 기능으로 텔레그램 공유 흐름까지 연결</li>
+    </ul>
+  </aside>
+</section>
+<section class="analysis-unify-grid" aria-label="분석기 안내 카드">
+  <article class="analysis-unify-mini">
+    <div class="analysis-unify-mini-k">QUICK START</div>
+    <h3>입력 방식은 단순하게</h3>
+    <p>1X2, 2-way, 오버/언더, 핸디캡을 숫자 중심으로 인식하므로 복잡한 설명 없이 배당만 붙여넣어도 됩니다.</p>
+  </article>
+  <article class="analysis-unify-mini">
+    <div class="analysis-unify-mini-k">MARKET READ</div>
+    <h3>예측보다 구조 해석에 집중</h3>
+    <p>이 페이지는 결과 적중 보장이 아니라, 현재 시장이 어떤 수수료와 확률 구조를 갖는지 빠르게 읽는 분석기입니다.</p>
+  </article>
+  <article class="analysis-unify-mini">
+    <div class="analysis-unify-mini-k">FLOW</div>
+    <h3>메인·봇과 분리된 역할</h3>
+    <p>메인은 허브, 텔레그램은 연결, 이 페이지는 실제 계산과 해석에 집중하는 구조로 분리해 현재 설계를 통일했습니다.</p>
+  </article>
+</section>
 <section class="pro-card" id="proHero">
 <div class="pro-hero">
 <div>
-<div class="pro-kicker">88ST · SPORTS PRO</div>
-<h1 class="pro-title">스포츠 배당 정밀 분석기</h1>
-<p class="pro-sub">기존 계산 로직은 그대로 유지하면서 <b>공정확률</b>·<b>시장 합의</b>·<b>종목 레이어</b>·<b>분포 모델</b>·<b>Phase E 고급 입력</b>·<b>스테이킹</b>까지 한 화면에서 정리합니다.</p>
+<div class="pro-kicker">88ST · SPORTS ANALYSIS</div>
+<h1 class="pro-title">스포츠 배당 정밀 브리핑 분석기</h1>
+<p class="pro-sub">배당만으로 <b>오버라운드(마진)</b>·<b>공정확률</b>·<b>공정배당</b>을 즉시 계산하고, 현재 시장 구조를 더 정돈된 카드형 화면에서 확인합니다. (결과 예측 도구 아님)</p>
 <div aria-label="핵심 기능" class="pro-pills">
-<span class="pro-pill">⚡ 빠른 붙여넣기 자동 적용</span>
-<span class="pro-pill">🧠 다중 비그 제거 방식 비교</span>
-<span class="pro-pill">🏁 시장 합의·오즈 무브·Kelly 제안</span>
+<span class="pro-pill">⚡ 1줄 붙여넣기 자동 적용</span>
+<span class="pro-pill">🧠 언더독 민감 보정(선택)</span>
+<span class="pro-pill">🏁 멀티 붙여넣기 → 마진 최저 TOP3</span>
 </div>
 </div>
 <div class="pro-kvwrap"><button aria-label="계산식/설명 보기" class="pro-helpbtn" id="btnFormula" type="button">?</button><div class="pro-kv" style="min-width:260px">
@@ -494,17 +523,17 @@
 <!-- Beginner Summary (Unified) -->
 <div aria-label="초보 요약" class="vvip-brief" id="sprtBrief">
 <div class="vvip-brief-head">
-<div class="vvip-brief-title">AI 브리핑 (요약)</div>
+<div class="vvip-brief-title">MARKET BRIEF</div>
 <div class="vvip-brief-score"><span class="n" data-role="score">-</span><span class="lab" data-role="label">대기</span></div>
 </div>
 <div class="vvip-brief-body">
 <div class="vvip-brief-grid">
 <div class="vvip-brief-col">
-<div class="vvip-brief-k">주의</div>
+<div class="vvip-brief-k">리스크 체크</div>
 <ul class="vvip-brief-list" data-role="warn"><li>배당을 입력하면 자동 분석됩니다.</li></ul>
 </div>
 <div class="vvip-brief-col">
-<div class="vvip-brief-k">추천</div>
+<div class="vvip-brief-k">읽기 포인트</div>
 <ul class="vvip-brief-list" data-role="reco"><li>마진이 낮은 라인/북부터 선택하세요.</li></ul>
 </div>
 </div>
@@ -525,11 +554,10 @@
 <div class="pro-inline" style="justify-content:space-between;align-items:center;margin-top:10px">
 <div>
 <div class="pro-kicker" style="margin-bottom:6px">REFERENCE</div>
-<div style="font-weight:900;font-size:16px">요약 · 참고</div>
+<div style="font-weight:900;font-size:16px">브리프 · 참고</div>
 </div>
 <div class="pro-inline" style="gap:10px;justify-content:flex-end">
-  <button class="pro-btn primary" id="btnCopySummary" type="button">요약 복사</button>
-  <a class="pro-btn ghost" href="/tool-margin/" role="button">마진 계산기</a>
+    <button class="pro-btn ghost" id="btnCopySummary" type="button">브리프 복사</button>
 </div>
 </div>
 <div class="pro-miniout" id="summaryOut" style="margin-top:10px"></div>
@@ -537,22 +565,6 @@
         ※ 가상/스포츠 공통: 정배가 높아도 역배는 충분히 나옵니다. 확률은 “장기 빈도”이고, 단기에는 변동성이 큽니다.
       </div>
 
-<section class="pro-card" id="analysisUpgradeLead" aria-label="정밀 분석 업그레이드">
-  <div class="pro-inline" style="justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
-    <div>
-      <div class="pro-kicker" style="margin-bottom:6px">QUANT EDGE</div>
-      <div style="font-weight:1000;font-size:18px">추가 수학 엔진 · 시장 해석</div>
-      <div class="pro-note" style="margin-top:6px">기존 분석 결과 아래에 Shin·Odds Ratio·Logit·앙상블 비교, 시장 합의, 오즈 무브, Kelly 제안이 이어집니다.</div>
-    </div>
-    <div class="pro-inline" style="gap:8px;align-items:center">
-      <span class="pro-badge">기존 로직 유지</span>
-      <span class="pro-badge">신규 해석 추가</span>
-    </div>
-  </div>
-</section>
-
-</section>
-</div>
 <section class="pro-card" id="proScan" style="margin-top:14px;display:none">
 <div class="pro-inline" style="justify-content:space-between">
 <div>
@@ -565,13 +577,11 @@
 <div class="pro-divider"></div>
 <div class="pro-scanlist" id="scanList"></div>
 </section>
-</div>
+</main>
+<script defer="" src="/assets/js/j.efba3509e62c.js"></script>
+
 <script src="../assets/js/inline-bundles/b.e942e1c830.js?v=v20260225-1900"></script>
 <script defer="" src="/assets/js/inline-bundles/b.analysis.pro.v52.20260216.js"></script>
 <script defer="" src="/assets/js/ai.brief.v68.js"></script>
-<script defer src="/assets/js/analysis.upgrade.v12.20260313.js"></script>
-<script defer src="/assets/js/analysis.finish.v25.20260313.js"></script>
-
-<script defer src="/assets/js/site.sweep.v21.20260313.js"></script>
 </body>
 </html>

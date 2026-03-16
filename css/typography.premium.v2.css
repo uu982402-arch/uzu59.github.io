@@ -1,0 +1,58 @@
+/* typography.premium.v2.css
+ * Global premium typography pass (safe, consistent).
+ * - Do NOT hardcode colors; follow existing theme variables (--text/--muted).
+ * - Slightly bolder defaults for a richer, luxury tone.
+ */
+
+:root{
+  /* fallbacks (used only if site variables are missing) */
+  --vvip-ink: var(--text, rgba(18,20,28,.94));
+  --vvip-ink-2: var(--text-2, rgba(18,20,28,.84));
+  --vvip-muted: var(--muted, rgba(18,20,28,.66));
+  --vvip-muted-2: var(--muted-2, rgba(18,20,28,.52));
+}
+
+html, body{
+  color: var(--vvip-ink) !important;
+}
+
+body{
+  font-weight: 550;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Keep headings crisp */
+h1, h2, h3, h4{
+  font-weight: 850 !important;
+  letter-spacing: -0.2px;
+}
+
+b, strong{ font-weight: 850; }
+
+/* Body copy slightly darker + bolder (but not as heavy as headings) */
+:where(p, li, label, .desc, .sub, .hint, .small, .meta, .text){
+  color: var(--vvip-ink-2) !important;
+  font-weight: 600;
+}
+
+:where(.muted, .small-hint){
+  color: var(--vvip-muted) !important;
+}
+
+::placeholder{
+  color: var(--vvip-muted-2) !important;
+}
+
+button, .btn, .st-btn, .hub-btn,
+input, select, textarea{
+  font-weight: 650;
+}
+
+/* Dark theme (fallbacks only; if site already defines vars, those win) */
+html[data-theme="dark"]{
+  --vvip-ink: var(--text, rgba(231,233,238,.92));
+  --vvip-ink-2: var(--text-2, rgba(231,233,238,.82));
+  --vvip-muted: var(--muted, rgba(167,176,192,.78));
+  --vvip-muted-2: var(--muted-2, rgba(167,176,192,.62));
+}
