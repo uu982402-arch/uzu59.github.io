@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<title>마틴게일 | 88ST 카지노 배팅기법</title>
+<meta content="마틴게일 구조, 진행 단계, 적용 전제, 자금 곡선 특징과 한계를 정리한 88ST 카지노 배팅기법 소개 페이지." name="description"/>
+<meta content="index,follow" name="robots"/>
+<meta content="#07111f" name="theme-color"/>
+<link href="https://88st.cloud/play-guides/casino-betting/martingale/" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="88ST" property="og:site_name"/>
+<meta content="마틴게일 | 88ST 카지노 배팅기법" property="og:title"/>
+<meta content="마틴게일 구조, 진행 단계, 적용 전제, 자금 곡선 특징과 한계를 정리한 88ST 카지노 배팅기법 소개 페이지." property="og:description"/>
+<meta content="https://88st.cloud/play-guides/casino-betting/martingale/" property="og:url"/>
+<meta content="https://88st.cloud/img/logo.png" property="og:image"/>
+<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/assets/css/guide.library.v1.20260316.css" rel="stylesheet"/>
+</head>
+<body class="guide-page guide-detail guide-casino">
+<header class="site-header">
+<div class="container header-inner">
+<a aria-label="88ST 홈으로 이동" class="brand" href="/">
+<img alt="88ST" class="brand-logo" src="/img/logo.png"/>
+<span class="brand-copy"><strong>88ST</strong><span>Sports Intelligence Hub</span></span>
+</a>
+<nav aria-label="주요 메뉴" class="main-nav">
+<a href="/">메인</a>
+<a href="/analysis/">스포츠 분석기</a>
+<a href="/odds/">텔레그램 스포츠 봇</a>
+<a href="/play-guides/">가이드 라이브러리</a>
+<a href="https://t.me/kakacloud" rel="noopener" target="_blank">문의하기</a>
+</nav>
+</div>
+</header>
+<main>
+<div class="container breadcrumb"><a href="/">메인</a> <span>›</span> <a href="/play-guides/">가이드 라이브러리</a> <span>›</span> <a href="/play-guides/casino-betting/">카지노 배팅기법</a> <span>›</span> <span>마틴게일</span></div>
+<section class="hero">
+<div class="container hero-grid">
+<div class="panel hero-main">
+<span class="eyebrow">Negative Progression</span>
+<h1>마틴게일</h1>
+<p>패배할 때마다 베팅 단위를 두 배로 올리고, 승리 시 원점으로 돌아가는 대표적 손실 추종형 시스템입니다. 짧은 구간에서 작은 이익을 자주 만드는 대신 긴 연패 구간에서 위험이 급격히 커집니다.</p><div class="hero-note"><strong>Quick Reading</strong> 규칙 이해 → 전제 조건 → 리스크 한계 순서로 읽으면 시스템의 구조를 더 정확하게 파악할 수 있습니다.</div>
+<div class="hero-actions">
+<a class="btn btn-primary" href="/play-guides/casino-betting/">배팅기법 허브 보기</a>
+<a class="btn btn-secondary" href="/play-guides/minigame/">미니게임 가이드 보기</a>
+</div>
+<div class="summary-grid"><div class="summary-item"><b>구조 분류</b><span>손실 추종형</span></div><div class="summary-item"><b>핵심 메커니즘</b><span>패배 시 2배, 승리 시 기본 단위로 리셋</span></div><div class="summary-item"><b>주요 장점</b><span>규칙이 단순하고 계산이 직관적</span></div><div class="summary-item"><b>핵심 한계</b><span>연패·테이블 한도·자금 한도에 매우 취약</span></div></div>
+</div>
+<aside class="panel hero-side"><div class="hero-side-title">Guide Brief</div>
+<div class="info-card"><b>페이지 목적</b><span>규칙 소개와 리스크 설명을 분리해, 구조 이해를 우선으로 두는 안내형 페이지입니다.</span></div>
+<div class="info-card"><b>핵심 체크</b><span>자금 한도, 테이블 한도, 종료 기준, 연속 승패 분포를 함께 읽어야 문맥이 정확해집니다.</span></div>
+<div class="info-card"><b>운영 포인트</b><span>시스템의 모양보다 기대값과 노출 속도를 함께 설명해야 전문성이 살아납니다.</span></div>
+</aside>
+</div>
+</section>
+<section class="section">
+<div class="container article-grid">
+<article class="panel article"><div class="article-jump"><span class="article-jump-label">Quick Jump</span><a href="#concept">핵심 개념</a><a href="#steps">진행 방식</a><a href="#usecase">자주 언급되는 문맥</a><a href="#risk">리스크와 오해</a><a href="#ops">페이지 운영 메모</a><a href="#related">관련 기법</a></div>
+<section id="concept">
+<h2>핵심 개념</h2>
+<p>패배할 때마다 베팅 단위를 두 배로 올리고, 승리 시 원점으로 돌아가는 대표적 손실 추종형 시스템입니다. 짧은 구간에서 작은 이익을 자주 만드는 대신 긴 연패 구간에서 위험이 급격히 커집니다.</p>
+</section>
+<section id="steps">
+<h2>진행 방식</h2>
+<ol><li>기본 단위를 1로 잡습니다.</li><li>패배하면 다음 베팅을 2, 4, 8, 16처럼 두 배로 올립니다.</li><li>승리하면 이전 손실을 회복하고 1단위 이익을 남긴 뒤 다시 기본 단위로 돌아갑니다.</li></ol>
+</section>
+<section id="usecase">
+<h2>어떤 문맥에서 자주 언급되는가</h2>
+<p>룰렛의 이븐머니, 바카라의 플레이어/뱅커처럼 배당 구조가 단순한 시장에서 설명 예시로 가장 자주 언급됩니다.</p>
+</section>
+<section id="risk">
+<h2>리스크와 자주 생기는 오해</h2>
+<ul><li>짧은 구간에서는 “조금씩 자주 이기는” 체감이 생길 수 있습니다.</li><li>하지만 연패가 길어지면 필요 자금이 기하급수적으로 증가합니다.</li><li>테이블 최대 베팅 한도와 보유 자금 한도가 동시에 병목이 되기 쉽습니다.</li></ul>
+<div class="notice" style="margin-top:16px">배팅 시스템은 베팅 금액의 진행 규칙을 바꾸는 장치이지, 게임 자체의 하우스 엣지나 독립 시행 구조를 없애는 장치가 아닙니다.</div>
+</section>
+<section id="ops">
+<h2>페이지 운영 관점 메모</h2>
+<p>마틴게일은 규칙이 쉬워 소개 페이지에서 자주 등장하지만, 공개 수학 자료들은 공통적으로 하우스 엣지를 제거하지 못한다고 설명합니다. 따라서 소개 문구는 “회복 구조 설명”과 “꼬리위험 경고”를 반드시 함께 가져가는 편이 정확합니다.</p>
+</section>
+<section id="related">
+<h2>함께 보면 좋은 기법</h2>
+<div class="link-grid"><a class="link-card" href="/play-guides/casino-betting/grand-martingale/"><h3>그랜드 마틴게일</h3><p>마틴게일에서 한 단계 더 공격적으로 손실 회복분에 추가 단위를 얹는 구조입니다. 회복 속도를 높이는 대신, 자금 곡선이 더 빠르게 가팔라집니다.</p><span class="btn btn-ghost btn-sm">페이지 보기</span></a><a class="link-card" href="/play-guides/casino-betting/dalembert/"><h3>달랑베르</h3><p>패배하면 1단위 증가, 승리하면 1단위 감소시키는 선형 진행형 시스템입니다. 마틴게일보다 완만하지만, 기대값을 바꾸는 구조는 아닙니다.</p><span class="btn btn-ghost btn-sm">페이지 보기</span></a><a class="link-card" href="/play-guides/casino-betting/flat-betting/"><h3>정액 베팅</h3><p>매 회차 같은 단위를 유지하는 가장 기본적인 자금 관리형 접근입니다. 변동성을 크게 키우지 않는 대신, 기대값 자체를 바꾸지는 않습니다.</p><span class="btn btn-ghost btn-sm">페이지 보기</span></a></div>
+</section>
+</article>
+<aside class="panel sidebar">
+<h3>On this page</h3>
+<nav>
+<a href="#concept">핵심 개념</a>
+<a href="#steps">진행 방식</a>
+<a href="#usecase">자주 언급되는 문맥</a>
+<a href="#risk">리스크와 오해</a>
+<a href="#ops">페이지 운영 메모</a>
+<a href="#related">관련 기법</a>
+</nav>
+</aside>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-inner">
+<div>
+<strong>88ST</strong>
+<p>정리형 가이드 · 스포츠 허브 · 텔레그램 연동</p>
+</div>
+<div class="footer-links">
+<a href="/">메인</a>
+<a href="/play-guides/">가이드 라이브러리</a>
+<a href="/play-guides/casino-betting/">카지노 배팅기법</a>
+<a href="/play-guides/minigame/">미니게임 안내</a>
+</div>
+</div>
+</footer>
+</body>
+</html>

@@ -1,432 +1,563 @@
 <!DOCTYPE html>
-<html data-theme="dark" lang="ko">
+<html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<!-- Google tag (gtag.js) -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-KWT87FBY6S', { anonymize_ip: true });
-</script>
-
-<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>88ST | 스포츠 배당 분석 허브 · EV · 마진 · 켈리 계산기</title>
-<meta content="스포츠 배당 분석기, 공정확률·마진·EV·켈리 계산기, 인증사이트 비교와 핵심 가이드를 한곳에서 정리하는 프리미엄 분석 허브입니다." name="description"/>
-<meta content="토토, 온라인스포츠, 스포츠토토, 온라인카지노, 슬롯, 슬롯맛집, 안전한토토사이트, 입플사이트, 먹튀검증, 배당분석기, 마진계산기, EV계산기, 켈리기준, 88ST" name="keywords"/>
-<link href="https://88st.cloud/" rel="canonical"/>
-<meta content="index,follow" name="robots"/>
-<meta content="website" property="og:type"/>
-<meta content="88 (팔팔커뮤니티)" property="og:site_name"/>
-<meta content="88ST | 스포츠 배당 분석기 · EV/마진 · 켈리 계산기" property="og:title"/>
-<meta content="스포츠 배당 분석기, 공정확률·마진·EV·켈리 계산기, 인증사이트 비교와 핵심 가이드를 한곳에서 정리하는 프리미엄 분석 허브입니다." property="og:description"/>
-<meta content="https://88st.cloud/" property="og:url"/>
-<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
-<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-<link href="/assets/css/x.9d7841e705c5.css" rel="stylesheet"/>
-<link href="/assets/c.banner.v81.20260219.css" rel="stylesheet"/>
-<link href="/assets/css/popup.event.v1.css?v=v20260224-2015" rel="stylesheet"/>
-<script defer="" src="/assets/js/inline-bundles/b.fa5e828602.js"></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "88st.cloud 주요 도구 및 가이드",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "스포츠 배당 분석기",
-      "url": "https://88st.cloud/analysis/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "보증·인증 업체",
-      "url": "https://88st.cloud/cert/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "FAQ",
-      "url": "https://88st.cloud/#faqSection"
-    },
-    {
-      "@type": "ListItem",
-      "position": 4,
-      "name": "입플 체크리스트",
-      "url": "https://88st.cloud/bonus-checklist/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 5,
-      "name": "입플·보너스 안내",
-      "url": "https://88st.cloud/cert/"
-    }
-  ]
-}
-</script>
-<link href="/assets/c.a693fe39b0c5.css" rel="stylesheet"/>
-<link href="/assets/c.9995eeb5cf82.css" rel="stylesheet"/>
-<link href="/assets/c.0b3d8a45f8c9.css" rel="stylesheet"/>
-<script defer="" src="/assets/js/j.efba3509e62c.js"></script>
-<link href="/assets/c.a50dd3bc5b33.css" rel="stylesheet"/>
-
-<meta content="https://88st.cloud/img/logo.png" property="og:image"/>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://88st.cloud/#org",
-      "name": "88ST",
-      "alternateName": "88 (팔팔커뮤니티)",
-      "url": "https://88st.cloud/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://88st.cloud/img/logo.png"
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>88ST | 해외 스포츠 브리핑 · 스포츠 분석기 · 텔레그램 스포츠 봇</title>
+  <meta name="description" content="해외 스포츠 브리핑, 웹 스포츠 분석기, 텔레그램 스포츠 봇과 함께 카지노 배팅기법·미니게임 가이드까지 한 곳에서 정리한 88ST 인텔리전스 허브." />
+  <meta name="keywords" content="해외 스포츠 브리핑, 스포츠 분석기, 텔레그램 스포츠 봇, 카지노 배팅기법, 미니게임 가이드, 스포츠 인텔리전스, 88ST" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#07111f" />
+  <link rel="canonical" href="https://88st.cloud/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="88ST" />
+  <meta property="og:title" content="88ST | 해외 스포츠 브리핑 · 스포츠 분석기 · 텔레그램 스포츠 봇" />
+  <meta property="og:description" content="실시간 해외 스포츠 브리핑과 웹 스포츠 분석기, 텔레그램 스포츠 봇, 카지노 배팅기법·미니게임 가이드까지 정돈한 88ST 허브." />
+  <meta property="og:url" content="https://88st.cloud/" />
+  <meta property="og:image" content="https://88st.cloud/img/logo.png" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/assets/css/home.community.v2.20260316.css" />
+  <link rel="stylesheet" href="/assets/css/guide.entry.v1.20260316.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWT87FBY6S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KWT87FBY6S', { anonymize_ip: true });
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://88st.cloud/#org",
+        "name": "88ST",
+        "url": "https://88st.cloud/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://88st.cloud/img/logo.png"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://88st.cloud/#website",
+        "url": "https://88st.cloud/",
+        "name": "88ST",
+        "inLanguage": "ko",
+        "publisher": {"@id": "https://88st.cloud/#org"}
+      },
+      {
+        "@type": "ItemList",
+        "name": "88ST 주요 서비스",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "스포츠 분석기",
+            "url": "https://88st.cloud/analysis/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "텔레그램 스포츠 봇 허브",
+            "url": "https://88st.cloud/odds/"
+          }
+        ]
       }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://88st.cloud/#website",
-      "url": "https://88st.cloud/",
-      "name": "88ST",
-      "inLanguage": "ko",
-      "publisher": {"@id": "https://88st.cloud/#org"}
-    }
-  ]
-}
-</script>
-<script defer="" src="/assets/js/build.ver.js?v=v20260313-0648"></script>
-<script defer="" src="/assets/js/build.loader.js?v=v20260313-0648"></script>
-<link rel="stylesheet" href="/assets/css/home.enhance.v154.css"/>
-<link rel="stylesheet" href="/assets/css/home.why.v157.css"/>
-<link rel="stylesheet" href="/assets/css/home.row.v158.css"/>
-<link rel="stylesheet" href="/assets/css/home.rhythm.v159.css"/>
-<link rel="stylesheet" href="/assets/css/home.relayout.v2.20260313.css"/>
-<link rel="stylesheet" href="/assets/css/global.unify.v4.20260313.css"/>
-<link rel="stylesheet" href="/assets/css/home.mobilefix.v17.20260313.css"/>
-<!-- Home Enhance: ensure loaded on index even if loader list is stale -->
-<script defer src="/assets/js/usage.track.v154.js"></script>
-<script defer src="/assets/js/home.enhance.v154.js"></script>
-<script defer src="/assets/js/global.unify.v3.20260313.js"></script>
-<script defer src="/assets/js/popup.event.v1.js?v=v20260224-2015"></script>
-
-<link href="/assets/css/promo.slot.v1.20260223.css?v=136" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/css/hdr.shell.v1.20260221.css?v=119"/>
-
-<link rel="stylesheet" href="/assets/css/site.mode.v18.20260313.css"/>
-<link rel="stylesheet" href="/assets/css/site.compact.v19.20260313.css"/>
-<script src="/assets/js/seo.apply.v1.js?v=v20260224-2330"></script>
-<meta name="theme-color" content="#0B1220"/>
-
-<link rel="stylesheet" href="/assets/css/home.simplify.v20.20260313.css"/>
-
-<link rel="stylesheet" href="/assets/css/site.sweep.v21.20260313.css"/>
+    ]
+  }
+  </script>
 </head>
-<body class="page-home">
-<h1 style="position:absolute;left:-9999px;">스포츠 배당 분석기와 배당 마진 계산기 | 88</h1>
-<div id="_88stShellHeader" class="header header--shell" role="banner">
-  <div class="hdrShell">
-    <a class="hdrBrand" href="/" aria-label="홈으로 이동">
-      <img class="hdrLogo" src="/img/logo.png" alt="88ST" />
-      <span class="hdrName">88ST.Cloud</span>
-    </a>
+<body>
+  <a class="skip-link" href="#mainContent">본문 바로가기</a>
 
-    <nav class="hdrNavDesktop" aria-label="주요 메뉴">
-      <a class="hdrLink" href="/cert/">인증사이트</a>
-      <a class="hdrLink" href="/">홈</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="88ST 홈으로 이동">
+        <img src="/img/logo.png" alt="88ST" class="brand-logo" />
+        <span class="brand-copy">
+          <strong>88ST</strong>
+          <span>Sports Intelligence Hub</span>
+        </span>
+      </a>
 
-      <details class="hdrDD">
-        <summary class="hdrSummary">분석기</summary>
-        <div class="hdrMenu" role="menu">
-          <a href="/analysis/">스포츠 배당 분석기</a>
-          <a href="/tool-slot/">슬롯 RTP 분석기</a>
-          <a href="/tool-minigame/">미니게임 분석기</a>
+      <nav class="main-nav" aria-label="주요 메뉴">
+        <a href="/">메인</a>
+        <a href="/analysis/">스포츠 분석기</a>
+        <a href="/odds/">텔레그램 스포츠 봇</a>
+        <a href="/play-guides/">가이드 라이브러리</a>
+        <a href="https://t.me/kakacloud" target="_blank" rel="noopener">문의하기</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-ghost btn-sm" href="/analysis/">분석기</a>
+        <a class="btn btn-primary btn-sm" href="/odds/">텔레그램 봇</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="mainContent">
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow-group">
+            <span class="eyebrow-pill">해외 스포츠 이슈</span>
+            <span class="eyebrow-pill">웹 스포츠 분석기</span>
+            <span class="eyebrow-pill">텔레그램 연동</span>
+          </div>
+
+          <h1>해외 스포츠 흐름을 정교하게 읽고,<br />원하는 방식으로 바로 연결하세요</h1>
+          <p class="hero-desc">
+            주요 리그 브리핑부터 웹 스포츠 분석기, 텔레그램 워크플로 연결까지,
+            과한 설명 없이 핵심만 정리한 88ST 스포츠 인텔리전스 허브입니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/analysis/">스포츠 분석기 실행</a>
+            <a class="btn btn-secondary" href="/odds/">텔레그램 스포츠 봇</a>
+            <a class="btn btn-ghost" href="https://t.me/kakacloud" target="_blank" rel="noopener">문의하기</a>
+          </div>
+
+          <div class="hero-stats" aria-label="핵심 포인트">
+            <article>
+              <strong>NEWS</strong>
+              <span>주요 리그 브리핑</span>
+            </article>
+            <article>
+              <strong>ANALYSIS</strong>
+              <span>웹 분석 도구 즉시 진입</span>
+            </article>
+            <article>
+              <strong>BOT</strong>
+              <span>텔레그램 워크플로 연결</span>
+            </article>
+          </div>
         </div>
-      </details>
 
-      <details class="hdrDD">
-        <summary class="hdrSummary">계산기</summary>
-        <div class="hdrMenu" role="menu">
-          <a href="/tool-margin/">마진 계산기</a>
-          <a href="/tool-ev/">EV 계산기</a>
-          <a href="/tool-odds/">배당↔확률 변환</a>
-          <a href="/tool-casino/">바카라 전략 계산기</a>
-                    
+        <aside class="hero-panel card-glass" aria-label="오늘의 스포츠 포커스">
+          <div class="panel-head">
+            <span class="panel-label">TODAY FOCUS</span>
+            <strong>오늘의 스포츠 포커스</strong>
+          </div>
+
+          <ul class="focus-list">
+            <li>
+              <b>축구 주요 이슈 수집 중</b>
+              <span>해외 축구 주요 기사 가운데 라인업과 결장 변수에 직결되는 내용부터 우선 정리합니다.</span>
+            </li>
+            <li>
+              <b>농구 일정·출전 변수 정리</b>
+              <span>백투백 일정과 핵심 자원 출전 여부처럼 경기 리듬에 직접 닿는 요소를 먼저 묶어 보여줍니다.</span>
+            </li>
+            <li>
+              <b>야구 선발·불펜 흐름 반영</b>
+              <span>선발 매치업과 불펜 사용량, 최근 타선 흐름까지 한 화면에서 빠르게 확인할 수 있도록 구성했습니다.</span>
+            </li>
+          </ul>
+
+          <div class="focus-tags">
+            <span>축구</span>
+            <span>NBA</span>
+            <span>MLB</span>
+            <span>e스포츠</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section news-section" id="newsSection">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-eyebrow">LIVE ISSUE</p>
+            <h2 class="section-title">실시간 해외 스포츠 브리핑</h2>
+            <p class="section-desc">주요 리그 기사 흐름을 카드형 브리핑으로 정리해, 확인 후 곧바로 분석 단계로 넘어갈 수 있도록 구성했습니다.</p>
+          </div>
+          <div class="section-tools">
+            <span id="newsUpdatedAt" class="inline-note">브리핑 연결 확인 중</span>
+            <button class="btn btn-ghost btn-sm" id="newsRefreshBtn" type="button">새로고침</button>
+          </div>
         </div>
-      </details>
 
-      <details class="hdrDD">
-        <summary class="hdrSummary">가이드</summary>
-        <div class="hdrMenu" role="menu">
-          <a href="/guide/">가이드</a>
-          <a href="/bonus-checklist/">배팅 전 체크리스트</a>
+        <div class="news-toolbar" role="tablist" aria-label="뉴스 카테고리">
+          <button class="filter-chip is-active" type="button" data-filter="all">전체</button>
+          <button class="filter-chip" type="button" data-filter="축구">축구</button>
+          <button class="filter-chip" type="button" data-filter="농구">농구</button>
+          <button class="filter-chip" type="button" data-filter="야구">야구</button>
+          <button class="filter-chip" type="button" data-filter="일반">일반</button>
         </div>
-      </details>
-    </nav>
 
-    <details class="hdrNavMobile">
-      <summary class="hdrBurger" aria-label="메뉴 열기">≡</summary>
-      <div class="hdrMobileMenu" role="menu">
-        <a href="/cert/">인증사이트</a>
-        <a href="/">홈</a>
+        <div id="newsGrid" class="news-grid" aria-live="polite">
+          <article class="news-card is-skeleton"><div></div><div></div><div></div></article>
+          <article class="news-card is-skeleton"><div></div><div></div><div></div></article>
+          <article class="news-card is-skeleton"><div></div><div></div><div></div></article>
+          <article class="news-card is-skeleton"><div></div><div></div><div></div></article>
+        </div>
 
-        <div class="hdrMobileGroup">
-          <details>
-            <summary>분석기</summary>
-            <div class="hdrMenu">
-              <a href="/analysis/">스포츠 배당 분석기</a>
-              <a href="/tool-slot/">슬롯 RTP 분석기</a>
-              <a href="/tool-minigame/">미니게임 분석기</a>
+        <p class="source-note">외부 스포츠 피드와 예비 브리핑 카드를 함께 사용해 화면이 비지 않도록 구성했습니다</p>
+      </div>
+    </section>
+
+    <section class="section services-section" id="servicesSection">
+      <div class="container">
+        <div class="section-head center">
+          <div>
+            <p class="section-eyebrow">START HERE</p>
+            <h2 class="section-title">원하는 방식으로 바로 시작하세요</h2>
+            <p class="section-desc">메인은 인텔리전스 허브에 집중하고, 실제 사용은 웹 분석기와 텔레그램 스포츠 봇에서 분리해 진행합니다.</p>
+          </div>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card card-solid">
+            <span class="service-label">WEB ANALYSIS</span>
+            <h3>스포츠 분석기</h3>
+            <p>배당 흐름과 경기 변수를 직접 확인할 수 있는 웹 기반 스포츠 분석 전용 페이지입니다.</p>
+            <ul>
+              <li>직접 입력 기반 분석 UX</li>
+              <li>배당 구조 확인에 집중</li>
+              <li>핵심 기능으로 가장 빠른 진입</li>
+            </ul>
+            <a class="btn btn-primary" href="/analysis/">스포츠 분석기 실행</a>
+          </article>
+
+          <article class="service-card card-solid accent-bot">
+            <span class="service-label">TELEGRAM BOT</span>
+            <h3>텔레그램 스포츠 봇</h3>
+            <p>텔레그램 중심 흐름으로 빠르게 연결하고, 경기 선택 웹앱과 함께 활용할 수 있는 봇 허브입니다.</p>
+            <ul>
+              <li>텔레그램 중심 사용 흐름</li>
+              <li>봇 + 경기 선택 웹앱 연결</li>
+              <li>모바일 접근성과 반응 속도에 최적화</li>
+            </ul>
+            <a class="btn btn-secondary" href="/odds/">텔레그램 스포츠 봇 바로가기</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section community-section" id="communityFocus">
+      <div class="container community-grid">
+        <article class="community-feature card-solid">
+          <p class="section-eyebrow">COMMUNITY FOCUS</p>
+          <h2 class="section-title">오늘의 커뮤니티 포커스</h2>
+          <p class="section-desc">이용자 관심 리그와 자주 보는 분석 포인트를 한 화면에 담아, 커뮤니티 허브처럼 흐름을 정리했습니다.</p>
+          <div class="community-tags">
+            <span>해외축구</span>
+            <span>NBA</span>
+            <span>MLB</span>
+            <span>라인업 변수</span>
+            <span>부상 이슈</span>
+            <span>최근 흐름</span>
+          </div>
+          <div class="mini-metrics">
+            <div><b>TOP</b><span>관심 리그 흐름</span></div>
+            <div><b>CHECK</b><span>경기 전 핵심 점검 포인트</span></div>
+            <div><b>MOVE</b><span>분석기 · 봇 즉시 연결</span></div>
+          </div>
+        </article>
+
+        <div class="community-side">
+          <article class="mini-card card-solid">
+            <h3>많이 보는 리그</h3>
+            <p>EPL · Champions League · NBA · MLB · 주요 해외 리그</p>
+          </article>
+          <article class="mini-card card-solid">
+            <h3>자주 찾는 분석 주제</h3>
+            <p>라인업 변수 · 부상/결장 · 일정 피로도 · 최근 흐름 · 시장 반응</p>
+          </article>
+          <article class="mini-card card-solid">
+            <h3>이용 동선</h3>
+            <p>뉴스 확인 → 분석기 실행 또는 텔레그램 봇 이동 → 문의 연결까지 한 화면에서 정리</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="section guide-showcase-section" id="guideLibrarySection">
+      <div class="container">
+        <div class="section-head guide-showcase-head">
+          <div>
+            <p class="section-eyebrow">GUIDE SHOWCASE</p>
+            <h2 class="section-title">카지노 · 미니게임 소개 컬렉션</h2>
+            <p class="section-desc">메인 홈에서는 핵심 기법과 게임 구조를 좌우 슬라이드형으로 빠르게 훑고, 각 카드를 눌러 개별 소개 페이지로 자연스럽게 이어지도록 설계했습니다.</p>
+          </div>
+          <a class="btn btn-ghost btn-sm" href="/play-guides/">전체 라이브러리 보기</a>
+        </div>
+
+        <div class="guide-showcase-grid">
+          <article class="guide-showcase-panel guide-showcase-panel--casino card-solid" aria-labelledby="casinoGuideTitle">
+            <div class="guide-showcase-panel__header">
+              <div>
+                <span class="guide-showcase-chip">CASINO SYSTEMS</span>
+                <h3 id="casinoGuideTitle">카지노 배팅기법</h3>
+                <p>각 기법의 진행 구조와 세션 운영 포인트를 짧고 선명하게 훑은 뒤, 개별 페이지에서 상세 설명으로 이어지게 구성했습니다.</p>
+              </div>
+              <div class="guide-showcase-controls" aria-label="카지노 배팅기법 이동">
+                <button class="guide-nav-btn" type="button" data-carousel-prev="casinoGuideTrack" aria-label="카지노 배팅기법 이전 카드">‹</button>
+                <button class="guide-nav-btn" type="button" data-carousel-next="casinoGuideTrack" aria-label="카지노 배팅기법 다음 카드">›</button>
+              </div>
             </div>
-          </details>
 
-          <details>
-            <summary>계산기</summary>
-            <div class="hdrMenu">
-              <a href="/tool-margin/">마진 계산기</a>
-              <a href="/tool-ev/">EV 계산기</a>
-              <a href="/tool-odds/">배당↔확률 변환</a>
-              <a href="/tool-casino/">바카라 전략 계산기</a>
-                            
+            <div class="guide-carousel" id="casinoGuideTrack" data-carousel-track>
+              <a class="guide-mini-card" href="/play-guides/casino-betting/flat-betting/">
+                <span class="guide-mini-card__label">기본형</span>
+                <h4>정액 베팅</h4>
+                <p>베팅 금액을 고정해 변동성을 낮추고 세션 기록을 안정적으로 관리하는 가장 기본적인 방식입니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/casino-betting/martingale/">
+                <span class="guide-mini-card__label">추격형</span>
+                <h4>마틴게일</h4>
+                <p>손실 뒤 배팅액을 두 배로 늘려 단일 승리로 회복을 노리지만, 연패 구간 자금 압박이 매우 큰 방식입니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/casino-betting/grand-martingale/">
+                <span class="guide-mini-card__label">확장형</span>
+                <h4>그랜드 마틴게일</h4>
+                <p>기본 마틴게일에 목표 이익분을 추가해 회복 폭을 키우는 구조로, 자금 증가 속도 역시 훨씬 가파릅니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/casino-betting/paroli/">
+                <span class="guide-mini-card__label">연승형</span>
+                <h4>파롤리</h4>
+                <p>이긴 뒤에만 금액을 늘려 상승 구간을 활용하는 방식으로, 손실 제한과 연승 관리가 핵심입니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/casino-betting/dalembert/">
+                <span class="guide-mini-card__label">완만 조정형</span>
+                <h4>달랑베르</h4>
+                <p>패배 시 한 단계 증가, 승리 시 한 단계 감소하는 구조라 상승 폭은 완만하지만 복구 속도도 느립니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/casino-betting/fibonacci/">
+                <span class="guide-mini-card__label">수열형</span>
+                <h4>피보나치</h4>
+                <p>피보나치 수열을 따라 금액을 조정해 단계적으로 회복을 노리는 방식으로, 긴 손실 구간 관리가 중요합니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/casino-betting/labouchere/">
+                <span class="guide-mini-card__label">목표 합산형</span>
+                <h4>라부셰르</h4>
+                <p>목표 이익을 숫자열로 나누어 관리하는 방식으로, 세션 설계는 직관적이지만 연패 시 배열이 크게 늘어납니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/casino-betting/oscars-grind/">
+                <span class="guide-mini-card__label">점진 상승형</span>
+                <h4>오스카 그라인드</h4>
+                <p>이기는 흐름에서만 한 단위씩 올리며 세션 목표를 채우는 방식으로, 속도보다 안정성을 우선합니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/casino-betting/one-three-two-six/">
+                <span class="guide-mini-card__label">순차 수익형</span>
+                <h4>1-3-2-6</h4>
+                <p>정해진 승리 순서를 완주해 수익을 확대하는 방식으로, 연승이 끊길 때 초기화 규칙이 중요합니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/casino-betting/kelly-criterion/">
+                <span class="guide-mini-card__label">비율 계산형</span>
+                <h4>켈리 기준</h4>
+                <p>우위 추정치와 배당을 기준으로 자금 비율을 계산하는 방식으로, 기대값 추정 정확도가 핵심 전제입니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/casino-betting/proportional-staking/">
+                <span class="guide-mini-card__label">자금 연동형</span>
+                <h4>비율 스테이킹</h4>
+                <p>총 자금의 일정 비율만 사용하는 구조라 급격한 손실을 줄이기 쉽고 장기 운용 기록과 잘 맞습니다.</p>
+              </a>
             </div>
-          </details>
 
-          <details>
-            <summary>가이드</summary>
-            <div class="hdrMenu">
-              <a href="/guide/">가이드</a>
-              <a href="/bonus-checklist/">배팅 전 체크리스트</a>
+            <div class="guide-showcase-panel__footer">
+              <a class="btn btn-primary" href="/play-guides/casino-betting/">카지노 배팅기법 전체 보기</a>
+              <p>기법별 정의, 전제 조건, 장단점, 리스크를 개별 페이지에서 이어서 확인할 수 있습니다.</p>
             </div>
-          </details>
+          </article>
+
+          <article class="guide-showcase-panel guide-showcase-panel--minigame card-solid" aria-labelledby="minigameGuideTitle">
+            <div class="guide-showcase-panel__header">
+              <div>
+                <span class="guide-showcase-chip">MINIGAME GUIDE</span>
+                <h3 id="minigameGuideTitle">미니게임 구조 안내</h3>
+                <p>게임 방식과 커뮤니티 명칭을 혼동하지 않도록 핵심 규칙, 읽는 법, 확인 포인트를 슬라이드형으로 빠르게 정리했습니다.</p>
+              </div>
+              <div class="guide-showcase-controls" aria-label="미니게임 가이드 이동">
+                <button class="guide-nav-btn" type="button" data-carousel-prev="minigameGuideTrack" aria-label="미니게임 이전 카드">‹</button>
+                <button class="guide-nav-btn" type="button" data-carousel-next="minigameGuideTrack" aria-label="미니게임 다음 카드">›</button>
+              </div>
+            </div>
+
+            <div class="guide-carousel" id="minigameGuideTrack" data-carousel-track>
+              <a class="guide-mini-card" href="/play-guides/minigame/powerball/">
+                <span class="guide-mini-card__label">기본 구조</span>
+                <h4>파워볼</h4>
+                <p>추첨 결과를 기준으로 홀짝, 언더오버, 조합형 선택지를 읽는 대표적인 미니게임 구조입니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/minigame/ladder/">
+                <span class="guide-mini-card__label">경로형</span>
+                <h4>사다리</h4>
+                <p>좌우 이동 경로와 최종 도착 결과를 읽는 게임으로, 규칙은 단순하지만 플랫폼별 표기 차이를 확인해야 합니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/minigame/keno/">
+                <span class="guide-mini-card__label">번호 선택형</span>
+                <h4>키노</h4>
+                <p>추첨 번호와 선택 번호의 일치 구조를 이해하는 게임으로, 배당 구조와 선택 개수가 함께 읽혀야 합니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/minigame/speed-keno/">
+                <span class="guide-mini-card__label">고속 진행형</span>
+                <h4>스피드 키노</h4>
+                <p>짧은 회차 간격으로 반복 진행되는 키노 계열로, 결과 확인 리듬과 회차 속도가 핵심입니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/minigame/odd-even-over-under/">
+                <span class="guide-mini-card__label">조합 해석형</span>
+                <h4>홀짝 · 언더오버</h4>
+                <p>파워볼과 연계해 자주 보이는 기본 선택지로, 결과표 읽는 법과 조합 용어부터 명확히 정리합니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/minigame/entry/">
+                <span class="guide-mini-card__label">브랜드 안내</span>
+                <h4>엔트리</h4>
+                <p>국내 커뮤니티에서 자주 언급되는 명칭 중 하나로, 게임 자체보다 플랫폼 표기와 문맥을 이해하는 데 초점을 둡니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/minigame/named/">
+                <span class="guide-mini-card__label">커뮤니티 표기</span>
+                <h4>네임드</h4>
+                <p>게시물과 라인 안내에서 반복적으로 보이는 명칭으로, 실제 게임 구조와 분리해 읽는 법을 정리합니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/minigame/lotus/">
+                <span class="guide-mini-card__label">라인 구분형</span>
+                <h4>로투스</h4>
+                <p>플랫폼 또는 라인 명칭으로 활용되는 경우가 많아, 커뮤니티 문장 안에서 어떤 의미로 쓰이는지 정리합니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/minigame/eos/">
+                <span class="guide-mini-card__label">약칭 안내</span>
+                <h4>EOS</h4>
+                <p>짧은 약칭으로 표기되는 경우가 많아, 게시글 문맥과 회차 안내 안에서 정확히 읽는 기준을 제시합니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/minigame/pbg/">
+                <span class="guide-mini-card__label">파생 명칭형</span>
+                <h4>PBG</h4>
+                <p>파워볼 계열 문맥에서 반복적으로 등장하는 약칭을 정리해, 명칭 혼동 없이 읽을 수 있도록 구성했습니다.</p>
+              </a>
+              <a class="guide-mini-card" href="/play-guides/minigame/community-reading/">
+                <span class="guide-mini-card__label">게시글 해석형</span>
+                <h4>커뮤니티 읽는 법</h4>
+                <p>베픽 등 커뮤니티형 게시물에서 결과 표기, 회차, 줄임말, 플랫폼 명칭을 어떻게 해석해야 하는지 묶어 정리합니다.</p>
+              </a>
+            </div>
+
+            <div class="guide-showcase-panel__footer">
+              <a class="btn btn-secondary" href="/play-guides/minigame/">미니게임 전체 보기</a>
+              <p>게임 종류, 플랫폼 명칭, 게시글 읽는 법을 개별 페이지 단위로 이어서 확장할 수 있습니다.</p>
+            </div>
+          </article>
         </div>
       </div>
-    </details>
-  </div>
-</div>
-<div id="homeEnhanceMount"></div>
-<div class="section-wrap">
-<div aria-label="메인 배너" class="mainHero">
-<div class="heroGrid">
-<div aria-hidden="true" class="brandMark">
-<img alt="" class="brandImg" src="/img/logo.png"/>
-</div>
-<div class="heroCopy">
-<h1 class="heroLead">배당을 숫자로 해석하는 <span style="font-weight:1000;">88ST.Cloud</span></h1>
-<p class="heroSub">핵심 분석·비교·계산만 빠르게 이동하세요.</p>
-</div>
-</div>
-</div>
-</div>
+    </section>
 
-<div class="section-wrap section-wrap--home-main">
-<div class="home-row" id="homeRow">
-  <div class="home-col home-col--left">
-    <div class="section" id="homeQuickStart">
-  <div class="title"><span class="badge">CORE</span>핵심 진입</div>
-  <div class="qs-sub">분석·비교·계산 핵심만 남겼습니다. 필요한 화면으로 바로 이동하세요.</div>
-  <div class="hub-grid" aria-label="핵심 진입">
-    <a class="hub-card" href="/analysis/">
-      <div class="k">SPORTS ANALYSIS</div>
-      <div class="h">스포츠 배당 정밀 분석기</div>
-      <div class="d">공정확률·시장합의·오즈무브를 바로 확인합니다.</div>
-      <div class="go">바로 분석</div>
-    </a>
-    <a class="hub-card" href="/cert/">
-      <div class="k">CERTIFIED HUB</div>
-      <div class="h">인증사이트 비교</div>
-      <div class="d">혜택·가입코드·체크포인트를 바로 비교합니다.</div>
-      <div class="go">바로 비교</div>
-    </a>
-    <a class="hub-card" href="#homeDash">
-      <div class="k">QUICK TOOLS</div>
-      <div class="h">핵심 계산기 묶음</div>
-      <div class="d">마진·EV·배당변환·Kelly를 바로 엽니다.</div>
-      <div class="go">도구 보기</div>
-    </a>
-  </div>
-</div>
-
-  </div>
-  <div class="home-col home-col--right">
-    <div class="section" id="homeDash">
-  <div class="title"><span class="badge">TOOLS</span>핵심 계산기</div>
-  <div class="dash-sub">핵심 계산기만 남겨 더 빠르게 접근하도록 정리했습니다.</div>
-  <div class="tool-grid" aria-label="핵심 계산기">
-    <a class="tool-card" href="/tool-margin/">
-      <div class="k">OVERROUND</div>
-      <div class="h">마진 계산기</div>
-      <div class="d">마진·공정확률 계산</div>
-      <div class="go">바로 열기</div>
-    </a>
-    <a class="tool-card" href="/tool-ev/">
-      <div class="k">EXPECTED VALUE</div>
-      <div class="h">EV 계산기</div>
-      <div class="d">EV·손익분기 계산</div>
-      <div class="go">바로 열기</div>
-    </a>
-    <a class="tool-card" href="/tool-odds/">
-      <div class="k">ODDS CONVERTER</div>
-      <div class="h">배당 ↔ 확률 변환</div>
-      <div class="d">배당↔확률 변환</div>
-      <div class="go">바로 열기</div>
-    </a>
-    <a class="tool-card" href="/tool/kelly/">
-      <div class="k">STAKING</div>
-      <div class="h">Kelly 비중 계산기</div>
-      <div class="d">Kelly 비중 계산</div>
-      <div class="go">바로 열기</div>
-    </a>
-  </div>
-</div>
-  </div>
-</div>
-
-
-<div class="section promo-slot" id="promoSection">
-  <div class="title"><span class="badge">PROMO</span>인증 혜택 빠른 확인</div>
-  <div class="why-intro">
-    <div class="why-lead">핵심 혜택만 짧게 확인하고 바로 이동하세요.</div>
-    <div class="why-sub">핵심 2곳만 먼저 비교할 수 있게 정리했습니다.</div>
-  </div>
-
-  <div class="promo-grid" aria-label="인증놀이터 프로모션">
-    <a class="promo-card" href="/cert/vegas/">
-      <div class="promo-media"><img src="/img/img1.jpg" alt="VEGAS 프로모션" loading="lazy" decoding="async"/></div>
-      <div class="promo-meta">
-        <div>
-          <div class="promo-name">VEGAS</div>
-          <div class="promo-code">가입코드 6789</div>
+<section class="section promo-section" id="promoSection">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-eyebrow">PARTNER SITE</p>
+            <h2 class="section-title">프리미엄 파트너 안내</h2>
+            <p class="section-desc">이미지 교체 전까지는 문구 중심으로 정돈된 안내 흐름을 유지하고, 카드 클릭 시 가입코드와 이용 안내를 먼저 확인할 수 있도록 구성했습니다.</p>
+          </div>
         </div>
-        <div class="promo-arrow" aria-hidden="true">→</div>
-      </div>
-      <div class="promo-cta">
-        <span class="promo-pill"><strong>혜택 보기</strong></span>
-        <span class="promo-pill">회원가입</span>
-      </div>
-    </a>
 
-    <a class="promo-card" href="/cert/777/">
-      <div class="promo-media"><img src="/img/img2.jpg" alt="777 Bet 프로모션" loading="lazy" decoding="async"/></div>
-      <div class="promo-meta">
-        <div>
-          <div class="promo-name">777 BET</div>
-          <div class="promo-code">가입코드 6767</div>
+        <div class="promo-grid">
+          <article class="promo-card promo-site" tabindex="0" role="button" aria-label="VEGAS 사이트 안내 열기" data-ad-title="VEGAS" data-ad-code="6789" data-ad-link="https://las403.com" data-ad-benefit="VEGAS 전용 연결 페이지입니다. 가입 전 코드 확인 후 진행해 주세요." data-ad-notice="가입 진행 전 코드 : 6789 를 먼저 확인해 주세요. 코드 미입력 시 기본 안내 기준으로 진행될 수 있습니다.">
+            <img src="/img/img1.webp" alt="VEGAS 광고 카드 이미지" loading="lazy" decoding="async" />
+            <div class="promo-overlay">
+              <p class="promo-label">PARTNER SITE</p>
+              <h3>VEGAS</h3>
+              <p>전용 코드 확인 후 자연스럽게 연결할 수 있도록 정리한 파트너 안내 카드</p>
+              <div class="promo-meta">
+                <span>안내코드 6789</span>
+                <span>진입 전 확인 권장</span>
+              </div>
+              <button class="btn btn-primary promo-open-btn" type="button">안내 확인 후 이동</button>
+            </div>
+          </article>
+
+          <article class="promo-card promo-site" tabindex="0" role="button" aria-label="777 Bet 사이트 안내 열기" data-ad-title="777 Bet" data-ad-code="6767" data-ad-link="https://82clf.com/?code=6767" data-ad-benefit="777 Bet 전용 연결 페이지입니다. 이동 전 코드와 기본 안내를 먼저 확인해 주세요." data-ad-notice="가입 진행 전 코드 : 6767 를 먼저 확인해 주세요. 코드 미입력 시 기본 안내 기준으로 진행될 수 있습니다.">
+            <img src="/img/img2.webp" alt="777 Bet 광고 카드 이미지" loading="lazy" decoding="async" />
+            <div class="promo-overlay">
+              <p class="promo-label">PARTNER SITE</p>
+              <h3>777 Bet</h3>
+              <p>모바일에서도 빠르게 확인할 수 있도록 정돈한 파트너 연결 안내 카드</p>
+              <div class="promo-meta">
+                <span>안내코드 6767</span>
+                <span>진입 전 확인 권장</span>
+              </div>
+              <button class="btn btn-secondary promo-open-btn" type="button">안내 확인 후 이동</button>
+            </div>
+          </article>
         </div>
-        <div class="promo-arrow" aria-hidden="true">→</div>
       </div>
-      <div class="promo-cta">
-        <span class="promo-pill"><strong>혜택 보기</strong></span>
-        <span class="promo-pill">회원가입</span>
+    </section>
+
+    <section class="section notice-section" id="noticeSection">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-eyebrow">INFO</p>
+            <h2 class="section-title">운영 안내</h2>
+            <p class="section-desc">서비스 업데이트와 연결 동선을 정돈해, 브랜드 허브처럼 안정적으로 보이도록 마감했습니다.</p>
+          </div>
+        </div>
+
+        <div class="notice-grid">
+          <article class="notice-card card-solid">
+            <h3>메인 허브</h3>
+            <p>메인은 브리핑과 진입 허브에 집중하고, 실제 사용은 스포츠 분석기와 텔레그램 봇 페이지로 분리했습니다.</p>
+            <a class="text-link" href="/analysis/">스포츠 분석기로 이동</a>
+          </article>
+
+          <article class="notice-card card-solid">
+            <h3>텔레그램 연동</h3>
+            <p>텔레그램 스포츠 봇 페이지에서는 경기 선택 웹앱과 봇 연결 흐름을 하나의 워크플로로 사용할 수 있습니다.</p>
+            <a class="text-link" href="/odds/">텔레그램 스포츠 봇 허브 보기</a>
+          </article>
+
+          <article class="notice-card card-solid">
+            <h3>문의하기</h3>
+            <p>제휴, 운영 문의, 연결 이슈는 텔레그램으로 바로 이어질 수 있도록 정리했습니다.</p>
+            <a class="btn btn-ghost btn-full" href="https://t.me/kakacloud" target="_blank" rel="noopener">@kakacloud 문의하기</a>
+          </article>
+        </div>
       </div>
-    </a>
+    </section>
+  
+  <div class="promo-modal" id="promoSiteModal" aria-hidden="true">
+    <div class="promo-modal__backdrop" data-close="1"></div>
+    <div class="promo-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="promoModalTitle">
+      <button class="promo-modal__close" type="button" data-close="1" aria-label="닫기">✕</button>
+      <p class="promo-modal__eyebrow">PARTNER GUIDE</p>
+      <h2 id="promoModalTitle">파트너 안내 확인</h2>
+      <p class="promo-modal__desc" id="promoModalDesc">이동 전 가입코드와 기본 안내를 먼저 확인해 주세요.</p>
+      <div class="promo-modal__codebox">
+        <span>안내코드</span>
+        <strong id="promoModalCode">-</strong>
+      </div>
+      <div class="promo-modal__benefit" id="promoModalBenefit">혜택 안내</div>
+      <p class="promo-modal__notice" id="promoModalNotice">가입 진행 전 아래 코드를 먼저 확인해 주세요.</p>
+      <div class="promo-modal__actions">
+        <button class="btn btn-ghost" type="button" id="promoCopyCodeBtn">안내코드 복사</button>
+        <a class="btn btn-primary" href="#" id="promoMoveSiteBtn" target="_blank" rel="noopener">사이트 이동</a>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="section" id="whySection">
-  <div class="title"><span class="badge">WHY</span>핵심 기능 한눈에 보기</div>
-  <div class="why-intro">
-    <div class="why-lead">핵심 기능만 남겨 더 빠르게 판단할 수 있게 정리했습니다.</div>
-    <div class="why-sub">모바일에서는 핵심 카드 우선, 나머지는 접어서 봅니다.</div>
-  </div>
+</main>
 
-  <div class="why-acc-grid" aria-label="WHY 섹션(접기/펼치기)">
-    <details class="why-acc">
-      <summary>
-        <div class="kicker">⚽ 스포츠 배당 분석기</div>
-        <div class="head"><b>3초 안에 결론</b>이 나오는 구조</div>
-        <span class="pill">마진·공정확률</span><span class="chev" aria-hidden="true">▾</span>
-      </summary>
-      <div class="body">
-        <ul>
-          <li><b>마진(오버라운드)</b>로 “비용이 낮은 라인”을 빠르게 분류</li>
-          <li><b>공정배당·정규화 확률</b>로 시장이 말하는 확률을 한 번에 확인</li>
-        </ul>
-        <div class="note">같은 시장/종류라면 <b>마진이 낮을수록</b> 비용(수수료)이 낮은 편입니다. (참고용)</div>
-        <div class="cta"><a class="insight-btn primary" href="/analysis/">스포츠 바로 분석 <span aria-hidden="true">→</span></a></div>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>88ST</strong>
+        <p>해외 스포츠 브리핑 · 스포츠 분석기 · 텔레그램 스포츠 봇 허브</p>
       </div>
-    </details>
-
-    <details class="why-acc">
-      <summary>
-        <div class="kicker">🎮 BET365 가상게임</div>
-        <div class="head"><b>전 종목</b> 배당 입력 → 마진/공정확률 즉시 정리</div>
-        <span class="pill">전종목·라인비교</span><span class="chev" aria-hidden="true">▾</span>
-      </summary>
-      <div class="body">
-        <ul>
-          <li><b>종목·마켓 선택</b>으로 승/무/패 · 오버/언더 · 핸디 · 다중 우승자까지 즉시 분석</li>
-          <li><b>오버라운드(마진)</b> + <b>공정확률/공정배당</b> 자동 정규화</li>
-          <li><b>라인 다중 붙여넣기</b>로 라인별 마진·공정배당을 한 번에 비교</li>
-          <li><b>베스트</b>: 공정대비 ‘덜 불리한 선택’을 자동 표시</li>
-        </ul>
-        <div class="note">이 도구는 ‘예측’이 아니라 <b>수학 기반 판단 보조</b>입니다. 과몰입을 피하세요.</div>
-        <div class="cta"><a class="insight-btn primary" href="/tool-virtual/">BET365 가상게임 바로 분석 <span aria-hidden="true">→</span></a></div>
+      <div class="footer-links">
+        <a href="/">메인</a>
+        <a href="/analysis/">스포츠 분석기</a>
+        <a href="/odds/">텔레그램 스포츠 봇</a>
+        <a href="/play-guides/">가이드 라이브러리</a>
+        <a href="https://t.me/kakacloud" target="_blank" rel="noopener">문의하기</a>
       </div>
-    </details>
+    </div>
+  </footer>
 
-    <details class="why-acc">
-      <summary>
-        <div class="kicker">🧩 미니게임 분석기</div>
-        <div class="head"><b>최근 결과를 정리</b>해 흐름/편향을 체크</div>
-        <span class="pill">연속·전환</span><span class="chev" aria-hidden="true">▾</span>
-      </summary>
-      <div class="body">
-        <ul>
-          <li><b>최근 N회</b> 입력/저장 → 홀·짝/언더·오버 등 <b>빈도·확률</b> 자동 집계</li>
-          <li><b>연속·전환</b> 지표로 단순 감(느낌) 대신 <b>숫자 기반 체크</b></li>
-          <li><b>히스토리</b>로 오늘 데이터만 깔끔하게 관리 (초기화/저장/불러오기)</li>
-        </ul>
-        <div class="note">결과를 “보기 좋게 정리”하는 도구입니다. 과몰입을 피하고, 기록은 짧게 가져가세요.</div>
-        <div class="cta"><a class="insight-btn primary" href="/tool-minigame/">미니게임 바로 분석 <span aria-hidden="true">→</span></a></div>
-      </div>
-    </details>
-
-    <details class="why-acc">
-      <summary>
-        <div class="kicker">🃏 카지노 전략 분석기</div>
-        <div class="head"><b>턴이 빠른 게임</b>에서도 다음 베팅을 실수 없이</div>
-        <span class="pill">세션관리</span><span class="chev" aria-hidden="true">▾</span>
-      </summary>
-      <div class="body">
-        <ul>
-          <li><b>전략 선택</b>: 마틴·파롤리·달랑·오스카·피보·라부셰르 비교</li>
-          <li><b>WIN/LOSE 1탭</b>으로 다음 스텝 자동 계산 (UNDO 포함)</li>
-          <li><b>세션 관리</b>: 누적손익 · 최대낙폭(MDD) · 회복까지 필요한 1승 베팅 표시</li>
-          <li><b>프리셋</b>: 바카라 PLAYER 2.00 / BANKER 1.97 + 단위/올림 규칙</li>
-        </ul>
-        <div class="note">단순 ‘계산기’가 아니라, <b>실전 세션 운영</b>에 필요한 숫자를 한 번에 보여줍니다.</div>
-        <div class="cta"><a class="insight-btn primary" href="/tool-casino/">카지노 전략 바로 분석 <span aria-hidden="true">→</span></a></div>
-      </div>
-    </details>
-
-    <details class="why-acc">
-      <summary>
-        <div class="kicker">🎰 슬롯 RTP 분석기</div>
-        <div class="head"><b>세션 비용/리스크</b>를 숫자로 투명하게</div>
-        <span class="pill">RTP·변동성</span><span class="chev" aria-hidden="true">▾</span>
-      </summary>
-      <div class="body">
-        <ul>
-          <li><b>총 베팅/기대 손실</b>로 “세션 비용”을 즉시 계산</li>
-          <li><b>RTP는 운영사/버전</b>에 따라 다를 수 있어 <b>게임 내 정보(i)</b> 기준으로 입력</li>
-          <li><b>변동성 기준 권장 뱅크롤</b>과 <b>손절선</b>으로 과몰입 방지</li>
-          <li><b>최근 저장/공유</b>로 게임별 설정을 빠르게 복원</li>
-        </ul>
-        <div class="note">이 도구는 ‘예측’이 아니라 <b>세션/자금관리</b>를 위한 참고용 분석기입니다.</div>
-        <div class="cta"><a class="insight-btn primary" href="/tool-slot/">슬롯 환수율(RTP) 바로 분석 <span aria-hidden="true">→</span></a></div>
-      </div>
-    </details>
-  </div>
-</div>
-
-</div>
-
-
-<script defer src="/assets/js/site.sweep.v21.20260313.js"></script>
+  <script defer src="/assets/js/home.community.v2.20260316.js"></script>
 </body>
 </html>

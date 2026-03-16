@@ -1,0 +1,8 @@
+{
+  "name": "popular-insights-api",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@google-analytics/data": "^4.9.0"
+  }
+}

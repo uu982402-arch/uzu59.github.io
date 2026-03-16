@@ -1,17 +1,12 @@
 User-agent: *
+Disallow: /admin/
+Disallow: /tg-match-entry/
 Disallow: /ops/
 Disallow: /seo/
-Disallow: /guide/seo-tool/
+Disallow: /d1/
+Disallow: /serverless/
+Disallow: /api/
 Allow: /
-
 
 Sitemap: https://88st.cloud/sitemap.xml
 Sitemap: https://88st.cloud/sitemap.txt
-
-Disallow: /assets/
-Disallow: /ops/
-Disallow: /seo/
-Disallow: /build.txt
-
-Disallow: /package.json
-Disallow: /scripts/
